@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="23.983" height="23.775" viewBox="0 0 23.983 23.775">
+  <g id="Group_39" data-name="Group 39" transform="translate(-0.444)">
+    <rect id="Rectangle_14" data-name="Rectangle 14" width="23.775" height="23.775" transform="translate(0.547)" fill="currentColor" opacity="0"/>
+    <g id="credit-card" transform="translate(0.444 3.364)">
+      <g id="Rectangle_10" data-name="Rectangle 10" transform="translate(0 0)" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7">
+        <rect width="23.983" height="17.337" rx="2" stroke="none"/>
+        <rect x="0.85" y="0.85" width="22.283" height="15.637" rx="1.15" fill="none"/>
+      </g>
+      <line id="Line_16" data-name="Line 16" x2="21.55" transform="translate(1.056 6.477)" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/>
+    </g>
+  </g>
+</svg>

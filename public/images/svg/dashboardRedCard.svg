@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="406" height="170"
+    viewBox="0 0 406 170">
+    <defs>
+        <filter id="a" x="0" y="0" width="406" height="170" filterUnits="userSpaceOnUse">
+            <feOffset input="SourceAlpha" />
+            <feGaussianBlur stdDeviation="8" result="b" />
+            <feFlood flood-color="#d1d1d1" />
+            <feComposite operator="in" in2="b" />
+            <feComposite in="SourceGraphic" />
+        </filter>
+        <filter id="c" x="0" y="0" width="406" height="170" filterUnits="userSpaceOnUse">
+            <feOffset input="SourceAlpha" />
+            <feGaussianBlur stdDeviation="8" result="d" />
+            <feFlood flood-color="#d1d1d1" />
+            <feComposite operator="in" in2="d" />
+            <feComposite in="SourceGraphic" />
+        </filter>
+        <linearGradient id="e" x1="-0.022" y1="-0.242" x2="0.804" y2="1.24" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#fff" />
+            <stop offset="1" stop-color="#fff" stop-opacity="0.251" />
+        </linearGradient>
+    </defs>
+    <g transform="translate(24 24)">
+        <g transform="matrix(1, 0, 0, 1, -24, -24)" filter="url(#c)">
+            <rect width="358" height="122" rx="13" transform="translate(24 24)" fill="#ff6565" />
+        </g>
+        <path
+            d="M556.057,761.771s53.193,19.055,56.061,64.777-59.738,56.75-59.738,56.75l-145.909-.17s-11.7.205-11.641-15.055,0-93.812,0-93.812.785-11.924,14.352-12.279S556.057,761.771,556.057,761.771Z"
+            transform="translate(-394.568 -761.771)" opacity="0.25" fill="url(#e)" />
+    </g>
+</svg>

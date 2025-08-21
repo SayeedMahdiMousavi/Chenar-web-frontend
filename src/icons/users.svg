@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="23.686" height="23.379" viewBox="0 0 23.686 23.379">
+  <g id="Group_40" data-name="Group 40" transform="translate(-5352.978)">
+    <rect id="Rectangle_16" data-name="Rectangle 16" width="23.379" height="23.379" transform="translate(5353.138 0)" fill="currentColor" opacity="0"/>
+    <g id="users" transform="translate(5353.878 2.781)">
+      <path id="Path_36" data-name="Path 36" d="M16.917,20.969v-1.99A3.979,3.979,0,0,0,12.938,15H4.979A3.979,3.979,0,0,0,1,18.979v1.99" transform="translate(-1 -3.066)" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"/>
+      <g id="Ellipse_8" data-name="Ellipse 8" transform="translate(3.966 0)" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8">
+        <ellipse cx="3.993" cy="3.972" rx="3.993" ry="3.972" stroke="none"/>
+        <ellipse cx="3.993" cy="3.972" rx="3.093" ry="3.072" fill="none"/>
+      </g>
+      <path id="Path_37" data-name="Path 37" d="M22.984,20.97V18.98A3.979,3.979,0,0,0,20,15.13" transform="translate(-1.099 -3.067)" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"/>
+      <path id="Path_38" data-name="Path 38" d="M16,3.13a3.979,3.979,0,0,1,0,7.71" transform="translate(-1.078 -3.005)" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"/>
+    </g>
+  </g>
+</svg>

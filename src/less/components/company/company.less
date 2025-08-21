@@ -1,0 +1,176 @@
+.site-page-header {
+  border-bottom: 1px solid #f0f0f0;
+}
+.add_company_body {
+  height: auto;
+  //   width: 100%;
+  margin: 20px 0px;
+
+  border: 1px solid #f0f0f0;
+  //   @media (max-width: 1031px) {
+  //     height: 889px;
+  //   }
+}
+.add_company_paragraph {
+  height: 849px;
+  @media (max-width: 1031px) {
+    height: 871px;
+  }
+  @media (max-width: 950px) {
+    height: 899px;
+  }
+  @media (max-width: 815px) {
+    height: 943px;
+  }
+  @media (max-width: 576px) {
+    height: 275px;
+  }
+}
+#button {
+  display: inline-block;
+  // background: #ddd;
+  // border: 1px solid #ccc;
+  border: none;
+  padding: 5px 10px;
+  text-decoration: underline;
+  color: @primary-color;
+  cursor: pointer;
+  width: 100%;
+  position: relative;
+}
+.check {
+  display: inline-block;
+  width: 100%;
+  height: 170px;
+  appearance: none;
+  border: 1px solid #d9d9d9;
+  background-size: 36%;
+  background-repeat: no-repeat;
+  background-position: center 37%;
+  outline: none;
+  &:checked {
+    background-color: #e6f7ff;
+    border: @primary-color;
+  }
+  @media (max-width: 950px) {
+    background-position: center 32%;
+    height: 150px;
+  }
+  @media (max-width: 374px) {
+    height: 175px;
+  }
+}
+.company_permission_expense {
+  background-image: url("/images/logo.png");
+  &:checked {
+    background-image: url("/images/tick.svg");
+  }
+}
+.company_permission_chart_of_accounts {
+  background-image: url("/img5.png");
+  &:checked {
+    background-image: url("/images/tick.svg");
+  }
+}
+.company_permission_sales {
+  background-image: url("/images/retain.svg");
+  &:checked {
+    background-image: url("/images/tick.svg");
+  }
+}
+.company_permission_retail_sales {
+  background-image: url("/images/retain.svg");
+  &:checked {
+    background-image: url("/images/tick.svg");
+  }
+}
+.company_permission_employee {
+  background-image: url("/images/logo.png");
+  &:checked {
+    background-image: url("/images/tick.svg");
+  }
+}
+.company_permission_customer {
+  background-image: url("/images/logo.png");
+  &:checked {
+    background-image: url("/images/tick.svg");
+  }
+}
+.company_permission_supplier {
+  background-image: url("/images/logo.png");
+  &:checked {
+    background-image: url("/images/tick.svg");
+  }
+}
+.company_permission_input_text {
+  position: absolute;
+  top: 63%;
+  left: 20%;
+  right: 20%;
+  text-align: center;
+  @media (max-width: 950px) {
+    top: 57%;
+    left: 15%;
+    right: 15%;
+  }
+  @media (max-width: 520px) {
+    top: 60%;
+    left: 15%;
+    right: 15%;
+  }
+  @media (max-width: 425px) {
+    top: 57%;
+    left: 15%;
+    right: 15%;
+  }
+  @media (max-width: 374px) {
+    top: 67%;
+    left: 22%;
+    right: 22%;
+  }
+}
+.account_setting_help {
+  padding: 0 50px;
+  cursor: pointer;
+  @media (max-width: 375px) {
+    padding: 0 40px;
+  }
+}
+.Account__details__show {
+  border-bottom: 1px solid #f0f0f0;
+}
+.account_setting_drawer {
+  // background: #ffffff;
+  max-height: calc(~"100vh - 110px");
+  padding: 10px;
+  overflow-y: auto;
+}
+.line_height {
+  line-height: 30px;
+}
+.account_setting_drawer_name {
+  border-bottom: 1px solid #f0f0f0;
+  padding: 15px 10px;
+  @media (max-width: 575px) {
+    padding: 5px 5px;
+  }
+  @media (max-width: 425px) {
+    padding: 5px 5px;
+  }
+}
+.account_setting_drawer_hover {
+  &:hover {
+    background: #f0f0f0;
+    cursor: pointer;
+  }
+}
+.account_setting_drawer_hover_dark {
+  &:hover {
+    background:#1F1F1F;
+    cursor: pointer;
+  }
+}
+.account_settings_company_id {
+  border-bottom: 1px solid #f0f0f0;
+  padding: 10px;
+}

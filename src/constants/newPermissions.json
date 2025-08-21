@@ -1,0 +1,1932 @@
+[
+  {
+    "title": "Can add log entry",
+
+    "value": "add_logentry"
+  },
+  {
+    "title": "Can change log entry",
+
+    "value": "change_logentry"
+  },
+  {
+    "title": "Can delete log entry",
+
+    "value": "delete_logentry"
+  },
+  {
+    "title": "Can view log entry",
+
+    "value": "view_logentry"
+  },
+  {
+    "title": "Can add permission",
+
+    "value": "add_permission"
+  },
+  {
+    "title": "Can change permission",
+
+    "value": "change_permission"
+  },
+  {
+    "title": "Can delete permission",
+
+    "value": "delete_permission"
+  },
+  {
+    "title": "Can view permission",
+
+    "value": "view_permission"
+  },
+  {
+    "title": "Can add group",
+
+    "value": "add_group"
+  },
+  {
+    "title": "Can change group",
+
+    "value": "change_group"
+  },
+  {
+    "title": "Can delete group",
+
+    "value": "delete_group"
+  },
+  {
+    "title": "Can view group",
+
+    "value": "view_group"
+  },
+  {
+    "title": "Can add content type",
+
+    "value": "add_contenttype"
+  },
+  {
+    "title": "Can change content type",
+
+    "value": "change_contenttype"
+  },
+  {
+    "title": "Can delete content type",
+
+    "value": "delete_contenttype"
+  },
+  {
+    "title": "Can view content type",
+
+    "value": "view_contenttype"
+  },
+  {
+    "title": "Can add session",
+
+    "value": "add_session"
+  },
+  {
+    "title": "Can change session",
+
+    "value": "change_session"
+  },
+  {
+    "title": "Can delete session",
+
+    "value": "delete_session"
+  },
+  {
+    "title": "Can view session",
+
+    "value": "view_session"
+  },
+  {
+    "title": "Can add Password Reset Token",
+
+    "value": "add_resetpasswordtoken"
+  },
+  {
+    "title": "Can change Password Reset Token",
+
+    "value": "change_resetpasswordtoken"
+  },
+  {
+    "title": "Can delete Password Reset Token",
+
+    "value": "delete_resetpasswordtoken"
+  },
+  {
+    "title": "Can view Password Reset Token",
+
+    "value": "view_resetpasswordtoken"
+  },
+  {
+    "title": "Can add blacklisted token",
+
+    "value": "add_blacklistedtoken"
+  },
+  {
+    "title": "Can change blacklisted token",
+
+    "value": "change_blacklistedtoken"
+  },
+  {
+    "title": "Can delete blacklisted token",
+
+    "value": "delete_blacklistedtoken"
+  },
+  {
+    "title": "Can view blacklisted token",
+
+    "value": "view_blacklistedtoken"
+  },
+  {
+    "title": "Can add outstanding token",
+
+    "value": "add_outstandingtoken"
+  },
+  {
+    "title": "Can change outstanding token",
+
+    "value": "change_outstandingtoken"
+  },
+  {
+    "title": "Can delete outstanding token",
+
+    "value": "delete_outstandingtoken"
+  },
+  {
+    "title": "Can view outstanding token",
+
+    "value": "view_outstandingtoken"
+  },
+  {
+    "title": "Can add API key",
+
+    "value": "add_apikey"
+  },
+  {
+    "title": "Can change API key",
+
+    "value": "change_apikey"
+  },
+  {
+    "title": "Can delete API key",
+
+    "value": "delete_apikey"
+  },
+  {
+    "title": "Can view API key",
+
+    "value": "view_apikey"
+  },
+  {
+    "title": "Can add CRUD event",
+
+    "value": "add_crudevent"
+  },
+  {
+    "title": "Can change CRUD event",
+
+    "value": "change_crudevent"
+  },
+  {
+    "title": "Can delete CRUD event",
+
+    "value": "delete_crudevent"
+  },
+  {
+    "title": "Can view CRUD event",
+
+    "value": "view_crudevent"
+  },
+  {
+    "title": "Can add login event",
+
+    "value": "add_loginevent"
+  },
+  {
+    "title": "Can change login event",
+
+    "value": "change_loginevent"
+  },
+  {
+    "title": "Can delete login event",
+
+    "value": "delete_loginevent"
+  },
+  {
+    "title": "Can view login event",
+
+    "value": "view_loginevent"
+  },
+  {
+    "title": "Can add request event",
+
+    "value": "add_requestevent"
+  },
+  {
+    "title": "Can change request event",
+
+    "value": "change_requestevent"
+  },
+  {
+    "title": "Can delete request event",
+
+    "value": "delete_requestevent"
+  },
+  {
+    "title": "Can view request event",
+
+    "value": "view_requestevent"
+  },
+  {
+    "title": "Can add crontab",
+
+    "value": "add_crontabschedule"
+  },
+  {
+    "title": "Can change crontab",
+
+    "value": "change_crontabschedule"
+  },
+  {
+    "title": "Can delete crontab",
+
+    "value": "delete_crontabschedule"
+  },
+  {
+    "title": "Can view crontab",
+
+    "value": "view_crontabschedule"
+  },
+  {
+    "title": "Can add interval",
+
+    "value": "add_intervalschedule"
+  },
+  {
+    "title": "Can change interval",
+
+    "value": "change_intervalschedule"
+  },
+  {
+    "title": "Can delete interval",
+
+    "value": "delete_intervalschedule"
+  },
+  {
+    "title": "Can view interval",
+
+    "value": "view_intervalschedule"
+  },
+  {
+    "title": "Can add periodic task",
+
+    "value": "add_periodictask"
+  },
+  {
+    "title": "Can change periodic task",
+
+    "value": "change_periodictask"
+  },
+  {
+    "title": "Can delete periodic task",
+
+    "value": "delete_periodictask"
+  },
+  {
+    "title": "Can view periodic task",
+
+    "value": "view_periodictask"
+  },
+  {
+    "title": "Can add periodic tasks",
+
+    "value": "add_periodictasks"
+  },
+  {
+    "title": "Can change periodic tasks",
+
+    "value": "change_periodictasks"
+  },
+  {
+    "title": "Can delete periodic tasks",
+
+    "value": "delete_periodictasks"
+  },
+  {
+    "title": "Can view periodic tasks",
+
+    "value": "view_periodictasks"
+  },
+  {
+    "title": "Can add solar event",
+
+    "value": "add_solarschedule"
+  },
+  {
+    "title": "Can change solar event",
+
+    "value": "change_solarschedule"
+  },
+  {
+    "title": "Can delete solar event",
+
+    "value": "delete_solarschedule"
+  },
+  {
+    "title": "Can view solar event",
+
+    "value": "view_solarschedule"
+  },
+  {
+    "title": "Can add clocked",
+
+    "value": "add_clockedschedule"
+  },
+  {
+    "title": "Can change clocked",
+
+    "value": "change_clockedschedule"
+  },
+  {
+    "title": "Can delete clocked",
+
+    "value": "delete_clockedschedule"
+  },
+  {
+    "title": "Can view clocked",
+
+    "value": "view_clockedschedule"
+  },
+  {
+    "title": "Can add cash",
+
+    "value": "add_journal"
+  },
+  {
+    "title": "Can change cash",
+
+    "value": "change_journal"
+  },
+  {
+    "title": "Can delete cash",
+
+    "value": "delete_journal"
+  },
+  {
+    "title": "Can view cash",
+
+    "value": "view_journal"
+  },
+  {
+    "title": "Can add cash transfer",
+
+    "value": "add_bankcashtransfer"
+  },
+  {
+    "title": "Can change cash transfer",
+
+    "value": "change_bankcashtransfer"
+  },
+  {
+    "title": "Can delete cash transfer",
+
+    "value": "delete_bankcashtransfer"
+  },
+  {
+    "title": "Can view cash transfer",
+
+    "value": "view_bankcashtransfer"
+  },
+  {
+    "title": "Can add cash flow",
+
+    "value": "add_cashflow"
+  },
+  {
+    "title": "Can change cash flow",
+
+    "value": "change_cashflow"
+  },
+  {
+    "title": "Can delete cash flow",
+
+    "value": "delete_cashflow"
+  },
+  {
+    "title": "Can view cash flow",
+
+    "value": "view_cashflow"
+  },
+  {
+    "title": "Can add customer pay and receive",
+
+    "value": "add_customerpayrec"
+  },
+  {
+    "title": "Can change customer pay and receive",
+
+    "value": "change_customerpayrec"
+  },
+  {
+    "title": "Can delete customer pay and receive",
+
+    "value": "delete_customerpayrec"
+  },
+  {
+    "title": "Can view customer pay and receive",
+
+    "value": "view_customerpayrec"
+  },
+  {
+    "title": "Can add exchange union",
+
+    "value": "add_exchangeunion"
+  },
+  {
+    "title": "Can change exchange union",
+
+    "value": "change_exchangeunion"
+  },
+  {
+    "title": "Can delete exchange union",
+
+    "value": "delete_exchangeunion"
+  },
+  {
+    "title": "Can view exchange union",
+
+    "value": "view_exchangeunion"
+  },
+  {
+    "title": "Can add expense cash",
+
+    "value": "add_expensecashfin"
+  },
+  {
+    "title": "Can change expense cash",
+
+    "value": "change_expensecashfin"
+  },
+  {
+    "title": "Can delete expense cash",
+
+    "value": "delete_expensecashfin"
+  },
+  {
+    "title": "Can view expense cash",
+
+    "value": "view_expensecashfin"
+  },
+  {
+    "title": "Can add income cash",
+
+    "value": "add_incomecashfin"
+  },
+  {
+    "title": "Can change income cash",
+
+    "value": "change_incomecashfin"
+  },
+  {
+    "title": "Can delete income cash",
+
+    "value": "delete_incomecashfin"
+  },
+  {
+    "title": "Can view income cash",
+
+    "value": "view_incomecashfin"
+  },
+  {
+    "title": "Can add invoice payment journal",
+
+    "value": "add_invoicepaymentjournal"
+  },
+  {
+    "title": "Can change invoice payment journal",
+
+    "value": "change_invoicepaymentjournal"
+  },
+  {
+    "title": "Can delete invoice payment journal",
+
+    "value": "delete_invoicepaymentjournal"
+  },
+  {
+    "title": "Can view invoice payment journal",
+
+    "value": "view_invoicepaymentjournal"
+  },
+  {
+    "title": "Can add staff pay and receive",
+
+    "value": "add_staffpayrec"
+  },
+  {
+    "title": "Can change staff pay and receive",
+
+    "value": "change_staffpayrec"
+  },
+  {
+    "title": "Can delete staff pay and receive",
+
+    "value": "delete_staffpayrec"
+  },
+  {
+    "title": "Can view staff pay and receive",
+
+    "value": "view_staffpayrec"
+  },
+  {
+    "title": "Can add staff salary",
+
+    "value": "add_staffsalary"
+  },
+  {
+    "title": "Can change staff salary",
+
+    "value": "change_staffsalary"
+  },
+  {
+    "title": "Can delete staff salary",
+
+    "value": "delete_staffsalary"
+  },
+  {
+    "title": "Can view staff salary",
+
+    "value": "view_staffsalary"
+  },
+  {
+    "title": "Can add supplier pay and receive",
+
+    "value": "add_supplierpayrec"
+  },
+  {
+    "title": "Can change supplier pay and receive",
+
+    "value": "change_supplierpayrec"
+  },
+  {
+    "title": "Can delete supplier pay and receive",
+
+    "value": "delete_supplierpayrec"
+  },
+  {
+    "title": "Can view supplier pay and receive",
+
+    "value": "view_supplierpayrec"
+  },
+  {
+    "title": "Can add withdrawals or reject withdrawals",
+
+    "value": "add_withdrawpayrec"
+  },
+  {
+    "title": "Can change withdrawals or reject withdrawals",
+
+    "value": "change_withdrawpayrec"
+  },
+  {
+    "title": "Can delete withdrawals or reject withdrawals",
+
+    "value": "delete_withdrawpayrec"
+  },
+  {
+    "title": "Can view withdrawals or reject withdrawals",
+
+    "value": "view_withdrawpayrec"
+  },
+  {
+    "title": "Can add content type detail",
+
+    "value": "add_contenttypedetail"
+  },
+  {
+    "title": "Can change content type detail",
+
+    "value": "change_contenttypedetail"
+  },
+  {
+    "title": "Can delete content type detail",
+
+    "value": "delete_contenttypedetail"
+  },
+  {
+    "title": "Can view content type detail",
+
+    "value": "view_contenttypedetail"
+  },
+  {
+    "title": "Can add permission detail",
+
+    "value": "add_permissiondetail"
+  },
+  {
+    "title": "Can change permission detail",
+
+    "value": "change_permissiondetail"
+  },
+  {
+    "title": "Can delete permission detail",
+
+    "value": "delete_permissiondetail"
+  },
+  {
+    "title": "Can view permission detail",
+
+    "value": "view_permissiondetail"
+  },
+  {
+    "title": "Can add SystemUser",
+
+    "value": "add_systemuser"
+  },
+  {
+    "title": "Can change SystemUser",
+
+    "value": "change_systemuser"
+  },
+  {
+    "title": "Can delete SystemUser",
+
+    "value": "delete_systemuser"
+  },
+  {
+    "title": "Can view SystemUser",
+
+    "value": "view_systemuser"
+  },
+  {
+    "title": "Can add permission dependency",
+
+    "value": "add_permissiondependency"
+  },
+  {
+    "title": "Can change permission dependency",
+
+    "value": "change_permissiondependency"
+  },
+  {
+    "title": "Can delete permission dependency",
+
+    "value": "delete_permissiondependency"
+  },
+  {
+    "title": "Can view permission dependency",
+
+    "value": "view_permissiondependency"
+  },
+  {
+    "title": "Can add system calender",
+
+    "value": "add_systemcalender"
+  },
+  {
+    "title": "Can change system calender",
+
+    "value": "change_systemcalender"
+  },
+  {
+    "title": "Can delete system calender",
+
+    "value": "delete_systemcalender"
+  },
+  {
+    "title": "Can view system calender",
+
+    "value": "view_systemcalender"
+  },
+  {
+    "title": "Can add user settings language",
+
+    "value": "add_systemlanguage"
+  },
+  {
+    "title": "Can change user settings language",
+
+    "value": "change_systemlanguage"
+  },
+  {
+    "title": "Can delete user settings language",
+
+    "value": "delete_systemlanguage"
+  },
+  {
+    "title": "Can view user settings language",
+
+    "value": "view_systemlanguage"
+  },
+  {
+    "title": "Can add StaffCategory",
+
+    "value": "add_systemtheme"
+  },
+  {
+    "title": "Can change StaffCategory",
+
+    "value": "change_systemtheme"
+  },
+  {
+    "title": "Can delete StaffCategory",
+
+    "value": "delete_systemtheme"
+  },
+  {
+    "title": "Can view StaffCategory",
+
+    "value": "view_systemtheme"
+  },
+  {
+    "title": "Can add CompanyInfo",
+
+    "value": "add_companyinfo"
+  },
+  {
+    "title": "Can change CompanyInfo",
+
+    "value": "change_companyinfo"
+  },
+  {
+    "title": "Can delete CompanyInfo",
+
+    "value": "delete_companyinfo"
+  },
+  {
+    "title": "Can view CompanyInfo",
+
+    "value": "view_companyinfo"
+  },
+  {
+    "title": "Can add CompanySmtp",
+
+    "value": "add_companysmtp"
+  },
+  {
+    "title": "Can change CompanySmtp",
+
+    "value": "change_companysmtp"
+  },
+  {
+    "title": "Can delete CompanySmtp",
+
+    "value": "delete_companysmtp"
+  },
+  {
+    "title": "Can view CompanySmtp",
+
+    "value": "view_companysmtp"
+  },
+  {
+    "title": "Can add Financial Period",
+
+    "value": "add_financialperiod"
+  },
+  {
+    "title": "Can change Financial Period",
+
+    "value": "change_financialperiod"
+  },
+  {
+    "title": "Can delete Financial Period",
+
+    "value": "delete_financialperiod"
+  },
+  {
+    "title": "Can view Financial Period",
+
+    "value": "view_financialperiod"
+  },
+  {
+    "title": "Can add customer category",
+
+    "value": "add_customercategory"
+  },
+  {
+    "title": "Can change customer category",
+
+    "value": "change_customercategory"
+  },
+  {
+    "title": "Can delete customer category",
+
+    "value": "delete_customercategory"
+  },
+  {
+    "title": "Can view customer category",
+
+    "value": "view_customercategory"
+  },
+  {
+    "title": "Can add customer",
+
+    "value": "add_customer"
+  },
+  {
+    "title": "Can change customer",
+
+    "value": "change_customer"
+  },
+  {
+    "title": "Can delete customer",
+
+    "value": "delete_customer"
+  },
+  {
+    "title": "Can view customer",
+
+    "value": "view_customer"
+  },
+  {
+    "title": "Can add discount type",
+
+    "value": "add_discounttype"
+  },
+  {
+    "title": "Can change discount type",
+
+    "value": "change_discounttype"
+  },
+  {
+    "title": "Can delete discount type",
+
+    "value": "delete_discounttype"
+  },
+  {
+    "title": "Can view discount type",
+
+    "value": "view_discounttype"
+  },
+  {
+    "title": "Can add discount card",
+
+    "value": "add_discountcard"
+  },
+  {
+    "title": "Can change discount card",
+
+    "value": "change_discountcard"
+  },
+  {
+    "title": "Can delete discount card",
+
+    "value": "delete_discountcard"
+  },
+  {
+    "title": "Can view discount card",
+
+    "value": "view_discountcard"
+  },
+  {
+    "title": "Can add customer discount",
+
+    "value": "add_customerdiscount"
+  },
+  {
+    "title": "Can change customer discount",
+
+    "value": "change_customerdiscount"
+  },
+  {
+    "title": "Can delete customer discount",
+
+    "value": "delete_customerdiscount"
+  },
+  {
+    "title": "Can view customer discount",
+
+    "value": "view_customerdiscount"
+  },
+  {
+    "title": "Can add StaffCategory",
+
+    "value": "add_staffcategory"
+  },
+  {
+    "title": "Can change StaffCategory",
+
+    "value": "change_staffcategory"
+  },
+  {
+    "title": "Can delete StaffCategory",
+
+    "value": "delete_staffcategory"
+  },
+  {
+    "title": "Can view StaffCategory",
+
+    "value": "view_staffcategory"
+  },
+  {
+    "title": "Can add Staff",
+
+    "value": "add_staff"
+  },
+  {
+    "title": "Can change Staff",
+
+    "value": "change_staff"
+  },
+  {
+    "title": "Can delete Staff",
+
+    "value": "delete_staff"
+  },
+  {
+    "title": "Can view Staff",
+
+    "value": "view_staff"
+  },
+  {
+    "title": "Can add SupplierCategory",
+
+    "value": "add_suppliercategory"
+  },
+  {
+    "title": "Can change SupplierCategory",
+
+    "value": "change_suppliercategory"
+  },
+  {
+    "title": "Can delete SupplierCategory",
+
+    "value": "delete_suppliercategory"
+  },
+  {
+    "title": "Can view SupplierCategory",
+
+    "value": "view_suppliercategory"
+  },
+  {
+    "title": "Can add Supplier",
+
+    "value": "add_supplier"
+  },
+  {
+    "title": "Can change Supplier",
+
+    "value": "change_supplier"
+  },
+  {
+    "title": "Can delete Supplier",
+
+    "value": "delete_supplier"
+  },
+  {
+    "title": "Can view Supplier",
+
+    "value": "view_supplier"
+  },
+  {
+    "title": "Can add Product",
+
+    "value": "add_product"
+  },
+  {
+    "title": "Can change Product",
+
+    "value": "change_product"
+  },
+  {
+    "title": "Can delete Product",
+
+    "value": "delete_product"
+  },
+  {
+    "title": "Can view Product",
+
+    "value": "view_product"
+  },
+  {
+    "title": "Can add ProductCategory",
+
+    "value": "add_productcategory"
+  },
+  {
+    "title": "Can change ProductCategory",
+
+    "value": "change_productcategory"
+  },
+  {
+    "title": "Can delete ProductCategory",
+
+    "value": "delete_productcategory"
+  },
+  {
+    "title": "Can view ProductCategory",
+
+    "value": "view_productcategory"
+  },
+  {
+    "title": "Can add product price setting",
+
+    "value": "add_productpricesetting"
+  },
+  {
+    "title": "Can change product price setting",
+
+    "value": "change_productpricesetting"
+  },
+  {
+    "title": "Can delete product price setting",
+
+    "value": "delete_productpricesetting"
+  },
+  {
+    "title": "Can view product price setting",
+
+    "value": "view_productpricesetting"
+  },
+  {
+    "title": "Can add product_setting",
+
+    "value": "add_productsetting"
+  },
+  {
+    "title": "Can change product_setting",
+
+    "value": "change_productsetting"
+  },
+  {
+    "title": "Can delete product_setting",
+
+    "value": "delete_productsetting"
+  },
+  {
+    "title": "Can view product_setting",
+
+    "value": "view_productsetting"
+  },
+  {
+    "title": "Can add unit",
+
+    "value": "add_unit"
+  },
+  {
+    "title": "Can change unit",
+
+    "value": "change_unit"
+  },
+  {
+    "title": "Can delete unit",
+
+    "value": "delete_unit"
+  },
+  {
+    "title": "Can view unit",
+
+    "value": "view_unit"
+  },
+  {
+    "title": "Can add vip price",
+
+    "value": "add_vipprice"
+  },
+  {
+    "title": "Can change vip price",
+
+    "value": "change_vipprice"
+  },
+  {
+    "title": "Can delete vip price",
+
+    "value": "delete_vipprice"
+  },
+  {
+    "title": "Can view vip price",
+
+    "value": "view_vipprice"
+  },
+  {
+    "title": "Can add unitConversion",
+
+    "value": "add_unitconversion"
+  },
+  {
+    "title": "Can change unitConversion",
+
+    "value": "change_unitconversion"
+  },
+  {
+    "title": "Can delete unitConversion",
+
+    "value": "delete_unitconversion"
+  },
+  {
+    "title": "Can view unitConversion",
+
+    "value": "view_unitconversion"
+  },
+  {
+    "title": "Can add product unit",
+
+    "value": "add_productunit"
+  },
+  {
+    "title": "Can change product unit",
+
+    "value": "change_productunit"
+  },
+  {
+    "title": "Can delete product unit",
+
+    "value": "delete_productunit"
+  },
+  {
+    "title": "Can view product unit",
+
+    "value": "view_productunit"
+  },
+  {
+    "title": "Can add product price",
+
+    "value": "add_productprice"
+  },
+  {
+    "title": "Can change product price",
+
+    "value": "change_productprice"
+  },
+  {
+    "title": "Can delete product price",
+
+    "value": "delete_productprice"
+  },
+  {
+    "title": "Can view product price",
+
+    "value": "view_productprice"
+  },
+  {
+    "title": "Can add product mini",
+
+    "value": "add_productmini"
+  },
+  {
+    "title": "Can change product mini",
+
+    "value": "change_productmini"
+  },
+  {
+    "title": "Can delete product mini",
+
+    "value": "delete_productmini"
+  },
+  {
+    "title": "Can view product mini",
+
+    "value": "view_productmini"
+  },
+  {
+    "title": "Can add product barcode",
+
+    "value": "add_productbarcode"
+  },
+  {
+    "title": "Can change product barcode",
+
+    "value": "change_productbarcode"
+  },
+  {
+    "title": "Can delete product barcode",
+
+    "value": "delete_productbarcode"
+  },
+  {
+    "title": "Can view product barcode",
+
+    "value": "view_productbarcode"
+  },
+  {
+    "title": "Can add warehouse",
+
+    "value": "add_warehouse"
+  },
+  {
+    "title": "Can change warehouse",
+
+    "value": "change_warehouse"
+  },
+  {
+    "title": "Can delete warehouse",
+
+    "value": "delete_warehouse"
+  },
+  {
+    "title": "Can view warehouse",
+
+    "value": "view_warehouse"
+  },
+  {
+    "title": "Can add currency",
+
+    "value": "add_currency"
+  },
+  {
+    "title": "Can change currency",
+
+    "value": "change_currency"
+  },
+  {
+    "title": "Can delete currency",
+
+    "value": "delete_currency"
+  },
+  {
+    "title": "Can view currency",
+
+    "value": "view_currency"
+  },
+  {
+    "title": "Can add currency rate",
+
+    "value": "add_currencyrate"
+  },
+  {
+    "title": "Can change currency rate",
+
+    "value": "change_currencyrate"
+  },
+  {
+    "title": "Can delete currency rate",
+
+    "value": "delete_currencyrate"
+  },
+  {
+    "title": "Can view currency rate",
+
+    "value": "view_currencyrate"
+  },
+  {
+    "title": "Can add pos invoice setting",
+
+    "value": "add_posinvoicesetting"
+  },
+  {
+    "title": "Can change pos invoice setting",
+
+    "value": "change_posinvoicesetting"
+  },
+  {
+    "title": "Can delete pos invoice setting",
+
+    "value": "delete_posinvoicesetting"
+  },
+  {
+    "title": "Can view pos invoice setting",
+
+    "value": "view_posinvoicesetting"
+  },
+  {
+    "title": "Can add ChartOfAccount",
+
+    "value": "add_chartofaccount"
+  },
+  {
+    "title": "Can change ChartOfAccount",
+
+    "value": "change_chartofaccount"
+  },
+  {
+    "title": "Can delete ChartOfAccount",
+
+    "value": "delete_chartofaccount"
+  },
+  {
+    "title": "Can view ChartOfAccount",
+
+    "value": "view_chartofaccount"
+  },
+  {
+    "title": "Can add bank",
+
+    "value": "add_bank"
+  },
+  {
+    "title": "Can change bank",
+
+    "value": "change_bank"
+  },
+  {
+    "title": "Can delete bank",
+
+    "value": "delete_bank"
+  },
+  {
+    "title": "Can view bank",
+
+    "value": "view_bank"
+  },
+  {
+    "title": "Can add Cash",
+
+    "value": "add_cash"
+  },
+  {
+    "title": "Can change Cash",
+
+    "value": "change_cash"
+  },
+  {
+    "title": "Can delete Cash",
+
+    "value": "delete_cash"
+  },
+  {
+    "title": "Can view Cash",
+
+    "value": "view_cash"
+  },
+  {
+    "title": "Can add ExpenseCategory",
+
+    "value": "add_expensecategory"
+  },
+  {
+    "title": "Can change ExpenseCategory",
+
+    "value": "change_expensecategory"
+  },
+  {
+    "title": "Can delete ExpenseCategory",
+
+    "value": "delete_expensecategory"
+  },
+  {
+    "title": "Can view ExpenseCategory",
+
+    "value": "view_expensecategory"
+  },
+  {
+    "title": "Can add IncomeType",
+
+    "value": "add_incometype"
+  },
+  {
+    "title": "Can change IncomeType",
+
+    "value": "change_incometype"
+  },
+  {
+    "title": "Can delete IncomeType",
+
+    "value": "delete_incometype"
+  },
+  {
+    "title": "Can view IncomeType",
+
+    "value": "view_incometype"
+  },
+  {
+    "title": "Can add WidthDraw",
+
+    "value": "add_widthdraw"
+  },
+  {
+    "title": "Can change WidthDraw",
+
+    "value": "change_widthdraw"
+  },
+  {
+    "title": "Can delete WidthDraw",
+
+    "value": "delete_widthdraw"
+  },
+  {
+    "title": "Can view WidthDraw",
+
+    "value": "view_widthdraw"
+  },
+  {
+    "title": "Can add ExpenseType",
+
+    "value": "add_expensetype"
+  },
+  {
+    "title": "Can change ExpenseType",
+
+    "value": "change_expensetype"
+  },
+  {
+    "title": "Can delete ExpenseType",
+
+    "value": "delete_expensetype"
+  },
+  {
+    "title": "Can view ExpenseType",
+
+    "value": "view_expensetype"
+  },
+  {
+    "title": "Can add OpenAccount",
+
+    "value": "add_openaccount"
+  },
+  {
+    "title": "Can change OpenAccount",
+
+    "value": "change_openaccount"
+  },
+  {
+    "title": "Can delete OpenAccount",
+
+    "value": "delete_openaccount"
+  },
+  {
+    "title": "Can view OpenAccount",
+
+    "value": "view_openaccount"
+  },
+  {
+    "title": "Can add open product",
+
+    "value": "add_openproduct"
+  },
+  {
+    "title": "Can change open product",
+
+    "value": "change_openproduct"
+  },
+  {
+    "title": "Can delete open product",
+
+    "value": "delete_openproduct"
+  },
+  {
+    "title": "Can view open product",
+
+    "value": "view_openproduct"
+  },
+  {
+    "title": "Can add on hand product",
+
+    "value": "add_onhandproduct"
+  },
+  {
+    "title": "Can change on hand product",
+
+    "value": "change_onhandproduct"
+  },
+  {
+    "title": "Can delete on hand product",
+
+    "value": "delete_onhandproduct"
+  },
+  {
+    "title": "Can view on hand product",
+
+    "value": "view_onhandproduct"
+  },
+  {
+    "title": "Can add opening balance",
+
+    "value": "add_openingbalance"
+  },
+  {
+    "title": "Can change opening balance",
+
+    "value": "change_openingbalance"
+  },
+  {
+    "title": "Can delete opening balance",
+
+    "value": "delete_openingbalance"
+  },
+  {
+    "title": "Can view opening balance",
+
+    "value": "view_openingbalance"
+  },
+  {
+    "title": "Can add invoice",
+
+    "value": "add_invoice"
+  },
+  {
+    "title": "Can change invoice",
+
+    "value": "change_invoice"
+  },
+  {
+    "title": "Can delete invoice",
+
+    "value": "delete_invoice"
+  },
+  {
+    "title": "Can view invoice",
+
+    "value": "view_invoice"
+  },
+  {
+    "title": "Can add invoice item",
+
+    "value": "add_invoiceitem"
+  },
+  {
+    "title": "Can change invoice item",
+
+    "value": "change_invoiceitem"
+  },
+  {
+    "title": "Can delete invoice item",
+
+    "value": "delete_invoiceitem"
+  },
+  {
+    "title": "Can view invoice item",
+
+    "value": "view_invoiceitem"
+  },
+  {
+    "title": "Can add estimate invoice",
+
+    "value": "add_estimateinvoice"
+  },
+  {
+    "title": "Can change estimate invoice",
+
+    "value": "change_estimateinvoice"
+  },
+  {
+    "title": "Can delete estimate invoice",
+
+    "value": "delete_estimateinvoice"
+  },
+  {
+    "title": "Can view estimate invoice",
+
+    "value": "view_estimateinvoice"
+  },
+  {
+    "title": "Can add product adjust invoice",
+
+    "value": "add_productadjustinvoice"
+  },
+  {
+    "title": "Can change product adjust invoice",
+
+    "value": "change_productadjustinvoice"
+  },
+  {
+    "title": "Can delete product adjust invoice",
+
+    "value": "delete_productadjustinvoice"
+  },
+  {
+    "title": "Can view product adjust invoice",
+
+    "value": "view_productadjustinvoice"
+  },
+  {
+    "title": "Can add product  transfer invoice",
+
+    "value": "add_producttransferinvoice"
+  },
+  {
+    "title": "Can change product  transfer invoice",
+
+    "value": "change_producttransferinvoice"
+  },
+  {
+    "title": "Can delete product  transfer invoice",
+
+    "value": "delete_producttransferinvoice"
+  },
+  {
+    "title": "Can view product  transfer invoice",
+
+    "value": "view_producttransferinvoice"
+  },
+  {
+    "title": "Can add purchase  invoice",
+
+    "value": "add_purchaseinvoice"
+  },
+  {
+    "title": "Can change purchase  invoice",
+
+    "value": "change_purchaseinvoice"
+  },
+  {
+    "title": "Can delete purchase  invoice",
+
+    "value": "delete_purchaseinvoice"
+  },
+  {
+    "title": "Can view purchase  invoice",
+
+    "value": "view_purchaseinvoice"
+  },
+  {
+    "title": "Can add sales order invoice",
+
+    "value": "add_purchaseorderinvoice"
+  },
+  {
+    "title": "Can change sales order invoice",
+
+    "value": "change_purchaseorderinvoice"
+  },
+  {
+    "title": "Can delete sales order invoice",
+
+    "value": "delete_purchaseorderinvoice"
+  },
+  {
+    "title": "Can view sales order invoice",
+
+    "value": "view_purchaseorderinvoice"
+  },
+  {
+    "title": "Can add purchase reject invoice",
+
+    "value": "add_purchaserejectinvoice"
+  },
+  {
+    "title": "Can change purchase reject invoice",
+
+    "value": "change_purchaserejectinvoice"
+  },
+  {
+    "title": "Can delete purchase reject invoice",
+
+    "value": "delete_purchaserejectinvoice"
+  },
+  {
+    "title": "Can view purchase reject invoice",
+
+    "value": "view_purchaserejectinvoice"
+  },
+  {
+    "title": "Can add sales invoice",
+
+    "value": "add_salesinvoice"
+  },
+  {
+    "title": "Can change sales invoice",
+
+    "value": "change_salesinvoice"
+  },
+  {
+    "title": "Can delete sales invoice",
+
+    "value": "delete_salesinvoice"
+  },
+  {
+    "title": "Can view sales invoice",
+
+    "value": "view_salesinvoice"
+  },
+  {
+    "title": "Can add sales order invoice",
+
+    "value": "add_salesorderinvoice"
+  },
+  {
+    "title": "Can change sales order invoice",
+
+    "value": "change_salesorderinvoice"
+  },
+  {
+    "title": "Can delete sales order invoice",
+
+    "value": "delete_salesorderinvoice"
+  },
+  {
+    "title": "Can view sales order invoice",
+
+    "value": "view_salesorderinvoice"
+  },
+  {
+    "title": "Can add sales reject invoice",
+
+    "value": "add_salesrejectinvoice"
+  },
+  {
+    "title": "Can change sales reject invoice",
+
+    "value": "change_salesrejectinvoice"
+  },
+  {
+    "title": "Can delete sales reject invoice",
+
+    "value": "delete_salesrejectinvoice"
+  },
+  {
+    "title": "Can view sales reject invoice",
+
+    "value": "view_salesrejectinvoice"
+  },
+  {
+    "title": "Can add login event",
+
+    "value": "add_loginevent"
+  },
+  {
+    "title": "Can change login event",
+
+    "value": "change_loginevent"
+  },
+  {
+    "title": "Can delete login event",
+
+    "value": "delete_loginevent"
+  },
+  {
+    "title": "Can view login event",
+
+    "value": "view_loginevent"
+  },
+  {
+    "title": "Can add user remote ip",
+
+    "value": "add_userremoteip"
+  },
+  {
+    "title": "Can change user remote ip",
+
+    "value": "change_userremoteip"
+  },
+  {
+    "title": "Can delete user remote ip",
+
+    "value": "delete_userremoteip"
+  },
+  {
+    "title": "Can view user remote ip",
+
+    "value": "view_userremoteip"
+  },
+  {
+    "title": "Can add user device info",
+
+    "value": "add_userdeviceinfo"
+  },
+  {
+    "title": "Can change user device info",
+
+    "value": "change_userdeviceinfo"
+  },
+  {
+    "title": "Can delete user device info",
+
+    "value": "delete_userdeviceinfo"
+  },
+  {
+    "title": "Can view user device info",
+
+    "value": "view_userdeviceinfo"
+  },
+  {
+    "title": "Can add backup",
+
+    "value": "add_backup"
+  },
+  {
+    "title": "Can change backup",
+
+    "value": "change_backup"
+  },
+  {
+    "title": "Can delete backup",
+
+    "value": "delete_backup"
+  },
+  {
+    "title": "Can view backup",
+
+    "value": "view_backup"
+  },
+  {
+    "title": "Can restore backup",
+
+    "value": "restore_backup"
+  },
+  {
+    "title": "Can upload to cloud",
+
+    "value": "upload_to_cloud_backup"
+  },
+  {
+    "title": "Can add backup settings",
+
+    "value": "add_backupsettings"
+  },
+  {
+    "title": "Can change backup settings",
+
+    "value": "change_backupsettings"
+  },
+  {
+    "title": "Can delete backup settings",
+
+    "value": "delete_backupsettings"
+  },
+  {
+    "title": "Can view backup settings",
+
+    "value": "view_backupsettings"
+  },
+  {
+    "title": "Can view sales invoice report",
+
+    "value": "view_SalesInvoiceReport"
+  },
+  {
+    "title": "Can view product profit report",
+
+    "value": "view_ProductProfitReport"
+  },
+  {
+    "title": "Can view purchase price report view set",
+
+    "value": "view_PurchasePriceReportViewSet"
+  },
+  {
+    "title": "Can view product deficits report",
+
+    "value": "view_ProductDeficitsReport"
+  },
+  {
+    "title": "Can view profit and lost report",
+
+    "value": "view_ProfitAndLostReport"
+  },
+  {
+    "title": "Can view invoice by person report",
+
+    "value": "view_InvoiceByPersonReport"
+  },
+  {
+    "title": "Can view trial balance report",
+
+    "value": "view_TrialBalanceReport"
+  },
+  {
+    "title": "Can view invoice report",
+
+    "value": "view_InvoiceReport"
+  },
+  {
+    "title": "Can view invoice by product report",
+
+    "value": "view_InvoiceByProductReport"
+  },
+  {
+    "title": "Can view product statistic report",
+
+    "value": "view_ProductStatisticReport"
+  },
+  {
+    "title": "Can view account debit credit report",
+
+    "value": "view_AccountDebitCreditReport"
+  },
+  {
+    "title": "Can view warehouse statistic report",
+
+    "value": "view_WarehouseStatisticReport"
+  },
+  {
+    "title": "Can view warehouse cardext report",
+
+    "value": "view_WarehouseCardextReport"
+  },
+  {
+    "title": "Can view sales price report view set",
+
+    "value": "view_SalesPriceReportViewSet"
+  },
+  {
+    "title": "Can view fiscal profit report",
+
+    "value": "view_FiscalProfitReport"
+  },
+  {
+    "title": "Can view account statistic report",
+
+    "value": "view_AccountStatisticReport"
+  },
+  {
+    "title": "Can view main balance report",
+
+    "value": "view_MainBalanceReport"
+  },
+  {
+    "title": "Can view journal report",
+
+    "value": "view_JournalReport"
+  },
+  {
+    "title": "Can view product expiration report",
+
+    "value": "view_ProductExpirationReport"
+  },
+  {
+    "title": "Can view detailed balance report",
+
+    "value": "view_DetailedBalanceReport"
+  }
+]

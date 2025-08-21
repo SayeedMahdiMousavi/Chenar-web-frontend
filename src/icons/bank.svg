@@ -1,0 +1,11 @@
+<svg id="Group_36" data-name="Group 36" xmlns="http://www.w3.org/2000/svg" width="21.665" height="21.576" viewBox="0 0 21.665 21.576">
+  <rect id="Rectangle_13" data-name="Rectangle 13" width="21.543" height="21.543" transform="translate(0.121 0.033)" fill="currentColor" opacity="0"/>
+  <g id="bank" transform="translate(0 0)">
+    <g id="Group_33" data-name="Group 33" transform="translate(0 0)">
+      <path id="Path_17" data-name="Path 17" d="M21.16,8.045a1.266,1.266,0,0,0,1.265-1.265V5.143a1.259,1.259,0,0,0-.792-1.173L12.149.093a1.259,1.259,0,0,0-.944,0L1.718,3.97A1.259,1.259,0,0,0,.926,5.143V6.781A1.266,1.266,0,0,0,2.191,8.045h.759v9.527H2.191A1.266,1.266,0,0,0,.926,18.836v1.475a1.266,1.266,0,0,0,1.265,1.265H21.16a1.266,1.266,0,0,0,1.265-1.265V18.836a1.266,1.266,0,0,0-1.265-1.265H20.4V8.045h.759Zm0,10.791c0,1.509,0,1.475,0,1.475H2.191V18.836ZM4.214,17.572V8.045H5.647v9.527Zm2.7,0V8.045H9.694v9.527Zm4.047,0V8.045h1.433v9.527Zm2.7,0V8.045h2.782v9.527Zm4.047,0V8.045h1.433v9.527ZM2.191,6.781c0-1.764,0-1.637,0-1.639l9.48-3.876,9.48,3.876c.007,0,0-.12,0,1.639H2.191Z" transform="translate(-0.926 0)" fill="currentColor"/>
+    </g>
+    <g id="Group_34" data-name="Group 34" transform="translate(10.117 2.734)">
+      <path id="Path_18" data-name="Path 18" d="M241.559,64.854a.632.632,0,0,0-.632.632v1.349a.632.632,0,0,0,1.265,0V65.486A.632.632,0,0,0,241.559,64.854Z" transform="translate(-240.927 -64.854)" fill="currentColor"/>
+    </g>
+  </g>
+</svg>

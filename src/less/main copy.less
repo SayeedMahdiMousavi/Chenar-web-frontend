@@ -1,0 +1,312 @@
+@import "vars.less";
+@import "components/base/base.less";
+@import "base/_utilities.less";
+@import "components/app.less";
+@import "components/dashboard/dashboard.less";
+@import "components/ruters/header.less";
+@import "components/sales//allSales//allSales.less";
+@import "components/sales/productsAndServices/productAndService.less";
+@import "components/sales/customers/customer.less";
+@import "components/expenses/expenses/expenses.less";
+@import "components//settings/settings.less";
+@import "components/manageUsers/user.less";
+@import "components/taxes/taxes.less";
+@import "components/accounting/accounting.less";
+@import "components/new/new.less";
+@import "components/company/company.less";
+@import "components/reports/reports.less";
+@import "components/customFormStyle/customFormStyle.less";
+@import "components/login/login.less";
+@import "components/warehouse/warehouse.less";
+@import "components/_button.less";
+
+.suspense {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  background-color: inherit;
+}
+
+.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)::before {
+  content: none;
+}
+.ant-radio-button-wrapper:not(:first-child)::before {
+  background: transparent;
+}
+
+.formItem {
+  margin-bottom: 10px;
+}
+.icon {
+  font-size: 16px;
+}
+
+.invoice__total--description {
+  border: none;
+}
+.tableSummary__cell {
+  background-color: #e6fff8;
+}
+.notFound__body {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dashboard-header {
+  // background: #ffffff;
+  box-shadow: 0 1px 2px rgba(110, 110, 110, 0.452);
+}
+
+@font-face {
+  font-family: "AdobeArabicRegular";
+  src: local("AdobeArabicRegular"),
+    url(../fonts/AdobeArabic-Regular.otf) format("truetype");
+}
+// @font-face {
+//   font-family: "ARVO_REGULAR";
+//   src: local("ARVO_REGULAR"), url(../fonts/Arvo-Regular.ttf) format("truetype");
+// }
+
+// @font-face {
+//   font-family: "IRAN_YEKAN_LIGHT";
+//   src: local("IRAN_YEKAN_LIGHT"),
+//     url(../fonts/IRANYekanLight.ttf) format("truetype");
+// }
+// @font-face {
+//   font-family: "IRAN_YEKAN_MEDIUM";
+//   src: local("IRAN_YEKAN_MEDIUM"),
+//     url(../fonts/IRANYekanMedium.ttf) format("truetype");
+// }
+@font-face {
+  font-family: "IRAN_YEKAN_REGULAR";
+  src: local("IRAN_YEKAN_REGULAR"),
+    url(../fonts/IRANYekanRegular.ttf) format("truetype"),
+    url(../fonts/IRANYekanMedium.ttf) format("truetype"),
+    url(../fonts/IRANYekanLight.ttf) format("truetype");
+}
+@font-face {
+  font-family: "BTITR";
+  src: local("BTITR"), url(../fonts/b_titr.ttf) format("truetype");
+}
+
+// @font-face {
+//   font-family: 'MyWebFont';
+//   src: url('webfont.eot'); /* IE9 Compat Modes */
+//   src: url('webfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+//        url('webfont.woff2') format('woff2'), /* Super Modern Browsers */
+//        url('webfont.woff') format('woff'), /* Pretty Modern Browsers */
+//        url('webfont.ttf')  format('truetype'), /* Safari, Android, iOS */
+//        url('webfont.svg#svgFontName') format('svg'); /* Legacy iOS */
+// }
+
+.mainBody {
+  // font-family: IRAN_YEKAN_MEDIUM !important;
+}
+
+// @page {
+//   /* // size: 8.5in 11in; */
+//   margin: 20mm;
+//   @top-left {
+//     content: "Hamlet";
+//   }
+//   @top-right {
+//     content: "Page " counter(page);
+//   }
+//   @bottom-right-corner {
+//     content: "Page " counter(page);
+//   }
+//   @top-center {
+//     font-weight: bold;
+//     font-size: 2em;
+//     content: counter(page);
+//   }
+// }
+// @media print {
+//   @page {
+//     size: A4 portrait;
+//   }
+//   @page cover {
+//     margin: 0;
+//     // background: url("images/cover.jpg");
+//     background-position: center;
+//     background-size: 104%;
+//     background-repeat: no-repeat;
+
+//     @top-left {
+//       content: none;
+//     }
+//     @top-center {
+//       content: none;
+//     }
+//     @top-right {
+//       content: none;
+//     }
+//     @bottom-left {
+//       content: none;
+//     }
+//   }
+// }
+
+// .page-header,
+// .page-header-space {
+//   height: 100px;
+// }
+
+// .page-number::after {
+//   content: Page counter(page);
+// }
+// .page-header {
+//   position: fixed;
+//   top: 0mm;
+//   width: 100%;
+//   border-bottom: 1px solid black; /* for demo */
+//   background: yellow; /* for demo */
+// }
+
+// .page {
+//   page-break-after: always;
+// }
+
+// .page-footer,
+// .page-footer-space {
+//   height: 30px;
+//   z-index: 1000;
+//   display: block !important;
+//   /* // display: none; */
+// }
+
+// .page-footer {
+//   position: fixed;
+//   bottom: 0;
+//   width: 100%;
+//   border-top: 1px solid gray; /* for demo */
+//   .page-number::before {
+//     content: counter(page);
+//     counter-increment: page;
+//   }
+// }
+
+// @page {
+//   margin: 5mm 7mm;
+//   @bottom-center {
+//     content: counter(page);
+//   }
+// }
+// @media print {
+//   /* // thead {
+//   //   display: table-header-group;
+//   // } */
+
+//   tfoot {
+//     display: table-footer-group;
+//   }
+
+//   button {
+//     display: none;
+//   }
+
+//   /* .body {
+//     margin: 0;
+//     // counter-reset: page;
+//   } */
+// }
+
+// #content {
+//   counter-reset: page;
+// }
+
+.ant-menu-item-selected1 {
+  border-inline-start: 4px solid @primary-color;
+  padding-inline-start: 12px !important;
+}
+.ant-menu-item-selected-collapsed {
+  border-inline-start: 4px solid @primary-color;
+  padding-inline-start: 28px !important;
+}
+
+// .ant-menu-item-selected1 a::before {
+//   // border-inline-start: 5px solid @primary-color;
+//   width: 5px;
+//   background-color: @primary-color;
+//   height: 75%;
+//   border-start-end-radius: 20px;
+//   border-end-end-radius: 20px;
+//   margin-top: 2.5%;
+// }
+
+.sidebar_subMenu-light {
+  border-inline-start: 4px solid @primary-color;
+  // background-color: #f0fffb !important;
+  color: @primary-color;
+}
+.submenu-item-selected-collapsed > .ant-menu-submenu-title {
+  padding-inline-start: 28px !important;
+}
+.ant-menu-rtl > .sidebar_subMenu-light > .ant-menu-submenu-title {
+  padding-inline-start: 12px;
+}
+.sidebar_subMenu-light > .ant-menu-submenu-title {
+  padding-inline-start: 12px;
+}
+
+
+
+
+.ant-menu-submenu-selected {
+  // background-color: @cyan-1;
+  // background-color: #f0fffb !important;
+  // color: @primary-color;
+  // border-inline-start: 4px solid @primary-color;
+  // border-start-start-radius: 20px;
+}
+
+// .sidebar_subMenu-light::before {
+//   width: 4px;
+//   background-color: @primary-color;
+//   height: 75%;
+//   border-start-end-radius: 20px;
+//   border-end-end-radius: 20px;
+//   margin-top: 2%;
+// }
+// .ant-menu-submenu-selected > div::before {
+//   width: 5px;
+//   background-color: @primary-color;
+//   height: 75%;
+//   // border-radius: 20px 0px 0px 20px;
+//   // border-start-end-radius: 20px;
+//   // border-end-end-radius: 20px;
+//   margin-top: 2.5%;
+// }
+.sidebar_subMenu-light > div > i::before {
+  color: @primary-color;
+}
+.sidebar_subMenu-light > div > i::after {
+  color: @primary-color;
+}
+
+//logo
+.logo {
+  margin: 20px 16px 5px 16px;
+}
+
+//tab
+.ant__tabs > .ant-tabs-nav > .ant-tabs-nav-wrap > .ant-tabs-nav-list {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0px 12px;
+}
+// .ant__tabs
+//   > .ant-tabs-nav
+//   > .ant-tabs-nav-wrap
+//   > .ant-tabs-nav-list
+//   > .ant-tabs-ink-bar {
+//   width: 100%;
+// }

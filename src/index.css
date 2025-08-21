@@ -1,0 +1,73 @@
+.page-footer,
+.page-footer-space {
+  height: 40px;
+  z-index: 1000;
+  display: block !important;
+  /* // display: none; */
+}
+
+.page-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  border-top: 1px solid gray; /* for demo */
+}
+.page-number:after {
+  content: counter(page);
+  counter-increment: page;
+}
+
+@page {
+  /* @bottom-center {
+    content: counter(page, lower-alpha);
+  } */
+}
+
+@media print {
+  /* // thead {
+  //   display: table-header-group;
+  // } */
+  .page-break {
+    page-break-inside: avoid;
+  }
+  tfoot {
+    display: table-footer-group;
+  }
+
+  button {
+    display: none;
+  }
+
+  /* .body {
+    margin: 0;
+    // counter-reset: page;
+  } */
+}
+
+/* #content {
+  display: table;
+} */
+
+#pageFooter {
+  display: table-footer-group;
+}
+
+#pageFooter:after {
+  counter-increment: page;
+  content: counter(page);
+}
+
+body {
+  overflow: hidden;
+
+}
+
+
+
+.ant-menu > .ant-menu-item-divider {
+  height: 0px;
+}
+
+.ant-menu-item-divider {
+  height: 0px;
+}

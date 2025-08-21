@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="56.001" height="56" viewBox="0 0 56.001 56">
+  <g id="multiply" transform="translate(0 -0.004)">
+    <ellipse id="Ellipse_64" data-name="Ellipse 64" cx="28" cy="28" rx="28" ry="28" transform="translate(0 0.004)" fill="#ffc9c9"/>
+    <g id="Group_341" data-name="Group 341" transform="translate(17.144 17.147)">
+      <rect id="Rectangle_125" data-name="Rectangle 125" width="5.032" height="25.675" transform="translate(0.002 3.56) rotate(-45)" fill="#ff5151"/>
+      <rect id="Rectangle_126" data-name="Rectangle 126" width="25.675" height="5.032" transform="translate(0 18.155) rotate(-45)" fill="#ff5151"/>
+    </g>
+  </g>
+</svg>

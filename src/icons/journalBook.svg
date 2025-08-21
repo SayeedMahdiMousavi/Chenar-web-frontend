@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
+    width="50" height="50" x="0" y="0" viewBox="0 0 48 48"
+    style="enable-background:new 0 0 512 512" xml:space="preserve" >
+    <g>
+        <g id="Line">
+            <path
+                d="M38,11.78l-2-9a1,1,0,0,0-2,0l-.91,4.09A3,3,0,0,0,31,6H11A3,3,0,0,0,8,9V39a3,3,0,0,0,3,3H31a3,3,0,0,0,1-.18V43a3,3,0,0,0,6,0V27.82A3,3,0,0,0,40,25V23a3,3,0,0,0-2-2.82V12A1.64,1.64,0,0,0,38,11.78ZM14,40H11a1,1,0,0,1-1-1V9a1,1,0,0,1,1-1h3ZM35,7.61,35.75,11h-1.5ZM34,13h2v7H34ZM32,39a1,1,0,0,1-1,1H16V8H31a1,1,0,0,1,1,1V20H30a4,4,0,0,0,0,8h2Zm4,4a1,1,0,0,1-2,0V39h2Zm0-6H34V28h2Zm2-12a1,1,0,0,1-1,1H30a2,2,0,0,1,0-4h7a1,1,0,0,1,1,1Z"
+                fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" ></path>
+            <path d="M30,23h0a1,1,0,1,0,1,1A1,1,0,0,0,30,23Z" fill="none" stroke="currentColor"  stroke-linecap="round" stroke-linejoin="round" data-original="#000000"></path>
+        </g>
+    </g>
+</svg>
+

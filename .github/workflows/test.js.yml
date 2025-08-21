@@ -1,0 +1,75 @@
+name: Test and build workflow
+
+on:
+  push:
+    branches:
+      - '*'
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
+  JWT_TOKEN_EXPIRES_IN: ${{ secrets.JWT_TOKEN_EXPIRES_IN }}
+  EMAIL: ${{ secrets.EMAIL }}
+  MAIL_SERVICE: ${{ secrets.MAIL_SERVICE }}
+  PASSWORD: ${{ secrets.PASSWORD }}
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9.1.2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install dependencies
+        run: pnpm i
+
+      - name: Checkout Develop Branch
+        run: |
+          git fetch origin
+          git checkout develop
+
+      - name: Get repository collaborators
+        id: get_collaborators
+        run: |
+          collaborators=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/${{ github.repository }}/collaborators")
+          echo "::set-output name=collaborators::${collaborators}"
+
+      - name: Filter reviewers
+        id: filter_reviewers
+        run: |
+          actor="${{ github.actor }}"
+          collaborators="${{ steps.get_collaborators.outputs.collaborators }}"
+          reviewers=$(echo "${collaborators}" | jq -r '.[] | select(.login != "'$actor'") | .login' | jq -c -R -s 'split("\n") | map(select(. != ""))')
+          echo "::set-output name=reviewers::${reviewers}"
+
+      - name: Create pull request
+        if: success()
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: ${{ github.ref }}
+          base: develop
+          title: '${{ github.ref_name }}'
+          body: 'This pull request was automatically created by the Test and build workflow.'
+          labels: 'code_ready_for_review'
+          assignees: ${{ github.actor }}
+          reviewers: ${{ steps.filter_reviewers.outputs.reviewers }}
+          token: ${{ secrets.GITHUB_TOKEN }}

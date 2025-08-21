@@ -1,0 +1,209 @@
+@import "components/base/base.less";
+@import "base/_utilities.less";
+@import "components/app.less";
+@import "components/dashboard/dashboard.less";
+@import "components/ruters/header.less";
+@import "components/sales//allSales//allSales.less";
+@import "components/sales/productsAndServices/productAndService.less";
+@import "components/sales/customers/customer.less";
+@import "components/expenses/expenses/expenses.less";
+@import "components//settings/settings.less";
+@import "components/manageUsers/user.less";
+@import "components/taxes/taxes.less";
+@import "components/accounting/accounting.less";
+@import "components/new/new.less";
+@import "components/company/company.less";
+@import "components/reports/reports.less";
+@import "components/customFormStyle/customFormStyle.less";
+@import "components/login/login.less";
+@import "components/warehouse/warehouse.less";
+@import "components/_button.less";
+@import "./cssReset.css";
+
+
+
+.invoiceStatistic {
+  display: inline-block;
+}
+
+.suspense {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  background-color: inherit;
+}
+
+.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)::before {
+  content: none;
+}
+.ant-radio-button-wrapper:not(:first-child)::before {
+  background: transparent;
+}
+
+.formItem {
+  margin-bottom: 10px;
+}
+.icon {
+  font-size: 16px;
+}
+
+.invoice__total--description {
+  border: none;
+}
+.tableSummary__cell {
+  background-color: #e6fff8;
+}
+.notFound__body {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dashboard-header {
+  // background: #ffffff;
+  box-shadow: 0 1px 2px rgba(110, 110, 110, 0.452);
+}
+
+@font-face {
+  font-family: "AdobeArabicRegular";
+  src: local("AdobeArabicRegular"),
+    url(../fonts/AdobeArabic-Regular.otf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "KALAMEH" ;
+  src: local("KALAMEH"), 
+  url(../fonts/kalameh/Kalameh-Regular.ttf),
+  url(../fonts/kalameh/Kalameh-Medium.ttf),
+  url(../fonts/kalameh/Kalameh-Bold.ttf),
+  url(../fonts/kalameh/Kalameh-Bold.ttf),
+  url(../fonts/kalameh/Kalameh-Light.ttf);
+}
+@font-face {
+  font-family: "IRAN_YEKAN_REGULAR_PERSIAN";
+  src: local("IRAN_YEKAN_REGULAR_PERSIAN"),
+    url(../fonts/IRANYekanRegular.ttf) format("truetype");
+};
+@font-face {
+  font-family: "IRAN_YEKAN_REGULAR";
+  src: local("IRAN_YEKAN_REGULAR"),
+    url(../fonts/Arvo-Regular.ttf) format("truetype");
+}
+@font-face {
+  font-family: "BTITR";
+  src: local("BTITR"), url(../fonts/b_titr.ttf) format("truetype");
+}
+
+
+.ant-menu-item-selected {
+  border-inline-start: 4px solid #21c0ad;
+  padding-inline-start: 12px !important;
+}
+.ant-menu-item-selected-collapsed {
+  border-inline-start: 4px solid #21c0ad;
+  padding-inline-start: 20px !important;
+}
+
+.ant-menu-submenu-title {
+  padding-inline-start: calc(50% - 19px / 2);
+}
+
+// .ant-menu-item-selected1 a::before {
+//   // border-inline-start: 5px solid #21c0ad;
+//   width: 5px;
+//   background-color: #21c0ad;
+//   height: 75%;
+//   border-start-end-radius: 20px;
+//   border-end-end-radius: 20px;
+//   margin-top: 2.5%;
+// }
+
+.sidebar_subMenu-light {
+  border-inline-start: 4px solid #21c0ad;
+  // background-color: #f0fffb !important;
+  color: #21c0ad;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #21c0ad !important; /* Replace with your Colors.primaryColor */
+  border-color: #21c0ad !important;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner::after {
+  border-color: white; /* Checkmark color itself */
+}
+
+.submenu-item-selected-collapsed > .ant-menu-submenu-title {
+  padding-inline-start: 20px !important;
+}
+.ant-menu-rtl > .sidebar_subMenu-light > .ant-menu-submenu-title {
+  padding-inline-start: 12px;
+}
+.sidebar_subMenu-light > .ant-menu-submenu-title {
+  padding-inline-start: 12px;
+}
+
+.sidebar_subMenu-dark {
+  color: white;
+}
+
+.ant-menu-submenu-selected {
+  color: @primary-color;
+  border-inline-start: 4px solid @primary-color;
+  border-start-start-radius: 20px;
+}
+
+
+// .sidebar_subMenu-light::before {
+//   width: 4px;
+//   background-color: @primary-color;
+//   height: 75%;
+//   border-start-end-radius: 20px;
+//   border-end-end-radius: 20px;
+//   margin-top: 2%;
+// }
+// .ant-menu-submenu-selected > div::before {
+//   width: 5px;
+//   background-color: @primary-color;
+//   height: 75%;
+//   // border-radius: 20px 0px 0px 20px;
+//   // border-start-end-radius: 20px;
+//   // border-end-end-radius: 20px;
+//   margin-top: 2.5%;
+// }
+.sidebar_subMenu-light > div > i::before {
+  color: @primary-color;
+}
+.sidebar_subMenu-light > div > i::after {
+  color: @primary-color;
+}
+
+//logo
+.logo {
+  margin: 20px 16px 5px 16px;
+}
+
+//tab
+.ant__tabs > .ant-tabs-nav > .ant-tabs-nav-wrap > .ant-tabs-nav-list {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0px 12px;
+  color: #21c0ad;
+}
+// .ant__tabs
+//   > .ant-tabs-nav
+//   > .ant-tabs-nav-wrap
+//   > .ant-tabs-nav-list
+//   > .ant-tabs-ink-bar {
+//   width: 100%;
+// }
+
+
