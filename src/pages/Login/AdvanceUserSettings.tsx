@@ -6,7 +6,7 @@ import axiosInstance from "../ApiBaseUrl";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "react-query";
 import moment from "moment";
-import { dark, lightThemeVars } from "../../vars";
+import { lessVars } from "../../theme/index";
 import { useDarkMode } from "../../Hooks/useDarkMode";
 import { manageNetworkError } from "../../Functions/manageNetworkError";
 import { useGetUserInfo } from "../../Hooks";
@@ -137,7 +137,7 @@ function AdvanceUserSettings() {
         setMode(value?.user_theme === 1 ? "dark" : "light");
         //@ts-ignore
         window.less.modifyVars(
-          value?.user_theme === 1 ? { ...dark } : lightThemeVars
+          value?.user_theme === 1 ? lessVars.dark : lessVars.light
         );
       }
 

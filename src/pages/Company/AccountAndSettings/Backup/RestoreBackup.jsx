@@ -11,7 +11,7 @@ import { trimString } from "../../../../Functions/TrimString";
 import { useNavigate } from "react-router-dom";
 import { useDarkMode } from "../../../../Hooks/useDarkMode";
 import { handleClearLocalStorageLogout } from "../../../../Functions";
-import { lightThemeVars } from "../../../../vars";
+import { lessVars } from "../../../../theme/index";
 import { CancelButton } from "../../../../components";
 
 const RestoreBackup = (props) => {
@@ -41,7 +41,7 @@ const RestoreBackup = (props) => {
         setStatus("success");
 
         if (mode !== "light") {
-          window.less.modifyVars(lightThemeVars);
+          window.less.modifyVars(lessVars.light);
           setMode("light");
         }
 

@@ -19,7 +19,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useDarkMode } from "../../../../Hooks/useDarkMode";
 import { handleClearLocalStorageLogout } from "../../../../Functions";
-import { lightThemeVars } from "../../../../vars";
+import { lessVars } from "../../../../theme/index";
 import { CancelButton } from "../../../../components";
 const { Step } = Steps;
 const steps = [
@@ -135,7 +135,7 @@ const UploadBackup = (props) => {
     onSuccess: (values) => {
       message.success(t("Company.Restore_completed"));
       if (mode !== "light") {
-        window.less.modifyVars(lightThemeVars);
+        window.less.modifyVars(lessVars.light);
         setMode("light");
       }
 

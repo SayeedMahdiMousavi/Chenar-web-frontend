@@ -40,7 +40,7 @@ import {
   handleClearLocalStorageLogout,
   manageErrors,
 } from "../Functions";
-import { dark, lightThemeVars } from "../vars";
+import { lessVars } from "../theme/index";
 import {
   BACKUP_PAGE_M,
   USERS_PAGE_M,
@@ -106,7 +106,7 @@ export default function Header(props) {
         return error;
       });
     if (mode !== "light") {
-      window.less.modifyVars(lightThemeVars);
+      window.less.modifyVars(lessVars.light);
       setMode("light");
     }
     handleClearLocalStorageLogout();
@@ -254,7 +254,7 @@ export default function Header(props) {
       setMode(value?.user_theme === 1 ? "dark" : "light");
 
       window.less.modifyVars(
-        value?.user_theme === 1 ? { ...dark } : lightThemeVars
+        value?.user_theme === 1 ? lessVars.dark : lessVars.light
       );
 
       return previousValue;

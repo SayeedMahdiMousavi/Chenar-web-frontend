@@ -6,7 +6,7 @@ import axiosInstance from "../ApiBaseUrl";
 import { trimString } from "../../Functions/TrimString";
 import { Detector } from "react-detect-offline";
 import { useDarkMode } from "../../Hooks/useDarkMode";
-import { dark, lightThemeVars } from "../../vars";
+import { lessVars } from "../../theme/index";
 import { allPermissions } from "../../constants/permissions";
 
 import {
@@ -54,12 +54,12 @@ const LoginPage = (props) => {
           //theme
           if (response?.data?.user_theme?.type === "dark") {
             if (mode !== "dark") {
-              window.less.modifyVars(dark);
+              window.less.modifyVars(lessVars.dark);
               setMode("dark");
             }
           } else {
             if (mode !== "light") {
-              window.less.modifyVars(lightThemeVars);
+              window.less.modifyVars(lessVars.light);
               setMode("light");
             }
           }

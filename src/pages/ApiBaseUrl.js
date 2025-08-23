@@ -3,7 +3,7 @@ import axios from 'axios';
 import { manageNetworkError } from '../Functions/manageNetworkError';
 import { queryClient } from '../App';
 import { handleClearLocalStorageLogout } from '../Functions';
-import { lightThemeVars } from '../vars';
+import { lessVars } from '../theme/index';
 
 const baseURL = 'https://api.chenar.x9f4a7.onten.io/api/v1';
 
@@ -30,7 +30,7 @@ const handleLogout = () => {
     window.location.href = '/';
   }
   queryClient.clear();
-  window.less.modifyVars(lightThemeVars);
+  window.less.modifyVars(lessVars.light);
 };
 
 axiosInstance.interceptors.request.use(
