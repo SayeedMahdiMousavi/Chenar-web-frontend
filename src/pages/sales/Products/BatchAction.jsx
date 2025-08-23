@@ -1,16 +1,16 @@
-import React, { useState, useRef } from "react";
-import { useTranslation } from "react-i18next";
-import { useMutation, useQueryClient } from "react-query";
-import axiosInstance from "../../ApiBaseUrl";
-import { Menu, Dropdown, Button, message, Row, Col, Space } from "antd";
-import { CaretDownOutlined } from "@ant-design/icons";
-import { useReactToPrint } from "react-to-print";
-import PrintBarcode from "./PrintSections/PrintBarcode";
-import { CategorySelect } from "./Categories/CategorySelect";
-import ChangeVip from "./BachActions/ChangeVip";
-import ChangeVipPercent from "./BachActions/ChangeVipPercent";
-import LabelPriceBarcode from "./PrintSections/LabelPriceBarcode";
-import PrintTable from "../../PrintComponents/PrintTable";
+import React, { useState, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useMutation, useQueryClient } from 'react-query';
+import axiosInstance from '../../ApiBaseUrl';
+import { Menu, Dropdown, Button, message, Row, Col, Space } from 'antd';
+import { CaretDownOutlined } from '@ant-design/icons';
+import { useReactToPrint } from 'react-to-print';
+import PrintBarcode from './PrintSections/PrintBarcode';
+import { CategorySelect } from './Categories/CategorySelect';
+import ChangeVip from './BachActions/ChangeVip';
+import ChangeVipPercent from './BachActions/ChangeVipPercent';
+import LabelPriceBarcode from './PrintSections/LabelPriceBarcode';
+import PrintTable from '../../PrintComponents/PrintTable';
 // import { withDatabase } from "@nozbe/watermelondb/DatabaseProvider";
 // import withObservables from "@nozbe/with-observables";
 
@@ -38,7 +38,7 @@ function BatchAction(props) {
     },
     {
       onSuccess: () => queryClient.invalidateQueries(`${props?.baseUrl}`),
-    }
+    },
   );
   let changeCategory = false;
   const onChangeCategory = async (value, event) => {
@@ -54,7 +54,7 @@ function BatchAction(props) {
     //     });
     //   }
     // });
-    // 
+    //
     if (changeCategory) {
       return;
     }
@@ -92,7 +92,7 @@ function BatchAction(props) {
     },
     {
       onSuccess: () => queryClient.invalidateQueries(`/user_account/users/`),
-    }
+    },
   );
 
   let oneRequest = false;
@@ -114,7 +114,7 @@ function BatchAction(props) {
     try {
       mutateDeleteProduct(undefined, {
         onSuccess: () => {
-          message.info(`${t("Message.Remove")} `);
+          message.info(`${t('Message.Remove')} `);
         },
       });
 
@@ -138,7 +138,7 @@ function BatchAction(props) {
     },
     {
       onSuccess: () => queryClient.invalidateQueries(`/user_account/users/`),
-    }
+    },
   );
   let Inactive = false;
   const onMakeInActive = async () => {
@@ -166,9 +166,9 @@ function BatchAction(props) {
         {
           onSuccess: () => {
             props.setSelectedRowKeys([]);
-            message.info(`${t("Message.Inactive")}`);
+            message.info(`${t('Message.Inactive')}`);
           },
-        }
+        },
       );
 
       Inactive = false;
@@ -185,7 +185,7 @@ function BatchAction(props) {
   const handlePrint = useReactToPrint({
     content: () => printRef.current,
     removeAfterPrint: true,
-    bodyClass: "barcode-print-body",
+    bodyClass: 'barcode-print-body',
     // onAfterPrint: onAfterPrint,
     // print: () => {
     //   props.setSelectedRows([]);
@@ -219,16 +219,16 @@ function BatchAction(props) {
         })
         .catch((error) => {
           // setLoading(false);
-          // 
+          //
           message.error(`${error?.response?.data?.data?.message}`);
         }),
     {
       onSuccess: () => queryClient.invalidateQueries(`${props.baseUrl}`),
-    }
+    },
   );
 
   let isAssignBarcode = false;
-  //   
+  //
   const handleAssignBarcode = async () => {
     // setLoading(true);
     if (isAssignBarcode) {
@@ -246,29 +246,29 @@ function BatchAction(props) {
         });
       } else {
         message.error(
-          t("Sales.Product_and_services.Form.Bulk_assign_barcode_message")
+          t('Sales.Product_and_services.Form.Bulk_assign_barcode_message'),
         );
       }
 
       isAssignBarcode = false;
     } catch (info) {
-      // 
+      //
       isAssignBarcode = false;
     }
   };
 
   const batch = (
     <Menu>
-      <Menu.Item key="1">
+      <Menu.Item key='1'>
         <LabelPriceBarcode
           setSelectedRows={props.setSelectedRows}
           setSelectedRowKeys={props.setSelectedRowKeys}
           selectedRows={props.selectedRows}
         />
       </Menu.Item>
-      <Menu.Item key="2">
+      <Menu.Item key='2'>
         <PrintBarcode
-          type="batch"
+          type='batch'
           setSelectedRows={props.setSelectedRows}
           setSelectedRowKeys={props.setSelectedRowKeys}
           selectedRows={props.selectedRows}
@@ -286,7 +286,7 @@ function BatchAction(props) {
         />
       </Menu.Item> */}
 
-      <Menu.Item key="3">
+      <Menu.Item key='3'>
         <ChangeVip
           baseUrl={props.baseUrl}
           setSelectedRows={props.setSelectedRows}
@@ -294,7 +294,7 @@ function BatchAction(props) {
           selectedRowKeys={props.selectedRowKeys}
         />
       </Menu.Item>
-      <Menu.Item key="5">
+      <Menu.Item key='5'>
         <ChangeVipPercent
           baseUrl={props.baseUrl}
           setSelectedRows={props.setSelectedRows}
@@ -302,8 +302,8 @@ function BatchAction(props) {
           selectedRows={props.selectedRows}
         />
       </Menu.Item>
-      <Menu.Item key="9" onClick={handlePrintTable}>
-        {t("Form.Print")}
+      <Menu.Item key='9' onClick={handlePrintTable}>
+        {t('Form.Print')}
       </Menu.Item>
       {/* <Menu.Item key="6">
         <AddVipPercent
@@ -325,12 +325,12 @@ function BatchAction(props) {
 
   return (
     <Space>
-      <div className="hide-print-component">
+      <div className='hide-print-component'>
         <PrintTable
           //@ts-ignore
           printRef={printTableRef}
-          domColumns={props.columns("print")}
-          title={t("Sales.Product_and_services.1")}
+          domColumns={props.columns('print')}
+          title={t('Sales.Product_and_services.1')}
           dataSource={props.selectedRows}
         />
       </div>
@@ -349,22 +349,22 @@ function BatchAction(props) {
           ))}
         </Select> */}
       <CategorySelect
-        url="/product/category/"
-        placeholder={t("Sales.Product_and_services.Assign_category")}
+        url='/product/category/'
+        placeholder={t('Sales.Product_and_services.Assign_category')}
         onChange={onChangeCategory}
         setValue={setCategoryValue}
         value={categoryValue}
       />
 
-      <Dropdown overlay={batch} trigger={["click"]}>
+      <Dropdown overlay={batch} trigger={['click']}>
         <Button
-          className="num table-col"
-          style={{ fontSize: ".9rem" }}
-          type="primary"
-          shape="round"
+          className='num table-col'
+          style={{ fontSize: '.9rem' }}
+          type='primary'
+          shape='round'
           ghost
         >
-          {t("Sales.Customers.Table.Batch_action")} <CaretDownOutlined />
+          {t('Sales.Customers.Table.Batch_action')} <CaretDownOutlined />
         </Button>
       </Dropdown>
     </Space>

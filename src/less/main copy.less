@@ -1,24 +1,24 @@
-@import "vars.less";
-@import "components/base/base.less";
-@import "base/_utilities.less";
-@import "components/app.less";
-@import "components/dashboard/dashboard.less";
-@import "components/ruters/header.less";
-@import "components/sales//allSales//allSales.less";
-@import "components/sales/productsAndServices/productAndService.less";
-@import "components/sales/customers/customer.less";
-@import "components/expenses/expenses/expenses.less";
-@import "components//settings/settings.less";
-@import "components/manageUsers/user.less";
-@import "components/taxes/taxes.less";
-@import "components/accounting/accounting.less";
-@import "components/new/new.less";
-@import "components/company/company.less";
-@import "components/reports/reports.less";
-@import "components/customFormStyle/customFormStyle.less";
-@import "components/login/login.less";
-@import "components/warehouse/warehouse.less";
-@import "components/_button.less";
+@import 'vars.less';
+@import 'components/base/base.less';
+@import 'base/_utilities.less';
+@import 'components/app.less';
+@import 'components/dashboard/dashboard.less';
+@import 'components/ruters/header.less';
+@import 'components/sales//allSales//allSales.less';
+@import 'components/sales/productsAndServices/productAndService.less';
+@import 'components/sales/customers/customer.less';
+@import 'components/expenses/expenses/expenses.less';
+@import 'components//settings/settings.less';
+@import 'components/manageUsers/user.less';
+@import 'components/taxes/taxes.less';
+@import 'components/accounting/accounting.less';
+@import 'components/new/new.less';
+@import 'components/company/company.less';
+@import 'components/reports/reports.less';
+@import 'components/customFormStyle/customFormStyle.less';
+@import 'components/login/login.less';
+@import 'components/warehouse/warehouse.less';
+@import 'components/_button.less';
 
 .suspense {
   display: flex;
@@ -30,7 +30,9 @@
   background-color: inherit;
 }
 
-.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)::before {
+.ant-radio-button-wrapper-checked:not(
+    .ant-radio-button-wrapper-disabled
+  )::before {
   content: none;
 }
 .ant-radio-button-wrapper:not(:first-child)::before {
@@ -64,9 +66,10 @@
 }
 
 @font-face {
-  font-family: "AdobeArabicRegular";
-  src: local("AdobeArabicRegular"),
-    url(../fonts/AdobeArabic-Regular.otf) format("truetype");
+  font-family: 'AdobeArabicRegular';
+  src:
+    local('AdobeArabicRegular'),
+    url(../fonts/AdobeArabic-Regular.otf) format('truetype');
 }
 // @font-face {
 //   font-family: "ARVO_REGULAR";
@@ -84,15 +87,18 @@
 //     url(../fonts/IRANYekanMedium.ttf) format("truetype");
 // }
 @font-face {
-  font-family: "IRAN_YEKAN_REGULAR";
-  src: local("IRAN_YEKAN_REGULAR"),
-    url(../fonts/IRANYekanRegular.ttf) format("truetype"),
-    url(../fonts/IRANYekanMedium.ttf) format("truetype"),
-    url(../fonts/IRANYekanLight.ttf) format("truetype");
+  font-family: 'IRAN_YEKAN_REGULAR';
+  src:
+    local('IRAN_YEKAN_REGULAR'),
+    url(../fonts/IRANYekanRegular.ttf) format('truetype'),
+    url(../fonts/IRANYekanMedium.ttf) format('truetype'),
+    url(../fonts/IRANYekanLight.ttf) format('truetype');
 }
 @font-face {
-  font-family: "BTITR";
-  src: local("BTITR"), url(../fonts/b_titr.ttf) format("truetype");
+  font-family: 'BTITR';
+  src:
+    local('BTITR'),
+    url(../fonts/b_titr.ttf) format('truetype');
 }
 
 // @font-face {
@@ -254,9 +260,6 @@
 .sidebar_subMenu-light > .ant-menu-submenu-title {
   padding-inline-start: 12px;
 }
-
-
-
 
 .ant-menu-submenu-selected {
   // background-color: @cyan-1;

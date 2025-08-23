@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
-import moment from "moment";
-import { useQuery, useQueryClient } from "react-query";
-import { Table } from "antd";
-import { useTranslation } from "react-i18next";
-import { usePaginationNumber } from "../../../usePaginationNumber";
-import axiosInstance from "../../../ApiBaseUrl";
-import { utcDate } from "../../../../Functions/utcDate";
-import { fixedNumber } from "../../../../Functions/math";
+import React, { useEffect, useState } from 'react';
+import moment from 'moment';
+import { useQuery, useQueryClient } from 'react-query';
+import { Table } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { usePaginationNumber } from '../../../usePaginationNumber';
+import axiosInstance from '../../../ApiBaseUrl';
+import { utcDate } from '../../../../Functions/utcDate';
+import { fixedNumber } from '../../../../Functions/math';
 
 const { Column } = Table;
-const dateFormat = "YYYY-MM-DD HH:mm";
+const dateFormat = 'YYYY-MM-DD HH:mm';
 
 const IncomingProductsResultTable = (props) => {
   const queryClient = useQueryClient();
@@ -17,13 +17,13 @@ const IncomingProductsResultTable = (props) => {
   const { t } = useTranslation();
 
   const [{ customerName, startDate, endDate }, setFilters] = useState({
-    customerName: "",
-    startDate: "",
+    customerName: '',
+    startDate: '',
     endDate: utcDate().format(dateFormat),
   });
 
   const runingPeriod = useQuery(
-    "/system_setting/finance_period/get_running_period/",
+    '/system_setting/finance_period/get_running_period/',
     async () => {
       const result = await axiosInstance
         .get(`/system_setting/finance_period/get_running_period/`)
@@ -37,7 +37,7 @@ const IncomingProductsResultTable = (props) => {
         });
 
       return result?.data;
-    }
+    },
   );
   useEffect(() => {
     if (runingPeriod?.data?.start_date) {
@@ -46,21 +46,20 @@ const IncomingProductsResultTable = (props) => {
           ...prev,
           startDate: runingPeriod?.data?.start_date
             ? moment(runingPeriod?.data?.start_date, dateFormat).format(
-                dateFormat
+                dateFormat,
               )
-            : "",
+            : '',
         };
       });
     }
   }, [runingPeriod.data.start_date]);
 
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [page, setPage] = React.useState(1);
   const [pageSize, setPageSize] = useState(5);
-  const [order, setOrder] = useState("-id");
+  const [order, setOrder] = useState('-id');
 
   const onSelectChange = (selectedRowKeys) => {
-    
     setSelectedRowKeys(selectedRowKeys);
     // this.setState({ selectedRowKeys });
   };
@@ -70,7 +69,7 @@ const IncomingProductsResultTable = (props) => {
     onChange: onSelectChange,
     preserveSelectedRowKeys: true,
     // onSelect: (record, selected, selectedRows, nativeEvent) => {
-    //   
+    //
     //     `record:${record} select  ${selected}  selectedRows  ${selectedRows}  nativeEvent   ${nativeEvent}`
     //   );
 
@@ -78,7 +77,7 @@ const IncomingProductsResultTable = (props) => {
     // selections: [Table.SELECTION_ALL, Table.SELECTION_INVERT],
     // hideDefaultSelections: true,
     getCheckboxProps: (record) => ({
-      disabled: record.status === "inActive", // Column configuration not to be checked
+      disabled: record.status === 'inActive', // Column configuration not to be checked
       name: record.name,
     }),
   };
@@ -95,18 +94,18 @@ const IncomingProductsResultTable = (props) => {
         endDate,
       } = queryKey?.[1] || {};
       const { data } = await axiosInstance.get(
-        `${props.baseUrl}?page=${page}&page_size=${pageSize}&id=${search}&ordering=${order}&expand=*&fields=currency,customer.content_object,date_time,id,payment_summery&customer_name=${customerName}&date_time_after=${startDate}&date_time_before=${endDate}`
+        `${props.baseUrl}?page=${page}&page_size=${pageSize}&id=${search}&ordering=${order}&expand=*&fields=currency,customer.content_object,date_time,id,payment_summery&customer_name=${customerName}&date_time_after=${startDate}&date_time_before=${endDate}`,
       );
       return data;
     },
-    [props.baseUrl]
+    [props.baseUrl],
   );
   const { isLoading, isFetching, data } = useQuery(
     [
       `${props.baseUrl}/report`,
       { page, pageSize, search, order, customerName, startDate, endDate },
     ],
-    getSalesReport
+    getSalesReport,
   );
   const hasMore = Boolean(data?.nextPageNumber);
   React.useEffect(() => {
@@ -124,7 +123,7 @@ const IncomingProductsResultTable = (props) => {
             endDate,
           },
         ],
-        getSalesReport
+        getSalesReport,
       );
     }
   }, [
@@ -142,7 +141,7 @@ const IncomingProductsResultTable = (props) => {
     hasMore,
   ]);
 
-  // 
+  //
   //pagination
   const paginationChange = (page, pageSize) => {
     setPage(page);
@@ -153,9 +152,9 @@ const IncomingProductsResultTable = (props) => {
     setPage(current);
   };
   const onChangeTable = (pagination, filters, sorter) => {
-    if (sorter.order === "ascend") {
+    if (sorter.order === 'ascend') {
       setOrder(sorter.field);
-    } else if (sorter.order === "descend") {
+    } else if (sorter.order === 'descend') {
       setOrder(`-${sorter.field}`);
     } else {
       setOrder(`-id`);
@@ -171,7 +170,7 @@ const IncomingProductsResultTable = (props) => {
     defaultCurrent: 1,
     onChange: paginationChange,
     showTotal: (total) =>
-      `${t("Pagination.Total")} ${total} ${t("Pagination.Item")}`,
+      `${t('Pagination.Total')} ${total} ${t('Pagination.Item')}`,
 
     showQuickJumper: true,
     showSizeChanger: true,
@@ -184,9 +183,9 @@ const IncomingProductsResultTable = (props) => {
   return (
     <Table
       expandable
-      id="allSales"
-      className="table-content"
-      size="small"
+      id='allSales'
+      className='table-content'
+      size='small'
       loading={isLoading || isFetching ? true : false}
       rowSelection={rowSelection}
       rowKey={(record) => record.id}
@@ -194,25 +193,25 @@ const IncomingProductsResultTable = (props) => {
       pagination={pagination}
       dataSource={allData}
       bordered={true}
-      scroll={{ x: "max-content", scrollToFirstRowOnChange: true }}
+      scroll={{ x: 'max-content', scrollToFirstRowOnChange: true }}
     >
       <Column
-        title={t("Table.Row").toUpperCase()}
-        dataIndex="serial"
-        key="serial"
+        title={t('Table.Row').toUpperCase()}
+        dataIndex='serial'
+        key='serial'
         width={80}
-        className="table-col"
-        align="center"
+        className='table-col'
+        align='center'
         fixed={true}
       />
 
       <Column
-        title={t("Banking.Form.Account_name").toUpperCase()}
-        dataIndex="customer"
-        key="customer"
+        title={t('Banking.Form.Account_name').toUpperCase()}
+        dataIndex='customer'
+        key='customer'
         fixed={true}
         sorter={true}
-        className="table-col"
+        className='table-col'
         render={(text, record) => {
           return (
             <React.Fragment>{text?.content_object?.full_name}</React.Fragment>
@@ -222,53 +221,53 @@ const IncomingProductsResultTable = (props) => {
 
       {props.columnsFilter?.warehouse && (
         <Column
-          title={t("Warehouse.1").toUpperCase()}
-          dataIndex="name"
-          key="name"
-          className="table-col"
+          title={t('Warehouse.1').toUpperCase()}
+          dataIndex='name'
+          key='name'
+          className='table-col'
           sorter={true}
         />
       )}
       {props.columnsFilter?.product && (
         <Column
-          title={t("Sales.Product_and_services.Product").toUpperCase()}
-          dataIndex="name"
-          key="name"
-          className="table-col"
+          title={t('Sales.Product_and_services.Product').toUpperCase()}
+          dataIndex='name'
+          key='name'
+          className='table-col'
           sorter={true}
         />
       )}
 
       {props.columnsFilter?.unit && (
         <Column
-          title={t("Sales.Product_and_services.Units.Unit").toUpperCase()}
-          dataIndex="unit"
-          key="unit"
+          title={t('Sales.Product_and_services.Units.Unit').toUpperCase()}
+          dataIndex='unit'
+          key='unit'
           sorter={{ multiple: 5 }}
-          className="table-col"
+          className='table-col'
         />
       )}
 
       {props.columnsFilter?.qty && (
         <Column
-          title={t("Reports.Available_quantity").toUpperCase()}
-          dataIndex="available"
-          key="available"
-          className="table-col"
+          title={t('Reports.Available_quantity').toUpperCase()}
+          dataIndex='available'
+          key='available'
+          className='table-col'
           sorter={{ multiple: 4 }}
           render={(text) => (
-            <div direction="ltr">{text && fixedNumber(text, 4)}</div>
+            <div direction='ltr'>{text && fixedNumber(text, 4)}</div>
           )}
         />
       )}
 
       {props.columnsFilter?.total && (
         <Column
-          title={t("Sales.Customers.Form.Total").toUpperCase()}
-          dataIndex="net_amount"
-          key="net_amount"
+          title={t('Sales.Customers.Form.Total').toUpperCase()}
+          dataIndex='net_amount'
+          key='net_amount'
           sorter={true}
-          className="table-col"
+          className='table-col'
           render={(text, record) => {
             return (
               <React.Fragment>
@@ -283,15 +282,15 @@ const IncomingProductsResultTable = (props) => {
       {props.columnsFilter?.currency && (
         <Column
           title={t(
-            "Sales.Product_and_services.Inventory.Currency"
+            'Sales.Product_and_services.Inventory.Currency',
           ).toUpperCase()}
-          dataIndex="currency"
-          key="currency"
+          dataIndex='currency'
+          key='currency'
           sorter={true}
           render={(text) => {
             return <React.Fragment>{text?.name}</React.Fragment>;
           }}
-          className="table-col"
+          className='table-col'
         />
       )}
     </Table>

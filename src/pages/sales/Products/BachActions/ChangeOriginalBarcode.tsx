@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { Form, Modal, Typography, Space, message, Select } from "antd";
-import { useMutation, useQueryClient } from "react-query";
-import axiosInstance from "../../../ApiBaseUrl";
-import { CancelButton, SaveButton } from "../../../../components";
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Form, Modal, Typography, Space, message, Select } from 'antd';
+import { useMutation, useQueryClient } from 'react-query';
+import axiosInstance from '../../../ApiBaseUrl';
+import { CancelButton, SaveButton } from '../../../../components';
 
 const { Title } = Typography;
 
@@ -26,7 +26,7 @@ export default function ChangeOriginalBarcode(props: IProps) {
         .put(`${props.baseUrl}bulk/update/original_barcode/`, value)
         .then(() => {
           message.success(
-            t("Sales.Product_and_services.Form.Original_barcode_save_message")
+            t('Sales.Product_and_services.Form.Original_barcode_save_message'),
           );
           setVisible(false);
           setLoading(false);
@@ -40,12 +40,12 @@ export default function ChangeOriginalBarcode(props: IProps) {
         })
         .catch((error) => {
           setLoading(false);
-          
+
           message.error(`${error?.response?.data?.data?.message}`);
         }),
     {
       onSuccess: () => queryClient.invalidateQueries(`${props.baseUrl}`),
-    }
+    },
   );
 
   let oneRequest = false;
@@ -58,7 +58,7 @@ export default function ChangeOriginalBarcode(props: IProps) {
 
     try {
       mutateChangeOriganBarcode({
-        original_barcode: values?.isOriginBarcode === "true" ? true : false,
+        original_barcode: values?.isOriginBarcode === 'true' ? true : false,
         products: props?.selectedRowKeys,
       });
       oneRequest = false;
@@ -85,7 +85,7 @@ export default function ChangeOriginalBarcode(props: IProps) {
   return (
     <div>
       <div onClick={showModal}>
-        {t("Sales.Product_and_services.Form.Is_origin_barcode")}
+        {t('Sales.Product_and_services.Form.Is_origin_barcode')}
       </div>
       <Modal
         maskClosable={false}
@@ -98,32 +98,32 @@ export default function ChangeOriginalBarcode(props: IProps) {
         handelAfterClose={handelAfterClose}
       >
         <Form
-          layout="vertical"
+          layout='vertical'
           onFinish={onFinish}
           hideRequiredMark={true}
           form={form}
           initialValues={{
-            isOriginBarcode: "true",
+            isOriginBarcode: 'true',
           }}
         >
           <Title level={5}>
-            {t("Sales.Product_and_services.Form.Is_origin_barcode")}
+            {t('Sales.Product_and_services.Form.Is_origin_barcode')}
           </Title>
-          <Form.Item name="isOriginBarcode" style={{ marginTop: "22px" }}>
-            <Select className="num">
-              <Select.Option value={"true"}>
-                {t("Sales.Product_and_services.Form.Origin_barcode")}
+          <Form.Item name='isOriginBarcode' style={{ marginTop: '22px' }}>
+            <Select className='num'>
+              <Select.Option value={'true'}>
+                {t('Sales.Product_and_services.Form.Origin_barcode')}
               </Select.Option>
-              <Select.Option value={"false"}>
-                {t("Sales.Product_and_services.Form.Not_origin_barcode")}
+              <Select.Option value={'false'}>
+                {t('Sales.Product_and_services.Form.Not_origin_barcode')}
               </Select.Option>
             </Select>
           </Form.Item>
 
-          <Form.Item className="margin textAlign__end">
+          <Form.Item className='margin textAlign__end'>
             <Space>
               <CancelButton onClick={handleCancel} />
-              <SaveButton htmlType="submit" loading={loading} />
+              <SaveButton htmlType='submit' loading={loading} />
             </Space>
           </Form.Item>
         </Form>

@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { Dropdown, Button, DropDownProps } from "antd";
-import { useTranslation } from "react-i18next";
-import { useMediaQuery } from "../pages/MediaQurey";
-import { FaAngleDown as DownIcon, FaAngleUp as UpIcon } from "react-icons/fa";
+import React, { useState } from 'react';
+import { Dropdown, Button, DropDownProps } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { useMediaQuery } from '../pages/MediaQurey';
+import { FaAngleDown as DownIcon, FaAngleUp as UpIcon } from 'react-icons/fa';
 
 interface IProps extends DropDownProps {
   text?: string;
@@ -10,8 +10,8 @@ interface IProps extends DropDownProps {
 
 export function PageNewDropdown({ overlay, text, ...rest }: IProps) {
   const { t } = useTranslation();
-  const isMiniTablet = useMediaQuery("(max-width:576px)");
-  const isLaptop = useMediaQuery("(max-width:1550px)");
+  const isMiniTablet = useMediaQuery('(max-width:576px)');
+  const isLaptop = useMediaQuery('(max-width:1550px)');
   const [visible, setVisible] = useState(false);
 
   const handleVisibleChange = (flag: boolean) => {
@@ -21,18 +21,18 @@ export function PageNewDropdown({ overlay, text, ...rest }: IProps) {
   return (
     <Dropdown
       overlay={overlay}
-      trigger={["click"]}
+      trigger={['click']}
       {...rest}
-      placement="bottomCenter"
+      placement='bottomCenter'
       onOpenChange={handleVisibleChange}
     >
       <Button
-        className="num table-col"
-        type="primary"
-        shape="round"
-        size={isMiniTablet ? "small" : isLaptop ? "middle" : "large"}
+        className='num table-col'
+        type='primary'
+        shape='round'
+        size={isMiniTablet ? 'small' : isLaptop ? 'middle' : 'large'}
       >
-        {text ? text : t("Sales.Product_and_services.New")}{" "}
+        {text ? text : t('Sales.Product_and_services.New')}{' '}
         {visible ? (
           <UpIcon style={styles.icon} />
         ) : (
@@ -45,6 +45,6 @@ export function PageNewDropdown({ overlay, text, ...rest }: IProps) {
 
 const styles = {
   icon: {
-    fontSize: "10px",
+    fontSize: '10px',
   },
 };

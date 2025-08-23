@@ -1,4 +1,4 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from 'react-query';
 import axiosInstance from '../../../ApiBaseUrl';
@@ -45,12 +45,12 @@ function Action(props) {
             <ActionMessage
               name={props?.record?.name}
               message='Message.Remove'
-            />
+            />,
           );
           props.setTreeData((prev) => {
             if (props?.record?.node_parent === null || props?.search) {
               const newData = prev?.allData?.filter(
-                (item) => item?.id !== props?.record?.id
+                (item) => item?.id !== props?.record?.id,
               );
               return { ...prev, allData: newData };
             } else {
@@ -59,7 +59,7 @@ function Action(props) {
                 allData: deleteTreeData(
                   prev?.allData,
                   props?.record?.id,
-                  props?.record?.node_parent?.name
+                  props?.record?.node_parent?.name,
                 ),
               };
             }
@@ -70,7 +70,7 @@ function Action(props) {
         }),
     {
       onSuccess: () => queryClient.invalidateQueries(`${props.url}`),
-    }
+    },
   );
 
   let oneRequest = false;
@@ -103,7 +103,7 @@ function Action(props) {
   //popconfig
   const text = `${t(
     'Sales.Product_and_services.Categories.Remove_Category_message1',
-    { name: props?.record?.name }
+    { name: props?.record?.name },
   )}`;
   const onChangeMessage = (e) => {
     setConfMessage(e.target.value);

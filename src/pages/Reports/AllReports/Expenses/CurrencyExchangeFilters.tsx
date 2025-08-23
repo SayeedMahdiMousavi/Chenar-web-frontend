@@ -1,11 +1,11 @@
-import React, { memo } from "react";
-import { Row, Col, Form, Button } from "antd";
-import { useTranslation } from "react-i18next";
-import ReportDateFormItem from "../../Components/DateFormItem";
-import { handlePrepareDateForServer } from "../../../../Functions/utcDate";
-import { EmployeeAndCustomerAndSupplierChart } from "../../../Transactions/Components/EmployeeAndCustomerAndSupplierChart";
-import { ChartAccountFormItem } from "../../../Transactions/Components/ChartAccountFormItem";
-import { useDefaultReportDateFormItem } from "../../../../Hooks";
+import React, { memo } from 'react';
+import { Row, Col, Form, Button } from 'antd';
+import { useTranslation } from 'react-i18next';
+import ReportDateFormItem from '../../Components/DateFormItem';
+import { handlePrepareDateForServer } from '../../../../Functions/utcDate';
+import { EmployeeAndCustomerAndSupplierChart } from '../../../Transactions/Components/EmployeeAndCustomerAndSupplierChart';
+import { ChartAccountFormItem } from '../../../Transactions/Components/ChartAccountFormItem';
+import { useDefaultReportDateFormItem } from '../../../../Hooks';
 
 interface IProps {
   setPage: (value: number) => void;
@@ -58,36 +58,36 @@ function CurrencyExchangeFilters(props: IProps) {
       form={form}
       hideRequiredMark
       initialValues={{
-        date: "allDates",
+        date: 'allDates',
         dateTime: defaultDate,
       }}
     >
-      <Row gutter={[10, 10]} style={{ marginBottom: "20px" }}>
+      <Row gutter={[10, 10]} style={{ marginBottom: '20px' }}>
         <ReportDateFormItem form={form} style={styles.formItem} />
         <Col xxl={14} xl={10} lg={11}></Col>
         <Col xxl={4} xl={5} lg={5}>
           <ChartAccountFormItem
-            placeholder={t("Sales.Customers.Receive_cash.Payer")}
-            name="payer"
-            searchIn="cash"
-            baseUrl="/chart_of_account/ACB-101/child/"
-            searchKey="/chart/cashbox/search/"
-            place="report"
+            placeholder={t('Sales.Customers.Receive_cash.Payer')}
+            name='payer'
+            searchIn='cash'
+            baseUrl='/chart_of_account/ACB-101/child/'
+            searchKey='/chart/cashbox/search/'
+            place='report'
           />
         </Col>
 
         <Col xxl={4} xl={5} lg={5}>
           <EmployeeAndCustomerAndSupplierChart
-            placeholder={t("Sales.Customers.Receive_cash.Receiver")}
+            placeholder={t('Sales.Customers.Receive_cash.Receiver')}
             form={form}
-            name="receiver"
+            name='receiver'
           />
         </Col>
 
         <Col xxl={8} xl={10} lg={10}>
-          <Form.Item className="margin" style={styles.formItem}>
-            <Button type="primary" size="small" htmlType="submit" shape="round">
-              {t("Form.Search")}
+          <Form.Item className='margin' style={styles.formItem}>
+            <Button type='primary' size='small' htmlType='submit' shape='round'>
+              {t('Form.Search')}
             </Button>
           </Form.Item>
         </Col>
@@ -98,7 +98,7 @@ function CurrencyExchangeFilters(props: IProps) {
 
 const styles = {
   form: {
-    width: "250px",
+    width: '250px',
   },
   formItem: { marginBottom: 0 },
 };

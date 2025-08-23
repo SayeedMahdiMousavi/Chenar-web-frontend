@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import { useTranslation } from "react-i18next";
-import { useDatabase } from "@nozbe/watermelondb/hooks";
+import { useTranslation } from 'react-i18next';
+import { useDatabase } from '@nozbe/watermelondb/hooks';
 
 import {
   //   Checkbox,
@@ -16,10 +16,10 @@ import {
   //   Input,
   //   Modal,
   Popconfirm,
-} from "antd";
+} from 'antd';
 
-import { CaretDownOutlined } from "@ant-design/icons";
-import { connect } from "react-redux";
+import { CaretDownOutlined } from '@ant-design/icons';
+import { connect } from 'react-redux';
 // const ReachableContext = React.createContext();
 
 function Action(props) {
@@ -37,18 +37,18 @@ function Action(props) {
   //     props.deleteProducts(props.record.Key);
   //   },
   //   onCancel() {
-  //     
+  //
   //   }
   // };
   const inActive = async () => {
-    const customers = database.collections.get("customers");
+    const customers = database.collections.get('customers');
 
     await database.action(async () => {
       const customer = await customers.find(props.record.id);
       // product.observe();
 
       await customer.update((customer) => {
-        customer.status = "inActive";
+        customer.status = 'inActive';
       });
     });
     // props.inActive(props.record.id);
@@ -57,14 +57,14 @@ function Action(props) {
     // );
   };
   const confirm = async () => {
-    const products = database.collections.get("products");
+    const products = database.collections.get('products');
     await database.action(async () => {
       const product = await products.find(props.record.id);
       await product.destroyPermanently(); // permanent
     });
     props.delete(props.record.id);
     setVisible(false);
-    message.info("Successfuly Deleted");
+    message.info('Successfuly Deleted');
     // };
     props.delete(props.record.id);
     setVisible(false);
@@ -83,15 +83,15 @@ function Action(props) {
       // }}
       >
         <Popconfirm
-          placement="topLeft"
-          title="Are your sure to Remove this tax?"
+          placement='topLeft'
+          title='Are your sure to Remove this tax?'
           onConfirm={confirm}
-          okText="Yes"
-          cancelText="No"
+          okText='Yes'
+          cancelText='No'
           onCancel={cancel}
         >
           {/* {t("Sales.Customers.Table.inactive")} */}
-          {t("Sales.Customers.Table.Remove")}
+          {t('Sales.Customers.Table.Remove')}
         </Popconfirm>
       </Menu.Item>
       <Menu.Item>View</Menu.Item>
@@ -105,12 +105,12 @@ function Action(props) {
     //   <div>
     <Dropdown
       overlay={action}
-      trigger={["click"]}
+      trigger={['click']}
       onOpenChange={handleVisibleChange}
       open={visible}
     >
-      <a className="ant-dropdown-link" href="#">
-        {t("Sales.Customers.Table.Edit")}
+      <a className='ant-dropdown-link' href='#'>
+        {t('Sales.Customers.Table.Edit')}
         <CaretDownOutlined />
       </a>
     </Dropdown>

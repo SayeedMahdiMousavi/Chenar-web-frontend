@@ -1,13 +1,10 @@
-import {
-  QueryClientProvider,
-  QueryClient,
-} from "react-query";
+import { QueryClientProvider, QueryClient } from 'react-query';
 
-import { useTranslation } from "react-i18next";
-import Routers from "./pages/Router/Route";
-import { App as AntApp, ConfigProvider } from "antd";
-import { useDarkMode } from "./Hooks/useDarkMode";
-import { tokens } from "./theme/index";
+import { useTranslation } from 'react-i18next';
+import Routers from './pages/Router/Route';
+import { App as AntApp, ConfigProvider } from 'antd';
+import { useDarkMode } from './Hooks/useDarkMode';
+import { tokens } from './theme/index';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -17,14 +14,14 @@ export const queryClient = new QueryClient({
       refetchOnMount: true,
       retry: (failureCount, error) => {
         const res = error?.response;
-        return error?.message === "Network Error" ||
+        return error?.message === 'Network Error' ||
           res?.status === 403 ||
           res?.status === 500 ||
           res?.status === 404
           ? false
           : failureCount > 2
-          ? false
-          : true;
+            ? false
+            : true;
       },
     },
     mutations: {},
@@ -34,12 +31,12 @@ export const queryClient = new QueryClient({
 const App = () => {
   const { t } = useTranslation();
   const [mode] = useDarkMode();
-  const selectedTheme = mode === "dark" ? tokens.dark : tokens.light;
+  const selectedTheme = mode === 'dark' ? tokens.dark : tokens.light;
 
-  console.log("t(Dir)", t("Dir"));
+  console.log('t(Dir)', t('Dir'));
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="container">
+      <div className='container'>
         <ConfigProvider theme={selectedTheme}>
           <AntApp>
             <Routers />

@@ -1,26 +1,30 @@
-import React, { useState } from "react";
-import { useQuery } from "react-query";
-import axiosInstance from "../../ApiBaseUrl";
-import EditCompanyInfo from "./Company/EditCompanyInfo";
+import React, { useState } from 'react';
+import { useQuery } from 'react-query';
+import axiosInstance from '../../ApiBaseUrl';
+import EditCompanyInfo from './Company/EditCompanyInfo';
 import { useTranslation } from 'react-i18next';
 
 export default function Company() {
   const [openForm, setOpenForm] = useState(false);
   const [error, setError] = useState(0);
-   const { t } = useTranslation();
+  const { t } = useTranslation();
 
-  const { data, status } = useQuery("/company/company_info/", async () => {
-    const { data } = await axiosInstance
-      .get(`/company/company_info/`)
-      .then((res) => {
-        setError(res.status);
+  const { data, status } = useQuery(
+    '/company/company_info/',
+    async () => {
+      const { data } = await axiosInstance
+        .get(`/company/company_info/`)
+        .then((res) => {
+          setError(res.status);
 
-        return res;
-      });
-    return data;
-  },{
-    refetchOnWindowFocus:false
-  });
+          return res;
+        });
+      return data;
+    },
+    {
+      refetchOnWindowFocus: false,
+    },
+  );
 
   const mobile = data?.mobile?.mobile_list?.map((item) => {
     return { mobile: item };
@@ -32,13 +36,13 @@ export default function Company() {
 
   const socialMediaList = [
     {
-      value: t("Company.Telegram"),
+      value: t('Company.Telegram'),
     },
     {
-      value: t("Company.Instagram"),
+      value: t('Company.Instagram'),
     },
     {
-      value: t("Company.Facebook"),
+      value: t('Company.Facebook'),
     },
   ];
   return (

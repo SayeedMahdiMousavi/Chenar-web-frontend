@@ -134,8 +134,8 @@ const Table = ({
                 ...(ind === columns.length - 1
                   ? tableStyles.lastCol
                   : ind === 0
-                  ? tableStyles.firstCol
-                  : {}),
+                    ? tableStyles.firstCol
+                    : {}),
                 ...(col['align'] ? { textAlign: col['align'] } : {}),
                 ...(col['justifyContent']
                   ? { textAlign: col['justifyContent'] }
@@ -166,8 +166,8 @@ const Table = ({
                     ...(ind === columns.length - 1
                       ? tableStyles.lastCol
                       : ind === 0
-                      ? tableStyles.firstCol
-                      : {}),
+                        ? tableStyles.firstCol
+                        : {}),
                     ...(col['align'] ? { textAlign: col['align'] } : {}),
                   }}
                 >
@@ -190,7 +190,7 @@ Table.propTypes = {
       dataIndex: PropTypes.string.isRequired,
       align: PropTypes.string, // see css align property
       justifyContent: PropTypes.string, // see css justify-content property
-    })
+    }),
   ).isRequired,
   // restricted styling of various inner children of the table
   headerRowStyle: PropTypes.object,
@@ -235,7 +235,7 @@ export const PagedTable = ({
           }
           fixed
         />
-      </Page>
+      </Page>,
     );
   }
   return pages;

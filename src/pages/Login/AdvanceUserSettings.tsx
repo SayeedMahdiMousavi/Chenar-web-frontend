@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import { Modal, Select, message, Form, Space, Spin } from "antd";
-import { useMediaQuery } from "../MediaQurey";
-import { useMutation, useQueryClient } from "react-query";
-import axiosInstance from "../ApiBaseUrl";
-import { useTranslation } from "react-i18next";
-import { useQuery } from "react-query";
-import moment from "moment";
-import { lessVars } from "../../theme/index";
-import { useDarkMode } from "../../Hooks/useDarkMode";
-import { manageNetworkError } from "../../Functions/manageNetworkError";
-import { useGetUserInfo } from "../../Hooks";
-import { CancelButton, SaveButton } from "../../components";
-import { manageErrors } from "../../Functions";
+import React, { useState } from 'react';
+import { Modal, Select, message, Form, Space, Spin } from 'antd';
+import { useMediaQuery } from '../MediaQurey';
+import { useMutation, useQueryClient } from 'react-query';
+import axiosInstance from '../ApiBaseUrl';
+import { useTranslation } from 'react-i18next';
+import { useQuery } from 'react-query';
+import moment from 'moment';
+import { lessVars } from '../../theme/index';
+import { useDarkMode } from '../../Hooks/useDarkMode';
+import { manageNetworkError } from '../../Functions/manageNetworkError';
+import { useGetUserInfo } from '../../Hooks';
+import { CancelButton, SaveButton } from '../../components';
+import { manageErrors } from '../../Functions';
 
 const { Option } = Select;
 
@@ -25,37 +25,37 @@ function AdvanceUserSettings() {
     visible: false,
   });
 
-  const isTablet = useMediaQuery("(max-width: 768px)");
-  const isMobile = useMediaQuery("(max-width: 425px)");
+  const isTablet = useMediaQuery('(max-width: 768px)');
+  const isMobile = useMediaQuery('(max-width: 425px)');
 
   //get calender list
   const calenderList = useQuery(
-    "/system_setting/calender/",
+    '/system_setting/calender/',
     async () => {
       const result = await axiosInstance.get(`/system_setting/calender/`);
       return result.data;
     },
-    { cacheTime: 86400000 }
+    { cacheTime: 86400000 },
   );
 
   //get theme list
   const themeList = useQuery(
-    "/system_setting/theme/",
+    '/system_setting/theme/',
     async () => {
       const result = await axiosInstance.get(`/system_setting/theme/`);
       return result.data;
     },
-    { cacheTime: 86400000 }
+    { cacheTime: 86400000 },
   );
 
   //get languages list
   const languageList = useQuery(
-    "/system_setting/language/",
+    '/system_setting/language/',
     async () => {
       const result = await axiosInstance.get(`/system_setting/language/`);
       return result.data;
     },
-    { cacheTime: 86400000 , refetchOnWindowFocus:false}
+    { cacheTime: 86400000, refetchOnWindowFocus: false },
   );
 
   //get user information
@@ -78,14 +78,14 @@ function AdvanceUserSettings() {
         theme: userData?.data?.user_theme?.id,
       });
     } else {
-      const id = localStorage.getItem("user_id");
+      const id = localStorage.getItem('user_id');
       setLoading(true);
       await axiosInstance
         .get(
-          `/user_account/user_profile/${id}/?expand=*&fields=user_language,,user_calender,user_theme`
+          `/user_account/user_profile/${id}/?expand=*&fields=user_language,,user_calender,user_theme`,
         )
         .then((res) => {
-          // 
+          //
           setLoading(false);
           form.setFieldsValue({
             language: res?.data?.user_language?.symbol,
@@ -107,10 +107,10 @@ function AdvanceUserSettings() {
   };
 
   const handelChangeAdvanceSettings = async ({ value }: any) => {
-    const id = localStorage.getItem("user_id");
+    const id = localStorage.getItem('user_id');
     return await axiosInstance.patch(
       `/user_account/user_profile/${id}/`,
-      value
+      value,
     );
   };
 
@@ -126,7 +126,7 @@ function AdvanceUserSettings() {
 
       if (prevValue?.language !== value?.user_language) {
         await i18n.changeLanguage(value.user_language);
-        if (value?.user_language === "en") {
+        if (value?.user_language === 'en') {
           // moment.locale("en");
         } else {
           // moment.locale("fa");
@@ -134,14 +134,14 @@ function AdvanceUserSettings() {
       }
 
       if (prevValue?.theme !== value?.user_theme) {
-        setMode(value?.user_theme === 1 ? "dark" : "light");
+        setMode(value?.user_theme === 1 ? 'dark' : 'light');
         //@ts-ignore
         window.less.modifyVars(
-          value?.user_theme === 1 ? lessVars.dark : lessVars.light
+          value?.user_theme === 1 ? lessVars.dark : lessVars.light,
         );
       }
 
-      message.success(t("Profile.Advance_user_settings_message"));
+      message.success(t('Profile.Advance_user_settings_message'));
       queryClient.invalidateQueries(`/user_account/user_profile/calender/`);
       queryClient.invalidateQueries(`/user_account/user_profile/`);
     },
@@ -175,16 +175,16 @@ function AdvanceUserSettings() {
 
   return (
     <div>
-      <div onClick={showModal}>{t("Profile.Advance_user_settings")}</div>
+      <div onClick={showModal}>{t('Profile.Advance_user_settings')}</div>
       <Modal
         maskClosable={false}
-        title={t("Profile.Advance_user_settings")}
+        title={t('Profile.Advance_user_settings')}
         destroyOnClose
         afterClose={handelAfterClose}
         centered
         open={isShowModal.visible}
         onCancel={onCancel}
-        width={isMobile ? "100%" : isTablet ? 350 : 350}
+        width={isMobile ? '100%' : isTablet ? 350 : 350}
         footer={
           <Space>
             <CancelButton onClick={onCancel} />
@@ -197,11 +197,11 @@ function AdvanceUserSettings() {
             form={form}
             hideRequiredMark={true}
             scrollToFirstError={true}
-            layout="vertical"
+            layout='vertical'
           >
             <Form.Item
-              name="language"
-              label={t("Profile.Language")}
+              name='language'
+              label={t('Profile.Language')}
               style={styles.formItem}
             >
               <Select>
@@ -214,13 +214,13 @@ function AdvanceUserSettings() {
                     >
                       {item?.name}
                     </Option>
-                  )
+                  ),
                 )}
               </Select>
             </Form.Item>
             <Form.Item
-              name="calendar"
-              label={t("Profile.Calender")}
+              name='calendar'
+              label={t('Profile.Calender')}
               style={styles.formItem}
             >
               <Select>
@@ -229,15 +229,15 @@ function AdvanceUserSettings() {
                     <Option label={item?.name} value={item?.id} key={item?.id}>
                       {item?.name}
                     </Option>
-                  )
+                  ),
                 )}
               </Select>
             </Form.Item>
 
             <Form.Item
-              name="theme"
-              label={t("Profile.Theme")}
-              style={{ marginBottom: "0px" }}
+              name='theme'
+              label={t('Profile.Theme')}
+              style={{ marginBottom: '0px' }}
             >
               <Select>
                 {themeList?.data?.results?.map(
@@ -245,7 +245,7 @@ function AdvanceUserSettings() {
                     <Option label={item?.name} value={item?.id} key={item?.id}>
                       {item?.name}
                     </Option>
-                  )
+                  ),
                 )}
               </Select>
             </Form.Item>
@@ -259,7 +259,7 @@ function AdvanceUserSettings() {
 //@ts-ignore
 AdvanceUserSettings = React.memo(AdvanceUserSettings);
 const styles = {
-  formItem: { marginBottom: "10px" },
+  formItem: { marginBottom: '10px' },
 };
 
 export default AdvanceUserSettings;

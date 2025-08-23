@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { Drawer, Menu } from "antd";
-import { MenuOutlined } from "@ant-design/icons";
-import { useMediaQuery } from "../../MediaQurey";
-import { connect } from "react-redux";
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Drawer, Menu } from 'antd';
+import { MenuOutlined } from '@ant-design/icons';
+import { useMediaQuery } from '../../MediaQurey';
+import { connect } from 'react-redux';
 
 const Navbar = (props) => {
   const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
-  const isTablet = useMediaQuery("(max-width:767px)");
-  const isMiniTablet = useMediaQuery("(max-width:575px)");
-  const isMobile = useMediaQuery("(max-width:425px)");
-  const isMiniMobile = useMediaQuery("(max-width:375px)");
+  const isTablet = useMediaQuery('(max-width:767px)');
+  const isMiniTablet = useMediaQuery('(max-width:575px)');
+  const isMobile = useMediaQuery('(max-width:425px)');
+  const isMiniMobile = useMediaQuery('(max-width:375px)');
 
   const showDrawer = () => {
     setVisible(true);
@@ -24,8 +24,8 @@ const Navbar = (props) => {
   return (
     <div>
       <MenuOutlined
-        className="trigger"
-        style={{ fontSize: "1.5rem" }}
+        className='trigger'
+        style={{ fontSize: '1.5rem' }}
         onClick={showDrawer}
       />
 
@@ -33,43 +33,43 @@ const Navbar = (props) => {
         maskClosable={false}
         width={
           isMiniMobile
-            ? "60%"
+            ? '60%'
             : isMobile
-            ? "52%"
-            : isMiniTablet
-            ? "44%"
-            : isTablet
-            ? "32%"
-            : "30%"
+              ? '52%'
+              : isMiniTablet
+                ? '44%'
+                : isTablet
+                  ? '32%'
+                  : '30%'
         }
         onClose={onClose}
         open={visible}
         closable={false}
-        placement={props.rtl ? "right" : "left"}
-        bodyStyle={{ padding: "0rem" }}
+        placement={props.rtl ? 'right' : 'left'}
+        bodyStyle={{ padding: '0rem' }}
       >
         <Menu
-          mode="vertical"
-          theme="light"
-          style={{ height: "100vh" }}
-          defaultOpenKeys={["1"]}
+          mode='vertical'
+          theme='light'
+          style={{ height: '100vh' }}
+          defaultOpenKeys={['1']}
           selectedKeys={[props.current]}
           onClick={props.onClickMenu}
         >
           <Menu.Item
             // className="Account__details__show"
-            key="company"
+            key='company'
             style={styles.margin}
           >
-            {t("Company.1")}
+            {t('Company.1')}
           </Menu.Item>
           <Menu.Item
-            key="smtpEmail"
+            key='smtpEmail'
             style={styles.margin}
 
             // className="Account__details__show"
           >
-            {t("Company.SMTP_email")}
+            {t('Company.SMTP_email')}
           </Menu.Item>
           {/* <Menu.Item
             // className="Account__details__show"
@@ -80,10 +80,10 @@ const Navbar = (props) => {
           </Menu.Item> */}
           <Menu.Item
             // className="Account__details__show"
-            key="billing"
+            key='billing'
             style={styles.margin}
           >
-            {t("Company.Billing_subscription")}
+            {t('Company.Billing_subscription')}
           </Menu.Item>
           {/* 
           <Menu.Item

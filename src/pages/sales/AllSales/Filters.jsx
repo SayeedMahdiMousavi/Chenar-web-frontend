@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { Row, Col, Select, Form, Button, DatePicker } from "antd";
-import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { connect } from "react-redux";
-import { ApplyButton, ResetButton } from "../../../components";
+import React, { useState, useEffect } from 'react';
+import { Row, Col, Select, Form, Button, DatePicker } from 'antd';
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { connect } from 'react-redux';
+import { ApplyButton, ResetButton } from '../../../components';
 
 const { RangePicker } = DatePicker;
 
@@ -24,48 +24,48 @@ const Filters = (props) => {
 
   return (
     <Form
-      layout="vertical"
+      layout='vertical'
       onFinish={onFinish}
       form={form}
       initialValues={{
-        ["date"]: "all dates",
-        ["type"]: "all transactions",
-        ["delivered_method"]: "any",
-        ["status"]: "all statuses",
-        ["payee"]: "all",
+        ['date']: 'all dates',
+        ['type']: 'all transactions',
+        ['delivered_method']: 'any',
+        ['status']: 'all statuses',
+        ['payee']: 'all',
       }}
-      className="expenses_filter"
+      className='expenses_filter'
     >
-      <Row gutter={[0, 11]} className="expenses_filter_row">
+      <Row gutter={[0, 11]} className='expenses_filter_row'>
         <Col
           md={{ span: 9, offset: 1 }}
           xs={{ span: 22, offset: 1 }}
-          style={{ padding: "0rem" }}
+          style={{ padding: '0rem' }}
         >
           <Form.Item
-            name="type"
+            name='type'
             label={
               <p style={styles.margin}>
-                {t("Sales.Product_and_services.Type")}
+                {t('Sales.Product_and_services.Type')}
               </p>
             }
             style={styles.margin}
           >
-            <Select className="table__header1-select" allowClear autoFocus>
-              <Option value="all transactions">
-                {t("Sales.Product_and_services.All")}&nbsp;
-                {t("Sales.Customers.Transactions").toLowerCase()}
+            <Select className='table__header1-select' allowClear autoFocus>
+              <Option value='all transactions'>
+                {t('Sales.Product_and_services.All')}&nbsp;
+                {t('Sales.Customers.Transactions').toLowerCase()}
               </Option>
-              <Option value="expense">{t("Expenses.Expense")}</Option>
-              <Option value="bill payments">
-                {t("Expenses.Table.Bill_payments")}
+              <Option value='expense'>{t('Expenses.Expense')}</Option>
+              <Option value='bill payments'>
+                {t('Expenses.Table.Bill_payments')}
               </Option>
-              <Option value="open invoices">{t("Expenses.Cheque")}</Option>
-              <Option value="recently paid">
-                {t("Expenses.Table.Recently_paid")}
+              <Option value='open invoices'>{t('Expenses.Cheque')}</Option>
+              <Option value='recently paid'>
+                {t('Expenses.Table.Recently_paid')}
               </Option>
-              <Option value="credit cart payment">
-                {t("Expenses.Table.Credit_cart_payment")}
+              <Option value='credit cart payment'>
+                {t('Expenses.Table.Credit_cart_payment')}
               </Option>
             </Select>
           </Form.Item>
@@ -73,24 +73,24 @@ const Filters = (props) => {
         <Col
           md={{ span: 13, offset: 1 }}
           xs={{ span: 22, offset: 1 }}
-          className="expense_filter_view"
+          className='expense_filter_view'
         >
-          <Link to="/"> {t("Expenses.Table.View_deleted/voided")}</Link>
+          <Link to='/'> {t('Expenses.Table.View_deleted/voided')}</Link>
         </Col>
         <Col md={{ span: 9, offset: 1 }} xs={{ span: 22, offset: 1 }}>
           <Form.Item
-            name="status"
-            label={t("Sales.Product_and_services.Status")}
+            name='status'
+            label={t('Sales.Product_and_services.Status')}
             style={styles.margin}
           >
-            <Select className="table__header1-select" allowClear>
-              <Option value="all statuses">
-                {t("Expenses.Table.All_statuses")}
+            <Select className='table__header1-select' allowClear>
+              <Option value='all statuses'>
+                {t('Expenses.Table.All_statuses')}
               </Option>
-              <Option value="tody"> {t("Sales.Customers.Table.Tody")}</Option>
-              <Option value="open">
+              <Option value='tody'> {t('Sales.Customers.Table.Tody')}</Option>
+              <Option value='open'>
                 {
-                  t("Sales.Customers.Details.Open")
+                  t('Sales.Customers.Details.Open')
                   // .split(" ")
                   // .map(
                   //   (w) => w?.[0]?.toUpperCase() + w?.substr(1)?.toLowerCase()
@@ -98,108 +98,108 @@ const Filters = (props) => {
                   // .join(" ")
                 }
               </Option>
-              <Option value="overdue">
+              <Option value='overdue'>
                 {
-                  t("Sales.Customers.Details.Overdue")
+                  t('Sales.Customers.Details.Overdue')
                   // .split(" ")
                   // .map((w) => w[0].toUpperCase() + w.substr(1).toLowerCase())
                   // .join(" ")
                 }
               </Option>
-              <Option value="paid">{t("Expenses.Table.Paid")}</Option>
+              <Option value='paid'>{t('Expenses.Table.Paid')}</Option>
             </Select>
           </Form.Item>
         </Col>
         <Col md={{ span: 12, offset: 1 }} xs={{ span: 22, offset: 1 }}>
           <Form.Item
-            name="delivered_method"
-            label={t("Expenses.Table.Delivered_method")}
+            name='delivered_method'
+            label={t('Expenses.Table.Delivered_method')}
             style={styles.margin}
           >
-            <Select className="table__header1-select" allowClear>
-              <Option value="any"> {t("Expenses.Table.Any")}</Option>
-              <Option value="print later">
-                {t("Expenses.Table.Print_later")}
+            <Select className='table__header1-select' allowClear>
+              <Option value='any'> {t('Expenses.Table.Any')}</Option>
+              <Option value='print later'>
+                {t('Expenses.Table.Print_later')}
               </Option>
             </Select>
           </Form.Item>
         </Col>
         <Col md={{ span: 9, offset: 1 }} xs={{ span: 22, offset: 1 }}>
           <Form.Item
-            name="date"
-            label={t("Sales.Customers.Form.Date")}
+            name='date'
+            label={t('Sales.Customers.Form.Date')}
             style={styles.margin}
           >
-            <Select className="table__header1-select" allowClear>
-              <Option value="allDates">
-                {t("Sales.Customers.Table.All_dates")}
+            <Select className='table__header1-select' allowClear>
+              <Option value='allDates'>
+                {t('Sales.Customers.Table.All_dates')}
               </Option>
-              <Option value="last365Days">
-                {t("Expenses.Table.last_365_days")}
+              <Option value='last365Days'>
+                {t('Expenses.Table.last_365_days')}
               </Option>
-              <Option value="custom">{t("Expenses.Table.Custom")}</Option>
+              <Option value='custom'>{t('Expenses.Table.Custom')}</Option>
 
-              <Option value="tody"> {t("Sales.Customers.Table.Tody")}</Option>
-              <Option value="yesterday">
-                {t("Sales.Customers.Table.Yesterday")}
+              <Option value='tody'> {t('Sales.Customers.Table.Tody')}</Option>
+              <Option value='yesterday'>
+                {t('Sales.Customers.Table.Yesterday')}
               </Option>
-              <Option value="thisWeek">
-                {t("Sales.Customers.Table.This_week")}
+              <Option value='thisWeek'>
+                {t('Sales.Customers.Table.This_week')}
               </Option>
-              <Option value="thisMonth">
-                {t("Sales.Customers.Table.This_month")}
+              <Option value='thisMonth'>
+                {t('Sales.Customers.Table.This_month')}
               </Option>
-              <Option value="thisQuarter">
-                {t("Sales.Customers.Table.This_quarter")}
-              </Option>
-
-              <Option value="thisYear">
-                {t("Sales.Customers.Table.This_year")}
+              <Option value='thisQuarter'>
+                {t('Sales.Customers.Table.This_quarter')}
               </Option>
 
-              <Option value="last_week">
-                {t("Sales.Customers.Table.Last_week")}
+              <Option value='thisYear'>
+                {t('Sales.Customers.Table.This_year')}
               </Option>
-              <Option value="lastMonth">
-                {t("Sales.Customers.Table.Last_month")}
+
+              <Option value='last_week'>
+                {t('Sales.Customers.Table.Last_week')}
               </Option>
-              <Option value="lastQuarter">
-                {t("Sales.Customers.Table.Last_quarter")}
+              <Option value='lastMonth'>
+                {t('Sales.Customers.Table.Last_month')}
               </Option>
-              <Option value="lastYear">
-                {t("Sales.Customers.Table.Last_year")}
+              <Option value='lastQuarter'>
+                {t('Sales.Customers.Table.Last_quarter')}
+              </Option>
+              <Option value='lastYear'>
+                {t('Sales.Customers.Table.Last_year')}
               </Option>
             </Select>
           </Form.Item>
         </Col>
         <Col md={{ span: 12, offset: 1 }} xs={{ span: 22, offset: 1 }}>
           <Form.Item
-            name="range-picker"
+            name='range-picker'
             label={
-              <Row className="num">
-                <Col span={13}>{t("Expenses.Table.Start")}</Col>
-                <Col span={11}>{t("Expenses.Table.End")}</Col>
+              <Row className='num'>
+                <Col span={13}>{t('Expenses.Table.Start')}</Col>
+                <Col span={11}>{t('Expenses.Table.End')}</Col>
               </Row>
             }
             style={styles.margin}
           >
-            <RangePicker popupClassName="expenses_rangePicker" />
+            <RangePicker popupClassName='expenses_rangePicker' />
           </Form.Item>
         </Col>
 
         <Col md={{ span: 9, offset: 1 }} xs={{ span: 22, offset: 1 }}>
           <Form.Item
-            name="payee"
-            label={t("Expenses.Table.Payee")}
+            name='payee'
+            label={t('Expenses.Table.Payee')}
             style={styles.margin}
           >
             <Select
-              className="table__header1-select"
+              className='table__header1-select'
               allowClear
               showSearch
               // dropdownRender={(menu) => <div>{menu}</div>}
             >
-              <Option value="all">{t("Sales.Product_and_services.All")}</Option>
+              <Option value='all'>{t('Sales.Product_and_services.All')}</Option>
               {items?.map((item) => (
                 <Option value={item.name} key={item.id}>
                   {item.display_name}
@@ -210,9 +210,9 @@ const Filters = (props) => {
         </Col>
       </Row>
       <Row>
-        <Col span={24} className="unit__submit">
+        <Col span={24} className='unit__submit'>
           <Form.Item style={styles.margin}>
-            <Row className="num unit__cancel">
+            <Row className='num unit__cancel'>
               <Col
                 xl={{ span: 5, offset: 1 }}
                 md={{ span: 5, offset: 1 }}
@@ -237,7 +237,7 @@ const Filters = (props) => {
   );
 };
 const styles = {
-  margin: { marginBottom: "0rem" },
+  margin: { marginBottom: '0rem' },
 };
 const mapStateToProps = (state) => ({
   rtl: state.direction.rtl,

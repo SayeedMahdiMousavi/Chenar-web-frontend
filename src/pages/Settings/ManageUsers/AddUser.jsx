@@ -1,9 +1,9 @@
-import React, { useState, useEffect , useCallback } from "react";
-import { useTranslation } from "react-i18next";
-import { useMediaQuery } from "../../MediaQurey";
-import { Colors } from "../../colors";
-import { useMutation, useQueryClient, useQuery } from "react-query";
-import axiosInstance from "../../ApiBaseUrl";
+import React, { useState, useEffect, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useMediaQuery } from '../../MediaQurey';
+import { Colors } from '../../colors';
+import { useMutation, useQueryClient, useQuery } from 'react-query';
+import axiosInstance from '../../ApiBaseUrl';
 import {
   TreeSelect,
   Drawer,
@@ -16,46 +16,46 @@ import {
   Typography,
   Radio,
   Alert,
-  Select
-} from "antd";
-import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
-import { connect } from "react-redux";
-import { ActionMessage } from "../../SelfComponents/TranslateComponents/ActionMessage";
-import { trimString } from "../../../Functions/TrimString";
-import { InfiniteScrollSelectFormItem } from "../../../components/antd";
-import { useGetDefaultEmployee, useGetPermissions } from "../../../Hooks";
-import { permissionsList, USERS_M } from "../../../constants/permissions";
+  Select,
+} from 'antd';
+import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
+import { connect } from 'react-redux';
+import { ActionMessage } from '../../SelfComponents/TranslateComponents/ActionMessage';
+import { trimString } from '../../../Functions/TrimString';
+import { InfiniteScrollSelectFormItem } from '../../../components/antd';
+import { useGetDefaultEmployee, useGetPermissions } from '../../../Hooks';
+import { permissionsList, USERS_M } from '../../../constants/permissions';
 
 import {
   CancelButton,
   PageNewButton,
   PermissionsFormItem,
   SaveButton,
-} from "../../../components";
-import { ROLES_LIST } from "../../../constants/routes";
+} from '../../../components';
+import { ROLES_LIST } from '../../../constants/routes';
 
 const { Title, Text, Paragraph } = Typography;
-const {Option} = Select
+const { Option } = Select;
 const AddUser = (props) => {
   const queryClient = useQueryClient();
   const [visible, setVisible] = useState(false);
   const [current, setCurrent] = useState(0);
-  const [user, setUser] = useState("admin");
-  const [password, setPassword] = useState("");
-  const [userName, setUserName] = useState("");
+  const [user, setUser] = useState('admin');
+  const [password, setPassword] = useState('');
+  const [userName, setUserName] = useState('');
   const [errorMessage, setErrorMessage] = useState(false);
   // const [access, setAccess] = useState("");
   // const [openSelect, setOpenSelect] = useState(false);
   // const [timeSheets, setTimeSheets] = useState("");
   const { t } = useTranslation();
   const [values, setValues] = useState({});
-  const isMiniTablet = useMediaQuery("(max-width:576px)");
-  const isMobile = useMediaQuery("(max-width:425px)");
+  const isMiniTablet = useMediaQuery('(max-width:576px)');
+  const isMobile = useMediaQuery('(max-width:425px)');
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const [permissionsState, setPermissionsState] = useState([]);
-  const [roleId , setRoleId] = useState(null)
-  const [permissionsId ,setPermissionsId] = useState(null)
+  const [roleId, setRoleId] = useState(null);
+  const [permissionsId, setPermissionsId] = useState(null);
 
   //get permissions list
   const { data: permissions } = useGetPermissions();
@@ -69,7 +69,7 @@ const AddUser = (props) => {
   const onClose = () => {
     setVisible(false);
     setCurrent(0);
-    setUser("admin");
+    setUser('admin');
     form.resetFields();
   };
   const onChangeName = async (e) => {
@@ -113,7 +113,7 @@ const AddUser = (props) => {
         setVisible(false);
 
         message.success(
-          <ActionMessage name={res?.data?.username} message="Message.Add" />
+          <ActionMessage name={res?.data?.username} message='Message.Add' />,
         );
       })
       .catch((error) => {
@@ -161,47 +161,46 @@ const AddUser = (props) => {
             user_group: [roleId],
             // permits: values?.permissions,
             // user_permissions:values?.permissions,
-            ...(permissionsId?.length > 0 ? {user_permissions:permissionsId}: {}),
+            ...(permissionsId?.length > 0
+              ? { user_permissions: permissionsId }
+              : {}),
             user_staff: value?.employee?.value,
             user_calender: 2,
             user_theme: 2,
-            user_language: "fa",
+            user_language: 'fa',
           };
           // const userType = user;
           // console.log("allData" , allData , "value" , value)
           // if (Boolean(values?.permissions) && userType !== "admin") {
           //   message.error(t("Manage_users.Permissions_required"));
           // } else {
-            setLoading(true);
-            mutateAddUser(allData);
+          setLoading(true);
+          mutateAddUser(allData);
           // }
         }
       })
-      .catch((info) => {
-        
-      });
+      .catch((info) => {});
   };
 
   const handleAfterVisibleChange = () => {
     setLoading(false);
     setCurrent(0);
-    setUser("admin");
+    setUser('admin');
     form.resetFields();
     setValues({});
-    setPassword("");
-    setUserName("");
+    setPassword('');
+    setUserName('');
     setErrorMessage(false);
   };
 
   const handleGetPermissionFunction = async () => {
     const { data } = await axiosInstance.get(
-      "/user_account/permit/?page=1&page_size=10000"
+      '/user_account/permit/?page=1&page_size=10000',
     );
     return data;
   };
 
-  const permissionData = useQuery("", handleGetPermissionFunction);
-  
+  const permissionData = useQuery('', handleGetPermissionFunction);
 
   if (
     permissionData?.data?.results?.length > 0 &&
@@ -232,56 +231,54 @@ const AddUser = (props) => {
     // const createPermissionList = permissionData?.data?.results?.map((item:any) =>{
 
     // })
-    // 
+    //
     setPermissionsState(createPermissions);
   }
-  
+
   const handelGetRole = async () => {
-    
     const { data } = await axiosInstance.get(
-      `${ROLES_LIST}?page=1&page_size=20`
+      `${ROLES_LIST}?page=1&page_size=20`,
     );
 
     return data;
   };
-const roleData = useQuery('getRole' , handelGetRole)
+  const roleData = useQuery('getRole', handelGetRole);
 
   const handleChangeRoleFunction = (event) => {
+    setRoleId(event);
+  };
 
-    setRoleId(event)
-  }
-
-  const handelGetPermissionsId = (data) =>{
-    setPermissionsId(data)
-  }
+  const handelGetPermissionsId = (data) => {
+    setPermissionsId(data);
+  };
   return (
     <div>
       <PageNewButton onClick={showDrawer} model={USERS_M} />
       <Drawer
         maskClosable={false}
         mask={true}
-        title={t("Manage_users.Add_user_title")}
-        height="100%"
+        title={t('Manage_users.Add_user_title')}
+        height='100%'
         onClose={onClose}
         afterVisibleChange={handleAfterVisibleChange}
         open={visible}
-        placement="top"
+        placement='top'
         bodyStyle={{ paddingBottom: 10 }}
         footer={
-          <div className="import__footer">
+          <div className='import__footer'>
             <div>
               {current === 0 && <CancelButton onClick={onClose} />}
               {current > 0 && (
-                <Button onClick={() => prev()}>{t("Step.Previous")}</Button>
+                <Button onClick={() => prev()}>{t('Step.Previous')}</Button>
               )}
             </div>
             <div>
-              {(user === "admin" && current < 1) ||
-              (user === "custom" && current < 2) ||
-              (user === "standard" && current < 1) ||
-              (user === "report_only" && current < 1) ? (
-                <Button type="primary" onClick={() => next()}>
-                  {t("Step.Next")}
+              {(user === 'admin' && current < 1) ||
+              (user === 'custom' && current < 2) ||
+              (user === 'standard' && current < 1) ||
+              (user === 'report_only' && current < 1) ? (
+                <Button type='primary' onClick={() => next()}>
+                  {t('Step.Next')}
                 </Button>
               ) : (
                 <SaveButton onClick={onSubmit} loading={loading} />
@@ -292,12 +289,12 @@ const roleData = useQuery('getRole' , handelGetRole)
       >
         <Form
           form={form}
-          layout="vertical"
+          layout='vertical'
           hideRequiredMark
-          className="num"
+          className='num'
           initialValues={{
             // ["timeSheets"]: "yes",
-            user: "admin",
+            user: 'admin',
             // ["access"]: "all",
             // customer: false,
             employee: { label: defaultEmployee?.full_name, value: 203001 },
@@ -407,19 +404,19 @@ const roleData = useQuery('getRole' , handelGetRole)
             // )
             //  :
             current === 0 ? (
-              <div className="num">
-                <Title type="secondary" level={4}>
-                  {t("Manage_users.Select_user_type")}
+              <div className='num'>
+                <Title type='secondary' level={4}>
+                  {t('Manage_users.Select_user_type')}
                 </Title>
                 <Text strong={true}>
-                  {t("Manage_users.User_type_description")}
+                  {t('Manage_users.User_type_description')}
                 </Text>
-                <Form.Item name="user">
+                <Form.Item name='user'>
                   <Radio.Group
-                    size="large"
+                    size='large'
                     style={styles.radioGroup(isMiniTablet)}
                     onChange={onChangeName}
-                    className="num"
+                    className='num'
                   >
                     {/* <Radio style={styles.radioStyle} value="standard">
                       {t("Manage_users.Standard_user")}
@@ -428,16 +425,16 @@ const roleData = useQuery('getRole' , handelGetRole)
                       </Paragraph>
                     </Radio> */}
                     <br />
-                    <Radio style={styles.radioStyle} value="admin">
-                      {t("Manage_users.Company_admin")}
-                      <Paragraph type="secondary" style={styles.text}>
-                        {t("Manage_users.Company_admin_description")}
+                    <Radio style={styles.radioStyle} value='admin'>
+                      {t('Manage_users.Company_admin')}
+                      <Paragraph type='secondary' style={styles.text}>
+                        {t('Manage_users.Company_admin_description')}
                       </Paragraph>
                     </Radio>
 
                     {/* <Divider className="num" /> */}
                     <Text strong={true}>
-                      {t("Manage_users.User_type_description")}
+                      {t('Manage_users.User_type_description')}
                     </Text>
 
                     {/* <Radio style={styles.radioStyle} value="report_only">
@@ -448,10 +445,10 @@ const roleData = useQuery('getRole' , handelGetRole)
                     </Radio>
                     <br /> */}
                     <br />
-                    <Radio style={styles.radioStyle} value="custom">
-                      {t("Manage_users.Custom_user")}
-                      <Paragraph type="secondary" style={styles.text}>
-                        {t("Manage_users.Company_custom_description")}
+                    <Radio style={styles.radioStyle} value='custom'>
+                      {t('Manage_users.Custom_user')}
+                      <Paragraph type='secondary' style={styles.text}>
+                        {t('Manage_users.Company_custom_description')}
                       </Paragraph>
                     </Radio>
                   </Radio.Group>
@@ -628,15 +625,15 @@ const roleData = useQuery('getRole' , handelGetRole)
             //     </Form.Item>
             //   </div>
             // ) :
-            (current === 1 && user === "standard") ||
-              (user === "admin" && current === 1) ||
-              (user === "report_only" && current === 1) ||
-              (user === "custom" && current === 2) ? (
+            (current === 1 && user === 'standard') ||
+              (user === 'admin' && current === 1) ||
+              (user === 'report_only' && current === 1) ||
+              (user === 'custom' && current === 2) ? (
               <div>
                 <Row>
                   <Col span={10}>
-                    <Title type="secondary" level={4}>
-                      {t("Manage_users.User_information")}
+                    <Title type='secondary' level={4}>
+                      {t('Manage_users.User_information')}
                     </Title>
                     {/* <Paragraph>
                       {t("Manage_users.Contact_info_description")}
@@ -648,18 +645,18 @@ const roleData = useQuery('getRole' , handelGetRole)
                   <Col xl={6} lg={7} md={9} sm={11} xs={24}>
                     {errorMessage ? (
                       <Alert
-                        message={t("Manage_users.Password_validation_error")}
-                        type="error"
+                        message={t('Manage_users.Password_validation_error')}
+                        type='error'
                       />
                     ) : (
                       <div></div>
                     )}
                     <Form.Item
-                      name="userName"
+                      name='userName'
                       label={
                         <span>
-                          {t("Form.User_name")}
-                          <span className="star">*</span>
+                          {t('Form.User_name')}
+                          <span className='star'>*</span>
                         </span>
                       }
                       style={styles.userSetting}
@@ -667,56 +664,56 @@ const roleData = useQuery('getRole' , handelGetRole)
                         {
                           required: true,
                           whitespace: true,
-                          message: `${t("Form.User_name_required")}`,
+                          message: `${t('Form.User_name_required')}`,
                         },
                       ]}
                     >
                       <Input onChange={onChangeUserName} />
                     </Form.Item>
                     <Form.Item
-                      name="firstName"
-                      label={t("Form.Name1")}
+                      name='firstName'
+                      label={t('Form.Name1')}
                       style={styles.userSetting}
                     >
                       <Input />
                     </Form.Item>
                     <InfiniteScrollSelectFormItem
-                      name="employee"
+                      name='employee'
                       label={
                         <span>
-                          {t("Employees.Employee")}
-                          <span className="star">*</span>
+                          {t('Employees.Employee')}
+                          <span className='star'>*</span>
                         </span>
                       }
                       style={styles.userSetting}
-                      fields="full_name,id"
-                      baseUrl="/staff_account/staff/"
+                      fields='full_name,id'
+                      baseUrl='/staff_account/staff/'
                       rules={[
                         {
                           required: true,
-                          message: t("Employees.Employee_required"),
+                          message: t('Employees.Employee_required'),
                         },
                       ]}
                     />
 
                     <Form.Item
-                      name="email"
+                      name='email'
                       label={
                         <span>
-                          {t("Form.Email")}
-                          <span className="star">*</span>
+                          {t('Form.Email')}
+                          <span className='star'>*</span>
                         </span>
                       }
                       style={styles.userSetting}
                       rules={[
                         {
-                          type: "email",
-                          message: `${t("Form.Email_Message")}`,
+                          type: 'email',
+                          message: `${t('Form.Email_Message')}`,
                         },
                         {
                           required: true,
                           whitespace: true,
-                          message: `${t("Form.Required_email")}`,
+                          message: `${t('Form.Required_email')}`,
                         },
                       ]}
                     >
@@ -725,12 +722,12 @@ const roleData = useQuery('getRole' , handelGetRole)
                     <Form.Item
                       label={
                         <span>
-                          {t("Company.Form.Password")}
-                          <span className="star">*</span>
+                          {t('Company.Form.Password')}
+                          <span className='star'>*</span>
                         </span>
                       }
-                      name="password"
-                      validateStatus={errorMessage ? "error" : undefined}
+                      name='password'
+                      validateStatus={errorMessage ? 'error' : undefined}
                       dependencies={[String & Number]}
                       style={styles.userSetting}
                       hasFeedback
@@ -738,7 +735,7 @@ const roleData = useQuery('getRole' , handelGetRole)
                         {
                           required: true,
                           whitespace: true,
-                          message: `${t("Company.Form.Required_password")}`,
+                          message: `${t('Company.Form.Required_password')}`,
                         },
                       ]}
                     >
@@ -746,29 +743,29 @@ const roleData = useQuery('getRole' , handelGetRole)
                     </Form.Item>
 
                     <Form.Item
-                      name="confirm"
+                      name='confirm'
                       label={
                         <span>
-                          {t("Company.Form.Confirm_password")}
-                          <span className="star">*</span>
+                          {t('Company.Form.Confirm_password')}
+                          <span className='star'>*</span>
                         </span>
                       }
-                      dependencies={["password"]}
+                      dependencies={['password']}
                       hasFeedback
                       style={styles.margin}
                       rules={[
                         {
                           required: true,
                           whitespace: true,
-                          message: `${t("Company.Form.Required_confirm")}`,
+                          message: `${t('Company.Form.Required_confirm')}`,
                         },
                         ({ getFieldValue }) => ({
                           validator(rule, value) {
-                            if (!value || getFieldValue("password") === value) {
+                            if (!value || getFieldValue('password') === value) {
                               return Promise.resolve();
                             }
                             return Promise.reject(
-                              `${t("Company.Form.Confirm_match")}`
+                              `${t('Company.Form.Confirm_match')}`,
                             );
                           },
                         }),
@@ -780,46 +777,46 @@ const roleData = useQuery('getRole' , handelGetRole)
                   <Col span={24}>
                     <Paragraph>
                       {reg.test(password) ? (
-                        <CheckOutlined className="list_tick" />
+                        <CheckOutlined className='list_tick' />
                       ) : (
                         <CloseOutlined style={styles.close} />
                       )}
-                      &nbsp; {t("Manage_users.Password_validation_error1")}
+                      &nbsp; {t('Manage_users.Password_validation_error1')}
                       <br />
                       {reg1.test(password) ? (
-                        <CheckOutlined className="list_tick" />
+                        <CheckOutlined className='list_tick' />
                       ) : (
                         <CloseOutlined style={styles.close} />
                       )}
-                      &nbsp; {t("Manage_users.Password_validation_error2")}
+                      &nbsp; {t('Manage_users.Password_validation_error2')}
                       <br />
                       {password !== userName ? (
-                        <CheckOutlined className="list_tick" />
+                        <CheckOutlined className='list_tick' />
                       ) : (
                         <CloseOutlined style={styles.close} />
                       )}
-                      &nbsp; {t("Manage_users.Password_validation_error3")}{" "}
+                      &nbsp; {t('Manage_users.Password_validation_error3')}{' '}
                       <br />
                       {reg2.test(password) ? (
-                        <CheckOutlined className="list_tick" />
+                        <CheckOutlined className='list_tick' />
                       ) : (
                         <CloseOutlined style={styles.close} />
                       )}
-                      &nbsp; {t("Manage_users.Password_validation_error4")}{" "}
+                      &nbsp; {t('Manage_users.Password_validation_error4')}{' '}
                       <br />
                     </Paragraph>
                   </Col>
                 </Row>
               </div>
-            ) : user === "custom" ? (
+            ) : user === 'custom' ? (
               <Row>
                 <Col span={24}>
-                  <Title type="secondary" level={4}>
-                    {t("Manage_users.Select_access_rights")}
+                  <Title type='secondary' level={4}>
+                    {t('Manage_users.Select_access_rights')}
                   </Title>
                   <Text style={styles.userSetting}>
-                    {" "}
-                    {t("Manage_users.User_access_description")}
+                    {' '}
+                    {t('Manage_users.User_access_description')}
                   </Text>
                   <Row>
                     <Col
@@ -832,16 +829,16 @@ const roleData = useQuery('getRole' , handelGetRole)
                       <Form.Item
                         label={
                           <span>
-                            {t("Form.Name")}
-                            <span className="star">*</span>
+                            {t('Form.Name')}
+                            <span className='star'>*</span>
                           </span>
                         }
-                        name="name"
+                        name='name'
                         rules={[
-                          { required: false, message: t("Form.Name_required") },
+                          { required: false, message: t('Form.Name_required') },
                         ]}
                       >
-                        <Input autoFocus autoComplete="off" />
+                        <Input autoFocus autoComplete='off' />
                       </Form.Item>
                       {/* <Form.Item
                         label={
@@ -862,25 +859,25 @@ const roleData = useQuery('getRole' , handelGetRole)
                         <Input autoFocus autoComplete="on" />
                       </Form.Item> */}
                       <Form.Item
-                      label={
-                        <span>
-                          {t("Form.Role")}
-                          <span className="star">*</span>
-                        </span>
-                      }
-                      name="roleId"
+                        label={
+                          <span>
+                            {t('Form.Role')}
+                            <span className='star'>*</span>
+                          </span>
+                        }
+                        name='roleId'
                       >
-                      <Select
-                        style={{ width: "100%" }}
-                        onChange={handleChangeRoleFunction}
-                        placeholder="custom dropdown render"
-                       
-                      >
-                        {roleData?.data?.results?.map((item) => (
-                          <Option key={item?.id} value={item?.id}>{item?.name}</Option>
-                        ))}
-                      </Select>
-
+                        <Select
+                          style={{ width: '100%' }}
+                          onChange={handleChangeRoleFunction}
+                          placeholder='custom dropdown render'
+                        >
+                          {roleData?.data?.results?.map((item) => (
+                            <Option key={item?.id} value={item?.id}>
+                              {item?.name}
+                            </Option>
+                          ))}
+                        </Select>
                       </Form.Item>
                       {
                         //@ts-ignore
@@ -890,12 +887,12 @@ const roleData = useQuery('getRole' , handelGetRole)
                         // treeData={permissionsList}
                         treeData={permissionsState}
                         form={form}
-                        label={t("Manage_users.Permissions")}
+                        label={t('Manage_users.Permissions')}
                         getPermissionsId={handelGetPermissionsId}
                         rules={[
                           {
                             required: false,
-                            message: t("Manage_users.Permissions_required"),
+                            message: t('Manage_users.Permissions_required'),
                           },
                         ]}
                       />
@@ -962,32 +959,32 @@ const reg2 = /(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/;
 const styles = {
   radioStyle: {
     // display: "block",
-    height: "30px",
-    lineHeight: "20px",
+    height: '30px',
+    lineHeight: '20px',
   },
-  addInput: { flex: "auto", height: "30px" },
-  divider: { margin: "0 0 4px 0" },
+  addInput: { flex: 'auto', height: '30px' },
+  divider: { margin: '0 0 4px 0' },
   addItem: {
-    display: "flex",
-    flexWrap: "nowrap",
-    padding: "3px 8px",
-    width: "100%",
+    display: 'flex',
+    flexWrap: 'nowrap',
+    padding: '3px 8px',
+    width: '100%',
   },
   add: {
-    flex: "none",
-    padding: "4px",
-    display: "block",
-    cursor: "pointer",
-    width: "100%",
+    flex: 'none',
+    padding: '4px',
+    display: 'block',
+    cursor: 'pointer',
+    width: '100%',
   },
-  text: { margin: "0 25px" },
+  text: { margin: '0 25px' },
   radioGroup: (isMiniTablet) => ({
-    lineHeight: isMiniTablet ? "30px" : "50px",
+    lineHeight: isMiniTablet ? '30px' : '50px',
   }),
-  margin: { marginBottom: ".0rem" },
-  userSetting: { marginBottom: ".8rem" },
+  margin: { marginBottom: '.0rem' },
+  userSetting: { marginBottom: '.8rem' },
   close: { color: `${Colors.red}` },
-  accessPadding: (isMiniTablet) => ({ paddingTop: isMiniTablet ? "15px" : "" }),
+  accessPadding: (isMiniTablet) => ({ paddingTop: isMiniTablet ? '15px' : '' }),
 };
 const mapStateToProps = (state) => {
   return {

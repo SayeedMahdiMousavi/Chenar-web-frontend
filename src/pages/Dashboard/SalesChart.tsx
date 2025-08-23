@@ -15,7 +15,6 @@ import { useDarkMode } from '../../Hooks/useDarkMode';
 import { Colors } from '../colors';
 import { theme } from 'antd';
 
-
 const data = [
   {
     date: 'Page A',
@@ -77,7 +76,10 @@ const SalesChart = (props: any) => {
       <ResponsiveContainer width={'100%'} height={'100%'}>
         <AreaChart
           data={props?.data}
-          style={{ direction: t('Dir'), color: mode === 'dark' ? Colors.white : 'black', }}
+          style={{
+            direction: t('Dir'),
+            color: mode === 'dark' ? Colors.white : 'black',
+          }}
           // data={data}
           margin={{
             top: 82,
@@ -90,8 +92,16 @@ const SalesChart = (props: any) => {
           {/* // <div className="container-1" style={styles.chart(isMobileBased)}> */}
           <defs>
             <linearGradient id='color' x1='0' y1='0' x2='.8' y2='1'>
-              <stop offset='5%' stopColor={token.colorPrimary} stopOpacity={0.6} />
-              <stop offset='95%' stopColor={token.colorPrimary} stopOpacity={1} />
+              <stop
+                offset='5%'
+                stopColor={token.colorPrimary}
+                stopOpacity={0.6}
+              />
+              <stop
+                offset='95%'
+                stopColor={token.colorPrimary}
+                stopOpacity={1}
+              />
             </linearGradient>
           </defs>
 
@@ -126,7 +136,6 @@ const SalesChart = (props: any) => {
             name='Total'
             isAnimationActive={true}
             fillOpacity={1}
-            
           />
         </AreaChart>
       </ResponsiveContainer>

@@ -1,6 +1,6 @@
-import React from "react";
-import { Form, Select, InputNumber, Input, Modal, message } from "antd";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import { Form, Select, InputNumber, Input, Modal, message } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 const FormItem = Form.Item;
 export const EditPosInvoiceColumns = ({
@@ -24,7 +24,7 @@ export const EditPosInvoiceColumns = ({
     const row = form.getFieldsValue();
     const newPrice = getPrice(record, value);
 
-    const ok = findProductStatistics(record, "unit", value, row?.qty - 1);
+    const ok = findProductStatistics(record, 'unit', value, row?.qty - 1);
 
     if (ok && Boolean(newPrice)) {
       form.setFieldsValue({ each_price: newPrice });
@@ -47,14 +47,14 @@ export const EditPosInvoiceColumns = ({
   const onBlurPrice = () => {
     const row = form.getFieldsValue();
     const rate = record?.price?.find(
-      (item) => item?.unit?.id === row?.unit?.value
+      (item) => item?.unit?.id === row?.unit?.value,
     );
     if (row?.each_price < rate?.perches_rate) {
       save(record);
       Modal.warning({
-        bodyStyle: { direction: t("Dir") },
+        bodyStyle: { direction: t('Dir') },
         content: t(
-          "Sales.All_sales.Invoice.error_message_when_sales_is_less_than_purchase"
+          'Sales.All_sales.Invoice.error_message_when_sales_is_less_than_purchase',
         ),
         onOk: onOkBluerPrice,
       });
@@ -76,9 +76,9 @@ export const EditPosInvoiceColumns = ({
 
     const ok = findProductStatistics(
       record,
-      "edit",
+      'edit',
       row?.unit?.value,
-      e.target.value - 1
+      e.target.value - 1,
     );
     // if (ok) {
 
@@ -105,7 +105,7 @@ export const EditPosInvoiceColumns = ({
   // };
   const getInput = () => {
     switch (dataIndex) {
-      case "qty":
+      case 'qty':
         return (
           <FormItem
             style={styles.margin}
@@ -113,15 +113,15 @@ export const EditPosInvoiceColumns = ({
             rules={[
               {
                 required: true,
-                message: t("Sales.Product_and_services.Form.Quantity_required"),
+                message: t('Sales.Product_and_services.Form.Quantity_required'),
               },
             ]}
           >
             <InputNumber
-              className="num"
+              className='num'
               min={0}
-              type="number"
-              inputMode="numeric"
+              type='number'
+              inputMode='numeric'
               onPressEnter={handleEnterQty}
               onFocus={handleOnFocus}
               // onBlur={handleBluerQty}
@@ -130,7 +130,7 @@ export const EditPosInvoiceColumns = ({
           </FormItem>
         );
 
-      case "unit":
+      case 'unit':
         return (
           <FormItem name={dataIndex} style={styles.margin}>
             <Select
@@ -150,7 +150,7 @@ export const EditPosInvoiceColumns = ({
             </Select>
           </FormItem>
         );
-      case "each_price":
+      case 'each_price':
         return (
           <FormItem
             style={styles.margin}
@@ -158,15 +158,15 @@ export const EditPosInvoiceColumns = ({
             rules={[
               {
                 required: true,
-                message: t("Sales.Product_and_services.Form.Price_required"),
+                message: t('Sales.Product_and_services.Form.Price_required'),
               },
             ]}
           >
             <InputNumber
-              className="num"
+              className='num'
               min={0}
-              type="number"
-              inputMode="numeric"
+              type='number'
+              inputMode='numeric'
               onPressEnter={onPressEnterPrice}
               onBlur={onBlurPrice}
               onFocus={handleOnFocus}
@@ -185,5 +185,5 @@ export const EditPosInvoiceColumns = ({
 };
 const styles = {
   margin: { marginBottom: 0 },
-  table: { margin: "0px 0px 24px 0px" },
+  table: { margin: '0px 0px 24px 0px' },
 };

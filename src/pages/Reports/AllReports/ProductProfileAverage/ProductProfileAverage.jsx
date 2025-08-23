@@ -1,12 +1,12 @@
-import React from "react";
-import ReportBody from "../../ReportBody";
-import ProductProfileAverageTable from "./ProductProfileAverageTable";
+import React from 'react';
+import ReportBody from '../../ReportBody';
+import ProductProfileAverageTable from './ProductProfileAverageTable';
 
 const ProductProfileAverage = (props) => {
   return (
     <ReportBody
       title={props.title}
-      type="warehouse"
+      type='warehouse'
       table={
         <ProductProfileAverageTable
           baseUrl={props.baseUrl}

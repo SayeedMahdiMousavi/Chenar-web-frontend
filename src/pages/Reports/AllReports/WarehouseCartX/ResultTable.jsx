@@ -1,8 +1,8 @@
-import React from "react";
-import { useQuery } from "react-query";
-import { Table } from "antd";
-import axiosInstance from "../../../ApiBaseUrl";
-import { WAREHOUSE_CARDX_RESULT_LIST } from "../../../../constants/routes";
+import React from 'react';
+import { useQuery } from 'react-query';
+import { Table } from 'antd';
+import axiosInstance from '../../../ApiBaseUrl';
+import { WAREHOUSE_CARDX_RESULT_LIST } from '../../../../constants/routes';
 
 const WarehouseCardXResultTable = (props) => {
   //row selection
@@ -32,8 +32,8 @@ const WarehouseCardXResultTable = (props) => {
     } = queryKey?.[1] || {};
     const { data } = await axiosInstance.get(
       `${WAREHOUSE_CARDX_RESULT_LIST}?search=${
-        search ?? ""
-      }&customer=${customerId}&id=${productId}&warehouse=${warehouseId}&invoice_type_in=${invoiceTypeValue}&invoice_state=${status}`
+        search ?? ''
+      }&customer=${customerId}&id=${productId}&warehouse=${warehouseId}&invoice_type_in=${invoiceTypeValue}&invoice_state=${status}`,
     );
     return data;
   }, []);
@@ -44,24 +44,24 @@ const WarehouseCardXResultTable = (props) => {
     {
       enabled: !!productId,
       // , cacheTime: 0
-    }
+    },
   );
 
   return (
     <Table
       expandable
-      id="allSales"
-      className="table-content"
-      size="small"
+      id='allSales'
+      className='table-content'
+      size='small'
       loading={isLoading || isFetching ? true : false}
       rowSelection={rowSelection}
       rowKey={(record) => `${record.warehouse}${record.currency}`}
       pagination={false}
       dataSource={data?.results}
       bordered={true}
-      scroll={{ x: "max-content", scrollToFirstRowOnChange: true }}
+      scroll={{ x: 'max-content', scrollToFirstRowOnChange: true }}
     >
-      {props.columns("originalTable")}
+      {props.columns('originalTable')}
     </Table>
   );
 };

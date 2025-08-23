@@ -6,7 +6,7 @@ import React, {
   ReactNode,
   useMemo,
   useState,
-} from "react";
+} from 'react';
 import {
   Col,
   Row,
@@ -18,23 +18,23 @@ import {
   Dropdown,
   Button,
   Alert,
-} from "antd";
-import { SearchInput } from "../../pages/SelfComponents/SearchInput";
-import { useTranslation } from "react-i18next";
+} from 'antd';
+import { SearchInput } from '../../pages/SelfComponents/SearchInput';
+import { useTranslation } from 'react-i18next';
 //@ts-ignore
-import { useQuery, useQueryClient, QueryFunction } from "react-query";
-import { Key, TablePaginationConfig } from "antd/lib/table/interface";
+import { useQuery, useQueryClient, QueryFunction } from 'react-query';
+import { Key, TablePaginationConfig } from 'antd/lib/table/interface';
 import {
   FilterOutlined,
   SearchOutlined,
   SettingOutlined,
-} from "@ant-design/icons";
-import ReloadButton from "../buttons/ReloadButton";
-import PrintButton from "../../pages/SelfComponents/PrintButton";
+} from '@ant-design/icons';
+import ReloadButton from '../buttons/ReloadButton';
+import PrintButton from '../../pages/SelfComponents/PrintButton';
 
-import TableError from "./TableError";
-import TableLoading from "../TableLoading";
-import { checkPermissions } from "../../Functions";
+import TableError from './TableError';
+import TableLoading from '../TableLoading';
+import { checkPermissions } from '../../Functions';
 
 const { Column } = Table;
 const { Option } = Select;
@@ -60,7 +60,7 @@ interface IProps {
   filters?: any;
   filterNode?: (
     setPage: (value: number) => void,
-    setVisible: (value: boolean) => void
+    setVisible: (value: boolean) => void,
   ) => ReactNode;
   settingMenu?: ReactElement<any, string | JSXElementConstructor<any>>;
   onRow?: any;
@@ -76,7 +76,7 @@ interface IProps {
     setSelectedRowKeys: (value: Key[]) => void,
     selectedRows: any[],
     setSelectedRows: (value: any[]) => void,
-    columns: (type: string, hasSelected: boolean) => JSX.Element
+    columns: (type: string, hasSelected: boolean) => JSX.Element,
   ) => ReactNode;
   search?: number | string;
   setSearch?: (value: number | string) => void;
@@ -91,10 +91,10 @@ export function PaginateTable(props: IProps) {
   const [settingVisible, setSettingVisible] = useState(false);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState<number>(
-    props?.type === "currency" ? 10 : 5
+    props?.type === 'currency' ? 10 : 5,
   );
-  const [search1, setSearch1] = useState<string | number>("");
-  const [order, setOrder] = useState("-id");
+  const [search1, setSearch1] = useState<string | number>('');
+  const [order, setOrder] = useState('-id');
 
   const search = props?.search ? props?.search : search1;
   const setSearch = props?.setSearch ? props?.setSearch : setSearch1;
@@ -114,7 +114,7 @@ export function PaginateTable(props: IProps) {
     isRefetchError,
   } = useQuery(
     [props.queryKey, { page, pageSize, search, order, ...props.filters }],
-    props.handleGetData
+    props.handleGetData,
   );
 
   const hasMore = Boolean(data?.nextPageNumber);
@@ -126,7 +126,7 @@ export function PaginateTable(props: IProps) {
           props.queryKey,
           { page: page + 1, pageSize, search, order, ...props.filters },
         ],
-        props.handleGetData
+        props.handleGetData,
       );
     }
   }, [
@@ -146,23 +146,23 @@ export function PaginateTable(props: IProps) {
     pagination: any,
     filters: any,
     sorter: any,
-    extra: any
+    extra: any,
   ) => {
     if (sorter?.[0]) {
       const order = sorter?.reduce((sum: string, item: any, index: number) => {
-        if (item.order === "ascend") {
-          return `${sum}${index !== 0 ? "," : ""}${item.field}`;
-        } else if (item.order === "descend") {
-          return `${sum}${index !== 0 ? "," : ""}-${item.field}`;
+        if (item.order === 'ascend') {
+          return `${sum}${index !== 0 ? ',' : ''}${item.field}`;
+        } else if (item.order === 'descend') {
+          return `${sum}${index !== 0 ? ',' : ''}-${item.field}`;
         } else {
           return sum;
         }
-      }, "");
+      }, '');
       setOrder(order);
     } else {
-      if (sorter.order === "ascend") {
+      if (sorter.order === 'ascend') {
         setOrder(sorter.field);
-      } else if (sorter.order === "descend") {
+      } else if (sorter.order === 'descend') {
         setOrder(`-${sorter.field}`);
       } else {
         setOrder(`-id`);
@@ -189,9 +189,9 @@ export function PaginateTable(props: IProps) {
     onChange: paginationChange,
     // showTotal: (total: number) =>
     //   `${t("Pagination.Total")} ${total} ${t("Pagination.Item")}`,
-    size: "small",
+    size: 'small',
     showQuickJumper: true,
-    showSizeChanger:true,
+    showSizeChanger: true,
     responsive: true,
     showLessItems: true,
     hideOnSinglePage: true,
@@ -210,7 +210,7 @@ export function PaginateTable(props: IProps) {
     onChange: onSelectChange,
     preserveSelectedRowKeys: true,
     getCheckboxProps: (record: Record) => ({
-      disabled: record.status === "deactivate" || record.status === false, // Column configuration not to be checked
+      disabled: record.status === 'deactivate' || record.status === false, // Column configuration not to be checked
     }),
     ...props?.rowSelection,
   };
@@ -236,34 +236,34 @@ export function PaginateTable(props: IProps) {
     }
   };
 
-
   const tableColumns = props?.columns;
   const columns = useMemo(
-    () => (type: string, hasSelected: boolean) =>
-      (
-        <React.Fragment>
-          <Column
-            title={t("Table.Row").toUpperCase()}
-            dataIndex="serial"
-            key="serial"
-            width={type !== "print" ? 80 : 40}
-            className="table-col"
-            align="center"
-            fixed={type !== "print" ? true : false}
-            render={(text, __, index) => (
-              <React.Fragment>
-                {type !== "print"
-                  ? //@ts-ignore
-                    (page - 1) * pageSize + index + 1
-                  : index + 1}
-              </React.Fragment>
-            )}
-          />
+    () => (type: string, hasSelected: boolean) => (
+      <React.Fragment>
+        <Column
+          title={t('Table.Row').toUpperCase()}
+          dataIndex='serial'
+          key='serial'
+          width={type !== 'print' ? 80 : 40}
+          className='table-col'
+          align='center'
+          fixed={type !== 'print' ? true : false}
+          render={(text, __, index) => (
+            <React.Fragment>
+              {type !== 'print'
+                ? //@ts-ignore
+                  (page - 1) * pageSize + index + 1
+                : index + 1}
+            </React.Fragment>
+          )}
+        />
 
-          {tableColumns && typeof tableColumns === 'function' ? tableColumns(type, hasSelected) : null}
-        </React.Fragment>
-      ),
-    [hasSelected, page, pageSize, t, tableColumns]
+        {tableColumns && typeof tableColumns === 'function'
+          ? tableColumns(type, hasSelected)
+          : null}
+      </React.Fragment>
+    ),
+    [hasSelected, page, pageSize, t, tableColumns],
   );
 
   //change page size
@@ -281,7 +281,7 @@ export function PaginateTable(props: IProps) {
   };
 
   const emptyText =
-    status !== "error" ? undefined : (
+    status !== 'error' ? undefined : (
       <TableError error={error} handleRetry={handleRetry} />
     );
 
@@ -290,24 +290,24 @@ export function PaginateTable(props: IProps) {
     : isLoading;
 
   return (
-    <Space direction="vertical" size={5}>
+    <Space direction='vertical' size={5}>
       <Text>
-        {t("Pagination.Total")} : {count ?? 0} {t("Pagination.Item")}
-      </Text>{" "}
+        {t('Pagination.Total')} : {count ?? 0} {t('Pagination.Item')}
+      </Text>{' '}
       <Table
         onChange={onChangeTable}
         loading={tableLoading}
-        size="middle"
+        size='middle'
         rowSelection={props?.rowSelectable === false ? undefined : rowSelection}
         rowKey={(record: Record) =>
-          props?.type === "currency" ? record?.symbol : record.id
+          props?.type === 'currency' ? record?.symbol : record.id
         }
         pagination={pagination}
         dataSource={data?.results}
         // bordered
         style={{ zIndex: 80 }}
         locale={{ emptyText: emptyText }}
-        scroll={{ x: "max-content", scrollToFirstRowOnChange: true }}
+        scroll={{ x: 'max-content', scrollToFirstRowOnChange: true }}
         onRow={props?.onRow}
         summary={props?.summary}
         //@ts-ignore
@@ -315,44 +315,42 @@ export function PaginateTable(props: IProps) {
           props.header === false
             ? undefined
             : props.header
-            ? props.header
-            : () => {
-                return (
-                  <Row align="middle">
-                    <Col  style={{paddingBottom:10 }} xs={"auto"} 
-                    md={7}
-                      >
-                    <SearchInput
+              ? props.header
+              : () => {
+                  return (
+                    <Row align='middle'>
+                      <Col style={{ paddingBottom: 10 }} xs={'auto'} md={7}>
+                        <SearchInput
                           setPage={setPage}
                           placeholder={
                             Boolean(props?.placeholder)
                               ? props?.placeholder
-                              : t("Form.Search")
+                              : t('Form.Search')
                           }
                           setSearch={setSearch}
                           suffix={
                             Boolean(props?.filterNode) ? (
                               <Popover
                                 content={menu}
-                                trigger="click"
-                                placement="bottom"
+                                trigger='click'
+                                placement='bottom'
                                 onOpenChange={handleVisibleChangFilter}
                                 open={visibleFilter}
                               >
                                 <FilterOutlined />
                               </Popover>
                             ) : (
-                              <SearchOutlined className="search_icon_color" />
+                              <SearchOutlined className='search_icon_color' />
                             )
                           }
                         />
-                    </Col>
-                    {(selectedRowKeys?.length > 0 ||
-                          props.selectResult) && (
-                            <Col style={{paddingLeft:"10px"}}
-                             md={7} 
-                            //  md={6}
-                             >
+                      </Col>
+                      {(selectedRowKeys?.length > 0 || props.selectResult) && (
+                        <Col
+                          style={{ paddingLeft: '10px' }}
+                          md={7}
+                          //  md={6}
+                        >
                           <ReloadButton
                             onReload={onReload}
                             length={
@@ -361,78 +359,78 @@ export function PaginateTable(props: IProps) {
                                   props?.resultDataSource?.length
                                 : selectedRowKeys?.length
                             }
-                            />
-                            </Col>
-                        )}
-                        
-                        {hasSelected && Boolean(props?.batchAction) ? (
-                      <Col
-                        className="textAlign__end"
-                       xs={24}
-                      //  md={10}
-                      >
-                        {props?.batchAction &&
-                          props?.batchAction(
-                            selectedRowKeys,
-                            setSelectedRowKeys,
-                            selectedRows,
-                            setSelectedRows,
-                            columns
-                          )}
-                      </Col>
-                    ) : (
-                      <Col
-                        className="textAlign__end"
-                        md={selectedRowKeys?.length === 0 ? 16 : 9}
-                      //  md={selectedRowKeys?.length === 0 ? 16  : 10 }
-                      style={{  marginRight:"12px" , display:"flex" , justifyContent:"end"}}
-                      >
-                        <Space size={1} align="end">
-                          {props?.rowSelectable === false ||
-                          props.printIcon === null ? null : (
-                            
-                            <PrintButton
-                              disabled={
-                                selectedRowKeys?.length === 0 &&
-                                (!props?.selectResult ||
-                                  props?.selectResult === undefined)
-                              }
-                              domColumns={columns("print", hasSelected)}
-                              title={props?.title}
-                              dataSource={selectedRows}
-                              selectResult={props?.selectResult}
-                              resultDataSource={props.resultDataSource}
-                              resultDomColumns={props.resultDomColumns}
-                            />
-                          )}
-                          {Boolean(props?.settingMenu) && (
-                            <Dropdown
-                              //@ts-ignore
-                              menu={props?.settingMenu}
-                              trigger={["click"]}
-                              onOpenChange={handleChangeSettingVisible}
-                              open={settingVisible}
-                            >
-                              <Button
-                                icon={<SettingOutlined />}
-                                type="link"
-                                shape="circle"
-                                style={styles.settingButton}
-                              />
-                            </Dropdown>
-                          )}
-                        </Space>
-                      </Col>
-                    )}
-                    
+                          />
+                        </Col>
+                      )}
 
-                
-                  </Row>
-                );
-              }
+                      {hasSelected && Boolean(props?.batchAction) ? (
+                        <Col
+                          className='textAlign__end'
+                          xs={24}
+                          //  md={10}
+                        >
+                          {props?.batchAction &&
+                            props?.batchAction(
+                              selectedRowKeys,
+                              setSelectedRowKeys,
+                              selectedRows,
+                              setSelectedRows,
+                              columns,
+                            )}
+                        </Col>
+                      ) : (
+                        <Col
+                          className='textAlign__end'
+                          md={selectedRowKeys?.length === 0 ? 16 : 9}
+                          //  md={selectedRowKeys?.length === 0 ? 16  : 10 }
+                          style={{
+                            marginRight: '12px',
+                            display: 'flex',
+                            justifyContent: 'end',
+                          }}
+                        >
+                          <Space size={1} align='end'>
+                            {props?.rowSelectable === false ||
+                            props.printIcon === null ? null : (
+                              <PrintButton
+                                disabled={
+                                  selectedRowKeys?.length === 0 &&
+                                  (!props?.selectResult ||
+                                    props?.selectResult === undefined)
+                                }
+                                domColumns={columns('print', hasSelected)}
+                                title={props?.title}
+                                dataSource={selectedRows}
+                                selectResult={props?.selectResult}
+                                resultDataSource={props.resultDataSource}
+                                resultDomColumns={props.resultDomColumns}
+                              />
+                            )}
+                            {Boolean(props?.settingMenu) && (
+                              <Dropdown
+                                //@ts-ignore
+                                menu={props?.settingMenu}
+                                trigger={['click']}
+                                onOpenChange={handleChangeSettingVisible}
+                                open={settingVisible}
+                              >
+                                <Button
+                                  icon={<SettingOutlined />}
+                                  type='link'
+                                  shape='circle'
+                                  style={styles.settingButton}
+                                />
+                              </Dropdown>
+                            )}
+                          </Space>
+                        </Col>
+                      )}
+                    </Row>
+                  );
+                }
         }
       >
-        {columns("originalTable", hasSelected)}
+        {columns('originalTable', hasSelected)}
       </Table>
       {isFetching && !tableLoading && (
         <TableLoading pagination={count > pageSize} />
@@ -451,7 +449,7 @@ export function PaginateTable(props: IProps) {
   );
 }
 
-const styles = { settingButton: { width: "26px", minWidth: "25px" } };
+const styles = { settingButton: { width: '26px', minWidth: '25px' } };
 
 export default function TableRender({ model, ...rest }: IProps) {
   return checkPermissions(`view_${model}`) ? (

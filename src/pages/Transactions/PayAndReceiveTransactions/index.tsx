@@ -1,14 +1,14 @@
-import React from "react";
-import { Title } from "../../SelfComponents/Title";
-import { Row, Col, Layout, Menu } from "antd";
-import { Link } from "react-router-dom";
-import PayAndReceiveCash from "./PayAndReceiveCash";
-import TransactionsTable from "../TransactionsTable";
-import Navbar from "../../Expenses/Navbar";
-import { useTranslation } from "react-i18next";
-import { checkPermissions } from "../../../Functions";
-import { PageBackIcon, PageMoreButton } from "../../../components";
-import { WITHDRAW_TYPE_M } from "../../../constants/permissions";
+import React from 'react';
+import { Title } from '../../SelfComponents/Title';
+import { Row, Col, Layout, Menu } from 'antd';
+import { Link } from 'react-router-dom';
+import PayAndReceiveCash from './PayAndReceiveCash';
+import TransactionsTable from '../TransactionsTable';
+import Navbar from '../../Expenses/Navbar';
+import { useTranslation } from 'react-i18next';
+import { checkPermissions } from '../../../Functions';
+import { PageBackIcon, PageMoreButton } from '../../../components';
+import { WITHDRAW_TYPE_M } from '../../../constants/permissions';
 
 interface IProps {
   title: string;
@@ -24,9 +24,9 @@ const PayAndReceiveTransactions: React.FC<IProps> = (props) => {
   const { t } = useTranslation();
   const menu = (
     <Menu>
-      <Menu.Item key="1">
-        <Link to="/withdraw-definition">
-          {t("Expenses.With_draw.With_definition")}
+      <Menu.Item key='1'>
+        <Link to='/withdraw-definition'>
+          {t('Expenses.With_draw.With_definition')}
         </Link>
       </Menu.Item>
     </Menu>
@@ -34,20 +34,20 @@ const PayAndReceiveTransactions: React.FC<IProps> = (props) => {
 
   return (
     <Layout>
-      {props.place === "withdrawPayAndRecCash" && <Navbar />}
+      {props.place === 'withdrawPayAndRecCash' && <Navbar />}
 
-      <Row className="categore-header" align="middle" justify="start">
+      <Row className='categore-header' align='middle' justify='start'>
         <Col
           md={{ span: 10 }}
           sm={{ span: 11 }}
           xs={{ span: 14 }}
-          className="Sales__content-3-body"
+          className='Sales__content-3-body'
         >
           <Row>
             <Col span={24}>
               <Title value={props.title} model={props.model} />
             </Col>
-            {props.place !== "withdrawPayAndRecCash" && (
+            {props.place !== 'withdrawPayAndRecCash' && (
               <Col
                 xl={{ span: 12, offset: 0 }}
                 lg={{ span: 17, offset: 0 }}
@@ -62,7 +62,7 @@ const PayAndReceiveTransactions: React.FC<IProps> = (props) => {
             )}
           </Row>
         </Col>
-        {props.place === "withdrawPayAndRecCash" ? (
+        {props.place === 'withdrawPayAndRecCash' ? (
           <Col
             xxl={{ span: 8, offset: 6 }}
             xl={{ span: 9, offset: 5 }}
@@ -83,19 +83,19 @@ const PayAndReceiveTransactions: React.FC<IProps> = (props) => {
                   <Col span={8}>
                     <PayAndReceiveCash
                       model={props.model}
-                      type="payCash"
+                      type='payCash'
                       baseUrl={props.baseUrl}
                       place={props.place}
-                      title={t("Expenses.With_draw.Withdraw_information")}
+                      title={t('Expenses.With_draw.Withdraw_information')}
                     />
                   </Col>
                   <Col span={8}>
                     <PayAndReceiveCash
                       model={props.model}
-                      type="recCash"
+                      type='recCash'
                       baseUrl={props.baseUrl}
                       place={props.place}
-                      title={t("Expenses.With_draw.Deposit_information")}
+                      title={t('Expenses.With_draw.Deposit_information')}
                     />
                   </Col>
                 </React.Fragment>
@@ -112,16 +112,16 @@ const PayAndReceiveTransactions: React.FC<IProps> = (props) => {
               sm={{ span: 10, offset: 4 }}
               xs={{ span: 11, offset: 3 }}
             >
-              {props.place === "currencyExchange" ? (
+              {props.place === 'currencyExchange' ? (
                 <Row gutter={10}>
                   <Col span={12}></Col>
                   <Col span={12}>
                     <PayAndReceiveCash
                       model={props.model}
-                      type="payCash"
+                      type='payCash'
                       baseUrl={props.baseUrl}
                       place={props.place}
-                      title={t("Reports.Currency_exchange_information")}
+                      title={t('Reports.Currency_exchange_information')}
                     />
                   </Col>
                 </Row>
@@ -130,19 +130,19 @@ const PayAndReceiveTransactions: React.FC<IProps> = (props) => {
                   <Col span={12}>
                     <PayAndReceiveCash
                       model={props.model}
-                      type="payCash"
+                      type='payCash'
                       baseUrl={props.baseUrl}
                       place={props.place}
-                      title={t("Employees.Pay_cash_information")}
+                      title={t('Employees.Pay_cash_information')}
                     />
                   </Col>
                   <Col span={12}>
                     <PayAndReceiveCash
                       model={props.model}
-                      type="recCash"
+                      type='recCash'
                       baseUrl={props.baseUrl}
                       place={props.place}
-                      title={t("Employees.Receive_cash_information")}
+                      title={t('Employees.Receive_cash_information')}
                     />
                   </Col>
                 </Row>

@@ -1,4 +1,4 @@
-import { INTERNET } from "../actions/internet/type";
+import { INTERNET } from '../actions/internet/type';
 const initialState = { intr: false };
 export default (state = initialState, action) => {
   switch (action.type) {

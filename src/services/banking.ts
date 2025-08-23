@@ -129,7 +129,9 @@ export class BankingService extends ApiService {
   }
 
   // Bank Account Management
-  async getBankAccounts(params?: PaginationParams): Promise<{ results: BankAccount[]; count: number }> {
+  async getBankAccounts(
+    params?: PaginationParams,
+  ): Promise<{ results: BankAccount[]; count: number }> {
     return this.get('/bank/', params);
   }
 
@@ -141,7 +143,10 @@ export class BankingService extends ApiService {
     return this.post('/bank/', data);
   }
 
-  async updateBankAccount(id: string | number, data: Partial<CreateBankAccountData>): Promise<BankAccount> {
+  async updateBankAccount(
+    id: string | number,
+    data: Partial<CreateBankAccountData>,
+  ): Promise<BankAccount> {
     return this.patch(`/bank/${id}/`, data);
   }
 
@@ -157,16 +162,23 @@ export class BankingService extends ApiService {
     return this.patch(`/bank/${id}/`, { is_active: false });
   }
 
-  async getBankAccountBalance(id: string | number): Promise<{ balance: string; last_updated: string }> {
+  async getBankAccountBalance(
+    id: string | number,
+  ): Promise<{ balance: string; last_updated: string }> {
     return this.get(`/bank/${id}/balance/`);
   }
 
-  async updateBankAccountBalance(id: string | number, balance: string): Promise<BankAccount> {
+  async updateBankAccountBalance(
+    id: string | number,
+    balance: string,
+  ): Promise<BankAccount> {
     return this.patch(`/bank/${id}/balance/`, { balance });
   }
 
   // Cash Account Management
-  async getCashAccounts(params?: PaginationParams): Promise<{ results: CashAccount[]; count: number }> {
+  async getCashAccounts(
+    params?: PaginationParams,
+  ): Promise<{ results: CashAccount[]; count: number }> {
     return this.get('/cash/', params);
   }
 
@@ -178,7 +190,10 @@ export class BankingService extends ApiService {
     return this.post('/cash/', data);
   }
 
-  async updateCashAccount(id: string | number, data: Partial<CreateCashAccountData>): Promise<CashAccount> {
+  async updateCashAccount(
+    id: string | number,
+    data: Partial<CreateCashAccountData>,
+  ): Promise<CashAccount> {
     return this.patch(`/cash/${id}/`, data);
   }
 
@@ -194,22 +209,29 @@ export class BankingService extends ApiService {
     return this.patch(`/cash/${id}/`, { is_active: false });
   }
 
-  async getCashAccountBalance(id: string | number): Promise<{ balance: string; last_updated: string }> {
+  async getCashAccountBalance(
+    id: string | number,
+  ): Promise<{ balance: string; last_updated: string }> {
     return this.get(`/cash/${id}/balance/`);
   }
 
-  async updateCashAccountBalance(id: string | number, balance: string): Promise<CashAccount> {
+  async updateCashAccountBalance(
+    id: string | number,
+    balance: string,
+  ): Promise<CashAccount> {
     return this.patch(`/cash/${id}/balance/`, { balance });
   }
 
   // Bank Transactions
-  async getBankTransactions(params?: PaginationParams & {
-    account?: number;
-    transaction_type?: 'credit' | 'debit';
-    date_from?: string;
-    date_to?: string;
-    is_reconciled?: boolean;
-  }): Promise<{ results: BankTransaction[]; count: number }> {
+  async getBankTransactions(
+    params?: PaginationParams & {
+      account?: number;
+      transaction_type?: 'credit' | 'debit';
+      date_from?: string;
+      date_to?: string;
+      is_reconciled?: boolean;
+    },
+  ): Promise<{ results: BankTransaction[]; count: number }> {
     return this.get('/transactions/', params);
   }
 
@@ -230,7 +252,10 @@ export class BankingService extends ApiService {
     return this.post('/transactions/', data);
   }
 
-  async updateBankTransaction(id: string | number, data: any): Promise<BankTransaction> {
+  async updateBankTransaction(
+    id: string | number,
+    data: any,
+  ): Promise<BankTransaction> {
     return this.patch(`/transactions/${id}/`, data);
   }
 
@@ -247,12 +272,14 @@ export class BankingService extends ApiService {
   }
 
   // Bank Statements
-  async getBankStatements(params?: PaginationParams & {
-    account?: number;
-    date_from?: string;
-    date_to?: string;
-    is_processed?: boolean;
-  }): Promise<{ results: BankStatement[]; count: number }> {
+  async getBankStatements(
+    params?: PaginationParams & {
+      account?: number;
+      date_from?: string;
+      date_to?: string;
+      is_processed?: boolean;
+    },
+  ): Promise<{ results: BankStatement[]; count: number }> {
     return this.get('/statements/', params);
   }
 
@@ -260,7 +287,11 @@ export class BankingService extends ApiService {
     return this.get(`/statements/${id}/`);
   }
 
-  async uploadBankStatement(accountId: number, file: File, statementDate: string): Promise<BankStatement> {
+  async uploadBankStatement(
+    accountId: number,
+    file: File,
+    statementDate: string,
+  ): Promise<BankStatement> {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('account', accountId.toString());
@@ -276,21 +307,27 @@ export class BankingService extends ApiService {
     return this.delete(`/statements/${id}/`);
   }
 
-  async getBankStatementTransactions(statementId: string | number): Promise<{ results: BankTransaction[] }> {
+  async getBankStatementTransactions(
+    statementId: string | number,
+  ): Promise<{ results: BankTransaction[] }> {
     return this.get(`/statements/${statementId}/transactions/`);
   }
 
   // Bank Reconciliation
-  async getBankReconciliations(params?: PaginationParams & {
-    account?: number;
-    status?: string;
-    date_from?: string;
-    date_to?: string;
-  }): Promise<{ results: BankReconciliation[]; count: number }> {
+  async getBankReconciliations(
+    params?: PaginationParams & {
+      account?: number;
+      status?: string;
+      date_from?: string;
+      date_to?: string;
+    },
+  ): Promise<{ results: BankReconciliation[]; count: number }> {
     return this.get('/reconciliations/', params);
   }
 
-  async getBankReconciliationById(id: string | number): Promise<BankReconciliation> {
+  async getBankReconciliationById(
+    id: string | number,
+  ): Promise<BankReconciliation> {
     return this.get(`/reconciliations/${id}/`);
   }
 
@@ -304,16 +341,22 @@ export class BankingService extends ApiService {
     return this.post('/reconciliations/', data);
   }
 
-  async updateBankReconciliation(id: string | number, data: any): Promise<BankReconciliation> {
+  async updateBankReconciliation(
+    id: string | number,
+    data: any,
+  ): Promise<BankReconciliation> {
     return this.patch(`/reconciliations/${id}/`, data);
   }
 
-  async completeBankReconciliation(id: string | number, data: {
-    reconciled_transactions: number[];
-    outstanding_deposits?: any[];
-    outstanding_checks?: any[];
-    notes?: string;
-  }): Promise<BankReconciliation> {
+  async completeBankReconciliation(
+    id: string | number,
+    data: {
+      reconciled_transactions: number[];
+      outstanding_deposits?: any[];
+      outstanding_checks?: any[];
+      notes?: string;
+    },
+  ): Promise<BankReconciliation> {
     return this.post(`/reconciliations/${id}/complete/`, data);
   }
 
@@ -322,7 +365,11 @@ export class BankingService extends ApiService {
   }
 
   // Automated Reconciliation
-  async autoReconcile(accountId: number, statementId: number, tolerance: string = '0.01'): Promise<{
+  async autoReconcile(
+    accountId: number,
+    statementId: number,
+    tolerance: string = '0.01',
+  ): Promise<{
     matched_transactions: number;
     unmatched_bank_transactions: number;
     unmatched_book_transactions: number;
@@ -336,7 +383,11 @@ export class BankingService extends ApiService {
   }
 
   // Banking Reports
-  async getBankAccountSummary(accountId?: number, dateFrom?: string, dateTo?: string) {
+  async getBankAccountSummary(
+    accountId?: number,
+    dateFrom?: string,
+    dateTo?: string,
+  ) {
     return this.get('/reports/account_summary/', {
       account: accountId,
       date_from: dateFrom,
@@ -344,7 +395,11 @@ export class BankingService extends ApiService {
     });
   }
 
-  async getCashFlowReport(dateFrom?: string, dateTo?: string, accounts?: number[]) {
+  async getCashFlowReport(
+    dateFrom?: string,
+    dateTo?: string,
+    accounts?: number[],
+  ) {
     return this.get('/reports/cash_flow/', {
       date_from: dateFrom,
       date_to: dateTo,
@@ -352,7 +407,11 @@ export class BankingService extends ApiService {
     });
   }
 
-  async getReconciliationReport(accountId?: number, dateFrom?: string, dateTo?: string) {
+  async getReconciliationReport(
+    accountId?: number,
+    dateFrom?: string,
+    dateTo?: string,
+  ) {
     return this.get('/reports/reconciliation/', {
       account: accountId,
       date_from: dateFrom,
@@ -368,7 +427,11 @@ export class BankingService extends ApiService {
   }
 
   // Import/Export
-  async importBankTransactions(accountId: number, file: File, format: 'csv' | 'excel' | 'qif' | 'ofx'): Promise<{
+  async importBankTransactions(
+    accountId: number,
+    file: File,
+    format: 'csv' | 'excel' | 'qif' | 'ofx',
+  ): Promise<{
     imported_count: number;
     skipped_count: number;
     errors: any[];
@@ -387,7 +450,7 @@ export class BankingService extends ApiService {
     format: 'csv' | 'excel' | 'pdf';
   }): Promise<Blob> {
     const response = await this.get('/transactions/export/', params);
-    return response;
+    return response as unknown as Blob;
   }
 
   // Account Categories
@@ -413,4 +476,3 @@ export class BankingService extends ApiService {
 }
 
 export const bankingService = new BankingService();
-

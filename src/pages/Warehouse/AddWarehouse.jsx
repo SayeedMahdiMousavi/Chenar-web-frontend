@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-import { Modal, Col, Row, Button } from "antd";
-import { useMediaQuery } from "../MediaQurey";
-import { useMutation } from "react-query";
-import axiosInstance from "../ApiBaseUrl";
-import { Form, Input } from "antd";
-import { useTranslation } from "react-i18next";
-import Draggable from "react-draggable";
-import { ModalDragTitle } from "../SelfComponents/ModalDragTitle";
-import { Styles } from "../styles";
-import { trimString } from "../../Functions/TrimString";
-import { addMessage, manageErrors } from "../../Functions";
-import { CancelButton, PageNewButton, SaveButton } from "../../components";
-import { WAREHOUSE_M } from "../../constants/permissions";
-import { CloseCircleOutlined } from "@ant-design/icons";
+import React, { useState } from 'react';
+import { Modal, Col, Row, Button } from 'antd';
+import { useMediaQuery } from '../MediaQurey';
+import { useMutation } from 'react-query';
+import axiosInstance from '../ApiBaseUrl';
+import { Form, Input } from 'antd';
+import { useTranslation } from 'react-i18next';
+import Draggable from 'react-draggable';
+import { ModalDragTitle } from '../SelfComponents/ModalDragTitle';
+import { Styles } from '../styles';
+import { trimString } from '../../Functions/TrimString';
+import { addMessage, manageErrors } from '../../Functions';
+import { CancelButton, PageNewButton, SaveButton } from '../../components';
+import { WAREHOUSE_M } from '../../constants/permissions';
+import { CloseCircleOutlined } from '@ant-design/icons';
 
 const AddWarehouse = (props) => {
   const { t } = useTranslation();
@@ -22,11 +22,11 @@ const AddWarehouse = (props) => {
   });
 
   const [disabled, setDisabled] = useState(true);
-  const isMiniTablet = useMediaQuery("(max-width: 576px)");
-  const isMobile = useMediaQuery("(max-width: 425px)");
-  const isSubBase = useMediaQuery("(max-width: 375px)");
-  const isBgTablet = useMediaQuery("(max-width: 1024px)");
-  const isTablet = useMediaQuery("(max-width: 768px)");
+  const isMiniTablet = useMediaQuery('(max-width: 576px)');
+  const isMobile = useMediaQuery('(max-width: 425px)');
+  const isSubBase = useMediaQuery('(max-width: 375px)');
+  const isBgTablet = useMediaQuery('(max-width: 1024px)');
+  const isTablet = useMediaQuery('(max-width: 768px)');
 
   const showModal = () => {
     setIsShowModal({
@@ -85,7 +85,7 @@ const AddWarehouse = (props) => {
           <ModalDragTitle
             disabled={disabled}
             setDisabled={setDisabled}
-            title={t("Warehouse.Add_warehouse")}
+            title={t('Warehouse.Add_warehouse')}
           />
         }
         modalRender={(modal) => (
@@ -96,12 +96,12 @@ const AddWarehouse = (props) => {
         centered
         open={isShowModal.visible}
         onCancel={onCancel}
-        wrapClassName="warehouse_add_modal"
+        wrapClassName='warehouse_add_modal'
         style={Styles.modal(isMobile)}
         bodyStyle={Styles.modalBody(isMobile, isSubBase, isMiniTablet)}
-        width={isMobile ? "100%" : isTablet ? 370 : isBgTablet ? 370 : 370}
+        width={isMobile ? '100%' : isTablet ? 370 : isBgTablet ? 370 : 370}
         footer={
-          <Row justify="end" align="middle">
+          <Row justify='end' align='middle'>
             <Col>
               <CancelButton onClick={onCancel} />
               <SaveButton onClick={handleOk} loading={isLoading} />
@@ -113,32 +113,32 @@ const AddWarehouse = (props) => {
           form={form}
           hideRequiredMark={true}
           scrollToFirstError={true}
-          layout="vertical"
+          layout='vertical'
         >
           <Form.Item
             label={
               <span>
-                {t("Form.Name")}
-                <span className="star">*</span>
+                {t('Form.Name')}
+                <span className='star'>*</span>
               </span>
             }
-            name="name"
-            rules={[{ required: true, message: t("Form.Name_required") }]}
+            name='name'
+            rules={[{ required: true, message: t('Form.Name_required') }]}
           >
-            <Input autoFocus autoComplete="off" />
+            <Input autoFocus autoComplete='off' />
           </Form.Item>
           <Form.Item
             label={
               <>
-                {t("Warehouse.Responsible")}
-                <span className="star">*</span>
+                {t('Warehouse.Responsible')}
+                <span className='star'>*</span>
               </>
             }
-            name="responsible"
+            name='responsible'
             rules={[
               {
                 required: true,
-                message: t("Warehouse.Required_responsible"),
+                message: t('Warehouse.Required_responsible'),
               },
             ]}
           >
@@ -147,12 +147,12 @@ const AddWarehouse = (props) => {
           <Form.Item
             label={
               <span>
-                {t("Form.Address")}
-                <span className="star">*</span>
+                {t('Form.Address')}
+                <span className='star'>*</span>
               </span>
             }
-            name="address"
-            rules={[{ required: true, message: t("Form.Required_address") }]}
+            name='address'
+            rules={[{ required: true, message: t('Form.Required_address') }]}
           >
             <Input.TextArea />
           </Form.Item>

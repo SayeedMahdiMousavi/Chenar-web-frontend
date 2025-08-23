@@ -1,24 +1,24 @@
-import React, { useState } from "react";
-import { Modal, Col, Row, Button } from "antd";
-import { useMediaQuery } from "../../MediaQurey";
-import { useMutation, useQueryClient } from "react-query";
-import axiosInstance from "../../ApiBaseUrl";
-import { Form, Input, Tooltip, Tabs, message, InputNumber } from "antd";
-import Uplod from "../Upload";
-import UploadFile from "../UploadFile";
-import { QuestionCircleOutlined } from "@ant-design/icons";
+import React, { useState } from 'react';
+import { Modal, Col, Row, Button } from 'antd';
+import { useMediaQuery } from '../../MediaQurey';
+import { useMutation, useQueryClient } from 'react-query';
+import axiosInstance from '../../ApiBaseUrl';
+import { Form, Input, Tooltip, Tabs, message, InputNumber } from 'antd';
+import Uplod from '../Upload';
+import UploadFile from '../UploadFile';
+import { QuestionCircleOutlined } from '@ant-design/icons';
 // import { useDatabase } from "@nozbe/watermelondb/hooks";
 // import withObservables from "@nozbe/with-observables";
 // import { withDatabase } from "@nozbe/watermelondb/DatabaseProvider";
-import { useTranslation } from "react-i18next";
-import { Styles } from "../../styles";
-import { ModalDragTitle } from "../../SelfComponents/ModalDragTitle";
-import Draggable from "react-draggable";
-import { CategoryField } from "../../SelfComponents/CategoryField";
-import { ActionMessage } from "../../SelfComponents/TranslateComponents/ActionMessage";
-import { trimString } from "../../../Functions/TrimString";
-import { CancelButton, EditMenuItem, SaveButton } from "../../../components";
-import { CUSTOMER_M } from "../../../constants/permissions";
+import { useTranslation } from 'react-i18next';
+import { Styles } from '../../styles';
+import { ModalDragTitle } from '../../SelfComponents/ModalDragTitle';
+import Draggable from 'react-draggable';
+import { CategoryField } from '../../SelfComponents/CategoryField';
+import { ActionMessage } from '../../SelfComponents/TranslateComponents/ActionMessage';
+import { trimString } from '../../../Functions/TrimString';
+import { CancelButton, EditMenuItem, SaveButton } from '../../../components';
+import { CUSTOMER_M } from '../../../constants/permissions';
 const { TabPane } = Tabs;
 
 const EditCustomer = ({
@@ -31,7 +31,7 @@ const EditCustomer = ({
   ...rest
 }) => {
   const queryClient = useQueryClient();
-  const isTablitBase = useMediaQuery("(max-width:768px)");
+  const isTablitBase = useMediaQuery('(max-width:768px)');
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const [fileList, setFileList] = useState([]);
@@ -46,13 +46,13 @@ const EditCustomer = ({
   });
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(true);
-  const isBgTablet = useMediaQuery("(max-width: 1024px)");
-  const isTablet = useMediaQuery("(max-width: 768px)");
-  const isMiniTablet = useMediaQuery("(max-width: 576px)");
-  const isMobile = useMediaQuery("(max-width: 425px)");
-  const isSubBase = useMediaQuery("(max-width: 375px)");
-  const [activeKey, setActiveKey] = useState("1");
-  const [seeTabs, setSeeTabs] = useState([""]);
+  const isBgTablet = useMediaQuery('(max-width: 1024px)');
+  const isTablet = useMediaQuery('(max-width: 768px)');
+  const isMiniTablet = useMediaQuery('(max-width: 576px)');
+  const isMobile = useMediaQuery('(max-width: 425px)');
+  const isSubBase = useMediaQuery('(max-width: 375px)');
+  const [activeKey, setActiveKey] = useState('1');
+  const [seeTabs, setSeeTabs] = useState(['']);
 
   const showModal = () => {
     setIsShowModal({
@@ -62,25 +62,25 @@ const EditCustomer = ({
     setFileList(
       record?.photo && [
         {
-          uid: "-1",
-          name: "image.png",
-          status: "done",
+          uid: '-1',
+          name: 'image.png',
+          status: 'done',
           url: record?.photo,
           thumbUrl: record?.photo,
         },
-      ]
+      ],
     );
 
     setAttachments(
       record?.attachment && [
         {
-          uid: "-1",
+          uid: '-1',
           name: attachmentName,
-          status: "done",
+          status: 'done',
           url: record?.attachment,
           thumbUrl: record?.attachment,
         },
-      ]
+      ],
     );
 
     form.setFieldsValue({
@@ -117,9 +117,9 @@ const EditCustomer = ({
       },
       upload: record?.photo && [
         {
-          uid: "-1",
-          name: "image.png",
-          status: "done",
+          uid: '-1',
+          name: 'image.png',
+          status: 'done',
           url: record?.photo,
           thumbUrl: record?.photo,
         },
@@ -127,16 +127,16 @@ const EditCustomer = ({
 
       attachment: record?.attachment && [
         {
-          uid: "-1",
+          uid: '-1',
           name: attachmentName,
-          status: "done",
+          status: 'done',
           url: record?.attachment,
           thumbUrl: record?.attachment,
         },
       ],
     });
 
-    if (type === "table") {
+    if (type === 'table') {
       setVisible(false);
       handleClickEdit();
     }
@@ -173,8 +173,8 @@ const EditCustomer = ({
         message.success(
           <ActionMessage
             name={`${res.data?.first_name} ${res.data?.last_name}`}
-            message="Message.Update"
-          />
+            message='Message.Update'
+          />,
         );
       })
       .catch((error) => {
@@ -185,7 +185,7 @@ const EditCustomer = ({
           message.error(`${error?.response?.data?.first_name?.[0]}`);
         } else if (error?.response?.data?.last_name?.[0]) {
           message.error(`${error?.response.data?.last_name?.[0]}`);
-        }else if (error?.response?.data?.category?.[0]) {
+        } else if (error?.response?.data?.category?.[0]) {
           message.error(`${error?.response.data?.category?.[0]}`);
         } else if (error?.response?.data?.company_name?.[0]) {
           message.error(`${error?.response.data?.company_name?.[0]}`);
@@ -232,12 +232,12 @@ const EditCustomer = ({
         } else if (error?.response?.data?.non_field_errors?.[0]) {
           if (
             error?.response?.data?.non_field_errors?.[0] ===
-            "this person  is already exist"
+            'this person  is already exist'
           ) {
             message.error(
               `${error?.response?.data?.non_field_errors?.[0]}. ${t(
-                "Sales.Customers.Form.First_and_last_name_error"
-              )}`
+                'Sales.Customers.Form.First_and_last_name_error',
+              )}`,
             );
           } else {
             message.error(`${error?.response.data?.non_field_errors?.[0]}`);
@@ -263,7 +263,7 @@ const EditCustomer = ({
       .then(async (values) => {
         if (error || attachmentError) {
           message.error(
-            `${t("Sales.Product_and_services.Form.Units_error_message")}`
+            `${t('Sales.Product_and_services.Form.Units_error_message')}`,
           );
           return;
         } else {
@@ -271,112 +271,114 @@ const EditCustomer = ({
 
           const formData = new FormData();
           if (file?.name) {
-            formData.append("photo", file, file?.name);
+            formData.append('photo', file, file?.name);
           }
           if (attachment?.name) {
-            formData.append("attachment", attachment);
+            formData.append('attachment', attachment);
           }
           if (fileList?.length === 0) {
-            formData.append("is_delete_photo", true);
+            formData.append('is_delete_photo', true);
           }
           if (attachments?.length === 0) {
-            formData.append("is_delete_attach", true);
+            formData.append('is_delete_attach', true);
           }
-          formData.append("first_name", trimString(values?.name));
-          formData.append("last_name", trimString(values?.lastName));
+          formData.append('first_name', trimString(values?.name));
+          formData.append('last_name', trimString(values?.lastName));
           formData.append(
-            "nike_name",
-            values?.nickName ? trimString(values?.nickName) : ""
+            'nike_name',
+            values?.nickName ? trimString(values?.nickName) : '',
           );
           if (values?.category?.value) {
-            formData.append("category", values?.category?.value);
+            formData.append('category', values?.category?.value);
           }
           formData.append(
-            "company_name",
-            values?.company ? trimString(values?.company) : ""
+            'company_name',
+            values?.company ? trimString(values?.company) : '',
           );
-          formData.append("email", values?.email ? values?.email : "");
+          formData.append('email', values?.email ? values?.email : '');
           formData.append(
-            "phone_number",
-            values?.phone ? trimString(values?.phone) : ""
-          );
-          formData.append(
-            "mobile_number",
-            values?.mobile ? values?.mobile : ""
-          );
-          formData.append("fax_number", values?.fax ? values?.fax : "");
-          formData.append(
-            "website",
-            values?.website ? trimString(values?.website) : ""
+            'phone_number',
+            values?.phone ? trimString(values?.phone) : '',
           );
           formData.append(
-            "credit_limit",
-            values?.creditLimit ? values?.creditLimit : ""
+            'mobile_number',
+            values?.mobile ? values?.mobile : '',
+          );
+          formData.append('fax_number', values?.fax ? values?.fax : '');
+          formData.append(
+            'website',
+            values?.website ? trimString(values?.website) : '',
           );
           formData.append(
-            "national_id_number",
-            values?.nationalIdNumber ? values?.nationalIdNumber : ""
+            'credit_limit',
+            values?.creditLimit ? values?.creditLimit : '',
           );
-          if (seeTabs.includes("2")) {
-            formData.append("notes", values?.notes ? values?.notes : "");
+          formData.append(
+            'national_id_number',
+            values?.nationalIdNumber ? values?.nationalIdNumber : '',
+          );
+          if (seeTabs.includes('2')) {
+            formData.append('notes', values?.notes ? values?.notes : '');
           }
 
           formData.append(
-            "street",
-            values?.bill_address?.street ? values?.bill_address?.street : ""
+            'street',
+            values?.bill_address?.street ? values?.bill_address?.street : '',
           );
           formData.append(
-            "country",
-            values?.bill_address?.country ? values?.bill_address?.country : ""
+            'country',
+            values?.bill_address?.country ? values?.bill_address?.country : '',
           );
           formData.append(
-            "city",
-            values?.bill_address?.city ? values?.bill_address?.city : ""
+            'city',
+            values?.bill_address?.city ? values?.bill_address?.city : '',
           );
           formData.append(
-            "province",
-            values?.bill_address?.province ? values?.bill_address?.province : ""
+            'province',
+            values?.bill_address?.province
+              ? values?.bill_address?.province
+              : '',
           );
           formData.append(
-            "plate_number",
+            'plate_number',
             values?.bill_address?.plate_number
               ? values?.bill_address?.plate_number
-              : ""
+              : '',
           );
           formData.append(
-            "s_street",
-            values?.ship_address?.street ? values?.ship_address?.street : ""
+            's_street',
+            values?.ship_address?.street ? values?.ship_address?.street : '',
           );
           formData.append(
-            "s_country",
-            values?.ship_address?.country ? values?.ship_address?.country : ""
+            's_country',
+            values?.ship_address?.country ? values?.ship_address?.country : '',
           );
           formData.append(
-            "s_city",
-            values?.ship_address?.city ? values?.ship_address?.city : ""
+            's_city',
+            values?.ship_address?.city ? values?.ship_address?.city : '',
           );
           formData.append(
-            "s_province",
-            values?.ship_address?.province ? values?.ship_address?.province : ""
+            's_province',
+            values?.ship_address?.province
+              ? values?.ship_address?.province
+              : '',
           );
           formData.append(
-            "s_plate_number",
+            's_plate_number',
             values?.ship_address?.plate_number
               ? values?.ship_address?.plate_number
-              : ""
+              : '',
           );
           formData.append(
-            "discount_serial",
-            values?.discountSerial ? values?.discountSerial : ""
+            'discount_serial',
+            values?.discountSerial ? values?.discountSerial : '',
           );
           mutateEditCustomer(formData, {
             onSuccess: () => {},
           });
         }
       })
-      .catch((info) => {
-        
-      });
+      .catch((info) => {});
   };
 
   const handleCancel = () => {
@@ -388,11 +390,11 @@ const EditCustomer = ({
     form.resetFields();
     setFileList([]);
     setFile();
-    setActiveKey("1");
+    setActiveKey('1');
     setAttachments([]);
     setAttachment();
     setError(false);
-    setSeeTabs([""]);
+    setSeeTabs(['']);
     setLoading(false);
     setAttachmentError(false);
   };
@@ -439,13 +441,13 @@ const EditCustomer = ({
     setAttachments(newFileList);
   };
   return (
-    <Row className="modal">
+    <Row className='modal'>
       <Col span={24}>
-        {type === "table" ? (
+        {type === 'table' ? (
           <EditMenuItem {...rest} onClick={showModal} permission={CUSTOMER_M} />
         ) : (
-          <Button className="num" onClick={showModal} shape="round">
-            {t("Sales.Customers.Table.Edit")}
+          <Button className='num' onClick={showModal} shape='round'>
+            {t('Sales.Customers.Table.Edit')}
           </Button>
         )}
 
@@ -457,7 +459,7 @@ const EditCustomer = ({
               DragTitle
               disabled={disabled}
               setDisabled={setDisabled}
-              title={t("Sales.Customers.Customer_information")}
+              title={t('Sales.Customers.Customer_information')}
             />
           }
           modalRender={(modal) => (
@@ -469,12 +471,12 @@ const EditCustomer = ({
           afterClose={handelAfterClose}
           destroyOnClose
           width={
-            isMobile ? "100%" : isTablet ? "100%" : isBgTablet ? 1050 : 1050
+            isMobile ? '100%' : isTablet ? '100%' : isBgTablet ? 1050 : 1050
           }
           style={Styles.modal(isMobile)}
           bodyStyle={Styles.modalBody(isMobile, isSubBase, isMiniTablet)}
           footer={
-            <Row justify="end" align="middle">
+            <Row justify='end' align='middle'>
               <Col>
                 <CancelButton onClick={handleCancel} />
                 <SaveButton onClick={handleOk} loading={loading} />
@@ -486,11 +488,11 @@ const EditCustomer = ({
             form={form}
             hideRequiredMark={true}
             scrollToFirstError={true}
-            layout="vertical"
+            layout='vertical'
           >
             <Row>
               <Col md={{ span: 12 }} sm={{ span: 24 }} xs={{ span: 24 }}>
-                <Row gutter={[10]} align="bottom">
+                <Row gutter={[10]} align='bottom'>
                   <Col
                     style={styles.firstRow(isMobile, isTablitBase)}
                     xl={{ span: 6 }}
@@ -499,17 +501,17 @@ const EditCustomer = ({
                     xs={10}
                   >
                     <Form.Item
-                      name="upload"
-                      valuePropName="fileList"
+                      name='upload'
+                      valuePropName='fileList'
                       getValueFromEvent={normFile}
-                      className="upload"
+                      className='upload'
                       style={styles.name}
-                      help={error ? `${t("Form.Photo_error")}` : undefined}
-                      validateStatus={error === true ? "error" : undefined}
+                      help={error ? `${t('Form.Photo_error')}` : undefined}
+                      validateStatus={error === true ? 'error' : undefined}
                     >
                       <Uplod
                         setFile={setFile}
-                        name={t("Form.Photo")}
+                        name={t('Form.Photo')}
                         setFileList={setFileList}
                         fileList={fileList}
                         onChange={onChange}
@@ -523,16 +525,16 @@ const EditCustomer = ({
                         <Form.Item
                           label={
                             <span>
-                              {t("Form.Name1")}
-                              <span className="star">*</span>
+                              {t('Form.Name1')}
+                              <span className='star'>*</span>
                             </span>
                           }
-                          name="name"
+                          name='name'
                           style={styles.marginBottom}
                           rules={[
                             {
                               whitespace: true,
-                              message: `${t("Form.Name_required")}`,
+                              message: `${t('Form.Name_required')}`,
                               required: true,
                             },
                           ]}
@@ -545,18 +547,18 @@ const EditCustomer = ({
                         <Form.Item
                           label={
                             <span>
-                              {t("Form.Last_Name")}
-                              <span className="star">*</span>
+                              {t('Form.Last_Name')}
+                              <span className='star'>*</span>
                             </span>
                           }
                           rules={[
                             {
-                              message: `${t("Form.Required_last_name")}`,
+                              message: `${t('Form.Required_last_name')}`,
                               required: true,
                               whitespace: true,
                             },
                           ]}
-                          name="lastName"
+                          name='lastName'
                           style={styles.marginBottom}
                         >
                           <Input />
@@ -564,23 +566,23 @@ const EditCustomer = ({
                       </Col>
                       <Col xl={{ span: 8 }}>
                         <Form.Item
-                          label={<span>{t("Form.Nick_name")}</span>}
-                          name="nickName"
+                          label={<span>{t('Form.Nick_name')}</span>}
+                          name='nickName'
                           style={styles.marginBottom}
                         >
                           <Input />
                         </Form.Item>
                       </Col>
                       <Col xl={{ span: 12 }}>
-                        {" "}
+                        {' '}
                         <Form.Item noStyle>
                           <CategoryField
                             form={form}
-                            url="/customer_account/customer_category/"
+                            url='/customer_account/customer_category/'
                             label={
                               <span>
-                                {t("Sales.Product_and_services.Form.Category")}
-                                <span className="star">*</span>
+                                {t('Sales.Product_and_services.Form.Category')}
+                                <span className='star'>*</span>
                               </span>
                             }
                             style={styles.marginBottom}
@@ -590,9 +592,9 @@ const EditCustomer = ({
                       <Col xl={{ span: 12 }}>
                         <Form.Item
                           label={
-                            <p style={styles.name}> {t("Form.Company")}</p>
+                            <p style={styles.name}> {t('Form.Company')}</p>
                           }
-                          name="company"
+                          name='company'
                           style={styles.name}
                         >
                           <Input />
@@ -602,29 +604,29 @@ const EditCustomer = ({
                   </Col>
                   <Col sm={{ span: 12 }} xs={24}>
                     <Form.Item
-                      name="nationalIdNumber"
-                      label={t("Sales.Customers.Form.National_id_number")}
-                      className="margin"
+                      name='nationalIdNumber'
+                      label={t('Sales.Customers.Form.National_id_number')}
+                      className='margin'
                     >
                       <InputNumber
                         min={1}
-                        type="number"
-                        className="num"
-                        inputMode="numeric"
+                        type='number'
+                        className='num'
+                        inputMode='numeric'
                       />
                     </Form.Item>
                   </Col>
                   <Col sm={{ span: 12 }} xs={24}>
                     <Form.Item
-                      name="creditLimit"
-                      label={t("Sales.Customers.Form.Credit_limit")}
-                      className="margin"
+                      name='creditLimit'
+                      label={t('Sales.Customers.Form.Credit_limit')}
+                      className='margin'
                     >
                       <InputNumber
                         min={0}
-                        type="number"
-                        className="num"
-                        inputMode="numeric"
+                        type='number'
+                        className='num'
+                        inputMode='numeric'
                       />
                     </Form.Item>
                   </Col>
@@ -642,15 +644,15 @@ const EditCustomer = ({
               <Col md={12} sm={24} xs={24}>
                 <Row gutter={[10]}>
                   <Col md={{ span: 23, offset: 1 }} sm={24} xs={24}>
-                    {" "}
+                    {' '}
                     <Form.Item
-                      name="email"
-                      label={t("Form.Email")}
+                      name='email'
+                      label={t('Form.Email')}
                       style={styles.marginBottom}
                       rules={[
                         {
-                          type: "email",
-                          message: `${t("Form.Email_Message")}`,
+                          type: 'email',
+                          message: `${t('Form.Email_Message')}`,
                         },
                       ]}
                     >
@@ -658,18 +660,16 @@ const EditCustomer = ({
                     </Form.Item>
                   </Col>
                   <Col md={{ span: 11, offset: 1 }} sm={12} xs={24}>
-                    {" "}
+                    {' '}
                     <Form.Item
-                      name="phone"
-                      onChange={(e) => {
-                        
-                      }}
+                      name='phone'
+                      onChange={(e) => {}}
                       label={
                         <span>
-                          {t("Form.Phone")}&nbsp;
+                          {t('Form.Phone')}&nbsp;
                           <Tooltip
                             title={
-                              <span>{t("Form.Phone_sample")} 799773529</span>
+                              <span>{t('Form.Phone_sample')} 799773529</span>
                             }
                           >
                             <QuestionCircleOutlined />
@@ -684,12 +684,12 @@ const EditCustomer = ({
                   </Col>
                   <Col sm={{ span: 12 }} xs={24}>
                     <Form.Item
-                      name="mobile"
+                      name='mobile'
                       label={
                         <span>
-                          {t("Form.Mobile")}&nbsp;
+                          {t('Form.Mobile')}&nbsp;
                           <Tooltip
-                            title={`${t("Form.Mobile_sample")} 0799773529 `}
+                            title={`${t('Form.Mobile_sample')} 0799773529 `}
                           >
                             <QuestionCircleOutlined />
                           </Tooltip>
@@ -702,14 +702,14 @@ const EditCustomer = ({
                   </Col>
                   <Col md={{ span: 11, offset: 1 }} sm={12} xs={24}>
                     <Form.Item
-                      name="fax"
+                      name='fax'
                       label={
                         <span>
-                          {t("Form.Fax")}
+                          {t('Form.Fax')}
                           &nbsp;
                           <Tooltip
                             title={`${t(
-                              "Form.Fax_sample"
+                              'Form.Fax_sample',
                             )} 93799773529@efaxsend.com `}
                           >
                             <QuestionCircleOutlined />
@@ -723,13 +723,13 @@ const EditCustomer = ({
                   </Col>
                   <Col sm={{ span: 12 }} xs={24}>
                     <Form.Item
-                      name="website"
-                      label={t("Form.Website")}
+                      name='website'
+                      label={t('Form.Website')}
                       style={styles.marginBottom}
                       rules={[
                         {
-                          type: "url",
-                          message: t("Form.Required_website"),
+                          type: 'url',
+                          message: t('Form.Required_website'),
                         },
                       ]}
                     >
@@ -742,14 +742,14 @@ const EditCustomer = ({
             <Row>
               <Col span={24}>
                 <Tabs
-                  type="card"
+                  type='card'
                   // animated={true}
-                  size="small"
+                  size='small'
                   activeKey={activeKey}
                   onTabClick={onTabClick}
                   tabBarStyle={styles.tab(isMobile)}
                 >
-                  <TabPane tab={t("Form.Address")} key="1">
+                  <TabPane tab={t('Form.Address')} key='1'>
                     <Row>
                       <Col md={12} sm={24} xs={24}>
                         <Row>
@@ -757,55 +757,55 @@ const EditCustomer = ({
                             <Form.Item
                               label={
                                 <p style={styles.name}>
-                                  {t("Form.Billing_address")}
+                                  {t('Form.Billing_address')}
                                 </p>
                               }
-                              name={["bill_address", "street"]}
+                              name={['bill_address', 'street']}
                               style={styles.address}
                             >
                               <Input
                                 onChange={onChangeStreet}
-                                placeholder={t("Form.Street")}
+                                placeholder={t('Form.Street')}
                               />
                             </Form.Item>
                           </Col>
                           <Col md={{ span: 11 }} sm={12} xs={24}>
                             <Form.Item
-                              name={["bill_address", "country"]}
+                              name={['bill_address', 'country']}
                               style={styles.address}
                             >
                               <Input
                                 onChange={onChangeCountry}
-                                placeholder={t("Form.Country")}
+                                placeholder={t('Form.Country')}
                               />
                             </Form.Item>
                             <Form.Item
-                              name={["bill_address", "city"]}
+                              name={['bill_address', 'city']}
                               style={styles.address}
                             >
                               <Input
                                 onChange={onChangeCity}
-                                placeholder={t("Form.City/Town")}
+                                placeholder={t('Form.City/Town')}
                               />
                             </Form.Item>
                           </Col>
                           <Col sm={{ span: 11, offset: 1 }} xs={24}>
                             <Form.Item
-                              name={["bill_address", "province"]}
+                              name={['bill_address', 'province']}
                               style={styles.address}
                             >
                               <Input
                                 onChange={onChangeProvince}
-                                placeholder={t("Form.State/Province")}
+                                placeholder={t('Form.State/Province')}
                               />
                             </Form.Item>
                             <Form.Item
-                              name={["bill_address", "plate_number"]}
+                              name={['bill_address', 'plate_number']}
                               style={styles.address}
                             >
                               <Input
                                 onChange={onChangePostalCoude}
-                                placeholder={t("Form.Postal_code")}
+                                placeholder={t('Form.Postal_code')}
                               />
                             </Form.Item>
                           </Col>
@@ -817,13 +817,13 @@ const EditCustomer = ({
                             <Form.Item
                               label={
                                 <p style={styles.name}>
-                                  {t("Form.Shipping_address")}{" "}
+                                  {t('Form.Shipping_address')}{' '}
                                 </p>
                               }
-                              name={["ship_address", "street"]}
+                              name={['ship_address', 'street']}
                               style={styles.address}
                             >
-                              <Input placeholder={t("Form.Street")} />
+                              <Input placeholder={t('Form.Street')} />
                             </Form.Item>
                           </Col>
                           <Col
@@ -832,30 +832,30 @@ const EditCustomer = ({
                             xs={{ span: 24 }}
                           >
                             <Form.Item
-                              name={["ship_address", "country"]}
+                              name={['ship_address', 'country']}
                               style={styles.address}
                             >
-                              <Input placeholder={t("Form.Country")} />
+                              <Input placeholder={t('Form.Country')} />
                             </Form.Item>
                             <Form.Item
-                              name={["ship_address", "city"]}
+                              name={['ship_address', 'city']}
                               style={styles.marginBottom}
                             >
-                              <Input placeholder={t("Form.City/Town")} />
+                              <Input placeholder={t('Form.City/Town')} />
                             </Form.Item>
                           </Col>
                           <Col sm={{ span: 11, offset: 1 }} xs={{ span: 24 }}>
                             <Form.Item
-                              name={["ship_address", "province"]}
+                              name={['ship_address', 'province']}
                               style={styles.address}
                             >
-                              <Input placeholder={t("Form.State/Province")} />
+                              <Input placeholder={t('Form.State/Province')} />
                             </Form.Item>
                             <Form.Item
-                              name={["ship_address", "plate_number"]}
+                              name={['ship_address', 'plate_number']}
                               style={styles.marginBottom}
                             >
-                              <Input placeholder={t("Form.Postal_code")} />
+                              <Input placeholder={t('Form.Postal_code')} />
                             </Form.Item>
                           </Col>
                         </Row>
@@ -863,16 +863,16 @@ const EditCustomer = ({
                     </Row>
                   </TabPane>
                   <TabPane
-                    style={{ marginBottom: "0rem" }}
-                    tab={t("Form.Notes")}
-                    key="2"
+                    style={{ marginBottom: '0rem' }}
+                    tab={t('Form.Notes')}
+                    key='2'
                   >
                     <Row>
                       <Col span={24}>
                         <Form.Item
-                          name="notes"
-                          label={t("Form.Notes")}
-                          className="margin1"
+                          name='notes'
+                          label={t('Form.Notes')}
+                          className='margin1'
                         >
                           <Input.TextArea
                             autoSize={{ minRows: 4, maxRows: 4 }}
@@ -882,39 +882,39 @@ const EditCustomer = ({
                       </Col>
                     </Row>
                   </TabPane>
-                  <TabPane tab={t("Form.Attachments")} key="3">
+                  <TabPane tab={t('Form.Attachments')} key='3'>
                     <Row>
                       <Col md={8} sm={14} xs={20}>
                         <Form.Item
                           label={
                             <span>
-                              {t("Form.Attachments")} &nbsp;
+                              {t('Form.Attachments')} &nbsp;
                               <Tooltip
-                                title={t("Form.Attachments_tooltip")}
-                                placement="left"
+                                title={t('Form.Attachments_tooltip')}
+                                placement='left'
                               >
                                 <QuestionCircleOutlined />
                               </Tooltip>
                             </span>
                           }
                           validateStatus={
-                            attachmentError === true ? "error" : undefined
+                            attachmentError === true ? 'error' : undefined
                           }
                           help={
                             attachmentError === true
-                              ? t("Form.Attachments_tooltip")
+                              ? t('Form.Attachments_tooltip')
                               : undefined
                           }
                         >
                           <Form.Item
-                            name="attachment"
-                            valuePropName="fileList"
+                            name='attachment'
+                            valuePropName='fileList'
                             getValueFromEvent={normFile1}
                             noStyle
                           >
                             <UploadFile
                               setFile={setAttachment}
-                              name={t("Form.Drag_Drop")}
+                              name={t('Form.Drag_Drop')}
                               setFileList={setAttachments}
                               fileList={attachments}
                               onChange={onChangeDrag}
@@ -939,20 +939,20 @@ const styles = {
   modle: (isMobile) => ({ top: isMobile ? 0 : 20 }),
   bodyStyle: (isMobile, isSubBase, isTablit, isTablit1) => ({
     maxHeight: `calc(100vh - 152px)`,
-    overflowY: "auto",
-    padding: isSubBase ? "20px" : "24px",
-    paddingTop: "10px",
+    overflowY: 'auto',
+    padding: isSubBase ? '20px' : '24px',
+    paddingTop: '10px',
   }),
-  name: { marginBottom: ".0rem" },
-  address: { marginBottom: ".5rem" },
+  name: { marginBottom: '.0rem' },
+  address: { marginBottom: '.5rem' },
 
-  drop: { height: "100%" },
+  drop: { height: '100%' },
 
   tab: (isMobile) => ({
-    marginBottom: "8px",
-    marginTop: isMobile ? "1rem" : "5px",
+    marginBottom: '8px',
+    marginTop: isMobile ? '1rem' : '5px',
   }),
-  marginBottom: { marginBottom: "8px" },
+  marginBottom: { marginBottom: '8px' },
   firstRow: (isMobile, isTablitBase) => ({}),
 };
 // const enhancProduct = withObservables(["groups"], ({ database }) => ({

@@ -74,7 +74,6 @@ import {
   WITHDRAW_ROUTES,
 } from '../../constants/routes';
 
-
 import { lazyRetry } from '../../utils/lazyRetry';
 import {
   FaWallet,
@@ -86,7 +85,7 @@ import {
   FaUniversity,
   FaCalculator,
   FaCheckCircle,
-  FaBuromobelexperte
+  FaBuromobelexperte,
 } from 'react-icons/fa';
 
 // Lazy-loaded components (unchanged)
@@ -149,10 +148,10 @@ function Navlinks({ close, collapsed, ...rest }) {
               : ''
           }`
         : '';
-      const style = routes?.includes(routePath)
+      const style = routes?.includes(routePath);
       return { style, className };
     },
-    [mode, collapsed, routePath]
+    [mode, collapsed, routePath],
   );
 
   const handleCheckMenuRout = useCallback(
@@ -161,11 +160,11 @@ function Navlinks({ close, collapsed, ...rest }) {
         routes?.includes(routePath) && collapsed
           ? 'ant-menu-item-selected-collapsed'
           : routes?.includes(routePath)
-          ? `ant-menu-item-selected1`
-          : '';
+            ? `ant-menu-item-selected1`
+            : '';
       return className;
     },
-    [collapsed, routePath]
+    [collapsed, routePath],
   );
 
   // Define the menu items array
@@ -188,19 +187,28 @@ function Navlinks({ close, collapsed, ...rest }) {
     checkPermissionsModel(INVENTORY_PAGE_M) && {
       key: INVENTORY,
       className: handleCheckRout(INVENTORY_ROUTES)?.className,
-      style: { ...handleCheckRout(INVENTORY_ROUTES)?.style, ...styles.subMenuItem },
+      style: {
+        ...handleCheckRout(INVENTORY_ROUTES)?.style,
+        ...styles.subMenuItem,
+      },
       icon: <FaShoppingCart />,
       label: t('Sales.Product_and_services.Inventory.1'),
       onMouseEnter: Inventory,
       children: [
         checkPermissionsModel(PRODUCT_PAGE_M) && {
           key: PRODUCT,
-          style: { ...styles.menuItem, ...handleCheckRout(PRODUCT_ROUTES)?.style },
+          style: {
+            ...styles.menuItem,
+            ...handleCheckRout(PRODUCT_ROUTES)?.style,
+          },
           label: <Link to={PRODUCT}>{t('Sales.Product_and_services.1')}</Link>,
         },
         checkPermissionsModel(WAREHOUSE_PAGE_M) && {
           key: WAREHOUSE,
-          style: { ...styles.menuItem, ...handleCheckRout(WAREHOUSE_ROUTES)?.style },
+          style: {
+            ...styles.menuItem,
+            ...handleCheckRout(WAREHOUSE_ROUTES)?.style,
+          },
           label: <Link to={WAREHOUSE}>{t('Warehouse.1')}</Link>,
         },
         checkPermissionsModel(INVOICE_PAGE_M) && {
@@ -213,29 +221,44 @@ function Navlinks({ close, collapsed, ...rest }) {
     checkPermissionsModel(CUSTOMER_AND_EMPLOYEE_PAGE_M) && {
       key: CONTACTS,
       className: handleCheckRout(CONTACTS_ROUTES)?.className,
-      style: { ...handleCheckRout(CONTACTS_ROUTES)?.style, ...styles.subMenuItem },
+      style: {
+        ...handleCheckRout(CONTACTS_ROUTES)?.style,
+        ...styles.subMenuItem,
+      },
       icon: <FaRegUser />,
       label: t('Contacts.1'),
       onMouseEnter: Contacts,
       children: [
         checkPermissionsModel(CUSTOMER_PAGE_M) && {
           key: CUSTOMER,
-          style: { ...styles.menuItem, ...handleCheckRout(CUSTOMER_ROUTES)?.style },
+          style: {
+            ...styles.menuItem,
+            ...handleCheckRout(CUSTOMER_ROUTES)?.style,
+          },
           label: <Link to={CUSTOMER}>{t('Sales.Customers.1')}</Link>,
         },
         checkPermissionsModel(SUPPLIER_PAGE_M) && {
           key: SUPPLIER,
-          style: { ...styles.menuItem, ...handleCheckRout(SUPPLIER_ROUTES)?.style },
+          style: {
+            ...styles.menuItem,
+            ...handleCheckRout(SUPPLIER_ROUTES)?.style,
+          },
           label: <Link to={SUPPLIER}>{t('Expenses.Suppliers.1')}</Link>,
         },
         checkPermissionsModel(EMPLOYEE_PAGE_M) && {
           key: EMPLOYEE,
-          style: { ...styles.menuItem, ...handleCheckRout(EMPLOYEE_ROUTES)?.style },
+          style: {
+            ...styles.menuItem,
+            ...handleCheckRout(EMPLOYEE_ROUTES)?.style,
+          },
           label: <Link to={EMPLOYEE}>{t('Employees.1')}</Link>,
         },
         checkPermissionsModel(EMPLOYEE_PAGE_M) && {
           key: PARTNERS,
-          style: { ...styles.menuItem, ...handleCheckRout(PARTNERS_ROUTES)?.style },
+          style: {
+            ...styles.menuItem,
+            ...handleCheckRout(PARTNERS_ROUTES)?.style,
+          },
           label: <Link to={PARTNERS}>{t('Partners.1')}</Link>,
         },
       ].filter(Boolean),
@@ -255,17 +278,26 @@ function Navlinks({ close, collapsed, ...rest }) {
       children: [
         checkPermissionsModel(EXPENSE_PAGE_M) && {
           key: EXPENSE,
-          style: { ...styles.menuItem, ...handleCheckRout(EXPENSE_ROUTES)?.style },
+          style: {
+            ...styles.menuItem,
+            ...handleCheckRout(EXPENSE_ROUTES)?.style,
+          },
           label: <Link to={EXPENSE}>{t('Expenses.1')}</Link>,
         },
         checkPermissionsModel(INCOME_PAGE_M) && {
           key: INCOME,
-          style: { ...styles.menuItem, ...handleCheckRout(INCOME_ROUTES)?.style },
+          style: {
+            ...styles.menuItem,
+            ...handleCheckRout(INCOME_ROUTES)?.style,
+          },
           label: <Link to={INCOME}>{t('Expenses.Income.1')}</Link>,
         },
         checkPermissionsModel(WITHDRAW_PAGE_M) && {
           key: WITHDRAW,
-          style: { ...styles.menuItem, ...handleCheckRout(WITHDRAW_ROUTES)?.style },
+          style: {
+            ...styles.menuItem,
+            ...handleCheckRout(WITHDRAW_ROUTES)?.style,
+          },
           label: <Link to={WITHDRAW}>{t('Expenses.With_draw.1')}</Link>,
         },
       ].filter(Boolean),
@@ -275,7 +307,10 @@ function Navlinks({ close, collapsed, ...rest }) {
       checkPermissionsModel(BANK_TRANSACTION_PAGE_M)) && {
       key: BANK,
       className: handleCheckRout(BANK_CASH_ROUTES)?.className,
-      style: { ...handleCheckRout(BANK_CASH_ROUTES)?.style, ...styles.subMenuItem },
+      style: {
+        ...handleCheckRout(BANK_CASH_ROUTES)?.style,
+        ...styles.subMenuItem,
+      },
       icon: <FaUniversity />,
       label: t('Banking.Banking_and_cash'),
       onMouseEnter: BankAndCash,
@@ -296,7 +331,9 @@ function Navlinks({ close, collapsed, ...rest }) {
             ...styles.menuItem,
             ...handleCheckRout(BANK_TRANSACTION_ROUTES)?.style,
           },
-          label: <Link to={BANK_TRANSACTION}>{t('Banking.Transactions.1')}</Link>,
+          label: (
+            <Link to={BANK_TRANSACTION}>{t('Banking.Transactions.1')}</Link>
+          ),
         },
       ].filter(Boolean),
     },
@@ -308,7 +345,11 @@ function Navlinks({ close, collapsed, ...rest }) {
         ...handleCheckRout(CURRENCY_ROUTES)?.style,
       },
       icon: <FaDollarSign />,
-      label: <Link to={CURRENCY_RATE}>{t('Sales.Product_and_services.Currency.Currency_and_exchange')}</Link>,
+      label: (
+        <Link to={CURRENCY_RATE}>
+          {t('Sales.Product_and_services.Currency.Currency_and_exchange')}
+        </Link>
+      ),
       onMouseEnter: CurrencyRate,
     },
     (checkPermissionsModel(CHART_OF_ACCOUNT_M) ||
@@ -316,7 +357,10 @@ function Navlinks({ close, collapsed, ...rest }) {
       checkPermissionsModel(FISCAL_YEAR_M)) && {
       key: CHART_OF_ACCOUNT,
       className: handleCheckRout(ACCOUNTING_ROUTES)?.className,
-      style: { ...handleCheckRout(ACCOUNTING_ROUTES)?.style, ...styles.subMenuItem },
+      style: {
+        ...handleCheckRout(ACCOUNTING_ROUTES)?.style,
+        ...styles.subMenuItem,
+      },
       icon: <FaCalculator />,
       label: t('Accounting.1'),
       onMouseEnter: Accounting,
@@ -324,7 +368,11 @@ function Navlinks({ close, collapsed, ...rest }) {
         checkPermissionsModel(CHART_OF_ACCOUNT_M) && {
           key: CHART_OF_ACCOUNT,
           style: styles.menuItem,
-          label: <Link to={CHART_OF_ACCOUNT}>{t('Accounting.Chart_of_accounts.1')}</Link>,
+          label: (
+            <Link to={CHART_OF_ACCOUNT}>
+              {t('Accounting.Chart_of_accounts.1')}
+            </Link>
+          ),
         },
         checkPermissionsModel(OPINING_ACCOUNT_M) && {
           key: OPENING_ACCOUNT,
@@ -345,9 +393,11 @@ function Navlinks({ close, collapsed, ...rest }) {
         ...styles.mainMenuItem(collapsed),
         ...handleCheckRout(REPORT_ROUTES)?.style,
       },
-      icon: <FaCheckCircle  />,
+      icon: <FaCheckCircle />,
       label: (
-        <Link to={`${REPORT}/${params?.id === 'warehouse' ? 'warehouse' : 'financial'}`}>
+        <Link
+          to={`${REPORT}/${params?.id === 'warehouse' ? 'warehouse' : 'financial'}`}
+        >
           {t('Reports.1')}
         </Link>
       ),
@@ -364,7 +414,6 @@ function Navlinks({ close, collapsed, ...rest }) {
   ].filter(Boolean); // Remove falsy values (e.g., when permissions are not met)
 
   return (
-
     <Menu
       mode={isMobileBased ? 'inline' : 'vertical'}
       theme={mode}

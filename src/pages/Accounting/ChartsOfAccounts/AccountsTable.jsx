@@ -483,7 +483,7 @@ const AccountsTable = ({ activeProducts, customers }) => {
             {detailType && (
               <Column
                 title={t(
-                  'Accounting.Chart_of_accounts.Form.Detail_type'
+                  'Accounting.Chart_of_accounts.Form.Detail_type',
                 ).toUpperCase()}
                 dataIndex='detailType'
                 key='detailType'
@@ -502,7 +502,7 @@ const AccountsTable = ({ activeProducts, customers }) => {
             {pandaBalance && (
               <Column
                 title={t(
-                  'Accounting.Chart_of_accounts.Form.Panda_balance'
+                  'Accounting.Chart_of_accounts.Form.Panda_balance',
                 ).toUpperCase()}
                 dataIndex='pandaBalance'
                 key='pandaBalance'
@@ -511,7 +511,7 @@ const AccountsTable = ({ activeProducts, customers }) => {
             )}
             <Column
               title={t(
-                'Accounting.Chart_of_accounts.Form.Bank_balance'
+                'Accounting.Chart_of_accounts.Form.Bank_balance',
               ).toUpperCase()}
               dataIndex='bankBalance'
               key='bankBalance'

@@ -1,46 +1,46 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { useTranslation } from "react-i18next";
-import startCase from "lodash/startCase";
-import { fixedNumber, math, print } from "../../../../Functions/math";
-import { Drawer, Form, Col, Row, message, Space, Modal } from "antd";
-import { debounce } from "throttle-debounce";
-import dayjs from "dayjs";
-import axiosInstance from "../../../ApiBaseUrl";
-import { useMutation, useQueryClient } from "react-query";
-import InvoiceTable from "./InvoiceTable";
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import startCase from 'lodash/startCase';
+import { fixedNumber, math, print } from '../../../../Functions/math';
+import { Drawer, Form, Col, Row, message, Space, Modal } from 'antd';
+import { debounce } from 'throttle-debounce';
+import dayjs from 'dayjs';
+import axiosInstance from '../../../ApiBaseUrl';
+import { useMutation, useQueryClient } from 'react-query';
+import InvoiceTable from './InvoiceTable';
 import {
   changeGToJ,
   handlePrepareDateForServer,
   utcDate,
-} from "../../../../Functions/utcDate";
-import useGetCalender from "../../../../Hooks/useGetCalender";
-import useGetBaseCurrency from "../../../../Hooks/useGetBaseCurrency";
-import PrintInvoiceButton from "../MarketInvoiceComponents/PrintInvoiceButton";
-import SaveDropdownButton from "../../../../components/buttons/SaveDropdownButton";
-import { ActionMessage } from "../../../SelfComponents/TranslateComponents/ActionMessage";
+} from '../../../../Functions/utcDate';
+import useGetCalender from '../../../../Hooks/useGetCalender';
+import useGetBaseCurrency from '../../../../Hooks/useGetBaseCurrency';
+import PrintInvoiceButton from '../MarketInvoiceComponents/PrintInvoiceButton';
+import SaveDropdownButton from '../../../../components/buttons/SaveDropdownButton';
+import { ActionMessage } from '../../../SelfComponents/TranslateComponents/ActionMessage';
 import {
   expireProductsBaseUrl,
   productStatisticsBaseUrl,
-} from "../../../Reports/AllReports/AllReports";
-import useGetDefaultWarehouse from "../../../../Hooks/useGetDefaultWarehouse";
+} from '../../../Reports/AllReports/AllReports';
+import useGetDefaultWarehouse from '../../../../Hooks/useGetDefaultWarehouse';
 import {
   useGetDefaultCustomer,
   useGetDefaultEmployee,
   useGetDefaultSupplier,
-} from "../../../../Hooks";
-import InvoicesFooter from "./SalesInvoiceComponents/Footer";
-import InvoiceHeader from "./SalesInvoiceComponents/Header";
-import MultipleCashPayment from "./SalesInvoiceComponents/MultipleCashPayment";
-import { handleFindUnitConversionRate } from "../../../../Functions";
-import { CancelButton, ResetButton } from "../../../../components";
+} from '../../../../Hooks';
+import InvoicesFooter from './SalesInvoiceComponents/Footer';
+import InvoiceHeader from './SalesInvoiceComponents/Header';
+import MultipleCashPayment from './SalesInvoiceComponents/MultipleCashPayment';
+import { handleFindUnitConversionRate } from '../../../../Functions';
+import { CancelButton, ResetButton } from '../../../../components';
 
 const invoiceFixedNumber = (value) => {
   const newValue = fixedNumber(value, 20);
   return newValue;
 };
 
-const dateFormat = "YYYY-MM-DD HH:mm:ss";
-const dateFormat1 = "YYYY-MM-DD";
+const dateFormat = 'YYYY-MM-DD HH:mm:ss';
+const dateFormat1 = 'YYYY-MM-DD';
 const AddInvoice = (props) => {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
@@ -56,8 +56,8 @@ const AddInvoice = (props) => {
   const [totalOfItems, setTotalOfItems] = useState(0);
   const [currencyValue, setCurrencyValue] = useState(1);
   const [prevCurrency, setPrevCurrency] = useState(1);
-  const [editingKey, setEditingKey] = useState("");
-  const [currencySymbol, setCurrencySymbol] = useState("");
+  const [editingKey, setEditingKey] = useState('');
+  const [currencySymbol, setCurrencySymbol] = useState('');
   const [discount, setDiscount] = useState(0);
   const [expense, setExpense] = useState(0);
   const [warehouseId, setWarehouseId] = useState(0);
@@ -65,14 +65,14 @@ const AddInvoice = (props) => {
     {
       key: 1,
       row: `${1}`,
-      id: { value: "", label: "" },
+      id: { value: '', label: '' },
       serial: 1,
       // product: { value: "", label: "" },
       // unit: { value: "", label: "" },
       qty: 10,
       // each_price: 0,
       // total_price: 0,
-      description: "",
+      description: '',
     },
   ]);
   const [{ globalDiscount, productDiscount }, setIsDiscount] = useState({
@@ -81,9 +81,9 @@ const AddInvoice = (props) => {
   });
 
   const factorType =
-    props.type === "purchase" || props.type === "purchase_rej"
-      ? "purchase"
-      : "sales";
+    props.type === 'purchase' || props.type === 'purchase_rej'
+      ? 'purchase'
+      : 'sales';
 
   //get base currency
   const baseCurrency = useGetBaseCurrency();
@@ -135,7 +135,7 @@ const AddInvoice = (props) => {
   useEffect(() => {
     form.setFieldsValue({
       account:
-        factorType === "sales"
+        factorType === 'sales'
           ? { label: customerName, value: 103001 }
           : { label: supplierName, value: 201001 },
     });
@@ -154,13 +154,13 @@ const AddInvoice = (props) => {
       key: count,
       row: `${count}`,
       serial: count,
-      id: { value: "", label: "" },
+      id: { value: '', label: '' },
       // product: { value: "", label: "" },
       // unit: { value: "", label: "" },
       qty: 1,
       // each_price: 0,
       // total_price: 0,
-      description: "",
+      description: '',
     };
     setData((prev) => [...prev, newData]);
     const neCount = count + 1;
@@ -174,29 +174,29 @@ const AddInvoice = (props) => {
           math.evaluate(
             `(${item?.each_price ?? 0}*${currencyRate ?? 1})/${
               newCurrencyRate ?? 1
-            }`
-          )
+            }`,
+          ),
         );
         const discount = print(
           math.evaluate(
             `(${item?.discount ?? 0}*${currencyRate ?? 1})/${
               newCurrencyRate ?? 1
-            }`
-          )
+            }`,
+          ),
         );
 
         return {
           ...item,
           each_price: eachPrice,
           total_price: invoiceFixedNumber(
-            print(math.evaluate(`${item?.qty ?? 0}*${eachPrice ?? 0}`))
+            print(math.evaluate(`${item?.qty ?? 0}*${eachPrice ?? 0}`)),
           ),
           discount,
         };
       });
       setData(newData);
 
-      const cashList = form?.getFieldValue("cashList");
+      const cashList = form?.getFieldValue('cashList');
       if (cashList?.length) {
         const newData = cashList?.reduce(
           ({ newItems, cashAmount }, item) => {
@@ -204,8 +204,8 @@ const AddInvoice = (props) => {
               math.evaluate(
                 `(${item?.cashAmount ?? 0}*${currencyRate ?? 1})/${
                   newCurrencyRate ?? 1
-                }`
-              )
+                }`,
+              ),
             );
             return {
               newItems: [
@@ -218,19 +218,19 @@ const AddInvoice = (props) => {
               cashAmount: cashAmount + parseFloat(newCashAmount),
             };
           },
-          { newItems: [], cashAmount: 0 }
+          { newItems: [], cashAmount: 0 },
         );
         setCashAmount(newData?.cashAmount);
         form.setFieldsValue({ cashList: newData?.newItems });
       }
 
-      const discountData = form.getFieldValue("discount");
+      const discountData = form.getFieldValue('discount');
 
       setExpense((prev) => {
         const newExpense = print(
           math.evaluate(
-            `(${prev ?? 0}*${currencyRate ?? 1})/${newCurrencyRate ?? 1}`
-          )
+            `(${prev ?? 0}*${currencyRate ?? 1})/${newCurrencyRate ?? 1}`,
+          ),
         );
         form.setFieldsValue({ expense: newExpense });
         return newExpense;
@@ -241,23 +241,23 @@ const AddInvoice = (props) => {
           math.evaluate(
             `(${discountData ?? 0}*${currencyRate ?? 1})/${
               newCurrencyRate ?? 1
-            }`
-          )
+            }`,
+          ),
         );
 
         setDiscount(newDiscount);
         form.setFieldsValue({ discount: newDiscount });
       }
     },
-    [form]
+    [form],
   );
 
   const onChangeCurrency = useCallback(
     (value) => {
-      const currencyRate = form.getFieldValue("currencyRate");
+      const currencyRate = form.getFieldValue('currencyRate');
 
       const newCurrencyRate = print(
-        math.evaluate(`${value?.base_amount ?? 0}/${value?.equal_amount ?? 1}`)
+        math.evaluate(`${value?.base_amount ?? 0}/${value?.equal_amount ?? 1}`),
       );
 
       setPrevCurrency(newCurrencyRate);
@@ -265,22 +265,22 @@ const AddInvoice = (props) => {
       handelChangeCurrencyChangeAllTotalPrice(
         data,
         currencyRate ?? 1,
-        newCurrencyRate
+        newCurrencyRate,
       );
 
       setCurrencySymbol(value?.symbol);
     },
-    [data, form, handelChangeCurrencyChangeAllTotalPrice]
+    [data, form, handelChangeCurrencyChangeAllTotalPrice],
   );
 
   const onChangeCurrencyRate = useCallback(
     (value) => {
-      if (value !== "") {
+      if (value !== '') {
         handelChangeCurrencyChangeAllTotalPrice(data, prevCurrency, value ?? 1);
         setPrevCurrency(value ?? 1);
       }
     },
-    [data, handelChangeCurrencyChangeAllTotalPrice, prevCurrency]
+    [data, handelChangeCurrencyChangeAllTotalPrice, prevCurrency],
   );
 
   const handleChangeExpense = (value, type) => {
@@ -290,12 +290,12 @@ const AddInvoice = (props) => {
   const debounceExpenseFun = debounce(400, (value, type) => {
     const total = data?.reduce(
       (sum, item) => print(math.evaluate(`${sum}+${item?.total_price ?? 0}`)),
-      0
+      0,
     );
 
     setTotalOfItems(invoiceFixedNumber(total) ?? 0);
     const newValue = parseFloat(value ?? 0);
-    if (type === "discount") {
+    if (type === 'discount') {
       setDiscount(newValue ?? 0);
       setIsDiscount((prev) => ({
         ...prev,
@@ -313,7 +313,7 @@ const AddInvoice = (props) => {
         total: print(math.evaluate(`${total}+${item?.total_price ?? 0}`)),
         discount: print(math.evaluate(`${discount}+${item?.discount ?? 0}`)),
       }),
-      { total: 0, discount: 0 }
+      { total: 0, discount: 0 },
     );
     const totalDataValue = invoiceFixedNumber(total) ?? 0;
     const newDiscount = fixedNumber(discount) ?? 0;
@@ -342,7 +342,7 @@ const AddInvoice = (props) => {
       if (value === false) {
         form.resetFields();
         setPrevCurrency(1);
-        setEditingKey("");
+        setEditingKey('');
         setCashAmount(0);
         setCount(2);
         setData([
@@ -350,13 +350,13 @@ const AddInvoice = (props) => {
             key: 1,
             row: `${1}`,
             serial: 1,
-            id: { value: "", label: "" },
+            id: { value: '', label: '' },
             // product: { value: "", label: "" },
             // unit: { value: "", label: "" },
             qty: 1,
             // each_price: 0,
             // total_price: 0,
-            description: "",
+            description: '',
           },
         ]);
         setCurrencyValue(baseCurrencyId);
@@ -376,13 +376,13 @@ const AddInvoice = (props) => {
         setVisibleDrop(false);
       }
     },
-    [baseCurrencyId, baseCurrencySymbol, form]
+    [baseCurrencyId, baseCurrencySymbol, form],
   );
 
   const handleReset = useCallback(() => {
     form.resetFields();
     setPrevCurrency(1);
-    setEditingKey("");
+    setEditingKey('');
     setCashAmount(0);
     setCount(2);
     setData([
@@ -390,13 +390,13 @@ const AddInvoice = (props) => {
         key: 1,
         row: `${1}`,
         serial: 1,
-        id: { value: "", label: "" },
+        id: { value: '', label: '' },
         // product: { value: "", label: "" },
         // unit: { value: "", label: "" },
         qty: 1,
         // each_price: 0,
         // total_price: 0,
-        description: "",
+        description: '',
       },
     ]);
     setCurrencyValue(baseCurrencyId);
@@ -416,21 +416,21 @@ const AddInvoice = (props) => {
     setVisibleDrop(false);
   }, [baseCurrencyId, baseCurrencySymbol, form]);
 
-  const messageKey = "addInvoice";
+  const messageKey = 'addInvoice';
   const addSalesInvoice = useCallback(
     async ({ value, type }) => {
       return await axiosInstance
         .post(props.baseUrl, value, { timeout: 0 })
         .then((res) => {
-          if (type === "0") {
+          if (type === '0') {
             message.destroy(messageKey);
             message.success(
               <ActionMessage
-                name={`${t("Sales.All_sales.Invoice.Invoice")} ${
+                name={`${t('Sales.All_sales.Invoice.Invoice')} ${
                   res?.data?.id
                 }`}
-                message="Message.Add"
-              />
+                message='Message.Add'
+              />,
             );
             handleReset();
             setVisibleDrop(false);
@@ -438,15 +438,15 @@ const AddInvoice = (props) => {
             setResponse(res.data);
             message.success(
               <ActionMessage
-                name={`${t("Sales.All_sales.Invoice.Invoice")} ${
+                name={`${t('Sales.All_sales.Invoice.Invoice')} ${
                   res?.data?.id
                 }`}
-                message="Message.Add"
-              />
+                message='Message.Add'
+              />,
             );
           }
           queryClient.invalidateQueries(props.baseUrl);
-          if (props?.type !== "quotation") {
+          if (props?.type !== 'quotation') {
             queryClient.invalidateQueries(expireProductsBaseUrl);
             queryClient.invalidateQueries(productStatisticsBaseUrl);
           }
@@ -519,7 +519,7 @@ const AddInvoice = (props) => {
             } else if (item?.description?.[0]) {
               message.error(item?.description?.[0]);
             }
-          } else if (props?.type === "quotation") {
+          } else if (props?.type === 'quotation') {
             if (res?.discount?.[0]) {
               message.error(res?.discount?.[0]);
             } else if (res?.expense?.[0]) {
@@ -533,7 +533,7 @@ const AddInvoice = (props) => {
           return error;
         });
     },
-    [handleReset, props.baseUrl, props.type, queryClient, t]
+    [handleReset, props.baseUrl, props.type, queryClient, t],
   );
 
   const { mutate: mutateAddSalesInvoice, isLoading } =
@@ -544,54 +544,54 @@ const AddInvoice = (props) => {
       fixedNumber(
         print(
           math.evaluate(
-            `${totalOfItems ?? 0} + ${expense ?? 0} - ${discount ?? 0}`
-          )
-        )
+            `${totalOfItems ?? 0} + ${expense ?? 0} - ${discount ?? 0}`,
+          ),
+        ),
       ),
-    [discount, expense, totalOfItems]
+    [discount, expense, totalOfItems],
   );
 
   const remainAmount = useMemo(
     () =>
       fixedNumber(
-        print(math.evaluate(`${finalAmount ?? 0} - ${cashAmount ?? 0}`))
+        print(math.evaluate(`${finalAmount ?? 0} - ${cashAmount ?? 0}`)),
       ),
-    [cashAmount, finalAmount]
+    [cashAmount, finalAmount],
   );
 
   const summary = useMemo(() => {
     const data = [
       [
         {
-          label: t("Sales.Customers.Form.Total"),
+          label: t('Sales.Customers.Form.Total'),
           value: totalOfItems,
         },
         {
-          label: t("Sales.Customers.Discount.1"),
+          label: t('Sales.Customers.Discount.1'),
           value: discount,
         },
         {
-          label: t("Expenses.1"),
+          label: t('Expenses.1'),
           value: expense,
         },
-        { label: t("Final_amount"), value: finalAmount },
+        { label: t('Final_amount'), value: finalAmount },
       ],
 
       [
         {
           label:
-            props?.type === "sales" || props?.type === "purchase_rej"
-              ? t("Employees.Receive_cash")
-              : t("Employees.Pay_cash"),
+            props?.type === 'sales' || props?.type === 'purchase_rej'
+              ? t('Employees.Receive_cash')
+              : t('Employees.Pay_cash'),
           value: cashAmount,
         },
         {
-          label: t("Sales.All_sales.Invoice.Remain_amount"),
+          label: t('Sales.All_sales.Invoice.Remain_amount'),
           value: remainAmount,
         },
       ],
     ];
-    return props?.type === "quotation" ? [data?.[0]] : data;
+    return props?.type === 'quotation' ? [data?.[0]] : data;
   }, [
     t,
     totalOfItems,
@@ -608,7 +608,7 @@ const AddInvoice = (props) => {
     form.validateFields().then(async (values) => {
       const items = data?.reduce((items, item) => {
         const expireDate =
-          item?.expirationDate && props.type !== "sales"
+          item?.expirationDate && props.type !== 'sales'
             ? handlePrepareDateForServer({
                 date: item?.expirationDate,
                 calendarCode,
@@ -625,7 +625,7 @@ const AddInvoice = (props) => {
             unit_conversion_rate: handleFindUnitConversionRate(
               item?.unit_conversion,
               item?.unit?.value,
-              item?.product_units
+              item?.product_units,
             ),
             product: item?.id?.value,
             qty: parseFloat(parseFloat(item?.qty).toFixed(4)),
@@ -636,13 +636,13 @@ const AddInvoice = (props) => {
             expire_date: expireDate,
           };
           if (
-            props.type === "sales" ||
-            props?.type === "purchase_rej" ||
-            props?.type === "quotation"
+            props.type === 'sales' ||
+            props?.type === 'purchase_rej' ||
+            props?.type === 'quotation'
           ) {
-            delete newItem["warehouse_in"];
+            delete newItem['warehouse_in'];
           } else {
-            delete newItem["warehouse_out"];
+            delete newItem['warehouse_out'];
           }
 
           return [...items, newItem];
@@ -653,11 +653,11 @@ const AddInvoice = (props) => {
 
       if (items?.length === 0) {
         Modal.warning({
-          bodyStyle: { direction: t("Dir") },
-          title: t("Sales.All_sales.Invoice.Invoice_no_data_message"),
+          bodyStyle: { direction: t('Dir') },
+          title: t('Sales.All_sales.Invoice.Invoice_no_data_message'),
         });
       } else {
-        const cashList = form.getFieldValue("cashList");
+        const cashList = form.getFieldValue('cashList');
 
         const cashPayment = cashList?.map((item) => {
           return {
@@ -686,15 +686,15 @@ const AddInvoice = (props) => {
             calendarCode,
           }),
           description: values.description,
-          customer: `${factorType === "purchase" ? "SUP" : "CUS"}-${
+          customer: `${factorType === 'purchase' ? 'SUP' : 'CUS'}-${
             values?.account?.value
           }`,
           invoice_items: items,
         };
-        if (props.type !== "sales") {
-          delete invoiceData["representative"];
+        if (props.type !== 'sales') {
+          delete invoiceData['representative'];
         }
-        if (props?.type === "quotation") {
+        if (props?.type === 'quotation') {
           mutateAddSalesInvoice({ value: invoiceData, type: submitType });
         } else {
           const allData = {
@@ -704,12 +704,12 @@ const AddInvoice = (props) => {
 
           if (cashAmount > finalAmount) {
             Modal.confirm({
-              bodyStyle: { direction: t("Dir") },
-              title: t("Invoice_final_amount_less_than_pay_cash_message"),
+              bodyStyle: { direction: t('Dir') },
+              title: t('Invoice_final_amount_less_than_pay_cash_message'),
               onOk: () => {
-                if (submitType === "0") {
+                if (submitType === '0') {
                   message.loading({
-                    content: t("Message.Loading"),
+                    content: t('Message.Loading'),
                     key: messageKey,
                   });
                 }
@@ -717,9 +717,9 @@ const AddInvoice = (props) => {
               },
             });
           } else {
-            if (submitType === "0") {
+            if (submitType === '0') {
               message.loading({
-                content: t("Message.Loading"),
+                content: t('Message.Loading'),
                 key: messageKey,
               });
             }
@@ -740,23 +740,23 @@ const AddInvoice = (props) => {
 
   return (
     <div>
-      <div type="primary" shape="round" onClick={showDrawer} className="num">
+      <div type='primary' shape='round' onClick={showDrawer} className='num'>
         {props.title}
       </div>
       <Drawer
         maskClosable={false}
         mask={true}
         title={startCase(props.title)}
-        height="100%"
+        height='100%'
         onClose={handelCancel}
         open={visible}
         // maskClosable={false}
         destroyOnClose
         afterVisibleChange={handleAfterVisibleChange}
-        placement="top"
+        placement='top'
         bodyStyle={{ paddingBottom: 10 }}
         footer={
-          <Row justify="end">
+          <Row justify='end'>
             <Col>
               <Space size={10}>
                 <PrintInvoiceButton
@@ -769,17 +769,17 @@ const AddInvoice = (props) => {
                   form={form}
                   id={response?.id}
                 />
-                {props?.type === "sales" && (
+                {props?.type === 'sales' && (
                   <PrintInvoiceButton
                     // disabled={false}
                     disabled={!response?.id}
-                    title={startCase(t("Warehouse_remittance"))}
+                    title={startCase(t('Warehouse_remittance'))}
                     dataSource={data}
-                    type="warehouseRemittance"
+                    type='warehouseRemittance'
                     summary={[]}
                     form={form}
                     id={response?.id}
-                    printText={t("Warehouse_remittance")}
+                    printText={t('Warehouse_remittance')}
                   />
                 )}
                 <CancelButton onClick={handelCancel} disabled={response?.id} />
@@ -790,7 +790,7 @@ const AddInvoice = (props) => {
                   dropdownProps={{
                     visible: visibleDrop,
                     onOpenChange: handleVisibleChange,
-                    disabled: editingKey !== "" || response?.id,
+                    disabled: editingKey !== '' || response?.id,
                   }}
                 />
               </Space>
@@ -799,12 +799,12 @@ const AddInvoice = (props) => {
         }
       >
         <Form
-          layout="vertical"
+          layout='vertical'
           hideRequiredMark
           form={form}
           initialValues={{
             date:
-              calendarCode === "gregory"
+              calendarCode === 'gregory'
                 ? utcDate()
                 : dayjs(changeGToJ(utcDate().format(dateFormat), dateFormat), {
                     //@ts-ignore
@@ -822,7 +822,7 @@ const AddInvoice = (props) => {
             previousAccount: 0,
             remainAccount: 0,
             account:
-              factorType === "sales"
+              factorType === 'sales'
                 ? { label: defaultCustomer?.full_name, value: 103001 }
                 : { label: defaultSupplier?.full_name, value: 201001 },
 
@@ -832,7 +832,7 @@ const AddInvoice = (props) => {
               label: defaultWarehouse?.name,
             },
             debit: false,
-            status: "pending",
+            status: 'pending',
           }}
         >
           <Row>
@@ -863,7 +863,7 @@ const AddInvoice = (props) => {
                 // showFooter={showFooter}
                 setCount={setCount}
                 count={count}
-                place="add"
+                place='add'
                 warehouseId={
                   warehouseId === 0 ? defaultWarehouse?.id : warehouseId
                 }
@@ -895,7 +895,7 @@ const AddInvoice = (props) => {
                     globalDiscount,
                   }}
                 >
-                  {props?.type !== "quotation" && (
+                  {props?.type !== 'quotation' && (
                     <MultipleCashPayment
                       {...{
                         form,
@@ -905,7 +905,7 @@ const AddInvoice = (props) => {
                         finalAmount,
                         currencySymbol,
                         setCashAmount,
-                        actionType: "add",
+                        actionType: 'add',
                         cashAmount,
                       }}
                     />

@@ -54,7 +54,7 @@ let InvoiceTable = (props) => {
   const handleGetProductPrice = useCallback(
     (record, unitId) => {
       const productPrice = record?.price?.find(
-        (item) => item?.unit?.id === unitId
+        (item) => item?.unit?.id === unitId,
       );
       const sales = fixedNumber(productPrice?.sales_rate ?? 0, 3);
       const purchase = fixedNumber(productPrice?.perches_rate ?? 0, 3);
@@ -91,7 +91,7 @@ let InvoiceTable = (props) => {
         return;
       }
     },
-    [props.form, props.type, t]
+    [props.form, props.type, t],
   );
 
   const handleCheckStatistic = useCallback(
@@ -115,7 +115,7 @@ let InvoiceTable = (props) => {
         return true;
       }
     },
-    [t]
+    [t],
   );
 
   const findProductStatistics = useCallback(
@@ -136,7 +136,7 @@ let InvoiceTable = (props) => {
         const unitConversion = handleFindUnitConversionRate(
           item?.unit_conversion,
           unitId,
-          item?.product_units
+          item?.product_units,
         );
         // console.log("unitConversion" , unitConversion)
         if (unitConversion && Boolean(unitId)) {
@@ -166,15 +166,15 @@ let InvoiceTable = (props) => {
             const conversion = handleFindUnitConversionRate(
               item?.unit_conversion,
               item?.unit?.value,
-              item?.product_units
+              item?.product_units,
             );
 
             return fixedNumber(
               print(
                 math.evaluate(
-                  `(${conversion ?? 0} * ${item?.qty ?? 0}) + ${sum}`
-                )
-              )
+                  `(${conversion ?? 0} * ${item?.qty ?? 0}) + ${sum}`,
+                ),
+              ),
             );
           }, 0);
 
@@ -192,7 +192,7 @@ let InvoiceTable = (props) => {
 
           const available = availableItems?.reduce((sum, item) => {
             return fixedNumber(
-              print(math.evaluate(`${sum}  + ${item?.available ?? 0}`))
+              print(math.evaluate(`${sum}  + ${item?.available ?? 0}`)),
             );
           }, 0);
 
@@ -201,30 +201,30 @@ let InvoiceTable = (props) => {
               available,
               totalAvailable,
               item?.product?.label,
-              warehouseName
+              warehouseName,
             );
           } else {
             const prevPSItems = props?.prevStatistic?.filter(
               (filterItem) =>
                 item?.id === filterItem?.id &&
-                filterItem?.warehouse === warehouseId
+                filterItem?.warehouse === warehouseId,
             );
 
             const totalPrevAvailable = prevPSItems?.reduce((sum, item) => {
               return fixedNumber(
-                print(math.evaluate(`${item?.statistic ?? 0} + ${sum}`))
+                print(math.evaluate(`${item?.statistic ?? 0} + ${sum}`)),
               );
             }, 0);
 
             const finalAvailable = fixedNumber(
-              print(math.evaluate(`${available} + ${totalPrevAvailable}`))
+              print(math.evaluate(`${available} + ${totalPrevAvailable}`)),
             );
 
             return handleCheckStatistic(
               finalAvailable,
               totalAvailable,
               item?.product?.label,
-              warehouseName
+              warehouseName,
             );
             // } else {
             //   const result = await axiosInstance.get(
@@ -296,14 +296,14 @@ let InvoiceTable = (props) => {
       props.prevStatistic,
       props.type,
       t,
-    ]
+    ],
   );
 
   const isEditing = useCallback(
     (record) => {
       return record.key === props.editingKey;
     },
-    [props.editingKey]
+    [props.editingKey],
   );
 
   const setData = props?.setData;
@@ -334,7 +334,7 @@ let InvoiceTable = (props) => {
       setUnits(productUnits);
       setEditingKey(record.key);
     },
-    [form, setEditingKey]
+    [form, setEditingKey],
   );
 
   const handleDelete = useCallback(
@@ -344,7 +344,7 @@ let InvoiceTable = (props) => {
         setSelectedRowKeys((prev) => {
           const index = prevData?.findIndex((item) => prev?.[0] === item.key);
           const nextItem = prevData?.find(
-            (item, ItemIndex) => ItemIndex === index - 1
+            (item, ItemIndex) => ItemIndex === index - 1,
           );
           if (nextItem) {
             return [nextItem.key];
@@ -355,7 +355,7 @@ let InvoiceTable = (props) => {
         return data1;
       });
     },
-    [setData, setSelectedRowKeys]
+    [setData, setSelectedRowKeys],
   );
 
   const save = useCallback(
@@ -384,13 +384,13 @@ let InvoiceTable = (props) => {
           discount: fixedNumber(
             print(
               math.evaluate(
-                `(${totalPrice ?? 0} * ${row?.discountPercent ?? 0}) / 100`
-              )
-            )
+                `(${totalPrice ?? 0} * ${row?.discountPercent ?? 0}) / 100`,
+              ),
+            ),
           ),
         };
 
-        let prevData = [...props?.data ?? []];
+        let prevData = [...(props?.data ?? [])];
         const newData = prevData?.map((item) => {
           if (item?.key === record?.key) {
             return { ...item, ...value };
@@ -416,7 +416,7 @@ let InvoiceTable = (props) => {
         //
       }
     },
-    [findProductStatistics, form, props.data, setData, setEditingKey]
+    [findProductStatistics, form, props.data, setData, setEditingKey],
   );
 
   const cancel = useCallback(() => {
@@ -457,7 +457,7 @@ let InvoiceTable = (props) => {
               ? record?.warehouse?.value
               : warehouse?.value;
             const available = record?.product_statistic?.find(
-              (item) => item?.warehouse === warehouseId
+              (item) => item?.warehouse === warehouseId,
             )?.available;
             return (
               <Row justify='space-between' gutter={5}>
@@ -512,7 +512,7 @@ let InvoiceTable = (props) => {
                           {parseFloat(item?.ratio)}{' '}
                           {
                             record?.product_units?.find(
-                              (item) => item?.base_unit === true
+                              (item) => item?.base_unit === true,
                             )?.unit?.name
                           }
                         </Descriptions.Item>
@@ -574,7 +574,7 @@ let InvoiceTable = (props) => {
                                 props.type === 'sales_rej' ||
                                 props.type === 'quotation'
                                 ? item?.sales_rate
-                                : item?.perches_rate
+                                : item?.perches_rate,
                             )}{' '}
                             {currencySymbol}
                           </Descriptions.Item>
@@ -627,7 +627,7 @@ let InvoiceTable = (props) => {
 
       {
         title: t(
-          'Sales.Product_and_services.Inventory.Expiration_date'
+          'Sales.Product_and_services.Inventory.Expiration_date',
         ).toUpperCase(),
         dataIndex: 'expirationDate',
         width: 140,
@@ -679,7 +679,7 @@ let InvoiceTable = (props) => {
                   <br />
                   <Popconfirm
                     title={t(
-                      'Sales.Product_and_services.Categories.Edit_Message'
+                      'Sales.Product_and_services.Categories.Edit_Message',
                     )}
                     onConfirm={cancel}
                     okText={t('Form.Ok')}
@@ -779,7 +779,7 @@ let InvoiceTable = (props) => {
       setSelectedRowKeys((prev) => {
         const index = prevData?.findIndex((item) => prev?.[0] === item.key);
         const nextItem = prevData?.find(
-          (item, ItemIndex) => ItemIndex === index + 1
+          (item, ItemIndex) => ItemIndex === index + 1,
         );
         if (nextItem) {
           const newKey = nextItem?.key;
@@ -802,7 +802,7 @@ let InvoiceTable = (props) => {
       setSelectedRowKeys((prev) => {
         const index = prevData?.findIndex((item) => prev?.[0] === item.key);
         const nextItem = prevData?.find(
-          (item, ItemIndex) => ItemIndex === index - 1
+          (item, ItemIndex) => ItemIndex === index - 1,
         );
         if (nextItem) {
           const newKey = nextItem?.key;
@@ -829,7 +829,7 @@ let InvoiceTable = (props) => {
       close();
       tableRef.current.focus();
     },
-    [handleDelete, setSelectedRowKeys]
+    [handleDelete, setSelectedRowKeys],
   );
 
   const handelCancelDelete = (close) => {
@@ -854,12 +854,13 @@ let InvoiceTable = (props) => {
         event.preventDefault();
         onClickUp();
       }
-    },    SALES_INVOICE_TABLE_MOVE_DOWN: (event) => {
+    },
+    SALES_INVOICE_TABLE_MOVE_DOWN: (event) => {
       if (props.selectedRowKeys?.length > 0) {
         event.preventDefault();
         onClickAdd();
       }
-    },    // SALES_INVOICE_ADD_PRODUCT: (event) => {
+    }, // SALES_INVOICE_ADD_PRODUCT: (event) => {
     //   event.preventDefault();
     //   // event.stopPropagation();
 
@@ -957,7 +958,7 @@ let InvoiceTable = (props) => {
           const isBarcodeExist = item?.product_barcode?.find(
             (barcodeItem) =>
               barcodeItem?.barcode === search &&
-              barcodeItem?.unit?.id === item?.unit?.value
+              barcodeItem?.unit?.id === item?.unit?.value,
           );
           if (isBarcodeExist) {
             return true;
@@ -971,7 +972,7 @@ let InvoiceTable = (props) => {
               const isBarcodeExist = item?.product_barcode?.find(
                 (barcodeItem) =>
                   barcodeItem?.barcode === search &&
-                  barcodeItem?.unit?.id === item?.unit?.value
+                  barcodeItem?.unit?.id === item?.unit?.value,
               );
               return isBarcodeExist ? true : false;
             });
@@ -1013,7 +1014,7 @@ let InvoiceTable = (props) => {
           let productBarcodeItem = {};
           const product = props?.data?.find((item) => {
             const isBarcodeExist = item?.product_barcode?.find(
-              (barcodeItem) => barcodeItem?.barcode === search
+              (barcodeItem) => barcodeItem?.barcode === search,
             );
             if (isBarcodeExist) {
               productBarcodeItem = isBarcodeExist;
@@ -1026,7 +1027,7 @@ let InvoiceTable = (props) => {
           if (product) {
             const newPrice = handleGetProductPrice(
               product,
-              productBarcodeItem?.unit?.id
+              productBarcodeItem?.unit?.id,
             );
 
             const newItem = {
@@ -1041,7 +1042,7 @@ let InvoiceTable = (props) => {
               each_price: newPrice ? parseFloat(newPrice) : 0,
               total_price: newPrice ? 1 * parseFloat(newPrice) : 0,
             };
-            const newData = [...props.data , newItem];
+            const newData = [...props.data, newItem];
             const newCount = props.count + 1;
             setCount(newCount);
             setLoading(false);
@@ -1070,17 +1071,17 @@ let InvoiceTable = (props) => {
           } else {
             await axiosInstance
               .get(
-                `${baseUrl}?page=1&page_size=10&product_barcode__barcode=${search}&${endUrl}&fields=${fields}`
+                `${baseUrl}?page=1&page_size=10&product_barcode__barcode=${search}&${endUrl}&fields=${fields}`,
               )
               .then(async (res) => {
                 if (res?.data?.results?.length !== 0) {
                   const product = res?.data?.results?.[0];
                   const purUnit = product?.product_barcode?.find(
-                    (item) => item?.barcode === search
+                    (item) => item?.barcode === search,
                   );
                   const newPrice = handleGetProductPrice(
                     product,
-                    purUnit?.unit?.id
+                    purUnit?.unit?.id,
                   );
                   const newItem = {
                     ...product,
@@ -1121,7 +1122,7 @@ let InvoiceTable = (props) => {
                   }, 200);
                 } else {
                   message.error(
-                    `${t('Sales.All_sales.Invoice.Product_not_found')}`
+                    `${t('Sales.All_sales.Invoice.Product_not_found')}`,
                   );
                   setLoading(false);
                   setSearch('');
@@ -1151,7 +1152,7 @@ let InvoiceTable = (props) => {
       setData,
       setSelectedRowKeys,
       t,
-    ]
+    ],
   );
 
   const handelSearchAllData = (e) => {
@@ -1163,7 +1164,7 @@ let InvoiceTable = (props) => {
       ?.toLowerCase()
       ?.includes(searchLocaleData?.toLowerCase());
     const matchId = `${item?.id?.value}`?.includes(
-      searchLocaleData?.toLowerCase()
+      searchLocaleData?.toLowerCase(),
     );
     const matchUnit = item?.unit?.label
       ?.toLowerCase()
@@ -1197,7 +1198,7 @@ let InvoiceTable = (props) => {
                   />
                 }
                 placeholder={t(
-                  'Sales.All_sales.Invoice.Filter_by_product_barcode'
+                  'Sales.All_sales.Invoice.Filter_by_product_barcode',
                 )}
               />
             </Col>
@@ -1236,7 +1237,7 @@ let InvoiceTable = (props) => {
                     <Input
                       style={{ width: '250px' }}
                       placeholder={t(
-                        'Sales.All_sales.Invoice.Invoice_table_search_placeholder'
+                        'Sales.All_sales.Invoice.Invoice_table_search_placeholder',
                       )}
                       // enterButton={t("Form.Search")}
                       // loading
@@ -1283,7 +1284,7 @@ let InvoiceTable = (props) => {
                     (sum, { total_price }) => {
                       return print(math.evaluate(`${total_price ?? 0}+${sum}`));
                     },
-                    0
+                    0,
                   );
                   const discount = pageData.reduce((sum, { discount }) => {
                     return print(math.evaluate(`${discount ?? 0}+${sum}`));

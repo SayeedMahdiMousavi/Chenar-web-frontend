@@ -1,5 +1,5 @@
-import { useRef, useState, useEffect } from "react";
-import ResizeObserver from "resize-observer-polyfill";
+import { useRef, useState, useEffect } from 'react';
+import ResizeObserver from 'resize-observer-polyfill';
 
 const initialState = { width: 0, height: 0 };
 //  ref is the reference to the element whose height and with is required

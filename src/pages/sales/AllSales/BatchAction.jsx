@@ -1,5 +1,5 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Menu,
   Dropdown,
@@ -10,9 +10,9 @@ import {
   Col,
   // Divider,
   // Select,
-} from "antd";
+} from 'antd';
 // import { useDatabase } from "@nozbe/watermelondb/hooks";
-import { CaretDownOutlined } from "@ant-design/icons";
+import { CaretDownOutlined } from '@ant-design/icons';
 // import { withDatabase } from "@nozbe/watermelondb/DatabaseProvider";
 // import withObservables from "@nozbe/with-observables";
 // const { Option } = Select;
@@ -46,16 +46,16 @@ function BatchAction(props) {
   const batch = (
     <Menu>
       <Menu.Item key='1' onClick={onMakeInActive}>
-        {t("Sales.Customers.Table.Print_transactions")}
+        {t('Sales.Customers.Table.Print_transactions')}
       </Menu.Item>
       <Menu.Item key='2' onClick={onDelete}>
-        {t("Sales.Customers.Table.Print_packing_slip")}
+        {t('Sales.Customers.Table.Print_packing_slip')}
       </Menu.Item>
       <Menu.Item key='3' onClick={onDelete}>
-        {t("Sales.Customers.Table.Send_transactions")}
+        {t('Sales.Customers.Table.Send_transactions')}
       </Menu.Item>
       <Menu.Item key='4' onClick={onDelete}>
-        {t("Sales.Customers.Table.Send_reminders")}
+        {t('Sales.Customers.Table.Send_reminders')}
       </Menu.Item>
     </Menu>
   );
@@ -64,7 +64,7 @@ function BatchAction(props) {
       <Col span={23}>
         <Dropdown overlay={batch}>
           <Button className='num ' shape='round'>
-            {t("Sales.Customers.Table.Batch_action")} <CaretDownOutlined />
+            {t('Sales.Customers.Table.Batch_action')} <CaretDownOutlined />
           </Button>
         </Dropdown>
       </Col>
@@ -76,4 +76,4 @@ function BatchAction(props) {
 //     groups: database.collections.get("groups").query().observe(),
 //   }))(BatchAction)
 // );
-export default BatchAction
+export default BatchAction;

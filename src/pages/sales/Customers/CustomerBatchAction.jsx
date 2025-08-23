@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { Menu, Dropdown, Button, message, Row, Col, Popconfirm } from "antd";
-import { useDatabase } from "@nozbe/watermelondb/hooks";
-import { CaretDownOutlined } from "@ant-design/icons";
-import { withDatabase } from "@nozbe/watermelondb/DatabaseProvider";
-import withObservables from "@nozbe/with-observables";
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Menu, Dropdown, Button, message, Row, Col, Popconfirm } from 'antd';
+import { useDatabase } from '@nozbe/watermelondb/hooks';
+import { CaretDownOutlined } from '@ant-design/icons';
+import { withDatabase } from '@nozbe/watermelondb/DatabaseProvider';
+import withObservables from '@nozbe/with-observables';
 
 function CustomerBatchAction(props) {
   const { t } = useTranslation();
@@ -23,42 +23,42 @@ function CustomerBatchAction(props) {
     // props.delete();
   };
   const onMakeInActive = async () => {
-    const customers = database.collections.get("customers");
+    const customers = database.collections.get('customers');
     await database.action(async () => {
       for (let index = 0; index < props.selectedRowKeys.length; index++) {
         const element = props.selectedRowKeys[index];
         const customer = await customers.find(element);
         await customer.update((customer) => {
-          customer.status = "inActive";
+          customer.status = 'inActive';
         });
       }
     });
     props.MakeInActiveMultiple();
-    message.info(`${t("Message.Inactive")} `);
+    message.info(`${t('Message.Inactive')} `);
   };
   const cancel = () => {
-    message.error("inactive Canceled");
+    message.error('inactive Canceled');
   };
   const batch = (
     <Menu>
-      <Menu.Item key="1">
+      <Menu.Item key='1'>
         <Popconfirm
-          placement="topLeft"
-          title="Are your sure to inactive this customers?"
+          placement='topLeft'
+          title='Are your sure to inactive this customers?'
           onConfirm={onMakeInActive}
-          okText="Yes"
-          cancelText="No"
+          okText='Yes'
+          cancelText='No'
           onCancel={cancel}
         >
-          {t("Sales.Customers.Table.inactive")}
+          {t('Sales.Customers.Table.inactive')}
         </Popconfirm>
       </Menu.Item>
 
-      <Menu.Item key="2" onClick={onMakeInActive}>
-        {t("Sales.Customers.Table.Create_statements")}
+      <Menu.Item key='2' onClick={onMakeInActive}>
+        {t('Sales.Customers.Table.Create_statements')}
       </Menu.Item>
-      <Menu.Item key="3" onClick={onDelete}>
-        {t("Form.Email")}
+      <Menu.Item key='3' onClick={onDelete}>
+        {t('Form.Email')}
       </Menu.Item>
     </Menu>
   );
@@ -66,22 +66,22 @@ function CustomerBatchAction(props) {
     setVisible(flag);
   };
   return (
-    <Row className="table__batch">
+    <Row className='table__batch'>
       <Col span={23}>
         <Dropdown
           overlay={batch}
-          trigger={["click"]}
+          trigger={['click']}
           onOpenChange={handleVisibleChange}
           open={visible}
         >
           <Button
-            className="num table-col"
-            style={{ fontSize: ".9rem" }}
-            type="primary"
-            shape="round"
+            className='num table-col'
+            style={{ fontSize: '.9rem' }}
+            type='primary'
+            shape='round'
             ghost
           >
-            {t("Sales.Customers.Table.Batch_action")}
+            {t('Sales.Customers.Table.Batch_action')}
             <CaretDownOutlined />
           </Button>
         </Dropdown>
@@ -90,7 +90,7 @@ function CustomerBatchAction(props) {
   );
 }
 export default withDatabase(
-  withObservables(["groups"], ({ database }) => ({
-    groups: database.collections.get("groups").query().observe(),
-  }))(CustomerBatchAction)
+  withObservables(['groups'], ({ database }) => ({
+    groups: database.collections.get('groups').query().observe(),
+  }))(CustomerBatchAction),
 );

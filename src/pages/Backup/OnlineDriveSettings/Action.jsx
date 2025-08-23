@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import EditOnlineDriveSettings from "./Edit";
-import { Menu, Dropdown } from "antd";
-import { connect } from "react-redux";
-import ActionButton from "../../SelfComponents/ActionButton";
-import { RemovePopconfirm } from "../../../components";
-import { useRemoveItem } from "../../../Hooks";
-import { BACKUP_SETTINGS_M } from "../../../constants/permissions";
+import EditOnlineDriveSettings from './Edit';
+import { Menu, Dropdown } from 'antd';
+import { connect } from 'react-redux';
+import ActionButton from '../../SelfComponents/ActionButton';
+import { RemovePopconfirm } from '../../../components';
+import { useRemoveItem } from '../../../Hooks';
+import { BACKUP_SETTINGS_M } from '../../../constants/permissions';
 
 function Action(props) {
   const [visible, setVisible] = useState(false);
@@ -69,7 +69,7 @@ function Action(props) {
   return (
     <Dropdown
       overlay={action}
-      trigger={["click"]}
+      trigger={['click']}
       onOpenChange={handleVisibleChange}
       open={visible}
     >

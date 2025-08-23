@@ -1,6 +1,6 @@
-import React from "react";
-import { Button } from "antd";
-import { DotsIcon } from "../../icons";
+import React from 'react';
+import { Button } from 'antd';
+import { DotsIcon } from '../../icons';
 
 interface IProps {
   onClick: (flag: any) => void;
@@ -12,14 +12,14 @@ export default function ActionButton(props: IProps) {
   };
   return (
     <Button
-      type="text"
-      size="small"
+      type='text'
+      size='small'
       onClick={props.onClick}
       onDoubleClick={handleStopPropagation}
       icon={
         <DotsIcon
           style={props.disabled ? styles.actionButton1 : styles.actionButton}
-          className="action-button"
+          className='action-button'
         />
       }
       disabled={props.disabled}
@@ -27,6 +27,6 @@ export default function ActionButton(props: IProps) {
   );
 }
 const styles = {
-  actionButton: { fontSize: "20px" },
-  actionButton1: { fontSize: "20px", color: "gray" },
+  actionButton: { fontSize: '20px' },
+  actionButton1: { fontSize: '20px', color: 'gray' },
 };

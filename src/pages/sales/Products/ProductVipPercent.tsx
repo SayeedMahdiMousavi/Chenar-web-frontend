@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Form,
   Modal,
@@ -8,12 +8,12 @@ import {
   Space,
   message,
   InputNumber,
-} from "antd";
-import { useMutation, useQueryClient } from "react-query";
-import axiosInstance from "../../ApiBaseUrl";
-import { fixedNumber, math, print } from "../../../Functions/math";
-import { debounce } from "throttle-debounce";
-import { CancelButton, SaveButton } from "../../../components";
+} from 'antd';
+import { useMutation, useQueryClient } from 'react-query';
+import axiosInstance from '../../ApiBaseUrl';
+import { fixedNumber, math, print } from '../../../Functions/math';
+import { debounce } from 'throttle-debounce';
+import { CancelButton, SaveButton } from '../../../components';
 
 const { Title } = Typography;
 interface IProps {
@@ -39,7 +39,7 @@ export default function ProductVipPercent(props: IProps) {
         .post(`/product/price/vip/`, value)
         .then(() => {
           message.success(
-            t("Sales.Product_and_services.Form.Vip_save_message")
+            t('Sales.Product_and_services.Form.Vip_save_message'),
           );
           setVisible(false);
         })
@@ -53,7 +53,7 @@ export default function ProductVipPercent(props: IProps) {
         }),
     {
       onSuccess: handleSuccessEdit,
-    }
+    },
   );
   const { mutate: mutateEditVipPrice } = useMutation(
     async (value: any) =>
@@ -61,7 +61,7 @@ export default function ProductVipPercent(props: IProps) {
         .put(`/product/price/vip/${props?.record?.id}/`, value)
         .then(() => {
           message.success(
-            t("Sales.Product_and_services.Form.Vip_save_message")
+            t('Sales.Product_and_services.Form.Vip_save_message'),
           );
           setVisible(false);
         })
@@ -75,7 +75,7 @@ export default function ProductVipPercent(props: IProps) {
         }),
     {
       onSuccess: handleSuccessEdit,
-    }
+    },
   );
 
   let oneRequest = false;
@@ -110,7 +110,7 @@ export default function ProductVipPercent(props: IProps) {
       sales && purchase
         ? print(
             //@ts-ignore
-            math.evaluate(`(${sales}-${purchase})*${vipPercent}/100`)
+            math.evaluate(`(${sales}-${purchase})*${vipPercent}/100`),
           )
         : 0;
     //@ts-ignore
@@ -123,8 +123,8 @@ export default function ProductVipPercent(props: IProps) {
         ? print(
             //@ts-ignore
             math.evaluate(
-              `(${value}*100)/(${baseUnit?.sales_rate}-${baseUnit?.perches_rate})`
-            )
+              `(${value}*100)/(${baseUnit?.sales_rate}-${baseUnit?.perches_rate})`,
+            ),
           )
         : 0;
     //@ts-ignore
@@ -135,11 +135,11 @@ export default function ProductVipPercent(props: IProps) {
 
   const showModal = async () => {
     const baseUnit = props?.record?.price?.find((item: any) =>
-      item?.unit_pro_relation?.includes("base_unit")
+      item?.unit_pro_relation?.includes('base_unit'),
     );
     if (!baseUnit) {
       message.error(
-        t("Sales.Product_and_services.Form.Vip_base_unit_price_message")
+        t('Sales.Product_and_services.Form.Vip_base_unit_price_message'),
       );
     } else {
       const profit =
@@ -148,13 +148,13 @@ export default function ProductVipPercent(props: IProps) {
         //@ts-ignore
         80,
         baseUnit?.sales_rate,
-        baseUnit?.perches_rate
+        baseUnit?.perches_rate,
       );
       const benefit =
         baseUnit?.sales_rate && baseUnit?.perches_rate
           ? print(
               //@ts-ignore
-              math.evaluate(`${baseUnit?.sales_rate}-${vipPrice}`)
+              math.evaluate(`${baseUnit?.sales_rate}-${vipPrice}`),
             )
           : 0;
 
@@ -168,7 +168,7 @@ export default function ProductVipPercent(props: IProps) {
         const vipPrice = checkVipPrice(
           parseFloat(props?.record?.vip_price?.vip_percent),
           baseUnit?.sales_rate,
-          baseUnit?.perches_rate
+          baseUnit?.perches_rate,
         );
 
         setVipPercent(parseFloat(props?.record?.vip_price?.vip_percent));
@@ -214,7 +214,7 @@ export default function ProductVipPercent(props: IProps) {
           //@ts-ignore
           parseFloat(value),
           baseUnit?.sales_rate,
-          baseUnit?.perches_rate
+          baseUnit?.perches_rate,
         );
         form.setFieldsValue({
           price: parseFloat(baseUnit?.sales_rate) - vipPrice,
@@ -222,7 +222,7 @@ export default function ProductVipPercent(props: IProps) {
       } else {
         form.setFieldsValue({ price: parseFloat(baseUnit?.sales_rate) });
       }
-    }
+    },
   );
 
   const handelChangePrice = (value: string | number | null | undefined) => {
@@ -248,7 +248,7 @@ export default function ProductVipPercent(props: IProps) {
       } else {
         form.setFieldsValue({ percent: 0 });
       }
-    }
+    },
   );
 
   const inputNumberFocus = (e: any) => {
@@ -258,32 +258,32 @@ export default function ProductVipPercent(props: IProps) {
   const numberInputReg = /^0/;
 
   const percent = (value1: any) => {
-    const value = value1.replace("%", "");
+    const value = value1.replace('%', '');
     return value > 80
       ? 80
       : value < 0
-      ? 0
-      : numberInputReg.test(value)
-      ? 0
-      : value;
+        ? 0
+        : numberInputReg.test(value)
+          ? 0
+          : value;
   };
   const regex = /^[1-9]d*$/;
   const price = (value: any) => {
     return value > parseFloat(baseUnit?.sales_rate)
       ? parseFloat(baseUnit?.sales_rate)
       : numberInputReg.test(value)
-      ? benefit
-      : !regex.test(value) && value
-      ? parseInt(value)
-      : value;
+        ? benefit
+        : !regex.test(value) && value
+          ? parseInt(value)
+          : value;
   };
 
   return (
     <div>
       <div onClick={showModal}>
         {props?.record?.vip_price?.vip_percent
-          ? t("Sales.Product_and_services.Form.Edit_vip_percent")
-          : t("Sales.Product_and_services.Form.Add_vip_percent")}
+          ? t('Sales.Product_and_services.Form.Edit_vip_percent')
+          : t('Sales.Product_and_services.Form.Add_vip_percent')}
       </div>
       <Modal
         maskClosable={false}
@@ -296,33 +296,33 @@ export default function ProductVipPercent(props: IProps) {
         afterClose={handelAfterClose}
       >
         <Form
-          layout="vertical"
+          layout='vertical'
           onFinish={onFinish}
           hideRequiredMark={true}
           form={form}
           initialValues={{
-            isVip: "true",
+            isVip: 'true',
           }}
         >
           <Title level={5}>
             {props?.record?.vip_price?.vip_percent
-              ? t("Sales.Product_and_services.Form.Edit_vip_percent")
-              : t("Sales.Product_and_services.Form.Add_vip_percent")}
+              ? t('Sales.Product_and_services.Form.Edit_vip_percent')
+              : t('Sales.Product_and_services.Form.Add_vip_percent')}
           </Title>
-          <Form.Item name="profit" label={t("Reports.Profit")}>
-            <InputNumber readOnly className="num" />
+          <Form.Item name='profit' label={t('Reports.Profit')}>
+            <InputNumber readOnly className='num' />
           </Form.Item>
           <Form.Item
-            name="percent"
+            name='percent'
             label={
               <span>
-                {t("Sales.Customers.Discount.Percent")}
-                <span className="star">*</span>
+                {t('Sales.Customers.Discount.Percent')}
+                <span className='star'>*</span>
               </span>
             }
             rules={[
               {
-                message: `${t("Sales.Customers.Discount.Required_percent")}`,
+                message: `${t('Sales.Customers.Discount.Required_percent')}`,
                 required: true,
               },
             ]}
@@ -330,7 +330,7 @@ export default function ProductVipPercent(props: IProps) {
             <InputNumber
               min={0}
               max={80}
-              className="num"
+              className='num'
               onChange={handelChangePercent}
               formatter={(value) => `${value}%`}
               onFocus={inputNumberFocus}
@@ -339,28 +339,28 @@ export default function ProductVipPercent(props: IProps) {
           </Form.Item>
 
           <Form.Item
-            name="price"
+            name='price'
             label={
               <span>
-                {t("Sales.Product_and_services.Form.Price")}
-                <span className="star">*</span>
+                {t('Sales.Product_and_services.Form.Price')}
+                <span className='star'>*</span>
               </span>
             }
           >
             <InputNumber
               max={baseUnit?.sales_rate}
               min={benefit && benefit}
-              className="num"
+              className='num'
               onChange={handelChangePrice}
               onFocus={inputNumberFocus}
               parser={price}
               formatter={price}
             />
           </Form.Item>
-          <Form.Item className="textAlign__end" style={styles.footer}>
+          <Form.Item className='textAlign__end' style={styles.footer}>
             <Space>
               <CancelButton onClick={handleCancel} />
-              <SaveButton htmlType="submit" loading={loading} />
+              <SaveButton htmlType='submit' loading={loading} />
             </Space>
           </Form.Item>
         </Form>
@@ -369,4 +369,4 @@ export default function ProductVipPercent(props: IProps) {
   );
 }
 
-const styles = { footer: { paddingTop: "12px", marginBottom: "5px" } };
+const styles = { footer: { paddingTop: '12px', marginBottom: '5px' } };

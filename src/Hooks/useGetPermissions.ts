@@ -9,7 +9,7 @@ export default function useGetPermissions() {
 
   const handleGetPermissions = async () => {
     const { data } = await axiosInstance.get(
-      `/user_account/permit/format_permission/?page_size=100`
+      `/user_account/permit/format_permission/?page_size=100`,
     );
     return data;
   };
@@ -25,8 +25,8 @@ export default function useGetPermissions() {
             i18n.language === 'en'
               ? item?.en_name
               : i18n.language === 'ps'
-              ? item?.ps_name
-              : item?.fa_name;
+                ? item?.ps_name
+                : item?.fa_name;
           if (item.data) {
             return {
               title: title || item.menu,
@@ -45,7 +45,7 @@ export default function useGetPermissions() {
 
       return newList;
     },
-    [i18n.language]
+    [i18n.language],
   );
 
   useEffect(() => {

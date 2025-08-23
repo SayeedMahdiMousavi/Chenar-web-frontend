@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useDatabase } from "@nozbe/watermelondb/hooks";
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDatabase } from '@nozbe/watermelondb/hooks';
 import {
   // Checkbox,
   // Row,
@@ -14,14 +14,13 @@ import {
   // Input,
   // Modal,
   Popconfirm,
-} from "antd";
+} from 'antd';
 
 import {
   // ExclamationCircleOutlined,
   CaretDownOutlined,
-} from "@ant-design/icons";
-import { connect } from "react-redux";
-
+} from '@ant-design/icons';
+import { connect } from 'react-redux';
 
 function TransactionAction(props) {
   const { t } = useTranslation();
@@ -38,7 +37,7 @@ function TransactionAction(props) {
   //     props.deleteProducts(props.record.Key);
   //   },
   //   onCancel() {
-  //     
+  //
   //   }
   // };
   // const inActive = async () => {
@@ -55,21 +54,21 @@ function TransactionAction(props) {
   //   props.inActive(props.record.id);
   // };
   const confirm = async () => {
-    const products = database.collections.get("products");
+    const products = database.collections.get('products');
     await database.action(async () => {
       const product = await products.find(props.record.id);
       await product.destroyPermanently(); // permanent
     });
     props.delete(props.record.id);
     setVisible(false);
-    message.info("Successfuly Deleted");
+    message.info('Successfuly Deleted');
     // };
     props.delete(props.record.id);
     setVisible(false);
   };
   const cancel = () => {
     setVisible(false);
-    message.error("inactive Canceled");
+    message.error('inactive Canceled');
   };
   // const edit = () => {
   //   setVisible(false);
@@ -89,17 +88,17 @@ function TransactionAction(props) {
           cancelText='No'
           onCancel={cancel}
         >
-          {t("Sales.Customers.Table.Remove")}
+          {t('Sales.Customers.Table.Remove')}
         </Popconfirm>
       </Menu.Item>
-      <Menu.Item>{t("Sales.Customers.Table.Send")}</Menu.Item>
-      <Menu.Item>{t("Sales.Customers.Table.Share_invoice_link")}</Menu.Item>
-      <Menu.Item>{t("Sales.Customers.Table.Print")}</Menu.Item>
-      <Menu.Item>{t("Sales.Customers.Table.Print_packing_slip")}</Menu.Item>
-      <Menu.Item>{t("Sales.Customers.Table.View/Edit")}</Menu.Item>
-      <Menu.Item>{t("Sales.Customers.Table.Copy")}</Menu.Item>
+      <Menu.Item>{t('Sales.Customers.Table.Send')}</Menu.Item>
+      <Menu.Item>{t('Sales.Customers.Table.Share_invoice_link')}</Menu.Item>
+      <Menu.Item>{t('Sales.Customers.Table.Print')}</Menu.Item>
+      <Menu.Item>{t('Sales.Customers.Table.Print_packing_slip')}</Menu.Item>
+      <Menu.Item>{t('Sales.Customers.Table.View/Edit')}</Menu.Item>
+      <Menu.Item>{t('Sales.Customers.Table.Copy')}</Menu.Item>
 
-      <Menu.Item>{t("Sales.Customers.Table.Void")}</Menu.Item>
+      <Menu.Item>{t('Sales.Customers.Table.Void')}</Menu.Item>
     </Menu>
   );
   const handleVisibleChange = (flag) => {
@@ -110,12 +109,12 @@ function TransactionAction(props) {
     //   <div>
     <Dropdown
       overlay={action}
-      trigger={["click"]}
+      trigger={['click']}
       onOpenChange={handleVisibleChange}
       open={visible}
     >
       <a className='ant-dropdown-link' href='#'>
-        {t("Sales.Customers.Table.Edit")} <CaretDownOutlined />
+        {t('Sales.Customers.Table.Edit')} <CaretDownOutlined />
       </a>
     </Dropdown>
   );

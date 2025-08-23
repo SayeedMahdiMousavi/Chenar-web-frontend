@@ -1,8 +1,8 @@
-import { message } from "antd";
-import React, { useCallback } from "react";
-import { useMutation } from "react-query";
-import axiosInstance from "../pages/ApiBaseUrl";
-import { ActionMessage } from "../pages/SelfComponents/TranslateComponents/ActionMessage";
+import { message } from 'antd';
+import React, { useCallback } from 'react';
+import { useMutation } from 'react-query';
+import axiosInstance from '../pages/ApiBaseUrl';
+import { ActionMessage } from '../pages/SelfComponents/TranslateComponents/ActionMessage';
 
 interface IParams {
   baseUrl: string;
@@ -10,7 +10,7 @@ interface IParams {
   setActiveVisible: (value: boolean) => void;
   recordName: string;
   handleUpdateItems: () => void;
-  type: "active" | "deactivate";
+  type: 'active' | 'deactivate';
 }
 
 export default function useActiveItem({
@@ -31,8 +31,8 @@ export default function useActiveItem({
         message.success(
           <ActionMessage
             name={recordName}
-            message={type === "active" ? "Message.Active" : "Message.Inactive"}
-          />
+            message={type === 'active' ? 'Message.Active' : 'Message.Inactive'}
+          />,
         );
         handleUpdateItems();
       },
@@ -41,7 +41,7 @@ export default function useActiveItem({
           message.error(error?.response?.data?.data?.message);
         }
       },
-    }
+    },
   );
 
   //   let oneRequest = false;

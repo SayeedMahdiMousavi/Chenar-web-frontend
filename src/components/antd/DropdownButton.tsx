@@ -1,7 +1,7 @@
-import React from "react";
-import { Dropdown, Button } from "antd";
-import { DownIcon, UpIcon } from "../../icons";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import { Dropdown, Button } from 'antd';
+import { DownIcon, UpIcon } from '../../icons';
+import { useTranslation } from 'react-i18next';
 
 interface IProps {
   text: string;
@@ -14,11 +14,11 @@ export default function DropdownButton(props: IProps) {
   const { t } = useTranslation();
   return (
     <Dropdown.Button
-      trigger={["click"]}
-      placement={t("Dir") === "rtl" ? "topLeft" : "topRight"}
+      trigger={['click']}
+      placement={t('Dir') === 'rtl' ? 'topLeft' : 'topRight'}
       buttonsRender={() => [
         <Button
-          type="primary"
+          type='primary'
           {...props.leftButtonProps}
           disabled={props?.dropdownProps?.disabled}
         >
@@ -32,7 +32,7 @@ export default function DropdownButton(props: IProps) {
               <UpIcon style={icon} />
             )
           }
-          type="primary"
+          type='primary'
           disabled={props?.dropdownProps?.disabled}
           {...props.rightButtonProps}
         />,
@@ -44,4 +44,4 @@ export default function DropdownButton(props: IProps) {
   );
 }
 
-const icon = { fontSize: "10px" };
+const icon = { fontSize: '10px' };

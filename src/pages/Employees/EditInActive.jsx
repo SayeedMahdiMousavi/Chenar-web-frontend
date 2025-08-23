@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { useMutation, useQueryClient } from "react-query";
-import axiosInstance from "../ApiBaseUrl";
-import { useTranslation } from "react-i18next";
-import { message, Button, Popconfirm } from "antd";
-import { connect } from "react-redux";
-import { ActionMessage } from "../SelfComponents/TranslateComponents/ActionMessage";
+import React, { useState } from 'react';
+import { useMutation, useQueryClient } from 'react-query';
+import axiosInstance from '../ApiBaseUrl';
+import { useTranslation } from 'react-i18next';
+import { message, Button, Popconfirm } from 'antd';
+import { connect } from 'react-redux';
+import { ActionMessage } from '../SelfComponents/TranslateComponents/ActionMessage';
 
 function InActive(props) {
   const queryClient = useQueryClient();
@@ -20,18 +20,17 @@ function InActive(props) {
           message.success(
             <ActionMessage
               name={`${props?.record?.first_name} ${props?.record?.last_name}`}
-              message="Message.Inactive"
-            />
+              message='Message.Inactive'
+            />,
           );
           setActiveLoading(false);
         })
         .catch((error) => {
           setActiveLoading(false);
-          
         }),
     {
       onSuccess: () => queryClient.invalidateQueries(`/staff_account/staff/`),
-    }
+    },
   );
   let Inactive = false;
   const handelInActive = async () => {
@@ -42,15 +41,14 @@ function InActive(props) {
     setActiveLoading(true);
     try {
       mutateInActive(
-        { status: "deactivate" },
+        { status: 'deactivate' },
         {
           onSuccess: () => {},
-        }
+        },
       );
 
       Inactive = false;
     } catch (info) {
-      
       Inactive = false;
     }
   };
@@ -62,17 +60,17 @@ function InActive(props) {
   };
   return (
     <Popconfirm
-      placement="topRight"
-      title={t("Employees.Employee_inactive_message")}
+      placement='topRight'
+      title={t('Employees.Employee_inactive_message')}
       onConfirm={handelInActive}
-      okText={t("Manage_users.Yes")}
-      cancelText={t("Manage_users.No")}
+      okText={t('Manage_users.Yes')}
+      cancelText={t('Manage_users.No')}
       open={activeVisible}
       okButtonProps={{ loading: activeLoading }}
       onCancel={cancel}
     >
-      <Button shape="round" className="num" onClick={onClickActive}>
-        {t("Sales.Customers.Table.inactive")}
+      <Button shape='round' className='num' onClick={onClickActive}>
+        {t('Sales.Customers.Table.inactive')}
       </Button>
     </Popconfirm>
   );

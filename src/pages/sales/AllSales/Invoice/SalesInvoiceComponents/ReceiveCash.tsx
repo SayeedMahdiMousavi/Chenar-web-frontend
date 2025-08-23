@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState } from 'react';
 import {
   Modal,
   Col,
@@ -9,34 +9,34 @@ import {
   Checkbox,
   Typography,
   Select,
-} from "antd";
-import { useMediaQuery } from "../../../../MediaQurey";
-import { GlobalHotKeys } from "react-hotkeys";
-import axiosInstance from "../../../../ApiBaseUrl";
-import { useTranslation } from "react-i18next";
-import { Styles } from "../../../../styles";
-import Draggable from "react-draggable";
-import { ModalDragTitle } from "../../../../SelfComponents/ModalDragTitle";
-import { CurrencyProperties } from "../../../../Transactions/Components/CurrencyProperties";
-import { ReceiveDetailsProperties } from "../../../../Transactions/Components/ReceiveDetailsProperties";
-import { CalculatedCurrencyProperties } from "../../../../Transactions/Components/CalculatedCurrencyProperties";
-import { TranslateMessage } from "../../../../SelfComponents/TranslateComponents/TranslateMessage";
-import { changeGToJ, utcDate } from "../../../../../Functions/utcDate";
-import dayjs from "dayjs";
-import useGetRunningPeriod from "../../../../../Hooks/useGetRunningPeriod";
-import useGetBaseCurrency from "../../../../../Hooks/useGetBaseCurrency";
+} from 'antd';
+import { useMediaQuery } from '../../../../MediaQurey';
+import { GlobalHotKeys } from 'react-hotkeys';
+import axiosInstance from '../../../../ApiBaseUrl';
+import { useTranslation } from 'react-i18next';
+import { Styles } from '../../../../styles';
+import Draggable from 'react-draggable';
+import { ModalDragTitle } from '../../../../SelfComponents/ModalDragTitle';
+import { CurrencyProperties } from '../../../../Transactions/Components/CurrencyProperties';
+import { ReceiveDetailsProperties } from '../../../../Transactions/Components/ReceiveDetailsProperties';
+import { CalculatedCurrencyProperties } from '../../../../Transactions/Components/CalculatedCurrencyProperties';
+import { TranslateMessage } from '../../../../SelfComponents/TranslateComponents/TranslateMessage';
+import { changeGToJ, utcDate } from '../../../../../Functions/utcDate';
+import dayjs from 'dayjs';
+import useGetRunningPeriod from '../../../../../Hooks/useGetRunningPeriod';
+import useGetBaseCurrency from '../../../../../Hooks/useGetBaseCurrency';
 import {
   CancelButton,
   EditButton,
   FormListAddButton,
   SaveButton,
-} from "../../../../../components";
-import { fixedNumber, math, print } from "../../../../../Functions/math";
-import CashAndBankProperties from "../../../../Transactions/Components/CashAndBankProperties";
-import { defaultStartPeriodDate } from "../../../../../constants";
-import { manageErrors } from "../../../../../Functions";
-import { JOURNAL_RESULT_LIST } from "../../../../../constants/routes";
-import { reportsDateFormat } from "../../../../../Context";
+} from '../../../../../components';
+import { fixedNumber, math, print } from '../../../../../Functions/math';
+import CashAndBankProperties from '../../../../Transactions/Components/CashAndBankProperties';
+import { defaultStartPeriodDate } from '../../../../../constants';
+import { manageErrors } from '../../../../../Functions';
+import { JOURNAL_RESULT_LIST } from '../../../../../constants/routes';
+import { reportsDateFormat } from '../../../../../Context';
 
 const formItemLayout = {
   labelCol: {
@@ -60,7 +60,7 @@ interface IProps {
   addDisabled?: boolean;
 }
 
-const dateFormat = "YYYY-MM-DD HH:mm:ss";
+const dateFormat = 'YYYY-MM-DD HH:mm:ss';
 const ReceiveCash: React.FC<IProps> = (props) => {
   const { t, i18n } = useTranslation();
   const [form] = Form.useForm();
@@ -69,17 +69,17 @@ const ReceiveCash: React.FC<IProps> = (props) => {
   });
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(true);
-  const isBgTablet = useMediaQuery("(max-width: 1024px)");
-  const isTablet = useMediaQuery("(max-width: 768px)");
-  const isMiniTablet = useMediaQuery("(max-width: 576px)");
-  const isMobile = useMediaQuery("(max-width: 425px)");
-  const isSubBase = useMediaQuery("(max-width: 375px)");
+  const isBgTablet = useMediaQuery('(max-width: 1024px)');
+  const isTablet = useMediaQuery('(max-width: 768px)');
+  const isMiniTablet = useMediaQuery('(max-width: 576px)');
+  const isMobile = useMediaQuery('(max-width: 425px)');
+  const isSubBase = useMediaQuery('(max-width: 375px)');
   const [currencyValue, setCurrencyValue] = useState(1);
   const [calCurrencyValue, setCalCurrencyValue] = useState(1);
   const [currencyRate, setCurrencyRate] = useState(1);
   const [{ currencySymbol, calCurrencySymbol }, setCurrencySymbol] = useState({
-    currencySymbol: "",
-    calCurrencySymbol: "",
+    currencySymbol: '',
+    calCurrencySymbol: '',
   });
   const [showCalCurrency, setShowCalCurrency] = useState(false);
 
@@ -89,16 +89,16 @@ const ReceiveCash: React.FC<IProps> = (props) => {
 
   const showModal = () => {
     const row = props.form.getFieldsValue();
-    const cashList = props?.form.getFieldValue("cashList");
+    const cashList = props?.form.getFieldValue('cashList');
     if (Boolean(props?.item)) {
       const cashItem = cashList?.find(
-        (item: any, index: number) => index === parseInt(props?.item!)
+        (item: any, index: number) => index === parseInt(props?.item!),
       );
       if (cashItem?.currency?.value !== cashItem?.currency_calc?.value) {
         setShowCalCurrency(true);
       }
 
-      // 
+      //
       setCurrencyValue(cashItem?.currency?.value);
       setCalCurrencyValue(cashItem?.currency_calc?.value);
       setCurrencySymbol({
@@ -121,7 +121,7 @@ const ReceiveCash: React.FC<IProps> = (props) => {
             : false,
       };
 
-      if (props.type === "recCash") {
+      if (props.type === 'recCash') {
         form.setFieldsValue({
           ...currency,
           accountName: cashItem?.pay_by,
@@ -142,8 +142,8 @@ const ReceiveCash: React.FC<IProps> = (props) => {
       const finalAmount = fixedNumber(
         print(
           //@ts-ignore
-          math.evaluate(`${props?.totalPrice ?? 0} - ${amount ?? 0}`)
-        )
+          math.evaluate(`${props?.totalPrice ?? 0} - ${amount ?? 0}`),
+        ),
       );
 
       setCurrencyValue(row?.currency?.value);
@@ -183,39 +183,39 @@ const ReceiveCash: React.FC<IProps> = (props) => {
     amount: number;
     bank: number;
   }) => {
-    const cashList = props?.form.getFieldValue("cashList") || [];
+    const cashList = props?.form.getFieldValue('cashList') || [];
     const finalList = Boolean(props?.item)
       ? cashList?.filter(
           (item: any, index: number) =>
             index !== parseInt(props?.item!) &&
             item?.currency?.value === currency &&
-            item?.pay_by?.value === bank
+            item?.pay_by?.value === bank,
         )
       : cashList?.filter((item: any) => item?.currency?.value === currency);
     const listAmount = finalList?.reduce((sum: number, item: any) => {
       return fixedNumber(
         print(
           //@ts-ignore
-          math.evaluate(`${sum} + ${item?.amount ?? 0}`)
-        )
+          math.evaluate(`${sum} + ${item?.amount ?? 0}`),
+        ),
       );
     }, 0);
 
     const finalAmount = fixedNumber(
       print(
         //@ts-ignore
-        math.evaluate(`${listAmount} + ${amount ?? 0}`)
-      )
+        math.evaluate(`${listAmount} + ${amount ?? 0}`),
+      ),
     );
     return finalAmount;
   };
 
   const handleCheckAmount = ({ cashAmount }: { cashAmount?: number }) => {
-    const cashList = props?.form.getFieldValue("cashList") || [];
+    const cashList = props?.form.getFieldValue('cashList') || [];
 
     const finalList = Boolean(props?.item)
       ? cashList?.filter(
-          (_: any, index: number) => index !== parseInt(props?.item!)
+          (_: any, index: number) => index !== parseInt(props?.item!),
         )
       : cashList;
 
@@ -223,16 +223,16 @@ const ReceiveCash: React.FC<IProps> = (props) => {
       return fixedNumber(
         print(
           //@ts-ignore
-          math.evaluate(`${sum} + ${item?.cashAmount ?? 0}`)
-        )
+          math.evaluate(`${sum} + ${item?.cashAmount ?? 0}`),
+        ),
       );
     }, 0);
 
     const finalAmount = fixedNumber(
       print(
         //@ts-ignore
-        math.evaluate(`${listAmount} + ${cashAmount ?? 0}`)
-      )
+        math.evaluate(`${listAmount} + ${cashAmount ?? 0}`),
+      ),
     );
 
     return { finalAmount, cashList };
@@ -247,15 +247,15 @@ const ReceiveCash: React.FC<IProps> = (props) => {
         print(
           //@ts-ignore
           math.evaluate(
-            `(${values.currencyRate} / ${row?.currencyRate}) * ${values.amount}`
-          )
-        )
+            `(${values.currencyRate} / ${row?.currencyRate}) * ${values.amount}`,
+          ),
+        ),
       );
       const allData = {
         pay_by:
-          props.type === "payCash" ? values.cashBoxName : values.accountName,
+          props.type === 'payCash' ? values.cashBoxName : values.accountName,
         rec_by:
-          props.type === "recCash" ? values.cashBoxName : values.accountName,
+          props.type === 'recCash' ? values.cashBoxName : values.accountName,
         date_time: values.date,
         description: values.description,
         cashAmount: cashAmount,
@@ -276,9 +276,9 @@ const ReceiveCash: React.FC<IProps> = (props) => {
 
       if (finalAmount > props?.totalPrice) {
         setLoading(false);
-        message.warning(t("Invoice_payment_gt_invoice_total"));
+        message.warning(t('Invoice_payment_gt_invoice_total'));
       } else {
-        if (props.type === "payCash") {
+        if (props.type === 'payCash') {
           // const startDate = curStartDate
           //   ? moment(curStartDate, reportsDateFormat).format(reportsDateFormat)
           //   : defaultStartPeriodDate;
@@ -290,8 +290,8 @@ const ReceiveCash: React.FC<IProps> = (props) => {
               `${JOURNAL_RESULT_LIST}?account=${
                 values?.cashBoxName?.value
               }&date_time_after=${startDate}&date_time_before=${utcDate().format(
-                reportsDateFormat
-              )}&currency=${values?.currency?.value}`
+                reportsDateFormat,
+              )}&currency=${values?.currency?.value}`,
             )
             .then((res) => {
               if (res?.data?.length === 0) {
@@ -301,8 +301,8 @@ const ReceiveCash: React.FC<IProps> = (props) => {
                       bank: values?.cashBoxName?.label,
                       currency: values?.currency?.label,
                     }}
-                    message="Sales.Customers.Receive_cash.Pay_cash_enough_money_error_message"
-                  />
+                    message='Sales.Customers.Receive_cash.Pay_cash_enough_money_error_message'
+                  />,
                 );
                 setLoading(false);
               } else {
@@ -311,24 +311,24 @@ const ReceiveCash: React.FC<IProps> = (props) => {
                 const prevCurrency = props?.prevCashCurrency?.find(
                   (item) =>
                     item?.currency === values?.currency?.value &&
-                    item?.bank === values?.cashBoxName?.value
+                    item?.bank === values?.cashBoxName?.value,
                 );
 
                 const available =
-                  props?.actionType === "add" ||
+                  props?.actionType === 'add' ||
                   (values?.currency?.value !== prevCurrency?.currency &&
-                    props?.actionType === "edit")
+                    props?.actionType === 'edit')
                     ? print(
                         //@ts-ignore
-                        math.evaluate(`${debit} - ${credit}`)
+                        math.evaluate(`${debit} - ${credit}`),
                       )
                     : print(
                         //@ts-ignore
                         math.evaluate(
                           `(${debit} + ${
                             prevCurrency?.amount ?? 0
-                          }) - ${credit}`
-                        )
+                          }) - ${credit}`,
+                        ),
                       );
 
                 const amount = handleCheckAmountOfSpecificCurrency({
@@ -337,7 +337,6 @@ const ReceiveCash: React.FC<IProps> = (props) => {
                   bank: values?.cashBoxName?.value,
                 });
 
-                
                 if (fixedNumber(available, 10) < amount) {
                   message.error(
                     <TranslateMessage
@@ -345,16 +344,16 @@ const ReceiveCash: React.FC<IProps> = (props) => {
                         bank: values?.cashBoxName?.label,
                         currency: values?.currency?.label,
                       }}
-                      message="Sales.Customers.Receive_cash.Pay_cash_enough_money_error_message"
-                    />
+                      message='Sales.Customers.Receive_cash.Pay_cash_enough_money_error_message'
+                    />,
                   );
                   setLoading(false);
                 } else {
                   setLoading(false);
                   props?.setCashAmount(finalAmount);
                   setCurrencySymbol({
-                    currencySymbol: "",
-                    calCurrencySymbol: "",
+                    currencySymbol: '',
+                    calCurrencySymbol: '',
                   });
                   if (Boolean(props?.item)) {
                     const newCashList = cashList?.map(
@@ -364,7 +363,7 @@ const ReceiveCash: React.FC<IProps> = (props) => {
                         } else {
                           return item;
                         }
-                      }
+                      },
                     );
                     props?.form.setFieldsValue({ cashList: newCashList });
                     setIsShowModal({
@@ -412,7 +411,7 @@ const ReceiveCash: React.FC<IProps> = (props) => {
           //   message.warning(t("Invoice_payment_gt_invoice_total"));
           // } else {
           props?.setCashAmount(finalAmount);
-          setCurrencySymbol({ currencySymbol: "", calCurrencySymbol: "" });
+          setCurrencySymbol({ currencySymbol: '', calCurrencySymbol: '' });
           if (Boolean(props?.item)) {
             const newCashList = cashList?.map((item: any, index: number) => {
               if (index === parseInt(props?.item!)) {
@@ -460,7 +459,7 @@ const ReceiveCash: React.FC<IProps> = (props) => {
   };
 
   const keyMap = {
-    NEW_CUSTOMER: ["Control+M", "Control+m"],
+    NEW_CUSTOMER: ['Control+M', 'Control+m'],
   };
 
   const handlers = {
@@ -473,7 +472,7 @@ const ReceiveCash: React.FC<IProps> = (props) => {
     },
   };
 
-  const orientation = i18n.language === "en" ? "left" : "right";
+  const orientation = i18n.language === 'en' ? 'left' : 'right';
 
   //get base currency
   const baseCurrency = useGetBaseCurrency();
@@ -493,10 +492,10 @@ const ReceiveCash: React.FC<IProps> = (props) => {
         print(
           //@ts-ignore
           math.evaluate(
-            `(${value?.base_amount ?? 0})/ ${value?.equal_amount ?? 1}`
-          )
+            `(${value?.base_amount ?? 0})/ ${value?.equal_amount ?? 1}`,
+          ),
         ),
-        20
+        20,
       );
       setCurrencyRate(currencyRate1);
 
@@ -505,17 +504,17 @@ const ReceiveCash: React.FC<IProps> = (props) => {
           print(
             //@ts-ignore
             math.evaluate(
-              `(${formData?.amount ?? 0}*${currencyRate})/ ${currencyRate1}`
-            )
+              `(${formData?.amount ?? 0}*${currencyRate})/ ${currencyRate1}`,
+            ),
           ),
-          4
+          4,
         ),
         currencyRate: currencyRate1,
       });
 
       setCurrencySymbol((prev) => ({ ...prev, currencySymbol: value?.symbol }));
     },
-    [currencyRate, form]
+    [currencyRate, form],
   );
 
   const onChangeCalCurrency = useCallback((value: any) => {
@@ -528,9 +527,9 @@ const ReceiveCash: React.FC<IProps> = (props) => {
   const accountFormItem = (
     <Row gutter={10}>
       <Col span={7}>
-        <Form.Item name="accountName" style={styles.formItem}>
+        <Form.Item name='accountName' style={styles.formItem}>
           <Select disabled labelInValue>
-            <Select.Option value="dfkldlf"> dfdfd</Select.Option>
+            <Select.Option value='dfkldlf'> dfdfd</Select.Option>
           </Select>
         </Form.Item>
       </Col>
@@ -538,17 +537,17 @@ const ReceiveCash: React.FC<IProps> = (props) => {
   );
 
   const handleChangeCashId = useCallback(
-    (value) => {
+    (value: any) => {
       form.setFieldsValue({ cashBoxName: value });
     },
-    [form]
+    [form],
   );
 
   const handleChangeCashName = useCallback(
-    (value) => {
+    (value: any) => {
       form.setFieldsValue({ cashBoxId: value });
     },
-    [form]
+    [form],
   );
 
   const handleChangeIsCalculated = (e: any) => {
@@ -593,12 +592,12 @@ const ReceiveCash: React.FC<IProps> = (props) => {
       <GlobalHotKeys keyMap={keyMap} handlers={handlers}>
         {!Boolean(props?.item) ? (
           <FormListAddButton
-            style={{ marginTop: "10px" }}
+            style={{ marginTop: '10px' }}
             text={
-              props?.invoiceType === "sales" ||
-              props?.invoiceType === "purchase_rej"
-                ? t("New_cash_receivement")
-                : t("New_cash_payment")
+              props?.invoiceType === 'sales' ||
+              props?.invoiceType === 'purchase_rej'
+                ? t('New_cash_receivement')
+                : t('New_cash_payment')
             }
             onClick={showModal}
             disabled={props?.addDisabled}
@@ -618,9 +617,9 @@ const ReceiveCash: React.FC<IProps> = (props) => {
             disabled={disabled}
             setDisabled={setDisabled}
             title={
-              props.type === "payCash"
-                ? t("Employees.Pay_cash_information")
-                : t("Employees.Receive_cash_information")
+              props.type === 'payCash'
+                ? t('Employees.Pay_cash_information')
+                : t('Employees.Receive_cash_information')
             }
           />
         }
@@ -631,11 +630,11 @@ const ReceiveCash: React.FC<IProps> = (props) => {
         open={isShowModal.visible}
         onCancel={handleCancel}
         afterClose={handleAfterClose}
-        width={isMobile ? "100%" : isTablet ? "70%" : isBgTablet ? 740 : 740}
+        width={isMobile ? '100%' : isTablet ? '70%' : isBgTablet ? 740 : 740}
         style={Styles.modal(isMobile)}
         bodyStyle={Styles.modalBody(isMobile, isSubBase, isMiniTablet)}
         footer={
-          <Row justify="end" align="middle">
+          <Row justify='end' align='middle'>
             <Col>
               <CancelButton onClick={handleCancel} />
               <SaveButton onClick={handleOk} loading={loading} />
@@ -650,7 +649,7 @@ const ReceiveCash: React.FC<IProps> = (props) => {
           scrollToFirstError={true}
           initialValues={{
             date:
-              props?.calenderCode === "gregory"
+              props?.calenderCode === 'gregory'
                 ? utcDate()
                 : dayjs(changeGToJ(utcDate().format(dateFormat), dateFormat), {
                     //@ts-ignore
@@ -672,13 +671,13 @@ const ReceiveCash: React.FC<IProps> = (props) => {
           <Row>
             <Col span={24}>
               <Divider orientation={orientation}>
-                {t("Sales.Customers.Receive_cash.Payer")}
+                {t('Sales.Customers.Receive_cash.Payer')}
               </Divider>
-              {props.type === "payCash" ? (
+              {props.type === 'payCash' ? (
                 <CashAndBankProperties
                   form={form}
-                  fieldId="cashBoxId"
-                  fieldName="cashBoxName"
+                  fieldId='cashBoxId'
+                  fieldName='cashBoxName'
                   onChangBankId={handleChangeCashId}
                   onChangBankName={handleChangeCashName}
                 />
@@ -687,36 +686,36 @@ const ReceiveCash: React.FC<IProps> = (props) => {
               )}
 
               <Divider orientation={orientation}>
-                {t("Sales.Customers.Receive_cash.Receive_details")}
+                {t('Sales.Customers.Receive_cash.Receive_details')}
               </Divider>
               <ReceiveDetailsProperties
-                type="recordExpanse"
+                type='recordExpanse'
                 disableDate={true}
               />
               <Divider orientation={orientation}>
-                {t("Sales.Customers.Receive_cash.Paid_currency")}
+                {t('Sales.Customers.Receive_cash.Paid_currency')}
               </Divider>
               <CurrencyProperties
                 setCurrencyValue={setCurrencyValue}
                 currencyValue={currencyValue}
                 form={form}
-                type="invoice"
+                type='invoice'
                 onChangeCurrency={onChangeCurrency}
               />
               <Form.Item
-                name="showCalCurrency"
-                valuePropName="checked"
+                name='showCalCurrency'
+                valuePropName='checked'
                 style={styles.calculatedCurrencyFormItem}
               >
                 <Checkbox onChange={handleChangeIsCalculated}>
                   <Typography.Text strong={true}>
-                    {t("Sales.Customers.Receive_cash.Calculate_currency")}
+                    {t('Sales.Customers.Receive_cash.Calculate_currency')}
                   </Typography.Text>
                 </Checkbox>
               </Form.Item>
               {showCalCurrency && (
                 <Divider orientation={orientation}>
-                  {t("Sales.Customers.Receive_cash.Calculate_currency")}
+                  {t('Sales.Customers.Receive_cash.Calculate_currency')}
                 </Divider>
               )}
               {showCalCurrency && (
@@ -724,18 +723,18 @@ const ReceiveCash: React.FC<IProps> = (props) => {
                   setCurrencyValue={setCalCurrencyValue}
                   currencyValue={calCurrencyValue}
                   form={form}
-                  type="recordExpanse"
+                  type='recordExpanse'
                   onChangeCurrency={onChangeCalCurrency}
                 />
               )}
               <Divider orientation={orientation}>
-                {t("Sales.Customers.Receive_cash.Receiver")}
+                {t('Sales.Customers.Receive_cash.Receiver')}
               </Divider>
-              {props.type === "recCash" ? (
+              {props.type === 'recCash' ? (
                 <CashAndBankProperties
                   form={form}
-                  fieldId="cashBoxId"
-                  fieldName="cashBoxName"
+                  fieldId='cashBoxId'
+                  fieldName='cashBoxName'
                   onChangBankId={handleChangeCashId}
                   onChangBankName={handleChangeCashName}
                 />
@@ -751,8 +750,8 @@ const ReceiveCash: React.FC<IProps> = (props) => {
 };
 
 const styles = {
-  formItem: { marginBottom: "0px" },
-  calculatedCurrencyFormItem: { marginBottom: "0px", marginTop: "5px" },
+  formItem: { marginBottom: '0px' },
+  calculatedCurrencyFormItem: { marginBottom: '0px', marginTop: '5px' },
 };
 
 export default ReceiveCash;

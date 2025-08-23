@@ -1,109 +1,104 @@
 {
-    "report_type": "main_balance",
-    "assets": {
-        "account": "assets",
-        "total": {
-            "AFN": 66979763.38738739,
-            "USD": 11739.7160855,
-            "PKR": 200.0
-        },
-        "children": {
-            "fixed_assets": {
-                "account": "Fixed Asset",
-                "total": {
-                    "AFN": 18907.38738738739
-                },
-                "child": {
-                    "New Product": {
-                        "total": {
-                            "AFN": 18907.38738738739
-                        }
-                    }
-                }
-            },
-            "current_assets": {
-                "account": "Current Assets",
-                "total": {
-                    "AFN": 66960856.0,
-                    "USD": 11739.7160855,
-                    "PKR": 200.0
-                },
-                "child": {
-                    "Product Statistic": {
-                        "total": {
-                            "AFN": 1183500.0
-                        }
-                    },
-                    "Cash": {
-                        "total": {
-                            "AFN": 10205567.0,
-                            "USD": 11616.7160855,
-                            "PKR": 200.0
-                        }
-                    },
-                    "Bank": {
-                        "total": {
-                            "AFN": 55172600.0,
-                            "USD": 5.0
-                        }
-                    },
-                    "accounts receivable": {
-                        "total": {
-                            "AFN": 399189.0,
-                            "USD": 118.0
-                        }
-                    }
-                }
-            }
-        }
+  "report_type": "main_balance",
+  "assets": {
+    "account": "assets",
+    "total": {
+      "AFN": 66979763.38738739,
+      "USD": 11739.7160855,
+      "PKR": 200.0
     },
-    "liabilities": {
-        "account": "liabilities",
+    "children": {
+      "fixed_assets": {
+        "account": "Fixed Asset",
         "total": {
-            "AFN": 466190.5,
-            "USD": 11123.103
+          "AFN": 18907.38738738739
         },
-        "children": {
-            "current_liabilities": {
-                "account": "Current Liabilities",
-                "total": {
-                    "AFN": 466190.5,
-                    "USD": 11123.103
-                },
-                "child": {
-                    "accounts payable": {
-                        "total": {
-                            "AFN": 466190.5,
-                            "USD": 11123.103
-                        }
-                    }
-                }
+        "child": {
+          "New Product": {
+            "total": {
+              "AFN": 18907.38738738739
             }
+          }
         }
-    },
-    "capital_and_equity": {
-        "account": "Capital and Equity",
+      },
+      "current_assets": {
+        "account": "Current Assets",
         "total": {
-            "AFN": 65205000.0
+          "AFN": 66960856.0,
+          "USD": 11739.7160855,
+          "PKR": 200.0
         },
-        "children": {
-            "capital": {
-                "account": "Capital",
-                "total": {
-                    "AFN": 65205000.0
-                }
+        "child": {
+          "Product Statistic": {
+            "total": {
+              "AFN": 1183500.0
             }
+          },
+          "Cash": {
+            "total": {
+              "AFN": 10205567.0,
+              "USD": 11616.7160855,
+              "PKR": 200.0
+            }
+          },
+          "Bank": {
+            "total": {
+              "AFN": 55172600.0,
+              "USD": 5.0
+            }
+          },
+          "accounts receivable": {
+            "total": {
+              "AFN": 399189.0,
+              "USD": 118.0
+            }
+          }
         }
+      }
+    }
+  },
+  "liabilities": {
+    "account": "liabilities",
+    "total": {
+      "AFN": 466190.5,
+      "USD": 11123.103
     },
-    
-        
-            "title":"assets",
-            "total":{
-                "afn":123
-            },
-            "child":[
-                {}
-            ]
-        
-    
+    "children": {
+      "current_liabilities": {
+        "account": "Current Liabilities",
+        "total": {
+          "AFN": 466190.5,
+          "USD": 11123.103
+        },
+        "child": {
+          "accounts payable": {
+            "total": {
+              "AFN": 466190.5,
+              "USD": 11123.103
+            }
+          }
+        }
+      }
+    }
+  },
+  "capital_and_equity": {
+    "account": "Capital and Equity",
+    "total": {
+      "AFN": 65205000.0
+    },
+    "children": {
+      "capital": {
+        "account": "Capital",
+        "total": {
+          "AFN": 65205000.0
+        }
+      }
+    }
+  },
+
+  "title": "assets",
+  "total": {
+    "afn": 123
+  },
+  "child": [{}]
 }

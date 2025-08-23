@@ -1,28 +1,28 @@
-import { Form } from "antd";
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
+import { Form } from 'antd';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   CancelButton,
   DraggableModal,
   PageNewButton,
   SaveButton,
-} from "../../../components";
-import { PRODUCT_INVENTORY_M } from "../../../constants/permissions";
-import { PRODUCT_INVENTORY_LIST } from "../../../constants/routes";
+} from '../../../components';
+import { PRODUCT_INVENTORY_M } from '../../../constants/permissions';
+import { PRODUCT_INVENTORY_LIST } from '../../../constants/routes';
 import {
   changeGToJ,
   handlePrepareDateForServer,
   utcDate,
-} from "../../../Functions/utcDate";
-import ProductInventoryFormItems from "./FormItems";
-import dayjs from "dayjs";
-import { useGetCalender } from "../../../Hooks";
-import axiosInstance from "../../ApiBaseUrl";
-import { useMutation } from "react-query";
-import { addMessage, manageErrors } from "../../../Functions";
+} from '../../../Functions/utcDate';
+import ProductInventoryFormItems from './FormItems';
+import dayjs from 'dayjs';
+import { useGetCalender } from '../../../Hooks';
+import axiosInstance from '../../ApiBaseUrl';
+import { useMutation } from 'react-query';
+import { addMessage, manageErrors } from '../../../Functions';
 
-const dateFormat = "YYYY-MM-DD HH:mm";
-const expireDateFormat = "YYYY-MM-DD";
+const dateFormat = 'YYYY-MM-DD HH:mm';
+const expireDateFormat = 'YYYY-MM-DD';
 function AddProductInventory(props: { handleUpdateItems: () => void }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
@@ -61,7 +61,7 @@ function AddProductInventory(props: { handleUpdateItems: () => void }) {
 
   const handleOk = () => {
     form.validateFields().then(async (values) => {
-      const unitConversion = form.getFieldValue("unitConversion");
+      const unitConversion = form.getFieldValue('unitConversion');
 
       mutateAddProductInventory({
         product: values?.product?.value,
@@ -92,7 +92,7 @@ function AddProductInventory(props: { handleUpdateItems: () => void }) {
     <>
       <PageNewButton onClick={showModal} model={PRODUCT_INVENTORY_M} />
       <DraggableModal
-        title={t("Product_inventory_information")}
+        title={t('Product_inventory_information')}
         open={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
@@ -108,11 +108,11 @@ function AddProductInventory(props: { handleUpdateItems: () => void }) {
       >
         <Form
           form={form}
-          layout="vertical"
+          layout='vertical'
           hideRequiredMark
           initialValues={{
             registerDate:
-              calendarCode === "gregory"
+              calendarCode === 'gregory'
                 ? utcDate()
                 : dayjs(changeGToJ(utcDate().format(dateFormat), dateFormat), {
                     //@ts-ignore
@@ -128,7 +128,7 @@ function AddProductInventory(props: { handleUpdateItems: () => void }) {
 }
 
 const styles = {
-  modalBody: { padding: "10px 30px" },
+  modalBody: { padding: '10px 30px' },
 };
 
 //@ts-ignore

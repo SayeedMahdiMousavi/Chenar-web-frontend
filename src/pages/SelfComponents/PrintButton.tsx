@@ -1,11 +1,11 @@
-import React, { useRef } from "react";
-import { Button } from "antd";
-import { PrinterOutlined } from "@ant-design/icons";
-import { useReactToPrint } from "react-to-print";
+import React, { useRef } from 'react';
+import { Button } from 'antd';
+import { PrinterOutlined } from '@ant-design/icons';
+import { useReactToPrint } from 'react-to-print';
 //@ts-ignore
-import { Previewer } from "pagedjs";
-import PrintTable from "../PrintComponents/PrintTable";
-import { ReactNode } from "react";
+import { Previewer } from 'pagedjs';
+import PrintTable from '../PrintComponents/PrintTable';
+import { ReactNode } from 'react';
 export const pageStyle = `
 // @page { 
 //   size: auto;  margin: 0mm 5mm 5mm 5mm; } @media print { body { -webkit-print-color-adjust: exact; } }
@@ -91,19 +91,13 @@ interface IProps {
 }
 
 export default function PrintButton(props: IProps) {
-  const printRef = useRef();
+  const printRef = useRef<HTMLDivElement | null>(null);
+  const effectiveRef = (props?.printRef ??
+    printRef) as React.RefObject<HTMLElement>;
 
   const handlePrint = useReactToPrint({
-    content: () =>
-      props?.printRef?.current === undefined
-        ? printRef.current!
-        : props.printRef.current!,
-    removeAfterPrint: true,
-    copyStyles: true,
-    // documentTitle: t("Reports.Journal_book"),
-    // bodyClass: "barcode-print-body",
+    contentRef: effectiveRef,
     pageStyle: pageStyle,
-    // onAfterPrint: onAfterPrint,
   });
 
   // function PrintPanel() {
@@ -128,7 +122,7 @@ export default function PrintButton(props: IProps) {
   //   // window.PagedConfig = {
   //   //   auto: false,
   //   //   after: (flow) => {
-  //   //     
+  //   //
   //   //   },
   //   // };
   //   paged.preview(flowText).then((flow: any) => {
@@ -147,14 +141,14 @@ export default function PrintButton(props: IProps) {
   return (
     <React.Fragment>
       <Button
-        onClick={handlePrint}
-        type="link"
+        onClick={() => handlePrint()}
+        type='link'
         style={styles.button}
-        shape="circle"
+        shape='circle'
         disabled={props.disabled}
         icon={<PrinterOutlined disabled={props.disabled} />}
       />
-      <div className="hide-print-component">
+      <div className='hide-print-component' ref={printRef}>
         <PrintTable
           //@ts-ignore
           printRef={printRef}
@@ -172,4 +166,4 @@ export default function PrintButton(props: IProps) {
   );
 }
 
-const styles = { button: { width: "26px", minWidth: "25px" } };
+const styles = { button: { width: '26px', minWidth: '25px' } };

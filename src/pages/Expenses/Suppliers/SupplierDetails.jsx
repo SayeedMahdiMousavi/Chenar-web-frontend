@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import EditSupplier from "./EditSupplier";
-import { useTranslation } from "react-i18next";
-import SupplierDetailsShowMoreMenu from "./SupplierDetailsShowMoreMenu";
-import axiosInstance from "../../ApiBaseUrl";
-import { useQuery, useMutation, useQueryClient } from "react-query";
+import React, { useState, useEffect } from 'react';
+import EditSupplier from './EditSupplier';
+import { useTranslation } from 'react-i18next';
+import SupplierDetailsShowMoreMenu from './SupplierDetailsShowMoreMenu';
+import axiosInstance from '../../ApiBaseUrl';
+import { useQuery, useMutation, useQueryClient } from 'react-query';
 import {
   Row,
   Col,
@@ -18,26 +18,26 @@ import {
   Space,
   Spin,
   Affix,
-} from "antd";
+} from 'antd';
 import {
   MailTwoTone,
   PhoneTwoTone,
   MenuUnfoldOutlined,
   MenuFoldOutlined,
-} from "@ant-design/icons";
-import { useMediaQuery } from "../../MediaQurey";
+} from '@ant-design/icons';
+import { useMediaQuery } from '../../MediaQurey';
 // import NewTransaction from "./Transactions/NewTransaction";
 // import TransactionTable from "./Transactions/TransactionTable";
-import { Colors } from "../../colors";
+import { Colors } from '../../colors';
 // import SupplierDetailsActive from "./SupplierDetailsActive";
-import { useParams } from "react-router-dom";
-import { ActionMessage } from "../../SelfComponents/TranslateComponents/ActionMessage";
-import { checkPermissions } from "../../../Functions";
-import { SUPPLIER_M } from "../../../constants/permissions";
-import { PageBackIcon } from "../../../components";
-import { SUPPLIER } from "../../../constants/routes";
+import { useParams } from 'react-router-dom';
+import { ActionMessage } from '../../SelfComponents/TranslateComponents/ActionMessage';
+import { checkPermissions } from '../../../Functions';
+import { SUPPLIER_M } from '../../../constants/permissions';
+import { PageBackIcon } from '../../../components';
+import { SUPPLIER } from '../../../constants/routes';
 
-const baseUrl = "/supplier_account/supplier/";
+const baseUrl = '/supplier_account/supplier/';
 
 const { Paragraph, Text } = Typography;
 const { Dragger } = Upload;
@@ -48,43 +48,43 @@ const gray = Colors.borderColor;
 function SupplierDetails(props) {
   const queryClient = useQueryClient();
   const params = useParams();
-  const isMobile = useMediaQuery("(max-width: 576px)");
-  const isMobileMini = useMediaQuery("(max-width: 425px)");
+  const isMobile = useMediaQuery('(max-width: 576px)');
+  const isMobileMini = useMediaQuery('(max-width: 425px)');
   const [progress, setProgress] = useState(0);
   const [loading, setLoading] = useState(false);
   const [collapse, setCollapse] = useState(isMobile ? false : true);
   const { t } = useTranslation();
-  const [notes, setNotes] = useState("");
+  const [notes, setNotes] = useState('');
   const [save, setSave] = useState(true);
-  const isSubMobile = useMediaQuery("(max-width: 400px)");
+  const isSubMobile = useMediaQuery('(max-width: 400px)');
 
   const handleGetCustomer = async ({ queryKey }) => {
     const { id } = queryKey?.[1] || {};
     const { data } = await axiosInstance.get(
-      `/supplier_account/supplier/${id}/?expand=*`
+      `/supplier_account/supplier/${id}/?expand=*`,
     );
     return data;
   };
 
   const result = useQuery(
-    ["/supplier_account/supplier1/", { id: params?.id }],
+    ['/supplier_account/supplier1/', { id: params?.id }],
     handleGetCustomer,
     {
       enabled: !!params?.id,
-    }
+    },
   );
 
   const [fileList, setFileList] = useState([]);
   const [file, setFile] = useState({});
   useEffect(() => {
     const attachment =
-      result?.data?.attachment && result?.data?.attachment.split("/");
+      result?.data?.attachment && result?.data?.attachment.split('/');
     const attachmentData = result?.data?.attachment
       ? [
           {
-            uid: "-1",
+            uid: '-1',
             name: attachment?.[6],
-            status: "done",
+            status: 'done',
             url: result?.data?.attachment,
           },
         ]
@@ -99,51 +99,51 @@ function SupplierDetails(props) {
 
   const data = [
     {
-      title: `${t("Expenses.Suppliers.Supplier")}`,
+      title: `${t('Expenses.Suppliers.Supplier')}`,
       content: result?.data?.full_name,
     },
     {
-      title: `${t("Form.Email")}`,
+      title: `${t('Form.Email')}`,
       content: (
-        <a href={`mailto:${result?.data?.email}`} target="_blank">
-          {" "}
-          {result?.data?.email}{" "}
+        <a href={`mailto:${result?.data?.email}`} target='_blank'>
+          {' '}
+          {result?.data?.email}{' '}
         </a>
       ),
     },
     {
-      title: `${t("Form.Phone")}`,
+      title: `${t('Form.Phone')}`,
       content: result?.data?.phone_number,
     },
     {
-      title: `${t("Form.Mobile")}`,
-      content: result?.data?.mobile_number ? result?.data?.mobile_number : "",
+      title: `${t('Form.Mobile')}`,
+      content: result?.data?.mobile_number ? result?.data?.mobile_number : '',
     },
   ];
   const data1 = [
     {
-      title: `${t("Form.Fax")}`,
+      title: `${t('Form.Fax')}`,
       content: `${result?.data?.fax_number}`,
     },
     {
-      title: `${t("Form.Website")}`,
+      title: `${t('Form.Website')}`,
       content: (
-        <a href={`${result?.data?.website}`} target="_blank">
-          {" "}
-          {result?.data?.website}{" "}
+        <a href={`${result?.data?.website}`} target='_blank'>
+          {' '}
+          {result?.data?.website}{' '}
         </a>
       ),
     },
     {
-      title: `${t("Expenses.Suppliers.Business_id_no")}`,
+      title: `${t('Expenses.Suppliers.Business_id_no')}`,
       content: result?.data?.business_id,
     },
     {
-      title: `${t("Form.Billing_address")}`,
+      title: `${t('Form.Billing_address')}`,
       content: `${
         result?.data?.full_billing_address
           ? result?.data?.full_billing_address
-          : ""
+          : ''
       }`,
     },
   ];
@@ -155,14 +155,14 @@ function SupplierDetails(props) {
         timeout: 0,
         onUploadProgress: (progressEvent) => {
           var percentCompleted = Math.round(
-            (progressEvent.loaded * 100) / progressEvent.total
+            (progressEvent.loaded * 100) / progressEvent.total,
           );
           setProgress(percentCompleted);
         },
       })
       .then((res) => {
         message.success(
-          <ActionMessage name={file?.name} message="Message.Update" />
+          <ActionMessage name={file?.name} message='Message.Update' />,
         );
         setLoading(false);
         setProgress(0);
@@ -191,7 +191,7 @@ function SupplierDetails(props) {
   const onChangeAttachment = async () => {
     try {
       const formData = new FormData();
-      formData.append("attachment", file);
+      formData.append('attachment', file);
 
       setLoading(true);
       mutateEditAttachment(formData);
@@ -205,7 +205,7 @@ function SupplierDetails(props) {
       .patch(`/supplier_account/supplier/${props.match.params.id}/`, value)
       .then((res) => {
         message.success(
-          <ActionMessage name={fileList?.[0]?.name} message="Message.Remove" />
+          <ActionMessage name={fileList?.[0]?.name} message='Message.Remove' />,
         );
         const index = fileList.indexOf(fileList?.[0]);
         const newFileList = fileList.slice();
@@ -231,7 +231,7 @@ function SupplierDetails(props) {
 
   const prop = {
     customRequest: onChangeAttachment,
-    name: "file",
+    name: 'file',
     onRemove: (file) => {
       const formData = { is_delete_attach: true };
       (async () => {
@@ -279,21 +279,21 @@ function SupplierDetails(props) {
   };
 
   return (
-    <Row justify="end" style={styles.body}>
+    <Row justify='end' style={styles.body}>
       {collapse ? (
         <Col md={5} sm={7} xs={24}>
           <Affix
             offsetTop={0}
-            target={() => document.getElementById("mainComponent")}
+            target={() => document.getElementById('mainComponent')}
           >
-            <Row className="num" justify="start">
-              <Col style={{ width: "calc(100% - 1px)" }}>
+            <Row className='num' justify='start'>
+              <Col style={{ width: 'calc(100% - 1px)' }}>
                 <Row gutter={[0, 10]} style={styles.sidebar}>
                   <Col span={24}>
-                    <Row justify="space-between">
+                    <Row justify='space-between'>
                       <Col span={19}>
                         <PageBackIcon
-                          previousPageName={t("Expenses.Suppliers.1")}
+                          previousPageName={t('Expenses.Suppliers.1')}
                           url={SUPPLIER}
                         />
                       </Col>
@@ -301,11 +301,11 @@ function SupplierDetails(props) {
                       <Col
                         sm={{ span: 4 }}
                         xs={{ span: 4 }}
-                        style={{ textAlign: "end" }}
+                        style={{ textAlign: 'end' }}
                       >
                         <MenuFoldOutlined
                           onClick={onClickShow}
-                          className="table__header2-icon"
+                          className='table__header2-icon'
                         />
                       </Col>
                     </Row>
@@ -318,8 +318,8 @@ function SupplierDetails(props) {
               </Col>
               <Col>
                 <Divider
-                  type="vertical"
-                  className="divider"
+                  type='vertical'
+                  className='divider'
                   style={styles.divider}
                 />
               </Col>
@@ -330,26 +330,26 @@ function SupplierDetails(props) {
         <Col md={1} xs={2}>
           <Affix
             offsetTop={0}
-            target={() => document.getElementById("mainComponent")}
+            target={() => document.getElementById('mainComponent')}
           >
-            <Row className="num">
+            <Row className='num'>
               <Col
                 style={{
-                  paddingTop: "15px",
-                  width: "calc(100% - 1px)",
-                  textAlign: "center",
+                  paddingTop: '15px',
+                  width: 'calc(100% - 1px)',
+                  textAlign: 'center',
                 }}
               >
                 <MenuUnfoldOutlined
                   onClick={onClickShow}
-                  className="table__header2-icon"
+                  className='table__header2-icon'
                 />
               </Col>
 
               <Col>
                 <Divider
-                  type="vertical"
-                  className="divider"
+                  type='vertical'
+                  className='divider'
                   style={styles.divider}
                 />
               </Col>
@@ -365,28 +365,28 @@ function SupplierDetails(props) {
         xs={isMobile && collapse ? 0 : 22}
       >
         <Spin
-          tip={t("Message.Loading")}
+          tip={t('Message.Loading')}
           spinning={result?.isFetching || result?.isLoading ? true : false}
         >
-          <Row justify="space-around">
+          <Row justify='space-around'>
             <Col span={23}>
-              <Row className="customer__details-header" align="middle">
+              <Row className='customer__details-header' align='middle'>
                 <Col
                   md={7}
                   sm={collapse ? 7 : 8}
                   xs={8}
-                  className="ellipses__header boob"
+                  className='ellipses__header boob'
                 >
                   <Typography.Text strong={true}>
                     {result?.data?.full_name}
                   </Typography.Text>
                 </Col>
                 <Col md={2} sm={collapse ? 3 : 2} xs={collapse ? 3 : 4}>
-                  <Row justify="space-around">
+                  <Row justify='space-around'>
                     <Col span={11}>
-                      <a href={`mailto:${result?.data?.email}`} target="_blank">
+                      <a href={`mailto:${result?.data?.email}`} target='_blank'>
                         <MailTwoTone
-                          className="table__header2-icon"
+                          className='table__header2-icon'
                           twoToneColor={Colors.primaryColor}
                         />
                       </a>
@@ -396,11 +396,11 @@ function SupplierDetails(props) {
                         title={
                           result?.data?.mobile_number
                             ? result?.data?.mobile_number
-                            : t("Sales.Customers.Details.Phone_notFound")
+                            : t('Sales.Customers.Details.Phone_notFound')
                         }
                       >
                         <PhoneTwoTone
-                          className="table__header2-icon"
+                          className='table__header2-icon'
                           twoToneColor={Colors.primaryColor}
                         />
                       </Tooltip>
@@ -421,7 +421,7 @@ function SupplierDetails(props) {
                     collapse ? { span: 14, offset: 0 } : { span: 12, offset: 2 }
                   }
                   xs={{ span: 12, offset: 0 }}
-                  className="textAlign__end"
+                  className='textAlign__end'
                 >
                   {/* {result?.data?.status !== "active" && (
                         <SupplierDetailsActive record={result?.data} />
@@ -464,7 +464,7 @@ function SupplierDetails(props) {
                       )} */}
                 </Col>
               </Row>
-              <Row className="num">
+              <Row className='num'>
                 <Col
                   xl={collapse ? 17 : 19}
                   lg={collapse ? 15 : 17}
@@ -478,14 +478,14 @@ function SupplierDetails(props) {
                       md={collapse ? 18 : 19}
                       sm={collapse ? 13 : 15}
                       xs={isSubMobile ? 13 : 15}
-                      className="ellipses"
+                      className='ellipses'
                     >
                       {result?.data?.full_billing_address
                         ? result?.data?.full_billing_address
-                        : ""}
+                        : ''}
                     </Col>
                     <Col xl={10} lg={11} sm={13} xs={20}>
-                      <Paragraph className="ellipses" ellipsis={{ rows: 1 }}>
+                      <Paragraph className='ellipses' ellipsis={{ rows: 1 }}>
                         {notes}
                       </Paragraph>
                     </Col>
@@ -569,7 +569,7 @@ function SupplierDetails(props) {
                 <Col span={24}>
                   <Tabs
                     animated={true}
-                    defaultActiveKey="2"
+                    defaultActiveKey='2'
                     tabBarStyle={{
                       borderBottom: `1px solid ${gray}`,
                     }}
@@ -581,8 +581,8 @@ function SupplierDetails(props) {
                           <TransactionTable collapse={collapse} />
                         </TabPane> */}
                     <TabPane
-                      tab={t("Expenses.Suppliers.Supplier_details")}
-                      key="2"
+                      tab={t('Expenses.Suppliers.Supplier_details')}
+                      key='2'
                     >
                       <Row
                         gutter={{
@@ -592,16 +592,16 @@ function SupplierDetails(props) {
                           xs: 50,
                         }}
                       >
-                        {result?.data?.status === "active" && (
+                        {result?.data?.status === 'active' && (
                           <Col span={24}>
-                            <Row justify="end">
+                            <Row justify='end'>
                               <Col
                                 lg={2}
                                 md={3}
                                 sm={4}
                                 xs={isMobileMini ? 5 : 4}
                               >
-                                {" "}
+                                {' '}
                                 {checkPermissions(`change_${SUPPLIER_M}`) && (
                                   <EditSupplier
                                     record={result && result?.data}
@@ -614,11 +614,11 @@ function SupplierDetails(props) {
                         )}
                         <Col md={12} xs={24}>
                           <List
-                            itemLayout="horizontal"
+                            itemLayout='horizontal'
                             dataSource={data}
                             renderItem={(item) => (
                               <List.Item style={styles.listItem}>
-                                <Row className="num">
+                                <Row className='num'>
                                   <Col style={{ width: `130px` }}>
                                     <h4> {item.title}</h4>
                                   </Col>
@@ -630,11 +630,11 @@ function SupplierDetails(props) {
                         </Col>
                         <Col md={12} xs={24}>
                           <List
-                            itemLayout="horizontal"
+                            itemLayout='horizontal'
                             dataSource={data1}
                             renderItem={(item) => (
                               <List.Item style={styles.listItem}>
-                                <Row className="num">
+                                <Row className='num'>
                                   <Col style={{ width: `130px` }}>
                                     <h4> {item.title}</h4>
                                   </Col>
@@ -649,7 +649,7 @@ function SupplierDetails(props) {
                         <Row gutter={[50, 10]} style={styles.notes}>
                           <Col md={12} sm={12} xs={24}>
                             <div style={styles.label}>
-                              <Text>{t("Form.Notes")}</Text>
+                              <Text>{t('Form.Notes')}</Text>
                             </div>
 
                             <TextArea
@@ -659,11 +659,11 @@ function SupplierDetails(props) {
                               onPressEnter={onPressEnterNotes}
                               autoSize={{ minRows: 3, maxRows: 3 }}
                             />
-                            <span className="note_save">
-                              {" "}
+                            <span className='note_save'>
+                              {' '}
                               {save
-                                ? t("Sales.Customers.Details.nothing_to_save")
-                                : t("Sales.Customers.Details.Notes_edit_save")}
+                                ? t('Sales.Customers.Details.nothing_to_save')
+                                : t('Sales.Customers.Details.Notes_edit_save')}
                             </span>
                           </Col>
                           <Col
@@ -673,18 +673,18 @@ function SupplierDetails(props) {
                             style={styles.attachment}
                           >
                             <div style={styles.label}>
-                              <Text> {t("Form.Attachments")}</Text>
+                              <Text> {t('Form.Attachments')}</Text>
                             </div>
 
                             <Dragger {...prop}>
-                              <Row justify="center">
+                              <Row justify='center'>
                                 <Col>
-                                  <Space size="small" style={styles.dragSpace}>
-                                    <p className="ant-upload-text">
-                                      {t("Form.Drag_Drop")}
+                                  <Space size='small' style={styles.dragSpace}>
+                                    <p className='ant-upload-text'>
+                                      {t('Form.Drag_Drop')}
                                     </p>
                                     <Typography.Text strong={true}>
-                                      {loading ? progress + "%" : ""}
+                                      {loading ? progress + '%' : ''}
                                     </Typography.Text>
                                   </Space>
                                 </Col>
@@ -706,36 +706,36 @@ function SupplierDetails(props) {
 }
 
 const styles = {
-  drawerHeader: { paddingTop: "15px" },
-  dragSpace: { padding: "0px 5px 5px 5px" },
-  attachment: { height: "85px" },
+  drawerHeader: { paddingTop: '15px' },
+  dragSpace: { padding: '0px 5px 5px 5px' },
+  attachment: { height: '85px' },
   divider: {
-    height: "100vh",
-    margin: "0px",
+    height: '100vh',
+    margin: '0px',
     background: `${gray}`,
   },
   divider1: {
-    height: "100%",
-    margin: "0px",
-    width: ".4rem",
-    background: "#faad14",
+    height: '100%',
+    margin: '0px',
+    width: '.4rem',
+    background: '#faad14',
   },
   divider2: {
-    height: "100%",
-    margin: "0px",
-    width: ".4rem",
-    background: "#cf1322",
+    height: '100%',
+    margin: '0px',
+    width: '.4rem',
+    background: '#cf1322',
   },
-  margin: { margin: "0px" },
+  margin: { margin: '0px' },
   listItem: {
     borderBottom: `1px solid ${gray} `,
-    wordWrap: " break-word",
-    wordBreak: "break-all",
+    wordWrap: ' break-word',
+    wordBreak: 'break-all',
   },
-  notes: { marginBottom: "24px" },
-  sidebar: { margin: "15px 4%" },
-  body: { margin: "0px -2%" },
-  label: { margin: "7px 0px" },
+  notes: { marginBottom: '24px' },
+  sidebar: { margin: '15px 4%' },
+  body: { margin: '0px -2%' },
+  label: { margin: '7px 0px' },
 };
 
 export default SupplierDetails;

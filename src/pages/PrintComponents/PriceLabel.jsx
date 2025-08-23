@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import { Row, Col, Typography } from "antd";
-import ProductBarcode from "./ProductBarcode";
-import { QRCodeCanvas } from "qrcode.react";
+import React, { Component } from 'react';
+import { Row, Col, Typography } from 'antd';
+import ProductBarcode from './ProductBarcode';
+import { QRCodeCanvas } from 'qrcode.react';
 // import { arabicToIndian } from "../../Functions/arabicToIndian";
 // import { print, math } from "../../Functions/math";
-import Vip from "../../assets/svg/vip";
+import Vip from '../../assets/svg/vip';
 export default class PriceLabel extends Component {
   render() {
     // const findDefaultBarcode = (barcodeList, baseUnit) => {
@@ -37,10 +37,10 @@ export default class PriceLabel extends Component {
     };
     return (
       <Row
-        justify="space-between"
+        justify='space-between'
         // gutter={[0, 5]}
         gutter={[0, 13.5]}
-        style={{ padding: "0px 70px" }}
+        style={{ padding: '0px 70px' }}
       >
         <style>{getPageMargins()}</style>
         {/* gutter={[0, 33.2]} */}
@@ -90,9 +90,9 @@ export default class PriceLabel extends Component {
             //       )
             //     )
             //   : arabicToIndian(0);
-            // // 
-            // // 
-            // // 
+            // //
+            // //
+            // //
 
             return (
               <Col
@@ -108,49 +108,48 @@ export default class PriceLabel extends Component {
                   //     }
                   //   :
                   {
-                    width: "78.75mm",
-                    height: "122px",
-                    border: "1px solid #cecccc",
+                    width: '78.75mm',
+                    height: '122px',
+                    border: '1px solid #cecccc',
                   }
                 }
-                className="price-label"
+                className='price-label'
               >
                 {!item?.is_have_vip_price ? (
                   <Row>
                     <Col
                       span={24}
                       style={{
-                        height: "59px",
+                        height: '59px',
                       }}
                     >
-                      <Row style={{ height: "100%" }}>
-                        <Col span={17} style={{ backgroundColor: "#E73243" }}>
+                      <Row style={{ height: '100%' }}>
+                        <Col span={17} style={{ backgroundColor: '#E73243' }}>
                           <Row
                             style={{
-                              height: "100%",
-                              padding: "5px",
+                              height: '100%',
+                              padding: '5px',
                             }}
                             // justify={
                             //   item?.name?.length > 26 ? "center" : undefined
                             // }
-                            justify="center"
-                            align="middle"
+                            justify='center'
+                            align='middle'
                           >
                             <Col
                               style={
                                 item?.name?.length > 26
-                                  ? { textAlign: "center" }
+                                  ? { textAlign: 'center' }
                                   : {}
                               }
                             >
-                               
                               <Typography.Paragraph
                                 strong={true}
                                 ellipsis={{ rows: 2 }}
                                 style={{
-                                  color: "white",
-                                  margin: "0px",
-                                  fontFamily: "IRANYekanExtraBold",
+                                  color: 'white',
+                                  margin: '0px',
+                                  fontFamily: 'IRANYekanExtraBold',
                                 }}
                               >
                                 {item?.name}
@@ -158,14 +157,14 @@ export default class PriceLabel extends Component {
                             </Col>
                           </Row>
                         </Col>
-                        <Col span={7} style={{ backgroundColor: "#FFCC00" }}>
+                        <Col span={7} style={{ backgroundColor: '#FFCC00' }}>
                           <Row
                             style={{
-                              height: "100%",
-                              padding: "5px",
+                              height: '100%',
+                              padding: '5px',
                             }}
-                            align="middle"
-                            justify="center"
+                            align='middle'
+                            justify='center'
                           >
                             <Col>
                               <Typography.Title
@@ -173,49 +172,49 @@ export default class PriceLabel extends Component {
                                   item?.price?.toString()?.length > 3
                                     ? 4
                                     : item?.price?.toString()?.length > 2
-                                    ? 3
-                                    : 2
+                                      ? 3
+                                      : 2
                                 }
                                 style={{
                                   // color: "white",
-                                  fontFamily: "BTITR",
-                                  marginBottom: "0px",
+                                  fontFamily: 'BTITR',
+                                  marginBottom: '0px',
                                 }}
                               >
                                 {item?.price}
                                 <span
                                   style={{
-                                    fontFamily: "BTITR",
-                                    fontSize: "16px",
+                                    fontFamily: 'BTITR',
+                                    fontSize: '16px',
                                   }}
                                 >
-                                  {" "}
+                                  {' '}
                                   ؋
                                 </span>
                               </Typography.Title>
                             </Col>
                           </Row>
                         </Col>
-                      </Row>{" "}
+                      </Row>{' '}
                     </Col>
-                    <Col span={24} style={{ height: "61px" }}>
+                    <Col span={24} style={{ height: '61px' }}>
                       <Row>
                         <Col span={17}>
                           <Row
                             style={{
-                              height: "100%",
-                              padding: "5px",
+                              height: '100%',
+                              padding: '5px',
                             }}
                             // justify={
                             //   item?.name?.length > 26 ? "center" : undefined
                             // }
-                            justify="center"
-                            align="middle"
+                            justify='center'
+                            align='middle'
                           >
                             <Col
                               style={
                                 item?.name?.length > 26
-                                  ? { textAlign: "center" }
+                                  ? { textAlign: 'center' }
                                   : {}
                               }
                             >
@@ -224,39 +223,39 @@ export default class PriceLabel extends Component {
                                 width={1}
                                 height={30}
                                 fontSize={10}
-                                fontOptions="bold"
+                                fontOptions='bold'
                                 marginTop={3}
                                 marginBottom={3}
                                 marginRight={5}
                                 marginLeft={5}
-                                background="#fff"
-                                lineColor="black"
+                                background='#fff'
+                                lineColor='black'
                                 displayValue={true}
                                 // format="EAN13"
                                 // flat={true}
                               />
                             </Col>
-                          </Row>{" "}
+                          </Row>{' '}
                         </Col>
                         <Col span={7}>
                           <Row
                             style={{
-                              height: "100%",
-                              padding: "5px",
+                              height: '100%',
+                              padding: '5px',
                             }}
                             // align="middle"
-                            justify="center"
+                            justify='center'
                           >
                             <Col>
-                              <QRCodeCanvas 
+                              <QRCodeCanvas
                                 style={{
-                                  width: "47px",
-                                  height: "47px",
-                                  background: "white",
-                                  padding: "4px",
-                                  marginTop: "-15px",
+                                  width: '47px',
+                                  height: '47px',
+                                  background: 'white',
+                                  padding: '4px',
+                                  marginTop: '-15px',
                                 }}
-                                value={item?.barcode ? item?.barcode : "www"}
+                                value={item?.barcode ? item?.barcode : 'www'}
                               />
                             </Col>
                           </Row>
@@ -269,26 +268,26 @@ export default class PriceLabel extends Component {
                     <Col
                       span={24}
                       style={{
-                        height: "59px",
+                        height: '59px',
                       }}
                     >
-                      <Row style={{ height: "100%" }}>
-                        <Col span={17} style={{ backgroundColor: "#E73243" }}>
+                      <Row style={{ height: '100%' }}>
+                        <Col span={17} style={{ backgroundColor: '#E73243' }}>
                           <Row
                             style={{
-                              height: "100%",
-                              padding: "5px",
+                              height: '100%',
+                              padding: '5px',
                             }}
                             // justify={
                             //   item?.name?.length > 26 ? "center" : undefined
                             // }
-                            justify="center"
-                            align="middle"
+                            justify='center'
+                            align='middle'
                           >
                             <Col
                               style={
                                 item?.name?.length > 26
-                                  ? { textAlign: "center" }
+                                  ? { textAlign: 'center' }
                                   : {}
                               }
                             >
@@ -296,9 +295,9 @@ export default class PriceLabel extends Component {
                                 strong={true}
                                 ellipsis={{ rows: 2 }}
                                 style={{
-                                  color: "white",
-                                  margin: "0px",
-                                  fontFamily: "IRANYekanExtraBold",
+                                  color: 'white',
+                                  margin: '0px',
+                                  fontFamily: 'IRANYekanExtraBold',
                                 }}
                               >
                                 {item?.name}
@@ -308,16 +307,16 @@ export default class PriceLabel extends Component {
                         </Col>
                         <Col
                           span={7}
-                          style={{ backgroundColor: "#FFF" }}
+                          style={{ backgroundColor: '#FFF' }}
                           //  style={{ backgroundColor: "#FFCC00" }}
                         >
                           <Row
                             style={{
-                              height: "100%",
-                              padding: "5px",
+                              height: '100%',
+                              padding: '5px',
                             }}
-                            align="middle"
-                            justify="center"
+                            align='middle'
+                            justify='center'
                           >
                             <Col>
                               <Typography.Title
@@ -325,50 +324,50 @@ export default class PriceLabel extends Component {
                                   item?.price?.toString()?.length > 3
                                     ? 4
                                     : item?.price?.toString()?.length > 2
-                                    ? 3
-                                    : 2
+                                      ? 3
+                                      : 2
                                 }
                                 style={{
                                   // color: "white",
-                                  fontFamily: "BTITR",
-                                  marginBottom: "0px",
+                                  fontFamily: 'BTITR',
+                                  marginBottom: '0px',
                                 }}
                                 // delete
                               >
                                 {item?.price}
                                 <span
                                   style={{
-                                    fontFamily: "BTITR",
-                                    fontSize: "16px",
+                                    fontFamily: 'BTITR',
+                                    fontSize: '16px',
                                   }}
                                 >
-                                  {" "}
+                                  {' '}
                                   ؋
                                 </span>
                               </Typography.Title>
                             </Col>
                           </Row>
                         </Col>
-                      </Row>{" "}
+                      </Row>{' '}
                     </Col>
-                    <Col span={24} style={{ height: "61px" }}>
+                    <Col span={24} style={{ height: '61px' }}>
                       <Row>
                         <Col span={12}>
                           <Row
                             style={{
-                              height: "100%",
-                              padding: "5px",
+                              height: '100%',
+                              padding: '5px',
                             }}
                             // justify={
                             //   item?.name?.length > 26 ? "center" : undefined
                             // }
-                            justify="center"
-                            align="middle"
+                            justify='center'
+                            align='middle'
                           >
                             <Col
                               style={
                                 item?.name?.length > 26
-                                  ? { textAlign: "center" }
+                                  ? { textAlign: 'center' }
                                   : {}
                               }
                             >
@@ -377,67 +376,67 @@ export default class PriceLabel extends Component {
                                 width={1}
                                 height={30}
                                 fontSize={10}
-                                fontOptions="bold"
+                                fontOptions='bold'
                                 marginTop={3}
                                 marginBottom={3}
                                 marginRight={5}
                                 marginLeft={5}
-                                background="#fff"
-                                lineColor="black"
+                                background='#fff'
+                                lineColor='black'
                                 displayValue={true}
                                 // format="EAN13"
                                 // flat={true}
                               />
                             </Col>
-                          </Row>{" "}
+                          </Row>{' '}
                         </Col>
                         <Col span={5}>
                           <Row
                             style={{
-                              height: "100%",
-                              padding: "5px",
+                              height: '100%',
+                              padding: '5px',
                             }}
                             // align="middle"
-                            justify="center"
+                            justify='center'
                           >
                             <Col>
-                              <QRCodeCanvas 
+                              <QRCodeCanvas
                                 style={{
-                                  width: "47px",
-                                  height: "47px",
-                                  background: "white",
-                                  padding: "4px",
+                                  width: '47px',
+                                  height: '47px',
+                                  background: 'white',
+                                  padding: '4px',
                                   // marginTop: "-15px",
                                 }}
-                                value={item?.barcode ? item?.barcode : "www"}
+                                value={item?.barcode ? item?.barcode : 'www'}
                               />
                             </Col>
                           </Row>
                         </Col>
                         <Col
                           span={7}
-                          style={{ backgroundColor: "#0D1D30" }}
+                          style={{ backgroundColor: '#0D1D30' }}
                           //  style={{ backgroundColor: "#0D1D30" }}
                         >
                           <Row>
                             <Col
                               span={24}
                               style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                justifyContent: "end",
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'end',
                               }}
                             >
                               <Vip
                                 style={{
-                                  width: "45%",
-                                  paddingInlineStart: "3px",
-                                  paddingTop: "2px",
+                                  width: '45%',
+                                  paddingInlineStart: '3px',
+                                  paddingTop: '2px',
                                 }}
                               />
                             </Col>
                             <Col span={24}>
-                              <Row justify="center">
+                              <Row justify='center'>
                                 <Col>
                                   <Typography.Title
                                     level={
@@ -446,18 +445,18 @@ export default class PriceLabel extends Component {
                                         : 3
                                     }
                                     style={{
-                                      color: "#FDBF3C",
-                                      fontFamily: "BTITR",
-                                      marginBottom: "0px",
+                                      color: '#FDBF3C',
+                                      fontFamily: 'BTITR',
+                                      marginBottom: '0px',
                                     }}
                                   >
                                     {item?.vipPrice}
                                     <span
                                       style={{
-                                        fontFamily: "AdobeArabicRegular",
+                                        fontFamily: 'AdobeArabicRegular',
                                       }}
                                     >
-                                      {" "}
+                                      {' '}
                                       ؋
                                     </span>
                                   </Typography.Title>

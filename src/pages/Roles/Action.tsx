@@ -1,15 +1,15 @@
-import React, { useCallback, useState } from "react";
-import { Menu, Dropdown } from "antd";
-import ActionButton from "../SelfComponents/ActionButton";
-import { RemovePopconfirm } from "../../components";
-import { useRemoveItem } from "../../Hooks";
-import EditRole from "./Edit";
-import { ROLES_LIST } from "../../constants/routes";
-import { USER_ROLE_M } from "../../constants/permissions";
+import React, { useCallback, useState } from 'react';
+import { Menu, Dropdown } from 'antd';
+import ActionButton from '../SelfComponents/ActionButton';
+import { RemovePopconfirm } from '../../components';
+import { useRemoveItem } from '../../Hooks';
+import EditRole from './Edit';
+import { ROLES_LIST } from '../../constants/routes';
+import { USER_ROLE_M } from '../../constants/permissions';
 
 interface IProps {
   record: {
-  name: string;
+    name: string;
     permissions: string[];
     id?: number;
     system_default: boolean;
@@ -38,12 +38,11 @@ const RoleTableAction = (props: IProps) => {
     setRemoveVisible(false);
     reset();
   };
+  const handleClickRemove = () => {
+    setRemoveVisible(!removeVisible);
+  };
 
-
-  const handleClickEdit = useCallback((e: React.MouseEvent<HTMLSpanElement>) => {
-    if (e) {
-      e.stopPropagation();
-    }
+  const handleClickEdit = useCallback(() => {
     setRemoveVisible(false);
     setVisible(false);
     setRemoveVisible(false);
@@ -82,11 +81,11 @@ const RoleTableAction = (props: IProps) => {
   const getItems = () => {
     return [
       {
-        key: "remove",
+        key: 'remove',
         label: (
           <RemovePopconfirm
             itemName={props?.record?.name}
-            open={removeVisible}
+            openConfirm={removeVisible}
             loading={isLoading}
             onCancel={handleCancel}
             onConfirm={() => {
@@ -94,12 +93,13 @@ const RoleTableAction = (props: IProps) => {
               setRemoveVisible(false);
               setVisible(false);
             }}
+            onClick={handleClickRemove}
             permission={USER_ROLE_M}
           />
         ),
       },
       {
-        key: "edit",
+        key: 'edit',
         label: (
           <EditRole
             handleUpdateItems={props?.handleUpdateItems}
@@ -117,13 +117,13 @@ const RoleTableAction = (props: IProps) => {
   return (
     <Dropdown
       menu={{ items: getItems() }}
-      trigger={["click"]}
+      trigger={['click']}
       onOpenChange={handleVisibleChange}
       open={visible}
-      placement="bottomRight"
+      placement='bottomRight'
       disabled={props?.record?.system_default === true}
     >
-        <span
+      <span
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();

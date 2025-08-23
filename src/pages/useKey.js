@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
 const useKey = (key, cd) => {
   const callbackRef = useRef();
@@ -9,13 +9,13 @@ const useKey = (key, cd) => {
   useEffect(() => {
     function handel(event) {
       event.preventDefault();
-      
+
       if (event.keyCode === key) {
         callbackRef.current(event);
       }
     }
-    document.addEventListener("keypress", handel);
-    return () => document.removeEventListener("keypress", handel);
+    document.addEventListener('keypress', handel);
+    return () => document.removeEventListener('keypress', handel);
   }, [key]);
 };
 export default useKey;

@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { useMediaQuery } from "../../../MediaQurey";
-import { useTranslation } from "react-i18next";
-import { useMutation, useQueryClient } from "react-query";
-import axiosInstance from "../../../ApiBaseUrl";
+import React, { useState } from 'react';
+import { useMediaQuery } from '../../../MediaQurey';
+import { useTranslation } from 'react-i18next';
+import { useMutation, useQueryClient } from 'react-query';
+import axiosInstance from '../../../ApiBaseUrl';
 import {
   Drawer,
   Form,
@@ -15,21 +15,21 @@ import {
   Upload,
   Typography,
   Space,
-} from "antd";
-import { useNavigate } from "react-router-dom";
-import { useDarkMode } from "../../../../Hooks/useDarkMode";
-import { handleClearLocalStorageLogout } from "../../../../Functions";
-import { lessVars } from "../../../../theme/index";
-import { CancelButton } from "../../../../components";
+} from 'antd';
+import { useNavigate } from 'react-router-dom';
+import { useDarkMode } from '../../../../Hooks/useDarkMode';
+import { handleClearLocalStorageLogout } from '../../../../Functions';
+import { lessVars } from '../../../../theme/index';
+import { CancelButton } from '../../../../components';
 const { Step } = Steps;
 const steps = [
   {
-    title: "First",
-    content: "First-content",
+    title: 'First',
+    content: 'First-content',
   },
   {
-    title: "Second",
-    content: "Second-content",
+    title: 'Second',
+    content: 'Second-content',
   },
 ];
 
@@ -42,14 +42,14 @@ const UploadBackup = (props) => {
   const [current, setCurrent] = useState(0);
   const [file, setFile] = useState({});
   const [fileList, setFileList] = useState([]);
-  const [fileName, setFileName] = useState("");
+  const [fileName, setFileName] = useState('');
   const [form] = Form.useForm();
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState('');
   const [percent, setPercent] = useState(0);
   const [finish, setFinish] = useState(false);
-  const isTabletBased = useMediaQuery("(max-width: 576px)");
-  const isMobileBased = useMediaQuery("(max-width: 320px)");
-  const isMiddleMobile = useMediaQuery("(max-width: 375px)");
+  const isTabletBased = useMediaQuery('(max-width: 576px)');
+  const isMobileBased = useMediaQuery('(max-width: 320px)');
+  const isMiddleMobile = useMediaQuery('(max-width: 375px)');
   const showDrawer = () => {
     setVisible(true);
   };
@@ -58,17 +58,20 @@ const UploadBackup = (props) => {
   const next = () => {
     const curren = current + 1;
     setCurrent(curren);
-    setStatus("");
+    setStatus('');
   };
 
   const prev = () => {
     const curren = current - 1;
     setCurrent(curren);
-    setStatus("done");
+    setStatus('done');
   };
 
   const checkPassword = async (value) =>
-    await axiosInstance.post(`/user_account/user_profile/check_password/`, value);
+    await axiosInstance.post(
+      `/user_account/user_profile/check_password/`,
+      value,
+    );
 
   const {
     mutate: mutateCheckPassword,
@@ -116,12 +119,12 @@ const UploadBackup = (props) => {
 
   const handleRestoreBackup = async (value) =>
     await axiosInstance.post(`${props.baseUrl}restore_from_file/`, value, {
-      headers: { "Content-Type": "multipart/form-data" },
+      headers: { 'Content-Type': 'multipart/form-data' },
       timeout: 0,
 
       onUploadProgress: (progressEvent) => {
         var percentCompleted = Math.round(
-          (progressEvent.loaded * 100) / progressEvent.total
+          (progressEvent.loaded * 100) / progressEvent.total,
         );
         setPercent(percentCompleted);
       },
@@ -133,21 +136,21 @@ const UploadBackup = (props) => {
     reset: restoreReset,
   } = useMutation(handleRestoreBackup, {
     onSuccess: (values) => {
-      message.success(t("Company.Restore_completed"));
-      if (mode !== "light") {
+      message.success(t('Company.Restore_completed'));
+      if (mode !== 'light') {
         window.less.modifyVars(lessVars.light);
-        setMode("light");
+        setMode('light');
       }
 
       queryClient.clear();
       setFinish(true);
       handleClearLocalStorageLogout();
 
-      history.push("/");
+      history.push('/');
       queryClient.invalidateQueries(props.baseUrl);
     },
     onError: (error) => {
-      setStatus("exception");
+      setStatus('exception');
       setPercent(0);
 
       if (error?.response?.data?.file) {
@@ -159,13 +162,13 @@ const UploadBackup = (props) => {
   const handleRestore = () => {
     try {
       const data = new FormData();
-      data.append("file", file);
-      setStatus("active");
+      data.append('file', file);
+      setStatus('active');
       // setPercent(99.9);
-      if (fileName !== "") {
+      if (fileName !== '') {
         mutateRestoreBackup(data);
       } else {
-        message.error(t("Company.Upload_backup_field_error_message"));
+        message.error(t('Company.Upload_backup_field_error_message'));
       }
     } catch (info) {
       message.error(info);
@@ -175,10 +178,10 @@ const UploadBackup = (props) => {
   const handleClose = () => {
     setVisible(false);
     form.resetFields();
-    setStatus("");
+    setStatus('');
     setPercent(0);
     setFile({});
-    setFileName("");
+    setFileName('');
     setCurrent(0);
     setFinish(false);
     reset();
@@ -187,16 +190,16 @@ const UploadBackup = (props) => {
 
   return (
     <div>
-      <div onClick={showDrawer}> {t("Upload.1")}</div>
+      <div onClick={showDrawer}> {t('Upload.1')}</div>
 
       <Drawer
         maskClosable={false}
         mask={true}
         zIndex={100000}
         title={
-          <Row align="middle" style={styles.nav(isTabletBased)}>
+          <Row align='middle' style={styles.nav(isTabletBased)}>
             <Col xl={7} lg={10} sm={11} xs={isMiddleMobile ? 24 : 18}>
-              <h3>{t("Company.Upload_backup")}</h3>
+              <h3>{t('Company.Upload_backup')}</h3>
             </Col>
             <Col
               xl={{ span: 1, offset: 14 }}
@@ -204,53 +207,53 @@ const UploadBackup = (props) => {
               sm={{ span: 2, offset: 8 }}
               xs={isMiddleMobile ? { span: 3, offset: 1 } : { span: 2 }}
             >
-              <Row justify="space-around">
+              <Row justify='space-around'>
                 <Col span={11}></Col>
                 <Col span={11}></Col>
               </Row>
             </Col>
           </Row>
         }
-        height="100%"
+        height='100%'
         onClose={handleClose}
         open={visible}
-        placement="top"
+        placement='top'
         bodyStyle={{ paddingBottom: 10 }}
         footer={
-          <div className="import__footer">
+          <div className='import__footer'>
             <CancelButton onClick={handleClose} disabled={restoreLoading} />
 
             <Space si={8}>
               {current > 0 && (
                 <Button onClick={() => prev()} disabled={restoreLoading}>
-                  {t("Step.Previous")}
+                  {t('Step.Previous')}
                 </Button>
               )}
               {current < steps.length - 1 && (
                 <Button
-                  type="primary"
-                  disabled={status !== "done"}
+                  type='primary'
+                  disabled={status !== 'done'}
                   onClick={next}
                 >
-                  {t("Step.Next")}
+                  {t('Step.Next')}
                 </Button>
               )}
               {current === steps.length - 1 && !finish && (
                 <Button
-                  type="primary"
+                  type='primary'
                   onClick={handleRestore}
                   loading={restoreLoading}
                 >
-                  {t("Company.Restore")}
+                  {t('Company.Restore')}
                 </Button>
               )}
               {finish && (
                 <Button
-                  type="primary"
+                  type='primary'
                   onClick={handleClose}
                   disabled={restoreLoading}
                 >
-                  {t("Company.Finish")}
+                  {t('Company.Finish')}
                 </Button>
               )}
             </Space>
@@ -260,12 +263,12 @@ const UploadBackup = (props) => {
         <div>
           <Steps
             current={current}
-            type={isMobileBased ? "navigation" : "default"}
+            type={isMobileBased ? 'navigation' : 'default'}
             responsive={false}
           >
-            <Step title={t("Company.Check_password").toUpperCase()} />
+            <Step title={t('Company.Check_password').toUpperCase()} />
             {/* <Step title={t("Step.Upload")} /> */}
-            <Step title={t("Company.Restore").toUpperCase()} />
+            <Step title={t('Company.Restore').toUpperCase()} />
             {/* ))} */}
           </Steps>
           {current === 0 ? (
@@ -277,35 +280,35 @@ const UploadBackup = (props) => {
                   scrollToFirstError={true}
                   style={styles.upload}
                   onFinish={handleOk}
-                  layout="vertical"
+                  layout='vertical'
                 >
                   <Form.Item
-                    name="username"
-                    label={t("Form.User_name")}
+                    name='username'
+                    label={t('Form.User_name')}
                     style={styles.margin}
                     rules={[
                       {
                         required: true,
                         whitespace: true,
-                        message: `${t("Form.User_name_required")}`,
+                        message: `${t('Form.User_name_required')}`,
                       },
                     ]}
                   >
                     <Input />
                   </Form.Item>
                   <Form.Item
-                    name="password"
+                    name='password'
                     label={
                       <span>
-                        {t("Company.Form.Password")}
-                        <span className="star">*</span>
+                        {t('Company.Form.Password')}
+                        <span className='star'>*</span>
                       </span>
                     }
                     rules={[
                       {
                         required: true,
                         whitespace: true,
-                        message: `${t("Company.Form.Required_password")}`,
+                        message: `${t('Company.Form.Required_password')}`,
                       },
                     ]}
                   >
@@ -313,12 +316,12 @@ const UploadBackup = (props) => {
                   </Form.Item>
                   <Form.Item>
                     <Button
-                      type="primary"
-                      htmlType="submit"
-                      shape="round"
+                      type='primary'
+                      htmlType='submit'
+                      shape='round'
                       loading={isLoading}
                     >
-                      {t("Company.Check_password")}
+                      {t('Company.Check_password')}
                     </Button>
                   </Form.Item>
                 </Form>
@@ -326,7 +329,7 @@ const UploadBackup = (props) => {
             </Row>
           ) : (
             <div>
-              <h3 style={styles.upload}>{t("Upload.Select_Zip_file")}</h3>
+              <h3 style={styles.upload}>{t('Upload.Select_Zip_file')}</h3>
               <Row gutter={[7]}>
                 <Col xl={5} md={8} sm={8} xs={16}>
                   <Input value={fileName} readOnly={true} />
@@ -334,21 +337,21 @@ const UploadBackup = (props) => {
                 <Col span={2}>
                   <Upload
                     // listType="text"
-                    name="file"
+                    name='file'
                     maxCount={1}
-                    accept=".psql"
+                    accept='.psql'
                     showUploadList={false}
                     beforeUpload={onBeforeUpload}
                     fileList={fileList}
                   >
-                    <Button type="primary" ghost disabled={restoreLoading}>
-                      {t("Upload.Browse")}
+                    <Button type='primary' ghost disabled={restoreLoading}>
+                      {t('Upload.Browse')}
                     </Button>
                   </Upload>
                 </Col>
                 <Col span={24}>
                   <Typography.Text strong={true}>
-                    {restoreLoading ? percent + "%" : ""}
+                    {restoreLoading ? percent + '%' : ''}
                   </Typography.Text>
                 </Col>
               </Row>
@@ -361,9 +364,9 @@ const UploadBackup = (props) => {
 };
 
 const styles = {
-  nav: (isMobileBased) => ({ height: isMobileBased ? "7vh" : "5vh" }),
-  upload: { marginTop: "4rem" },
-  margin: { marginBottom: "8px" },
+  nav: (isMobileBased) => ({ height: isMobileBased ? '7vh' : '5vh' }),
+  upload: { marginTop: '4rem' },
+  margin: { marginBottom: '8px' },
 };
 
 export default UploadBackup;

@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { message, Input, Form } from "antd";
-import axiosInstance from "../../ApiBaseUrl";
-import { useQueryClient, useMutation } from "react-query";
-import { useTranslation } from "react-i18next";
-import Action from "./Action";
-import { ActionMessage } from "../../SelfComponents/TranslateComponents/ActionMessage";
-import { trimString } from "../../../Functions/TrimString";
-import { useMemo } from "react";
-import { useCallback } from "react";
-import { EditableTable } from "../../../components/antd";
-import { EditableTableActionColumnRender } from "../../../components";
-import { manageErrors, updateMessage } from "../../../Functions";
+import React, { useState } from 'react';
+import { message, Input, Form } from 'antd';
+import axiosInstance from '../../ApiBaseUrl';
+import { useQueryClient, useMutation } from 'react-query';
+import { useTranslation } from 'react-i18next';
+import Action from './Action';
+import { ActionMessage } from '../../SelfComponents/TranslateComponents/ActionMessage';
+import { trimString } from '../../../Functions/TrimString';
+import { useMemo } from 'react';
+import { useCallback } from 'react';
+import { EditableTable } from '../../../components/antd';
+import { EditableTableActionColumnRender } from '../../../components';
+import { manageErrors, updateMessage } from '../../../Functions';
 
 const EditableCell = ({
   editing,
@@ -36,11 +36,11 @@ const EditableCell = ({
           rules={[
             {
               required: true,
-              message: t("Form.Name_required"),
+              message: t('Form.Name_required'),
             },
             {
               whitespace: true,
-              message: t("Form.Name_required"),
+              message: t('Form.Name_required'),
             },
           ]}
         >
@@ -67,11 +67,11 @@ const IncomeTypeTable: React.FC<IProps> = ({ baseUrl, title, model }) => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const queryClient = useQueryClient();
-  const [editingKey, setEditingKey] = useState("");
+  const [editingKey, setEditingKey] = useState('');
 
   const isEditing = useCallback(
     (record: any) => record.id === editingKey,
-    [editingKey]
+    [editingKey],
   );
 
   const edit = useCallback(
@@ -82,11 +82,11 @@ const IncomeTypeTable: React.FC<IProps> = ({ baseUrl, title, model }) => {
       });
       setEditingKey(record.id);
     },
-    [form]
+    [form],
   );
 
   const cancel = () => {
-    setEditingKey("");
+    setEditingKey('');
   };
 
   const editIncomeType = async ({ value, id }: any) =>
@@ -96,14 +96,14 @@ const IncomeTypeTable: React.FC<IProps> = ({ baseUrl, title, model }) => {
     editIncomeType,
     {
       onSuccess: (values: any) => {
-        setEditingKey("");
+        setEditingKey('');
         updateMessage(values?.data?.name);
         queryClient.invalidateQueries(baseUrl);
       },
       onError: (error) => {
         manageErrors(error);
       },
-    }
+    },
   );
 
   const save = useCallback(
@@ -115,45 +115,43 @@ const IncomeTypeTable: React.FC<IProps> = ({ baseUrl, title, model }) => {
           name: trimString(row.name),
         };
         mutateEditIncomeType({ value: allData, id: record?.id });
-      } catch (errInfo) {
-        
-      }
+      } catch (errInfo) {}
     },
-    [form, mutateEditIncomeType]
+    [form, mutateEditIncomeType],
   );
 
   const columns = useMemo(
     () => (type: string, hasSelected: boolean) => {
-      const sorter = type !== "print" ? true : false;
+      const sorter = type !== 'print' ? true : false;
       return [
         {
           title: `${
-            baseUrl !== "/expense_revenue/withdraw/"
-              ? t("Expenses.Income.Income_id").toUpperCase()
-              : t("Expenses.With_draw.With_draw_id").toUpperCase()
+            baseUrl !== '/expense_revenue/withdraw/'
+              ? t('Expenses.Income.Income_id').toUpperCase()
+              : t('Expenses.With_draw.With_draw_id').toUpperCase()
           }`,
-          dataIndex: "id",
-          key: "id",
-          width: type !== "print" ? 150 : undefined,
-          fixed: type !== "print" ? true : undefined,
-          className: "table-col",
+          dataIndex: 'id',
+          key: 'id',
+          width: type !== 'print' ? 150 : undefined,
+          fixed: type !== 'print' ? true : undefined,
+          className: 'table-col',
           // align: "center",
           sorter: sorter && { multiple: 2 },
         },
         {
-          title: <span>{t("Form.Name").toUpperCase()}</span>,
-          dataIndex: "name",
+          title: <span>{t('Form.Name').toUpperCase()}</span>,
+          dataIndex: 'name',
           editable: true,
           sorter: sorter && { multiple: 1 },
-          key: "name",
+          key: 'name',
         },
 
         {
-          title: `${t("Table.Action")}`,
-          dataIndex: "action",
+          title: `${t('Table.Action')}`,
+          dataIndex: 'action',
           width: 70,
-          key: "action",
-          align: "center",
+          key: 'action',
+          align: 'center',
           render: (_: any, record: any) => {
             const editable = isEditing(record);
             return (
@@ -167,7 +165,7 @@ const IncomeTypeTable: React.FC<IProps> = ({ baseUrl, title, model }) => {
                   model: model,
                   editable,
                   disabled:
-                    editingKey !== "" ||
+                    editingKey !== '' ||
                     record?.system_default === true ||
                     hasSelected,
                 }}
@@ -185,7 +183,7 @@ const IncomeTypeTable: React.FC<IProps> = ({ baseUrl, title, model }) => {
         },
       ];
     },
-    [baseUrl, t, isEditing, save, edit, editingKey, model]
+    [baseUrl, t, isEditing, save, edit, editingKey, model],
   );
 
   const handleGetIncomes = React.useCallback(
@@ -193,19 +191,19 @@ const IncomeTypeTable: React.FC<IProps> = ({ baseUrl, title, model }) => {
     async ({ queryKey }) => {
       const { page, pageSize, search, order } = queryKey?.[1];
       const { data } = await axiosInstance.get(
-        `${baseUrl}?page=${page}&page_size=${pageSize}&search=${search}&ordering=${order}`
+        `${baseUrl}?page=${page}&page_size=${pageSize}&search=${search}&ordering=${order}`,
       );
 
       return data;
     },
-    [baseUrl]
+    [baseUrl],
   );
 
   return (
     <Form form={form} component={false}>
       <EditableTable
         model={model}
-        placeholder={t("Employees.Filter_by_name")}
+        placeholder={t('Employees.Filter_by_name')}
         title={title}
         columns={columns}
         queryKey={baseUrl}

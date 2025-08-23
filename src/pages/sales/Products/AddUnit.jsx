@@ -1,14 +1,14 @@
-import React, { memo, useState } from "react";
-import { Modal, Button, Form, Typography, Input, message, Space } from "antd";
-import { useTranslation } from "react-i18next";
-import { useMutation, useQueryClient } from "react-query";
-import axiosInstance from "../../ApiBaseUrl";
-import { AddItem } from "../../SelfComponents/AddItem";
-import Draggable from "react-draggable";
-import { ActionMessage } from "../../SelfComponents/TranslateComponents/ActionMessage";
-import { trimString } from "../../../Functions/TrimString";
-import { CancelButton, SaveButton } from "../../../components";
-import { addMessage, manageErrors } from "../../../Functions";
+import React, { memo, useState } from 'react';
+import { Modal, Button, Form, Typography, Input, message, Space } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { useMutation, useQueryClient } from 'react-query';
+import axiosInstance from '../../ApiBaseUrl';
+import { AddItem } from '../../SelfComponents/AddItem';
+import Draggable from 'react-draggable';
+import { ActionMessage } from '../../SelfComponents/TranslateComponents/ActionMessage';
+import { trimString } from '../../../Functions/TrimString';
+import { CancelButton, SaveButton } from '../../../components';
+import { addMessage, manageErrors } from '../../../Functions';
 const { Title } = Typography;
 
 function AddUnit(props) {
@@ -41,7 +41,7 @@ function AddUnit(props) {
           },
         ],
       });
-      if (props?.type !== "addUnits") {
+      if (props?.type !== 'addUnits') {
         props.setUnits((prev) => {
           const units = [
             ...prev,
@@ -100,14 +100,14 @@ function AddUnit(props) {
         )}
       >
         <Form
-          layout="vertical"
+          layout='vertical'
           onFinish={onFinish}
           hideRequiredMark={true}
           form={form}
         >
           <Title
             level={5}
-            className="drag_modal"
+            className='drag_modal'
             onMouseOver={() => {
               setDisabled(false);
             }}
@@ -115,31 +115,31 @@ function AddUnit(props) {
               setDisabled(true);
             }}
           >
-            {t("Sales.Product_and_services.Units.Unit_information")}
+            {t('Sales.Product_and_services.Units.Unit_information')}
           </Title>
           <Form.Item
-            name="name"
+            name='name'
             label={
               <span>
-                {t("Form.Name")} <span className="star">*</span>
+                {t('Form.Name')} <span className='star'>*</span>
               </span>
             }
-            rules={[{ required: true, message: t("Form.Name_required") }]}
+            rules={[{ required: true, message: t('Form.Name_required') }]}
           >
             <Input />
           </Form.Item>
           <Form.Item
-            name="symbol"
+            name='symbol'
             label={
               <span>
-                {t("Form.Symbol")} <span className="star">*</span>
+                {t('Form.Symbol')} <span className='star'>*</span>
               </span>
             }
             rules={[
               {
                 required: true,
                 message: `${t(
-                  "Sales.Product_and_services.Units.Required_symbol"
+                  'Sales.Product_and_services.Units.Required_symbol',
                 )}`,
               },
             ]}
@@ -147,10 +147,10 @@ function AddUnit(props) {
             <Input />
           </Form.Item>
 
-          <Form.Item className="formItem textAlign__end" style={styles.footer}>
+          <Form.Item className='formItem textAlign__end' style={styles.footer}>
             <Space>
               <CancelButton onClick={handleCancel} />
-              <SaveButton htmlType="submit" loading={isLoading} />
+              <SaveButton htmlType='submit' loading={isLoading} />
             </Space>
           </Form.Item>
         </Form>
@@ -160,7 +160,7 @@ function AddUnit(props) {
 }
 
 const styles = {
-  footer: { paddingTop: "15px" },
+  footer: { paddingTop: '15px' },
 };
 
 // eslint-disable-next-line no-func-assign

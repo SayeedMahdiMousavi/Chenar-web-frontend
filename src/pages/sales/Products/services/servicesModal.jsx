@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useMutation, useQueryClient } from "react-query";
-import axiosInstance from "../../../ApiBaseUrl";
-import { GlobalHotKeys } from "react-hotkeys";
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useMutation, useQueryClient } from 'react-query';
+import axiosInstance from '../../../ApiBaseUrl';
+import { GlobalHotKeys } from 'react-hotkeys';
 import {
   CustomerServiceOutlined,
   CaretDownOutlined,
   // PlusOutlined,
-} from "@ant-design/icons";
+} from '@ant-design/icons';
 import {
   Form,
   Input,
@@ -21,13 +21,13 @@ import {
   // Divider,
   Modal,
   message,
-} from "antd";
-import { useMediaQuery } from "../../../MediaQurey";
-import { connect } from "react-redux";
-import { ModalDragTitle } from "../../../SelfComponents/ModalDragTitle";
-import Draggable from "react-draggable";
-import { trimString } from "../../../../Functions/TrimString";
-import { ActionMessage } from "../../../SelfComponents/TranslateComponents/ActionMessage";
+} from 'antd';
+import { useMediaQuery } from '../../../MediaQurey';
+import { connect } from 'react-redux';
+import { ModalDragTitle } from '../../../SelfComponents/ModalDragTitle';
+import Draggable from 'react-draggable';
+import { trimString } from '../../../../Functions/TrimString';
+import { ActionMessage } from '../../../SelfComponents/TranslateComponents/ActionMessage';
 
 // import useKey from '../../../useKey'
 
@@ -64,17 +64,17 @@ const ModalAppServices = (props) => {
   // useEffect(() => {
   //   setItems(props.groups);
   // }, [props.groups]);
-  const isMiniComputer = useMediaQuery("(max-width:1024px)");
-  const isTabletBase = useMediaQuery("(max-width:768px)");
-  const isMiniTablet = useMediaQuery("(max-width:576px)");
-  const isMobileBase = useMediaQuery("(max-width:425px)");
+  const isMiniComputer = useMediaQuery('(max-width:1024px)');
+  const isTabletBase = useMediaQuery('(max-width:768px)');
+  const isMiniTablet = useMediaQuery('(max-width:576px)');
+  const isMobileBase = useMediaQuery('(max-width:425px)');
   // const onNameChange = (event) => {
   //   const name = event.target.value;
   //   setName(name);
   // };
 
   // const addItem = async () => {
-  //   // 
+  //   //
   //   // const { items, name } = this.state;
   //   if (!name) {
   //   } else {
@@ -93,14 +93,14 @@ const ModalAppServices = (props) => {
       .post(`/product_service/service/`, value)
       .then((res) => {
         // setLoading(false);
-        if (type === "submit") {
+        if (type === 'submit') {
           setIsShowModal({
             visible: false,
           });
         }
 
         message.success(
-          <ActionMessage name={res.data?.name} message="Message.Add" />
+          <ActionMessage name={res.data?.name} message='Message.Add' />,
         );
         // form.resetFields();
       })
@@ -113,7 +113,7 @@ const ModalAppServices = (props) => {
         } else if (error?.response?.data?.description?.[0]) {
           message.error(`${error?.response.data?.description?.[0]}`);
         } else {
-          message.error(`${t("Message.Something")}`);
+          message.error(`${t('Message.Something')}`);
         }
       });
   };
@@ -150,9 +150,9 @@ const ModalAppServices = (props) => {
   // }
 
   const onFinish = async (e) => {
-    // 
+    //
     const type = e.target.type;
-    // 
+    //
     // setProducts(values);
     form
       .validateFields()
@@ -178,16 +178,14 @@ const ModalAppServices = (props) => {
         };
         // if (type === "submit") {
         mutateAddService({ value: allData, type });
-        // 
+        //
 
         // return;
         // } else {
         //   mutateAddService({ value: allData, type });
         // }
       })
-      .catch((info) => {
-        
-      });
+      .catch((info) => {});
   };
 
   const onReset = () => {
@@ -210,7 +208,7 @@ const ModalAppServices = (props) => {
   };
   // useKey(83,showModal)
   const handleCancel = (e) => {
-    // 
+    //
     setIsShowModal({
       visible: false,
     });
@@ -220,10 +218,10 @@ const ModalAppServices = (props) => {
 
   const menu = (
     <Menu>
-      <Menu.Item key="0">
-        <span name="saveAnd" onClick={onFinish}>
-          {" "}
-          {t("Form.Save_and_new")}
+      <Menu.Item key='0'>
+        <span name='saveAnd' onClick={onFinish}>
+          {' '}
+          {t('Form.Save_and_new')}
         </span>
       </Menu.Item>
     </Menu>
@@ -233,7 +231,7 @@ const ModalAppServices = (props) => {
     setVisible(!visible);
   };
   const keyMap = {
-    NEW_SERVICE: ["Control+S", "ctrl+s"],
+    NEW_SERVICE: ['Control+S', 'ctrl+s'],
   };
   const handlers = {
     NEW_SERVICE: (event) => {
@@ -246,26 +244,26 @@ const ModalAppServices = (props) => {
         visible: true,
       });
 
-      // 
+      //
     },
   };
   return (
     <Row>
       <GlobalHotKeys keyMap={keyMap} handlers={handlers} />
-      <Row onClick={showModal} align="middle" className="Button">
+      <Row onClick={showModal} align='middle' className='Button'>
         <Col xl={6} md={7} xs={{ span: 7 }}>
-          <CustomerServiceOutlined className="Button__icon " />
+          <CustomerServiceOutlined className='Button__icon ' />
         </Col>
         <Col
           xl={{ span: 18 }}
           md={{ span: 17, offset: 0 }}
           xs={{ span: 17, offset: 0 }}
         >
-          <p className="modal__p">
-            {t("Sales.Product_and_services.Service")}
+          <p className='modal__p'>
+            {t('Sales.Product_and_services.Service')}
             <br />
-            <span className="modal__span">
-              {t("Sales.Product_and_services.Service_description")}
+            <span className='modal__span'>
+              {t('Sales.Product_and_services.Service_description')}
             </span>
           </p>
         </Col>
@@ -277,7 +275,7 @@ const ModalAppServices = (props) => {
           <ModalDragTitle
             disabled={disabled}
             setDisabled={setDisabled}
-            title={t("Sales.Product_and_services.Service_information")}
+            title={t('Sales.Product_and_services.Service_information')}
           />
         }
         afterClose={handleAfterClose}
@@ -289,14 +287,14 @@ const ModalAppServices = (props) => {
         destroyOnClose={true}
         width={
           isMobileBase
-            ? "100vw"
+            ? '100vw'
             : isMiniTablet
-            ? "70vw"
-            : isTabletBase
-            ? "50vw"
-            : isMiniComputer
-            ? "40vw"
-            : "30vw"
+              ? '70vw'
+              : isTabletBase
+                ? '50vw'
+                : isMiniComputer
+                  ? '40vw'
+                  : '30vw'
         }
         onCancel={handleCancel}
         bodyStyle={styles.bodyStyle}
@@ -304,30 +302,30 @@ const ModalAppServices = (props) => {
           <Row gutter={[0, 15]}>
             <Col md={{ span: 21 }} sm={21} xs={21}>
               <Button
-                type="primary"
-                shape="round"
+                type='primary'
+                shape='round'
                 onClick={onFinish}
                 loading={loading}
-                name="save"
-                className="form-save"
-                htmlType="submit"
+                name='save'
+                className='form-save'
+                htmlType='submit'
               >
-                {t("Form.Save")}
+                {t('Form.Save')}
               </Button>
             </Col>
             <Col xl={3} md={3} xs={3}>
               <Dropdown
                 overlay={menu}
-                trigger={["click"]}
-                placement="bottomCenter"
+                trigger={['click']}
+                placement='bottomCenter'
                 open={visible}
                 onOpenChange={onOpenChange}
               >
                 <Button
-                  type="primary"
-                  shape="round"
+                  type='primary'
+                  shape='round'
                   icon={<CaretDownOutlined />}
-                  size="small"
+                  size='small'
                   style={styles.drop(isMobileBase, isTabletBase)}
                 />
               </Dropdown>
@@ -335,11 +333,11 @@ const ModalAppServices = (props) => {
             <Col span={24}>
               <Button
                 onClick={onReset}
-                className="num"
-                type="dashed"
-                htmlType="reset"
+                className='num'
+                type='dashed'
+                htmlType='reset'
               >
-                {t("Form.Reset")}
+                {t('Form.Reset')}
               </Button>
             </Col>
           </Row>
@@ -348,48 +346,48 @@ const ModalAppServices = (props) => {
         <Form
           {...layout}
           // labelAlign={props.rtl ? "right" : "left"}
-          name="nest-messages"
+          name='nest-messages'
           // layout={isMobileBase ? "vertical" : "horizontal"}
-          layout="vertical"
+          layout='vertical'
           hideRequiredMark={true}
           colon={false}
           form={form}
         >
           <Form.Item
-            name="name"
+            name='name'
             label={
               <span>
-                {t("Form.Name")} <span className="star">*</span>
+                {t('Form.Name')} <span className='star'>*</span>
               </span>
             }
             rules={[
               {
                 required: true,
-                message: t("Form.Name_required"),
+                message: t('Form.Name_required'),
               },
               {
                 whitespace: true,
-                message: t("Form.Name_required"),
+                message: t('Form.Name_required'),
               },
             ]}
-            className="margin"
+            className='margin'
           >
             <Input autoFocus />
           </Form.Item>
 
           <Form.Item
-            name="price"
+            name='price'
             label={
               <span>
-                {t("Sales.Product_and_services.Form.Price")}
-                <span className="star">*</span>
+                {t('Sales.Product_and_services.Form.Price')}
+                <span className='star'>*</span>
               </span>
             }
-            className="margin"
+            className='margin'
             rules={[
               {
                 message: `${t(
-                  "Sales.Product_and_services.Form.Price_required"
+                  'Sales.Product_and_services.Form.Price_required',
                 )}`,
                 required: true,
               },
@@ -402,9 +400,9 @@ const ModalAppServices = (props) => {
           >
             <InputNumber
               min={1}
-              type="number"
-              className="num"
-              inputMode="numeric"
+              type='number'
+              className='num'
+              inputMode='numeric'
             />
           </Form.Item>
           {/* <Form.Item
@@ -444,9 +442,9 @@ const ModalAppServices = (props) => {
           </Form.Item> */}
 
           <Form.Item
-            name="description"
-            className="margin1"
-            label={t("Form.Description")}
+            name='description'
+            className='margin1'
+            label={t('Form.Description')}
           >
             <Input.TextArea showCount />
           </Form.Item>
@@ -458,11 +456,11 @@ const ModalAppServices = (props) => {
 const styles = {
   bodyStyle: {
     maxHeight: `calc(100vh - 194px)`,
-    overflowY: "auto",
+    overflowY: 'auto',
   },
   drop: (isMobileBase, isTabletBase) => ({
-    height: "100%",
-    width: "100%",
+    height: '100%',
+    width: '100%',
   }),
 };
 const mapStateToProps = (state) => ({

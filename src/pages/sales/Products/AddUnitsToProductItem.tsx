@@ -42,7 +42,7 @@ export default function AddUnitsToProductItem(props: IProps) {
     props.setVisible(false);
 
     setDisabledUnits(
-      props?.record?.product_units?.map((item: Unit1) => item?.unit?.name)
+      props?.record?.product_units?.map((item: Unit1) => item?.unit?.name),
     );
 
     form.setFieldsValue({
@@ -51,7 +51,7 @@ export default function AddUnitsToProductItem(props: IProps) {
         value: item?.unit.id,
       })),
       base_unit: props?.record?.product_units.filter(
-        (item: Unit1) => item?.base_unit === true
+        (item: Unit1) => item?.base_unit === true,
       )?.[0]?.unit?.id,
     });
     setVisible(true);
@@ -60,7 +60,7 @@ export default function AddUnitsToProductItem(props: IProps) {
   const editUnit = async (value: any) =>
     await axiosInstance.put(
       `${props.baseUrl}${props?.record?.id}/update_unit/`,
-      value
+      value,
     );
 
   const handleSuccessEdit = () => {
@@ -88,10 +88,10 @@ export default function AddUnitsToProductItem(props: IProps) {
       .validateFields()
       .then(async (values) => {
         const defaultSales = props?.record?.product_units.find(
-          (item: Unit1) => item?.default_sal === true
+          (item: Unit1) => item?.default_sal === true,
         )?.unit?.id;
         const defaultPurchase = props?.record?.product_units.find(
-          (item: Unit1) => item?.default_pur === true
+          (item: Unit1) => item?.default_pur === true,
         )?.unit?.id;
         const units = values?.units?.map((item: { value: number }) => {
           return {
@@ -158,7 +158,7 @@ export default function AddUnitsToProductItem(props: IProps) {
                   {
                     required: true,
                     message: t(
-                      'Sales.Product_and_services.Form.Units_required'
+                      'Sales.Product_and_services.Form.Units_required',
                     ),
                   },
                 ]}

@@ -63,11 +63,11 @@ const IncomeStatementsTable: React.FC<IProps> = ({ baseUrl, place }) => {
     async ({ queryKey }) => {
       const { startDate, endDate } = queryKey?.[1];
       const { data } = await axiosInstance.get(
-        `${baseUrl}?date_time_after=${startDate}&date_time_before=${endDate}`
+        `${baseUrl}?date_time_after=${startDate}&date_time_before=${endDate}`,
       );
       return data;
     },
-    [baseUrl]
+    [baseUrl],
   );
 
   const {
@@ -128,7 +128,7 @@ const IncomeStatementsTable: React.FC<IProps> = ({ baseUrl, place }) => {
         }
       });
     },
-    [t]
+    [t],
   );
   const updateIncomeStatementData = React.useCallback(
     (list: any[]) => {
@@ -173,7 +173,7 @@ const IncomeStatementsTable: React.FC<IProps> = ({ baseUrl, place }) => {
         }
       });
     },
-    [t]
+    [t],
   );
 
   const createObject = (object: any) => {
@@ -260,9 +260,9 @@ const IncomeStatementsTable: React.FC<IProps> = ({ baseUrl, place }) => {
             math.evaluate(
               `(${data?.gross_profit?.total ?? 0} + ${
                 data?.income?.total ?? 0
-              }) - ${data?.expense?.total ?? 0}`
-            )
-          )
+              }) - ${data?.expense?.total ?? 0}`,
+            ),
+          ),
         );
 
         setIncomeStatementTotal(incomeStatementAmount);
@@ -273,89 +273,88 @@ const IncomeStatementsTable: React.FC<IProps> = ({ baseUrl, place }) => {
 
   // console.log("datasurse" , dataSource)
   const columns = useMemo(
-    () => (type: string) =>
-      (
-        <Fragment>
-          <Column
-            title={
-              place !== 'balanceSheet'
-                ? t('Banking.Form.Account_name')
-                : type === 'assets'
+    () => (type: string) => (
+      <Fragment>
+        <Column
+          title={
+            place !== 'balanceSheet'
+              ? t('Banking.Form.Account_name')
+              : type === 'assets'
                 ? t('Assets')
                 : t('Reports.Capital_and_credit').toUpperCase()
-            }
-            dataIndex='name'
-            key='name'
-            width='50%'
-            // sorter={true}
-            className='table-col'
-            render={(text: any, record: any, index) => {
-              //  if (!record?.account){
-              //   console.log( "record" , record , "dataSource" , dataSource , "index" , index)
-              //  }
+          }
+          dataIndex='name'
+          key='name'
+          width='50%'
+          // sorter={true}
+          className='table-col'
+          render={(text: any, record: any, index) => {
+            //  if (!record?.account){
+            //   console.log( "record" , record , "dataSource" , dataSource , "index" , index)
+            //  }
 
-              return (
-                <>
-                  {
-                    text ? (
-                      text
-                    ) : record?.account === t('Sales.Customers.Form.Total') ? (
-                      <span style={{ color: Colors.primaryColor }}>
-                        {record?.account}
-                      </span>
-                    ) : (
-                      record?.account
-                    )
-                    //  ? (
-                    //   record?.account
-                    // ) : type === "capital" ? (
-                    //   index
-                    // ) : (
-
-                    //   Object?.keys(dataSource?.[0]?.total ? dataSource?.[0]?.total : {} )?.length > 0 && Object?.keys(dataSource?.[0]?.total)?.map((item, ind) => {
-                    //     if (index === ind) {
-                    //       // return dataSource?.[0]?.total?.[item]
-                    //       return item;
-                    //     } else return "";
-                    //   })
-                    // )
-                  }
-                </>
-              );
-            }}
-          />
-          <Column
-            title={t('Sales.Customers.Form.Amount')}
-            dataIndex='total'
-            key='total'
-            width='50%'
-            // sorter={true}
-            render={(text: any, record: any) => {
-              var num = parseFloat(text?.[Object.keys(text)?.[0]]);
-
-              if (!expandedRowKeys?.includes(record?.account)) {
-                console.log('text', text, 'sum', num, 'record', record);
-              }
-
-              return (
-                <>
-                  {text ? (
+            return (
+              <>
+                {
+                  text ? (
                     text
                   ) : record?.account === t('Sales.Customers.Form.Total') ? (
-                    <Statistics value={num} color={Colors.primaryColor} />
-                  ) : expandedRowKeys?.includes(record?.account) ? (
-                    ''
+                    <span style={{ color: Colors.primaryColor }}>
+                      {record?.account}
+                    </span>
                   ) : (
-                    <Statistics value={num} />
-                  )}
-                </>
-              );
-            }}
-            className='table-col'
-          />
-        </Fragment>
-      ),
-    [expandedRowKeys, place, t]
+                    record?.account
+                  )
+                  //  ? (
+                  //   record?.account
+                  // ) : type === "capital" ? (
+                  //   index
+                  // ) : (
+
+                  //   Object?.keys(dataSource?.[0]?.total ? dataSource?.[0]?.total : {} )?.length > 0 && Object?.keys(dataSource?.[0]?.total)?.map((item, ind) => {
+                  //     if (index === ind) {
+                  //       // return dataSource?.[0]?.total?.[item]
+                  //       return item;
+                  //     } else return "";
+                  //   })
+                  // )
+                }
+              </>
+            );
+          }}
+        />
+        <Column
+          title={t('Sales.Customers.Form.Amount')}
+          dataIndex='total'
+          key='total'
+          width='50%'
+          // sorter={true}
+          render={(text: any, record: any) => {
+            var num = parseFloat(text?.[Object.keys(text)?.[0]]);
+
+            if (!expandedRowKeys?.includes(record?.account)) {
+              console.log('text', text, 'sum', num, 'record', record);
+            }
+
+            return (
+              <>
+                {text ? (
+                  text
+                ) : record?.account === t('Sales.Customers.Form.Total') ? (
+                  <Statistics value={num} color={Colors.primaryColor} />
+                ) : expandedRowKeys?.includes(record?.account) ? (
+                  ''
+                ) : (
+                  <Statistics value={num} />
+                )}
+              </>
+            );
+          }}
+          className='table-col'
+        />
+      </Fragment>
+    ),
+    [expandedRowKeys, place, t],
   );
 
   const fiscalYearData = [data?.total_profit ?? {}];
@@ -380,8 +379,8 @@ const IncomeStatementsTable: React.FC<IProps> = ({ baseUrl, place }) => {
             ? //@ts-ignore
               dataSource?.[0]?.child
             : place === 'fiscalYearIncome'
-            ? fiscalYearData
-            : dataSource
+              ? fiscalYearData
+              : dataSource
         }
         bordered={false}
         scroll={{ x: 'max-content', scrollToFirstRowOnChange: true }}
@@ -472,9 +471,11 @@ const IncomeStatementsTable: React.FC<IProps> = ({ baseUrl, place }) => {
           rowKey={(record: any) => record?.name || record?.account}
           //@ts-ignore
           pagination={false}
-          dataSource={
-            dataSource?.slice(1, 10)
-            // mainBalanceDataState
+          dataSource={dataSource?.slice(
+            1,
+            10,
+          )
+          // mainBalanceDataState
           }
           bordered={false}
           scroll={{ x: 'max-content', scrollToFirstRowOnChange: true }}
@@ -541,8 +542,8 @@ const IncomeStatementsTable: React.FC<IProps> = ({ baseUrl, place }) => {
               return print(
                 //@ts-ignore
                 math?.evaluate(
-                  `${sum}+${item?.total?.[Object.keys(item?.total)?.[0]]}`
-                )
+                  `${sum}+${item?.total?.[Object.keys(item?.total)?.[0]]}`,
+                ),
               );
               // return 10
             }, 0);

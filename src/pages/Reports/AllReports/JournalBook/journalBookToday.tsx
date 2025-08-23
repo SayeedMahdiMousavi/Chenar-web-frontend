@@ -165,11 +165,11 @@ const JournalBookTable: React.FC<IProps> = ({
       const currencyId = currencyData?.value ?? '';
       const accountTypeValue = accountType?.value ?? '';
       const { data } = await axiosInstance.get(
-        `${baseUrl}?page=${page}&page_size=${pageSize}&ordering=${order}&search=${search}&account_type=${accountTypeValue}&currency=${currencyId}&date_time_after=${newDate}&account=${bankId}`
+        `${baseUrl}?page=${page}&page_size=${pageSize}&ordering=${order}&search=${search}&account_type=${accountTypeValue}&currency=${currencyId}&date_time_after=${newDate}&account=${bankId}`,
       );
       return data;
     },
-    [baseUrl]
+    [baseUrl],
   );
 
   const getJournalTotal = React.useCallback(
@@ -179,12 +179,12 @@ const JournalBookTable: React.FC<IProps> = ({
         queryKey?.[1];
 
       const { data } = await axiosInstance.get(
-        `${resultUrl}?currency=${currencyId}&account_type=${accountTypeValue}&date_time_after=${newDate}&account=${bankId}`
+        `${resultUrl}?currency=${currencyId}&account_type=${accountTypeValue}&date_time_after=${newDate}&account=${bankId}`,
       );
       console.log('result journal book ', data);
       return data;
     },
-    [resultUrl]
+    [resultUrl],
   );
 
   const result = useQuery(
@@ -193,7 +193,7 @@ const JournalBookTable: React.FC<IProps> = ({
     {
       enabled: !!startDate,
       // cacheTime: 0,
-    }
+    },
   );
 
   // const pageStyle = `@media all {
@@ -457,7 +457,7 @@ const JournalBookTable: React.FC<IProps> = ({
 
           <Column
             title={t(
-              'Sales.Product_and_services.Inventory.Currency'
+              'Sales.Product_and_services.Inventory.Currency',
             ).toUpperCase()}
             dataIndex='currency_name'
             key='currency_name'
@@ -470,7 +470,7 @@ const JournalBookTable: React.FC<IProps> = ({
 
           <Column
             title={t(
-              'Sales.Product_and_services.Currency.Currency_rate'
+              'Sales.Product_and_services.Currency.Currency_rate',
             ).toUpperCase()}
             dataIndex='currency_rate'
             key='currency_rate'
@@ -525,7 +525,7 @@ const JournalBookTable: React.FC<IProps> = ({
 
               <Column
                 title={t(
-                  'Sales.Product_and_services.Inventory.Currency'
+                  'Sales.Product_and_services.Inventory.Currency',
                 ).toUpperCase()}
                 dataIndex='currency_calc_name'
                 key='currency_calc_name'
@@ -535,7 +535,7 @@ const JournalBookTable: React.FC<IProps> = ({
 
               <Column
                 title={t(
-                  'Sales.Product_and_services.Currency.Currency_rate'
+                  'Sales.Product_and_services.Currency.Currency_rate',
                 ).toUpperCase()}
                 dataIndex='currency_rate_calc'
                 key='currency_rate_calc'
@@ -556,7 +556,7 @@ const JournalBookTable: React.FC<IProps> = ({
         </React.Fragment>
       );
     },
-    [calCurrency, currency, details, t]
+    [calCurrency, currency, details, t],
   );
 
   const resultColumns = useMemo(
@@ -606,7 +606,7 @@ const JournalBookTable: React.FC<IProps> = ({
           key='result'
           render={(
             text,
-            record: { previous: string; debit: string; credit: string }
+            record: { previous: string; debit: string; credit: string },
           ) => {
             const result =
               parseInt(record?.previous) +
@@ -617,7 +617,7 @@ const JournalBookTable: React.FC<IProps> = ({
         />
       </React.Fragment>
     ),
-    [t]
+    [t],
   );
 
   const resultData = result?.data;

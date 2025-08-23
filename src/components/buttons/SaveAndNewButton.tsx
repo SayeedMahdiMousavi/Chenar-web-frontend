@@ -1,9 +1,9 @@
-import React from "react";
-import { Menu } from "antd";
-import DropdownButton from "../antd/DropdownButton";
-import { useTranslation } from "react-i18next";
-import { SaveIcon } from "../../icons";
-import { Colors } from "../../pages/colors";
+import React from 'react';
+import { Menu } from 'antd';
+import DropdownButton from '../antd/DropdownButton';
+import { useTranslation } from 'react-i18next';
+import { SaveIcon } from '../../icons';
+import { Colors } from '../../pages/colors';
 
 interface IProps {
   onSubmit: (value: any) => void;
@@ -16,8 +16,8 @@ export function SaveAndNewButton(props: IProps) {
   const { t } = useTranslation();
   const menu = (
     <Menu style={styles.menu}>
-      <Menu.Item key="0" onClick={props.onSubmit} style={styles.menuItem}>
-        {t("Form.Save_and_new")}
+      <Menu.Item key='0' onClick={props.onSubmit} style={styles.menuItem}>
+        {t('Form.Save_and_new')}
       </Menu.Item>
     </Menu>
   );
@@ -36,7 +36,7 @@ export function SaveAndNewButton(props: IProps) {
         visible: props?.visible,
         onOpenChange: handleVisibleChange,
       }}
-      text={t("Form.Save")}
+      text={t('Form.Save')}
     />
   );
 }
@@ -44,11 +44,11 @@ export function SaveAndNewButton(props: IProps) {
 const styles = {
   menuItem: {
     backgroundColor: Colors.primaryColor,
-    color: "white",
+    color: 'white',
   },
   menu: {
-    padding: "2px",
+    padding: '2px',
     backgroundColor: Colors.primaryColor,
-    borderRadius: "8px",
+    borderRadius: '8px',
   },
 };

@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { Modal, Col, Row, Button, InputNumber, Select } from "antd";
-import { useMediaQuery } from "../../../MediaQurey";
-import { useMutation, useQueryClient } from "react-query";
-import axiosInstance from "../../../ApiBaseUrl";
-import { Form, message } from "antd";
-import { useTranslation } from "react-i18next";
-import { ModalDragTitle } from "../../../SelfComponents/ModalDragTitle";
-import Draggable from "react-draggable";
-import { CancelButton, SaveButton } from "../../../../components";
+import React, { useState } from 'react';
+import { Modal, Col, Row, Button, InputNumber, Select } from 'antd';
+import { useMediaQuery } from '../../../MediaQurey';
+import { useMutation, useQueryClient } from 'react-query';
+import axiosInstance from '../../../ApiBaseUrl';
+import { Form, message } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { ModalDragTitle } from '../../../SelfComponents/ModalDragTitle';
+import Draggable from 'react-draggable';
+import { CancelButton, SaveButton } from '../../../../components';
 
 interface IProps {}
 const PriceRecordingSettings = (props: IProps) => {
@@ -19,10 +19,10 @@ const PriceRecordingSettings = (props: IProps) => {
   });
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(true);
-  const [salesRateType, setSalesRateType] = useState("");
-  const isBgTablet = useMediaQuery("(max-width: 1024px)");
-  const isTablet = useMediaQuery("(max-width: 768px)");
-  const isMobile = useMediaQuery("(max-width: 425px)");
+  const [salesRateType, setSalesRateType] = useState('');
+  const isBgTablet = useMediaQuery('(max-width: 1024px)');
+  const isTablet = useMediaQuery('(max-width: 768px)');
+  const isMobile = useMediaQuery('(max-width: 425px)');
 
   const showModal = () => {
     setIsShowModal({
@@ -79,9 +79,7 @@ const PriceRecordingSettings = (props: IProps) => {
         };
         mutateAddPriceSettings(data);
       })
-      .catch((info) => {
-        
-      });
+      .catch((info) => {});
   };
 
   const onChangeSalesRateType = (value: string) => {
@@ -91,7 +89,7 @@ const PriceRecordingSettings = (props: IProps) => {
     <div>
       <div onClick={showModal}>
         {t(
-          "Sales.Product_and_services.Price_recording.Commodity_price_changes"
+          'Sales.Product_and_services.Price_recording.Commodity_price_changes',
         )}
       </div>
       <Modal
@@ -101,7 +99,7 @@ const PriceRecordingSettings = (props: IProps) => {
             disabled={disabled}
             setDisabled={setDisabled}
             title={t(
-              "Sales.Product_and_services.Price_recording.Commodity_price_changes"
+              'Sales.Product_and_services.Price_recording.Commodity_price_changes',
             )}
           />
         }
@@ -113,14 +111,14 @@ const PriceRecordingSettings = (props: IProps) => {
         open={isShowModal.visible}
         onCancel={onCancel}
         destroyOnClose
-        wrapClassName="warehouse_add_modal"
+        wrapClassName='warehouse_add_modal'
         bodyStyle={styles.modalBody}
         style={styles.modal(isMobile)}
         width={
-          isMobile ? "100%" : isTablet ? "70%" : isBgTablet ? "45%" : "25%"
+          isMobile ? '100%' : isTablet ? '70%' : isBgTablet ? '45%' : '25%'
         }
         footer={
-          <Row justify="end" align="middle">
+          <Row justify='end' align='middle'>
             <Col>
               <CancelButton onClick={onCancel} />
               <SaveButton onClick={handleOk} loading={loading} />
@@ -132,41 +130,41 @@ const PriceRecordingSettings = (props: IProps) => {
           form={form}
           hideRequiredMark={true}
           scrollToFirstError={true}
-          layout="vertical"
+          layout='vertical'
         >
           <Form.Item
             label={
               <span>
                 {t(
-                  "Sales.Product_and_services.Price_recording.Sales_rate_type"
+                  'Sales.Product_and_services.Price_recording.Sales_rate_type',
                 )}
-                <span className="star">*</span>
+                <span className='star'>*</span>
               </span>
             }
-            name="sales_rate_type"
+            name='sales_rate_type'
             rules={[
               {
                 required: true,
                 message: `${t(
-                  "Sales.Product_and_services.Price_recording.Sales_rate_type_required"
+                  'Sales.Product_and_services.Price_recording.Sales_rate_type_required',
                 )}`,
               },
             ]}
           >
             <Select onChange={onChangeSalesRateType}>
-              <Select.Option value="increase_sales_rate">
+              <Select.Option value='increase_sales_rate'>
                 {t(
-                  "Sales.Product_and_services.Price_recording.Increase_sales_rate"
+                  'Sales.Product_and_services.Price_recording.Increase_sales_rate',
                 )}
               </Select.Option>
-              <Select.Option value="decrease_sales_rate">
+              <Select.Option value='decrease_sales_rate'>
                 {t(
-                  "Sales.Product_and_services.Price_recording.Decrease_sales_rate"
+                  'Sales.Product_and_services.Price_recording.Decrease_sales_rate',
                 )}
               </Select.Option>
-              <Select.Option value="fixed_sales_rate">
+              <Select.Option value='fixed_sales_rate'>
                 {t(
-                  "Sales.Product_and_services.Price_recording.Fixed_sales_rate"
+                  'Sales.Product_and_services.Price_recording.Fixed_sales_rate',
                 )}
               </Select.Option>
             </Select>
@@ -175,50 +173,50 @@ const PriceRecordingSettings = (props: IProps) => {
             label={
               <span>
                 {t(
-                  "Sales.Product_and_services.Price_recording.Product_affected"
+                  'Sales.Product_and_services.Price_recording.Product_affected',
                 )}
-                <span className="star">*</span>
+                <span className='star'>*</span>
               </span>
             }
-            name="product_affected"
+            name='product_affected'
             rules={[
               {
                 required: true,
                 message: `${t(
-                  "Sales.Product_and_services.Price_recording.Product_affected_required"
+                  'Sales.Product_and_services.Price_recording.Product_affected_required',
                 )}`,
               },
             ]}
           >
             <Select>
-              <Select.Option value="all_products">
-                {t("Sales.Product_and_services.Price_recording.All_products")}
+              <Select.Option value='all_products'>
+                {t('Sales.Product_and_services.Price_recording.All_products')}
               </Select.Option>
-              <Select.Option value="Priced products ">
+              <Select.Option value='Priced products '>
                 {t(
-                  "Sales.Product_and_services.Price_recording.Priced_products"
+                  'Sales.Product_and_services.Price_recording.Priced_products',
                 )}
               </Select.Option>
-              <Select.Option value="Unpriced products">
+              <Select.Option value='Unpriced products'>
                 {t(
-                  "Sales.Product_and_services.Price_recording.Unpriced_products"
+                  'Sales.Product_and_services.Price_recording.Unpriced_products',
                 )}
               </Select.Option>
             </Select>
           </Form.Item>
           <Form.Item
-            name="sales_rate"
+            name='sales_rate'
             label={
               <span>
-                {t("Sales.Product_and_services.Price_recording.Rate_percent")}
-                <span className="star">*</span>
+                {t('Sales.Product_and_services.Price_recording.Rate_percent')}
+                <span className='star'>*</span>
               </span>
             }
-            className="margin"
+            className='margin'
             rules={[
               {
                 message: `${t(
-                  "Sales.Product_and_services.Price_recording.Rate_percent_required"
+                  'Sales.Product_and_services.Price_recording.Rate_percent_required',
                 )}`,
                 required: true,
                 whitespace: true,
@@ -226,13 +224,13 @@ const PriceRecordingSettings = (props: IProps) => {
             ]}
           >
             <InputNumber
-              min={salesRateType === "decrease_sales_rate" ? -99 : 1}
-              max={salesRateType === "decrease_sales_rate" ? 0 : 1000}
+              min={salesRateType === 'decrease_sales_rate' ? -99 : 1}
+              max={salesRateType === 'decrease_sales_rate' ? 0 : 1000}
               // type="number"
-              className="num"
+              className='num'
               // inputMode="numeric"
               formatter={(value) => `${value}%`}
-              parser={(value: any) => value.replace("%", "")}
+              parser={(value: any) => value.replace('%', '')}
             />
           </Form.Item>
         </Form>
@@ -247,8 +245,8 @@ interface IStyles {
   modal: (isMobile: any) => React.CSSProperties;
 }
 const styles: IStyles = {
-  margin: { marginBottom: "4px" },
-  modalBody: { maxHeight: `calc(100vh - 152px)`, overflowY: "auto" },
+  margin: { marginBottom: '4px' },
+  modalBody: { maxHeight: `calc(100vh - 152px)`, overflowY: 'auto' },
   modal: (isMobile) => ({
     top: isMobile ? 0 : 10,
     bottom: isMobile ? 0 : 10,

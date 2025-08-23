@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import Draggable from "react-draggable";
+import React, { useState } from 'react';
+import Draggable from 'react-draggable';
 export default function TextDrag() {
   const [activeDrags, setActiveDrags] = useState(0);
 
@@ -33,7 +33,7 @@ export default function TextDrag() {
         //   props.background
         // )}
       >
-        {" "}
+        {' '}
         +93 799773529
       </div>
     </Draggable>

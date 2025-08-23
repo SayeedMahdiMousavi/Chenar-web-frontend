@@ -1,11 +1,11 @@
-import React, { memo } from "react";
-import { Row, Col, Form, Button } from "antd";
-import { useTranslation } from "react-i18next";
-import ReportDateFormItem from "../../Components/DateFormItem";
-import { EmployeeAndCustomerAndSupplierChart } from "../../../Transactions/Components/EmployeeAndCustomerAndSupplierChart";
-import { InfiniteScrollSelectFormItem } from "../../../../components/antd";
-import { useDefaultReportDateFormItem } from "../../../../Hooks";
-import { handlePrepareDateForServer } from "../../../../Functions/utcDate";
+import React, { memo } from 'react';
+import { Row, Col, Form, Button } from 'antd';
+import { useTranslation } from 'react-i18next';
+import ReportDateFormItem from '../../Components/DateFormItem';
+import { EmployeeAndCustomerAndSupplierChart } from '../../../Transactions/Components/EmployeeAndCustomerAndSupplierChart';
+import { InfiniteScrollSelectFormItem } from '../../../../components/antd';
+import { useDefaultReportDateFormItem } from '../../../../Hooks';
+import { handlePrepareDateForServer } from '../../../../Functions/utcDate';
 
 interface IProps {
   setPage: (value: number) => void;
@@ -67,7 +67,7 @@ function AccountsStatisticsFilters(props: IProps) {
       form={form}
       hideRequiredMark
       initialValues={{
-        date: "allDates",
+        date: 'allDates',
         dateTime: defaultDate,
         // currency: props?.currency,
       }}
@@ -79,11 +79,11 @@ function AccountsStatisticsFilters(props: IProps) {
         <Col xxl={14} xl={10} lg={11}></Col>
         <Col xxl={4} xl={5} lg={5}>
           <InfiniteScrollSelectFormItem
-            name="currency"
-            placeholder={t("Sales.Product_and_services.Inventory.Currency")}
+            name='currency'
+            placeholder={t('Sales.Product_and_services.Inventory.Currency')}
             style={styles.formItem}
-            fields="name,id,symbol"
-            baseUrl="/currency/active_currency_rate/"
+            fields='name,id,symbol'
+            baseUrl='/currency/active_currency_rate/'
             allowClear
             // rules={[
             //   {
@@ -100,9 +100,9 @@ function AccountsStatisticsFilters(props: IProps) {
         </Col>
 
         <Col xxl={8} xl={10} lg={10}>
-          <Form.Item className="margin" style={styles.formItem}>
-            <Button type="primary" size="small" htmlType="submit" shape="round">
-              {t("Form.Search")}
+          <Form.Item className='margin' style={styles.formItem}>
+            <Button type='primary' size='small' htmlType='submit' shape='round'>
+              {t('Form.Search')}
             </Button>
           </Form.Item>
         </Col>
@@ -113,9 +113,9 @@ function AccountsStatisticsFilters(props: IProps) {
 
 const styles = {
   form: {
-    marginBottom: "20px",
+    marginBottom: '20px',
   },
-  formItem: { marginBottom: "0px" },
+  formItem: { marginBottom: '0px' },
 };
 
 //@ts-ignore
@@ -133,7 +133,7 @@ AccountsStatisticsFilters = memo(
       return false;
     }
     return true;
-  }
+  },
 );
 
 export default AccountsStatisticsFilters;

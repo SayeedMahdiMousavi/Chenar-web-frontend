@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
-import React, { useState } from "react";
-import { PDFViewer } from "@react-pdf/renderer";
-import font from "../../fonts/IRANYekanRegular.ttf";
+import React, { useState } from 'react';
+import { PDFViewer } from '@react-pdf/renderer';
+import font from '../../fonts/IRANYekanRegular.ttf';
 import {
   Document,
   Font,
@@ -13,12 +13,12 @@ import {
   View,
 
   //   Table,
-} from "@react-pdf/renderer";
+} from '@react-pdf/renderer';
 
-import { useTranslation } from "react-i18next";
-import { Button, Modal } from "antd";
-import { PrinterOutlined } from "@ant-design/icons";
-import PDFTable from "./Table.js";
+import { useTranslation } from 'react-i18next';
+import { Button, Modal } from 'antd';
+import { PrinterOutlined } from '@ant-design/icons';
+import PDFTable from './Table.js';
 
 export default (props) => {
   const { t } = useTranslation();
@@ -26,7 +26,7 @@ export default (props) => {
 
   // Register font
   Font.register({
-    family: "IRAN_YEKAN_REGULAR",
+    family: 'IRAN_YEKAN_REGULAR',
     src: font,
   });
 
@@ -69,7 +69,7 @@ export default (props) => {
         </View>
         <View style={styles.tableCol}>
           <Text style={styles.tableCell}>
-            {" "}
+            {' '}
             گمان می‌رود که این مقاله ناقض حق تکثیر باشد، اما بدون داشتن منبع
             امکان تشخیص قطعی این موضوع وجود ندارد. اگر می‌توان نشان داد که این
             مقاله حق نشر را زیر پا گذاشته است، لطفاً مقاله را در
@@ -89,9 +89,9 @@ export default (props) => {
     <>
       <Button
         onClick={showModal}
-        type="link"
-        size="middle"
-        shape="round"
+        type='link'
+        size='middle'
+        shape='round'
         // disabled={selectedRows?.length === 0}
         icon={
           <PrinterOutlined
@@ -106,9 +106,9 @@ export default (props) => {
         onOk={handleOk}
         width={600}
         onCancel={handleCancel}
-        bodyStyle={{ padding: "0px 10px", height: "500px" }}
+        bodyStyle={{ padding: '0px 10px', height: '500px' }}
       >
-        <PDFViewer width="100%" height="100%">
+        <PDFViewer width='100%' height='100%'>
           <Document>
             <Page style={styles.body}>
               <Text style={styles.title} fixed>
@@ -117,15 +117,15 @@ export default (props) => {
               {tableContent}
               <PDFTable
                 columns={[
-                  { title: "Name", dataIndex: "name" },
-                  { title: "Age", dataIndex: "age" },
+                  { title: 'Name', dataIndex: 'name' },
+                  { title: 'Age', dataIndex: 'age' },
                   {
-                    title: t("Form.Address"),
-                    dataIndex: "address",
+                    title: t('Form.Address'),
+                    dataIndex: 'address',
                   },
                 ]}
                 dataSource={[
-                  { name: "massoud", age: "23", address: "shar now" },
+                  { name: 'massoud', age: '23', address: 'shar now' },
                 ]}
                 // col={["20%", "60%", "20%"]}
                 // children={[
@@ -138,7 +138,7 @@ export default (props) => {
               <Text style={styles.title}>شهر شیندند آدرس</Text>
               <Text style={styles.author}></Text>
               <Text style={styles.title}>
-                {" "}
+                {' '}
                 گمان می‌رود که این مقاله ناقض حق تکثیر باشد، اما بدون داشتن منبع
                 امکان تشخیص قطعی این موضوع وجود ندارد. اگر می‌توان نشان داد که
                 این مقاله حق نشر را زیر پا گذاشته است، لطفاً مقاله را در
@@ -245,36 +245,36 @@ export default (props) => {
 };
 
 Font.register({
-  family: "Oswald",
-  src: "https://fonts.gstatic.com/s/oswald/v13/Y_TKV6o8WovbUd3m_X9aAA.ttf",
+  family: 'Oswald',
+  src: 'https://fonts.gstatic.com/s/oswald/v13/Y_TKV6o8WovbUd3m_X9aAA.ttf',
 });
 
 const styles = StyleSheet.create({
   em: {
-    fontStyle: "bold",
-    fontFamily: "IRAN_YEKAN_REGULAR",
+    fontStyle: 'bold',
+    fontFamily: 'IRAN_YEKAN_REGULAR',
   },
   table: {
-    width: "100%",
+    width: '100%',
     borderWidth: 2,
-    display: "flex",
-    flexDirection: "column",
+    display: 'flex',
+    flexDirection: 'column',
     marginVertical: 12,
-    fontFamily: "IRAN_YEKAN_REGULAR",
+    fontFamily: 'IRAN_YEKAN_REGULAR',
   },
   tableRow: {
-    display: "flex",
-    flexDirection: "row",
-    fontFamily: "IRAN_YEKAN_REGULAR",
+    display: 'flex',
+    flexDirection: 'row',
+    fontFamily: 'IRAN_YEKAN_REGULAR',
   },
   cell: {
     borderWidth: 1,
-    display: "flex",
-    justifyContent: "center",
-    alignContent: "center",
-    textAlign: "center",
-    flexWrap: "wrap",
-    fontFamily: "IRAN_YEKAN_REGULAR",
+    display: 'flex',
+    justifyContent: 'center',
+    alignContent: 'center',
+    textAlign: 'center',
+    flexWrap: 'wrap',
+    fontFamily: 'IRAN_YEKAN_REGULAR',
   },
   //   table: {
   //     display: "table",
@@ -297,51 +297,51 @@ const styles = StyleSheet.create({
     paddingTop: 24,
     paddingBottom: 24,
     paddingHorizontal: 15,
-    fontFamily: "IRAN_YEKAN_REGULAR",
+    fontFamily: 'IRAN_YEKAN_REGULAR',
   },
   title: {
     fontSize: 24,
-    textAlign: "center",
-    fontFamily: "IRAN_YEKAN_REGULAR",
+    textAlign: 'center',
+    fontFamily: 'IRAN_YEKAN_REGULAR',
   },
   author: {
     fontSize: 12,
-    textAlign: "center",
+    textAlign: 'center',
     marginBottom: 40,
-    fontFamily: "IRAN_YEKAN_REGULAR",
+    fontFamily: 'IRAN_YEKAN_REGULAR',
   },
   subtitle: {
     fontSize: 18,
     margin: 12,
-    fontFamily: "IRAN_YEKAN_REGULAR",
+    fontFamily: 'IRAN_YEKAN_REGULAR',
   },
   text: {
     margin: 12,
     fontSize: 14,
-    textAlign: "justify",
+    textAlign: 'justify',
 
-    fontFamily: "IRAN_YEKAN_REGULAR",
+    fontFamily: 'IRAN_YEKAN_REGULAR',
   },
   image: {
     marginVertical: 15,
     marginHorizontal: 100,
-    fontFamily: "IRAN_YEKAN_REGULAR",
+    fontFamily: 'IRAN_YEKAN_REGULAR',
   },
   header: {
     fontSize: 12,
     marginBottom: 20,
-    textAlign: "center",
-    color: "grey",
-    fontFamily: "IRAN_YEKAN_REGULAR",
+    textAlign: 'center',
+    color: 'grey',
+    fontFamily: 'IRAN_YEKAN_REGULAR',
   },
   pageNumber: {
-    position: "absolute",
+    position: 'absolute',
     fontSize: 12,
     bottom: 30,
     left: 0,
     right: 0,
-    textAlign: "center",
-    color: "grey",
-    fontFamily: "IRAN_YEKAN_REGULAR",
+    textAlign: 'center',
+    color: 'grey',
+    fontFamily: 'IRAN_YEKAN_REGULAR',
   },
 });

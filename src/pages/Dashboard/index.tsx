@@ -17,10 +17,14 @@ export default () => {
 
   const getButtonStyle = (value: string) => ({
     ...styles.radioButton,
-    backgroundColor: value === durationState ? Colors.primaryColor : 'transparent',
-    color: value === durationState 
-      ? '#fff' 
-      : mode === 'dark' ? '#fff' : Colors.primaryDarkBackground,
+    backgroundColor:
+      value === durationState ? Colors.primaryColor : 'transparent',
+    color:
+      value === durationState
+        ? '#fff'
+        : mode === 'dark'
+          ? '#fff'
+          : Colors.primaryDarkBackground,
     border: 'none',
   });
 
@@ -48,17 +52,11 @@ export default () => {
                   buttonStyle='solid'
                   style={styles.radioGroup(mode)}
                 >
-                  <Radio.Button
-                    value='daily'
-                    style={getButtonStyle('daily')}
-                  >
+                  <Radio.Button value='daily' style={getButtonStyle('daily')}>
                     {t('Date.Daily')}
                   </Radio.Button>
                   <Divider type='vertical' style={styles.divider} />
-                  <Radio.Button
-                    value='weekly'
-                    style={getButtonStyle('weekly')}
-                  >
+                  <Radio.Button value='weekly' style={getButtonStyle('weekly')}>
                     {t('Date.Weekly')}
                   </Radio.Button>
                   <Divider type='vertical' style={styles.divider} />
@@ -81,7 +79,7 @@ export default () => {
 };
 
 const styles = {
-  radioButton: { 
+  radioButton: {
     borderRadius: '30px',
     border: 'none',
     height: '32px',
@@ -93,8 +91,8 @@ const styles = {
     border: '1px solid dimgray',
     backgroundColor: mode === 'dark' ? Colors.cardBg : '#fff',
   }),
-  divider: { 
-    margin: '0px 5px', 
+  divider: {
+    margin: '0px 5px',
     height: '20px',
     backgroundColor: 'dimgray',
   },

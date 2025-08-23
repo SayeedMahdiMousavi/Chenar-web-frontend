@@ -195,11 +195,16 @@ export class ReportsService extends ApiService {
     return this.post('/custom_reports/', data);
   }
 
-  async getCustomReports(params?: PaginationParams): Promise<{ results: any[]; count: number }> {
+  async getCustomReports(
+    params?: PaginationParams,
+  ): Promise<{ results: any[]; count: number }> {
     return this.get('/custom_reports/', params);
   }
 
-  async runCustomReport(id: string | number, filters?: ReportFilter): Promise<any> {
+  async runCustomReport(
+    id: string | number,
+    filters?: ReportFilter,
+  ): Promise<any> {
     return this.post(`/custom_reports/${id}/run/`, filters);
   }
 
@@ -224,7 +229,9 @@ export class ReportsService extends ApiService {
     return this.post('/scheduled_reports/', data);
   }
 
-  async getScheduledReports(params?: PaginationParams): Promise<{ results: any[]; count: number }> {
+  async getScheduledReports(
+    params?: PaginationParams,
+  ): Promise<{ results: any[]; count: number }> {
     return this.get('/scheduled_reports/', params);
   }
 
@@ -245,15 +252,24 @@ export class ReportsService extends ApiService {
   }
 
   // Export Reports
-  async exportReport(reportType: string, format: 'pdf' | 'excel' | 'csv', filters?: ReportFilter): Promise<Blob> {
+  async exportReport(
+    reportType: string,
+    format: 'pdf' | 'excel' | 'csv',
+    filters?: ReportFilter,
+  ): Promise<Blob> {
     const response = await this.get(`/${reportType}/export/`, {
       ...filters,
       format,
     });
-    return response;
+    return response as unknown as Blob;
   }
 
-  async emailReport(reportType: string, email: string, format: 'pdf' | 'excel' | 'csv', filters?: ReportFilter): Promise<any> {
+  async emailReport(
+    reportType: string,
+    email: string,
+    format: 'pdf' | 'excel' | 'csv',
+    filters?: ReportFilter,
+  ): Promise<any> {
     return this.post(`/${reportType}/email/`, {
       email,
       format,
@@ -333,4 +349,3 @@ export class ReportsService extends ApiService {
 }
 
 export const reportsService = new ReportsService();
-

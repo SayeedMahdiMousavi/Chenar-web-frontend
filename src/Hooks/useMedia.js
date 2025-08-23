@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 const formatDebugValue = ({ query, state }) => `\`${query}\` => ${state}`;
 
 export function useMedia(query, initialState = false) {

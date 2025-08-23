@@ -1,11 +1,11 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { Row, Col, Layout } from "antd";
-import { connect } from "react-redux";
-import { Title } from "../../../SelfComponents/Title";
-import FirstPeriodTable from "./PriceRecordingTable";
-import { PageBackIcon } from "../../../../components";
-import { PRODUCT } from "../../../../constants/routes";
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { Row, Col, Layout } from 'antd';
+import { connect } from 'react-redux';
+import { Title } from '../../../SelfComponents/Title';
+import FirstPeriodTable from './PriceRecordingTable';
+import { PageBackIcon } from '../../../../components';
+import { PRODUCT } from '../../../../constants/routes';
 interface Props {
   rtl: string;
 }
@@ -14,17 +14,17 @@ const PriceRecording: React.FC<Props> = (props) => {
 
   return (
     <Layout>
-      <Row className="categore-header" align="middle" justify="start">
+      <Row className='categore-header' align='middle' justify='start'>
         <Col
           md={{ span: 10 }}
           sm={{ span: 11 }}
           xs={{ span: 14 }}
-          className="Sales__content-3-body"
+          className='Sales__content-3-body'
         >
           <Row>
             <Col span={24}>
               <Title
-                value={t("Sales.Product_and_services.Price_recording.1")}
+                value={t('Sales.Product_and_services.Price_recording.1')}
               />
             </Col>
             <Col
@@ -34,7 +34,7 @@ const PriceRecording: React.FC<Props> = (props) => {
               xs={{ span: 17, offset: 0 }}
             >
               <PageBackIcon
-                previousPageName={t("Sales.Product_and_services.1")}
+                previousPageName={t('Sales.Product_and_services.1')}
                 url={PRODUCT}
               />
             </Col>

@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { useQuery } from "react-query";
-import { debounce } from "throttle-debounce";
-import axiosInstance from "../../../ApiBaseUrl";
-import { TreeSelect, Form, Tooltip } from "antd";
-import { useTranslation } from "react-i18next";
-import { CenteredSpin } from "../../../SelfComponents/Spin";
-import RetryButton from "../../../SelfComponents/RetryButton";
-import { manageNetworkError } from "../../../../Functions/manageNetworkError";
+import React, { useState } from 'react';
+import { useQuery } from 'react-query';
+import { debounce } from 'throttle-debounce';
+import axiosInstance from '../../../ApiBaseUrl';
+import { TreeSelect, Form, Tooltip } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { CenteredSpin } from '../../../SelfComponents/Spin';
+import RetryButton from '../../../SelfComponents/RetryButton';
+import { manageNetworkError } from '../../../../Functions/manageNetworkError';
 
 const updateTreeData = (list: any, parent: string, children: any) => {
   return list?.map((node: any) => {
@@ -37,9 +37,9 @@ interface IProps {
 export const CategoryFormItem: React.FC<IProps> = (props) => {
   const [{ treeData, status }, setTreeData] = useState({
     treeData: [],
-    status: "idle",
+    status: 'idle',
   });
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const { t } = useTranslation();
 
   const onSearchCategories = (value: string) => {
@@ -50,36 +50,36 @@ export const CategoryFormItem: React.FC<IProps> = (props) => {
   });
 
   const searchCategories = React.useCallback(
-    async ({ queryKey }) => {
+    async ({ queryKey }: { queryKey: any }) => {
       const { search } = queryKey?.[1];
       const { data } = await axiosInstance.get(
-        `${props.url}?depth__lt=3&name__contains=${search}`
+        `${props.url}?depth__lt=3&name__contains=${search}`,
       );
       return data;
     },
-    [props.url]
+    [props.url],
   );
 
   const { data, isFetching } = useQuery(
     [`${props.url}/add/`, { search }],
-    searchCategories
+    searchCategories,
   );
 
   const categoryId = props.categoryId;
 
   React.useEffect(() => {
-    if (status === "idle")
+    if (status === 'idle')
       (async () => {
         if (treeData?.length === 0) {
           setTreeData((prev) => {
-            return { ...prev, status: "pending" };
+            return { ...prev, status: 'pending' };
           });
           await axiosInstance
             .get(`${props.url}get_root_category/`, {
-              "axios-retry": {
+              'axios-retry': {
                 retries: 4,
               },
-            })
+            } as any)
             .then((res: any) => {
               const allData = res?.data
                 ?.filter((item: any) => item?.id !== categoryId)
@@ -96,12 +96,12 @@ export const CategoryFormItem: React.FC<IProps> = (props) => {
                 });
 
               setTreeData((prev) => {
-                return { ...prev, status: "resolved", treeData: allData };
+                return { ...prev, status: 'resolved', treeData: allData };
               });
             })
             .catch((error) => {
               setTreeData((prev) => {
-                return { ...prev, status: "rejected" };
+                return { ...prev, status: 'rejected' };
               });
             });
           // .finally(() => {
@@ -115,21 +115,21 @@ export const CategoryFormItem: React.FC<IProps> = (props) => {
 
   const handleRetry = () => {
     setTreeData((prev) => {
-      return { ...prev, status: "idle" };
+      return { ...prev, status: 'idle' };
     });
   };
 
   const onExpandTable = async (node: any) => {
     const { title, value } = node;
     setTreeData((prev) => {
-      return { ...prev, status: "pending" };
+      return { ...prev, status: 'pending' };
     });
     const { data } = await axiosInstance
       .get(`${props.url}${value}/child/`)
       .catch((error) => {
         manageNetworkError(error);
         setTreeData((prev) => {
-          return { ...prev, status: "rejected" };
+          return { ...prev, status: 'rejected' };
         });
 
         return error;
@@ -160,7 +160,7 @@ export const CategoryFormItem: React.FC<IProps> = (props) => {
             treeData: updateTreeData(
               prev.treeData,
               title,
-              data3?.length === 0 ? undefined : data3
+              data3?.length === 0 ? undefined : data3,
             ),
           };
         });
@@ -184,26 +184,26 @@ export const CategoryFormItem: React.FC<IProps> = (props) => {
     });
 
   const onChangeCategory = () => {
-    setSearch("");
+    setSearch('');
   };
 
   return (
     <Form.Item
-      name="category"
+      name='category'
       label={
         props?.label ? (
           props.label
-        ) : props.place === "addCategory" ? (
-          ""
+        ) : props.place === 'addCategory' ? (
+          ''
         ) : (
-          <span>{t("Sales.Product_and_services.Form.Category")}</span>
+          <span>{t('Sales.Product_and_services.Form.Category')}</span>
         )
       }
-      className="margin1"
+      className='margin1'
       rules={[
         {
-          message: `${t("Sales.Product_and_services.Form.Category_required")}`,
-          required: props.place === "addCategory" ? true : false,
+          message: `${t('Sales.Product_and_services.Form.Category_required')}`,
+          required: props.place === 'addCategory' ? true : false,
         },
       ]}
     >
@@ -211,9 +211,9 @@ export const CategoryFormItem: React.FC<IProps> = (props) => {
         loadData={onExpandTable}
         treeData={search ? allData : treeData}
         placeholder={
-          props.place === "addCategory"
-            ? t("Sales.Product_and_services.Categories.Select_category")
-            : ""
+          props.place === 'addCategory'
+            ? t('Sales.Product_and_services.Categories.Select_category')
+            : ''
         }
         allowClear={true}
         labelInValue
@@ -221,17 +221,17 @@ export const CategoryFormItem: React.FC<IProps> = (props) => {
         onChange={onChangeCategory}
         showSearch
         notFoundContent={
-          search !== "" ? (
+          search !== '' ? (
             isFetching ? (
-              <CenteredSpin size="small" style={{ padding: "24px" }} />
+              <CenteredSpin size='small' style={{ padding: '24px' }} />
             ) : undefined
-          ) : status === "pending" ? (
-            <CenteredSpin size="small" style={{ padding: "24px" }} />
-          ) : status === "rejected" ? (
+          ) : status === 'pending' ? (
+            <CenteredSpin size='small' style={{ padding: '24px' }} />
+          ) : status === 'rejected' ? (
             <RetryButton handleRetry={handleRetry} />
           ) : undefined
         }
-        treeNodeFilterProp="name"
+        treeNodeFilterProp='name'
         dropdownRender={(menu: any) => <div>{menu}</div>}
       />
     </Form.Item>

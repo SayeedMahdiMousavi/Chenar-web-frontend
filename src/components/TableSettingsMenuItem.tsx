@@ -1,5 +1,5 @@
-import React, { ReactNode } from "react";
-import { Menu, Checkbox, MenuItemProps } from "antd";
+import React, { ReactNode } from 'react';
+import { Menu, Checkbox, MenuItemProps } from 'antd';
 
 interface IProps extends MenuItemProps {
   children: ReactNode;

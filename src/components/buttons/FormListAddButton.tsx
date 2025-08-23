@@ -1,7 +1,7 @@
-import React from "react";
-import { Button } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import { Button } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 
 export function FormListAddButton({
   onClick,
@@ -16,14 +16,14 @@ export function FormListAddButton({
   const { t } = useTranslation();
   return (
     <Button
-      type="dashed"
+      type='dashed'
       onClick={onClick}
       block
-      icon={<PlusOutlined className="addItemIcon" />}
-      className="margin1"
+      icon={<PlusOutlined className='addItemIcon' />}
+      className='margin1'
       {...rest}
     >
-      {text ? text : t("Sales.Product_and_services.Form.Add_new_item")}
+      {text ? text : t('Sales.Product_and_services.Form.Add_new_item')}
     </Button>
   );
 }

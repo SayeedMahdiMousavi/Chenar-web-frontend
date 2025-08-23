@@ -1,5 +1,5 @@
 import React, { useState, useLayoutEffect, useMemo } from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { notification } from 'antd';
@@ -117,7 +117,6 @@ import {
   WITHDRAW_TYPE_M,
 } from '../../constants/permissions';
 
-
 // a function to retry loading a chunk to avoid chunk load error for out of date code
 export const lazyRetry = function (componentImport) {
   return new Promise((resolve, reject) => {
@@ -131,152 +130,151 @@ export const lazyRetry = function (componentImport) {
         reject(error); // there was an error
       });
   });
-  
 };
 const Products = React.lazy(() => lazyRetry(() => import('../sales/Products')));
 const AllSales = React.lazy(() => lazyRetry(() => import('../sales/AllSales')));
 const Customer = React.lazy(() => lazyRetry(() => import('../sales/Customer')));
 const Banking = React.lazy(() => lazyRetry(() => import('../Banking/Bank')));
 const BankTransactions = React.lazy(() =>
-  lazyRetry(() => import('../Banking/extraBanks/transactions'))
+  lazyRetry(() => import('../Banking/extraBanks/transactions')),
 );
 const CashBox = React.lazy(() =>
-  lazyRetry(() => import('../Banking/CashBox/index'))
+  lazyRetry(() => import('../Banking/CashBox/index')),
 );
 const Expenses = React.lazy(() =>
-  lazyRetry(() => import('../Expenses/Expenses/index'))
+  lazyRetry(() => import('../Expenses/Expenses/index')),
 );
 const Suppliers = React.lazy(() =>
-  lazyRetry(() => import('../Expenses/Suppliers'))
+  lazyRetry(() => import('../Expenses/Suppliers')),
 );
 const ChartsOfAccounts = React.lazy(() =>
-  lazyRetry(() => import('../Accounting/ChartsOfAccounts'))
+  lazyRetry(() => import('../Accounting/ChartsOfAccounts')),
 );
 const Employees = React.lazy(() => lazyRetry(() => import('../Employees')));
 const Partners = React.lazy(() => lazyRetry(() => import('../Partners')));
 const Warehouse = React.lazy(() => lazyRetry(() => import('../Warehouse')));
 const OpenAccounts = React.lazy(() =>
-  lazyRetry(() => import('../OpeningAccounts/OpenAccounts/index'))
+  lazyRetry(() => import('../OpeningAccounts/OpenAccounts/index')),
 );
 const RecordExpense = React.lazy(() =>
-  lazyRetry(() => import('../Expenses/Expenses/RecordExpense'))
+  lazyRetry(() => import('../Expenses/Expenses/RecordExpense')),
 );
 const RecordIncomes = React.lazy(() =>
-  lazyRetry(() => import('../Expenses/IncomeType/RecordIncomes'))
+  lazyRetry(() => import('../Expenses/IncomeType/RecordIncomes')),
 );
 const FinancialPeriod = React.lazy(() =>
-  lazyRetry(() => import('../Company/AccountAndSettings/Financial'))
+  lazyRetry(() => import('../Company/AccountAndSettings/Financial')),
 );
 const WithDrawPayAndReceiveCash = React.lazy(() =>
-  lazyRetry(() => import('../Expenses/WithDraw/WithDrawPayAndReceiveCash'))
+  lazyRetry(() => import('../Expenses/WithDraw/WithDrawPayAndReceiveCash')),
 );
 const Dashboard = React.lazy(() => lazyRetry(() => import('../Dashboard')));
 const Journal_book = React.lazy(() =>
-  lazyRetry(() => import('../Reports/AllReports/JournalBook/journalBookToday'))
+  lazyRetry(() => import('../Reports/AllReports/JournalBook/journalBookToday')),
 );
 const Reports = React.lazy(() => lazyRetry(() => import('../Reports/Reports')));
 const CustomerDetails = React.lazy(() =>
-  lazyRetry(() => import('../sales/Customers/CustomerDetails'))
+  lazyRetry(() => import('../sales/Customers/CustomerDetails')),
 );
 const Units = React.lazy(() =>
-  lazyRetry(() => import('../sales/Products/Units'))
+  lazyRetry(() => import('../sales/Products/Units')),
 );
 const SupplierDetails = React.lazy(() =>
-  lazyRetry(() => import('../Expenses/Suppliers/SupplierDetails'))
+  lazyRetry(() => import('../Expenses/Suppliers/SupplierDetails')),
 );
 const ManageUsers = React.lazy(() =>
-  lazyRetry(() => import('../Settings/ManageUsers/index'))
+  lazyRetry(() => import('../Settings/ManageUsers/index')),
 );
 const Inventory = React.lazy(() =>
-  lazyRetry(() => import('../OpeningAccounts/Inventory/Inventory'))
+  lazyRetry(() => import('../OpeningAccounts/Inventory/Inventory')),
 );
 const Currency = React.lazy(() =>
-  lazyRetry(() => import('../Currency/Currency'))
+  lazyRetry(() => import('../Currency/Currency')),
 );
 const CurrencyRate = React.lazy(() =>
-  lazyRetry(() => import('../Currency/Currency rate/CurrencyRate'))
+  lazyRetry(() => import('../Currency/Currency rate/CurrencyRate')),
 );
 const PriceRecording = React.lazy(() =>
-  lazyRetry(() => import('../sales/Products/PriceRecording/PriceRecording'))
+  lazyRetry(() => import('../sales/Products/PriceRecording/PriceRecording')),
 );
 const IncomeType = React.lazy(() =>
-  lazyRetry(() => import('../Expenses/IncomeType/IncomeType'))
+  lazyRetry(() => import('../Expenses/IncomeType/IncomeType')),
 );
 const ProductCategories = React.lazy(() =>
-  lazyRetry(() => import('../sales/Products/ProductCategories'))
+  lazyRetry(() => import('../sales/Products/ProductCategories')),
 );
 const CustomerCategories = React.lazy(() =>
-  lazyRetry(() => import('../sales/Customers/CustomerCategories'))
+  lazyRetry(() => import('../sales/Customers/CustomerCategories')),
 );
 const ExpenseCategories = React.lazy(() =>
-  lazyRetry(() => import('../Expenses/Expenses/ExpenseCategories'))
+  lazyRetry(() => import('../Expenses/Expenses/ExpenseCategories')),
 );
 const SupplierCategories = React.lazy(() =>
-  lazyRetry(() => import('../Expenses/Suppliers/SupplierCategories'))
+  lazyRetry(() => import('../Expenses/Suppliers/SupplierCategories')),
 );
 const EmployeeCategories = React.lazy(() =>
-  lazyRetry(() => import('../Employees/EmployeeCategories'))
+  lazyRetry(() => import('../Employees/EmployeeCategories')),
 );
 const WithDraw = React.lazy(() =>
-  lazyRetry(() => import('../Expenses/WithDraw/WithDraw'))
+  lazyRetry(() => import('../Expenses/WithDraw/WithDraw')),
 );
 const RecordSalaries = React.lazy(() =>
-  lazyRetry(() => import('../Employees/RecordSalaries'))
+  lazyRetry(() => import('../Employees/RecordSalaries')),
 );
 const MoneyTransfer = React.lazy(() =>
-  lazyRetry(() => import('../Banking/MoneyTransfer'))
+  lazyRetry(() => import('../Banking/MoneyTransfer')),
 );
 const EmployeePayAndReceiveCash = React.lazy(() =>
-  lazyRetry(() => import('../Employees/EmployeePayAndReceiveCash'))
+  lazyRetry(() => import('../Employees/EmployeePayAndReceiveCash')),
 );
 const CustomerPayAndReceiveCash = React.lazy(() =>
-  lazyRetry(() => import('../sales/Customers/CustomerPayAndReceiveCash'))
+  lazyRetry(() => import('../sales/Customers/CustomerPayAndReceiveCash')),
 );
 const SupplierPayAndReceiveCash = React.lazy(() =>
-  lazyRetry(() => import('../Expenses/Suppliers/SupplierPayAndReceiveCash'))
+  lazyRetry(() => import('../Expenses/Suppliers/SupplierPayAndReceiveCash')),
 );
 const Backup = React.lazy(() =>
-  lazyRetry(() => import('../Company/AccountAndSettings/Backup/index'))
+  lazyRetry(() => import('../Company/AccountAndSettings/Backup/index')),
 );
 const AllReports = React.lazy(() =>
-  lazyRetry(() => import('../Reports/AllReports/AllReports'))
+  lazyRetry(() => import('../Reports/AllReports/AllReports')),
 );
 const ApproveCenter = React.lazy(() =>
-  lazyRetry(() => import('../ApproveCenter'))
+  lazyRetry(() => import('../ApproveCenter')),
 );
 const Auditing = React.lazy(() => lazyRetry(() => import('../Auditing')));
 const CurrencyExchange = React.lazy(() =>
-  lazyRetry(() => import('../Currency/CurrencyExchange'))
+  lazyRetry(() => import('../Currency/CurrencyExchange')),
 );
 const WarehouseAdjustment = React.lazy(() =>
-  lazyRetry(() => import('../Warehouse/WarehouseAdjustment'))
+  lazyRetry(() => import('../Warehouse/WarehouseAdjustment')),
 );
 const CompanyBranch = React.lazy(() =>
-  lazyRetry(() => import('../CompanyBranch'))
+  lazyRetry(() => import('../CompanyBranch')),
 );
 const OnlineDriveSettings = React.lazy(() =>
-  lazyRetry(() => import('../Backup/OnlineDriveSettings'))
+  lazyRetry(() => import('../Backup/OnlineDriveSettings')),
 );
 const AutomaticBackup = React.lazy(() =>
-  lazyRetry(() => import('../Backup/AutomaticBackup'))
+  lazyRetry(() => import('../Backup/AutomaticBackup')),
 );
 const Roles = React.lazy(() => lazyRetry(() => import('../Roles')));
 const ProductTransfer = React.lazy(() =>
-  lazyRetry(() => import('../sales/AllSales/ProductTransfer'))
+  lazyRetry(() => import('../sales/AllSales/ProductTransfer')),
 );
 const EmployeeDetails = React.lazy(() =>
-  lazyRetry(() => import('../Employees/EmployeeDetails'))
+  lazyRetry(() => import('../Employees/EmployeeDetails')),
 );
 const CustomFormStyles = React.lazy(() =>
-  lazyRetry(() => import('../CustomFormStyles'))
+  lazyRetry(() => import('../CustomFormStyles')),
 );
 const AddCompany = React.lazy(() =>
-  lazyRetry(() => import('../Company/Addcompany'))
+  lazyRetry(() => import('../Company/Addcompany')),
 );
 const ForgetPassword = React.lazy(() =>
-  lazyRetry(() =>
-    import(/* webpackChunkName: "group" */ '../Login/ForgetPassword')
-  )
+  lazyRetry(
+    () => import(/* webpackChunkName: "group" */ '../Login/ForgetPassword'),
+  ),
 );
 
 const Routers = () => {
@@ -286,7 +284,7 @@ const Routers = () => {
   const changeLanguage = React.useCallback(async () => {
     if (userName) {
       const result = await axiosInstance.get(
-        `/user_account/${userName}/user_profile/${userName}/?expand=*&fields=user_language,user_theme`
+        `/user_account/${userName}/user_profile/${userName}/?expand=*&fields=user_language,user_theme`,
       );
 
       await i18n.changeLanguage(`${result?.data?.user_language?.symbol}`);
@@ -377,7 +375,7 @@ const Routers = () => {
         model: BANK_TRANSACTION_PAGE_M,
       },
     ],
-    []
+    [],
   );
 
   return (
@@ -394,7 +392,6 @@ const Routers = () => {
           <PublicRoute path='/reset' exact component={ForgetPassword} />
           <PublicRoute path='/forget/:id' exact component={ResetPassword} />
 
-
           {privetRoutes?.map((item) => {
             return (
               <PrivateRoute
@@ -405,7 +402,6 @@ const Routers = () => {
               />
             );
           })}
-
 
           <PrivateRoute
             path={INVOICES}
@@ -435,7 +431,6 @@ const Routers = () => {
             model={CUSTOMER_CATEGORY_M}
             component={CustomerCategories}
           />
-
 
           <PrivateRoute
             path={PRODUCT}
@@ -484,7 +479,6 @@ const Routers = () => {
             model={CURRENCY_EXCHANGE_M}
             component={CurrencyExchange}
           />
-
 
           <PrivateRoute
             path={EXPENSE}
@@ -661,7 +655,7 @@ const Routers = () => {
             model={AUDIT_CENTER_PAGE_M}
             component={Auditing}
           />
-     
+
           <Route component={NotFound} />
         </Routes>
       </BrowserRouter>

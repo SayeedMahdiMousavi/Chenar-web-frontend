@@ -95,7 +95,7 @@ const MarketInvoiceTable = (props) => {
     (() => {
       setTimeout(() => {
         const height = document?.getElementById(
-          'customerInformation'
+          'customerInformation',
         )?.clientHeight;
         setCustomerHeight(height);
       }, 300);
@@ -119,7 +119,7 @@ const MarketInvoiceTable = (props) => {
               let vip = 0;
               if (item?.is_have_vip_price) {
                 const priceUnit = item?.price?.find(
-                  (priceItem) => priceItem?.unit?.id === item?.unit?.value
+                  (priceItem) => priceItem?.unit?.id === item?.unit?.value,
                 );
                 const productVipPercent =
                   item?.vip_price !== null
@@ -135,10 +135,10 @@ const MarketInvoiceTable = (props) => {
                             print(
                               math.evaluate(`((${priceUnit?.sales_rate} - ${priceUnit?.perches_rate}) *
                             ${productVipPercent}) /
-                            100`)
-                            )
-                          )}*${item?.qty}`
-                        )
+                            100`),
+                            ),
+                          )}*${item?.qty}`,
+                        ),
                       )
                     : 0;
 
@@ -164,7 +164,7 @@ const MarketInvoiceTable = (props) => {
       }, 100);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [setData, vipPercent]
+    [setData, vipPercent],
   );
 
   const onCancelPin = () => {
@@ -257,15 +257,16 @@ const MarketInvoiceTable = (props) => {
                       return {
                         newData: [...sum.newData, newItem],
                         total: print(
-                          math.evaluate(`${sum.total}+${item.total_price}`)
+                          math.evaluate(`${sum.total}+${item.total_price}`),
                         ),
                       };
                     },
-                    { newData: [], total: 0 }
+                    { newData: [], total: 0 },
                   );
                   newTotal = total;
                   return newData;
-                });                props.form.setFieldsValue({
+                });
+                props.form.setFieldsValue({
                   cardBalance: 0,
                   usedCardBalance: 0,
                   total: newTotal ? newTotal : 0,
@@ -277,24 +278,24 @@ const MarketInvoiceTable = (props) => {
                 props.handleClearCustomer1();
                 if (i18n?.language === 'en') {
                   const error = res?.account?.message?.find(
-                    (item) => item?.language === 'ENGLISH'
+                    (item) => item?.language === 'ENGLISH',
                   );
                   message.error(
-                    error ? error?.text : res?.account?.message?.[0]?.text
+                    error ? error?.text : res?.account?.message?.[0]?.text,
                   );
                 } else if (i18n?.language === 'ps') {
                   const error = res?.account?.message?.find(
-                    (item) => item?.language === 'PASHTO'
+                    (item) => item?.language === 'PASHTO',
                   );
                   message.error(
-                    error ? error?.text : res?.account?.message?.[0]?.text
+                    error ? error?.text : res?.account?.message?.[0]?.text,
                   );
                 } else {
                   const error = res?.account?.message?.find(
-                    (item) => item?.language === 'PERSIAN'
+                    (item) => item?.language === 'PERSIAN',
                   );
                   message.error(
-                    error ? error?.text : res?.account?.message?.[0]?.text
+                    error ? error?.text : res?.account?.message?.[0]?.text,
                   );
                 }
 
@@ -317,7 +318,7 @@ const MarketInvoiceTable = (props) => {
           const isBarcodeExist = item?.product_barcode?.find(
             (barcodeItem) =>
               barcodeItem?.barcode === search &&
-              barcodeItem?.unit?.id === item?.unit?.value
+              barcodeItem?.unit?.id === item?.unit?.value,
           );
           if (isBarcodeExist) {
             return true;
@@ -332,7 +333,7 @@ const MarketInvoiceTable = (props) => {
               const isBarcodeExist = item?.product_barcode?.find(
                 (barcodeItem) =>
                   barcodeItem?.barcode === search &&
-                  barcodeItem?.unit?.id === item?.unit?.value
+                  barcodeItem?.unit?.id === item?.unit?.value,
               );
               if (isBarcodeExist) {
                 const element = document?.getElementById('posInvoiceTable');
@@ -347,7 +348,7 @@ const MarketInvoiceTable = (props) => {
                   item?.is_have_vip_price,
                   item?.price,
                   item?.unit?.value,
-                  item?.qty + 1
+                  item?.qty + 1,
                 );
                 const newItem = {
                   ...item,
@@ -374,7 +375,7 @@ const MarketInvoiceTable = (props) => {
           let productBarcodeItem = {};
           const product = props?.data?.find((item) => {
             const isBarcodeExist = item?.product_barcode?.find(
-              (barcodeItem) => barcodeItem?.barcode === search
+              (barcodeItem) => barcodeItem?.barcode === search,
             );
             if (isBarcodeExist) {
               productBarcodeItem = isBarcodeExist;
@@ -400,7 +401,7 @@ const MarketInvoiceTable = (props) => {
                   product?.is_have_vip_price,
                   product?.price,
                   productBarcodeItem?.unit?.id,
-                  1
+                  1,
                 );
                 const newItem = {
                   ...product,
@@ -448,13 +449,13 @@ const MarketInvoiceTable = (props) => {
               await axiosInstance
                 .get(
                   `${props.baseUrl}?page=1&page_size=10&product_barcode__barcode=${search}&${props.endUrl}&fields=${props.omitFields}`,
-                  { timeout: 6000 }
+                  { timeout: 6000 },
                 )
                 .then((res) => {
                   if (res?.data?.results?.length !== 0) {
                     const product = res?.data?.results?.[0];
                     const purUnit = product?.product_barcode?.find(
-                      (item) => item?.barcode === search
+                      (item) => item?.barcode === search,
                     );
                     const unit = {
                       value: purUnit?.unit?.id,
@@ -465,7 +466,7 @@ const MarketInvoiceTable = (props) => {
                       product,
                       'add',
                       unit,
-                      0
+                      0,
                     );
                     props.setData((prev) => {
                       if (ok && Boolean(newPrice)) {
@@ -474,7 +475,7 @@ const MarketInvoiceTable = (props) => {
                           product?.is_have_vip_price,
                           product?.price,
                           purUnit?.unit?.id,
-                          1
+                          1,
                         );
                         const newData = {
                           ...product,
@@ -521,7 +522,7 @@ const MarketInvoiceTable = (props) => {
                     });
                   } else {
                     message.error(
-                      `${t('Sales.All_sales.Invoice.Product_not_found')}`
+                      `${t('Sales.All_sales.Invoice.Product_not_found')}`,
                     );
                     props.setLoading(false);
                     setSearch('');
@@ -542,7 +543,7 @@ const MarketInvoiceTable = (props) => {
                 });
             } catch (error) {
               message.error(
-                `${t('Sales.All_sales.Invoice.Product_not_found')}`
+                `${t('Sales.All_sales.Invoice.Product_not_found')}`,
               );
               props.setLoading(false);
             }
@@ -571,7 +572,7 @@ const MarketInvoiceTable = (props) => {
               item?.is_have_vip_price,
               item?.price,
               item?.unit?.value,
-              item?.qty + 1
+              item?.qty + 1,
             );
             return {
               ...item,
@@ -591,7 +592,7 @@ const MarketInvoiceTable = (props) => {
       });
       hotkey.current.focus();
     },
-    [getVipPrice, setData]
+    [getVipPrice, setData],
   );
 
   const minusNumber = useCallback(
@@ -607,7 +608,7 @@ const MarketInvoiceTable = (props) => {
                 item?.is_have_vip_price,
                 item?.price,
                 item?.unit?.value,
-                item?.qty - 1
+                item?.qty - 1,
               );
               return {
                 ...item,
@@ -627,7 +628,7 @@ const MarketInvoiceTable = (props) => {
       });
       hotkey.current.focus();
     },
-    [getVipPrice, setData]
+    [getVipPrice, setData],
   );
 
   const isEditing = (record) => record?.key === props?.editingKey;
@@ -642,7 +643,7 @@ const MarketInvoiceTable = (props) => {
       });
       setEditingKey(record?.key);
     },
-    [form, setEditingKey]
+    [form, setEditingKey],
   );
 
   const save = useCallback(
@@ -655,14 +656,14 @@ const MarketInvoiceTable = (props) => {
           record?.each_price < 0 || !record?.each_price
             ? 0
             : record?.each_price,
-          0
+          0,
         );
         const vipPrice = getVipPrice(
           record,
           record?.is_have_vip_price,
           record?.price,
           row?.unit?.value,
-          row?.qty
+          row?.qty,
         );
         const value = {
           ...record,
@@ -694,7 +695,7 @@ const MarketInvoiceTable = (props) => {
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [form, getVipPrice, setData, setEditingKey]
+    [form, getVipPrice, setData, setEditingKey],
   );
 
   const onClickButton = (e) => {
@@ -711,7 +712,7 @@ const MarketInvoiceTable = (props) => {
         setSelectedRowKeys((prev) => {
           const index = item1?.findIndex((item) => prev?.[0] === item.key);
           const nextItem = item1?.find(
-            (item, ItemIndex) => ItemIndex === index - 1
+            (item, ItemIndex) => ItemIndex === index - 1,
           );
 
           if (nextItem) {
@@ -729,7 +730,7 @@ const MarketInvoiceTable = (props) => {
         return data1;
       });
     },
-    [setData, setSelectedRowKeys, responseId]
+    [setData, setSelectedRowKeys, responseId],
   );
 
   const currencySymbol = props?.currency?.symbol;
@@ -750,7 +751,7 @@ const MarketInvoiceTable = (props) => {
         render: (text, record) => {
           const available = record?.product_statistic?.reduce(
             (sum, item) => item?.available + sum,
-            0
+            0,
           );
           return (
             <Row justify='space-around'>
@@ -828,7 +829,7 @@ const MarketInvoiceTable = (props) => {
                           {parseFloat(item?.ratio)}{' '}
                           {
                             record?.product_units?.find(
-                              (item) => item?.base_unit === true
+                              (item) => item?.base_unit === true,
                             )?.unit?.name
                           }
                         </Descriptions.Item>
@@ -925,7 +926,7 @@ const MarketInvoiceTable = (props) => {
       props.editingKey,
       t,
       responseId,
-    ]
+    ],
   );
 
   // const BodyTable = React.memo((props) => {
@@ -978,7 +979,7 @@ const MarketInvoiceTable = (props) => {
       setSelectedRowKeys((prev) => {
         const index = prevData?.findIndex((item) => prev?.[0] === item.key);
         const nextItem = prevData?.find(
-          (item, ItemIndex) => ItemIndex === index + 1
+          (item, ItemIndex) => ItemIndex === index + 1,
         );
 
         if (nextItem) {
@@ -1002,7 +1003,7 @@ const MarketInvoiceTable = (props) => {
       setSelectedRowKeys((prev) => {
         const index = prevData?.findIndex((item) => prev?.[0] === item.key);
         const nextItem = prevData?.find(
-          (item, ItemIndex) => ItemIndex === index - 1
+          (item, ItemIndex) => ItemIndex === index - 1,
         );
 
         if (nextItem) {
@@ -1032,7 +1033,7 @@ const MarketInvoiceTable = (props) => {
       props.barcodeButtonRef.current.focus();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [handleDelete, setSelectedRowKeys]
+    [handleDelete, setSelectedRowKeys],
   );
 
   const handelCancelDelete = (close) => {
@@ -1177,7 +1178,7 @@ const MarketInvoiceTable = (props) => {
                   placeholder={
                     customer
                       ? t(
-                          'Sales.All_sales.Invoice.Filter_by_customer_serial_No'
+                          'Sales.All_sales.Invoice.Filter_by_customer_serial_No',
                         )
                       : t('Sales.All_sales.Invoice.Filter_by_product_barcode')
                   }
@@ -1260,8 +1261,8 @@ const MarketInvoiceTable = (props) => {
                     activeKey?.[0] && props.customer?.cardId
                       ? `calc(100vh - ${customerHeight + 315}px)`
                       : props?.customer?.cardId
-                      ? `calc(100vh - 370px)`
-                      : `calc(100vh - 315px)`,
+                        ? `calc(100vh - 370px)`
+                        : `calc(100vh - 315px)`,
                   scrollToFirstRowOnChange: false,
                 }}
                 loading={props.loading}
@@ -1302,15 +1303,15 @@ const MarketInvoiceTable = (props) => {
                     (sum, { total_price }) => {
                       return print(math.evaluate(`${total_price}+${sum}`));
                     },
-                    0
+                    0,
                   );
                   const vip = pageData.reduce(
                     (sum, { vipPrice, total_price }) => {
                       return print(
-                        math.evaluate(`(${total_price}-${vipPrice})+${sum}`)
+                        math.evaluate(`(${total_price}-${vipPrice})+${sum}`),
                       );
                     },
-                    0
+                    0,
                   );
                   return (
                     <>

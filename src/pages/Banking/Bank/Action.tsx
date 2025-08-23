@@ -1,12 +1,12 @@
-import React, { useCallback, useState } from "react";
-import { useQueryClient } from "react-query";
-import EditBankAccount from "./EditBankAccount";
-import { Menu, Dropdown } from "antd";
-import { connect } from "react-redux";
-import ActionButton from "../../SelfComponents/ActionButton";
-import { RemovePopconfirm } from "../../../components";
-import { useRemoveItem } from "../../../Hooks";
-import { BANK_M } from "../../../constants/permissions";
+import React, { useCallback, useState } from 'react';
+import { useQueryClient } from 'react-query';
+import EditBankAccount from './EditBankAccount';
+import { Menu, Dropdown } from 'antd';
+import { connect } from 'react-redux';
+import ActionButton from '../../SelfComponents/ActionButton';
+import { RemovePopconfirm } from '../../../components';
+import { useRemoveItem } from '../../../Hooks';
+import { BANK_M } from '../../../constants/permissions';
 
 interface IProps {
   record: any;
@@ -54,7 +54,7 @@ const Action: React.FC<IProps> = (props) => {
       {props?.record?.system_default === false && (
         <RemovePopconfirm
           itemName={props?.record?.account_name}
-          open={removeVisible}
+          openConfirm={removeVisible}
           loading={isLoading}
           onConfirm={handleDeleteItem}
           onCancel={handleCancel}
@@ -79,7 +79,7 @@ const Action: React.FC<IProps> = (props) => {
   return (
     <Dropdown
       overlay={action}
-      trigger={["click"]}
+      trigger={['click']}
       onOpenChange={handleVisibleChange}
       open={visible}
       disabled={props.hasSelected}

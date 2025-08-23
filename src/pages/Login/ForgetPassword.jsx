@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { Form, Input, Button, message, Result } from "antd";
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
-import { useMutation } from "react-query";
-import axiosInstance from "../ApiBaseUrl";
+import React, { useState } from 'react';
+import { Form, Input, Button, message, Result } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import { useMutation } from 'react-query';
+import axiosInstance from '../ApiBaseUrl';
 
 export default function ForgetPassword() {
   const { t } = useTranslation();
@@ -49,82 +49,82 @@ export default function ForgetPassword() {
   };
 
   const onBack = () => {
-    navigate("/");
+    navigate('/');
   };
 
   return (
-    <div className="box-layout">
-      <div className="reset_box">
+    <div className='box-layout'>
+      <div className='reset_box'>
         {window.navigator.onLine ? (
           <div>
             {success ? (
               <Result
-                status="success"
-                title={t("Manage_users.Reset_success_message")}
-                subTitle={t("Manage_users.Reset_success_sub_message")}
+                status='success'
+                title={t('Manage_users.Reset_success_message')}
+                subTitle={t('Manage_users.Reset_success_sub_message')}
                 extra={[
-                  <Button key="console" style={styles.back} onClick={onBack}>
-                    {t("Manage_users.Back_login")}
+                  <Button key='console' style={styles.back} onClick={onBack}>
+                    {t('Manage_users.Back_login')}
                   </Button>,
-                  <Button key="buy" type="primary" onClick={retry}>
-                    {t("Manage_users.Send_again")}
+                  <Button key='buy' type='primary' onClick={retry}>
+                    {t('Manage_users.Send_again')}
                   </Button>,
                 ]}
               />
             ) : error ? (
               <Result
-                status="404"
-                title={t("Form.Not_found")}
-                subTitle={t("Manage_users.Reset_error_message")}
+                status='404'
+                title={t('Form.Not_found')}
+                subTitle={t('Manage_users.Reset_error_message')}
                 extra={
-                  <Button type="primary" onClick={retry}>
-                    {t("Form.Retry")}
+                  <Button type='primary' onClick={retry}>
+                    {t('Form.Retry')}
                   </Button>
                 }
               />
             ) : (
               <div>
-                {" "}
+                {' '}
                 <h4
-                  className="box-layout__title"
-                  style={{ lineHeight: "20px" }}
+                  className='box-layout__title'
+                  style={{ lineHeight: '20px' }}
                 >
-                  {t("Manage_users.Reset_message")}
+                  {t('Manage_users.Reset_message')}
                 </h4>
-                <Form hideRequiredMark layout="vertical" onFinish={onFinish}>
+                <Form hideRequiredMark layout='vertical' onFinish={onFinish}>
                   <Form.Item
-                    name="email"
+                    name='email'
                     label={
                       <span>
-                        {t("Form.Email")}
-                        <span className="star">*</span>
+                        {t('Form.Email')}
+                        <span className='star'>*</span>
                       </span>
                     }
                     rules={[
                       {
-                        type: "email",
-                        message: `${t("Form.Email_Message")}`,
+                        type: 'email',
+                        message: `${t('Form.Email_Message')}`,
                       },
                       {
                         required: true,
                         whitespace: true,
-                        message: `${t("Form.Required_email")}`,
+                        message: `${t('Form.Required_email')}`,
                       },
                     ]}
                   >
                     <Input />
                   </Form.Item>
                   <Form.Item style={styles.textAlign}>
-                    <Button onClick={onBack} shape="round" style={styles.back}>
-                      {t("Form.Back")}
+                    <Button onClick={onBack} shape='round' style={styles.back}>
+                      {t('Form.Back')}
                     </Button>
                     <Button
-                      type="primary"
-                      htmlType="submit"
-                      shape="round"
+                      type='primary'
+                      htmlType='submit'
+                      shape='round'
                       loading={loading}
                     >
-                      {t("Sales.Customers.Table.Send")}
+                      {t('Sales.Customers.Table.Send')}
                     </Button>
                   </Form.Item>
                 </Form>
@@ -135,12 +135,12 @@ export default function ForgetPassword() {
           <Result
             icon={
               <img
-                src="/images/noInternet.png"
-                alt={t("Internet.No_internet")}
-                className="no_internet"
+                src='/images/noInternet.png'
+                alt={t('Internet.No_internet')}
+                className='no_internet'
               />
             }
-            title={t("Internet.No_internet_message")}
+            title={t('Internet.No_internet_message')}
           />
         )}
       </div>
@@ -148,6 +148,6 @@ export default function ForgetPassword() {
   );
 }
 const styles = {
-  back: { margin: "0px 8px" },
-  textAlign: { textAlign: "end" },
+  back: { margin: '0px 8px' },
+  textAlign: { textAlign: 'end' },
 };

@@ -44,8 +44,6 @@ const Transactions = (props: any) => {
             sorter={sorter && { multiple: 5 }}
             className='table-col'
           />
-
-        
         </React.Fragment>
       );
     },
@@ -59,7 +57,7 @@ const Transactions = (props: any) => {
       // phone,
       props.baseUrl,
       t,
-    ]
+    ],
   );
 
   const handleGetBanks = () => {};

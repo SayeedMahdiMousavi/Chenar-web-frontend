@@ -1,10 +1,10 @@
-import { Col, Row } from "antd";
-import React from "react";
-import { DeleteButton } from "../../../components";
-import { PRODUCT_INVENTORY_LIST } from "../../../constants/routes";
-import { useRemoveItem } from "../../../Hooks";
-import { ActionMessage } from "../../SelfComponents/TranslateComponents/ActionMessage";
-import EditProductInventory from "./Edit";
+import { Col, Row } from 'antd';
+import React from 'react';
+import { DeleteButton } from '../../../components';
+import { PRODUCT_INVENTORY_LIST } from '../../../constants/routes';
+import { useRemoveItem } from '../../../Hooks';
+import { ActionMessage } from '../../SelfComponents/TranslateComponents/ActionMessage';
+import EditProductInventory from './Edit';
 
 interface IProps {
   handleUpdateItems: () => void;
@@ -24,7 +24,7 @@ export default function ProductInventoryAction({
       recordName: record?.product?.name,
       handleUpdateItems: handleUpdateItems,
       removeMessage:
-        "Sales.Product_and_services.Inventory.Product_inventory_remove_success_message",
+        'Sales.Product_and_services.Inventory.Product_inventory_remove_success_message',
       messageValues: {
         product: record?.product?.name,
         unit: record?.unit?.name,
@@ -32,7 +32,7 @@ export default function ProductInventoryAction({
     });
 
   return (
-    <Row justify="space-around">
+    <Row justify='space-around'>
       <Col>
         <EditProductInventory
           handleUpdateItems={handleUpdateItems}
@@ -57,7 +57,7 @@ export default function ProductInventoryAction({
         <DeleteButton
           onConfirm={handleDeleteItem}
           disabled={hasSelected}
-          open={removeVisible}
+          visible={removeVisible}
           setVisible={setRemoveVisible}
           loading={isLoading}
           titleMessage={
@@ -66,7 +66,7 @@ export default function ProductInventoryAction({
                 product: record?.product?.name,
                 unit: record?.unit?.name,
               }}
-              message="Sales.Product_and_services.Inventory.Product_inventory_remove_message"
+              message='Sales.Product_and_services.Inventory.Product_inventory_remove_message'
             />
           }
         />

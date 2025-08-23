@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 // import { withDatabase } from "@nozbe/watermelondb/DatabaseProvider";
 // import withObservables from "@nozbe/with-observables";
-import { useMutation, useQueryClient, useQuery } from "react-query";
-import axiosInstance from "../../../ApiBaseUrl";
-import AddType from "./Type/AddType";
+import { useMutation, useQueryClient, useQuery } from 'react-query';
+import axiosInstance from '../../../ApiBaseUrl';
+import AddType from './Type/AddType';
 import {
   Drawer,
   Form,
@@ -17,15 +17,15 @@ import {
   message,
   InputNumber,
   Space,
-} from "antd";
+} from 'antd';
 // import { PlusOutlined } from "@ant-design/icons";
-import { useMediaQuery } from "../../../MediaQurey";
+import { useMediaQuery } from '../../../MediaQurey';
 // import { useDatabase } from "@nozbe/watermelondb/hooks";
-import { connect } from "react-redux";
-import EditType from "./Type/EditType";
-import DeleteType from "./Type/DeleteType";
-import { ActionMessage } from "../../../SelfComponents/TranslateComponents/ActionMessage";
-import { trimString } from "../../../../Functions/TrimString";
+import { connect } from 'react-redux';
+import EditType from './Type/EditType';
+import DeleteType from './Type/DeleteType';
+import { ActionMessage } from '../../../SelfComponents/TranslateComponents/ActionMessage';
+import { trimString } from '../../../../Functions/TrimString';
 // const { Option } = Select;
 
 const EditDiscount = (props) => {
@@ -33,8 +33,8 @@ const EditDiscount = (props) => {
   const { t, i18n } = useTranslation();
   const [form] = Form.useForm();
   const [visible, setVisible] = useState(false);
-  const isTablet = useMediaQuery("(max-width:768px)");
-  const isMobile = useMediaQuery("(max-width:425px)");
+  const isTablet = useMediaQuery('(max-width:768px)');
+  const isMobile = useMediaQuery('(max-width:425px)');
   // const database = useDatabase();
   const [loading, setLoading] = useState(false);
 
@@ -55,11 +55,11 @@ const EditDiscount = (props) => {
   };
   const getType = async (key) => {
     const { data } = await axiosInstance.get(
-      `/customer_account/discount/type/?page=1&page_size=100&ordering=-id`
+      `/customer_account/discount/type/?page=1&page_size=100&ordering=-id`,
     );
     return data;
   };
-  const { data } = useQuery("/customer_account/discount/type/", getType);
+  const { data } = useQuery('/customer_account/discount/type/', getType);
   const onClose = () => {
     setVisible(false);
   };
@@ -72,7 +72,7 @@ const EditDiscount = (props) => {
         form.resetFields();
 
         message.success(
-          <ActionMessage name={res?.data?.name} message="Message.Update" />
+          <ActionMessage name={res?.data?.name} message='Message.Update' />,
         );
       })
       .catch((error) => {
@@ -99,10 +99,10 @@ const EditDiscount = (props) => {
     form
       .validateFields()
       .then(async (value) => {
-        // 
+        //
         setLoading(true);
 
-        // 
+        //
         const allData = {
           name: trimString(value?.name),
           number_of_month: value?.number_of_month,
@@ -111,9 +111,7 @@ const EditDiscount = (props) => {
         };
         mutateEditCardData(allData, {});
       })
-      .catch((info) => {
-        
-      });
+      .catch((info) => {});
   };
 
   const onClickSpace = (e) => {
@@ -121,38 +119,38 @@ const EditDiscount = (props) => {
   };
   return (
     <div>
-      <div onClick={showDrawer}>{t("Sales.Customers.Table.Edit")}</div>
+      <div onClick={showDrawer}>{t('Sales.Customers.Table.Edit')}</div>
       <Drawer
         maskClosable={false}
-        title={t("Sales.Customers.Discount.Card_information")}
-        width={isMobile ? "80%" : isTablet ? "45%" : "30%"}
+        title={t('Sales.Customers.Discount.Card_information')}
+        width={isMobile ? '80%' : isTablet ? '45%' : '30%'}
         onClose={onClose}
         open={visible}
-        placement={i18n.language === "en" ? "right" : "left"}
+        placement={i18n.language === 'en' ? 'right' : 'left'}
         footer={
           <div style={styles.footer(props.rtl)}>
-            <Button onClick={onClose} shape="round" style={styles.cancel}>
-              {t("Form.Cancel")}
+            <Button onClick={onClose} shape='round' style={styles.cancel}>
+              {t('Form.Cancel')}
             </Button>
             <Button
               onClick={onFinish}
-              shape="round"
-              type="primary"
+              shape='round'
+              type='primary'
               loading={loading}
             >
-              {t("Form.Save")}
+              {t('Form.Save')}
             </Button>
           </div>
         }
       >
-        <Form layout="vertical" form={form} hideRequiredMark>
+        <Form layout='vertical' form={form} hideRequiredMark>
           <Row>
             <Col span={24}>
               <Form.Item
-                name="name"
+                name='name'
                 label={
                   <p>
-                    {t("Form.Name")} <span className="star">*</span>
+                    {t('Form.Name')} <span className='star'>*</span>
                   </p>
                 }
                 style={styles.margin}
@@ -160,7 +158,7 @@ const EditDiscount = (props) => {
                   {
                     required: true,
                     whitespace: true,
-                    message: `${t("Form.Name_required")}`,
+                    message: `${t('Form.Name_required')}`,
                   },
                 ]}
               >
@@ -169,18 +167,18 @@ const EditDiscount = (props) => {
             </Col>
             <Col span={24}>
               <Form.Item
-                name="percent"
+                name='percent'
                 style={styles.margin}
                 label={
                   <span>
-                    {t("Sales.Customers.Discount.Percent")}
-                    <span className="star">*</span>
+                    {t('Sales.Customers.Discount.Percent')}
+                    <span className='star'>*</span>
                   </span>
                 }
                 rules={[
                   {
                     message: `${t(
-                      "Sales.Customers.Discount.Required_percent"
+                      'Sales.Customers.Discount.Required_percent',
                     )}`,
                     required: true,
                   },
@@ -190,27 +188,27 @@ const EditDiscount = (props) => {
                   min={1}
                   max={99}
                   // type="number"
-                  className="num"
+                  className='num'
                   // inputMode="numeric"
                   formatter={(value) => `${value}%`}
-                  parser={(value) => value.replace("%", "")}
+                  parser={(value) => value.replace('%', '')}
                 />
               </Form.Item>
             </Col>
             <Col span={24}>
               <Form.Item
-                name="number_of_month"
+                name='number_of_month'
                 label={
                   <span>
-                    {t("Sales.Product_and_services.Inventory.Expiration_date")}
-                    <span className="star">*</span>
+                    {t('Sales.Product_and_services.Inventory.Expiration_date')}
+                    <span className='star'>*</span>
                   </span>
                 }
                 style={styles.margin}
                 rules={[
                   {
                     message: `${t(
-                      "Sales.Customers.Discount.Required_expiration_data"
+                      'Sales.Customers.Discount.Required_expiration_data',
                     )}`,
                     required: true,
                   },
@@ -218,30 +216,30 @@ const EditDiscount = (props) => {
               >
                 <Input
                   min={1}
-                  type="number"
+                  type='number'
                   // style={{ width: `calc(100% - 60px)` }}
-                  inputMode="numeric"
+                  inputMode='numeric'
                   // formatter={(value) => `${value}M`}
                   // parser={(value) => value.replace("M", "")}
-                  suffix={<span>{t("Sales.Customers.Discount.Month")}</span>}
+                  suffix={<span>{t('Sales.Customers.Discount.Month')}</span>}
                 />
               </Form.Item>
             </Col>
 
             <Col span={24}>
               <Form.Item
-                name="type"
+                name='type'
                 label={
                   <span>
-                    {t("Sales.Product_and_services.Type")}
-                    <span className="star">*</span>
+                    {t('Sales.Product_and_services.Type')}
+                    <span className='star'>*</span>
                   </span>
                 }
                 rules={[
                   {
                     required: true,
 
-                    message: `${t("Sales.Customers.Discount.Required_type")}`,
+                    message: `${t('Sales.Customers.Discount.Required_type')}`,
                   },
                 ]}
               >
@@ -249,11 +247,11 @@ const EditDiscount = (props) => {
                   showSearch
                   // showArrow
                   allowClear
-                  optionLabelProp="label"
-                  optionFilterProp="label"
+                  optionLabelProp='label'
+                  optionFilterProp='label'
                   // loading={isLoading || isFetching ? true : false}
                   labelInValue={true}
-                  popupClassName="z_index"
+                  popupClassName='z_index'
                   dropdownRender={(menu) => (
                     <div>
                       <AddType form={form} />
@@ -267,11 +265,11 @@ const EditDiscount = (props) => {
                       key={item.id}
                       label={item.name}
                     >
-                      <Row justify="space-between">
+                      <Row justify='space-between'>
                         <Col>{item.name}</Col>
                         <Col>
                           <Space
-                            size="small"
+                            size='small'
                             onClick={onClickSpace}
                             onDoubleClick={onClickSpace}
                           >
@@ -292,10 +290,10 @@ const EditDiscount = (props) => {
   );
 };
 const styles = {
-  margin: { marginBottom: "12px" },
-  cancel: { margin: " 0 8px" },
+  margin: { marginBottom: '12px' },
+  cancel: { margin: ' 0 8px' },
   footer: (rtl) => ({
-    textAlign: rtl ? "left" : "right",
+    textAlign: rtl ? 'left' : 'right',
   }),
 };
 const mapStateToProps = (state) => ({

@@ -1,12 +1,12 @@
-import React, { Fragment, useCallback, useState } from "react";
-import { Menu, Dropdown } from "antd";
-import { useQueryClient } from "react-query";
-import { connect } from "react-redux";
-import ActionButton from "../../SelfComponents/ActionButton";
-import { ActivePopconfirm, RemovePopconfirm } from "../../../components";
-import { useActiveItem, useRemoveItem } from "../../../Hooks";
-import { CUSTOMER_M } from "../../../constants/permissions";
-import EditCustomer from "./EditCustomer";
+import React, { Fragment, useCallback, useState } from 'react';
+import { Menu, Dropdown } from 'antd';
+import { useQueryClient } from 'react-query';
+import { connect } from 'react-redux';
+import ActionButton from '../../SelfComponents/ActionButton';
+import { ActivePopconfirm, RemovePopconfirm } from '../../../components';
+import { useActiveItem, useRemoveItem } from '../../../Hooks';
+import { CUSTOMER_M } from '../../../constants/permissions';
+import EditCustomer from './EditCustomer';
 function CustomerAction(props) {
   const queryClient = useQueryClient();
   const [visible, setVisible] = useState(false);
@@ -29,7 +29,7 @@ function CustomerAction(props) {
     setVisible,
     recordName: props?.record?.full_name,
     handleUpdateItems: handleUpdateItems,
-    type: "active",
+    type: 'active',
     setActiveVisible,
   });
 
@@ -43,7 +43,7 @@ function CustomerAction(props) {
     setVisible,
     recordName: props?.record?.full_name,
     handleUpdateItems: handleUpdateItems,
-    type: "deactivate",
+    type: 'deactivate',
     setActiveVisible,
   });
 
@@ -84,7 +84,7 @@ function CustomerAction(props) {
   //       })
   //       .catch((error) => {
   //         setRemoveCardLoading(false);
-  //         
+  //
   //         message.error(`${error?.response?.data?.message}`);
   //       }),
   //   {
@@ -105,7 +105,7 @@ function CustomerAction(props) {
 
   //     oneRequestCard = false;
   //   } catch (info) {
-  //     
+  //
   //     oneRequestCard = false;
   //   }
 
@@ -142,11 +142,11 @@ function CustomerAction(props) {
   }, [setRemoveVisible]);
 
   const status = props?.record?.status;
-  const attachmentName = props?.record?.attachment?.split("/")?.at(-1);
+  const attachmentName = props?.record?.attachment?.split('/')?.at(-1);
 
   const action = (
     <Menu>
-      {status === "active" && props?.record?.system_default !== true && (
+      {status === 'active' && props?.record?.system_default !== true && (
         <Fragment>
           <RemovePopconfirm
             itemName={props?.record?.full_name}
@@ -160,12 +160,12 @@ function CustomerAction(props) {
         </Fragment>
       )}
 
-      {status === "active" && (
+      {status === 'active' && (
         <EditCustomer
           record={props?.record}
           attachment={attachmentName}
           baseUrl={props.baseUrl}
-          type="table"
+          type='table'
           setVisible={setVisible}
           handleClickEdit={handleClickEdit}
         />
@@ -176,12 +176,12 @@ function CustomerAction(props) {
           {...{
             itemName: props?.record?.full_name,
             visible: activeVisible,
-            loading: status === "active" ? inactiveLoading : activeLoading,
+            loading: status === 'active' ? inactiveLoading : activeLoading,
             onConfirm:
-              status === "active" ? handleInactiveItem : handleActiveItem,
+              status === 'active' ? handleInactiveItem : handleActiveItem,
             onCancel: handleCancel,
             onClick: handleClickInactive,
-            type: status === "active" ? "deactivate" : "active",
+            type: status === 'active' ? 'deactivate' : 'active',
             permission: CUSTOMER_M,
           }}
         />
@@ -236,7 +236,7 @@ function CustomerAction(props) {
   return (
     <Dropdown
       overlay={action}
-      trigger={["click"]}
+      trigger={['click']}
       onOpenChange={handleVisibleChange}
       open={visible}
       disabled={props.hasSelected}

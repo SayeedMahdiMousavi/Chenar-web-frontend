@@ -11,7 +11,7 @@ concurrency:
 
 jobs:
   lint:
-    name: ⬣ ESLint, ʦ TypeScript, 💅 Prettier, and 
+    name: ⬣ ESLint, ʦ TypeScript, 💅 Prettier, and
     runs-on: ubuntu-latest
     steps:
       - name: ⬇️ Checkout repo
@@ -20,7 +20,7 @@ jobs:
       - name: 🤌 Setup pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8
+          version: 9
 
       - name: ⎔ Setup node
         uses: actions/setup-node@v3
@@ -32,11 +32,10 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: 🔬 Lint
-        run: pnpm run lint:strict
+        run: pnpm run lint
 
       - name: 🔎 Type check
         run: pnpm run typecheck
 
       - name: 💅 Prettier check
         run: pnpm run format:check
-

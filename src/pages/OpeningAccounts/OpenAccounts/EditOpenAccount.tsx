@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useMutation } from "react-query";
-import axiosInstance from "../../ApiBaseUrl";
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useMutation } from 'react-query';
+import axiosInstance from '../../ApiBaseUrl';
 import {
   Modal,
   Form,
@@ -11,26 +11,26 @@ import {
   Divider,
   InputNumber,
   Select,
-} from "antd";
-import moment from "moment";
-import dayjs from "dayjs";
-import { useMediaQuery } from "../../MediaQurey";
-import { ModalDragTitle } from "../../SelfComponents/ModalDragTitle";
-import Draggable from "react-draggable";
-import { Styles } from "../../styles";
-import { CurrencyProperties } from "../../Transactions/Components/CurrencyProperties";
-import { ReceiveDetailsProperties } from "../../Transactions/Components/ReceiveDetailsProperties";
-import { AccountName } from "./AccountName";
+} from 'antd';
+import moment from 'moment';
+import dayjs from 'dayjs';
+import { useMediaQuery } from '../../MediaQurey';
+import { ModalDragTitle } from '../../SelfComponents/ModalDragTitle';
+import Draggable from 'react-draggable';
+import { Styles } from '../../styles';
+import { CurrencyProperties } from '../../Transactions/Components/CurrencyProperties';
+import { ReceiveDetailsProperties } from '../../Transactions/Components/ReceiveDetailsProperties';
+import { AccountName } from './AccountName';
 import {
   changeGToJ,
   changeJToG,
   handlePrepareDateForDateField,
   handlePrepareDateForServer,
-} from "../../../Functions/utcDate";
-import useGetCalender from "../../../Hooks/useGetCalender";
-import { CancelButton, EditMenuItem, SaveButton } from "../../../components";
-import { OPINING_ACCOUNT_M } from "../../../constants/permissions";
-import { manageErrors } from "../../../Functions";
+} from '../../../Functions/utcDate';
+import useGetCalender from '../../../Hooks/useGetCalender';
+import { CancelButton, EditMenuItem, SaveButton } from '../../../components';
+import { OPINING_ACCOUNT_M } from '../../../constants/permissions';
+import { manageErrors } from '../../../Functions';
 
 interface IProps {
   baseUrl: string;
@@ -40,7 +40,7 @@ interface IProps {
   handleUpdateItems: () => void;
 }
 
-const dateFormat = "YYYY-MM-DD HH:mm";
+const dateFormat = 'YYYY-MM-DD HH:mm';
 const { Option } = Select;
 const EditOpenAccount: React.FC<IProps> = ({
   record,
@@ -56,12 +56,12 @@ const EditOpenAccount: React.FC<IProps> = ({
   });
   const [currencyValue, setCurrencyValue] = useState(1);
   const [form] = Form.useForm();
-  const [bankValue, setBankValue] = useState("");
+  const [bankValue, setBankValue] = useState('');
   const [disabled, setDisabled] = useState<boolean>(true);
-  const isMiniTablet = useMediaQuery("(max-width: 576px)");
-  const isMobile = useMediaQuery("(max-width: 425px)");
-  const isBigMobile = useMediaQuery("(max-width: 480px)");
-  const isSubBase = useMediaQuery("(max-width: 375px)");
+  const isMiniTablet = useMediaQuery('(max-width: 576px)');
+  const isMobile = useMediaQuery('(max-width: 425px)');
+  const isBigMobile = useMediaQuery('(max-width: 480px)');
+  const isSubBase = useMediaQuery('(max-width: 375px)');
 
   //get current calender
   const userCalender = useGetCalender();
@@ -88,7 +88,7 @@ const EditOpenAccount: React.FC<IProps> = ({
       setIsShowModal({
         visible: false,
       });
-      message.success(t("Message.Transaction_add_message"));
+      message.success(t('Message.Transaction_add_message'));
       handleUpdateItems();
     },
     onError: (error) => {
@@ -121,11 +121,11 @@ const EditOpenAccount: React.FC<IProps> = ({
   const showModal = () => {
     setVisible(false);
     handleClickEdit();
-    const valueType = record?.account?.id?.split("-");
+    const valueType = record?.account?.id?.split('-');
     setBankValue(valueType?.[0]);
     // setCurrencyValue(record?.currency?.id);
     // const debit = parseFloat(record?.debit) === 0 ? "" : record?.debit;
-    // 
+    //
     // const credit = parseFloat(record?.credit) === 0 ? "" : record?.credit;
 
     form.setFieldsValue({
@@ -164,14 +164,14 @@ const EditOpenAccount: React.FC<IProps> = ({
 
   const handelAfterClose = () => {
     form.resetFields();
-    setBankValue("");
+    setBankValue('');
     reset();
   };
 
   const handleChangeName = (value: string) => {
     setBankValue(value);
-    if (value === "BNK" || value === "CSH") {
-      form.setFieldsValue({ type: "debit" });
+    if (value === 'BNK' || value === 'CSH') {
+      form.setFieldsValue({ type: 'debit' });
     }
   };
 
@@ -189,7 +189,7 @@ const EditOpenAccount: React.FC<IProps> = ({
           <ModalDragTitle
             disabled={disabled}
             setDisabled={setDisabled}
-            title={t("Opening_accounts.Open_account_information")}
+            title={t('Opening_accounts.Open_account_information')}
           />
         }
         modalRender={(modal) => (
@@ -204,7 +204,7 @@ const EditOpenAccount: React.FC<IProps> = ({
         width={500}
         onCancel={handleCancel}
         footer={
-          <Row justify="end">
+          <Row justify='end'>
             <Col>
               <CancelButton onClick={handleCancel} />
               <SaveButton onClick={onFinish} loading={isLoading} />
@@ -216,7 +216,7 @@ const EditOpenAccount: React.FC<IProps> = ({
           form={form}
           hideRequiredMark={true}
           scrollToFirstError={true}
-          layout="vertical"
+          layout='vertical'
         >
           <Row gutter={10}>
             <Col span={isBigMobile ? 24 : 12}>
@@ -226,45 +226,45 @@ const EditOpenAccount: React.FC<IProps> = ({
               <Divider />
             </Col>
             <Col span={isBigMobile ? 24 : 12}>
-              {" "}
+              {' '}
               <Form.Item
-                name="type"
+                name='type'
                 rules={[
                   {
                     required: true,
-                    message: t("Sales.Customers.Discount.Required_type"),
+                    message: t('Sales.Customers.Discount.Required_type'),
                   },
                 ]}
                 style={styles.margin}
               >
                 <Select
-                  className="num"
-                  disabled={bankValue === "BNK" || bankValue === "CSH"}
-                  placeholder={t("Sales.Product_and_services.Type")}
+                  className='num'
+                  disabled={bankValue === 'BNK' || bankValue === 'CSH'}
+                  placeholder={t('Sales.Product_and_services.Type')}
                 >
-                  <Option value="debit">{t("Opening_accounts.Debit")}</Option>
-                  <Option value="credit">{t("Opening_accounts.Credit")}</Option>
+                  <Option value='debit'>{t('Opening_accounts.Debit')}</Option>
+                  <Option value='credit'>{t('Opening_accounts.Credit')}</Option>
                 </Select>
               </Form.Item>
             </Col>
             <Col span={isBigMobile ? 24 : 12}>
               <Form.Item
-                name="amount"
+                name='amount'
                 preserve={false}
                 style={styles.margin}
                 rules={[
                   {
                     required: true,
-                    message: t("Sales.Customers.Form.Amount_required"),
+                    message: t('Sales.Customers.Form.Amount_required'),
                   },
                 ]}
               >
                 <InputNumber
                   min={0}
-                  type="number"
-                  className="num"
-                  inputMode="numeric"
-                  placeholder={t("Sales.Customers.Form.Amount")}
+                  type='number'
+                  className='num'
+                  inputMode='numeric'
+                  placeholder={t('Sales.Customers.Form.Amount')}
                 />
               </Form.Item>
             </Col>
@@ -324,14 +324,14 @@ const EditOpenAccount: React.FC<IProps> = ({
                 currencyValue={currencyValue}
                 setCurrencyValue={setCurrencyValue}
                 form={form}
-                type="openAccount"
-              />{" "}
+                type='openAccount'
+              />{' '}
             </Col>
             <Col span={24}>
               <Divider />
             </Col>
             <Col span={24}>
-              <ReceiveDetailsProperties type="openAccount" />{" "}
+              <ReceiveDetailsProperties type='openAccount' />{' '}
             </Col>
           </Row>
         </Form>
@@ -344,7 +344,7 @@ interface IStyles {
   margin: React.CSSProperties;
 }
 const styles: IStyles = {
-  margin: { margin: "0rem" },
+  margin: { margin: '0rem' },
 };
 
 export default EditOpenAccount;

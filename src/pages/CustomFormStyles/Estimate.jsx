@@ -723,7 +723,7 @@ const Estimate = (props) => {
       setAutoCompleteResult([]);
     } else {
       setAutoCompleteResult(
-        ['.com', '.org', '.net']?.map((domain) => `${value}${domain}`)
+        ['.com', '.org', '.net']?.map((domain) => `${value}${domain}`),
       );
     }
   };
@@ -1146,7 +1146,7 @@ const Estimate = (props) => {
       getBase64(
         info.file.originFileObj,
         (imageUrl) => setImageUrl(imageUrl),
-        setLoading(true)
+        setLoading(true),
       );
     }
   };

@@ -1,15 +1,15 @@
-import { DownOutlined, LeftOutlined, RightOutlined } from "@ant-design/icons";
-import { Button, Table, Typography } from "antd";
-import Column from "antd/lib/table/Column";
-import { ColumnsType, Key } from "antd/lib/table/interface";
-import React, { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { TableSummaryCell } from "../../../../components";
-import { Statistics } from "../../../../components/antd";
-import { math, print } from "../../../../Functions/math";
-import axiosInstance from "../../../ApiBaseUrl";
-import { Colors } from "../../../colors";
-import FiltersIncomeStatement from "./filterIncomeStatement";
+import { DownOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { Button, Table, Typography } from 'antd';
+import Column from 'antd/lib/table/Column';
+import { ColumnsType, Key } from 'antd/lib/table/interface';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { TableSummaryCell } from '../../../../components';
+import { Statistics } from '../../../../components/antd';
+import { math, print } from '../../../../Functions/math';
+import axiosInstance from '../../../ApiBaseUrl';
+import { Colors } from '../../../colors';
+import FiltersIncomeStatement from './filterIncomeStatement';
 
 interface DataType {
   key: React.ReactNode;
@@ -31,13 +31,13 @@ const IncomeStatementDefault = (props: IProps) => {
   const [expandedRowKeys, setExpandedRowKeys] = useState<Key[]>([]);
   const { t } = useTranslation();
   const getIncomeStatementDefaultFunction = async (
-    value = { startDate: "", endDate: "" }
+    value = { startDate: '', endDate: '' },
   ) => {
     setIsLoading(true);
     try {
       const { data } = await axiosInstance.get(
         props?.baseUrl +
-          `?date_time_after=${value?.startDate}&date_time_before=${value?.endDate}`
+          `?date_time_after=${value?.startDate}&date_time_before=${value?.endDate}`,
       );
       // console.log("data", data);
       const allData = Object.values(data);
@@ -62,7 +62,7 @@ const IncomeStatementDefault = (props: IProps) => {
                 };
               })
             : [];
-          console.log("child", child);
+          console.log('child', child);
           return {
             ...item?.children?.[textChild],
             ...(child?.length > 0 ? { child: child } : { child: [] }),
@@ -77,7 +77,7 @@ const IncomeStatementDefault = (props: IProps) => {
           key: item?.account,
         };
       });
-      console.log("myList", myList);
+      console.log('myList', myList);
       return myList;
 
       //   return newList?.map((node) => {
@@ -127,7 +127,7 @@ const IncomeStatementDefault = (props: IProps) => {
       //     }
       //   });
     },
-    [t]
+    [t],
   );
   useEffect(() => {
     if (!incomeStatementDefaultState) {
@@ -144,10 +144,10 @@ const IncomeStatementDefault = (props: IProps) => {
 
   const columns: ColumnsType<DataType> = [
     {
-      title: t("Banking.Form.Account_name"),
-      dataIndex: "account",
-      key: "account",
-      width: "50%",
+      title: t('Banking.Form.Account_name'),
+      dataIndex: 'account',
+      key: 'account',
+      width: '50%',
       render: (text, record: any) => {
         // console.log("record", record);
         return (
@@ -155,17 +155,17 @@ const IncomeStatementDefault = (props: IProps) => {
             {text
               ? text
               : record?.account
-              ? record?.account
-              : Object?.keys(record?.total)?.[0]}
+                ? record?.account
+                : Object?.keys(record?.total)?.[0]}
           </span>
         );
       },
     },
     {
-      title: t("Sales.Customers.Form.Amount"),
-      dataIndex: "total",
-      key: "total",
-      width: "30%",
+      title: t('Sales.Customers.Form.Amount'),
+      dataIndex: 'total',
+      key: 'total',
+      width: '30%',
       // render:((total:any) => {
       //   let tot = 0
       //   Object?.keys(total)?.map((item) => {
@@ -188,7 +188,7 @@ const IncomeStatementDefault = (props: IProps) => {
                 return (
                   <div
                     key={total?.[item] + item}
-                    style={{ display: "flex", justifyContent: "space-between" }}
+                    style={{ display: 'flex', justifyContent: 'space-between' }}
                   >
                     <span> {total?.[item].toFixed(2)}</span>
                     <span>{item} </span>
@@ -221,7 +221,7 @@ const IncomeStatementDefault = (props: IProps) => {
     // },
   ];
   const handleSetFilter = (value: any) => {
-    console.log("values", value);
+    console.log('values', value);
     getIncomeStatementDefaultFunction(value);
   };
   const handleResetFilter = () => {
@@ -240,23 +240,23 @@ const IncomeStatementDefault = (props: IProps) => {
         pagination={false}
         // rowSelection={{ ...rowSelection, checkStrictly }}
         dataSource={incomeStatementDefaultState}
-        childrenColumnName="child"
+        childrenColumnName='child'
         expandIcon={({ expanded, onExpand, record, expandable }) => {
           return !expandable ? null : expanded ? (
             <Button
               icon={<DownOutlined />}
-              size="small"
-              type="primary"
-              className="treeTable__expandIcon"
+              size='small'
+              type='primary'
+              className='treeTable__expandIcon'
               onClick={(e) => onExpand(record, e)}
               style={styles.expandButtonDown}
             />
           ) : (
             <Button
-              icon={t("Dir") === "ltr" ? <RightOutlined /> : <LeftOutlined />}
-              size="small"
-              type="primary"
-              className="treeTable__expandIcon"
+              icon={t('Dir') === 'ltr' ? <RightOutlined /> : <LeftOutlined />}
+              size='small'
+              type='primary'
+              className='treeTable__expandIcon'
               onClick={(e) => onExpand(record, e)}
               style={styles.expandButton}
             />
@@ -352,20 +352,20 @@ const IncomeStatementDefault = (props: IProps) => {
 };
 
 const styles = {
-  settingsMenu: { minWidth: "130px", paddingBottom: "10px" },
-  firstRow: { paddingInlineStart: "1rem" },
+  settingsMenu: { minWidth: '130px', paddingBottom: '10px' },
+  firstRow: { paddingInlineStart: '1rem' },
   firstRow1: (level: string) => ({
     paddingInlineStart:
-      level === "A" ? "1.5rem" : level === "B" ? "2.5rem" : "3.5rem",
-    margin: "0px",
+      level === 'A' ? '1.5rem' : level === 'B' ? '2.5rem' : '3.5rem',
+    margin: '0px',
   }),
   expandButton: {
-    borderEndEndRadius: "30px",
-    borderStartEndRadius: "30px",
+    borderEndEndRadius: '30px',
+    borderStartEndRadius: '30px',
   },
   expandButtonDown: {
-    borderEndEndRadius: "30px",
-    borderEndStartRadius: "30px",
+    borderEndEndRadius: '30px',
+    borderEndStartRadius: '30px',
   },
 };
 export default IncomeStatementDefault;

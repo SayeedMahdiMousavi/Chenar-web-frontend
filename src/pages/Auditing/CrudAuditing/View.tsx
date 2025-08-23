@@ -1,11 +1,11 @@
-import React, { useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { Modal, Table } from "antd";
-import { useMediaQuery } from "../../MediaQurey";
-import { ModalDragTitle } from "../../SelfComponents/ModalDragTitle";
-import Draggable from "react-draggable";
-import { Styles } from "../../styles";
-import { ViewButton } from "../../../components";
+import React, { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Modal, Table } from 'antd';
+import { useMediaQuery } from '../../MediaQurey';
+import { ModalDragTitle } from '../../SelfComponents/ModalDragTitle';
+import Draggable from 'react-draggable';
+import { Styles } from '../../styles';
+import { ViewButton } from '../../../components';
 
 interface IProps {
   record: any;
@@ -19,9 +19,9 @@ const ViewAuditing: React.FC<IProps> = (props) => {
   const [allData, setAllData] = useState([]);
 
   const [disabled, setDisabled] = useState<boolean>(true);
-  const isMiniTablet = useMediaQuery("(max-width: 576px)");
-  const isMobile = useMediaQuery("(max-width: 425px)");
-  const isSubBase = useMediaQuery("(max-width: 375px)");
+  const isMiniTablet = useMediaQuery('(max-width: 576px)');
+  const isMobile = useMediaQuery('(max-width: 425px)');
+  const isSubBase = useMediaQuery('(max-width: 375px)');
 
   const showModal = () => {
     setIsShowModal({
@@ -49,29 +49,29 @@ const ViewAuditing: React.FC<IProps> = (props) => {
 
   const columns = [
     {
-      dataIndex: "row",
-      key: "row",
-      title: t("Table.Row"),
-      align: "center",
+      dataIndex: 'row',
+      key: 'row',
+      title: t('Table.Row'),
+      align: 'center',
       width: 60,
       render: (_: any, __: any, index: number) => (
         <React.Fragment>{index + 1}</React.Fragment>
       ),
     },
     {
-      title: t("Auditing.Field"),
-      dataIndex: "key",
-      key: "key",
+      title: t('Auditing.Field'),
+      dataIndex: 'key',
+      key: 'key',
     },
     {
-      title: t("Auditing.Previous_value"),
-      dataIndex: "prevValue",
-      key: "prevValue",
+      title: t('Auditing.Previous_value'),
+      dataIndex: 'prevValue',
+      key: 'prevValue',
     },
     {
-      title: t("Auditing.New_value"),
-      dataIndex: "newValue",
-      key: "newValue",
+      title: t('Auditing.New_value'),
+      dataIndex: 'newValue',
+      key: 'newValue',
     },
   ];
 
@@ -90,20 +90,21 @@ const ViewAuditing: React.FC<IProps> = (props) => {
           <ModalDragTitle
             disabled={disabled}
             setDisabled={setDisabled}
-            title={t("Auditing.Account_information")}
+            title={t('Auditing.Account_information')}
           />
         }
         modalRender={(modal) => (
-           <Draggable disabled={disabled} nodeRef={ref as React.RefObject<HTMLElement>}>
-                        <div ref={ref}>
-                        {modal}
-                        </div>
-            </Draggable>
+          <Draggable
+            disabled={disabled}
+            nodeRef={ref as React.RefObject<HTMLElement>}
+          >
+            <div ref={ref}>{modal}</div>
+          </Draggable>
         )}
         style={Styles.modal(isMobile)}
         bodyStyle={{
           ...Styles.modalBody(isMobile, isSubBase, isMiniTablet),
-          paddingBottom: "24px",
+          paddingBottom: '24px',
         }}
         open={isShowModal.visible}
         destroyOnClose
@@ -120,7 +121,7 @@ const ViewAuditing: React.FC<IProps> = (props) => {
           columns={columns}
           // rowClassName={() => "page-break"}
           bordered
-          size="small"
+          size='small'
         />
       </Modal>
     </div>

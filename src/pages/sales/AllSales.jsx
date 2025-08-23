@@ -1,11 +1,11 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { Row, Col } from "antd";
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { Row, Col } from 'antd';
 
-import TransactionTable from "./AllSales/TransactionTable";
-import NewTransaction from "./AllSales/NewTransaction";
-import PageHeader from "../SelfComponents/LayoutComponents/PagHeader";
-import { checkPermissions } from "../../Functions";
+import TransactionTable from './AllSales/TransactionTable';
+import NewTransaction from './AllSales/NewTransaction';
+import PageHeader from '../SelfComponents/LayoutComponents/PagHeader';
+import { checkPermissions } from '../../Functions';
 import {
   // PRODUCT_TRANSFER_INVOICE_M,
   PURCHASE_INVOICE_M,
@@ -13,8 +13,8 @@ import {
   QUOTATION_INVOICE_M,
   SALES_INVOICE_M,
   SALES_REJ_INVOICE_M,
-} from "../../constants/permissions";
-import Inventory from "./Inventory";
+} from '../../constants/permissions';
+import Inventory from './Inventory';
 
 const AllSales = () => {
   const { t } = useTranslation();
@@ -29,10 +29,10 @@ const AllSales = () => {
   ]) ? null : (
     <Inventory>
       <PageHeader
-        title={t("Sales.All_sales.Purchase_and_sales.1")}
+        title={t('Sales.All_sales.Purchase_and_sales.1')}
         table={<TransactionTable />}
       >
-        <Row justify="end">
+        <Row justify='end'>
           <Col>
             <NewTransaction />
           </Col>

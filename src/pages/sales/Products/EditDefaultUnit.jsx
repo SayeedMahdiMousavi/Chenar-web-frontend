@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { Modal, Form, Select, message, Row, Col, Button } from "antd";
-import { useTranslation } from "react-i18next";
-import { useMutation, useQueryClient } from "react-query";
-import axiosInstance from "../../ApiBaseUrl";
-import { ModalDragTitle } from "../../SelfComponents/ModalDragTitle";
-import Draggable from "react-draggable";
-import { ActionMessage } from "../../SelfComponents/TranslateComponents/ActionMessage";
-import { CancelButton, SaveButton } from "../../../components";
-import { manageErrors, updateMessage } from "../../../Functions";
+import React, { useState } from 'react';
+import { Modal, Form, Select, message, Row, Col, Button } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { useMutation, useQueryClient } from 'react-query';
+import axiosInstance from '../../ApiBaseUrl';
+import { ModalDragTitle } from '../../SelfComponents/ModalDragTitle';
+import Draggable from 'react-draggable';
+import { ActionMessage } from '../../SelfComponents/TranslateComponents/ActionMessage';
+import { CancelButton, SaveButton } from '../../../components';
+import { manageErrors, updateMessage } from '../../../Functions';
 
 export default function EditDefaultUnit(props) {
   const queryClient = useQueryClient();
@@ -33,10 +33,10 @@ export default function EditDefaultUnit(props) {
 
     form.setFieldsValue({
       default_sal: props?.record?.product_units.filter(
-        (item) => item?.default_sal === true
+        (item) => item?.default_sal === true,
       )?.[0]?.unit?.id,
       default_pur: props?.record?.product_units.filter(
-        (item) => item?.default_pur === true
+        (item) => item?.default_pur === true,
       )?.[0]?.unit?.id,
     });
     setVisible(true);
@@ -45,7 +45,7 @@ export default function EditDefaultUnit(props) {
   const editUnit = async (value) =>
     await axiosInstance.put(
       `${props.baseUrl}${props?.record?.id}/update_unit/`,
-      value
+      value,
     );
 
   const handleSuccessEdit = () => {
@@ -60,7 +60,7 @@ export default function EditDefaultUnit(props) {
     onSuccess: () => {
       setVisible(false);
       updateMessage(
-        t("Sales.Product_and_services.Form.Default_unit").toLowerCase()
+        t('Sales.Product_and_services.Form.Default_unit').toLowerCase(),
       );
       handleSuccessEdit();
     },
@@ -83,9 +83,7 @@ export default function EditDefaultUnit(props) {
         });
         mutateEditUnit(units);
       })
-      .catch((info) => {
-        
-      });
+      .catch((info) => {});
   };
 
   const handleAfterClose = () => {
@@ -95,8 +93,8 @@ export default function EditDefaultUnit(props) {
 
   return (
     <div>
-      <div onClick={showModal} className="num">
-        {t("Sales.Product_and_services.Edit_default_unit")}
+      <div onClick={showModal} className='num'>
+        {t('Sales.Product_and_services.Edit_default_unit')}
       </div>
       <Modal
         maskClosable={false}
@@ -104,7 +102,7 @@ export default function EditDefaultUnit(props) {
           <ModalDragTitle
             disabled={disabled}
             setDisabled={setDisabled}
-            title={t("Sales.Product_and_services.Edit_default_unit")}
+            title={t('Sales.Product_and_services.Edit_default_unit')}
           />
         }
         modalRender={(modal) => (
@@ -118,7 +116,7 @@ export default function EditDefaultUnit(props) {
         onCancel={handleCancel}
         onOk={onFinish}
         footer={
-          <Row justify="end">
+          <Row justify='end'>
             <Col>
               <CancelButton onClick={handleCancel} />
               <SaveButton onClick={onFinish} loading={isLoading} />
@@ -126,12 +124,12 @@ export default function EditDefaultUnit(props) {
           </Row>
         }
       >
-        <Form form={form} layout="vertical">
+        <Form form={form} layout='vertical'>
           <Row>
             <Col span={24}>
               <Form.Item
-                name="default_pur"
-                label={t("Sales.Product_and_services.Form.Purchases_unit")}
+                name='default_pur'
+                label={t('Sales.Product_and_services.Form.Purchases_unit')}
               >
                 <Select>
                   {units?.map((item) => (
@@ -144,9 +142,9 @@ export default function EditDefaultUnit(props) {
             </Col>
             <Col span={24}>
               <Form.Item
-                name="default_sal"
+                name='default_sal'
                 style={styles.formItem}
-                label={t("Sales.Product_and_services.Form.Sales_unit")}
+                label={t('Sales.Product_and_services.Form.Sales_unit')}
               >
                 <Select>
                   {units?.map((item) => (
@@ -164,5 +162,5 @@ export default function EditDefaultUnit(props) {
   );
 }
 const styles = {
-  formItem: { marginBottom: "10px" },
+  formItem: { marginBottom: '10px' },
 };

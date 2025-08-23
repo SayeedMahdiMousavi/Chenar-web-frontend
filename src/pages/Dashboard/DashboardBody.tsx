@@ -102,7 +102,7 @@ export default function DashboardBody(props: any) {
       setStartDate(
         curStartDate
           ? moment(curStartDate, reportsDateFormat).format(reportsDateFormat)
-          : ''
+          : '',
       );
     }
   }, [curStartDate]);
@@ -114,15 +114,15 @@ export default function DashboardBody(props: any) {
       const { startDate }: any = queryKey?.[1];
       const { data } = await axiosInstance.get(
         `/pay_receive_cash/income_cash/result/?date_time_after=${startDate}&date_time_before=${utcDate().format(
-          reportsDateFormat
-        )}`
+          reportsDateFormat,
+        )}`,
       );
       return data;
     },
     {
       enabled: !!startDate && checkPermissions(`view_${INCOME_M}`),
       refetchOnWindowFocus: false,
-    }
+    },
   );
 
   const getDataChart = async () => {
@@ -228,7 +228,7 @@ export default function DashboardBody(props: any) {
     ];
     if (lineChartSelectState === 'Sales') {
       const { data } = await axiosInstance.get(
-        `/accounting_reports/warehouse/sales_invoice/graph_report/?report_type=${props?.duration}`
+        `/accounting_reports/warehouse/sales_invoice/graph_report/?report_type=${props?.duration}`,
       );
       setIsLoading(false);
       if (data?.result?.length > 0) {
@@ -248,14 +248,14 @@ export default function DashboardBody(props: any) {
             props?.duration === 'daily'
               ? daily
               : props?.duration === 'weekly'
-              ? weekly
-              : monthly,
+                ? weekly
+                : monthly,
         });
       }
     }
     if (lineChartSelectState === 'Purchases') {
       const { data } = await axiosInstance.get(
-        `/accounting_reports/warehouse/purchase_invoice/graph_report/?report_type=${props?.duration}`
+        `/accounting_reports/warehouse/purchase_invoice/graph_report/?report_type=${props?.duration}`,
       );
       setIsLoading(false);
       if (data?.result?.length > 0) {
@@ -275,14 +275,14 @@ export default function DashboardBody(props: any) {
             props?.duration === 'daily'
               ? daily
               : props?.duration === 'weekly'
-              ? weekly
-              : monthly,
+                ? weekly
+                : monthly,
         });
       }
     }
     if (lineChartSelectState === 'Expenses') {
       const { data } = await axiosInstance.get(
-        `/accounting_reports/financial/expense_report/?report_type=${props?.duration}`
+        `/accounting_reports/financial/expense_report/?report_type=${props?.duration}`,
       );
       setIsLoading(false);
       if (data?.result?.length > 0) {
@@ -302,14 +302,14 @@ export default function DashboardBody(props: any) {
             props?.duration === 'daily'
               ? daily
               : props?.duration === 'weekly'
-              ? weekly
-              : monthly,
+                ? weekly
+                : monthly,
         });
       }
     }
     if (lineChartSelectState === 'Revenue') {
       const { data } = await axiosInstance.get(
-        `/accounting_reports/financial/income_report/?report_type=${props?.duration}`
+        `/accounting_reports/financial/income_report/?report_type=${props?.duration}`,
       );
       setIsLoading(false);
       if (data?.result?.length > 0) {
@@ -329,8 +329,8 @@ export default function DashboardBody(props: any) {
             props?.duration === 'daily'
               ? daily
               : props?.duration === 'weekly'
-              ? weekly
-              : monthly,
+                ? weekly
+                : monthly,
         });
       }
     }
@@ -342,13 +342,13 @@ export default function DashboardBody(props: any) {
 
   const handleGetDashboardTotal = async () => {
     const { data } = await axiosInstance.get(
-      'accounting_reports/financial/dashboard/'
+      'accounting_reports/financial/dashboard/',
     );
     return data;
   };
   const dashboardTotal = useQuery('dashboardTotal', handleGetDashboardTotal);
   const totalIncome = incomes?.data?.find(
-    (item: any) => item?.currency__name == baseCurrencyName
+    (item: any) => item?.currency__name == baseCurrencyName,
   )?.rec;
 
   //get debit and credit result
@@ -362,11 +362,11 @@ export default function DashboardBody(props: any) {
   const purchasesResult = useGetInvoicesResult(startDate, 'purchase');
 
   const totalPurchased = purchasesResult?.data?.results?.find(
-    (item: any) => item?.currency == currencyId
+    (item: any) => item?.currency == currencyId,
   )?.total_net_amount;
 
   const totalSales = salesResult?.data?.results?.find(
-    (item: any) => item?.currency === baseCurrencyName
+    (item: any) => item?.currency === baseCurrencyName,
   )?.total_net_amount;
 
   //get sales and purchases result
@@ -378,8 +378,8 @@ export default function DashboardBody(props: any) {
     math.evaluate(
       `${bankResult?.data?.[0]?.debit ?? 0} - ${
         bankResult?.data?.[0]?.credit ?? 0
-      }`
-    )
+      }`,
+    ),
   );
 
   const cashValue = print(
@@ -387,8 +387,8 @@ export default function DashboardBody(props: any) {
     math.evaluate(
       `${cashResult?.data?.[0]?.debit ?? 0} - ${
         cashResult?.data?.[0]?.credit ?? 0
-      }`
-    )
+      }`,
+    ),
   );
 
   const handleSelectSales = (data: string) => {
@@ -410,9 +410,10 @@ export default function DashboardBody(props: any) {
                     height: isMiniTablet ? '452px' : '427px',
                     boxSizing: 'border-box',
                     position: 'relative',
-                    backgroundColor: mode === 'dark' ? Colors.cardBg: '#fff',
+                    backgroundColor: mode === 'dark' ? Colors.cardBg : '#fff',
                     color: mode === 'dark' ? Colors.white : 'black',
-                    border: mode === 'dark' ? '1px solid #333' : '1px solid #fff',
+                    border:
+                      mode === 'dark' ? '1px solid #333' : '1px solid #fff',
                   }}
                   // hoverable={mode === "dark" ? false : true}
                   bodyStyle={{
@@ -439,7 +440,10 @@ export default function DashboardBody(props: any) {
                             right: 0,
                             top: 0,
                             color: mode === 'dark' ? Colors.white : 'black',
-                            backgroundColor: mode === 'dark' ? Colors.primaryDarkBackground : Colors.white,
+                            backgroundColor:
+                              mode === 'dark'
+                                ? Colors.primaryDarkBackground
+                                : Colors.white,
                             borderRadius: '10px',
                           }}
                         >
@@ -466,7 +470,6 @@ export default function DashboardBody(props: any) {
         </Col>
         <Col sm={24} md={6}>
           <Space direction='vertical' size={12}>
-           
             <ConvertDate />
             <DashboardCurrencyExchange permission={`view_${CURRENCY_RATE_M}`} />
           </Space>

@@ -61,7 +61,7 @@ const EditUnitConversion: React.FC<IProps> = (props) => {
             multiplier: 1,
             id: item?.id,
           };
-        }
+        },
       ),
       product: props?.record?.name,
     });
@@ -85,7 +85,7 @@ const EditUnitConversion: React.FC<IProps> = (props) => {
     onSuccess: () => {
       setVisible(false);
       addMessage(
-        t('Sales.Product_and_services.Form.Unit_conversion').toLowerCase()
+        t('Sales.Product_and_services.Form.Unit_conversion').toLowerCase(),
       );
       handleSuccessEdit();
     },
@@ -100,7 +100,7 @@ const EditUnitConversion: React.FC<IProps> = (props) => {
   const editUnitConversion = async (value: any) =>
     await axiosInstance.put(
       `/product/unit/conversion/bulk_update/${props?.record?.id}/`,
-      value
+      value,
     );
 
   const {
@@ -111,7 +111,7 @@ const EditUnitConversion: React.FC<IProps> = (props) => {
     onSuccess: () => {
       setVisible(false);
       updateMessage(
-        t('Sales.Product_and_services.Form.Unit_conversion').toLowerCase()
+        t('Sales.Product_and_services.Form.Unit_conversion').toLowerCase(),
       );
       handleSuccessEdit();
     },
@@ -154,12 +154,19 @@ const EditUnitConversion: React.FC<IProps> = (props) => {
           return sum;
         }
       },
-      0
+      0,
     );
 
     if (unitLength > 1) {
       Modal.warning({
-        bodyStyle: { direction: t('Dir') },
+        bodyStyle: {
+          direction: t('Dir') as
+            | 'ltr'
+            | 'rtl'
+            | 'inherit'
+            | 'initial'
+            | 'unset',
+        },
         title: t('Sales.Product_and_services.Unit_conversion_exist_message'),
         onOk: () => {
           const newConversions = formValue?.addUnitConversion?.map(
@@ -169,7 +176,7 @@ const EditUnitConversion: React.FC<IProps> = (props) => {
               } else {
                 return item;
               }
-            }
+            },
           );
           form.setFieldsValue({ addUnitConversion: newConversions });
         },
@@ -252,12 +259,11 @@ const EditUnitConversion: React.FC<IProps> = (props) => {
                             {...field}
                             validateTrigger={['onChange', 'onBlur']}
                             name={[field.name, 'base_multiplier']}
-                            fieldKey={[field.fieldKey, 'base_multiplier']}
                             label={
                               index === 0 ? (
                                 <span>
                                   {t(
-                                    'Sales.Product_and_services.Form.Base_multiplier'
+                                    'Sales.Product_and_services.Form.Base_multiplier',
                                   )}
                                   <span className='star'>*</span>
                                 </span>
@@ -285,12 +291,11 @@ const EditUnitConversion: React.FC<IProps> = (props) => {
                           <Form.Item
                             {...field}
                             validateTrigger={['onChange', 'onBlur']}
-                            fieldKey={[field.fieldKey, 'to_unit']}
                             name={[field.name, 'to_unit']}
                             label={
                               index === 0
                                 ? t(
-                                    'Sales.Product_and_services.Form.Default_unit'
+                                    'Sales.Product_and_services.Form.Default_unit',
                                   )
                                 : ''
                             }
@@ -299,7 +304,7 @@ const EditUnitConversion: React.FC<IProps> = (props) => {
                             <Select
                               disabled
                               // labelInValue
-                              showarrow={false}
+                              showArrow={false}
                             >
                               {/* <Option Defau>{default1.label}</Option> */}
                             </Select>
@@ -312,13 +317,12 @@ const EditUnitConversion: React.FC<IProps> = (props) => {
                           <Form.Item
                             {...field}
                             validateTrigger={['onChange', 'onBlur']}
-                            fieldKey={[field.fieldKey, 'multiplier']}
                             name={[field.name, 'multiplier']}
                             label={
                               index === 0 ? (
                                 <span>
                                   {t(
-                                    'Sales.Product_and_services.Form.Multiplier'
+                                    'Sales.Product_and_services.Form.Multiplier',
                                   )}
                                   {/* <span className="star">*</span> */}
                                 </span>
@@ -343,12 +347,11 @@ const EditUnitConversion: React.FC<IProps> = (props) => {
                             {...field}
                             validateTrigger={['onChange', 'onBlur']}
                             name={[field.name, 'from_unit']}
-                            fieldKey={[field.fieldKey, 'from_unit']}
                             label={
                               index === 0 ? (
                                 <span>
                                   {t(
-                                    'Sales.Product_and_services.Form.From_unit'
+                                    'Sales.Product_and_services.Form.From_unit',
                                   )}
 
                                   {/* <span className='star'>*</span> */}
@@ -357,7 +360,7 @@ const EditUnitConversion: React.FC<IProps> = (props) => {
                                       <span>
                                         {' '}
                                         {t(
-                                          'Sales.Product_and_services.Form.Change_unit_message'
+                                          'Sales.Product_and_services.Form.Change_unit_message',
                                         )}
                                       </span>
                                     }
@@ -372,18 +375,18 @@ const EditUnitConversion: React.FC<IProps> = (props) => {
                             }
                             style={styles.input}
                           >
-                            {/* <Select disabled labelInValue showarrow={false} /> */}
+                            {/* <Select disabled labelInValue showArrow={false} /> */}
                             <Select
                               labelInValue
-                              //  showarrow={false}
+                              //  showArrow={false}
                             >
                               {props?.record?.product_units
                                 ?.filter(
                                   (item: any) =>
                                     item?.unit?.id !==
                                     props?.record?.product_units.filter(
-                                      (item: any) => item?.base_unit === true
-                                    )?.[0]?.unit?.id
+                                      (item: any) => item?.base_unit === true,
+                                    )?.[0]?.unit?.id,
                                 )
                                 ?.map((item: any) => (
                                   <Select.Option
@@ -415,12 +418,12 @@ const EditUnitConversion: React.FC<IProps> = (props) => {
                               {
                                 from_unit: undefined,
                                 to_unit: props?.record?.product_units.filter(
-                                  (item: any) => item?.base_unit === true
+                                  (item: any) => item?.base_unit === true,
                                 )?.[0]?.unit?.name,
                                 base_multiplier: undefined,
                                 multiplier: 1,
                               },
-                              fields.length
+                              fields.length,
                             )
                           }
                           block
@@ -460,12 +463,11 @@ const EditUnitConversion: React.FC<IProps> = (props) => {
                                 {...field}
                                 validateTrigger={['onChange', 'onBlur']}
                                 name={[field.name, 'base_multiplier']}
-                                fieldKey={[field.fieldKey, 'base_multiplier']}
                                 label={
                                   index === 0 ? (
                                     <span>
                                       {t(
-                                        'Sales.Product_and_services.Form.Base_multiplier'
+                                        'Sales.Product_and_services.Form.Base_multiplier',
                                       )}
                                       <span className='star'>*</span>
                                     </span>
@@ -493,12 +495,11 @@ const EditUnitConversion: React.FC<IProps> = (props) => {
                               <Form.Item
                                 {...field}
                                 validateTrigger={['onChange', 'onBlur']}
-                                fieldKey={[field.fieldKey, 'to_unit']}
                                 name={[field.name, 'to_unit']}
                                 label={
                                   index === 0
                                     ? t(
-                                        'Sales.Product_and_services.Form.Default_unit'
+                                        'Sales.Product_and_services.Form.Default_unit',
                                       )
                                     : ''
                                 }
@@ -507,7 +508,7 @@ const EditUnitConversion: React.FC<IProps> = (props) => {
                                 <Select
                                   disabled
                                   // labelInValue
-                                  showarrow={false}
+                                  showArrow={false}
                                 >
                                   {/* <Option Defau>{default1.label}</Option> */}
                                 </Select>
@@ -520,13 +521,12 @@ const EditUnitConversion: React.FC<IProps> = (props) => {
                               <Form.Item
                                 {...field}
                                 validateTrigger={['onChange', 'onBlur']}
-                                fieldKey={[field.fieldKey, 'multiplier']}
                                 name={[field.name, 'multiplier']}
                                 label={
                                   index === 0 ? (
                                     <span>
                                       {t(
-                                        'Sales.Product_and_services.Form.Multiplier'
+                                        'Sales.Product_and_services.Form.Multiplier',
                                       )}
                                       {/* <span className="star">*</span> */}
                                     </span>
@@ -551,12 +551,11 @@ const EditUnitConversion: React.FC<IProps> = (props) => {
                                 {...field}
                                 validateTrigger={['onChange', 'onBlur']}
                                 name={[field.name, 'from_unit']}
-                                fieldKey={[field.fieldKey, 'from_unit']}
                                 label={
                                   index === 0 ? (
                                     <span>
                                       {t(
-                                        'Sales.Product_and_services.Form.From_unit'
+                                        'Sales.Product_and_services.Form.From_unit',
                                       )}
                                     </span>
                                   ) : (
@@ -573,7 +572,7 @@ const EditUnitConversion: React.FC<IProps> = (props) => {
                               >
                                 <Select
                                   labelInValue
-                                  //  showarrow={false}
+                                  //  showArrow={false}
 
                                   onChange={(value: any) => {
                                     onChangeFromUnit(value, index);
@@ -585,8 +584,8 @@ const EditUnitConversion: React.FC<IProps> = (props) => {
                                         item?.unit?.id !==
                                         props?.record?.product_units.filter(
                                           (item: any) =>
-                                            item?.base_unit === true
-                                        )?.[0]?.unit?.id
+                                            item?.base_unit === true,
+                                        )?.[0]?.unit?.id,
                                     )
                                     ?.map((item: any) => (
                                       <Select.Option
@@ -620,12 +619,12 @@ const EditUnitConversion: React.FC<IProps> = (props) => {
                               {
                                 from_unit: undefined,
                                 to_unit: props?.record?.product_units.filter(
-                                  (item: any) => item?.base_unit === true
+                                  (item: any) => item?.base_unit === true,
                                 )?.[0]?.unit?.name,
                                 base_multiplier: undefined,
                                 multiplier: 1,
                               },
-                              fields.length
+                              fields.length,
                             )
                           }
                           // block

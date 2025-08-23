@@ -40,7 +40,7 @@ export default function EditCompanyInfo(props) {
               url: `${props.data?.logo}`,
             },
           ]
-        : []
+        : [],
     );
 
     form.setFieldsValue({
@@ -66,14 +66,13 @@ export default function EditCompanyInfo(props) {
     });
   };
 
-  const addCompanyInfo = async (value) =>{
-    console.log("value of form", value);
-    
+  const addCompanyInfo = async (value) => {
+    console.log('value of form', value);
+
     await axiosInstance.post(`/company/company_info/`, value, { timeout: 0 });
-  }
+  };
 
   const { mutate: mutateAddCompanyInfo, reset } = useMutation(addCompanyInfo, {
-    
     onSuccess: (values) => {
       addMessage(values?.data?.fa_name);
       queryClient.invalidateQueries('/company/company_info/');
@@ -90,14 +89,14 @@ export default function EditCompanyInfo(props) {
     },
   });
 
-  const editCompanyInfo = async (value) =>{
-    console.log("value of form", value);
-    
+  const editCompanyInfo = async (value) => {
+    console.log('value of form', value);
+
     await axiosInstance.patch('/company/company_info/1/', value, {
       processData: false,
       timeout: 0,
     });
-  }
+  };
 
   const { mutate: mutateEditCompany, reset: editReset } = useMutation(
     editCompanyInfo,
@@ -116,7 +115,7 @@ export default function EditCompanyInfo(props) {
         manageErrors(error);
         message.error(error?.response?.data?.message);
       },
-    }
+    },
   );
 
   const cancel = () => {
@@ -127,8 +126,8 @@ export default function EditCompanyInfo(props) {
 
   if (props.status === 'loading') {
     return (
-      <Row justify="space-around">
-        <Col span={23} className="product_table_skeleton banner">
+      <Row justify='space-around'>
+        <Col span={23} className='product_table_skeleton banner'>
           <Skeleton
             loading={true}
             paragraph={{ rows: 7 }}

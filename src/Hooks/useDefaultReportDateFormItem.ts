@@ -1,13 +1,12 @@
-import { Form } from "antd";
-import { useEffect, useMemo } from "react";
-import { useGetCalender, useGetRunningPeriod } from ".";
-import moment from "moment";
-import dayjs from "dayjs";
-import { changeGToJ, utcDate } from "../Functions/utcDate";
-import { defaultStartPeriodDate } from "../constants";
+import { Form } from 'antd';
+import { useEffect, useMemo } from 'react';
+import { useGetCalender, useGetRunningPeriod } from '.';
+import moment from 'moment';
+import dayjs from 'dayjs';
+import { changeGToJ, utcDate } from '../Functions/utcDate';
+import { defaultStartPeriodDate } from '../constants';
 
-
-const dateFormat = "YYYY-MM-DD HH:mm";
+const dateFormat = 'YYYY-MM-DD HH:mm';
 const jalaliType: { jalali: boolean } = {
   //@ts-ignore
   jalali: true,
@@ -27,7 +26,7 @@ export default function useDefaultReportDateFormItem() {
 
   useEffect(() => {
     if (curStartDate) {
-      if (calendarCode === "gregory") {
+      if (calendarCode === 'gregory') {
         form.setFieldsValue({
           dateTime: [moment(curStartDate, dateFormat), utcDate()],
         });
@@ -40,13 +39,13 @@ export default function useDefaultReportDateFormItem() {
             dayjs(
               changeGToJ(utcDate().format(dateFormat), dateFormat),
               //@ts-ignore
-              jalaliType
+              jalaliType,
             ),
           ],
         });
       }
     } else if (failureCount > 0) {
-      if (calendarCode === "gregory") {
+      if (calendarCode === 'gregory') {
         form.setFieldsValue({
           dateTime: [moment(defaultStartPeriodDate, dateFormat), utcDate()],
         });
@@ -59,7 +58,7 @@ export default function useDefaultReportDateFormItem() {
             dayjs(
               changeGToJ(utcDate().format(dateFormat), dateFormat),
               //@ts-ignore
-              jalaliType
+              jalaliType,
             ),
           ],
         });
@@ -75,7 +74,7 @@ export default function useDefaultReportDateFormItem() {
 
   const defaultDate = useMemo(
     () =>
-      calendarCode === "gregory"
+      calendarCode === 'gregory'
         ? curStartDate && [moment(curStartDate, dateFormat), utcDate()]
         : curStartDate && [
             //@ts-ignore
@@ -84,10 +83,10 @@ export default function useDefaultReportDateFormItem() {
             dayjs(
               changeGToJ(utcDate().format(dateFormat), dateFormat),
               //@ts-ignore
-              jalaliType
+              jalaliType,
             ),
           ],
-    [calendarCode, curStartDate]
+    [calendarCode, curStartDate],
   );
 
   return { defaultDate, form, dateFormat, calendarCode };

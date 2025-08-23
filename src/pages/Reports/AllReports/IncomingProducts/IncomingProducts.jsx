@@ -1,6 +1,6 @@
-import React from "react";
-import IncomingProductsTable from "./IncomingProductsTable";
-import ReportBody from "../../ReportBody";
+import React from 'react';
+import IncomingProductsTable from './IncomingProductsTable';
+import ReportBody from '../../ReportBody';
 
 const IncomingProducts = (props) => {
   return (

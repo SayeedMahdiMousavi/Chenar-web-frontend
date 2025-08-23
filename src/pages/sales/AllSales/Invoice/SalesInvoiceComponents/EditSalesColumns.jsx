@@ -1,22 +1,22 @@
-import React, { useCallback } from "react";
-import { Form, Select, InputNumber, Input, Modal } from "antd";
-import axiosInstance from "../../../../ApiBaseUrl";
+import React, { useCallback } from 'react';
+import { Form, Select, InputNumber, Input, Modal } from 'antd';
+import axiosInstance from '../../../../ApiBaseUrl';
 
-import { DatePickerFormItem } from "../../../../SelfComponents/JalaliAntdComponents/DatePickerFormItem";
-import { useTranslation } from "react-i18next";
-import { InfiniteScrollSelectFormItem } from "../../../../../components/antd";
-import { manageNetworkError } from "../../../../../Functions/manageNetworkError";
-import { ActionMessage } from "../../../../SelfComponents/TranslateComponents/ActionMessage";
-import { math, print } from "../../../../../Functions/math";
-import ShowDate from "../../../../SelfComponents/JalaliAntdComponents/ShowDate";
+import { DatePickerFormItem } from '../../../../SelfComponents/JalaliAntdComponents/DatePickerFormItem';
+import { useTranslation } from 'react-i18next';
+import { InfiniteScrollSelectFormItem } from '../../../../../components/antd';
+import { manageNetworkError } from '../../../../../Functions/manageNetworkError';
+import { ActionMessage } from '../../../../SelfComponents/TranslateComponents/ActionMessage';
+import { math, print } from '../../../../../Functions/math';
+import ShowDate from '../../../../SelfComponents/JalaliAntdComponents/ShowDate';
 
 const FormItem = Form.Item;
 const { Option } = Select;
 const fields =
-  "id,name,product_units,unit_conversion,price.unit,price.sales_rate,price.perches_rate,product_barcode.unit,product_barcode.barcode,expiration_date,product_statistic.available,product_statistic.warehouse";
-const baseUrl = "/product/items/";
+  'id,name,product_units,unit_conversion,price.unit,price.sales_rate,price.perches_rate,product_barcode.unit,product_barcode.barcode,expiration_date,product_statistic.available,product_statistic.warehouse';
+const baseUrl = '/product/items/';
 const endUrl =
-  "status=active&expand=product_units,product_units.unit,unit_conversion,unit_conversion.unit,price,price.unit,product_barcode,product_barcode.unit,expiration_date";
+  'status=active&expand=product_units,product_units.unit,unit_conversion,unit_conversion.unit,price,price.unit,product_barcode,product_barcode.unit,expiration_date';
 
 const EditableCell = ({
   editing,
@@ -59,11 +59,11 @@ const EditableCell = ({
           });
           setUnits(productUnits);
           const purUnit = newProduct?.product_units?.find((item) =>
-            invoiceType === "sales" ||
-            invoiceType === "sales_rej" ||
-            invoiceType === "quotation"
+            invoiceType === 'sales' ||
+            invoiceType === 'sales_rej' ||
+            invoiceType === 'quotation'
               ? item?.default_sal === true
-              : item?.default_pur === true
+              : item?.default_pur === true,
           );
           const newPrice = handleGetProductPrice(newProduct, purUnit?.unit?.id);
           form.setFieldsValue({
@@ -111,7 +111,7 @@ const EditableCell = ({
       setProductItem,
       setLoading,
       setUnits,
-    ]
+    ],
   );
 
   const handleChangeProductId = useCallback(
@@ -128,11 +128,11 @@ const EditableCell = ({
           });
           setUnits(productUnits);
           const purUnit = newProduct?.product_units?.find((item) =>
-            invoiceType === "sales" ||
-            invoiceType === "sales_rej" ||
-            invoiceType === "quotation"
+            invoiceType === 'sales' ||
+            invoiceType === 'sales_rej' ||
+            invoiceType === 'quotation'
               ? item?.default_sal === true
-              : item?.default_pur === true
+              : item?.default_pur === true,
           );
           const newPrice = handleGetProductPrice(newProduct, purUnit?.unit?.id);
           form.setFieldsValue({
@@ -181,7 +181,7 @@ const EditableCell = ({
       setLoading,
       setUnits,
       setProductItem,
-    ]
+    ],
   );
 
   const onChangeUnits = (value) => {
@@ -203,24 +203,26 @@ const EditableCell = ({
   const onBlurPrice = () => {
     const formData = form.getFieldsValue();
     const productPrice = record?.price?.find(
-      (item) => item?.unit?.id === formData?.unit?.value
+      (item) => item?.unit?.id === formData?.unit?.value,
     );
 
     if (
-      invoiceType === "sales" ||
-      invoiceType === "sales_rej" ||
-      invoiceType === "quotation"
+      invoiceType === 'sales' ||
+      invoiceType === 'sales_rej' ||
+      invoiceType === 'quotation'
     ) {
-      const currencyRate = globalForm.getFieldValue("currencyRate");
+      const currencyRate = globalForm.getFieldValue('currencyRate');
       const purchasePrice = print(
-        math.evaluate(`${productPrice?.perches_rate ?? 0}/${currencyRate ?? 1}`)
+        math.evaluate(
+          `${productPrice?.perches_rate ?? 0}/${currencyRate ?? 1}`,
+        ),
       );
       if (parseFloat(formData?.each_price) < parseFloat(purchasePrice)) {
         Modal.warning({
-          bodyStyle: { direction: t("Dir") },
+          bodyStyle: { direction: t('Dir') },
           content: (
             <ActionMessage
-              message="Sales.All_sales.Invoice.error_message_when_sales_is_less_than_purchase"
+              message='Sales.All_sales.Invoice.error_message_when_sales_is_less_than_purchase'
               name={formData?.product?.label}
             />
           ),
@@ -254,54 +256,54 @@ const EditableCell = ({
     return parseFloat(value) > 20
       ? 20
       : parseFloat(value) < 0
-      ? 0
-      : numberInputReg1.test(value)
-      ? value
-      : numberInputReg.test(value)
-      ? 0
-      : value;
+        ? 0
+        : numberInputReg1.test(value)
+          ? value
+          : numberInputReg.test(value)
+            ? 0
+            : value;
   };
 
   const priceFormat = (value) => {
     return parseFloat(value) > 0
       ? value
       : parseFloat(value) <= 0
-      ? 0.0000001
-      : numberInputReg.test(value)
-      ? 0
-      : value;
+        ? 0.0000001
+        : numberInputReg.test(value)
+          ? 0
+          : value;
   };
 
   const getInput = () => {
     switch (dataIndex) {
-      case "id":
+      case 'id':
         return (
           <InfiniteScrollSelectFormItem
             name={dataIndex}
             style={styles.margin}
-            fields="name,id"
+            fields='name,id'
             baseUrl={baseUrl}
             onChange={handleChangeProductId}
           />
         );
-      case "product":
+      case 'product':
         return (
           <InfiniteScrollSelectFormItem
             name={dataIndex}
             rules={[
               {
                 required: true,
-                message: t("Sales.All_sales.Invoice.Product_name_required"),
+                message: t('Sales.All_sales.Invoice.Product_name_required'),
               },
             ]}
             style={styles.margin}
-            fields="name,id"
+            fields='name,id'
             baseUrl={baseUrl}
             onChange={handleChangeProductName}
             dropdownMatchSelectWidth={false}
           />
         );
-      case "unit":
+      case 'unit':
         return (
           <FormItem name={dataIndex} style={styles.margin}>
             <Select
@@ -317,8 +319,8 @@ const EditableCell = ({
             </Select>
           </FormItem>
         );
-      case "expirationDate":
-        return invoiceType === "sales" ? (
+      case 'expirationDate':
+        return invoiceType === 'sales' ? (
           <FormItem
             style={styles.margin}
             shouldUpdate={(prevValues, curValues) =>
@@ -328,8 +330,8 @@ const EditableCell = ({
             }
           >
             {({ getFieldValue }) => {
-              const warehouse = getFieldValue("warehouse");
-              const productStatistic = getFieldValue("productStatistic");
+              const warehouse = getFieldValue('warehouse');
+              const productStatistic = getFieldValue('productStatistic');
               const warehouseId = warehouse?.value
                 ? warehouse?.value
                 : warehouse;
@@ -341,7 +343,7 @@ const EditableCell = ({
                       ?.filter(
                         (item) =>
                           Boolean(item?.expire_date) &&
-                          warehouseId === item?.warehouse
+                          warehouseId === item?.warehouse,
                       )
                       ?.map((item) => (
                         <Option
@@ -364,24 +366,24 @@ const EditableCell = ({
           <DatePickerFormItem
             style={styles.margin}
             name={dataIndex}
-            label=""
+            label=''
             rules={[]}
-            format=""
+            format=''
             onChange={onChangeExpireDate}
           />
         );
-      case "warehouse":
+      case 'warehouse':
         return (
           <InfiniteScrollSelectFormItem
             dropdownMatchSelectWidth={false}
-            name="warehouse"
+            name='warehouse'
             onChange={onChangeWarehouse}
             style={styles.margin}
-            fields="name,id"
-            baseUrl="/inventory/warehouse/"
+            fields='name,id'
+            baseUrl='/inventory/warehouse/'
           />
         );
-      case "qty":
+      case 'qty':
         return (
           <FormItem
             style={styles.margin}
@@ -389,39 +391,39 @@ const EditableCell = ({
             rules={[
               {
                 required: true,
-                message: t("Sales.Product_and_services.Form.Quantity_required"),
+                message: t('Sales.Product_and_services.Form.Quantity_required'),
               },
             ]}
           >
             <InputNumber
-              className="num"
+              className='num'
               min={0}
               // precision={3}
               onFocus={handleFocus}
-              type="number"
-              inputMode="numeric"
+              type='number'
+              inputMode='numeric'
               onPressEnter={onSave}
             />
           </FormItem>
         );
-      case "discountPercent":
+      case 'discountPercent':
         return (
           <FormItem style={styles.margin} name={dataIndex}>
             <InputNumber
-              className="num"
+              className='num'
               min={0}
               max={20}
               // precision={3}
               onFocus={handleFocus}
               formatter={discountFormat}
               parser={discountFormat}
-              type="number"
-              inputMode="numeric"
+              type='number'
+              inputMode='numeric'
               onPressEnter={onSave}
             />
           </FormItem>
         );
-      case "each_price":
+      case 'each_price':
         return (
           <FormItem
             style={styles.margin}
@@ -429,23 +431,23 @@ const EditableCell = ({
             rules={[
               {
                 required: true,
-                message: t("Sales.Product_and_services.Form.Price_required"),
+                message: t('Sales.Product_and_services.Form.Price_required'),
               },
             ]}
           >
             <InputNumber
-              className="num"
+              className='num'
               formatter={priceFormat}
               parser={priceFormat}
-              type="number"
-              inputMode="numeric"
+              type='number'
+              inputMode='numeric'
               onPressEnter={onPressEnterPrice}
               onBlur={onBlurPrice}
               onFocus={handleFocus}
             />
           </FormItem>
         );
-      case "description":
+      case 'description':
         return (
           <FormItem name={dataIndex} style={styles.margin}>
             <Input onPressEnter={onSave} />
@@ -463,6 +465,6 @@ const EditableCell = ({
 };
 const styles = {
   margin: { marginBottom: 0 },
-  spin: { margin: "10px 20px" },
+  spin: { margin: '10px 20px' },
 };
 export default EditableCell;

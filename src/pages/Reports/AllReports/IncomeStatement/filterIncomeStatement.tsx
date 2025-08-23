@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   Checkbox,
   Row,
@@ -13,9 +13,9 @@ import {
   Input,
   Modal,
   DatePicker,
-} from "antd";
-import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+} from 'antd';
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const { RangePicker } = DatePicker;
 const formItemLayout = {
@@ -41,11 +41,11 @@ const FiltersIncomeStatement: React.FC<IProps> = (props) => {
   //     setItems(props.customers);
   //   }, [props.customers]);
   const onFinish = async (fieldsValue: any) => {
-    const rangeValue = fieldsValue["range-picker"];
+    const rangeValue = fieldsValue['range-picker'];
     //   console.log("rangeValue" , rangeValue?.[0]?.format("YYYY-MM-DD"))
     const values = {
-      startDate: rangeValue?.[0]?.format("YYYY-MM-DD"),
-      endDate: rangeValue?.[1]?.format("YYYY-MM-DD"),
+      startDate: rangeValue?.[0]?.format('YYYY-MM-DD'),
+      endDate: rangeValue?.[1]?.format('YYYY-MM-DD'),
     };
     props?.sentFilterDate(values);
     // const values = {
@@ -66,14 +66,14 @@ const FiltersIncomeStatement: React.FC<IProps> = (props) => {
   return (
     <Form
       {...formItemLayout}
-      layout="vertical"
+      layout='vertical'
       onFinish={onFinish}
       form={form}
       initialValues={{
-        ["date"]: "all dates",
+        ['date']: 'all dates',
       }}
-      className="payment_table_filter"
-      style={{ marginBottom: "1rem", borderRadius: "10px", border: "none" }}
+      className='payment_table_filter'
+      style={{ marginBottom: '1rem', borderRadius: '10px', border: 'none' }}
     >
       <Row gutter={[0, 11]}>
         {/* <Col span={22} offset={1}>
@@ -126,18 +126,18 @@ const FiltersIncomeStatement: React.FC<IProps> = (props) => {
         </Col> */}
         <Col span={22} offset={1}>
           <Form.Item
-            name="range-picker"
+            name='range-picker'
             label={
-              <Row className="num" style={{ height: "25px" }}>
-                <Col span={13}>{t("Expenses.Table.Start")}</Col>
-                <Col span={11}>{t("Expenses.Table.End")}</Col>
+              <Row className='num' style={{ height: '25px' }}>
+                <Col span={13}>{t('Expenses.Table.Start')}</Col>
+                <Col span={11}>{t('Expenses.Table.End')}</Col>
               </Row>
             }
             // style={styles.margin}
           >
             <RangePicker
-              popupClassName="expenses_rangePicker"
-              className="num"
+              popupClassName='expenses_rangePicker'
+              className='num'
             />
           </Form.Item>
         </Col>
@@ -146,8 +146,8 @@ const FiltersIncomeStatement: React.FC<IProps> = (props) => {
         <Col span={24}>
           <Form.Item style={styles.margin}>
             <Row
-              className="num unit__cancel"
-              style={{ display: "flex", justifyContent: "space-between" }}
+              className='num unit__cancel'
+              style={{ display: 'flex', justifyContent: 'space-between' }}
             >
               <Col
                 // xl={{ span: 6, offset: 1 }}
@@ -156,8 +156,8 @@ const FiltersIncomeStatement: React.FC<IProps> = (props) => {
                 // xs={{ span: 12 }}
                 md={12}
               >
-                <Button htmlType="reset" shape="round" onClick={onReset}>
-                  {t("Form.Reset")}
+                <Button htmlType='reset' shape='round' onClick={onReset}>
+                  {t('Form.Reset')}
                 </Button>
               </Col>
               <Col
@@ -167,13 +167,13 @@ const FiltersIncomeStatement: React.FC<IProps> = (props) => {
                 // xs={{ span: 12 }}
                 md={12}
                 style={{
-                  justifyContent: "end",
-                  display: "flex",
-                  paddingInlineEnd: "10px",
+                  justifyContent: 'end',
+                  display: 'flex',
+                  paddingInlineEnd: '10px',
                 }}
               >
-                <Button type="primary" htmlType="submit" shape="round">
-                  {t("Form.Apply")}
+                <Button type='primary' htmlType='submit' shape='round'>
+                  {t('Form.Apply')}
                 </Button>
               </Col>
             </Row>
@@ -184,7 +184,7 @@ const FiltersIncomeStatement: React.FC<IProps> = (props) => {
   );
 };
 const styles = {
-  margin: { marginBottom: "0rem" },
+  margin: { marginBottom: '0rem' },
 };
 // const mapStateToProps = (state:any) => ({
 //   rtl: state.direction.rtl,

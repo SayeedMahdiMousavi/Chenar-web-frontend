@@ -158,7 +158,7 @@ DebitAndCreditFilters = memo(
       return false;
     }
     return true;
-  }
+  },
 );
 
 export default DebitAndCreditFilters;

@@ -23,7 +23,7 @@ import { debounce } from 'throttle-debounce';
 import { CancelButton, SaveButton } from '../../../components';
 const getUnits = async () => {
   const { data } = await axiosInstance.get(
-    `/product/unit/?page_size=1000&status=active&ordering=-id`
+    `/product/unit/?page_size=1000&status=active&ordering=-id`,
   );
   return data;
 };
@@ -60,11 +60,11 @@ export default function AssignNewUnitToProduct(props: IProps) {
   };
   const showModal = () => {
     const baseUnit = props?.record?.price?.find((item: any) =>
-      item?.unit_pro_relation?.includes('base_unit')
+      item?.unit_pro_relation?.includes('base_unit'),
     );
     if (!baseUnit) {
       message.error(
-        t('Sales.Product_and_services.Form.Vip_base_unit_price_message')
+        t('Sales.Product_and_services.Form.Vip_base_unit_price_message'),
       );
     } else {
       props.setVisible(false);
@@ -72,14 +72,14 @@ export default function AssignNewUnitToProduct(props: IProps) {
         props?.record?.product_units?.map((item: any) => ({
           label: item?.unit?.name,
           value: item?.unit.id,
-        }))
+        })),
       );
       setDisabledUnits(
-        props?.record?.product_units?.map((item: any) => item?.unit?.name)
+        props?.record?.product_units?.map((item: any) => item?.unit?.name),
       );
 
       const baseUnit = props?.record?.product_units.find(
-        (item: any) => item?.base_unit === true
+        (item: any) => item?.base_unit === true,
       );
       form.setFieldsValue({
         product: props?.record?.name,
@@ -99,7 +99,7 @@ export default function AssignNewUnitToProduct(props: IProps) {
           <ActionMessage
             name={t('Sales.Product_and_services.Form.Units').toLowerCase()}
             message='Message.Update'
-          />
+          />,
         );
       })
       .catch((error) => {
@@ -145,7 +145,7 @@ export default function AssignNewUnitToProduct(props: IProps) {
   const debounceFunc = debounce(500, async (value: string) => {
     if (value && value !== null) {
       const baseUnit = props?.record?.price.find((item: any) =>
-        item?.unit_pro_relation?.includes('base_unit')
+        item?.unit_pro_relation?.includes('base_unit'),
       );
       //
       form?.setFieldsValue({
@@ -229,7 +229,7 @@ export default function AssignNewUnitToProduct(props: IProps) {
                   {
                     required: true,
                     message: t(
-                      'Sales.Product_and_services.Price_recording.Unit_required'
+                      'Sales.Product_and_services.Price_recording.Unit_required',
                     ),
                   },
                 ]}
@@ -312,7 +312,7 @@ export default function AssignNewUnitToProduct(props: IProps) {
                     label={t('Sales.Product_and_services.Form.Default_unit')}
                     style={styles.formItem}
                   >
-                    <Select disabled labelInValue showarrow={false}>
+                    <Select disabled labelInValue showArrow={false}>
                       {props?.record?.product_units?.map((item: any) => (
                         <Select.Option
                           value={item?.unit?.id}
@@ -437,7 +437,7 @@ export default function AssignNewUnitToProduct(props: IProps) {
                       {
                         required: true,
                         message: t(
-                          'Sales.Product_and_services.Price_recording.Sales_required'
+                          'Sales.Product_and_services.Price_recording.Sales_required',
                         ),
                       },
                     ]}

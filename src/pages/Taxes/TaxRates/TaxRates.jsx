@@ -1,13 +1,13 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { Row, Col, Layout } from "antd";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { RightOutlined, LeftOutlined } from "@ant-design/icons";
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { Row, Col, Layout } from 'antd';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { RightOutlined, LeftOutlined } from '@ant-design/icons';
 // import { useMediaQuery } from "../MediaQurey";
-import TaxRatesTable from "./TaxRatesTable";
-import AddTaxRates from "./AddTaxRates";
-import i18n from "../../../i18n";
+import TaxRatesTable from './TaxRatesTable';
+import AddTaxRates from './AddTaxRates';
+import i18n from '../../../i18n';
 const { Content } = Layout;
 const TaxRates = (props) => {
   const { t } = useTranslation();
@@ -17,34 +17,34 @@ const TaxRates = (props) => {
 
   return (
     <Layout>
-      <Content className={ononline ? "page-body" : "page-body-offline"}>
-        <Row justify="space-around">
-          <Col xl={23} md={23} xs={23} className="banner">
-            <Row className="categore-header" align="middle" justify="start">
+      <Content className={ononline ? 'page-body' : 'page-body-offline'}>
+        <Row justify='space-around'>
+          <Col xl={23} md={23} xs={23} className='banner'>
+            <Row className='categore-header' align='middle' justify='start'>
               <Col
                 md={{ span: 10 }}
                 sm={{ span: 11 }}
                 xs={{ span: 14 }}
-                className="Sales__content-3-body"
+                className='Sales__content-3-body'
               >
                 <Row>
                   <Col span={24}>
                     <Row>
                       <Col span={23} offset={1}>
-                        <span className="header">
-                          {t("Taxes.Tax_rates.1")}
+                        <span className='header'>
+                          {t('Taxes.Tax_rates.1')}
                           <br />
                         </span>
                       </Col>
                       <Col span={24}>
-                        <Link to="/taxes" className="category__product">
-                          {i18n.language === "en" ? (
+                        <Link to='/taxes' className='category__product'>
+                          {i18n.language === 'en' ? (
                             <LeftOutlined />
                           ) : (
                             <RightOutlined />
                           )}
 
-                          {t("Taxes.Tax_rates.Back_to_sales_tax_centre")}
+                          {t('Taxes.Tax_rates.Back_to_sales_tax_centre')}
                         </Link>
                       </Col>
                     </Row>

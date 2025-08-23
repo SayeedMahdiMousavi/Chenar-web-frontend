@@ -1,19 +1,19 @@
-import React from "react";
-import Navbar from "../Expenses/Navbar";
-import { Title } from "../SelfComponents/Title";
-import { Row, Col, Layout, Menu } from "antd";
-import { Link } from "react-router-dom";
-import { useMediaQuery } from "../MediaQurey";
-import AddTransaction from "./AddTransaction";
-import TransactionsTable from "./TransactionsTable";
-import { useTranslation } from "react-i18next";
-import { PageBackIcon, PageMoreButton } from "../../components";
+import React from 'react';
+import Navbar from '../Expenses/Navbar';
+import { Title } from '../SelfComponents/Title';
+import { Row, Col, Layout, Menu } from 'antd';
+import { Link } from 'react-router-dom';
+import { useMediaQuery } from '../MediaQurey';
+import AddTransaction from './AddTransaction';
+import TransactionsTable from './TransactionsTable';
+import { useTranslation } from 'react-i18next';
+import { PageBackIcon, PageMoreButton } from '../../components';
 import {
   EXPENSE_TYPE_M,
   INCOME_TYPE_M,
   WITHDRAW_TYPE_M,
-} from "../../constants/permissions";
-import { checkPermissionsModel } from "../../Functions";
+} from '../../constants/permissions';
+import { checkPermissionsModel } from '../../Functions';
 // import ImportProduct from "./ImportProductAndService";
 
 interface IProps {
@@ -27,27 +27,27 @@ interface IProps {
 }
 const Transactions: React.FC<IProps> = (props) => {
   const { t } = useTranslation();
-  const isMiniTablet = useMediaQuery("(max-width:485px)");
-  const isMobile = useMediaQuery("(max-width:455px)");
-  const isMiniMobile = useMediaQuery("(max-width:390px)");
+  const isMiniTablet = useMediaQuery('(max-width:485px)');
+  const isMobile = useMediaQuery('(max-width:455px)');
+  const isMiniMobile = useMediaQuery('(max-width:390px)');
   const menu = (
     <Menu>
-      {props.place === "recordExpense" ? (
-        <Menu.Item key="4">
-          <Link to="/expense-definition">
-            {t("Expenses.Expenses_definition")}
+      {props.place === 'recordExpense' ? (
+        <Menu.Item key='4'>
+          <Link to='/expense-definition'>
+            {t('Expenses.Expenses_definition')}
           </Link>
         </Menu.Item>
-      ) : props.place === "recordIncome" ? (
-        <Menu.Item key="4">
-          <Link to="/income-definition">
-            {t("Expenses.Income.Income_type")}
+      ) : props.place === 'recordIncome' ? (
+        <Menu.Item key='4'>
+          <Link to='/income-definition'>
+            {t('Expenses.Income.Income_type')}
           </Link>
         </Menu.Item>
       ) : (
-        <Menu.Item key="4">
-          <Link to="/withdraw-information">
-            {t("Expenses.With_draw.With_definition")}
+        <Menu.Item key='4'>
+          <Link to='/withdraw-information'>
+            {t('Expenses.With_draw.With_definition')}
           </Link>
         </Menu.Item>
       )}
@@ -56,25 +56,25 @@ const Transactions: React.FC<IProps> = (props) => {
 
   return (
     <Layout>
-      {(props.place === "recordExpense" ||
-        props.place === "recordIncome" ||
-        props.place === "recordWithdraw") && <Navbar />}
+      {(props.place === 'recordExpense' ||
+        props.place === 'recordIncome' ||
+        props.place === 'recordWithdraw') && <Navbar />}
 
-      <Row className="categore-header" align="middle" justify="start">
+      <Row className='categore-header' align='middle' justify='start'>
         <Col
           xl={{ span: 7 }}
           md={{ span: 8 }}
           sm={{ span: 10 }}
           xs={{ span: 13 }}
-          className="Sales__content-3-body"
+          className='Sales__content-3-body'
         >
           <Row>
             <Col span={24}>
               <Title value={props.title} model={props.model} />
             </Col>
-            {props.place === "recordExpense" ||
-            props.place === "recordIncome" ||
-            props.place === "recordWithdraw" ? null : (
+            {props.place === 'recordExpense' ||
+            props.place === 'recordIncome' ||
+            props.place === 'recordWithdraw' ? null : (
               <Col
                 xl={{ span: 12, offset: 0 }}
                 lg={{ span: 17, offset: 0 }}
@@ -97,22 +97,22 @@ const Transactions: React.FC<IProps> = (props) => {
             isMiniMobile
               ? { span: 8, offset: 3 }
               : isMiniTablet
-              ? { span: 7, offset: 4 }
-              : { span: 6, offset: 5 }
+                ? { span: 7, offset: 4 }
+                : { span: 6, offset: 5 }
           }
         >
-          <Row justify={isMobile ? "center" : "space-around"} gutter={[0, 5]}>
+          <Row justify={isMobile ? 'center' : 'space-around'} gutter={[0, 5]}>
             <Col xl={10} md={10} sm={9} xs={23}>
-              {(props.place === "recordExpense" ||
-                props.place === "recordIncome" ||
-                props.place === "recordWithdraw") && (
+              {(props.place === 'recordExpense' ||
+                props.place === 'recordIncome' ||
+                props.place === 'recordWithdraw') && (
                 <PageMoreButton
                   permissions={
-                    props.place === "recordExpense"
+                    props.place === 'recordExpense'
                       ? [EXPENSE_TYPE_M]
-                      : props.place === "recordIncome"
-                      ? [INCOME_TYPE_M]
-                      : [WITHDRAW_TYPE_M]
+                      : props.place === 'recordIncome'
+                        ? [INCOME_TYPE_M]
+                        : [WITHDRAW_TYPE_M]
                   }
                   overlay={menu}
                 />

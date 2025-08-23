@@ -1,11 +1,11 @@
-import React, { Fragment, useCallback, useState } from "react";
-import { useQueryClient } from "react-query";
-import { Menu, Dropdown } from "antd";
-import ActionButton from "../../SelfComponents/ActionButton";
-import { ActivePopconfirm, RemovePopconfirm } from "../../../components";
-import { useActiveItem, useRemoveItem } from "../../../Hooks";
-import { SUPPLIER_M } from "../../../constants/permissions";
-import EditSupplier from "./EditSupplier";
+import React, { Fragment, useCallback, useState } from 'react';
+import { useQueryClient } from 'react-query';
+import { Menu, Dropdown } from 'antd';
+import ActionButton from '../../SelfComponents/ActionButton';
+import { ActivePopconfirm, RemovePopconfirm } from '../../../components';
+import { useActiveItem, useRemoveItem } from '../../../Hooks';
+import { SUPPLIER_M } from '../../../constants/permissions';
+import EditSupplier from './EditSupplier';
 
 function SupplierAction(props) {
   const queryClient = useQueryClient();
@@ -27,7 +27,7 @@ function SupplierAction(props) {
     setVisible,
     recordName: props?.record?.full_name,
     handleUpdateItems: handleUpdateItems,
-    type: "active",
+    type: 'active',
     setActiveVisible,
   });
 
@@ -41,7 +41,7 @@ function SupplierAction(props) {
     setVisible,
     recordName: props?.record?.full_name,
     handleUpdateItems: handleUpdateItems,
-    type: "deactivate",
+    type: 'deactivate',
     setActiveVisible,
   });
 
@@ -82,10 +82,10 @@ function SupplierAction(props) {
   }, [setRemoveVisible]);
 
   const status = props?.record?.status;
-  const attachmentName = props?.record?.attachment?.split("/")?.at(-1);
+  const attachmentName = props?.record?.attachment?.split('/')?.at(-1);
   const action = (
     <Menu>
-      {status === "active" && props?.record?.system_default !== true && (
+      {status === 'active' && props?.record?.system_default !== true && (
         <Fragment>
           <RemovePopconfirm
             itemName={props?.record?.full_name}
@@ -99,11 +99,11 @@ function SupplierAction(props) {
         </Fragment>
       )}
 
-      {status === "active" && (
+      {status === 'active' && (
         <EditSupplier
           record={props?.record}
           attachment={attachmentName}
-          type="table"
+          type='table'
           setVisible={setVisible}
           handleClickEdit={handleClickEdit}
         />
@@ -113,12 +113,12 @@ function SupplierAction(props) {
           {...{
             itemName: props?.record?.full_name,
             visible: activeVisible,
-            loading: status === "active" ? inactiveLoading : activeLoading,
+            loading: status === 'active' ? inactiveLoading : activeLoading,
             onConfirm:
-              status === "active" ? handleInactiveItem : handleActiveItem,
+              status === 'active' ? handleInactiveItem : handleActiveItem,
             onCancel: handleCancel,
             onClick: handleClickInactive,
-            type: status === "active" ? "deactivate" : "active",
+            type: status === 'active' ? 'deactivate' : 'active',
             permission: SUPPLIER_M,
           }}
         />
@@ -143,7 +143,7 @@ function SupplierAction(props) {
   return (
     <Dropdown
       overlay={action}
-      trigger={["click"]}
+      trigger={['click']}
       onOpenChange={handleVisibleChange}
       open={visible}
       disabled={props.hasSelected}

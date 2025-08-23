@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { Form, Select } from "antd";
-import { debounce } from "throttle-debounce";
-import { useQuery } from "react-query";
-import axiosInstance from "../../ApiBaseUrl";
-import { useTranslation } from "react-i18next";
-import { CenteredSpin } from "../../SelfComponents/Spin";
+import React, { useState } from 'react';
+import { Form, Select } from 'antd';
+import { debounce } from 'throttle-debounce';
+import { useQuery } from 'react-query';
+import axiosInstance from '../../ApiBaseUrl';
+import { useTranslation } from 'react-i18next';
+import { CenteredSpin } from '../../SelfComponents/Spin';
 
 const getData = async ({ queryKey }: any) => {
   const key = queryKey?.[0];
@@ -15,7 +15,7 @@ const getData = async ({ queryKey }: any) => {
 const getSearchData = async ({ queryKey }: any) => {
   const search = queryKey?.[1];
   const { data } = await axiosInstance.get(
-    `/chart_of_account/?page=1&page_size=10&name__contains=${search}&content_type__model__in=customer,supplier`
+    `/chart_of_account/?page=1&page_size=10&name__contains=${search}&content_type__model__in=customer,supplier`,
   );
   return data;
 };
@@ -26,7 +26,7 @@ interface IProps {
 }
 export const SupplierAndCustomerChart: React.FC<IProps> = (props) => {
   const { t } = useTranslation();
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [customers, setCustomers] = useState<any>([]);
   const [suppliers, setSuppliers] = useState<any>([]);
 
@@ -43,18 +43,18 @@ export const SupplierAndCustomerChart: React.FC<IProps> = (props) => {
   const supplierData = useQuery(`/chart_of_account/LSU-201/child/`, getData);
   const searchAllData = useQuery(
     [`/chart_of_account/supplierCustomerChart/`, search],
-    getSearchData
+    getSearchData,
   );
 
   React.useEffect(() => {
     const customer = searchAllData?.data?.results?.filter((item: any) => {
-      const id = item?.id?.split("-");
-      return id?.[0] === "CUS";
+      const id = item?.id?.split('-');
+      return id?.[0] === 'CUS';
     });
 
     const supplier = searchAllData?.data?.results?.filter((item: any) => {
-      const id = item?.id?.split("-");
-      return id?.[0] === "SUP";
+      const id = item?.id?.split('-');
+      return id?.[0] === 'SUP';
     });
     setCustomers(customer);
     setSuppliers(supplier);
@@ -64,32 +64,32 @@ export const SupplierAndCustomerChart: React.FC<IProps> = (props) => {
   const allSuppliers = search ? suppliers : supplierData?.data?.results;
 
   return (
-    <Form.Item name="accountName" className="margin1">
+    <Form.Item name='accountName' className='margin1'>
       <Select
-        placeholder={t("Banking.Form.Account_name")}
+        placeholder={t('Banking.Form.Account_name')}
         showSearch
         onSearch={onSearch}
         showArrow
         notFoundContent={
           searchAllData?.isLoading || searchAllData?.isFetching ? (
-            <CenteredSpin size="small" style={styles.spin} />
+            <CenteredSpin size='small' style={styles.spin} />
           ) : undefined
         }
         labelInValue
-        optionFilterProp="label"
+        optionFilterProp='label'
         dropdownRender={(menu) => <div>{menu}</div>}
         allowClear={props?.allowClear}
       >
-        <Select.OptGroup label={t("Sales.Customers.1")}>
+        <Select.OptGroup label={t('Sales.Customers.1')}>
           {customerData?.isLoading ? (
             <Select.Option
               disabled={true}
-              key="customerLoader"
-              value="customerLoader"
-              label={<CenteredSpin size="small" />}
+              key='customerLoader'
+              value='customerLoader'
+              label={<CenteredSpin size='small' />}
               style={styles.option}
             >
-              <CenteredSpin size="small" style={styles.optionLoader} />
+              <CenteredSpin size='small' style={styles.optionLoader} />
             </Select.Option>
           ) : (
             allCustomers?.map((item: any) => (
@@ -100,16 +100,16 @@ export const SupplierAndCustomerChart: React.FC<IProps> = (props) => {
           )}
         </Select.OptGroup>
 
-        <Select.OptGroup label={t("Expenses.Suppliers.1")}>
+        <Select.OptGroup label={t('Expenses.Suppliers.1')}>
           {supplierData?.isLoading ? (
             <Select.Option
               disabled={true}
-              key="supplierLoader"
-              value="supplierLoader"
-              label={<CenteredSpin size="small" />}
+              key='supplierLoader'
+              value='supplierLoader'
+              label={<CenteredSpin size='small' />}
               style={styles.option}
             >
-              <CenteredSpin size="small" style={styles.optionLoader} />
+              <CenteredSpin size='small' style={styles.optionLoader} />
             </Select.Option>
           ) : (
             allSuppliers?.map((item: any) => (
@@ -125,7 +125,7 @@ export const SupplierAndCustomerChart: React.FC<IProps> = (props) => {
 };
 
 const styles = {
-  spin: { padding: "7px" },
-  optionLoader: { margin: "0px" },
-  option: { height: "45px" },
+  spin: { padding: '7px' },
+  optionLoader: { margin: '0px' },
+  option: { height: '45px' },
 };

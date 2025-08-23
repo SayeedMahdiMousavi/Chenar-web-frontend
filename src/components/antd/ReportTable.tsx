@@ -4,18 +4,18 @@ import React, {
   ReactNode,
   useMemo,
   useState,
-} from "react";
-import { Col, Row, Table, Space, Typography, Dropdown, Button } from "antd";
-import { SearchInput } from "../../pages/SelfComponents/SearchInput";
-import { useTranslation } from "react-i18next";
+} from 'react';
+import { Col, Row, Table, Space, Typography, Dropdown, Button } from 'antd';
+import { SearchInput } from '../../pages/SelfComponents/SearchInput';
+import { useTranslation } from 'react-i18next';
 //@ts-ignore
-import { useQuery, useQueryClient, QueryFunction } from "react-query";
-import { Key, TablePaginationConfig } from "antd/lib/table/interface";
-import { SearchOutlined, SettingOutlined } from "@ant-design/icons";
-import ReloadButton from "../buttons/ReloadButton";
-import PrintButton from "../../pages/SelfComponents/PrintButton";
-import TableError from "./TableError";
-import { TableLoading } from "..";
+import { useQuery, useQueryClient, QueryFunction } from 'react-query';
+import { Key, TablePaginationConfig } from 'antd/lib/table/interface';
+import { SearchOutlined, SettingOutlined } from '@ant-design/icons';
+import ReloadButton from '../buttons/ReloadButton';
+import PrintButton from '../../pages/SelfComponents/PrintButton';
+import TableError from './TableError';
+import { TableLoading } from '..';
 
 const { Column } = Table;
 const { Text } = Typography;
@@ -38,7 +38,7 @@ interface IProps {
   filters?: any;
   filterNode?: (
     setPage: (value: number) => void,
-    setSelectedRowKeys: (value: Key[]) => void
+    setSelectedRowKeys: (value: Key[]) => void,
   ) => ReactNode;
   settingMenu?: ReactElement<any, string | JSXElementConstructor<any>>;
   summary?: (value: any) => ReactNode;
@@ -65,12 +65,12 @@ export default function ReportTable(props: IProps) {
   const { t } = useTranslation();
   const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([]);
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
-  const [search1, setSearch1] = useState<string | number>("");
+  const [search1, setSearch1] = useState<string | number>('');
   const [settingVisible, setSettingVisible] = useState(false);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState<number>(5);
   const [order, setOrder] = useState(
-    props?.rowKey ? `-${props?.rowKey}` : "-id"
+    props?.rowKey ? `-${props?.rowKey}` : '-id',
   );
 
   const search = props?.search ? props?.search : search1;
@@ -87,7 +87,7 @@ export default function ReportTable(props: IProps) {
     {
       //  suspense: true,
       ...props?.queryConf,
-    }
+    },
   );
 
   const hasMore = Boolean(data?.nextPageNumber);
@@ -98,7 +98,7 @@ export default function ReportTable(props: IProps) {
           props.queryKey,
           { page: page + 1, pageSize, search, order, ...props.filters },
         ],
-        props.handleGetData
+        props.handleGetData,
       );
     }
   }, [
@@ -118,27 +118,27 @@ export default function ReportTable(props: IProps) {
     pagination: any,
     filters: any,
     sorter: any,
-    extra: any
+    extra: any,
   ) => {
     if (sorter?.[0]) {
       const order = sorter?.reduce((sum: string, item: any, index: number) => {
-        if (item.order === "ascend") {
-          return `${sum}${index !== 0 ? "," : ""}${item.field}`;
-        } else if (item.order === "descend") {
-          return `${sum}${index !== 0 ? "," : ""}-${item.field}`;
+        if (item.order === 'ascend') {
+          return `${sum}${index !== 0 ? ',' : ''}${item.field}`;
+        } else if (item.order === 'descend') {
+          return `${sum}${index !== 0 ? ',' : ''}-${item.field}`;
         } else {
           return sum;
         }
-      }, "");
+      }, '');
 
       setOrder(order);
     } else {
-      if (sorter.order === "ascend") {
+      if (sorter.order === 'ascend') {
         setOrder(sorter.field);
-      } else if (sorter.order === "descend") {
+      } else if (sorter.order === 'descend') {
         setOrder(`-${sorter.field}`);
       } else {
-        setOrder(props?.rowKey ? `-${props?.rowKey}` : "-id");
+        setOrder(props?.rowKey ? `-${props?.rowKey}` : '-id');
       }
     }
   };
@@ -154,7 +154,7 @@ export default function ReportTable(props: IProps) {
 
   const pagination: false | TablePaginationConfig | undefined = {
     total: count,
-    pageSizeOptions: ["5", "10", "20", "50"],
+    pageSizeOptions: ['5', '10', '20', '50'],
     onShowSizeChange: paginationChange,
     defaultPageSize: pageSize,
     current: page,
@@ -162,11 +162,11 @@ export default function ReportTable(props: IProps) {
     defaultCurrent: 1,
     onChange: paginationChange,
     showTotal:
-      position === "topRight" || position === "topLeft"
+      position === 'topRight' || position === 'topLeft'
         ? (total: number) =>
-            `${t("Pagination.Total")} ${total} ${t("Pagination.Item")}`
+            `${t('Pagination.Total')} ${total} ${t('Pagination.Item')}`
         : undefined,
-    size: "small",
+    size: 'small',
     showQuickJumper: true,
     showSizeChanger: true,
     responsive: true,
@@ -209,31 +209,30 @@ export default function ReportTable(props: IProps) {
   //table columns
   const tableColumns = props?.columns;
   const columns = useMemo(
-    () => (type: string) =>
-      (
-        <React.Fragment>
-          <Column
-            title={t("Table.Row").toUpperCase()}
-            dataIndex="serial"
-            key="serial"
-            width={type !== "print" ? 80 : 40}
-            className="table-col"
-            align="center"
-            fixed={type !== "print" ? true : false}
-            render={(text, __, index) => (
-              <React.Fragment>
-                {type !== "print"
-                  ? //@ts-ignore
-                    (page - 1) * pageSize + index + 1
-                  : index + 1}
-              </React.Fragment>
-            )}
-          />
+    () => (type: string) => (
+      <React.Fragment>
+        <Column
+          title={t('Table.Row').toUpperCase()}
+          dataIndex='serial'
+          key='serial'
+          width={type !== 'print' ? 80 : 40}
+          className='table-col'
+          align='center'
+          fixed={type !== 'print' ? true : false}
+          render={(text, __, index) => (
+            <React.Fragment>
+              {type !== 'print'
+                ? //@ts-ignore
+                  (page - 1) * pageSize + index + 1
+                : index + 1}
+            </React.Fragment>
+          )}
+        />
 
-          {tableColumns(type, hasSelected)}
-        </React.Fragment>
-      ),
-    [hasSelected, page, pageSize, t, tableColumns]
+        {tableColumns(type, hasSelected)}
+      </React.Fragment>
+    ),
+    [hasSelected, page, pageSize, t, tableColumns],
   );
 
   //   //change page size
@@ -251,7 +250,7 @@ export default function ReportTable(props: IProps) {
   };
 
   const emptyText =
-    status !== "error" ? undefined : (
+    status !== 'error' ? undefined : (
       <TableError error={error} handleRetry={handleRetry} />
     );
 
@@ -264,51 +263,51 @@ export default function ReportTable(props: IProps) {
 
   // return (<div>{props.filterNode && props.filterNode(setPage, setSelectedRowKeys)} dkfj</div>)
   return (
-    <Space direction="vertical" size={5}>
+    <Space direction='vertical' size={5}>
       {props.filterNode && props.filterNode(setPage, setSelectedRowKeys)}
-      {position !== "topRight" && position !== "topLeft" && (
+      {position !== 'topRight' && position !== 'topLeft' && (
         <Text>
-          {t("Pagination.Total")} : {count ?? 0} {t("Pagination.Item")}
+          {t('Pagination.Total')} : {count ?? 0} {t('Pagination.Item')}
         </Text>
       )}
       {/* {console.log(allData)} */}
       <Table
         onChange={onChangeTable}
         loading={tableLoading}
-        size="small"
+        size='small'
         rowSelection={rowSelection}
         rowKey={(record: any) =>
-          props?.place === "detailedBalance"
+          props?.place === 'detailedBalance'
             ? `${record?.account_id} ${record?.amount_currency}`
             : props?.rowKey
-            ? record[props?.rowKey]
-            : record.id
+              ? record[props?.rowKey]
+              : record.id
         }
         pagination={props?.pagination ? pagination : false}
         // pagination={false}
         dataSource={data?.results}
         bordered
         locale={{ emptyText: emptyText }}
-        scroll={{ x: "max-content", scrollToFirstRowOnChange: true }}
+        scroll={{ x: 'max-content', scrollToFirstRowOnChange: true }}
         summary={props?.summary}
         title={() => {
           return (
-            <Row align="middle">
+            <Row align='middle'>
               <Col
                 // xxl={12} xl={15} lg={16} md={15} sm={16}
                 sm={22}
               >
-                <Space align="center" size={13}>
+                <Space align='center' size={13}>
                   {props?.isSearch === false ? null : (
                     <SearchInput
                       setPage={setPage}
                       placeholder={
                         Boolean(props?.placeholder)
                           ? props?.placeholder
-                          : t("Form.Search")
+                          : t('Form.Search')
                       }
                       setSearch={setSearch}
-                      suffix={<SearchOutlined className="search_icon_color" />}
+                      suffix={<SearchOutlined className='search_icon_color' />}
                     />
                   )}
                   {/* <div>{t("Table.Items_per_page")}</div> */}
@@ -343,16 +342,16 @@ export default function ReportTable(props: IProps) {
                 // md={10}
                 sm={2}
                 // xs={6}
-                className="textAlign__end"
+                className='textAlign__end'
               >
-                <Space size={1} align="center">
+                <Space size={1} align='center'>
                   <PrintButton
                     disabled={
                       selectedRowKeys?.length === 0 &&
                       (!props?.selectResult ||
                         props?.selectResult === undefined)
                     }
-                    domColumns={columns("print")}
+                    domColumns={columns('print')}
                     title={props?.title}
                     dataSource={selectedRows}
                     selectResult={props?.selectResult}
@@ -365,14 +364,14 @@ export default function ReportTable(props: IProps) {
                     <Dropdown
                       //@ts-ignore
                       menu={props?.settingMenu}
-                      trigger={["click"]}
+                      trigger={['click']}
                       onOpenChange={handleChangeSettingVisible}
                       open={settingVisible}
                     >
                       <Button
                         icon={<SettingOutlined />}
-                        type="link"
-                        shape="circle"
+                        type='link'
+                        shape='circle'
                         style={styles.settingButton}
                       />
                     </Dropdown>
@@ -383,14 +382,14 @@ export default function ReportTable(props: IProps) {
           );
         }}
       >
-        {columns("originalTable")}
+        {columns('originalTable')}
       </Table>
       {(isFetching || props?.resultFetching) && !tableLoading && (
         <TableLoading
           pagination={
             count > pageSize &&
-            position !== "topRight" &&
-            position !== "topLeft"
+            position !== 'topRight' &&
+            position !== 'topLeft'
           }
         />
       )}
@@ -398,4 +397,4 @@ export default function ReportTable(props: IProps) {
   );
 }
 
-const styles = { settingButton: { width: "26px", minWidth: "25px" } };
+const styles = { settingButton: { width: '26px', minWidth: '25px' } };

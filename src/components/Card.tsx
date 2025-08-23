@@ -1,6 +1,6 @@
-import { Card, CardProps } from "antd";
-import { ReactNode } from "react";
-import React from "react";
+import { Card, CardProps } from 'antd';
+import { ReactNode } from 'react';
+import React from 'react';
 
 interface IProps extends CardProps {
   children: ReactNode;
@@ -27,7 +27,7 @@ interface IStyles {
 
 const styles: IStyles = {
   customCard: {
-    boxShadow: "0px 0px 16px rgba(0,0,0,0.05)",
-    borderRadius: "16px",
+    boxShadow: '0px 0px 16px rgba(0,0,0,0.05)',
+    borderRadius: '16px',
   },
 };

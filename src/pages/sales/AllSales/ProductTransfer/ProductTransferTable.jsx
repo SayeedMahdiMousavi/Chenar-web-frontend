@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import {
   Table,
   Input,
@@ -14,45 +14,45 @@ import {
   Modal,
   Popconfirm,
   Space,
-} from "antd";
-import { useTranslation } from "react-i18next";
-import { HotKeys } from "react-hotkeys";
-import axiosInstance from "../../../ApiBaseUrl";
-import EditableCell from "./ProductTransferComponents/EditProductTransferColumns";
-import { InfoCircleOutlined, SearchOutlined } from "@ant-design/icons";
-import { ActionMessage } from "../../../SelfComponents/TranslateComponents/ActionMessage";
-import { fixedNumber, math, print } from "../../../../Functions/math";
-import { Statistics } from "../../../../components/antd";
-import { BarcodeIcon } from "../../../../icons";
-import { DeleteButton, EditButton } from "../../../../components";
-import { handleFindUnitConversionRate } from "../../../../Functions";
-import ShowDate from "../../../SelfComponents/JalaliAntdComponents/ShowDate";
+} from 'antd';
+import { useTranslation } from 'react-i18next';
+import { HotKeys } from 'react-hotkeys';
+import axiosInstance from '../../../ApiBaseUrl';
+import EditableCell from './ProductTransferComponents/EditProductTransferColumns';
+import { InfoCircleOutlined, SearchOutlined } from '@ant-design/icons';
+import { ActionMessage } from '../../../SelfComponents/TranslateComponents/ActionMessage';
+import { fixedNumber, math, print } from '../../../../Functions/math';
+import { Statistics } from '../../../../components/antd';
+import { BarcodeIcon } from '../../../../icons';
+import { DeleteButton, EditButton } from '../../../../components';
+import { handleFindUnitConversionRate } from '../../../../Functions';
+import ShowDate from '../../../SelfComponents/JalaliAntdComponents/ShowDate';
 
 const { Search } = Input;
 export const plColumns = [];
 const fields =
-  "id,name,product_units,unit_conversion,price.unit,price.sales_rate,price.perches_rate,product_barcode.unit,product_barcode.barcode,expiration_date,product_statistic.available,product_statistic.warehouse";
-const baseUrl = "/product/items/";
+  'id,name,product_units,unit_conversion,price.unit,price.sales_rate,price.perches_rate,product_barcode.unit,product_barcode.barcode,expiration_date,product_statistic.available,product_statistic.warehouse';
+const baseUrl = '/product/items/';
 const endUrl =
-  "status=active&expand=product_units,product_units.unit,unit_conversion,unit_conversion.unit,price,price.unit,product_barcode,product_barcode.unit,expiration_date";
+  'status=active&expand=product_units,product_units.unit,unit_conversion,unit_conversion.unit,price,price.unit,product_barcode,product_barcode.unit,expiration_date';
 
-const dateFormat = "YYYY-MM-DD";
-const datePFormat = "jYYYY/jM/jD";
+const dateFormat = 'YYYY-MM-DD';
+const datePFormat = 'jYYYY/jM/jD';
 const ProductTransferTable = (props) => {
   const [form] = Form.useForm();
   const tableRef = useRef(null);
   const barcodeSearch = useRef(null);
   const [productItem, setProductItem] = useState({});
   const { t } = useTranslation();
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
-  const [searchLocaleData, setSearchLocalData] = useState("");
+  const [searchLocaleData, setSearchLocalData] = useState('');
   const [units, setUnits] = useState([]);
 
   const getPrice = useCallback((record, unitId) => {
     if (record?.price?.find((item) => item?.unit?.id === unitId)?.sales_rate) {
       return parseFloat(
-        record?.price?.find((item) => item?.unit?.id === unitId)?.sales_rate
+        record?.price?.find((item) => item?.unit?.id === unitId)?.sales_rate,
       )?.toFixed(3);
     } else if (
       record?.unit_conversion?.find((item) => item?.from_unit?.id === unitId)
@@ -78,11 +78,11 @@ const ProductTransferTable = (props) => {
     (available, totalAvailable, product, warehouse) => {
       if (available < totalAvailable) {
         Modal.warning({
-          bodyStyle: { direction: t("Dir") },
+          bodyStyle: { direction: t('Dir') },
           title: (
             <ActionMessage
               values={{ product, warehouse }}
-              message={"Sales.All_sales.Invoice.Invoice_no_quantity_message"}
+              message={'Sales.All_sales.Invoice.Invoice_no_quantity_message'}
             />
           ),
         });
@@ -92,52 +92,49 @@ const ProductTransferTable = (props) => {
         return true;
       }
     },
-    [t]
+    [t],
   );
 
   const findProductStatistics = useCallback(
     ({ prevItems, item, unitId, warehouse, expirationDate }) => {
-      
-    
       const unitConversion = handleFindUnitConversionRate(
         // item?.unit_conversion,
         item?.unit_conversion,
         unitId,
-        item?.product_units
+        item?.product_units,
       );
-      if (
-        !unitConversion && Boolean(unitId)
-        ) {
+      if (!unitConversion && Boolean(unitId)) {
         Modal.warning({
-          bodyStyle: { direction: t("Dir") },
+          bodyStyle: { direction: t('Dir') },
           title: (
             <ActionMessage
               values={{ unit: item?.unit?.label, product: item?.name }}
-              message="Sales.All_sales.Invoice.Invoice_no_Conversion_message"
+              message='Sales.All_sales.Invoice.Invoice_no_Conversion_message'
             />
           ),
         });
 
         return false;
       } else {
-      
         const productItems = prevItems?.filter(
           (filterItem) =>
             item?.id?.value === filterItem?.id?.value &&
-            filterItem?.warehouse_out?.value === warehouse
+            filterItem?.warehouse_out?.value === warehouse,
         );
 
         const totalAvailable = productItems?.reduce((sum, item) => {
           const conversion = handleFindUnitConversionRate(
             item?.unit_conversion,
             item?.unit?.value,
-            item?.product_units
+            item?.product_units,
           );
 
           return fixedNumber(
             print(
-              math.evaluate(`(${conversion ?? 0} * ${item?.qty ?? 0}) + ${sum}`)
-            )
+              math.evaluate(
+                `(${conversion ?? 0} * ${item?.qty ?? 0}) + ${sum}`,
+              ),
+            ),
           );
         }, 0);
 
@@ -154,16 +151,16 @@ const ProductTransferTable = (props) => {
 
         const available = availableItems?.reduce((sum, item) => {
           return fixedNumber(
-            print(math.evaluate(`${sum}  + ${item?.available ?? 0}`))
+            print(math.evaluate(`${sum}  + ${item?.available ?? 0}`)),
           );
         }, 0);
 
-        if (props?.type === "add") {
+        if (props?.type === 'add') {
           return handleCheckStatistic(
             available,
             totalAvailable,
             item?.product?.label,
-            item?.warehouse_out?.label
+            item?.warehouse_out?.label,
           );
         } else {
           // if (Boolean(item?.product_statistic)) {
@@ -171,23 +168,23 @@ const ProductTransferTable = (props) => {
           const prevPSItems = props?.prevStatistic?.filter(
             (filterItem) =>
               item?.id?.value === filterItem?.id &&
-              filterItem?.warehouse === warehouse
+              filterItem?.warehouse === warehouse,
           );
 
           const totalPrevAvailable = prevPSItems?.reduce((sum, item) => {
             return fixedNumber(
-              print(math.evaluate(`${item?.statistic ?? 0} + ${sum}`))
+              print(math.evaluate(`${item?.statistic ?? 0} + ${sum}`)),
             );
           }, 0);
 
           const finalAvailable = fixedNumber(
-            print(math.evaluate(`${available} + ${totalPrevAvailable}`))
+            print(math.evaluate(`${available} + ${totalPrevAvailable}`)),
           );
           return handleCheckStatistic(
             finalAvailable,
             totalAvailable,
             item?.product?.label,
-            item?.warehouse_out?.label
+            item?.warehouse_out?.label,
           );
           // } else {
           //   const result = await axiosInstance.get(
@@ -218,7 +215,7 @@ const ProductTransferTable = (props) => {
         }
       }
     },
-    [handleCheckStatistic, props.prevStatistic, props.type, t]
+    [handleCheckStatistic, props.prevStatistic, props.type, t],
   );
 
   const setData = props.setData;
@@ -227,14 +224,14 @@ const ProductTransferTable = (props) => {
   const setCount = props.setCount;
 
   const cancel = useCallback(() => {
-    setEditingKey("");
+    setEditingKey('');
   }, [setEditingKey]);
 
   const isEditing = useCallback(
     (record) => {
       return record.key === props.editingKey;
     },
-    [props.editingKey]
+    [props.editingKey],
   );
 
   const edit = useCallback(
@@ -258,7 +255,7 @@ const ProductTransferTable = (props) => {
       setUnits(productUnits);
       setEditingKey(record.key);
     },
-    [form, setEditingKey]
+    [form, setEditingKey],
   );
 
   const handleDelete = useCallback(
@@ -268,7 +265,7 @@ const ProductTransferTable = (props) => {
         setSelectedRowKeys((prev) => {
           const index = prevData?.findIndex((item) => prev?.[0] === item.key);
           const nextItem = prevData?.find(
-            (item, ItemIndex) => ItemIndex === index - 1
+            (item, ItemIndex) => ItemIndex === index - 1,
           );
           if (nextItem) {
             return [nextItem.key];
@@ -279,7 +276,7 @@ const ProductTransferTable = (props) => {
         return data1;
       });
     },
-    [setData, setSelectedRowKeys]
+    [setData, setSelectedRowKeys],
   );
 
   const save = useCallback(
@@ -317,38 +314,38 @@ const ProductTransferTable = (props) => {
 
         if (ok) {
           setData(newData);
-          setEditingKey("");
+          setEditingKey('');
           tableRef.current.focus();
           setProductItem({});
         }
       } catch (errInfo) {
-        // 
+        //
       }
     },
-    [findProductStatistics, form, props.data, setData, setEditingKey]
+    [findProductStatistics, form, props.data, setData, setEditingKey],
   );
 
   const columns = useMemo(
     () => [
       {
-        title: t("Sales.Product_and_services.Product_id"),
-        dataIndex: "id",
+        title: t('Sales.Product_and_services.Product_id'),
+        dataIndex: 'id',
         width: 140,
-        fixed: "left",
+        fixed: 'left',
         editable: true,
         render: (text) => text?.value,
       },
       {
-        title: t("Sales.All_sales.Invoice.Product_name"),
-        dataIndex: "product",
+        title: t('Sales.All_sales.Invoice.Product_name'),
+        dataIndex: 'product',
 
         render: (text, record) => <span>{text?.label} &nbsp;</span>,
         editable: true,
-        fixed: "left",
+        fixed: 'left',
       },
       {
-        title: t("Sales.All_sales.Invoice.Quantity").toUpperCase(),
-        dataIndex: "qty",
+        title: t('Sales.All_sales.Invoice.Quantity').toUpperCase(),
+        dataIndex: 'qty',
         width: 125,
         editable: true,
 
@@ -356,10 +353,10 @@ const ProductTransferTable = (props) => {
           const available =
             record?.warehouse_out?.value &&
             record?.product_statistic?.find(
-              (item) => item?.warehouse === record?.warehouse_out?.value
+              (item) => item?.warehouse === record?.warehouse_out?.value,
             )?.available;
           return (
-            <Row justify="space-between" gutter={5}>
+            <Row justify='space-between' gutter={5}>
               <Col>
                 <Statistics value={text} />
               </Col>
@@ -376,23 +373,23 @@ const ProductTransferTable = (props) => {
         },
       },
       {
-        title: t("Sales.Product_and_services.Units.Unit"),
-        dataIndex: "unit",
+        title: t('Sales.Product_and_services.Units.Unit'),
+        dataIndex: 'unit',
         width: 160,
         editable: true,
         render: (text, record) => (
-          <Row justify="space-between" gutter={5}>
+          <Row justify='space-between' gutter={5}>
             <Col>{text?.label} &nbsp;</Col>
             <Col>
               {record?.unit_conversion?.length > 0 && (
                 <Popover
                   arrowPointAtCenter
-                  title={t("Sales.Product_and_services.Form.Unit_conversion")}
-                  trigger="hover"
+                  title={t('Sales.Product_and_services.Form.Unit_conversion')}
+                  trigger='hover'
                   content={
                     <Descriptions
-                      size="small"
-                      style={{ width: "150px" }}
+                      size='small'
+                      style={{ width: '150px' }}
                       column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}
                     >
                       {record?.unit_conversion?.map((item) => (
@@ -400,10 +397,10 @@ const ProductTransferTable = (props) => {
                           key={item?.id}
                           label={item?.from_unit?.name}
                         >
-                          {parseFloat(item?.ratio)}{" "}
+                          {parseFloat(item?.ratio)}{' '}
                           {
                             record?.product_units?.find(
-                              (item) => item?.base_unit === true
+                              (item) => item?.base_unit === true,
                             )?.unit?.name
                           }
                         </Descriptions.Item>
@@ -421,23 +418,23 @@ const ProductTransferTable = (props) => {
       },
 
       {
-        title: t("Sales.All_sales.Invoice.Source_warehouse"),
-        dataIndex: "warehouse_out",
+        title: t('Sales.All_sales.Invoice.Source_warehouse'),
+        dataIndex: 'warehouse_out',
         editable: true,
         render: (text) => text?.label,
       },
 
       {
-        title: t("Sales.All_sales.Invoice.Destination_warehouse"),
-        dataIndex: "warehouse_in",
+        title: t('Sales.All_sales.Invoice.Destination_warehouse'),
+        dataIndex: 'warehouse_in',
         editable: true,
         render: (text) => text?.label,
       },
       {
         title: t(
-          "Sales.Product_and_services.Inventory.Expiration_date"
+          'Sales.Product_and_services.Inventory.Expiration_date',
         ).toUpperCase(),
-        dataIndex: "expirationDate",
+        dataIndex: 'expirationDate',
         width: 140,
         editable: true,
         render: (value) =>
@@ -450,11 +447,11 @@ const ProductTransferTable = (props) => {
           ),
       },
       {
-        title: t("Table.Action").toUpperCase(),
-        dataIndex: "action",
+        title: t('Table.Action').toUpperCase(),
+        dataIndex: 'action',
         width: 90,
-        align: "center",
-        fixed: "right",
+        align: 'center',
+        fixed: 'right',
         render: (text, record) => {
           const editable = isEditing(record);
           return (
@@ -462,28 +459,28 @@ const ProductTransferTable = (props) => {
               {editable ? (
                 <span>
                   <a
-                    href="#"
+                    href='#'
                     onClick={(e) => {
                       e.preventDefault();
                       save(productItem);
                     }}
                   >
-                    {t("Form.Save")}
+                    {t('Form.Save')}
                   </a>
                   <br />
                   <Popconfirm
                     title={t(
-                      "Sales.Product_and_services.Categories.Edit_Message"
+                      'Sales.Product_and_services.Categories.Edit_Message',
                     )}
                     onConfirm={cancel}
-                    okText={t("Form.Ok")}
-                    cancelText={t("Form.Cancel")}
+                    okText={t('Form.Ok')}
+                    cancelText={t('Form.Cancel')}
                   >
                     <Typography.Text
-                      type="secondary"
-                      style={{ cursor: "pointer" }}
+                      type='secondary'
+                      style={{ cursor: 'pointer' }}
                     >
-                      {t("Form.Cancel")}
+                      {t('Form.Cancel')}
                     </Typography.Text>
                   </Popconfirm>
                 </span>
@@ -494,9 +491,9 @@ const ProductTransferTable = (props) => {
                     onClick={() => edit(record)}
                   />
                   <DeleteButton
-                    itemName={record?.name ? record?.name : " "}
+                    itemName={record?.name ? record?.name : ' '}
                     onConfirm={() => handleDelete(record?.key)}
-                    disabled={props.editingKey !== "" || props?.responseId}
+                    disabled={props.editingKey !== '' || props?.responseId}
                   />
                 </Space>
               )}
@@ -515,7 +512,7 @@ const ProductTransferTable = (props) => {
       props.responseId,
       save,
       t,
-    ]
+    ],
   );
 
   // const BodyTable = (props) => {
@@ -562,7 +559,7 @@ const ProductTransferTable = (props) => {
       setSelectedRowKeys((prev) => {
         const index = prevData?.findIndex((item) => prev?.[0] === item.key);
         const nextItem = prevData?.find(
-          (item, ItemIndex) => ItemIndex === index + 1
+          (item, ItemIndex) => ItemIndex === index + 1,
         );
         if (nextItem) {
           const newKey = nextItem?.key;
@@ -585,7 +582,7 @@ const ProductTransferTable = (props) => {
       setSelectedRowKeys((prev) => {
         const index = prevData?.findIndex((item) => prev?.[0] === item.key);
         const nextItem = prevData?.find(
-          (item, ItemIndex) => ItemIndex === index - 1
+          (item, ItemIndex) => ItemIndex === index - 1,
         );
         if (nextItem) {
           const newKey = nextItem?.key;
@@ -614,7 +611,7 @@ const ProductTransferTable = (props) => {
 
       tableRef.current.focus();
     },
-    [handleDelete, setSelectedRowKeys]
+    [handleDelete, setSelectedRowKeys],
   );
 
   const handelCancelDelete = (close) => {
@@ -623,12 +620,12 @@ const ProductTransferTable = (props) => {
   };
 
   const keyMap = {
-    SALES_INVOICE_TABLE_MOVE_UP: "up",
-    SALES_INVOICE_TABLE_MOVE_DOWN: "down",
+    SALES_INVOICE_TABLE_MOVE_UP: 'up',
+    SALES_INVOICE_TABLE_MOVE_DOWN: 'down',
     // SALES_INVOICE_ADD_PRODUCT: ["enter", "Enter"],
-    SALES_INVOICE_TABLE_MOVE_RIGHT: "right",
-    SALES_INVOICE_TABLE_MOVE_LEFT: "left",
-    SALES_INVOICE_TABLE__Delete: "del",
+    SALES_INVOICE_TABLE_MOVE_RIGHT: 'right',
+    SALES_INVOICE_TABLE_MOVE_LEFT: 'left',
+    SALES_INVOICE_TABLE__Delete: 'del',
     // MARKET_INVOICE_PRINT: "Control+p",
   };
 
@@ -649,7 +646,7 @@ const ProductTransferTable = (props) => {
     //   if (props.editingKey === "") {
     //     // event.preventDefault();
     //     // event.stopPropagation();
-    //     // 
+    //     //
     //     props.handleAddProduct();
     //   }
     // },
@@ -668,7 +665,7 @@ const ProductTransferTable = (props) => {
       event.preventDefault();
       event.stopPropagation();
       // if (editingKey !== "") {
-      props.setEditingKey("");
+      props.setEditingKey('');
       // }
     },
 
@@ -681,12 +678,12 @@ const ProductTransferTable = (props) => {
 
         if (item) {
           Modal.confirm({
-            bodyStyle: { direction: t("Dir") },
+            bodyStyle: { direction: t('Dir') },
             title: (
               <Typography.Text>
                 <ActionMessage
                   name={item?.product?.label}
-                  message="Sales.All_sales.Invoice.Remove_item_message"
+                  message='Sales.All_sales.Invoice.Remove_item_message'
                 />
               </Typography.Text>
             ),
@@ -702,7 +699,7 @@ const ProductTransferTable = (props) => {
     //   event.preventDefault();
     //   handlePrint();
     //   // event.stopPropagation();
-    //   // 
+    //   //
     // },
   };
 
@@ -713,15 +710,15 @@ const ProductTransferTable = (props) => {
 
   const rowSelection = {
     selectedRowKeys: props.selectedRowKeys,
-    type: "radio",
+    type: 'radio',
     onChange: onSelectChange,
     columnWidth: 60,
     // fixed: true,
     renderCell: (_, __, index) => (
-      <div style={{ textAlign: "center", width: "100%" }}>{index + 1}</div>
+      <div style={{ textAlign: 'center', width: '100%' }}>{index + 1}</div>
     ),
     hideSelectAll: true,
-    columnTitle: <span>{t("Table.Row")}</span>,
+    columnTitle: <span>{t('Table.Row')}</span>,
   };
 
   //barcode search
@@ -731,7 +728,7 @@ const ProductTransferTable = (props) => {
 
   let onSearch = useCallback(
     async (value) => {
-      if (value === "") {
+      if (value === '') {
         return;
       } else {
         setLoading(true);
@@ -739,7 +736,7 @@ const ProductTransferTable = (props) => {
           const isBarcodeExist = item?.product_barcode?.find(
             (barcodeItem) =>
               barcodeItem?.barcode === search &&
-              barcodeItem?.unit?.id === item?.unit?.value
+              barcodeItem?.unit?.id === item?.unit?.value,
           );
           if (isBarcodeExist) {
             return true;
@@ -754,7 +751,7 @@ const ProductTransferTable = (props) => {
               const isBarcodeExist = item?.product_barcode?.find(
                 (barcodeItem) =>
                   barcodeItem?.barcode === search &&
-                  barcodeItem?.unit?.id === item?.unit?.value
+                  barcodeItem?.unit?.id === item?.unit?.value,
               );
               if (isBarcodeExist) {
                 // if (item?.barcode === search) {
@@ -779,13 +776,13 @@ const ProductTransferTable = (props) => {
           });
 
           setLoading(false);
-          setSearch("");
+          setSearch('');
           return;
         } else {
           let productBarcodeItem = {};
           const product = props?.data?.find((item) => {
             const isBarcodeExist = item?.product_barcode?.find(
-              (barcodeItem) => barcodeItem?.barcode === search
+              (barcodeItem) => barcodeItem?.barcode === search,
             );
             if (isBarcodeExist) {
               productBarcodeItem = isBarcodeExist;
@@ -823,11 +820,11 @@ const ProductTransferTable = (props) => {
             setData((prev) => {
               // const newPrice = getPrice(product, productBarcodeItem?.unit?.id);
 
-              // 
+              //
               const newCount = props.count + 1;
               setCount(newCount);
               setLoading(false);
-              setSearch("");
+              setSearch('');
 
               setTimeout(() => {
                 // const element = document?.getElementById("posInvoiceTable");
@@ -854,18 +851,18 @@ const ProductTransferTable = (props) => {
           } else {
             await axiosInstance
               .get(
-                `${baseUrl}?page=1&page_size=10&product_barcode__barcode=${search}&${endUrl}&fields=${fields}`
+                `${baseUrl}?page=1&page_size=10&product_barcode__barcode=${search}&${endUrl}&fields=${fields}`,
               )
               .then((res) => {
                 if (res?.data?.results?.length !== 0) {
-                  //  
-                  //  
+                  //
+                  //
                   const product = res?.data?.results?.[0];
                   // const purUnit = product?.product_units?.find(
                   //   (item) => item?.default_sal === true
                   // );
                   const purUnit = product?.product_barcode?.find(
-                    (item) => item?.barcode === search
+                    (item) => item?.barcode === search,
                   );
                   // const newPrice = getPrice(product, purUnit?.unit?.id);
                   const newData = {
@@ -891,7 +888,7 @@ const ProductTransferTable = (props) => {
                   });
                   setCount(props.count + 1);
                   setLoading(false);
-                  setSearch("");
+                  setSearch('');
 
                   setTimeout(() => {
                     const rowKey = [newData.key];
@@ -899,16 +896,16 @@ const ProductTransferTable = (props) => {
                   }, 200);
                 } else {
                   message.error(
-                    `${t("Sales.All_sales.Invoice.Product_not_found")}`
+                    `${t('Sales.All_sales.Invoice.Product_not_found')}`,
                   );
                   setLoading(false);
-                  setSearch("");
+                  setSearch('');
                   return;
                 }
               })
               .catch((error) => {
                 setLoading(false);
-                setSearch("");
+                setSearch('');
                 if (error?.response?.data?.barcode?.[0]) {
                   message.error(`${error?.response.data?.barcode?.[0]}`);
                 }
@@ -927,7 +924,7 @@ const ProductTransferTable = (props) => {
       setData,
       setSelectedRowKeys,
       t,
-    ]
+    ],
   );
 
   const handelSearchAllData = (e) => {
@@ -939,7 +936,7 @@ const ProductTransferTable = (props) => {
       ?.toLowerCase()
       ?.includes(searchLocaleData?.toLowerCase());
     const matchId = `${item?.id?.value}`?.includes(
-      searchLocaleData?.toLowerCase()
+      searchLocaleData?.toLowerCase(),
     );
     const matchUnit = item?.unit?.label
       ?.toLowerCase()
@@ -954,44 +951,44 @@ const ProductTransferTable = (props) => {
         <div style={styles.table}>
           <Row>
             <Col>
-              {" "}
+              {' '}
               <Search
                 value={search}
                 ref={barcodeSearch}
                 onChange={onChangeSearch}
                 onSearch={onSearch}
-                style={{ width: "300px", paddingBottom: "20px" }}
+                style={{ width: '300px', paddingBottom: '20px' }}
                 enterButton={
                   <Button
-                    icon={<BarcodeIcon style={{ fontSize: "22px" }} />}
+                    icon={<BarcodeIcon style={{ fontSize: '22px' }} />}
                     style={{
-                      borderStartStartRadius: "0px",
-                      borderEndStartRadius: "0px",
-                      borderStartEndRadius: "3px",
-                      borderEndEndRadius: "3px",
-                      paddingTop: "4px",
+                      borderStartStartRadius: '0px',
+                      borderEndStartRadius: '0px',
+                      borderStartEndRadius: '3px',
+                      borderEndEndRadius: '3px',
+                      paddingTop: '4px',
                     }}
                   />
                 }
                 placeholder={t(
-                  "Sales.All_sales.Invoice.Filter_by_product_barcode"
+                  'Sales.All_sales.Invoice.Filter_by_product_barcode',
                 )}
                 readOnly={Boolean(props?.responseId)}
               />
             </Col>
           </Row>
 
-          <Row className="customer__table">
+          <Row className='customer__table'>
             <Col span={24}>
               <Table
                 title={() => {
                   return (
                     <Input
-                      style={{ width: "250px" }}
+                      style={{ width: '250px' }}
                       placeholder={t(
-                        "Sales.All_sales.Invoice.Invoice_table_search_placeholder"
+                        'Sales.All_sales.Invoice.Invoice_table_search_placeholder',
                       )}
-                      prefix={<SearchOutlined className="search_icon_color" />}
+                      prefix={<SearchOutlined className='search_icon_color' />}
                       onChange={handelSearchAllData}
                     />
                   );
@@ -1004,13 +1001,13 @@ const ProductTransferTable = (props) => {
                 style={styles.table}
                 rowKey={(record) => record.key}
                 columns={mergedColumns}
-                rowClassName="editable-row"
+                rowClassName='editable-row'
                 pagination={false}
                 scroll={{
-                  x: "max-content",
+                  x: 'max-content',
                   scrollToFirstRowOnChange: true,
                 }}
-                size="small"
+                size='small'
                 onRow={(record) => {
                   return {
                     onClick: () => {
@@ -1029,10 +1026,10 @@ const ProductTransferTable = (props) => {
                 footer={() => (
                   <Button
                     onClick={props?.handleAddProduct}
-                    type="primary"
+                    type='primary'
                     disabled={props?.responseId}
                   >
-                    {t("Sales.All_sales.Invoice.Add_a_row")}
+                    {t('Sales.All_sales.Invoice.Add_a_row')}
                   </Button>
                 )}
               />
@@ -1045,6 +1042,6 @@ const ProductTransferTable = (props) => {
 };
 const styles = {
   margin: { marginBottom: 0 },
-  table: { margin: "0px 0px 24px 0px" },
+  table: { margin: '0px 0px 24px 0px' },
 };
 export default ProductTransferTable;

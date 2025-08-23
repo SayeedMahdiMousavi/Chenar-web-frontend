@@ -1,18 +1,18 @@
-import { Col, Row, Space, Typography, Form, Input, Button, Card } from "antd";
-import React, { useState } from "react";
-import { useEffect } from "react";
-import { useTranslation } from "react-i18next";
-import { fixedNumber, math, print } from "../../Functions/math";
-import useGetBaseCurrency from "../../Hooks/useGetBaseCurrency";
-import { debounce } from "throttle-debounce";
-import { useDarkMode } from "../../Hooks/useDarkMode";
-import { InfiniteScrollSelectFormItem } from "../../components/antd";
-import { checkPermissions } from "../../Functions";
+import { Col, Row, Space, Typography, Form, Input, Button, Card } from 'antd';
+import React, { useState } from 'react';
+import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { fixedNumber, math, print } from '../../Functions/math';
+import useGetBaseCurrency from '../../Hooks/useGetBaseCurrency';
+import { debounce } from 'throttle-debounce';
+import { useDarkMode } from '../../Hooks/useDarkMode';
+import { InfiniteScrollSelectFormItem } from '../../components/antd';
+import { checkPermissions } from '../../Functions';
 // import Axios from "axios";
 // import { EXCHANGE_CURRENCY_ACCESS_KEY } from "../../constants";
 // import { useQuery } from "react-query";
-import { SwapIcon } from "../../icons";
-import { Colors } from "../colors";
+import { SwapIcon } from '../../icons';
+import { Colors } from '../colors';
 
 export default function DashboardCurrencyExchange({
   permission,
@@ -22,10 +22,9 @@ export default function DashboardCurrencyExchange({
   const { t } = useTranslation();
   const [mode] = useDarkMode();
   const [form] = Form.useForm();
-  const [changeCurrencyText, setChangeCurrencyText] = useState("");
-  const [currency, setCurrency] = useState({ currencyRate: 1, name: "" });
-  const [calCurrency, setCalCurrency] = useState({ currencyRate: 1, name: "" });
-
+  const [changeCurrencyText, setChangeCurrencyText] = useState('');
+  const [currency, setCurrency] = useState({ currencyRate: 1, name: '' });
+  const [calCurrency, setCalCurrency] = useState({ currencyRate: 1, name: '' });
 
   const baseCurrency = useGetBaseCurrency();
   const baseCurrencyId = baseCurrency?.data?.id;
@@ -39,7 +38,9 @@ export default function DashboardCurrencyExchange({
         row?.calCurrency?.label === undefined)
     ) {
       // setChangeCurrencyText(`1 ${baseCurrencyName} = 1 ${baseCurrencyName}`);
-      setChangeCurrencyText(`1 ${t(`Reports.${baseCurrencyName}`)} = 1 ${t(`Reports.${baseCurrencyName}`)}`);
+      setChangeCurrencyText(
+        `1 ${t(`Reports.${baseCurrencyName}`)} = 1 ${t(`Reports.${baseCurrencyName}`)}`,
+      );
       form.setFieldsValue({
         currency: {
           value: baseCurrencyId,
@@ -55,7 +56,7 @@ export default function DashboardCurrencyExchange({
 
   const handleChangeCurrency = (value: any) => {
     const row = form.getFieldsValue();
-   
+
     const amount = row?.amount;
 
     const calAmount = fixedNumber(
@@ -63,22 +64,22 @@ export default function DashboardCurrencyExchange({
       print(
         //@ts-ignore
         math.evaluate(
-          `(${amount}*${value?.currencyRate})/ ${calCurrency?.currencyRate}`
-        )
+          `(${amount}*${value?.currencyRate})/ ${calCurrency?.currencyRate}`,
+        ),
       ),
-      4
+      4,
     );
     setCurrency({
       currencyRate: parseFloat(value?.currencyRate.toFixed(4)),
       // name: value?.name,
-      name:value?.symbol
+      name: value?.symbol,
     });
     // setChangeCurrencyText(
     //   `${amount} ${value?.name} = ${calAmount} ${row?.calCurrency?.label}`
     // );
     setChangeCurrencyText(
-      `${amount} ${t(`Reports.${value?.symbol}`)} = ${calAmount} ${t(`Reports.${value?.symbol}`)}`
-    )
+      `${amount} ${t(`Reports.${value?.symbol}`)} = ${calAmount} ${t(`Reports.${value?.symbol}`)}`,
+    );
     form.setFieldsValue({
       calAmount: calAmount,
     });
@@ -92,18 +93,18 @@ export default function DashboardCurrencyExchange({
       print(
         //@ts-ignore
         math.evaluate(
-          `(${amount}*${currency?.currencyRate})/ ${value?.currencyRate}`
-        )
+          `(${amount}*${currency?.currencyRate})/ ${value?.currencyRate}`,
+        ),
       ),
-      4
+      4,
     );
     setCalCurrency({
       currencyRate: parseFloat(value?.currencyRate.toFixed(4)),
       // name: value?.name,
-      name:value?.symbol
+      name: value?.symbol,
     });
     setChangeCurrencyText(
-      `${amount} ${row?.currency?.label} = ${calAmount} ${t(`Reports.${value?.symbol}`)}`
+      `${amount} ${row?.currency?.label} = ${calAmount} ${t(`Reports.${value?.symbol}`)}`,
     );
 
     form.setFieldsValue({
@@ -117,23 +118,23 @@ export default function DashboardCurrencyExchange({
 
   const debounceChangeAmount = debounce(500, async (value: string) => {
     const calAmount =
-      value === "" || value === null
-        ? ""
+      value === '' || value === null
+        ? ''
         : fixedNumber(
             //@ts-ignore
             print(
               //@ts-ignore
               math.evaluate(
-                `(${value}*${currency?.currencyRate})/ ${calCurrency?.currencyRate}`
-              )
+                `(${value}*${currency?.currencyRate})/ ${calCurrency?.currencyRate}`,
+              ),
             ),
-            4
+            4,
           );
     form.setFieldsValue({
       calAmount: calAmount,
     });
     setChangeCurrencyText(
-      `${value ?? 0} ${currency?.name} = ${calAmount} ${calCurrency?.name}`
+      `${value ?? 0} ${currency?.name} = ${calAmount} ${calCurrency?.name}`,
     );
   });
 
@@ -143,35 +144,35 @@ export default function DashboardCurrencyExchange({
 
   const debounceChangeCalAmount = debounce(500, async (value: string) => {
     const amount =
-      value === "" || value === null
-        ? ""
+      value === '' || value === null
+        ? ''
         : fixedNumber(
             //@ts-ignore
             print(
               //@ts-ignore
               math.evaluate(
-                `(${value}*${calCurrency?.currencyRate})/ ${currency?.currencyRate}`
-              )
+                `(${value}*${calCurrency?.currencyRate})/ ${currency?.currencyRate}`,
+              ),
             ),
-            4
+            4,
           );
     form.setFieldsValue({
       amount: amount,
     });
     setChangeCurrencyText(
-      `${amount} ${currency?.name} = ${value ?? 0} ${calCurrency?.name}`
+      `${amount} ${currency?.name} = ${value ?? 0} ${calCurrency?.name}`,
     );
   });
 
-  const bordered = mode === "dark" ? true : false;
+  const bordered = mode === 'dark' ? true : false;
   const inputClassName = `Input__${mode}--borderLess`;
   return (
     <Card
-      className="box"
-      size="small"
-      hoverable={mode === "dark" ? false : true}
+      className='box'
+      size='small'
+      hoverable={mode === 'dark' ? false : true}
       bodyStyle={{
-        padding: "0px",
+        padding: '0px',
       }}
       style={{
         ...(baseCurrency?.isLoading ? { padding: '0px' } : {}),
@@ -183,13 +184,21 @@ export default function DashboardCurrencyExchange({
       loading={baseCurrency?.isLoading}
     >
       {checkPermissions(permission) && (
-        <Space direction="vertical" size="middle">
-          <Typography.Text strong style={{ color: mode === "dark" ? Colors.white : "black" }}>
-            {t("Reports.Exchange_currency")}
+        <Space direction='vertical' size='middle'>
+          <Typography.Text
+            strong
+            style={{ color: mode === 'dark' ? Colors.white : 'black' }}
+          >
+            {t('Reports.Exchange_currency')}
           </Typography.Text>
-          <Row justify="center">
+          <Row justify='center'>
             <Col>
-              <Typography.Text style={{ color: mode === "dark" ? Colors.white : "black" }}> {changeCurrencyText}</Typography.Text>
+              <Typography.Text
+                style={{ color: mode === 'dark' ? Colors.white : 'black' }}
+              >
+                {' '}
+                {changeCurrencyText}
+              </Typography.Text>
             </Col>
           </Row>
 
@@ -203,20 +212,20 @@ export default function DashboardCurrencyExchange({
             <Row>
               <Col span={10}>
                 <InfiniteScrollSelectFormItem
-                  name="currency"
+                  name='currency'
                   placeholder={t(
-                    "Sales.Product_and_services.Inventory.Currency"
+                    'Sales.Product_and_services.Inventory.Currency',
                   )}
                   style={styles.formItem}
-                  fields="name,id,symbol"
-                  baseUrl="/currency/active_currency_rate/"
+                  fields='name,id,symbol'
+                  baseUrl='/currency/active_currency_rate/'
                   onChange={handleChangeCurrency}
-                  place="dashboard"
+                  place='dashboard'
                   rules={[
                     {
                       required: true,
                       message: t(
-                        "Sales.Product_and_services.Currency.Currency_required"
+                        'Sales.Product_and_services.Currency.Currency_required',
                       ),
                     },
                   ]}
@@ -224,20 +233,20 @@ export default function DashboardCurrencyExchange({
                   bordered={bordered}
                 />
                 <InfiniteScrollSelectFormItem
-                  name="calCurrency"
+                  name='calCurrency'
                   placeholder={t(
-                    "Sales.Product_and_services.Inventory.Currency"
+                    'Sales.Product_and_services.Inventory.Currency',
                   )}
                   style={styles.formItem1}
-                  fields="name,id,symbol"
-                  baseUrl="/currency/active_currency_rate/"
+                  fields='name,id,symbol'
+                  baseUrl='/currency/active_currency_rate/'
                   onChange={handleChangeCalCurrency}
-                  place="dashboard"
+                  place='dashboard'
                   rules={[
                     {
                       required: true,
                       message: t(
-                        "Sales.Product_and_services.Currency.Currency_required"
+                        'Sales.Product_and_services.Currency.Currency_required',
                       ),
                     },
                   ]}
@@ -246,21 +255,21 @@ export default function DashboardCurrencyExchange({
                 />
               </Col>
               <Col span={4}>
-                <Row justify="center" align="middle" style={{ height: "100%" }}>
+                <Row justify='center' align='middle' style={{ height: '100%' }}>
                   <Col>
-                    <Button type="text" shape="circle" icon={<SwapIcon />} />
+                    <Button type='text' shape='circle' icon={<SwapIcon />} />
                   </Col>
                 </Row>
               </Col>
               <Col span={10}>
-                <Form.Item style={styles.formItem} name="amount">
+                <Form.Item style={styles.formItem} name='amount'>
                   <Input
                     className={inputClassName}
                     bordered={bordered}
                     onChange={onChangeAmount}
                   />
                 </Form.Item>
-                <Form.Item style={styles.formItem1} name="calAmount">
+                <Form.Item style={styles.formItem1} name='calAmount'>
                   <Input
                     className={inputClassName}
                     bordered={bordered}
@@ -278,9 +287,9 @@ export default function DashboardCurrencyExchange({
 
 const styles = {
   formItem: {
-    marginBottom: "10px",
+    marginBottom: '10px',
   },
   formItem1: {
-    marginBottom: "0px",
+    marginBottom: '0px',
   },
 };

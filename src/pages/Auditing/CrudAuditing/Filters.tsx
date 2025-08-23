@@ -1,10 +1,10 @@
-import React from "react";
-import { Row, Col, Select, Form, Button } from "antd";
-import { useTranslation } from "react-i18next";
-import axiosInstance from "../../ApiBaseUrl";
-import { CenteredSpin } from "../../SelfComponents/Spin";
-import { useQuery } from "react-query";
-import { ApplyButton, ResetButton } from "../../../components";
+import React from 'react';
+import { Row, Col, Select, Form, Button } from 'antd';
+import { useTranslation } from 'react-i18next';
+import axiosInstance from '../../ApiBaseUrl';
+import { CenteredSpin } from '../../SelfComponents/Spin';
+import { useQuery } from 'react-query';
+import { ApplyButton, ResetButton } from '../../../components';
 
 interface IProps {
   setVisible: (value: boolean) => void;
@@ -26,41 +26,41 @@ export default function CrudAuditingFilters(props: IProps) {
   const language = i18n?.language;
 
   const { data, isLoading, isFetching } = useQuery(
-    ["/auditing/crud/content_type_list/"],
-    getContentTypeList
+    ['/auditing/crud/content_type_list/'],
+    getContentTypeList,
   );
 
   const onFinish = async (values: any) => {
-    props.setFilters({ contentType: values?.contentType ?? "" });
+    props.setFilters({ contentType: values?.contentType ?? '' });
     props.setVisible(false);
     props.setPage(1);
   };
   const onReset = () => {
     form.resetFields();
-    props.setFilters({ contentType: "" });
+    props.setFilters({ contentType: '' });
     props.setPage(1);
     props.setVisible(false);
   };
 
   return (
-    <Form layout="vertical" onFinish={onFinish} form={form} style={styles.form}>
+    <Form layout='vertical' onFinish={onFinish} form={form} style={styles.form}>
       <Row gutter={[0, 10]}>
         <Col span={24}>
           <Form.Item
-            name="contentType"
-            label={t("Auditing.Content_type")}
+            name='contentType'
+            label={t('Auditing.Content_type')}
             style={styles.margin}
           >
             <Select
-              className="num margin"
+              className='num margin'
               showSearch
               showArrow
               allowClear
-              optionFilterProp="label"
-              optionLabelProp="label"
+              optionFilterProp='label'
+              optionLabelProp='label'
               notFoundContent={
                 isFetching || isLoading ? (
-                  <CenteredSpin size="small" style={styles.spin} />
+                  <CenteredSpin size='small' style={styles.spin} />
                 ) : undefined
               }
               dropdownRender={(menu) => <div>{menu}</div>}
@@ -70,9 +70,9 @@ export default function CrudAuditingFilters(props: IProps) {
                   <Select.Option
                     key={item?.id}
                     value={item?.id}
-                    label={language === "en" ? item.model : item?.model_fa}
+                    label={language === 'en' ? item.model : item?.model_fa}
                   >
-                    {language === "en" ? item.model : item?.model_fa}
+                    {language === 'en' ? item.model : item?.model_fa}
                   </Select.Option>
                 ))}
             </Select>
@@ -81,9 +81,9 @@ export default function CrudAuditingFilters(props: IProps) {
 
         <Col span={24}>
           <Form.Item style={styles.margin}>
-            <Row className="num" justify="space-between">
+            <Row className='num' justify='space-between'>
               <Col>
-                <ResetButton htmlType="reset" onClick={onReset} />
+                <ResetButton htmlType='reset' onClick={onReset} />
               </Col>
               <Col>
                 <ApplyButton />
@@ -96,7 +96,7 @@ export default function CrudAuditingFilters(props: IProps) {
   );
 }
 const styles = {
-  margin: { marginBottom: "8px" },
-  form: { width: "230px" },
-  spin: { margin: "20px" },
+  margin: { marginBottom: '8px' },
+  form: { width: '230px' },
+  spin: { margin: '20px' },
 };

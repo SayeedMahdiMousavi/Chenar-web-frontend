@@ -36,10 +36,10 @@ export const NavbarMenuItems = (props: IProps) => {
                       props?.menuItems.length === 1
                         ? { ...styles.firstMenuItem, ...styles.lastMenuItem }
                         : index === 0
-                        ? styles.firstMenuItem
-                        : index === props?.menuItems?.length - 1
-                        ? styles.lastMenuItem
-                        : {}
+                          ? styles.firstMenuItem
+                          : index === props?.menuItems?.length - 1
+                            ? styles.lastMenuItem
+                            : {}
                     }
                   >
                     <Link to={item?.route}>{item?.name}</Link>

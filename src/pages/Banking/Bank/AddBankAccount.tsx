@@ -280,7 +280,7 @@ const AddBankAccount: React.FC<IProps> = (props) => {
                                   required: true,
                                   whitespace: true,
                                   message: `${t(
-                                    'Banking.Form.Person_required'
+                                    'Banking.Form.Person_required',
                                   )}`,
                                 },
                               ]}
@@ -298,7 +298,7 @@ const AddBankAccount: React.FC<IProps> = (props) => {
                                   required: true,
                                   whitespace: true,
                                   message: `${t(
-                                    'Banking.Form.Number_required'
+                                    'Banking.Form.Number_required',
                                   )}`,
                                 },
                               ]}
@@ -310,7 +310,8 @@ const AddBankAccount: React.FC<IProps> = (props) => {
                               onClick={() => remove(field.name)}
                             />
                           </Space>
-                        ))}                        {fields?.length < 3 ? (
+                        ))}{' '}
+                        {fields?.length < 3 ? (
                           <Form.Item className='margin1'>
                             <Button
                               type='dashed'
@@ -336,7 +337,7 @@ const AddBankAccount: React.FC<IProps> = (props) => {
                         &nbsp;
                         <Tooltip
                           title={`${t(
-                            'Form.Fax_sample'
+                            'Form.Fax_sample',
                           )} 93799773529@efaxsend.com `}
                         >
                           <QuestionCircleOutlined />

@@ -1,27 +1,27 @@
-import React from "react";
-import { Col, Row } from "antd";
-import { useTranslation } from "react-i18next";
-import { Title } from "../../../SelfComponents/Title";
-import { BackIcon } from "../../../../components";
-import { PRODUCT_TRANSFER_INVOICE_M } from "../../../../constants/permissions";
-import AddProductTransfer from "./AddProductTransfer";
-import WarehouseProductTransferTable from "./Table";
+import React from 'react';
+import { Col, Row } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { Title } from '../../../SelfComponents/Title';
+import { BackIcon } from '../../../../components';
+import { PRODUCT_TRANSFER_INVOICE_M } from '../../../../constants/permissions';
+import AddProductTransfer from './AddProductTransfer';
+import WarehouseProductTransferTable from './Table';
 
 export default () => {
   const { t } = useTranslation();
   return (
     <>
-      <Row className="categore-header" align="middle" justify="start">
+      <Row className='categore-header' align='middle' justify='start'>
         <Col
           md={{ span: 10 }}
           sm={{ span: 11 }}
           xs={{ span: 14 }}
-          className="Sales__content-3-body"
+          className='Sales__content-3-body'
         >
           <Row>
             <Col span={24}>
               <Title
-                value={t("Sales.All_sales.Invoice.Product_transfer")}
+                value={t('Sales.All_sales.Invoice.Product_transfer')}
                 model={PRODUCT_TRANSFER_INVOICE_M}
               />
             </Col>
@@ -31,7 +31,7 @@ export default () => {
               md={{ span: 18, offset: 0 }}
               xs={{ span: 17, offset: 0 }}
             >
-              <BackIcon name={t("Warehouse.1")} url="/warehouse" />
+              <BackIcon name={t('Warehouse.1')} url='/warehouse' />
             </Col>
           </Row>
         </Col>

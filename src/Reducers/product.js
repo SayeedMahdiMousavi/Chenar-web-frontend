@@ -21,7 +21,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         products: state.products.filter(
-          (prodcut) => prodcut.id !== action.payload
+          (prodcut) => prodcut.id !== action.payload,
         ),
       };
 
@@ -36,7 +36,7 @@ export default (state = initialState, action) => {
         products: state.products?.map((product) =>
           product.id === action.payload.id
             ? (product = action.payload)
-            : product
+            : product,
         ),
       };
     default:

@@ -1,17 +1,17 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { Row, Col, Layout } from "antd";
-import ReportsBody from "./ReportsBody";
-import { Title } from "../SelfComponents/Title";
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { Row, Col, Layout } from 'antd';
+import ReportsBody from './ReportsBody';
+import { Title } from '../SelfComponents/Title';
 
 const Reports = (props) => {
   const { t } = useTranslation();
 
   return (
     <Layout>
-      <Row className="Sales__content-3" align="middle" justify="space-between">
-        <Col span={12} className="Sales__content-3-body">
-          <Title value={t("Reports.1")} />
+      <Row className='Sales__content-3' align='middle' justify='space-between'>
+        <Col span={12} className='Sales__content-3-body'>
+          <Title value={t('Reports.1')} />
         </Col>
         <Col span={12}>
           {/* <Input.Search

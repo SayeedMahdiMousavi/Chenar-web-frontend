@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 // import Heade1 from "../Header";
-import { Layout, Button } from "antd";
-import AddCompany from "../Company/Addcompany";
+import { Layout, Button } from 'antd';
+import AddCompany from '../Company/Addcompany';
 const { Content } = Layout;
 
 export default function Apps() {

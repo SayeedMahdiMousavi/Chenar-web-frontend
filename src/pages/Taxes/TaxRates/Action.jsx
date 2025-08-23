@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import { useTranslation } from "react-i18next";
-import { useDatabase } from "@nozbe/watermelondb/hooks";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
+import { useDatabase } from '@nozbe/watermelondb/hooks';
 
 import {
   //   Checkbox,
@@ -16,11 +16,11 @@ import {
   //   Input,
   //   Modal,
   Popconfirm,
-} from "antd";
+} from 'antd';
 
-import { CaretDownOutlined } from "@ant-design/icons";
-import { connect } from "react-redux";
-import EditTexRates from "./EditTexRates";
+import { CaretDownOutlined } from '@ant-design/icons';
+import { connect } from 'react-redux';
+import EditTexRates from './EditTexRates';
 // const ReachableContext = React.createContext();
 
 function Action(props) {
@@ -38,18 +38,18 @@ function Action(props) {
   //     props.deleteProducts(props.record.Key);
   //   },
   //   onCancel() {
-  //     
+  //
   //   }
   // };
   const inActive = async () => {
-    const customers = database.collections.get("customers");
+    const customers = database.collections.get('customers');
 
     await database.action(async () => {
       const customer = await customers.find(props.record.id);
       // product.observe();
 
       await customer.update((customer) => {
-        customer.status = "inActive";
+        customer.status = 'inActive';
       });
     });
     // props.inActive(props.record.id);
@@ -60,14 +60,14 @@ function Action(props) {
     //       )
   };
   const confirm = async () => {
-    const products = database.collections.get("products");
+    const products = database.collections.get('products');
     await database.action(async () => {
       const product = await products.find(props.record.id);
       await product.destroyPermanently(); // permanent
     });
     props.delete(props.record.id);
     setVisible(false);
-    message.info(`${t("Message.Remove")} ${props.record.name}`);
+    message.info(`${t('Message.Remove')} ${props.record.name}`);
     // };
     props.delete(props.record.id);
     setVisible(false);
@@ -82,18 +82,18 @@ function Action(props) {
     <Menu>
       <Menu.Item>
         <Popconfirm
-          placement="topLeft"
-          title={`${t("Taxes.Tax_rates.Inactive_Message")}`}
+          placement='topLeft'
+          title={`${t('Taxes.Tax_rates.Inactive_Message')}`}
           onConfirm={inActive}
-          okText="Yes"
-          cancelText="No"
+          okText='Yes'
+          cancelText='No'
           onCancel={cancel}
         >
-          {t("Sales.Customers.Table.inactive")}
+          {t('Sales.Customers.Table.inactive')}
         </Popconfirm>
       </Menu.Item>
       <Menu.Item>
-        {" "}
+        {' '}
         <EditTexRates open={edit} />
       </Menu.Item>
     </Menu>
@@ -104,12 +104,12 @@ function Action(props) {
   return (
     <Dropdown
       overlay={action}
-      trigger={["click"]}
+      trigger={['click']}
       onOpenChange={handleVisibleChange}
       open={visible}
     >
-      <a className="ant-dropdown-link" href="#">
-        {t("Sales.Customers.Table.Edit")}
+      <a className='ant-dropdown-link' href='#'>
+        {t('Sales.Customers.Table.Edit')}
         <CaretDownOutlined />
       </a>
     </Dropdown>

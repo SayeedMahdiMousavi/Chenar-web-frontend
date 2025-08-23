@@ -171,13 +171,15 @@ export class FinanceService extends ApiService {
   }
 
   // Cash Flow Management
-  async getCashFlowEntries(params?: PaginationParams & {
-    type?: 'income' | 'expense';
-    date_from?: string;
-    date_to?: string;
-    category?: number;
-    account?: number;
-  }): Promise<{ results: CashFlowEntry[]; count: number }> {
+  async getCashFlowEntries(
+    params?: PaginationParams & {
+      type?: 'income' | 'expense';
+      date_from?: string;
+      date_to?: string;
+      category?: number;
+      account?: number;
+    },
+  ): Promise<{ results: CashFlowEntry[]; count: number }> {
     return this.get('/cash_flow/', params);
   }
 
@@ -189,7 +191,10 @@ export class FinanceService extends ApiService {
     return this.post('/cash_flow/', data);
   }
 
-  async updateCashFlowEntry(id: string | number, data: Partial<CreateCashFlowData>): Promise<CashFlowEntry> {
+  async updateCashFlowEntry(
+    id: string | number,
+    data: Partial<CreateCashFlowData>,
+  ): Promise<CashFlowEntry> {
     return this.patch(`/cash_flow/${id}/`, data);
   }
 
@@ -198,15 +203,22 @@ export class FinanceService extends ApiService {
   }
 
   // Income Operations
-  async getIncomeEntries(params?: PaginationParams): Promise<{ results: CashFlowEntry[]; count: number }> {
+  async getIncomeEntries(
+    params?: PaginationParams,
+  ): Promise<{ results: CashFlowEntry[]; count: number }> {
     return this.get('/income_cash/', params);
   }
 
-  async createIncomeEntry(data: Omit<CreateCashFlowData, 'type'>): Promise<CashFlowEntry> {
+  async createIncomeEntry(
+    data: Omit<CreateCashFlowData, 'type'>,
+  ): Promise<CashFlowEntry> {
     return this.post('/income_cash/', { ...data, type: 'income' });
   }
 
-  async updateIncomeEntry(id: string | number, data: Partial<Omit<CreateCashFlowData, 'type'>>): Promise<CashFlowEntry> {
+  async updateIncomeEntry(
+    id: string | number,
+    data: Partial<Omit<CreateCashFlowData, 'type'>>,
+  ): Promise<CashFlowEntry> {
     return this.patch(`/income_cash/${id}/`, data);
   }
 
@@ -215,15 +227,22 @@ export class FinanceService extends ApiService {
   }
 
   // Expense Operations
-  async getExpenseEntries(params?: PaginationParams): Promise<{ results: CashFlowEntry[]; count: number }> {
+  async getExpenseEntries(
+    params?: PaginationParams,
+  ): Promise<{ results: CashFlowEntry[]; count: number }> {
     return this.get('/expense_cash/', params);
   }
 
-  async createExpenseEntry(data: Omit<CreateCashFlowData, 'type'>): Promise<CashFlowEntry> {
+  async createExpenseEntry(
+    data: Omit<CreateCashFlowData, 'type'>,
+  ): Promise<CashFlowEntry> {
     return this.post('/expense_cash/', { ...data, type: 'expense' });
   }
 
-  async updateExpenseEntry(id: string | number, data: Partial<Omit<CreateCashFlowData, 'type'>>): Promise<CashFlowEntry> {
+  async updateExpenseEntry(
+    id: string | number,
+    data: Partial<Omit<CreateCashFlowData, 'type'>>,
+  ): Promise<CashFlowEntry> {
     return this.patch(`/expense_cash/${id}/`, data);
   }
 
@@ -232,7 +251,9 @@ export class FinanceService extends ApiService {
   }
 
   // Customer Financial Operations
-  async getCustomerPayments(params?: PaginationParams & { customer?: number }): Promise<{ results: CustomerPayment[]; count: number }> {
+  async getCustomerPayments(
+    params?: PaginationParams & { customer?: number },
+  ): Promise<{ results: CustomerPayment[]; count: number }> {
     return this.get('/customer/', params);
   }
 
@@ -251,7 +272,10 @@ export class FinanceService extends ApiService {
     return this.post('/customer/', data);
   }
 
-  async updateCustomerPayment(id: string | number, data: any): Promise<CustomerPayment> {
+  async updateCustomerPayment(
+    id: string | number,
+    data: any,
+  ): Promise<CustomerPayment> {
     return this.patch(`/customer/${id}/`, data);
   }
 
@@ -260,7 +284,9 @@ export class FinanceService extends ApiService {
   }
 
   // Supplier Financial Operations
-  async getSupplierPayments(params?: PaginationParams & { supplier?: number }): Promise<{ results: SupplierPayment[]; count: number }> {
+  async getSupplierPayments(
+    params?: PaginationParams & { supplier?: number },
+  ): Promise<{ results: SupplierPayment[]; count: number }> {
     return this.get('/supplier/', params);
   }
 
@@ -279,7 +305,10 @@ export class FinanceService extends ApiService {
     return this.post('/supplier/', data);
   }
 
-  async updateSupplierPayment(id: string | number, data: any): Promise<SupplierPayment> {
+  async updateSupplierPayment(
+    id: string | number,
+    data: any,
+  ): Promise<SupplierPayment> {
     return this.patch(`/supplier/${id}/`, data);
   }
 
@@ -288,7 +317,9 @@ export class FinanceService extends ApiService {
   }
 
   // Staff Financial Operations
-  async getStaffSalaries(params?: PaginationParams & { staff?: number }): Promise<{ results: any[]; count: number }> {
+  async getStaffSalaries(
+    params?: PaginationParams & { staff?: number },
+  ): Promise<{ results: any[]; count: number }> {
     return this.get('/staff/salary/', params);
   }
 
@@ -303,7 +334,9 @@ export class FinanceService extends ApiService {
     return this.post('/staff/salary/', data);
   }
 
-  async getStaffPayments(params?: PaginationParams & { staff?: number }): Promise<{ results: any[]; count: number }> {
+  async getStaffPayments(
+    params?: PaginationParams & { staff?: number },
+  ): Promise<{ results: any[]; count: number }> {
     return this.get('/staff/', params);
   }
 
@@ -320,7 +353,9 @@ export class FinanceService extends ApiService {
   }
 
   // Bank Transfers
-  async getBankTransfers(params?: PaginationParams): Promise<{ results: BankTransfer[]; count: number }> {
+  async getBankTransfers(
+    params?: PaginationParams,
+  ): Promise<{ results: BankTransfer[]; count: number }> {
     return this.get('/bank_cash_transfer/', params);
   }
 
@@ -328,11 +363,16 @@ export class FinanceService extends ApiService {
     return this.get(`/bank_cash_transfer/${id}/`);
   }
 
-  async createBankTransfer(data: CreateBankTransferData): Promise<BankTransfer> {
+  async createBankTransfer(
+    data: CreateBankTransferData,
+  ): Promise<BankTransfer> {
     return this.post('/bank_cash_transfer/', data);
   }
 
-  async updateBankTransfer(id: string | number, data: Partial<CreateBankTransferData>): Promise<BankTransfer> {
+  async updateBankTransfer(
+    id: string | number,
+    data: Partial<CreateBankTransferData>,
+  ): Promise<BankTransfer> {
     return this.patch(`/bank_cash_transfer/${id}/`, data);
   }
 
@@ -349,7 +389,9 @@ export class FinanceService extends ApiService {
   }
 
   // Exchange Operations
-  async getExchangeUnionEntries(params?: PaginationParams): Promise<{ results: ExchangeUnionEntry[]; count: number }> {
+  async getExchangeUnionEntries(
+    params?: PaginationParams,
+  ): Promise<{ results: ExchangeUnionEntry[]; count: number }> {
     return this.get('/exchange_union/', params);
   }
 
@@ -366,7 +408,10 @@ export class FinanceService extends ApiService {
     return this.post('/exchange_union/', data);
   }
 
-  async updateExchangeUnionEntry(id: string | number, data: any): Promise<ExchangeUnionEntry> {
+  async updateExchangeUnionEntry(
+    id: string | number,
+    data: any,
+  ): Promise<ExchangeUnionEntry> {
     return this.patch(`/exchange_union/${id}/`, data);
   }
 
@@ -375,7 +420,9 @@ export class FinanceService extends ApiService {
   }
 
   // Withdrawals
-  async getWithdrawals(params?: PaginationParams): Promise<{ results: Withdrawal[]; count: number }> {
+  async getWithdrawals(
+    params?: PaginationParams,
+  ): Promise<{ results: Withdrawal[]; count: number }> {
     return this.get('/withdrawal/', params);
   }
 
@@ -402,7 +449,10 @@ export class FinanceService extends ApiService {
     return this.post(`/withdrawal/${id}/approve/`);
   }
 
-  async rejectWithdrawal(id: string | number, reason?: string): Promise<Withdrawal> {
+  async rejectWithdrawal(
+    id: string | number,
+    reason?: string,
+  ): Promise<Withdrawal> {
     return this.post(`/withdrawal/${id}/reject/`, { reason });
   }
 
@@ -424,10 +474,7 @@ export class FinanceService extends ApiService {
     return this.get('/report/cash_flow_summary/', params);
   }
 
-  async getAccountBalances(params?: {
-    date?: string;
-    currency?: number;
-  }) {
+  async getAccountBalances(params?: { date?: string; currency?: number }) {
     return this.get('/report/account_balances/', params);
   }
 
@@ -441,4 +488,3 @@ export class FinanceService extends ApiService {
 }
 
 export const financeService = new FinanceService();
-

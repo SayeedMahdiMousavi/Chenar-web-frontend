@@ -1,1 +1,1 @@
-export { BlueCard } from "./BlueCard";
+export { BlueCard } from './BlueCard';

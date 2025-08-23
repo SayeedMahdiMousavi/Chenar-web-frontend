@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Form,
   Modal,
@@ -9,10 +9,10 @@ import {
   message,
   InputNumber,
   Spin,
-} from "antd";
-import { useMutation, useQueryClient } from "react-query";
-import axiosInstance from "../../../ApiBaseUrl";
-import { CancelButton, SaveButton } from "../../../../components";
+} from 'antd';
+import { useMutation, useQueryClient } from 'react-query';
+import axiosInstance from '../../../ApiBaseUrl';
+import { CancelButton, SaveButton } from '../../../../components';
 
 const { Title } = Typography;
 interface IProps {
@@ -32,7 +32,7 @@ export default function AddVipPercent(props: IProps) {
         .post(`/product/setting/`, value)
         .then(() => {
           message.success(
-            t("Sales.Product_and_services.Form.Vip_save_message")
+            t('Sales.Product_and_services.Form.Vip_save_message'),
           );
           setVisible(false);
           setLoading(false);
@@ -46,7 +46,7 @@ export default function AddVipPercent(props: IProps) {
         }),
     {
       onSuccess: () => queryClient.invalidateQueries(`/product/setting/`),
-    }
+    },
   );
 
   let oneRequest = false;
@@ -72,7 +72,7 @@ export default function AddVipPercent(props: IProps) {
   const showModal = async () => {
     setSpin(true);
     await axiosInstance
-      .get("/product/setting/")
+      .get('/product/setting/')
       .then((res) => {
         form.setFieldsValue({ percent: res?.data?.vip_price?.percent });
         setSpin(false);
@@ -99,7 +99,7 @@ export default function AddVipPercent(props: IProps) {
   return (
     <div>
       <div onClick={showModal}>
-        {t("Sales.Product_and_services.Form.Vip_percent")}
+        {t('Sales.Product_and_services.Form.Vip_percent')}
       </div>
       <Modal
         maskClosable={false}
@@ -113,28 +113,28 @@ export default function AddVipPercent(props: IProps) {
       >
         <Spin spinning={spin}>
           <Form
-            layout="vertical"
+            layout='vertical'
             onFinish={onFinish}
             hideRequiredMark={true}
             form={form}
             initialValues={{
-              isVip: "true",
+              isVip: 'true',
             }}
           >
             <Title level={5}>
-              {t("Sales.Product_and_services.Form.Vip_percent")}
+              {t('Sales.Product_and_services.Form.Vip_percent')}
             </Title>
             <Form.Item
-              name="percent"
+              name='percent'
               label={
                 <span>
-                  {t("Sales.Customers.Discount.Percent")}
-                  <span className="star">*</span>
+                  {t('Sales.Customers.Discount.Percent')}
+                  <span className='star'>*</span>
                 </span>
               }
               rules={[
                 {
-                  message: `${t("Sales.Customers.Discount.Required_percent")}`,
+                  message: `${t('Sales.Customers.Discount.Required_percent')}`,
                   required: true,
                 },
               ]}
@@ -142,15 +142,15 @@ export default function AddVipPercent(props: IProps) {
               <InputNumber
                 min={0}
                 max={80}
-                className="num"
+                className='num'
                 formatter={(value) => `${value}%`}
-                parser={(value: any) => value.replace("%", "")}
+                parser={(value: any) => value.replace('%', '')}
               />
             </Form.Item>
-            <Form.Item className="textAlign__end" style={styles.footer}>
+            <Form.Item className='textAlign__end' style={styles.footer}>
               <Space>
                 <CancelButton onClick={handleCancel} />
-                <SaveButton htmlType="submit" loading={loading} />
+                <SaveButton htmlType='submit' loading={loading} />
               </Space>
             </Form.Item>
           </Form>
@@ -161,5 +161,5 @@ export default function AddVipPercent(props: IProps) {
 }
 
 const styles = {
-  footer: { marginBottom: "5px", paddingTops: "12px" },
+  footer: { marginBottom: '5px', paddingTops: '12px' },
 };

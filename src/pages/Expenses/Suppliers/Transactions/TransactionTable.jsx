@@ -673,7 +673,7 @@ const TransactionTable = ({ customers, collapse }) => {
             {category && (
               <Column
                 title={t(
-                  'Sales.Product_and_services.Form.Category'
+                  'Sales.Product_and_services.Form.Category',
                 ).toUpperCase()}
                 dataIndex='ageing'
                 key='ageing'

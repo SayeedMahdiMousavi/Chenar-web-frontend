@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import { Modal, Col, Row, Button } from "antd";
-import { useMediaQuery } from "../../MediaQurey";
-import { useMutation } from "react-query";
-import axiosInstance from "../../ApiBaseUrl";
-import { Form, Input, message, Checkbox, Select } from "antd";
-import { useTranslation } from "react-i18next";
-import Draggable from "react-draggable";
-import { ModalDragTitle } from "../../SelfComponents/ModalDragTitle";
-import { Styles } from "../../styles";
-import { ActionMessage } from "../../SelfComponents/TranslateComponents/ActionMessage";
-import { manageErrors } from "../../../Functions";
-import { CancelButton, PageNewButton, SaveButton } from "../../../components";
-import { BACKUP_SETTINGS_M } from "../../../constants/permissions";
+import React, { useState } from 'react';
+import { Modal, Col, Row, Button } from 'antd';
+import { useMediaQuery } from '../../MediaQurey';
+import { useMutation } from 'react-query';
+import axiosInstance from '../../ApiBaseUrl';
+import { Form, Input, message, Checkbox, Select } from 'antd';
+import { useTranslation } from 'react-i18next';
+import Draggable from 'react-draggable';
+import { ModalDragTitle } from '../../SelfComponents/ModalDragTitle';
+import { Styles } from '../../styles';
+import { ActionMessage } from '../../SelfComponents/TranslateComponents/ActionMessage';
+import { manageErrors } from '../../../Functions';
+import { CancelButton, PageNewButton, SaveButton } from '../../../components';
+import { BACKUP_SETTINGS_M } from '../../../constants/permissions';
 
 const AddOnlineDriveSettings = (props) => {
   const { t } = useTranslation();
@@ -21,11 +21,11 @@ const AddOnlineDriveSettings = (props) => {
   });
 
   const [disabled, setDisabled] = useState(true);
-  const isMiniTablet = useMediaQuery("(max-width: 576px)");
-  const isMobile = useMediaQuery("(max-width: 425px)");
-  const isSubBase = useMediaQuery("(max-width: 375px)");
-  const isBgTablet = useMediaQuery("(max-width: 1024px)");
-  const isTablet = useMediaQuery("(max-width: 768px)");
+  const isMiniTablet = useMediaQuery('(max-width: 576px)');
+  const isMobile = useMediaQuery('(max-width: 425px)');
+  const isSubBase = useMediaQuery('(max-width: 375px)');
+  const isBgTablet = useMediaQuery('(max-width: 1024px)');
+  const isTablet = useMediaQuery('(max-width: 768px)');
 
   const showModal = () => {
     setIsShowModal({
@@ -54,7 +54,7 @@ const AddOnlineDriveSettings = (props) => {
       });
 
       message.success(
-        <ActionMessage name={values?.data?.platform} message="Message.Add" />
+        <ActionMessage name={values?.data?.platform} message='Message.Add' />,
       );
       props.handleUpdateItems();
     },
@@ -75,7 +75,7 @@ const AddOnlineDriveSettings = (props) => {
         mutateAddOnlineDriveSettings(data);
       })
       .catch((info) => {
-        // 
+        //
       });
   };
 
@@ -93,7 +93,7 @@ const AddOnlineDriveSettings = (props) => {
           <ModalDragTitle
             disabled={disabled}
             setDisabled={setDisabled}
-            title={t("Company.Add_online_drive_settings")}
+            title={t('Company.Add_online_drive_settings')}
           />
         }
         modalRender={(modal) => (
@@ -106,9 +106,9 @@ const AddOnlineDriveSettings = (props) => {
         onCancel={onCancel}
         style={Styles.modal(isMobile)}
         bodyStyle={Styles.modalBody(isMobile, isSubBase, isMiniTablet)}
-        width={isMobile ? "100%" : isTablet ? 370 : isBgTablet ? 370 : 370}
+        width={isMobile ? '100%' : isTablet ? 370 : isBgTablet ? 370 : 370}
         footer={
-          <Row justify="end" align="middle">
+          <Row justify='end' align='middle'>
             <Col>
               <CancelButton onClick={onCancel} />
               <SaveButton onClick={handleOk} loading={isLoading} />
@@ -120,47 +120,47 @@ const AddOnlineDriveSettings = (props) => {
           form={form}
           hideRequiredMark={true}
           scrollToFirstError={true}
-          layout="vertical"
+          layout='vertical'
           initialValues={{ default: false }}
         >
           <Form.Item
             label={
               <span>
-                {t("Company.Platform")}
-                <span className="star">*</span>
+                {t('Company.Platform')}
+                <span className='star'>*</span>
               </span>
             }
-            name="platform"
+            name='platform'
             rules={[
-              { required: true, message: `${t("Company.Platform_required")}` },
+              { required: true, message: `${t('Company.Platform_required')}` },
             ]}
           >
             <Select autoFocus>
-              <Select.Option value="drop_box">
-                {t("Company.Drop_box")}
+              <Select.Option value='drop_box'>
+                {t('Company.Drop_box')}
               </Select.Option>
             </Select>
           </Form.Item>
           <Form.Item
             label={
               <span>
-                {t("Company.Access_token")}
-                <span className="star">*</span>
+                {t('Company.Access_token')}
+                <span className='star'>*</span>
               </span>
             }
-            name="accessToken"
+            name='accessToken'
             rules={[
               {
                 required: true,
-                message: t("Company.Access_token_required"),
+                message: t('Company.Access_token_required'),
               },
             ]}
           >
             <Input />
           </Form.Item>
 
-          <Form.Item name="default" valuePropName="checked">
-            <Checkbox>{t("Company.Default")}</Checkbox>
+          <Form.Item name='default' valuePropName='checked'>
+            <Checkbox>{t('Company.Default')}</Checkbox>
           </Form.Item>
         </Form>
       </Modal>

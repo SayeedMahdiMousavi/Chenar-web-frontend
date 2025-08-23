@@ -32,10 +32,13 @@ export class ApiService {
   }
 
   // Generic GET request
-  async get<T>(endpoint: string = '', params?: Record<string, any>): Promise<T> {
+  async get<T>(
+    endpoint: string = '',
+    params?: Record<string, any>,
+  ): Promise<T> {
     const response: AxiosResponse<T> = await axiosInstance.get(
       `${this.baseUrl}${endpoint}`,
-      { params }
+      { params },
     );
     return response.data;
   }
@@ -44,7 +47,7 @@ export class ApiService {
   async post<T, D = any>(endpoint: string = '', data?: D): Promise<T> {
     const response: AxiosResponse<T> = await axiosInstance.post(
       `${this.baseUrl}${endpoint}`,
-      data
+      data,
     );
     return response.data;
   }
@@ -53,7 +56,7 @@ export class ApiService {
   async put<T, D = any>(endpoint: string = '', data?: D): Promise<T> {
     const response: AxiosResponse<T> = await axiosInstance.put(
       `${this.baseUrl}${endpoint}`,
-      data
+      data,
     );
     return response.data;
   }
@@ -62,7 +65,7 @@ export class ApiService {
   async patch<T, D = any>(endpoint: string = '', data?: D): Promise<T> {
     const response: AxiosResponse<T> = await axiosInstance.patch(
       `${this.baseUrl}${endpoint}`,
-      data
+      data,
     );
     return response.data;
   }
@@ -70,7 +73,7 @@ export class ApiService {
   // Generic DELETE request
   async delete<T>(endpoint: string = ''): Promise<T> {
     const response: AxiosResponse<T> = await axiosInstance.delete(
-      `${this.baseUrl}${endpoint}`
+      `${this.baseUrl}${endpoint}`,
     );
     return response.data;
   }
@@ -101,7 +104,10 @@ export class ApiService {
   }
 
   // Activate/Deactivate item
-  async setStatus<T>(id: string | number, status: 'active' | 'deactivate'): Promise<T> {
+  async setStatus<T>(
+    id: string | number,
+    status: 'active' | 'deactivate',
+  ): Promise<T> {
     return this.patch<T>(`${id}/`, { status });
   }
 
@@ -187,17 +193,19 @@ export class ProductService extends ApiService {
     super('/product');
   }
 
-  async getProducts(params?: PaginationParams & {
-    category?: string;
-    supplier?: string;
-    is_pine?: boolean;
-    is_asset?: boolean;
-    status?: string;
-  }) {
+  async getProducts(
+    params?: PaginationParams & {
+      category?: string;
+      supplier?: string;
+      is_pine?: boolean;
+      is_asset?: boolean;
+      status?: string;
+    },
+  ) {
     return this.get('/items/', {
       ...params,
       expand: '*,product_units.unit,vip_price,product_barcode.unit',
-      omit: 'product_statistic,min_max,is_pine,cht_account_id,category.get_fomrated_path,category.description,category.node_parent,category.system_default,category.is_leaf,category.depth,created_by.first_name'
+      omit: 'product_statistic,min_max,is_pine,cht_account_id,category.get_fomrated_path,category.description,category.node_parent,category.system_default,category.is_leaf,category.depth,created_by.first_name',
     });
   }
 
@@ -352,4 +360,3 @@ export class CustomerService extends ApiService {
 export const authService = new AuthService();
 export const productService = new ProductService();
 export const customerService = new CustomerService();
-

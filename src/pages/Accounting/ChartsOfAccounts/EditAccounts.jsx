@@ -184,12 +184,12 @@ const EditAccount = (props) => {
           isMobile
             ? '100vw'
             : isMiniTablet
-            ? '100vw'
-            : isTablet
-            ? '85vw'
-            : isMiniComputer
-            ? '65vw'
-            : '50vw'
+              ? '100vw'
+              : isTablet
+                ? '85vw'
+                : isMiniComputer
+                  ? '65vw'
+                  : '50vw'
         }
         onCancel={handleCancel}
         bodyStyle={styles.bodyStyle(isMobile, isSubBase, isBigMobile)}

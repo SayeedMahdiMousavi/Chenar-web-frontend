@@ -3,7 +3,7 @@ interface IStyles {
   modalBody: (
     isMobile: any,
     isSubBase: any,
-    isTablet: any
+    isTablet: any,
   ) => React.CSSProperties;
 }
 
@@ -16,7 +16,7 @@ export const Styles: IStyles = {
   }),
   modalBody: (isMobile, isSubBase, isTablet) => ({
     maxHeight: `calc(100vh - 162px)`,
-    overflowY: "auto",
-    padding: isSubBase ? "20px" : "10px 24px 10px 24px",
+    overflowY: 'auto',
+    padding: isSubBase ? '20px' : '10px 24px 10px 24px',
   }),
 };

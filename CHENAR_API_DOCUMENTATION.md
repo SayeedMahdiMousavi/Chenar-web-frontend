@@ -1,6 +1,7 @@
 # Chenar Backend API Documentation
 
 ## Table of Contents
+
 1. [Overview](#overview)
 2. [Onboarding Guide](#onboarding-guide)
 3. [Authentication](#authentication)
@@ -26,6 +27,7 @@
 The Chenar Backend is a comprehensive accounting and business management system built with Django 5.1 and Django REST Framework. It provides a complete suite of APIs for managing accounting operations, inventory, customer relationships, and financial reporting.
 
 ### Key Features
+
 - **Multi-tenant Architecture**: Support for multiple companies/organizations
 - **Comprehensive Accounting**: Full double-entry accounting system
 - **Inventory Management**: Product catalog, warehouse management, and stock tracking
@@ -36,6 +38,7 @@ The Chenar Backend is a comprehensive accounting and business management system 
 - **User Management**: Role-based access control and permissions
 
 ### Technology Stack
+
 - **Backend Framework**: Django 5.1 with Django REST Framework
 - **Database**: PostgreSQL
 - **Authentication**: JWT (JSON Web Tokens) with refresh token support
@@ -48,6 +51,7 @@ The Chenar Backend is a comprehensive accounting and business management system 
 ## Onboarding Guide
 
 ### Prerequisites
+
 - Python 3.11+
 - Docker and Docker Compose
 - PostgreSQL database
@@ -56,6 +60,7 @@ The Chenar Backend is a comprehensive accounting and business management system 
 ### Quick Start
 
 1. **Clone the Repository**
+
    ```bash
    git clone https://github.com/MicrocisCorp/chenar-backend.git
    cd chenar-backend
@@ -63,23 +68,25 @@ The Chenar Backend is a comprehensive accounting and business management system 
    ```
 
 2. **Environment Setup**
+
    ```bash
    # Create virtual environment
    python -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
-   
+
    # Install dependencies
    pip install -r requirements/production.txt
    ```
 
 3. **Docker Setup**
+
    ```bash
    # Build Docker image
    docker compose build
-   
+
    # Start services
    docker compose up
-   
+
    # Initialize project (run migrations, create superuser, etc.)
    docker compose exec demo_acc_backend python3 manage.py initialize_project
    ```
@@ -90,6 +97,7 @@ The Chenar Backend is a comprehensive accounting and business management system 
    - ReDoc Documentation: `http://api.chenar.x9f4a7.onten.io:3333//docs/redoc/`
 
 ### Development Environment
+
 - The system uses Django settings modules for different environments
 - Development settings: `Accounting.settings.development_local`
 - Production settings: `Accounting.settings.production`
@@ -103,11 +111,13 @@ The API uses JWT (JSON Web Token) authentication with refresh token support.
 ### Authentication Endpoints
 
 #### Obtain Token Pair
+
 **POST** `/api/v1/user_account/tokens/obtain/`
 
 Authenticate user and obtain access and refresh tokens.
 
 **Request Body:**
+
 ```json
 {
   "username": "string",
@@ -116,6 +126,7 @@ Authenticate user and obtain access and refresh tokens.
 ```
 
 **Response:**
+
 ```json
 {
   "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...",
@@ -124,11 +135,13 @@ Authenticate user and obtain access and refresh tokens.
 ```
 
 #### Refresh Token
+
 **POST** `/api/v1/user_account/tokens/refresh/`
 
 Refresh the access token using a valid refresh token.
 
 **Request Body:**
+
 ```json
 {
   "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
@@ -136,6 +149,7 @@ Refresh the access token using a valid refresh token.
 ```
 
 **Response:**
+
 ```json
 {
   "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
@@ -143,11 +157,13 @@ Refresh the access token using a valid refresh token.
 ```
 
 #### Logout (Blacklist Token)
+
 **POST** `/api/v1/user_account/tokens/blacklist/`
 
 Blacklist the refresh token to log out the user.
 
 **Request Body:**
+
 ```json
 {
   "refresh_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
@@ -155,6 +171,7 @@ Blacklist the refresh token to log out the user.
 ```
 
 **Response:**
+
 ```json
 {
   "status": "Successfully Logged out"
@@ -162,6 +179,7 @@ Blacklist the refresh token to log out the user.
 ```
 
 ### Using Authentication
+
 Include the access token in the Authorization header for all authenticated requests:
 
 ```
@@ -169,6 +187,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...
 ```
 
 ### Token Lifecycle
+
 - **Access Token Lifetime**: 21600 minutes (15 days)
 - **Refresh Token Lifetime**: 15 minutes
 - **Token Rotation**: Enabled (new refresh token issued on refresh)
@@ -179,17 +198,21 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...
 ## API Base Information
 
 ### Base URL
+
 ```
 http://localhost:8000/api/v1/
 ```
 
 ### Content Type
+
 All requests should use `application/json` content type unless specified otherwise.
 
 ### Pagination
+
 The API uses custom pagination with the following structure:
 
 **Response Format:**
+
 ```json
 {
   "count": 100,
@@ -200,12 +223,15 @@ The API uses custom pagination with the following structure:
 ```
 
 ### Filtering and Search
+
 Most list endpoints support filtering and search:
+
 - **Filtering**: Use query parameters matching field names
 - **Search**: Use `search` parameter for text-based search
 - **Ordering**: Use `ordering` parameter for sorting
 
 **Example:**
+
 ```
 GET /api/v1/product/items/?search=laptop&category=1&ordering=-created
 ```
@@ -219,11 +245,13 @@ Base URL: `/api/v1/user_account/`
 ### User Management
 
 #### List Users
+
 **GET** `/api/v1/user_account/users/`
 
 Retrieve a list of system users.
 
 **Query Parameters:**
+
 - `first_name`: Filter by first name
 - `last_name`: Filter by last name
 - `username`: Filter by username
@@ -231,6 +259,7 @@ Retrieve a list of system users.
 - `search`: Search across filterable fields
 
 **Response:**
+
 ```json
 {
   "count": 10,
@@ -257,11 +286,13 @@ Retrieve a list of system users.
 ```
 
 #### Get User Details
+
 **GET** `/api/v1/user_account/users/{username}/`
 
 Retrieve details of a specific user.
 
 **Response:**
+
 ```json
 {
   "id": 1,
@@ -288,11 +319,13 @@ Retrieve details of a specific user.
 ```
 
 #### Update User
+
 **PATCH** `/api/v1/user_account/users/{username}/`
 
 Update user information.
 
 **Request Body:**
+
 ```json
 {
   "first_name": "Updated Name",
@@ -302,6 +335,7 @@ Update user information.
 ```
 
 #### Delete User
+
 **DELETE** `/api/v1/user_account/users/{username}/`
 
 Soft delete a user (sets is_active to false).
@@ -309,16 +343,19 @@ Soft delete a user (sets is_active to false).
 ### User Profile Management
 
 #### Get User Profile
+
 **GET** `/api/v1/user_account/user_profile/{username}/`
 
 Get the authenticated user's profile.
 
 #### Update User Profile
+
 **PATCH** `/api/v1/user_account/user_profile/{username}/`
 
 Update the authenticated user's profile.
 
 **Request Body:**
+
 ```json
 {
   "first_name": "New Name",
@@ -327,11 +364,13 @@ Update the authenticated user's profile.
 ```
 
 #### Check Password
+
 **POST** `/api/v1/user_account/user_profile/check_password/`
 
 Verify the user's current password.
 
 **Request Body:**
+
 ```json
 {
   "password": "current_password"
@@ -339,6 +378,7 @@ Verify the user's current password.
 ```
 
 **Response:**
+
 ```json
 {
   "status": true
@@ -346,11 +386,13 @@ Verify the user's current password.
 ```
 
 #### Get User Permissions
+
 **GET** `/api/v1/user_account/user_profile/{username}/permissions/`
 
 Get all permissions for the authenticated user.
 
 **Response:**
+
 ```json
 {
   "count": 50,
@@ -372,21 +414,25 @@ Get all permissions for the authenticated user.
 ### Permission Management
 
 #### List All Permissions
+
 **GET** `/api/v1/user_account/permit/`
 
 Get all system permissions.
 
 #### Get Models with Permissions
+
 **GET** `/api/v1/user_account/permit/get_model/`
 
 Get all content types (models) with their associated permissions.
 
 #### Get Model Permissions
+
 **GET** `/api/v1/user_account/permit/get_model_permission/{content_type_id}/`
 
 Get permissions for a specific model.
 
 #### Get Permission Dependencies
+
 **GET** `/api/v1/user_account/permit/{permission_id}/dependency/`
 
 Get all prerequisite permissions for a given permission.
@@ -394,11 +440,13 @@ Get all prerequisite permissions for a given permission.
 ### Role Management
 
 #### List Roles
+
 **GET** `/api/v1/user_account/roles/`
 
 Get all user roles (groups).
 
 **Response:**
+
 ```json
 {
   "count": 5,
@@ -413,11 +461,13 @@ Get all user roles (groups).
 ```
 
 #### Create Role
+
 **POST** `/api/v1/user_account/roles/`
 
 Create a new user role.
 
 **Request Body:**
+
 ```json
 {
   "name": "Sales Manager",
@@ -428,11 +478,13 @@ Create a new user role.
 ### User Invitation System
 
 #### Invite User
+
 **POST** `/api/v1/user_account/add_user/`
 
 Send an invitation email to a new user.
 
 **Request Body:**
+
 ```json
 {
   "email": "newuser@example.com",
@@ -443,11 +495,13 @@ Send an invitation email to a new user.
 ```
 
 #### Accept Invitation
+
 **POST** `/api/v1/user_account/accept_invite/`
 
 Accept a user invitation and complete account setup.
 
 **Request Body:**
+
 ```json
 {
   "token": "invitation_token",
@@ -459,11 +513,13 @@ Accept a user invitation and complete account setup.
 ### Password Reset
 
 #### Request Password Reset
+
 **POST** `/api/v1/user_account/reset_password/send_email`
 
 Request a password reset email.
 
 **Request Body:**
+
 ```json
 {
   "email": "user@example.com"
@@ -471,11 +527,13 @@ Request a password reset email.
 ```
 
 #### Validate Reset Token
+
 **POST** `/api/v1/user_account/reset_password/validate_token`
 
 Validate a password reset token.
 
 **Request Body:**
+
 ```json
 {
   "token": "reset_token"
@@ -483,11 +541,13 @@ Validate a password reset token.
 ```
 
 #### Confirm Password Reset
+
 **POST** `/api/v1/user_account/reset_password/confirm`
 
 Complete the password reset process.
 
 **Request Body:**
+
 ```json
 {
   "token": "reset_token",
@@ -504,11 +564,13 @@ Base URL: `/api/v1/product/`
 ### Product Operations
 
 #### List Products
+
 **GET** `/api/v1/product/items/`
 
 Retrieve a list of products with filtering and search capabilities.
 
 **Query Parameters:**
+
 - `name`: Filter by product name
 - `description`: Filter by description
 - `category`: Filter by category ID
@@ -519,6 +581,7 @@ Retrieve a list of products with filtering and search capabilities.
 - `ordering`: Sort by fields (id, name, description, category, etc.)
 
 **Response:**
+
 ```json
 {
   "count": 100,
@@ -579,16 +642,19 @@ Retrieve a list of products with filtering and search capabilities.
 ```
 
 #### Get Product Details
+
 **GET** `/api/v1/product/items/{id}/`
 
 Retrieve detailed information about a specific product.
 
 #### Create Product
+
 **POST** `/api/v1/product/items/`
 
 Create a new product.
 
 **Request Body:**
+
 ```json
 {
   "name": "New Product",
@@ -616,16 +682,19 @@ Create a new product.
 ```
 
 #### Update Product
+
 **PATCH** `/api/v1/product/items/{id}/`
 
 Update an existing product.
 
 #### Update Product Units
+
 **PUT** `/api/v1/product/items/{id}/update_unit/`
 
 Update the units associated with a product.
 
 **Request Body:**
+
 ```json
 [
   {
@@ -644,40 +713,43 @@ Update the units associated with a product.
 ```
 
 #### Get Latest Products
+
 **GET** `/api/v1/product/items/latest_product/`
 
 Get the 5 most recently created products.
 
 #### Get Best Selling Products
+
 **GET** `/api/v1/product/items/best_selling/`
 
 Get the top 20 best-selling products.
 
 #### Generate Unique Barcode
+
 **GET** `/api/v1/product/items/generate_unique_barcode/?count=5`
 
 Generate unique barcodes for products.
 
 **Query Parameters:**
+
 - `count`: Number of barcodes to generate (max 200)
 
 **Response:**
+
 ```json
-[
-  "1234567890123",
-  "1234567890124",
-  "1234567890125"
-]
+["1234567890123", "1234567890124", "1234567890125"]
 ```
 
 ### Product Categories
 
 #### List Categories
+
 **GET** `/api/v1/product/category/`
 
 Get product categories in a tree structure.
 
 **Response:**
+
 ```json
 {
   "count": 10,
@@ -699,11 +771,13 @@ Get product categories in a tree structure.
 ```
 
 #### Create Category
+
 **POST** `/api/v1/product/category/`
 
 Create a new product category.
 
 **Request Body:**
+
 ```json
 {
   "name": "New Category",
@@ -714,11 +788,13 @@ Create a new product category.
 ### Product Units
 
 #### List Units
+
 **GET** `/api/v1/product/unit/`
 
 Get all product units.
 
 **Response:**
+
 ```json
 {
   "count": 20,
@@ -733,11 +809,13 @@ Get all product units.
 ```
 
 #### Create Unit
+
 **POST** `/api/v1/product/unit/`
 
 Create a new product unit.
 
 **Request Body:**
+
 ```json
 {
   "name": "Kilogram",
@@ -749,21 +827,25 @@ Create a new product unit.
 ### Product Pricing
 
 #### List Product Prices
+
 **GET** `/api/v1/product/price/`
 
 Get product pricing information.
 
 **Query Parameters:**
+
 - `product__name`: Filter by product name
 - `product__product_barcode__barcode`: Filter by barcode
 - `sales_rate`: Filter by sales rate
 
 #### Bulk Create Prices
+
 **POST** `/api/v1/product/price/bulk_create/`
 
 Create multiple product prices at once.
 
 **Request Body:**
+
 ```json
 [
   {
@@ -777,6 +859,7 @@ Create multiple product prices at once.
 ```
 
 #### Bulk Update Prices
+
 **PUT** `/api/v1/product/price/bulk_update/{product_id}/`
 
 Update all prices for a specific product.
@@ -784,16 +867,19 @@ Update all prices for a specific product.
 ### Product Barcodes
 
 #### List Barcodes
+
 **GET** `/api/v1/product/items/barcode/`
 
 Get product barcodes.
 
 #### Create Barcode
+
 **POST** `/api/v1/product/items/barcode/`
 
 Create a new product barcode.
 
 **Request Body:**
+
 ```json
 {
   "product": 1,
@@ -807,16 +893,19 @@ Create a new product barcode.
 ### Unit Conversions
 
 #### List Unit Conversions
+
 **GET** `/api/v1/product/unit/conversion/`
 
 Get unit conversion rates.
 
 #### Bulk Create Conversions
+
 **POST** `/api/v1/product/unit/conversion/bulk_create/`
 
 Create multiple unit conversions.
 
 **Request Body:**
+
 ```json
 [
   {
@@ -828,6 +917,7 @@ Create multiple unit conversions.
 ```
 
 #### Bulk Update Conversions
+
 **PUT** `/api/v1/product/unit/conversion/bulk_update/{product_id}/`
 
 Update all unit conversions for a product.
@@ -835,16 +925,19 @@ Update all unit conversions for a product.
 ### VIP Pricing
 
 #### List VIP Prices
+
 **GET** `/api/v1/product/price/vip/`
 
 Get VIP pricing information.
 
 #### Bulk Update VIP Prices
+
 **PUT** `/api/v1/product/items/bulk/update/vip_price/`
 
 Update VIP prices for multiple products.
 
 **Request Body:**
+
 ```json
 {
   "products": [1, 2, 3],
@@ -855,11 +948,13 @@ Update VIP prices for multiple products.
 ### Product Settings
 
 #### Get Product Settings
+
 **GET** `/api/v1/product/setting/`
 
 Get global product settings.
 
 **Response:**
+
 ```json
 {
   "vip_price": {
@@ -870,6 +965,7 @@ Get global product settings.
 ```
 
 #### Update Product Settings
+
 **PUT** `/api/v1/product/setting/{id}/`
 
 Update product settings.
@@ -883,11 +979,13 @@ Base URL: `/api/v1/customer_account/`
 ### Customer Operations
 
 #### List Customers
+
 **GET** `/api/v1/customer_account/customer/`
 
 Retrieve a list of customers.
 
 **Response:**
+
 ```json
 {
   "count": 50,
@@ -912,11 +1010,13 @@ Retrieve a list of customers.
 ```
 
 #### Create Customer
+
 **POST** `/api/v1/customer_account/customer/`
 
 Create a new customer.
 
 **Request Body:**
+
 ```json
 {
   "name": "Jane Smith",
@@ -929,23 +1029,29 @@ Create a new customer.
 ```
 
 #### Get Customer Details
+
 **GET** `/api/v1/customer_account/customer/{id}/`
 
 #### Update Customer
+
 **PATCH** `/api/v1/customer_account/customer/{id}/`
 
 #### Delete Customer
+
 **DELETE** `/api/v1/customer_account/customer/{id}/`
 
 ### Customer Categories
 
 #### List Customer Categories
+
 **GET** `/api/v1/customer_account/customer_category/`
 
 #### Create Customer Category
+
 **POST** `/api/v1/customer_account/customer_category/`
 
 **Request Body:**
+
 ```json
 {
   "name": "VIP Customer",
@@ -956,12 +1062,15 @@ Create a new customer.
 ### Customer Discounts
 
 #### List Discount Types
+
 **GET** `/api/v1/customer_account/discount/type/`
 
 #### List Discount Cards
+
 **GET** `/api/v1/customer_account/discount/card/`
 
 #### List Customer Discounts
+
 **GET** `/api/v1/customer_account/discount/customer/`
 
 ---
@@ -973,11 +1082,13 @@ Base URL: `/api/v1/supplier_account/`
 ### Supplier Operations
 
 #### List Suppliers
+
 **GET** `/api/v1/supplier_account/supplier/`
 
 Retrieve a list of suppliers.
 
 **Response:**
+
 ```json
 {
   "count": 25,
@@ -1001,23 +1112,29 @@ Retrieve a list of suppliers.
 ```
 
 #### Create Supplier
+
 **POST** `/api/v1/supplier_account/supplier/`
 
 #### Get Supplier Details
+
 **GET** `/api/v1/supplier_account/supplier/{id}/`
 
 #### Update Supplier
+
 **PATCH** `/api/v1/supplier_account/supplier/{id}/`
 
 #### Delete Supplier
+
 **DELETE** `/api/v1/supplier_account/supplier/{id}/`
 
 ### Supplier Categories
 
 #### List Supplier Categories
+
 **GET** `/api/v1/supplier_account/supplier_category/`
 
 #### Create Supplier Category
+
 **POST** `/api/v1/supplier_account/supplier_category/`
 
 ---
@@ -1029,12 +1146,15 @@ Base URL: `/api/v1/staff_account/`
 ### Staff Operations
 
 #### List Staff
+
 **GET** `/api/v1/staff_account/staff/`
 
 #### Create Staff
+
 **POST** `/api/v1/staff_account/staff/`
 
 **Request Body:**
+
 ```json
 {
   "name": "Employee Name",
@@ -1048,17 +1168,21 @@ Base URL: `/api/v1/staff_account/`
 ```
 
 #### Get Staff Details
+
 **GET** `/api/v1/staff_account/staff/{id}/`
 
 #### Update Staff
+
 **PATCH** `/api/v1/staff_account/staff/{id}/`
 
 ### Staff Categories
 
 #### List Staff Categories
+
 **GET** `/api/v1/staff_account/staff_category/`
 
 #### Create Staff Category
+
 **POST** `/api/v1/staff_account/staff_category/`
 
 ---
@@ -1070,11 +1194,13 @@ Base URL: `/api/v1/banking/`
 ### Bank Management
 
 #### List Banks
+
 **GET** `/api/v1/banking/bank/`
 
 Retrieve a list of bank accounts.
 
 **Response:**
+
 ```json
 {
   "count": 5,
@@ -1095,9 +1221,11 @@ Retrieve a list of bank accounts.
 ```
 
 #### Create Bank Account
+
 **POST** `/api/v1/banking/bank/`
 
 **Request Body:**
+
 ```json
 {
   "name": "Secondary Account",
@@ -1112,12 +1240,15 @@ Retrieve a list of bank accounts.
 ### Cash Management
 
 #### List Cash Accounts
+
 **GET** `/api/v1/banking/cash/`
 
 #### Create Cash Account
+
 **POST** `/api/v1/banking/cash/`
 
 **Request Body:**
+
 ```json
 {
   "name": "Main Cash Register",
@@ -1136,11 +1267,13 @@ Base URL: `/api/v1/invoice/`
 ### Sales Invoices
 
 #### List Sales Invoices
+
 **GET** `/api/v1/invoice/sales/`
 
 Retrieve sales invoices.
 
 **Response:**
+
 ```json
 {
   "count": 100,
@@ -1175,9 +1308,11 @@ Retrieve sales invoices.
 ```
 
 #### Create Sales Invoice
+
 **POST** `/api/v1/invoice/sales/`
 
 **Request Body:**
+
 ```json
 {
   "customer": 1,
@@ -1197,49 +1332,61 @@ Retrieve sales invoices.
 ### Purchase Invoices
 
 #### List Purchase Invoices
+
 **GET** `/api/v1/invoice/purchase/`
 
 #### Create Purchase Invoice
+
 **POST** `/api/v1/invoice/purchase/`
 
 ### Sales Orders
 
 #### List Sales Orders
+
 **GET** `/api/v1/invoice/sales_order/`
 
 #### Create Sales Order
+
 **POST** `/api/v1/invoice/sales_order/`
 
 ### Purchase Orders
 
 #### List Purchase Orders
+
 **GET** `/api/v1/invoice/purchase_order/`
 
 #### Create Purchase Order
+
 **POST** `/api/v1/invoice/purchase_order/`
 
 ### Estimates
 
 #### List Estimates
+
 **GET** `/api/v1/invoice/estimate/`
 
 #### Create Estimate
+
 **POST** `/api/v1/invoice/estimate/`
 
 ### Product Transfers
 
 #### List Product Transfers
+
 **GET** `/api/v1/invoice/transfer/`
 
 #### Create Product Transfer
+
 **POST** `/api/v1/invoice/transfer/`
 
 ### Product Adjustments
 
 #### List Product Adjustments
+
 **GET** `/api/v1/invoice/adjustment/`
 
 #### Create Product Adjustment
+
 **POST** `/api/v1/invoice/adjustment/`
 
 ---
@@ -1251,20 +1398,25 @@ Base URL: `/api/v1/pay_receive_cash/`
 ### Cash Flow Management
 
 #### List Cash Flow Entries
+
 **GET** `/api/v1/pay_receive_cash/cash_flow/`
 
 #### Create Cash Flow Entry
+
 **POST** `/api/v1/pay_receive_cash/cash_flow/`
 
 ### Income Operations
 
 #### List Income Cash Entries
+
 **GET** `/api/v1/pay_receive_cash/income_cash/`
 
 #### Create Income Cash Entry
+
 **POST** `/api/v1/pay_receive_cash/income_cash/`
 
 **Request Body:**
+
 ```json
 {
   "amount": "1500.00",
@@ -1278,34 +1430,43 @@ Base URL: `/api/v1/pay_receive_cash/`
 ### Expense Operations
 
 #### List Expense Cash Entries
+
 **GET** `/api/v1/pay_receive_cash/expense_cash/`
 
 #### Create Expense Cash Entry
+
 **POST** `/api/v1/pay_receive_cash/expense_cash/`
 
 ### Staff Financial Operations
 
 #### List Staff Salaries
+
 **GET** `/api/v1/pay_receive_cash/staff/salary/`
 
 #### Create Staff Salary Entry
+
 **POST** `/api/v1/pay_receive_cash/staff/salary/`
 
 #### List Staff Payments/Receipts
+
 **GET** `/api/v1/pay_receive_cash/staff/`
 
 #### Create Staff Payment/Receipt
+
 **POST** `/api/v1/pay_receive_cash/staff/`
 
 ### Customer Financial Operations
 
 #### List Customer Payments/Receipts
+
 **GET** `/api/v1/pay_receive_cash/customer/`
 
 #### Create Customer Payment/Receipt
+
 **POST** `/api/v1/pay_receive_cash/customer/`
 
 **Request Body:**
+
 ```json
 {
   "customer": 1,
@@ -1320,20 +1481,25 @@ Base URL: `/api/v1/pay_receive_cash/`
 ### Supplier Financial Operations
 
 #### List Supplier Payments/Receipts
+
 **GET** `/api/v1/pay_receive_cash/supplier/`
 
 #### Create Supplier Payment/Receipt
+
 **POST** `/api/v1/pay_receive_cash/supplier/`
 
 ### Bank Transfers
 
 #### List Bank/Cash Transfers
+
 **GET** `/api/v1/pay_receive_cash/bank_cash_transfer/`
 
 #### Create Bank/Cash Transfer
+
 **POST** `/api/v1/pay_receive_cash/bank_cash_transfer/`
 
 **Request Body:**
+
 ```json
 {
   "from_account": 1,
@@ -1347,22 +1513,27 @@ Base URL: `/api/v1/pay_receive_cash/`
 ### Exchange Operations
 
 #### List Exchange Union Entries
+
 **GET** `/api/v1/pay_receive_cash/exchange_union/`
 
 #### Create Exchange Union Entry
+
 **POST** `/api/v1/pay_receive_cash/exchange_union/`
 
 ### Withdrawals
 
 #### List Withdrawals
+
 **GET** `/api/v1/pay_receive_cash/withdrawal/`
 
 #### Create Withdrawal
+
 **POST** `/api/v1/pay_receive_cash/withdrawal/`
 
 ### Journal Reports
 
 #### Get Journal Report
+
 **GET** `/api/v1/pay_receive_cash/report/journal/`
 
 ---
@@ -1374,11 +1545,13 @@ Base URL: `/api/v1/inventory/`
 ### Warehouse Management
 
 #### List Warehouses
+
 **GET** `/api/v1/inventory/warehouse/`
 
 Retrieve a list of warehouses.
 
 **Response:**
+
 ```json
 {
   "count": 3,
@@ -1398,9 +1571,11 @@ Retrieve a list of warehouses.
 ```
 
 #### Create Warehouse
+
 **POST** `/api/v1/inventory/warehouse/`
 
 **Request Body:**
+
 ```json
 {
   "name": "Secondary Warehouse",
@@ -1412,12 +1587,15 @@ Retrieve a list of warehouses.
 ```
 
 #### Get Warehouse Details
+
 **GET** `/api/v1/inventory/warehouse/{id}/`
 
 #### Update Warehouse
+
 **PATCH** `/api/v1/inventory/warehouse/{id}/`
 
 #### Delete Warehouse
+
 **DELETE** `/api/v1/inventory/warehouse/{id}/`
 
 ---
@@ -1429,31 +1607,38 @@ Base URL: `/api/v1/accounting_reports/`
 ### Warehouse Reports
 
 #### Product Statistics Report
+
 **GET** `/api/v1/accounting_reports/warehouse/product_statistic/`
 
 Get product availability statistics.
 
 **Query Parameters:**
+
 - `warehouse`: Filter by warehouse ID
 - `category`: Filter by product category
 - `date_from`: Start date for the report
 - `date_to`: End date for the report
 
 #### Product Deficits Report
+
 **GET** `/api/v1/accounting_reports/warehouse/product_deficits/`
 
 Get products that are below minimum stock levels.
 
 #### Sales Price Report
+
 **GET** `/api/v1/accounting_reports/warehouse/sales_price/`
 
 #### Purchase Price Report
+
 **GET** `/api/v1/accounting_reports/warehouse/purchase_price/`
 
 #### Product Expiration Report
+
 **GET** `/api/v1/accounting_reports/warehouse/product_expiration/`
 
 #### Inventory Report
+
 **GET** `/api/v1/accounting_reports/warehouse/inventory/`
 
 Generate inventory report.
@@ -1463,36 +1648,43 @@ Generate inventory report.
 Get inventory report results.
 
 #### Warehouse Cardex Report
+
 **GET** `/api/v1/accounting_reports/warehouse/warehouse_cardex/`
 
 **GET** `/api/v1/accounting_reports/warehouse/warehouse_cardex/result/`
 
 #### Sales Invoice Report
+
 **GET** `/api/v1/accounting_reports/warehouse/sales_invoice/`
 
 **GET** `/api/v1/accounting_reports/warehouse/sales_invoice/result/`
 
 #### Invoice Reports
+
 **GET** `/api/v1/accounting_reports/warehouse/invoice_report/`
 
 **GET** `/api/v1/accounting_reports/warehouse/invoice_report/result/`
 
 #### Invoice by Product Report
+
 **GET** `/api/v1/accounting_reports/warehouse/invoice_by_product/`
 
 **GET** `/api/v1/accounting_reports/warehouse/invoice_by_product/result/`
 
 #### Invoice by Person Report
+
 **GET** `/api/v1/accounting_reports/warehouse/invoice_by_person/`
 
 **GET** `/api/v1/accounting_reports/warehouse/invoice_by_person/result/`
 
 #### Product Profit Report
+
 **GET** `/api/v1/accounting_reports/warehouse/product_profit/`
 
 **GET** `/api/v1/accounting_reports/warehouse/product_profit/result/`
 
 #### Graph Reports
+
 **GET** `/api/v1/accounting_reports/warehouse/sales_invoice/graph_report/`
 
 **GET** `/api/v1/accounting_reports/warehouse/purchase_invoice/graph_report/`
@@ -1500,6 +1692,7 @@ Get inventory report results.
 ### Financial Reports
 
 #### Journal Report
+
 **GET** `/api/v1/accounting_reports/financial/journal/`
 
 Generate journal entries report.
@@ -1509,16 +1702,19 @@ Generate journal entries report.
 Get journal report results.
 
 #### Account Statistics Report
+
 **GET** `/api/v1/accounting_reports/financial/account_statistic/`
 
 **GET** `/api/v1/accounting_reports/financial/account_statistic/result/`
 
 #### Debit/Credit Report
+
 **GET** `/api/v1/accounting_reports/financial/debit_credit/`
 
 **GET** `/api/v1/accounting_reports/financial/debit_credit/result/`
 
 #### Balance Reports
+
 **GET** `/api/v1/accounting_reports/financial/balance/detailed/`
 
 Get detailed balance report.
@@ -1536,6 +1732,7 @@ Get balance sheet in base currency.
 Get balance sheet in multiple currencies.
 
 #### Profit & Loss Reports
+
 **GET** `/api/v1/accounting_reports/financial/profit_lost/year/`
 
 Get fiscal year profit report.
@@ -1545,6 +1742,7 @@ Get fiscal year profit report.
 Get profit and loss report.
 
 #### Graph Reports
+
 **GET** `/api/v1/accounting_reports/financial/income_report/`
 
 Get income graph report.
@@ -1554,11 +1752,13 @@ Get income graph report.
 Get expense graph report.
 
 #### Dashboard Report
+
 **GET** `/api/v1/accounting_reports/financial/dashboard/`
 
 Get dashboard summary data.
 
 **Response:**
+
 ```json
 {
   "total_sales": "50000.00",
@@ -1577,24 +1777,31 @@ Get dashboard summary data.
 ## System Settings
 
 ### Company Information
+
 **GET/PUT** `/api/v1/company/`
 
 ### System Settings
+
 **GET/PUT** `/api/v1/setting/`
 
 ### User Settings
+
 **GET/PUT** `/api/v1/system_setting/`
 
 ### Currency Management
+
 **GET/POST** `/api/v1/currency/`
 
 ### Chart of Accounts
+
 **GET/POST** `/api/v1/chart_of_account/`
 
 ### Opening Balance
+
 **GET/POST** `/api/v1/opening_balance/`
 
 ### Expense/Revenue Categories
+
 **GET/POST** `/api/v1/expense_revenue/`
 
 ---
@@ -1630,6 +1837,7 @@ The API uses standard HTTP status codes:
 ### Common Error Scenarios
 
 #### Authentication Errors
+
 ```json
 {
   "detail": "Given token not valid for any token type",
@@ -1645,6 +1853,7 @@ The API uses standard HTTP status codes:
 ```
 
 #### Validation Errors
+
 ```json
 {
   "name": ["This field is required."],
@@ -1654,6 +1863,7 @@ The API uses standard HTTP status codes:
 ```
 
 #### Permission Errors
+
 ```json
 {
   "detail": "You do not have permission to perform this action."
@@ -1665,6 +1875,7 @@ The API uses standard HTTP status codes:
 ## Common Response Formats
 
 ### Success Response
+
 ```json
 {
   "status": true,
@@ -1674,6 +1885,7 @@ The API uses standard HTTP status codes:
 ```
 
 ### List Response with Pagination
+
 ```json
 {
   "count": 100,
@@ -1684,6 +1896,7 @@ The API uses standard HTTP status codes:
 ```
 
 ### Bulk Operation Response
+
 ```json
 {
   "status": true,
@@ -1695,6 +1908,7 @@ The API uses standard HTTP status codes:
 ```
 
 ### File Upload Response
+
 ```json
 {
   "status": true,
@@ -1708,6 +1922,7 @@ The API uses standard HTTP status codes:
 ## Best Practices
 
 ### Request Guidelines
+
 1. Always include the `Authorization` header for authenticated endpoints
 2. Use appropriate HTTP methods (GET, POST, PUT, PATCH, DELETE)
 3. Include `Content-Type: application/json` for JSON requests
@@ -1715,6 +1930,7 @@ The API uses standard HTTP status codes:
 5. Handle file uploads using `multipart/form-data`
 
 ### Response Handling
+
 1. Always check the HTTP status code
 2. Parse error responses to display meaningful messages
 3. Implement proper pagination for list endpoints
@@ -1722,6 +1938,7 @@ The API uses standard HTTP status codes:
 5. Handle network timeouts and connection errors
 
 ### Security Considerations
+
 1. Store JWT tokens securely (not in localStorage for web apps)
 2. Implement token refresh logic
 3. Validate all user inputs on the frontend
@@ -1729,6 +1946,7 @@ The API uses standard HTTP status codes:
 5. Implement proper CORS policies
 
 ### Performance Optimization
+
 1. Use filtering and search parameters to reduce response size
 2. Implement client-side caching for static data
 3. Use pagination for large datasets
@@ -1740,16 +1958,19 @@ The API uses standard HTTP status codes:
 ## Support and Documentation
 
 ### Additional Resources
+
 - **Swagger UI**: `http://localhost:8000/docs/swagger-ui/`
 - **ReDoc**: `http://localhost:8000/docs/redoc/`
 - **OpenAPI Schema**: `http://localhost:8000/schema/`
 
 ### Contact Information
+
 - **Development Team**: MicrocisCorp
 - **Repository**: https://github.com/MicrocisCorp/chenar-backend
 - **Email**: chenar1099@gmail.com
 
 ### Version Information
+
 - **API Version**: v1
 - **Django Version**: 5.1
 - **DRF Version**: Latest
@@ -1757,4 +1978,4 @@ The API uses standard HTTP status codes:
 
 ---
 
-*This documentation is generated for the Chenar Backend API upgrade branch. For the most up-to-date information, please refer to the Swagger documentation at `/docs/swagger-ui/`.*
+_This documentation is generated for the Chenar Backend API upgrade branch. For the most up-to-date information, please refer to the Swagger documentation at `/docs/swagger-ui/`._

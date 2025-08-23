@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import axiosInstance from "../ApiBaseUrl";
-import { Table, Menu, Typography, Checkbox } from "antd";
-import { useTranslation } from "react-i18next";
-import Action from "./Action";
-import { useMediaQuery } from "../MediaQurey";
-import { useMemo } from "react";
-import ShowDate from "../SelfComponents/JalaliAntdComponents/ShowDate";
-import { PaginateTable, Statistics } from "../../components/antd";
-import { checkActionColumnPermissions } from "../../Functions";
+import React, { useState } from 'react';
+import axiosInstance from '../ApiBaseUrl';
+import { Table, Menu, Typography, Checkbox } from 'antd';
+import { useTranslation } from 'react-i18next';
+import Action from './Action';
+import { useMediaQuery } from '../MediaQurey';
+import { useMemo } from 'react';
+import ShowDate from '../SelfComponents/JalaliAntdComponents/ShowDate';
+import { PaginateTable, Statistics } from '../../components/antd';
+import { checkActionColumnPermissions } from '../../Functions';
 
 const { Column, ColumnGroup } = Table;
 interface IProps {
@@ -24,7 +24,7 @@ const TransactionsTable: React.FC<IProps> = ({
   title,
   model,
 }) => {
-  const isMobile = useMediaQuery("(max-width:425px)");
+  const isMobile = useMediaQuery('(max-width:425px)');
   const { t } = useTranslation();
   const [{ currency, calCurrency, details }, setColumns] = useState({
     currency: true,
@@ -52,32 +52,32 @@ const TransactionsTable: React.FC<IProps> = ({
 
   const setting = (
     <Menu style={styles.settingsMenu}>
-      <Menu.Item key="1">
+      <Menu.Item key='1'>
         <Typography.Text strong={true}>
-          {t("Sales.Product_and_services.Columns")}
+          {t('Sales.Product_and_services.Columns')}
         </Typography.Text>
       </Menu.Item>
-      <Menu.Item key="2">
+      <Menu.Item key='2'>
         <Checkbox defaultChecked onChange={onChangeCurrency}>
-          {t("Sales.Customers.Receive_cash.Paid_currency")}
+          {t('Sales.Customers.Receive_cash.Paid_currency')}
         </Checkbox>
       </Menu.Item>
-      <Menu.Item key="3">
+      <Menu.Item key='3'>
         <Checkbox defaultChecked onChange={onChangeDetails}>
-          {t("Sales.Customers.Receive_cash.Receive_details")}
+          {t('Sales.Customers.Receive_cash.Receive_details')}
         </Checkbox>
       </Menu.Item>
-      {(place === "recordSalaries" ||
-        place === "customerPayAndRecCash" ||
-        place === "employeePayAndRecCash" ||
-        place === "currencyExchange" ||
-        place === "withdrawPayAndRecCash" ||
-        place === "supplierPayAndRecCash") && (
-        <Menu.Item key="4">
+      {(place === 'recordSalaries' ||
+        place === 'customerPayAndRecCash' ||
+        place === 'employeePayAndRecCash' ||
+        place === 'currencyExchange' ||
+        place === 'withdrawPayAndRecCash' ||
+        place === 'supplierPayAndRecCash') && (
+        <Menu.Item key='4'>
           <Checkbox onChange={onChangeCalCurrency}>
-            {place === "currencyExchange"
-              ? t("Sales.Customers.Receive_cash.Receive_currency")
-              : t("Sales.Customers.Receive_cash.Calculate_currency")}
+            {place === 'currencyExchange'
+              ? t('Sales.Customers.Receive_cash.Receive_currency')
+              : t('Sales.Customers.Receive_cash.Calculate_currency')}
           </Checkbox>
         </Menu.Item>
       )}
@@ -85,155 +85,156 @@ const TransactionsTable: React.FC<IProps> = ({
   );
 
   const handleGetTransactions = React.useCallback(
-    async ({ queryKey }) => {
+    async ({ queryKey }: { queryKey: any }) => {
       const { page, pageSize, search, order } = queryKey?.[1];
       const { data } = await axiosInstance.get(
-        `${baseUrl}?page=${page}&page_size=${pageSize}&ordering=${order}&search=${search}&expand=*`
+        `${baseUrl}?page=${page}&page_size=${pageSize}&ordering=${order}&search=${search}&expand=*`,
       );
-
-      console.log("dddddddddddddddddddddd" , data)
+      console.log('dddddddddddddddddddddd', data);
       return data;
     },
-    [baseUrl]
+    [baseUrl],
   );
 
   const columns = useMemo(
     () => (type: string, hasSelected: boolean) => {
-      const sorter = type !== "print" ? true : false;
+      const sorter = type !== 'print' ? true : false;
       return (
         <React.Fragment>
-          {place !== "recordSalaries" && (
+          {place !== 'recordSalaries' && (
             <Column
-              title={t("Sales.Customers.Receive_cash.Payer").toUpperCase()}
-              dataIndex="pay_by"
-              key="pay_by"
-              fixed={type !== "print" ? true : false}
+              title={t('Sales.Customers.Receive_cash.Payer').toUpperCase()}
+              dataIndex='pay_by'
+              key='pay_by'
+              fixed={type !== 'print' ? true : false}
               render={(text: any) => {
                 return <>{text?.name} </>;
               }}
-              className="table-col"
+              className='table-col'
               sorter={sorter && { multiple: 10 }}
             />
           )}
 
           {currency && (
             <ColumnGroup
-              title={t("Sales.Customers.Receive_cash.Paid_currency")}
+              title={t('Sales.Customers.Receive_cash.Paid_currency')}
             >
               <Column
-                title={t("Sales.Customers.Form.Amount").toUpperCase()}
-                dataIndex="amount"
-                key="amount"
+                title={t('Sales.Customers.Form.Amount').toUpperCase()}
+                dataIndex='amount'
+                key='amount'
                 sorter={sorter && { multiple: 9 }}
                 render={(text: any) => {
                   return <Statistics value={text} />;
                 }}
-                className="table-col"
+                className='table-col'
               />
 
               <Column
                 title={t(
-                  "Sales.Product_and_services.Inventory.Currency"
+                  'Sales.Product_and_services.Inventory.Currency',
                 ).toUpperCase()}
-                dataIndex="currency"
-                key="currency"
+                dataIndex='currency'
+                key='currency'
                 sorter={sorter && { multiple: 8 }}
                 render={(text: any) => {
                   return <>{t(`Reports.${text?.symbol}`)} </>;
                 }}
-                className="table-col"
+                className='table-col'
               />
 
               <Column
                 title={t(
-                  "Sales.Product_and_services.Currency.Currency_rate"
+                  'Sales.Product_and_services.Currency.Currency_rate',
                 ).toUpperCase()}
-                dataIndex="currency_rate"
-                key="currency_rate"
+                dataIndex='currency_rate'
+                key='currency_rate'
                 render={(text: any) => {
                   return <Statistics value={text} />;
                 }}
-                className="table-col"
+                className='table-col'
                 sorter={sorter && { multiple: 7 }}
               />
             </ColumnGroup>
           )}
-          {place === "recordSalaries" ||
-          place === "customerPayAndRecCash" ||
-          place === "employeePayAndRecCash" ||
-          place === "currencyExchange" ||
-          place === "withdrawPayAndRecCash" ||
-          place === "supplierPayAndRecCash"
+          {place === 'recordSalaries' ||
+          place === 'customerPayAndRecCash' ||
+          place === 'employeePayAndRecCash' ||
+          place === 'currencyExchange' ||
+          place === 'withdrawPayAndRecCash' ||
+          place === 'supplierPayAndRecCash'
             ? calCurrency && (
                 <ColumnGroup
                   title={
-                    place === "currencyExchange"
-                      ? t("Sales.Customers.Receive_cash.Receive_currency")
-                      : t("Sales.Customers.Receive_cash.Calculate_currency")
+                    place === 'currencyExchange'
+                      ? t('Sales.Customers.Receive_cash.Receive_currency')
+                      : t('Sales.Customers.Receive_cash.Calculate_currency')
                   }
                 >
                   <Column
-                    title={t("Sales.Customers.Form.Amount").toUpperCase()}
+                    title={t('Sales.Customers.Form.Amount').toUpperCase()}
                     dataIndex={
-                      place === "currencyExchange"
-                        ? "amount_exchange"
-                        : "amount_calc"
+                      place === 'currencyExchange'
+                        ? 'amount_exchange'
+                        : 'amount_calc'
                     }
                     key={
-                      place === "currencyExchange"
-                        ? "amount_exchange"
-                        : "amount_calc"
+                      place === 'currencyExchange'
+                        ? 'amount_exchange'
+                        : 'amount_calc'
                     }
                     sorter={sorter && { multiple: 6 }}
                     render={(text: any) => {
                       return <Statistics value={text} />;
                     }}
-                    className="table-col"
+                    className='table-col'
                   />
 
                   <Column
                     title={t(
-                      "Sales.Product_and_services.Inventory.Currency"
+                      'Sales.Product_and_services.Inventory.Currency',
                     ).toUpperCase()}
                     dataIndex={
-                      place === "currencyExchange"
-                        ? "currency_exchange"
-                        : "currency_calc"
+                      place === 'currencyExchange'
+                        ? 'currency_exchange'
+                        : 'currency_calc'
                     }
                     key={
-                      place === "currencyExchange"
-                        ? "currency_exchange"
-                        : "currency_calc"
+                      place === 'currencyExchange'
+                        ? 'currency_exchange'
+                        : 'currency_calc'
                     }
                     sorter={sorter && { multiple: 5 }}
-                    className="table-col"
+                    className='table-col'
                     render={(text: any) => {
-                      return <>
-                      ییی
-                      {/* {text?.name} */}
-                       </>;
+                      return (
+                        <>
+                          ییی
+                          {/* {text?.name} */}
+                        </>
+                      );
                     }}
                   />
 
                   <Column
                     title={t(
-                      "Sales.Product_and_services.Currency.Currency_rate"
+                      'Sales.Product_and_services.Currency.Currency_rate',
                     ).toUpperCase()}
                     dataIndex={
-                      place === "currencyExchange"
-                        ? "currency_rate_exchange"
-                        : "currency_rate_calc"
+                      place === 'currencyExchange'
+                        ? 'currency_rate_exchange'
+                        : 'currency_rate_calc'
                     }
                     key={
-                      place === "currencyExchange"
-                        ? "currency_rate_exchange"
-                        : "currency_rate_calc"
+                      place === 'currencyExchange'
+                        ? 'currency_rate_exchange'
+                        : 'currency_rate_calc'
                     }
                     render={(text: any) => {
                       var num = parseFloat(text);
                       return <>{num}</>;
                     }}
-                    className="table-col"
+                    className='table-col'
                     sorter={sorter && { multiple: 4 }}
                   />
                 </ColumnGroup>
@@ -242,13 +243,13 @@ const TransactionsTable: React.FC<IProps> = ({
 
           {details && (
             <ColumnGroup
-              title={t("Sales.Customers.Receive_cash.Receive_details")}
+              title={t('Sales.Customers.Receive_cash.Receive_details')}
             >
               <Column
-                title={t("Sales.All_sales.Invoice.Date_and_time").toUpperCase()}
-                dataIndex="date_time"
-                key="date_time"
-                className="table-col"
+                title={t('Sales.All_sales.Invoice.Date_and_time').toUpperCase()}
+                dataIndex='date_time'
+                key='date_time'
+                className='table-col'
                 render={(text) => {
                   return <ShowDate date={text} />;
                 }}
@@ -256,31 +257,31 @@ const TransactionsTable: React.FC<IProps> = ({
               />
 
               <Column
-                title={`${t("Form.Description").toUpperCase()}`}
-                dataIndex="description"
-                key="description"
+                title={`${t('Form.Description').toUpperCase()}`}
+                dataIndex='description'
+                key='description'
                 sorter={sorter && { multiple: 2 }}
-                className="table-col"
+                className='table-col'
               />
             </ColumnGroup>
           )}
           <Column
-            title={t("Sales.Customers.Receive_cash.Receiver").toUpperCase()}
-            dataIndex="rec_by"
-            key="rec_by"
+            title={t('Sales.Customers.Receive_cash.Receiver').toUpperCase()}
+            dataIndex='rec_by'
+            key='rec_by'
             render={(text: any) => {
               return <>{text?.name} </>;
             }}
-            className="table-col"
+            className='table-col'
             sorter={sorter && { multiple: 1 }}
           />
 
-          {type !== "print" && checkActionColumnPermissions(model) && (
+          {type !== 'print' && checkActionColumnPermissions(model) && (
             <Column
-              title={t("Table.Action").toUpperCase()}
-              key="action"
+              title={t('Table.Action').toUpperCase()}
+              key='action'
               width={isMobile ? 50 : 70}
-              align="center"
+              align='center'
               render={(text, record) => (
                 <Action
                   modalTitle={modalTitle}
@@ -291,8 +292,8 @@ const TransactionsTable: React.FC<IProps> = ({
                   model={model}
                 />
               )}
-              fixed={"right"}
-              className="table-col"
+              fixed={'right'}
+              className='table-col'
             />
           )}
         </React.Fragment>
@@ -308,11 +309,10 @@ const TransactionsTable: React.FC<IProps> = ({
       model,
       place,
       t,
-    ]
+    ],
   );
 
   return (
-    
     <PaginateTable
       model={model}
       title={title}
@@ -324,7 +324,7 @@ const TransactionsTable: React.FC<IProps> = ({
   );
 };
 const styles = {
-  settingsMenu: { minWidth: "130px", paddingBottom: "10px" },
+  settingsMenu: { minWidth: '130px', paddingBottom: '10px' },
 };
 
 export default TransactionsTable;

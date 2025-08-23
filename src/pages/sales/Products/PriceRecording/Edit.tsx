@@ -64,13 +64,13 @@ const EditPriceRecording: React.FC<IProps> = (props) => {
     ) {
       message.error(
         t(
-          'Sales.Product_and_services.Price_recording.Unit_conversion_not_exist_message'
-        )
+          'Sales.Product_and_services.Price_recording.Unit_conversion_not_exist_message',
+        ),
       );
     } else {
       props.setVisible(false);
       const baseUnit = props?.record?.product_units?.find(
-        (item: any) => item?.base_unit === true
+        (item: any) => item?.base_unit === true,
       );
 
       setBaseUnit({ id: baseUnit?.unit?.id, name: baseUnit?.unit?.name });
@@ -91,8 +91,8 @@ const EditPriceRecording: React.FC<IProps> = (props) => {
           props?.record?.price?.length !== 0
             ? parseFloat(
                 props?.record?.price?.find((item: any) =>
-                  item?.unit_pro_relation?.includes('base_unit')
-                )?.perches_rate
+                  item?.unit_pro_relation?.includes('base_unit'),
+                )?.perches_rate,
               )
             : '',
       });
@@ -110,7 +110,7 @@ const EditPriceRecording: React.FC<IProps> = (props) => {
           <ActionMessage
             name={props?.record?.name}
             message='Sales.Product_and_services.Price_recording.Add_message'
-          />
+          />,
         );
       })
       .catch((error) => {
@@ -135,7 +135,7 @@ const EditPriceRecording: React.FC<IProps> = (props) => {
           <ActionMessage
             name={props.record?.name}
             message='Sales.Product_and_services.Price_recording.Update_message'
-          />
+          />,
         );
       })
       .catch((error) => {
@@ -154,7 +154,7 @@ const EditPriceRecording: React.FC<IProps> = (props) => {
 
   const getPriceRecording = (unitId: number) => {
     const unit = props?.record?.unit_conversion?.find(
-      (item: any) => item?.from_unit?.id === unitId
+      (item: any) => item?.from_unit?.id === unitId,
     );
     return unit?.ratio ? unit?.ratio : 0;
   };
@@ -164,7 +164,7 @@ const EditPriceRecording: React.FC<IProps> = (props) => {
       .validateFields()
       .then(async (values) => {
         const isBaseUnitExist = values?.priceRecording?.find(
-          (item: any) => item?.unit?.value === baseUnit?.id
+          (item: any) => item?.unit?.value === baseUnit?.id,
         );
         const price = isBaseUnitExist
           ? values?.priceRecording
@@ -207,7 +207,14 @@ const EditPriceRecording: React.FC<IProps> = (props) => {
         }
         if (!isSalesLessThanPurchase) {
           Modal.warning({
-            bodyStyle: { direction: t('Dir') },
+            bodyStyle: {
+              direction: t('Dir') as
+                | 'ltr'
+                | 'rtl'
+                | 'inherit'
+                | 'initial'
+                | 'unset',
+            },
             title: (
               <ActionMessage
                 name={props?.record?.name}
@@ -242,14 +249,21 @@ const EditPriceRecording: React.FC<IProps> = (props) => {
           return sum;
         }
       },
-      0
+      0,
     );
 
     if (unitLength > 1) {
       Modal.warning({
-        bodyStyle: { direction: t('Dir') },
+        bodyStyle: {
+          direction: t('Dir') as
+            | 'ltr'
+            | 'rtl'
+            | 'inherit'
+            | 'initial'
+            | 'unset',
+        },
         title: t(
-          'Sales.Product_and_services.Price_recording.Price_exist_message'
+          'Sales.Product_and_services.Price_recording.Price_exist_message',
         ),
         onOk: () => {
           const newPrice = formValue?.priceRecording?.map(
@@ -259,7 +273,7 @@ const EditPriceRecording: React.FC<IProps> = (props) => {
               } else {
                 return item;
               }
-            }
+            },
           );
           form.setFieldsValue({ priceRecording: newPrice });
         },
@@ -278,7 +292,7 @@ const EditPriceRecording: React.FC<IProps> = (props) => {
     <div onDoubleClick={handleStopPropagation}>
       <div onClick={showModal} className='num'>
         {t(
-          'Sales.Product_and_services.Price_recording.Add_or_edit_price_recording'
+          'Sales.Product_and_services.Price_recording.Add_or_edit_price_recording',
         )}
       </div>
       <Modal
@@ -288,7 +302,7 @@ const EditPriceRecording: React.FC<IProps> = (props) => {
             disabled={disabled}
             setDisabled={setDisabled}
             title={t(
-              'Sales.Product_and_services.Price_recording.Add_or_edit_price_recording'
+              'Sales.Product_and_services.Price_recording.Add_or_edit_price_recording',
             )}
           />
         }
@@ -327,7 +341,7 @@ const EditPriceRecording: React.FC<IProps> = (props) => {
                       <Popover
                         arrowPointAtCenter
                         title={t(
-                          'Sales.Product_and_services.Form.Unit_conversion'
+                          'Sales.Product_and_services.Form.Unit_conversion',
                         )}
                         trigger='hover'
                         content={
@@ -352,11 +366,11 @@ const EditPriceRecording: React.FC<IProps> = (props) => {
                                   {parseFloat(item?.ratio)}{' '}
                                   {
                                     props?.record?.product_units?.find(
-                                      (item: any) => item?.base_unit === true
+                                      (item: any) => item?.base_unit === true,
                                     )?.unit?.name
                                   }
                                 </Descriptions.Item>
-                              )
+                              ),
                             )}
                           </Descriptions>
                         }
@@ -378,7 +392,7 @@ const EditPriceRecording: React.FC<IProps> = (props) => {
                 label={
                   <span>
                     {t(
-                      'Sales.Product_and_services.Price_recording.Base_unit_purchase'
+                      'Sales.Product_and_services.Price_recording.Base_unit_purchase',
                     )}
                     ({baseUnit?.name})<span className='star'>*</span>
                   </span>
@@ -387,7 +401,7 @@ const EditPriceRecording: React.FC<IProps> = (props) => {
                   {
                     required: true,
                     message: t(
-                      'Sales.Product_and_services.Price_recording.Purchases_required'
+                      'Sales.Product_and_services.Price_recording.Purchases_required',
                     ),
                   },
                 ]}
@@ -419,7 +433,6 @@ const EditPriceRecording: React.FC<IProps> = (props) => {
                               <Form.Item
                                 {...field}
                                 validateTrigger={['onChange', 'onBlur']}
-                                fieldKey={[field.fieldKey, 'sales_rate']}
                                 name={[field.name, 'sales_rate']}
                                 label={
                                   index === 0 ? (
@@ -436,7 +449,7 @@ const EditPriceRecording: React.FC<IProps> = (props) => {
                                   {
                                     required: true,
                                     message: t(
-                                      'Sales.Product_and_services.Price_recording.Sales_required'
+                                      'Sales.Product_and_services.Price_recording.Sales_required',
                                     ),
                                   },
                                 ]}
@@ -455,12 +468,11 @@ const EditPriceRecording: React.FC<IProps> = (props) => {
                                 {...field}
                                 validateTrigger={['onChange', 'onBlur']}
                                 name={[field.name, 'unit']}
-                                fieldKey={[field.fieldKey, 'unit']}
                                 label={
                                   index === 0 ? (
                                     <span>
                                       {t(
-                                        'Sales.Product_and_services.Units.Unit'
+                                        'Sales.Product_and_services.Units.Unit',
                                       )}
                                     </span>
                                   ) : (
@@ -482,8 +494,8 @@ const EditPriceRecording: React.FC<IProps> = (props) => {
                                         item?.unit?.id !==
                                         props?.record?.product_units.filter(
                                           (item: any) =>
-                                            item?.base_unit === true
-                                        )?.[0]?.unit?.id
+                                            item?.base_unit === true,
+                                        )?.[0]?.unit?.id,
                                     )
                                     ?.map((item: any) => (
                                       <Select.Option
@@ -527,7 +539,6 @@ const EditPriceRecording: React.FC<IProps> = (props) => {
                               <Form.Item
                                 {...field}
                                 validateTrigger={['onChange', 'onBlur']}
-                                fieldKey={[field.fieldKey, 'sales_rate']}
                                 name={[field.name, 'sales_rate']}
                                 label={
                                   index === 0 ? (
@@ -544,7 +555,7 @@ const EditPriceRecording: React.FC<IProps> = (props) => {
                                   {
                                     required: true,
                                     message: t(
-                                      'Sales.Product_and_services.Price_recording.Sales_required'
+                                      'Sales.Product_and_services.Price_recording.Sales_required',
                                     ),
                                   },
                                 ]}
@@ -564,12 +575,11 @@ const EditPriceRecording: React.FC<IProps> = (props) => {
                                 {...field}
                                 validateTrigger={['onChange', 'onBlur']}
                                 name={[field.name, 'unit']}
-                                fieldKey={[field.fieldKey, 'unit']}
                                 label={
                                   index === 0 ? (
                                     <span>
                                       {t(
-                                        'Sales.Product_and_services.Units.Unit'
+                                        'Sales.Product_and_services.Units.Unit',
                                       )}
                                     </span>
                                   ) : (
@@ -579,7 +589,7 @@ const EditPriceRecording: React.FC<IProps> = (props) => {
                                 rules={[
                                   {
                                     message: `${t(
-                                      'Sales.Product_and_services.Price_recording.Unit_required'
+                                      'Sales.Product_and_services.Price_recording.Unit_required',
                                     )}`,
                                     required: true,
                                   },
@@ -600,7 +610,7 @@ const EditPriceRecording: React.FC<IProps> = (props) => {
                                       >
                                         {item?.unit?.name}
                                       </Select.Option>
-                                    )
+                                    ),
                                   )}
                                 </Select>
                               </Form.Item>
@@ -629,7 +639,7 @@ const EditPriceRecording: React.FC<IProps> = (props) => {
                                 currency_rate: 1,
                                 sales_rate: undefined,
                               },
-                              fields.length
+                              fields.length,
                             )
                           }
                           block
@@ -638,7 +648,7 @@ const EditPriceRecording: React.FC<IProps> = (props) => {
                           className='margin1'
                         >
                           {t(
-                            'Sales.Product_and_services.Price_recording.Add_price'
+                            'Sales.Product_and_services.Price_recording.Add_price',
                           )}
                         </Button>
                       </Form.Item>

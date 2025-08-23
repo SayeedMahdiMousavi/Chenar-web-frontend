@@ -31,7 +31,7 @@ interface IProps {
   setSelectedRowKeys?: (value: any) => void;
 }
 export default function PrintBarcode(props: IProps) {
-  const printRef = useRef();
+  const printRef = useRef<HTMLDivElement | null>(null);
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
@@ -43,19 +43,19 @@ export default function PrintBarcode(props: IProps) {
   const findDefaultBarcode = (barcodeList: any, baseUnit: any) => {
     const barcode = barcodeList?.find(
       (item: any) =>
-        item?.default === true && item?.unit?.id === baseUnit?.unit?.id
+        item?.default === true && item?.unit?.id === baseUnit?.unit?.id,
     )?.barcode;
     if (barcode) {
       return barcode;
     } else {
       const barcode = barcodeList?.find(
-        (item: any) => item?.default === true
+        (item: any) => item?.default === true,
       )?.barcode;
       if (barcode) {
         return barcode;
       } else {
         const barcode = barcodeList?.find(
-          (item: any) => item?.unit?.id === baseUnit?.unit?.id
+          (item: any) => item?.unit?.id === baseUnit?.unit?.id,
         )?.barcode;
         return barcode ? barcode : barcodeList?.[0]?.barcode;
       }
@@ -66,7 +66,7 @@ export default function PrintBarcode(props: IProps) {
     qty: number,
     barcode: string,
     concat: boolean,
-    unit: string
+    unit: string,
   ) => {
     let newProducts = [];
     for (let i = 1; i <= qty; i++) {
@@ -76,15 +76,15 @@ export default function PrintBarcode(props: IProps) {
         barcode: barcode,
         price: parseInt(
           props?.record?.price?.find((item: any) =>
-            item?.unit_pro_relation?.includes('base_unit')
-          )?.sales_rate
+            item?.unit_pro_relation?.includes('base_unit'),
+          )?.sales_rate,
         ),
       };
       newProducts.push(element);
     }
     const chankedItems = chunk(
       newProducts,
-      type === '10' ? 10 : type === '8' ? 8 : 10
+      type === '10' ? 10 : type === '8' ? 8 : 10,
     );
     return chankedItems;
   };
@@ -93,7 +93,7 @@ export default function PrintBarcode(props: IProps) {
     const newProductsItems = labelList?.reduce((prev: any, item: any) => {
       let newProducts: any = [];
       const unit = item?.product_barcode?.find(
-        (unitItem: any) => unitItem?.barcode === item?.barcode
+        (unitItem: any) => unitItem?.barcode === item?.barcode,
       )?.unit?.name;
       for (let i = 1; i <= parseInt(item?.qty); i++) {
         const element = {
@@ -108,7 +108,7 @@ export default function PrintBarcode(props: IProps) {
     }, []);
     const chankedItem = chunk(
       newProductsItems,
-      type === '10' ? 10 : type === '8' ? 8 : 10
+      type === '10' ? 10 : type === '8' ? 8 : 10,
     );
     return chankedItem;
   };
@@ -118,11 +118,9 @@ export default function PrintBarcode(props: IProps) {
     setProducts([]);
   };
   const handlePrint = useReactToPrint({
-    content: () => printRef.current!,
-    removeAfterPrint: true,
+    contentRef: printRef,
     bodyClass: 'barcode-print-body',
     onAfterPrint: onAfterPrint,
-    // print: () => window.print(),
   });
 
   const onFinish = async (value: any) => {
@@ -147,7 +145,7 @@ export default function PrintBarcode(props: IProps) {
       } else {
         const qty = parseFloat(value?.qty) > 400 ? 400 : value?.qty;
         const unit = props?.record?.product_barcode?.find(
-          (item: any) => item?.barcode === value?.barcode
+          (item: any) => item?.barcode === value?.barcode,
         )?.unit?.name;
         setProducts(makeProductList(qty, value?.barcode, value?.concat, unit));
         setTimeout(() => {
@@ -167,7 +165,7 @@ export default function PrintBarcode(props: IProps) {
 
     if (props.type !== 'batch') {
       const baseUnit = props?.record?.product_units?.find(
-        (item: any) => item?.base_unit === true
+        (item: any) => item?.base_unit === true,
       );
 
       form.setFieldsValue({
@@ -176,16 +174,16 @@ export default function PrintBarcode(props: IProps) {
       setVisible(true);
     } else {
       const productItems = props?.selectedRows?.filter(
-        (item: any) => item?.product_barcode?.length !== 0
+        (item: any) => item?.product_barcode?.length !== 0,
       );
       const ok = props?.selectedRows?.some(
-        (item: any) => item?.product_barcode?.length === 0
+        (item: any) => item?.product_barcode?.length === 0,
       );
 
       form.setFieldsValue({
         labelList: productItems?.map((item: any) => {
           const baseUnit = item?.product_units?.find(
-            (item: any) => item?.base_unit === true
+            (item: any) => item?.base_unit === true,
           );
           return {
             ...item,
@@ -205,7 +203,7 @@ export default function PrintBarcode(props: IProps) {
 
       if (ok) {
         message.error(
-          t('Sales.Product_and_services.Form.Barcode_remove_message')
+          t('Sales.Product_and_services.Form.Barcode_remove_message'),
         );
       }
     }
@@ -226,12 +224,12 @@ export default function PrintBarcode(props: IProps) {
     (itemIndex: number): any => {
       const formValue = form.getFieldsValue();
       const item = formValue?.labelList?.find(
-        (item: any, index: number) => index === itemIndex
+        (item: any, index: number) => index === itemIndex,
       );
 
       return item;
     },
-    [isGeItems]
+    [isGeItems],
   );
 
   const onChangeQty = (value: any) => {
@@ -289,11 +287,11 @@ export default function PrintBarcode(props: IProps) {
               height: '0',
               textAlign: 'center',
             }}
+            ref={printRef}
           >
             <ProductLabelPrint
               products={products}
               //@ts-ignore
-              ref={printRef}
               type={type}
             />
           </div>
@@ -323,7 +321,7 @@ export default function PrintBarcode(props: IProps) {
                       {
                         required: true,
                         message: `${t(
-                          'Sales.All_sales.Invoice.Quantity_required'
+                          'Sales.All_sales.Invoice.Quantity_required',
                         )}`,
                       },
                     ]}
@@ -354,7 +352,7 @@ export default function PrintBarcode(props: IProps) {
                     {
                       required: true,
                       message: `${t(
-                        'Sales.Product_and_services.Form.Barcode_required'
+                        'Sales.Product_and_services.Form.Barcode_required',
                       )}`,
                     },
                   ]}
@@ -378,7 +376,7 @@ export default function PrintBarcode(props: IProps) {
                             {item?.barcode}
                           </div>
                         </Select.Option>
-                      )
+                      ),
                     )}
                   </Select>
                 </Form.Item>
@@ -421,12 +419,11 @@ export default function PrintBarcode(props: IProps) {
                                     {...field}
                                     validateTrigger={['onChange', 'onBlur']}
                                     name={[field.name, 'product']}
-                                    fieldKey={[field.fieldKey, 'product']}
                                     label={
                                       index === 0 ? (
                                         <span>
                                           {t(
-                                            'Sales.Product_and_services.Product'
+                                            'Sales.Product_and_services.Product',
                                           )}
                                         </span>
                                       ) : (
@@ -443,12 +440,11 @@ export default function PrintBarcode(props: IProps) {
                                     {...field}
                                     validateTrigger={['onChange', 'onBlur']}
                                     name={[field.name, 'barcode']}
-                                    fieldKey={[field.fieldKey, 'barcode']}
                                     label={
                                       index === 0 ? (
                                         <span>
                                           {t(
-                                            'Sales.Product_and_services.Form.Barcode'
+                                            'Sales.Product_and_services.Form.Barcode',
                                           )}
                                           <span className='star'>*</span>
                                         </span>
@@ -459,7 +455,7 @@ export default function PrintBarcode(props: IProps) {
                                     rules={[
                                       {
                                         message: `${t(
-                                          'Sales.Product_and_services.Form.Barcode_required'
+                                          'Sales.Product_and_services.Form.Barcode_required',
                                         )}`,
                                         required: true,
                                       },
@@ -486,7 +482,7 @@ export default function PrintBarcode(props: IProps) {
                                               {item?.barcode}
                                             </div>
                                           </Select.Option>
-                                        )
+                                        ),
                                       )}
                                     </Select>
                                   </Form.Item>
@@ -496,12 +492,11 @@ export default function PrintBarcode(props: IProps) {
                                     {...field}
                                     validateTrigger={['onChange', 'onBlur']}
                                     name={[field.name, 'qty']}
-                                    fieldKey={[field.fieldKey, 'qty']}
                                     label={
                                       index === 0 ? (
                                         <span>
                                           {t(
-                                            'Sales.All_sales.Invoice.Quantity'
+                                            'Sales.All_sales.Invoice.Quantity',
                                           )}
                                           <span className='star'>*</span>
                                         </span>
@@ -512,7 +507,7 @@ export default function PrintBarcode(props: IProps) {
                                     rules={[
                                       {
                                         message: `${t(
-                                          'Sales.All_sales.Invoice.Quantity_required'
+                                          'Sales.All_sales.Invoice.Quantity_required',
                                         )}`,
                                         required: true,
                                       },
@@ -532,14 +527,13 @@ export default function PrintBarcode(props: IProps) {
                                   <Form.Item
                                     {...field}
                                     validateTrigger={['onChange', 'onBlur']}
-                                    fieldKey={[field.fieldKey, 'concat']}
                                     name={[field.name, 'concat']}
                                     style={styles.input}
                                     valuePropName='checked'
                                   >
                                     <Checkbox>
                                       {t(
-                                        'Sales.Product_and_services.Form.Concat_unit_with_name'
+                                        'Sales.Product_and_services.Form.Concat_unit_with_name',
                                       )}
                                     </Checkbox>
                                   </Form.Item>

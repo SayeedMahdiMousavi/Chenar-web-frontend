@@ -1,7 +1,7 @@
-import React, { ReactNode, useCallback } from "react";
-import { Popconfirm } from "antd";
-import { useTranslation } from "react-i18next";
-import { checkPermissions } from "../Functions";
+import React, { ReactNode, useCallback } from 'react';
+import { Popconfirm } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { checkPermissions } from '../Functions';
 
 interface IProps {
   children: ReactNode;
@@ -31,31 +31,31 @@ export function EditableTableActionColumnRender({
   const isEditing = useCallback(
     //@ts-ignore
     (record) => record.id === editingKey,
-    [editingKey]
+    [editingKey],
   );
   const editable = Boolean(isEditable) ? isEditable : isEditing(record);
   return editable ? (
     <span>
-      <a onClick={() => save(record)}>{t("Form.Save")}</a>
+      <a onClick={() => save(record)}>{t('Form.Save')}</a>
       <br />
       <Popconfirm
-        title={t("Sales.Product_and_services.Categories.Edit_Message")}
+        title={t('Sales.Product_and_services.Categories.Edit_Message')}
         onConfirm={onCancel}
-        okText={t("Form.Ok")}
-        cancelText={t("Form.Cancel")}
+        okText={t('Form.Ok')}
+        cancelText={t('Form.Cancel')}
       >
-        <span className="category__cancel">{t("Form.Cancel")}</span>
+        <span className='category__cancel'>{t('Form.Cancel')}</span>
       </Popconfirm>
     </span>
   ) : (
-    <div className="category__action">
+    <div className='category__action'>
       {checkPermissions(`change_${model}`) && (
         <a
           //@ts-ignore
           disabled={disabled}
           onClick={() => edit(record)}
         >
-          {t("Sales.Customers.Table.Edit")}
+          {t('Sales.Customers.Table.Edit')}
         </a>
       )}
       {children}

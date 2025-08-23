@@ -1,17 +1,17 @@
-import React, { memo } from "react";
-import { Row, Col, Form, Button } from "antd";
-import { handlePrepareDateForServer } from "../../../../Functions/utcDate";
-import { useTranslation } from "react-i18next";
-import ReportDateFormItem from "../../Components/DateFormItem";
-import { SupplierAndCustomerChart } from "../../../Transactions/Components/SupplierAndCustomerChart";
-import { InfiniteScrollSelectFormItem } from "../../../../components/antd";
-import { useDefaultReportDateFormItem } from "../../../../Hooks";
+import React, { memo } from 'react';
+import { Row, Col, Form, Button } from 'antd';
+import { handlePrepareDateForServer } from '../../../../Functions/utcDate';
+import { useTranslation } from 'react-i18next';
+import ReportDateFormItem from '../../Components/DateFormItem';
+import { SupplierAndCustomerChart } from '../../../Transactions/Components/SupplierAndCustomerChart';
+import { InfiniteScrollSelectFormItem } from '../../../../components/antd';
+import { useDefaultReportDateFormItem } from '../../../../Hooks';
 
 import {
   InvoiceStatusSelect,
   InvoiceTypeFormItem,
-} from "../../../../components";
-import { MANI_INVOICES_VALUE } from "../../../../constants";
+} from '../../../../components';
+import { MANI_INVOICES_VALUE } from '../../../../constants';
 
 interface IProps {
   setPage: (value: number) => void;
@@ -24,7 +24,7 @@ function Filters(props: IProps) {
   const { t } = useTranslation();
   const { form, defaultDate, calendarCode } = useDefaultReportDateFormItem();
 
-  const statusDefaultValue = { value: "pending", label: t("Pending") };
+  const statusDefaultValue = { value: 'pending', label: t('Pending') };
 
   const onFinish = async (values: any) => {
     const startDate = handlePrepareDateForServer({
@@ -74,16 +74,16 @@ function Filters(props: IProps) {
       form={form}
       hideRequiredMark
       initialValues={{
-        date: "allDates",
+        date: 'allDates',
         dateTime: defaultDate,
         invoiceType: {
           value: MANI_INVOICES_VALUE,
-          label: t("All_posting_invoice"),
+          label: t('All_posting_invoice'),
         },
         status: statusDefaultValue,
       }}
     >
-      <Row gutter={[10, 10]} style={{ marginBottom: "20px" }}>
+      <Row gutter={[10, 10]} style={{ marginBottom: '20px' }}>
         <ReportDateFormItem form={form} style={styles.formItem} />
         <Col xxl={14} xl={11} lg={11}></Col>
         <Col xxl={4} xl={5} lg={5}>
@@ -91,15 +91,15 @@ function Filters(props: IProps) {
         </Col>
         <Col xxl={5} xl={6} lg={6}>
           <InfiniteScrollSelectFormItem
-            name="product"
+            name='product'
             style={styles.formItem}
-            fields="name,id"
-            placeholder={t("Sales.Product_and_services.Product")}
-            baseUrl="/product/items/"
+            fields='name,id'
+            placeholder={t('Sales.Product_and_services.Product')}
+            baseUrl='/product/items/'
             rules={[
               {
                 required: true,
-                message: t("Sales.All_sales.Invoice.Product_name_required"),
+                message: t('Sales.All_sales.Invoice.Product_name_required'),
               },
             ]}
           />
@@ -108,11 +108,11 @@ function Filters(props: IProps) {
         <Col xxl={14} xl={11} lg={11}></Col>
         <Col xxl={4} xl={5} lg={5}>
           <InfiniteScrollSelectFormItem
-            name="warehouse"
+            name='warehouse'
             style={styles.formItem}
-            fields="name,id"
-            placeholder={t("Warehouse.1")}
-            baseUrl="/inventory/warehouse/"
+            fields='name,id'
+            placeholder={t('Warehouse.1')}
+            baseUrl='/inventory/warehouse/'
             allowClear={true}
           />
         </Col>
@@ -126,9 +126,9 @@ function Filters(props: IProps) {
         </Col>
 
         <Col xxl={8} xl={10} lg={10}>
-          <Form.Item className="margin" style={styles.formItem}>
-            <Button type="primary" size="small" htmlType="submit" shape="round">
-              {t("Form.Search")}
+          <Form.Item className='margin' style={styles.formItem}>
+            <Button type='primary' size='small' htmlType='submit' shape='round'>
+              {t('Form.Search')}
             </Button>
           </Form.Item>
         </Col>
@@ -139,7 +139,7 @@ function Filters(props: IProps) {
 
 const styles = {
   form: {
-    width: "250px",
+    width: '250px',
   },
   formItem: { marginBottom: 0 },
 };

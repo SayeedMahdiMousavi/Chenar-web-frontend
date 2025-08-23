@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
-import { Form } from "antd";
-import { InfiniteScrollSelectFormItem } from "../../../components/antd";
-import { useTranslation } from "react-i18next";
-import useGetDefaultWarehouse from "../../../Hooks/useGetDefaultWarehouse";
+import React, { useEffect } from 'react';
+import { Form } from 'antd';
+import { InfiniteScrollSelectFormItem } from '../../../components/antd';
+import { useTranslation } from 'react-i18next';
+import useGetDefaultWarehouse from '../../../Hooks/useGetDefaultWarehouse';
 interface Props {
   setWarehouse: (value: any) => void;
   editingKey: string;
@@ -41,12 +41,12 @@ const FiltersWarehouse: React.FC<Props> = (props) => {
   return (
     <Form form={form}>
       <InfiniteScrollSelectFormItem
-        name="warehouse"
-        placeholder={t("Warehouse.1")}
+        name='warehouse'
+        placeholder={t('Warehouse.1')}
         style={{}}
-        fields="name,id"
+        fields='name,id'
         onChange={onChangeWarehouse}
-        baseUrl="/inventory/warehouse/"
+        baseUrl='/inventory/warehouse/'
       />
     </Form>
   );

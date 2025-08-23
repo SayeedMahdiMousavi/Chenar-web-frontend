@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-import { Modal, Col, Row } from "antd";
-import { useMediaQuery } from "../../MediaQurey";
-import { useMutation, useQueryClient } from "react-query";
-import axiosInstance from "../../ApiBaseUrl";
-import { Form, Input } from "antd";
-import { useTranslation } from "react-i18next";
-import { ModalDragTitle } from "../../SelfComponents/ModalDragTitle";
-import Draggable from "react-draggable";
-import { CategoryField } from "../../SelfComponents/CategoryField";
-import { Styles } from "../../styles";
-import { trimString } from "../../../Functions/TrimString";
-import { CancelButton, EditMenuItem, SaveButton } from "../../../components";
-import { EXPENSE_TYPE_M } from "../../../constants/permissions";
-import { manageErrors, updateMessage } from "../../../Functions";
+import React, { useState } from 'react';
+import { Modal, Col, Row } from 'antd';
+import { useMediaQuery } from '../../MediaQurey';
+import { useMutation, useQueryClient } from 'react-query';
+import axiosInstance from '../../ApiBaseUrl';
+import { Form, Input } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { ModalDragTitle } from '../../SelfComponents/ModalDragTitle';
+import Draggable from 'react-draggable';
+import { CategoryField } from '../../SelfComponents/CategoryField';
+import { Styles } from '../../styles';
+import { trimString } from '../../../Functions/TrimString';
+import { CancelButton, EditMenuItem, SaveButton } from '../../../components';
+import { EXPENSE_TYPE_M } from '../../../constants/permissions';
+import { manageErrors, updateMessage } from '../../../Functions';
 
 interface IProps {
   record: any;
@@ -34,11 +34,11 @@ const EditExpense: React.FC<IProps> = ({
     visible: false,
   });
   const [disabled, setDisabled] = useState(true);
-  const isBgTablet = useMediaQuery("(max-width: 1024px)");
-  const isTablet = useMediaQuery("(max-width: 768px)");
-  const isMobile = useMediaQuery("(max-width: 425px)");
-  const isMiniTablet = useMediaQuery("(max-width: 576px)");
-  const isSubBase = useMediaQuery("(max-width: 375px)");
+  const isBgTablet = useMediaQuery('(max-width: 1024px)');
+  const isTablet = useMediaQuery('(max-width: 768px)');
+  const isMobile = useMediaQuery('(max-width: 425px)');
+  const isMiniTablet = useMediaQuery('(max-width: 576px)');
+  const isSubBase = useMediaQuery('(max-width: 375px)');
 
   const showModal = () => {
     setVisible(false);
@@ -106,7 +106,7 @@ const EditExpense: React.FC<IProps> = ({
           <ModalDragTitle
             disabled={disabled}
             setDisabled={setDisabled}
-            title={t("Expenses.Definition_expense_information")}
+            title={t('Expenses.Definition_expense_information')}
           />
         }
         modalRender={(modal) => (
@@ -117,12 +117,12 @@ const EditExpense: React.FC<IProps> = ({
         destroyOnClose
         open={isShowModal.visible}
         onCancel={onCancel}
-        wrapClassName="warehouse_add_modal"
+        wrapClassName='warehouse_add_modal'
         style={Styles.modal(isMobile)}
         bodyStyle={Styles.modalBody(isMobile, isSubBase, isMiniTablet)}
-        width={isMobile ? "100%" : isTablet ? 360 : isBgTablet ? 360 : 360}
+        width={isMobile ? '100%' : isTablet ? 360 : isBgTablet ? 360 : 360}
         footer={
-          <Row justify="end" align="middle">
+          <Row justify='end' align='middle'>
             <Col>
               <CancelButton onClick={onCancel} />
               <SaveButton onClick={handleOk} loading={isLoading} />
@@ -134,29 +134,29 @@ const EditExpense: React.FC<IProps> = ({
           form={form}
           hideRequiredMark={true}
           scrollToFirstError={true}
-          layout="vertical"
+          layout='vertical'
         >
           <Form.Item
             label={
               <span>
-                {t("Form.Name")}
-                <span className="star">*</span>
+                {t('Form.Name')}
+                <span className='star'>*</span>
               </span>
             }
-            name="name"
-            rules={[{ required: true, message: t("Form.Name_required") }]}
+            name='name'
+            rules={[{ required: true, message: t('Form.Name_required') }]}
           >
-            <Input autoFocus autoComplete="off" />
+            <Input autoFocus autoComplete='off' />
           </Form.Item>
           <Form.Item noStyle>
             <CategoryField
               form={form}
-              place="expense"
+              place='expense'
               url={`${baseUrl}category/`}
               label={
                 <span>
-                  {t("Sales.Product_and_services.Form.Category")}
-                  <span className="star">*</span>
+                  {t('Sales.Product_and_services.Form.Category')}
+                  <span className='star'>*</span>
                 </span>
               }
             />

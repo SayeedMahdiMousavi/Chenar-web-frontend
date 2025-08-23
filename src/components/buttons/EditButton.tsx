@@ -1,7 +1,7 @@
-import { Button, ButtonProps } from "antd";
-import React from "react";
-import { checkPermissions } from "../../Functions";
-import { EditIcon } from "../../icons";
+import { Button, ButtonProps } from 'antd';
+import React from 'react';
+import { checkPermissions } from '../../Functions';
+import { EditIcon } from '../../icons';
 
 export function EditButton({
   model,
@@ -9,8 +9,8 @@ export function EditButton({
 }: ButtonProps & { model?: string }) {
   return Boolean(model) && !checkPermissions(`change_${model}`) ? null : (
     <Button
-      size="small"
-      type="text"
+      size='small'
+      type='text'
       style={styles.button}
       icon={<EditIcon style={styles.icon} />}
       {...rest}
@@ -19,6 +19,6 @@ export function EditButton({
 }
 
 const styles = {
-  button: { paddingTop: "2px" },
-  icon: { fontSize: "17px" },
+  button: { paddingTop: '2px' },
+  icon: { fontSize: '17px' },
 };

@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { Upload, Image } from "antd";
-import { useTranslation } from "react-i18next";
-import compressThisFile from "./compressFile";
-import ImgCrop from "antd-img-crop";
-import "antd/es/modal/style";
-import "antd/es/slider/style";
-import { useDarkMode } from "../../Hooks/useDarkMode";
+import React, { useState } from 'react';
+import { Upload, Image } from 'antd';
+import { useTranslation } from 'react-i18next';
+import compressThisFile from './compressFile';
+import ImgCrop from 'antd-img-crop';
+import 'antd/es/modal/style';
+import 'antd/es/slider/style';
+import { useDarkMode } from '../../Hooks/useDarkMode';
 
 function getBase64(file) {
   return new Promise((resolve, reject) => {
@@ -19,7 +19,7 @@ function getBase64(file) {
 const Upload1 = (props) => {
   const { t } = useTranslation();
   const [previewVisible, setPreviewVisible] = useState(false);
-  const [previewImage, setPreviewImage] = useState("");
+  const [previewImage, setPreviewImage] = useState('');
   const [mode] = useDarkMode();
 
   const handleVisibleChange = () => setPreviewVisible(false);
@@ -63,7 +63,6 @@ const Upload1 = (props) => {
             props.setFile(smallSize);
           } catch (e) {
             console.log(e);
-            
           }
         })();
         return true;
@@ -76,23 +75,23 @@ const Upload1 = (props) => {
     e.stopPropagation();
   };
   return (
-    <div className="clearfix" onClick={handelStopPropagation}>
+    <div className='clearfix' onClick={handelStopPropagation}>
       <ImgCrop
         rotate
         grid
-        modalTitle={t("Upload.Edit_image")}
-        fillColor={mode === "dark" ? "black" : "white"}
+        modalTitle={t('Upload.Edit_image')}
+        fillColor={mode === 'dark' ? 'black' : 'white'}
         quality={0.6}
-        modalCancel={t("Form.Cancel")}
-        modalOk={t("Form.Save")}
+        modalCancel={t('Form.Cancel')}
+        modalOk={t('Form.Save')}
         maxZoom={5}
       >
         <Upload
-          name="logo"
-          listType="picture-card"
+          name='logo'
+          listType='picture-card'
           {...prop}
           maxCount={1}
-          accept="image/*"
+          accept='image/*'
           customRequest={({ file, onError, onSuccess, onProgress }) => {
             onSuccess();
           }}
@@ -101,7 +100,7 @@ const Upload1 = (props) => {
           {props.fileList?.length >= 1 ? null : props.name}
         </Upload>
       </ImgCrop>
-      <div className="hide-print-component">
+      <div className='hide-print-component'>
         <Image
           width={200}
           preview={{

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Modal,
   Button,
@@ -9,14 +9,14 @@ import {
   message,
   // InputNumber,
   Select,
-} from "antd";
-import startCase from "lodash/startCase";
-import { useMutation, useQueryClient, useQuery } from "react-query";
-import axiosInstance from "../../../ApiBaseUrl";
+} from 'antd';
+import startCase from 'lodash/startCase';
+import { useMutation, useQueryClient, useQuery } from 'react-query';
+import axiosInstance from '../../../ApiBaseUrl';
 // import { EditOutlined } from "@ant-design/icons";
-import { useTranslation } from "react-i18next";
-import { ActionMessage } from "../../../SelfComponents/TranslateComponents/ActionMessage";
-import { CancelButton, SaveButton } from "../../../../components";
+import { useTranslation } from 'react-i18next';
+import { ActionMessage } from '../../../SelfComponents/TranslateComponents/ActionMessage';
+import { CancelButton, SaveButton } from '../../../../components';
 const { Title } = Typography;
 
 const EditDiscountCard = (props) => {
@@ -28,39 +28,39 @@ const EditDiscountCard = (props) => {
   const [form] = Form.useForm();
   const getDiscountCards = async (key) => {
     const { data } = await axiosInstance.get(
-      `/customer_account/discount/card/?page=1&page_size=200`
+      `/customer_account/discount/card/?page=1&page_size=200`,
     );
     return data;
   };
 
   const discountCards = useQuery(
-    "/customer_account/discount/card/",
-    getDiscountCards
+    '/customer_account/discount/card/',
+    getDiscountCards,
   );
 
-  // 
+  //
 
   const editCustomerCard = async (value) => {
     await axiosInstance
       .patch(
         `/customer_account/customer/${props.record.id}/extend_discount_card_time/`,
-        value
+        value,
       )
       .then((res) => {
         // setLoading(false);
         setVisible(false);
-        // 
+        //
         // props.form.setFieldsValue({
         //   type: res?.data?.id,
         // });
         // form.resetFields();
         message.success(
           <ActionMessage
-            name={`${t("Sales.Customers.Discount.Customers_discount")} ${
+            name={`${t('Sales.Customers.Discount.Customers_discount')} ${
               props.record?.first_name
             } ${props.record?.last_name} `}
-            message="Message.Update"
-          />
+            message='Message.Update'
+          />,
         );
 
         props.setVisible(false);
@@ -82,23 +82,23 @@ const EditDiscountCard = (props) => {
     await axiosInstance
       .post(
         `/customer_account/customer/${props.record.id}/assign_discount_card/`,
-        value
+        value,
       )
       .then((res) => {
         setLoading(false);
         setVisible(false);
-        // 
+        //
         // props.form.setFieldsValue({
         //   type: res?.data?.id,
         // });
         form.resetFields();
         message.success(
           <ActionMessage
-            name={`${t("Sales.Customers.Discount.Customers_discount")} ${
+            name={`${t('Sales.Customers.Discount.Customers_discount')} ${
               props.record?.first_name
             } ${props.record?.last_name} `}
-            message="Message.Add"
-          />
+            message='Message.Add'
+          />,
         );
 
         props.setVisible(false);
@@ -118,7 +118,7 @@ const EditDiscountCard = (props) => {
   });
 
   const onFinish = async (value) => {
-    // 
+    //
     setLoading(true);
     const allData = {
       discount_card: value?.type?.value,
@@ -133,7 +133,7 @@ const EditDiscountCard = (props) => {
   };
   const showModal = () => {
     props.setVisible(false);
-    // 
+    //
     if (props?.record?.discount_card?.id) {
       form.setFieldsValue({
         type: {
@@ -156,11 +156,11 @@ const EditDiscountCard = (props) => {
     setLoading(false);
   };
   const onChangeDiscountCard = async (value) => {
-    // 
+    //
 
     setDiscountCard(value);
     const discountCard = discountCards?.data?.results?.find(
-      (item) => item.id === value?.value
+      (item) => item.id === value?.value,
     );
     form.setFieldsValue({ number_of_month: discountCard.number_of_month });
     // await axiosInstance
@@ -171,14 +171,14 @@ const EditDiscountCard = (props) => {
   };
   const onClearDiscountCard = () => {
     setDiscountCard();
-    form.setFieldsValue({ number_of_month: "" });
+    form.setFieldsValue({ number_of_month: '' });
   };
   return (
     <div>
       <div onClick={showModal}>
         {props?.record?.discount_card?.id
-          ? t("Sales.Customers.Edit_customer_card")
-          : t("Sales.Customers.Add_customer_card")}
+          ? t('Sales.Customers.Edit_customer_card')
+          : t('Sales.Customers.Add_customer_card')}
       </div>
 
       <Modal
@@ -200,29 +200,29 @@ const EditDiscountCard = (props) => {
             </Button>,
           ] */}
         <Form
-          layout="vertical"
+          layout='vertical'
           onFinish={onFinish}
           hideRequiredMark={true}
           form={form}
         >
           <Title level={5}>
             {props?.record?.discount_card?.id
-              ? startCase(t("Sales.Customers.Edit_customer_card"))
-              : startCase(t("Sales.Customers.Add_customer_card"))}
+              ? startCase(t('Sales.Customers.Edit_customer_card'))
+              : startCase(t('Sales.Customers.Add_customer_card'))}
           </Title>
           <Form.Item
-            name="type"
+            name='type'
             label={
               <span>
-                {t("Sales.Customers.Discount.Customers_discount")}
-                <span className="star">*</span>
+                {t('Sales.Customers.Discount.Customers_discount')}
+                <span className='star'>*</span>
               </span>
             }
             rules={[
               {
                 required: true,
                 message: `${t(
-                  "Sales.Customers.Discount.Discount_card_required"
+                  'Sales.Customers.Discount.Discount_card_required',
                 )}`,
               },
             ]}
@@ -234,9 +234,9 @@ const EditDiscountCard = (props) => {
               showArrow
               allowClear
               labelInValue
-              optionLabelProp="label"
-              optionFilterProp="label"
-              popupClassName="z_index"
+              optionLabelProp='label'
+              optionFilterProp='label'
+              popupClassName='z_index'
               dropdownRender={(menu) => (
                 <div>
                   {/* <AddType form={form} /> */}
@@ -256,17 +256,17 @@ const EditDiscountCard = (props) => {
             </Select>
           </Form.Item>
           <Form.Item
-            name="number_of_month"
+            name='number_of_month'
             label={
               <span>
-                {t("Sales.Product_and_services.Inventory.Expiration_date")}
-                <span className="star">*</span>
+                {t('Sales.Product_and_services.Inventory.Expiration_date')}
+                <span className='star'>*</span>
               </span>
             }
             rules={[
               {
                 message: `${t(
-                  "Sales.Customers.Discount.Required_expiration_data"
+                  'Sales.Customers.Discount.Required_expiration_data',
                 )}`,
                 required: true,
               },
@@ -274,19 +274,19 @@ const EditDiscountCard = (props) => {
           >
             <Input
               min={0}
-              type="number"
+              type='number'
               // style={{ width: `calc(100% - 60px)` }}
-              inputMode="numeric"
+              inputMode='numeric'
               // formatter={(value) => `${value}M`}
               // parser={(value) => value.replace("M", "")}
-              suffix={<span>{t("Sales.Customers.Discount.Month")}</span>}
+              suffix={<span>{t('Sales.Customers.Discount.Month')}</span>}
             />
           </Form.Item>
 
-          <Form.Item className="margin">
-            <div className="import__footer">
+          <Form.Item className='margin'>
+            <div className='import__footer'>
               <CancelButton onClick={handleCancel} />
-              <SaveButton htmlType="submit" loading={loading} />
+              <SaveButton htmlType='submit' loading={loading} />
             </div>
           </Form.Item>
         </Form>

@@ -68,7 +68,7 @@ const AddProductMultipleBarcode: React.FC<IProps> = (props) => {
               unit: item?.unit,
               original: item?.original,
             };
-          }
+          },
         );
         form.setFieldsValue({ barcodeList: newBarcodeList });
       } else {
@@ -96,7 +96,7 @@ const AddProductMultipleBarcode: React.FC<IProps> = (props) => {
             } else {
               return item;
             }
-          }
+          },
         );
         form.setFieldsValue({ barcodeList: newBarcodeList });
       })
@@ -117,7 +117,7 @@ const AddProductMultipleBarcode: React.FC<IProps> = (props) => {
               default: defaultBarcode === index ? true : false,
               original: item?.original,
             };
-          }
+          },
         );
         message.success(t('Message.Save'));
         props.setBarcodeList(newBarcodeList);
@@ -241,7 +241,7 @@ const AddProductMultipleBarcode: React.FC<IProps> = (props) => {
                                   index === 0 ? (
                                     <span>
                                       {t(
-                                        'Sales.Product_and_services.Form.Barcode'
+                                        'Sales.Product_and_services.Form.Barcode',
                                       )}
                                       <span className='star'>*</span>
                                     </span>
@@ -255,11 +255,10 @@ const AddProductMultipleBarcode: React.FC<IProps> = (props) => {
                                   <Form.Item
                                     validateTrigger={['onChange', 'onBlur']}
                                     name={[field.name, 'barcode']}
-                                    fieldKey={[field.fieldKey, 'barcode']}
                                     rules={[
                                       {
                                         message: `${t(
-                                          'Sales.Product_and_services.Form.Barcode_required'
+                                          'Sales.Product_and_services.Form.Barcode_required',
                                         )}`,
                                         required: true,
                                       },
@@ -284,7 +283,6 @@ const AddProductMultipleBarcode: React.FC<IProps> = (props) => {
                               <Form.Item
                                 validateTrigger={['onChange', 'onBlur']}
                                 name={[field.name, 'original']}
-                                fieldKey={[field.fieldKey, 'original']}
                                 style={{
                                   marginTop: '0px',
                                   marginBottom: '0px',
@@ -293,7 +291,7 @@ const AddProductMultipleBarcode: React.FC<IProps> = (props) => {
                               >
                                 <Checkbox>
                                   {t(
-                                    'Sales.Product_and_services.Form.Is_origin_barcode'
+                                    'Sales.Product_and_services.Form.Is_origin_barcode',
                                   )}
                                 </Checkbox>
                               </Form.Item>
@@ -308,7 +306,7 @@ const AddProductMultipleBarcode: React.FC<IProps> = (props) => {
                                 }}
                               >
                                 {t(
-                                  'Sales.Product_and_services.Form.Default_barcode'
+                                  'Sales.Product_and_services.Form.Default_barcode',
                                 )}
                               </Radio>
                             </Col>
@@ -317,12 +315,11 @@ const AddProductMultipleBarcode: React.FC<IProps> = (props) => {
                                 {...field}
                                 validateTrigger={['onChange', 'onBlur']}
                                 name={[field.name, 'unit']}
-                                fieldKey={[field.fieldKey, 'unit']}
                                 label={
                                   index === 0 ? (
                                     <span>
                                       {t(
-                                        'Sales.Product_and_services.Form.Unit'
+                                        'Sales.Product_and_services.Form.Unit',
                                       )}
                                     </span>
                                   ) : (
@@ -332,7 +329,7 @@ const AddProductMultipleBarcode: React.FC<IProps> = (props) => {
                                 rules={[
                                   {
                                     message: `${t(
-                                      'Sales.Product_and_services.Price_recording.Unit_required'
+                                      'Sales.Product_and_services.Price_recording.Unit_required',
                                     )}`,
                                     required: true,
                                   },
@@ -370,7 +367,7 @@ const AddProductMultipleBarcode: React.FC<IProps> = (props) => {
                                 onClick={() => {
                                   remove(field.name);
                                   setDefaultBarcode((prev) =>
-                                    prev === 0 ? 0 : prev - 1
+                                    prev === 0 ? 0 : prev - 1,
                                   );
                                 }}
                               />
@@ -390,7 +387,7 @@ const AddProductMultipleBarcode: React.FC<IProps> = (props) => {
                               barcode: undefined,
                               original: true,
                             },
-                            fields.length
+                            fields.length,
                           )
                         }
                         block

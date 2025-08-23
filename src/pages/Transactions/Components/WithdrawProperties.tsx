@@ -1,13 +1,13 @@
-import React from "react";
+import React from 'react';
 
-import { GetOneChildOfChartAccount } from "./GetOneChildOfChartAccount";
+import { GetOneChildOfChartAccount } from './GetOneChildOfChartAccount';
 interface IProps {
   form: any;
   place?: string;
 }
 
-const baseUrl = "/chart_of_account/WTC-302/child/";
-const searchKey = "/chart/withdraw/search/";
+const baseUrl = '/chart_of_account/WTC-302/child/';
+const searchKey = '/chart/withdraw/search/';
 export const WithdrawProperties: React.FC<IProps> = (props) => {
   const onChangeAccountName = (value: string) => {
     props.form.setFieldsValue({ withdrawId: value });
@@ -23,11 +23,11 @@ export const WithdrawProperties: React.FC<IProps> = (props) => {
   return (
     <GetOneChildOfChartAccount
       place={props.place}
-      searchIn="widthdraw"
+      searchIn='widthdraw'
       baseUrl={baseUrl}
       searchKey={searchKey}
-      fieldId="withdrawId"
-      fieldName="withdrawName"
+      fieldId='withdrawId'
+      fieldName='withdrawName'
       onChangeAccountName={onChangeAccountName}
       onChangeAccountId={onChangeAccountId}
     />

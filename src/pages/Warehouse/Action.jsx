@@ -1,12 +1,12 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState } from 'react';
 
-import EditWarehouse from "./EditWarehouse";
-import { Menu, Dropdown } from "antd";
-import { connect } from "react-redux";
-import ActionButton from "../SelfComponents/ActionButton";
-import { ActivePopconfirm, RemovePopconfirm } from "../../components";
-import { useActiveItem, useRemoveItem } from "../../Hooks";
-import { WAREHOUSE_M } from "../../constants/permissions";
+import EditWarehouse from './EditWarehouse';
+import { Menu, Dropdown } from 'antd';
+import { connect } from 'react-redux';
+import ActionButton from '../SelfComponents/ActionButton';
+import { ActivePopconfirm, RemovePopconfirm } from '../../components';
+import { useActiveItem, useRemoveItem } from '../../Hooks';
+import { WAREHOUSE_M } from '../../constants/permissions';
 
 function Action(props) {
   const [visible, setVisible] = useState(false);
@@ -22,7 +22,7 @@ function Action(props) {
     setVisible,
     recordName: props.record.name,
     handleUpdateItems: props.handleUpdateItems,
-    type: "active",
+    type: 'active',
     setActiveVisible,
   });
 
@@ -36,7 +36,7 @@ function Action(props) {
     setVisible,
     recordName: props.record.name,
     handleUpdateItems: props.handleUpdateItems,
-    type: "deactivate",
+    type: 'deactivate',
     setActiveVisible,
   });
 
@@ -81,18 +81,18 @@ function Action(props) {
 
   const action = (
     <Menu>
-      {!props?.record?.system_default && status === "active" && (
+      {!props?.record?.system_default && status === 'active' && (
         <Fragment>
           <ActivePopconfirm
             {...{
               itemName: props?.record?.name,
               visible: activeVisible,
-              loading: status === "active" ? inactiveLoading : activeLoading,
+              loading: status === 'active' ? inactiveLoading : activeLoading,
               onConfirm:
-                status === "active" ? handleInactiveItem : handleActiveItem,
+                status === 'active' ? handleInactiveItem : handleActiveItem,
               onCancel: handleCancel,
               onClick: handleClickInactive,
-              type: status === "active" ? "deactivate" : "active",
+              type: status === 'active' ? 'deactivate' : 'active',
               permission: WAREHOUSE_M,
             }}
           />
@@ -107,7 +107,7 @@ function Action(props) {
           />
         </Fragment>
       )}
-      {status === "active" && (
+      {status === 'active' && (
         <EditWarehouse
           record={props.record}
           setVisible={setVisible}
@@ -126,7 +126,7 @@ function Action(props) {
   return (
     <Dropdown
       overlay={action}
-      trigger={["click"]}
+      trigger={['click']}
       onOpenChange={handleVisibleChange}
       open={visible}
       disabled={props.hasSelected}

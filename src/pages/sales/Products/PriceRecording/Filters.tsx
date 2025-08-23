@@ -17,7 +17,7 @@ const Filters: React.FC<Props> = (props) => {
 
   const getWarehouse = async () => {
     const { data } = await axiosInstance.get(
-      `/inventory/warehouse/?page_size=10&ordering=-id`
+      `/inventory/warehouse/?page_size=10&ordering=-id`,
     );
     return data;
   };
@@ -71,7 +71,7 @@ const Filters: React.FC<Props> = (props) => {
                     <Option value={item.id} key={item.id} label={item.name}>
                       {item.name}
                     </Option>
-                  )
+                  ),
                 )}
             </Select>
           </Form.Item>

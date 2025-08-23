@@ -1,41 +1,41 @@
-import React, { useState } from "react";
-import { Modal, Col, Row, InputNumber } from "antd";
-import { useMediaQuery } from "../../MediaQurey";
-import { useMutation } from "react-query";
-import axiosInstance from "../../ApiBaseUrl";
-import { Form, Input, message, Switch, Select } from "antd";
-import { useTranslation } from "react-i18next";
-import Draggable from "react-draggable";
-import { ModalDragTitle } from "../../SelfComponents/ModalDragTitle";
-import { Styles } from "../../styles";
-import { ActionMessage } from "../../SelfComponents/TranslateComponents/ActionMessage";
-import { manageErrors } from "../../../Functions";
-import { DatePickerFormItem } from "../../SelfComponents/JalaliAntdComponents/DatePickerFormItem";
-import { handlePrepareDateForServer } from "../../../Functions/utcDate";
-import { useGetCalender } from "../../../Hooks";
-import { CancelButton, SaveButton } from "../../../components";
+import React, { useState } from 'react';
+import { Modal, Col, Row, InputNumber } from 'antd';
+import { useMediaQuery } from '../../MediaQurey';
+import { useMutation } from 'react-query';
+import axiosInstance from '../../ApiBaseUrl';
+import { Form, Input, message, Switch, Select } from 'antd';
+import { useTranslation } from 'react-i18next';
+import Draggable from 'react-draggable';
+import { ModalDragTitle } from '../../SelfComponents/ModalDragTitle';
+import { Styles } from '../../styles';
+import { ActionMessage } from '../../SelfComponents/TranslateComponents/ActionMessage';
+import { manageErrors } from '../../../Functions';
+import { DatePickerFormItem } from '../../SelfComponents/JalaliAntdComponents/DatePickerFormItem';
+import { handlePrepareDateForServer } from '../../../Functions/utcDate';
+import { useGetCalender } from '../../../Hooks';
+import { CancelButton, SaveButton } from '../../../components';
 
-const dateFormat = "YYYY-MM-DD HH:mm:ss";
+const dateFormat = 'YYYY-MM-DD HH:mm:ss';
 const AddInterval = (props) => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
-  const [period, setPeriod] = useState("days");
+  const [period, setPeriod] = useState('days');
   const [isShowModal, setIsShowModal] = useState({
     visible: false,
   });
 
   const [disabled, setDisabled] = useState(true);
-  const isMiniTablet = useMediaQuery("(max-width: 576px)");
-  const isMobile = useMediaQuery("(max-width: 425px)");
-  const isSubBase = useMediaQuery("(max-width: 375px)");
-  const isBgTablet = useMediaQuery("(max-width: 1024px)");
-  const isTablet = useMediaQuery("(max-width: 768px)");
+  const isMiniTablet = useMediaQuery('(max-width: 576px)');
+  const isMobile = useMediaQuery('(max-width: 425px)');
+  const isSubBase = useMediaQuery('(max-width: 375px)');
+  const isBgTablet = useMediaQuery('(max-width: 1024px)');
+  const isTablet = useMediaQuery('(max-width: 768px)');
 
   //get current calender
   const userCalender = useGetCalender();
   const calendarCode = userCalender?.data?.user_calender?.code;
 
-  const intervale = props?.type === "intervale";
+  const intervale = props?.type === 'intervale';
 
   const showModal = () => {
     setIsShowModal({
@@ -64,7 +64,10 @@ const AddInterval = (props) => {
       });
 
       message.success(
-        <ActionMessage name={values?.data?.description} message="Message.Add" />
+        <ActionMessage
+          name={values?.data?.description}
+          message='Message.Add'
+        />,
       );
       props.handleUpdateItems();
     },
@@ -81,14 +84,14 @@ const AddInterval = (props) => {
       };
 
       if (intervale) {
-        data["interval"] = { every: values.every, period: values?.period };
+        data['interval'] = { every: values.every, period: values?.period };
         mutateAddInterval(data);
       } else {
         const dateTime = handlePrepareDateForServer({
           date: values?.date,
           calendarCode,
         });
-        data["clocked"] = { clocked_time: dateTime };
+        data['clocked'] = { clocked_time: dateTime };
         mutateAddInterval(data);
       }
     });
@@ -97,7 +100,7 @@ const AddInterval = (props) => {
   const handleAfterClose = () => {
     form.resetFields();
     reset();
-    setPeriod("days");
+    setPeriod('days');
   };
 
   const handleChangePeriod = (value) => {
@@ -107,7 +110,7 @@ const AddInterval = (props) => {
   return (
     <div>
       <div onClick={showModal}>
-        {intervale ? t("Company.Intervale") : t("Company.Schedule")}
+        {intervale ? t('Company.Intervale') : t('Company.Schedule')}
       </div>
       <Modal
         maskClosable={false}
@@ -116,7 +119,7 @@ const AddInterval = (props) => {
             disabled={disabled}
             setDisabled={setDisabled}
             title={
-              intervale ? t("Company.Add_intervale") : t("Company.Add_schedule")
+              intervale ? t('Company.Add_intervale') : t('Company.Add_schedule')
             }
           />
         }
@@ -130,9 +133,9 @@ const AddInterval = (props) => {
         onCancel={onCancel}
         style={Styles.modal(isMobile)}
         bodyStyle={Styles.modalBody(isMobile, isSubBase, isMiniTablet)}
-        width={isMobile ? "100%" : isTablet ? 370 : isBgTablet ? 370 : 370}
+        width={isMobile ? '100%' : isTablet ? 370 : isBgTablet ? 370 : 370}
         footer={
-          <Row justify="end" align="middle">
+          <Row justify='end' align='middle'>
             <Col>
               <CancelButton onClick={onCancel} />
               <SaveButton onClick={handleOk} loading={isLoading} />
@@ -144,45 +147,45 @@ const AddInterval = (props) => {
           form={form}
           hideRequiredMark={true}
           scrollToFirstError={true}
-          layout="vertical"
-          initialValues={{ enabled: true, every: 1, period: "days" }}
+          layout='vertical'
+          initialValues={{ enabled: true, every: 1, period: 'days' }}
         >
           {intervale ? (
             <Form.Item
               label={
                 <>
-                  {t("Company.Intervale")}
-                  <span className="star">*</span>
+                  {t('Company.Intervale')}
+                  <span className='star'>*</span>
                 </>
               }
               style={styles.margin}
             >
               <Input.Group compact>
                 <Form.Item
-                  name="every"
+                  name='every'
                   noStyle
                   rules={[
                     {
                       required: true,
-                      message: t("Company.Intervale_required"),
+                      message: t('Company.Intervale_required'),
                     },
                   ]}
                 >
                   <InputNumber
-                    style={{ width: "40%" }}
-                    type="number"
+                    style={{ width: '40%' }}
+                    type='number'
                     min={
-                      period === "minutes"
+                      period === 'minutes'
                         ? 10
-                        : period === "seconds"
-                        ? 600
-                        : undefined
+                        : period === 'seconds'
+                          ? 600
+                          : undefined
                     }
                   />
                 </Form.Item>
-                <Form.Item name="period" noStyle>
+                <Form.Item name='period' noStyle>
                   <Select
-                    style={{ width: "60%" }}
+                    style={{ width: '60%' }}
                     onChange={handleChangePeriod}
                   >
                     {props?.periodList?.map((item) => (
@@ -196,33 +199,33 @@ const AddInterval = (props) => {
             </Form.Item>
           ) : (
             <DatePickerFormItem
-              placeholder=""
-              name="date"
-              label={t("Sales.Customers.Form.Date")}
+              placeholder=''
+              name='date'
+              label={t('Sales.Customers.Form.Date')}
               showTime={true}
               format={dateFormat}
               rules={[
-                { type: "object" },
+                { type: 'object' },
                 {
                   required: true,
-                  message: t("Sales.Customers.Form.Date_required"),
+                  message: t('Sales.Customers.Form.Date_required'),
                 },
               ]}
               style={styles.margin}
             />
           )}
           <Form.Item
-            name="description"
-            label={t("Form.Description")}
+            name='description'
+            label={t('Form.Description')}
             style={styles.margin}
           >
             <Input.TextArea />
           </Form.Item>
           <Form.Item
-            label={t("Company.Enabled")}
-            name="enabled"
-            valuePropName="checked"
-            style={{ ...styles.margin, width: "90px" }}
+            label={t('Company.Enabled')}
+            name='enabled'
+            valuePropName='checked'
+            style={{ ...styles.margin, width: '90px' }}
           >
             <Switch />
           </Form.Item>
@@ -233,8 +236,8 @@ const AddInterval = (props) => {
 };
 
 const styles = {
-  margin: { marginBottom: "8px" },
-  modal: { maxHeight: `calc(100vh - 135px)`, overflowY: "auto" },
+  margin: { marginBottom: '8px' },
+  modal: { maxHeight: `calc(100vh - 135px)`, overflowY: 'auto' },
 };
 
 export default AddInterval;

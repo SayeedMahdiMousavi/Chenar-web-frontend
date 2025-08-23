@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { Component } from 'react';
 
 class PrintComponent extends Component {
   constructor() {

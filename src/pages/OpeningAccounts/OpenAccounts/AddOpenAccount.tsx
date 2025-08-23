@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useMutation } from "react-query";
-import axiosInstance from "../../ApiBaseUrl";
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useMutation } from 'react-query';
+import axiosInstance from '../../ApiBaseUrl';
 import {
   Modal,
   Form,
@@ -11,36 +11,36 @@ import {
   Divider,
   InputNumber,
   Select,
-} from "antd";
-import dayjs from "dayjs";
-import { useMediaQuery } from "../../MediaQurey";
-import { ModalDragTitle } from "../../SelfComponents/ModalDragTitle";
-import Draggable from "react-draggable";
-import { Styles } from "../../styles";
-import { CurrencyProperties } from "../../Transactions/Components/CurrencyProperties";
-import { ReceiveDetailsProperties } from "../../Transactions/Components/ReceiveDetailsProperties";
-import { AccountName } from "./AccountName";
+} from 'antd';
+import dayjs from 'dayjs';
+import { useMediaQuery } from '../../MediaQurey';
+import { ModalDragTitle } from '../../SelfComponents/ModalDragTitle';
+import Draggable from 'react-draggable';
+import { Styles } from '../../styles';
+import { CurrencyProperties } from '../../Transactions/Components/CurrencyProperties';
+import { ReceiveDetailsProperties } from '../../Transactions/Components/ReceiveDetailsProperties';
+import { AccountName } from './AccountName';
 import {
   changeGToJ,
   handlePrepareDateForServer,
   utcDate,
-} from "../../../Functions/utcDate";
-import useGetCalender from "../../../Hooks/useGetCalender";
-import useGetBaseCurrency from "../../../Hooks/useGetBaseCurrency";
+} from '../../../Functions/utcDate';
+import useGetCalender from '../../../Hooks/useGetCalender';
+import useGetBaseCurrency from '../../../Hooks/useGetBaseCurrency';
 import {
   PageNewButton,
   ResetButton,
   SaveAndNewButton,
-} from "../../../components";
-import { OPINING_ACCOUNT_M } from "../../../constants/permissions";
-import { manageErrors } from "../../../Functions";
+} from '../../../components';
+import { OPINING_ACCOUNT_M } from '../../../constants/permissions';
+import { manageErrors } from '../../../Functions';
 
 interface IProps {
   baseUrl: string;
   handleUpdateItems: () => void;
 }
 const { Option } = Select;
-const dateFormat = "YYYY-MM-DD HH:mm";
+const dateFormat = 'YYYY-MM-DD HH:mm';
 const AddOpenAccount: React.FC<IProps> = (props) => {
   const { t } = useTranslation();
   const [isShowModal, setIsShowModal] = useState({
@@ -48,19 +48,19 @@ const AddOpenAccount: React.FC<IProps> = (props) => {
   });
   const [currencyValue, setCurrencyValue] = useState(1);
   const [form] = Form.useForm();
-  const [bankValue, setBankValue] = useState("");
+  const [bankValue, setBankValue] = useState('');
   const [visible, setVisible] = useState<boolean>(false);
   const [disabled, setDisabled] = useState<boolean>(true);
-  const isMiniTablet = useMediaQuery("(max-width: 576px)");
-  const isMobile = useMediaQuery("(max-width: 425px)");
-  const isBigMobile = useMediaQuery("(max-width: 480px)");
-  const isSubBase = useMediaQuery("(max-width: 375px)");
+  const isMiniTablet = useMediaQuery('(max-width: 576px)');
+  const isMobile = useMediaQuery('(max-width: 425px)');
+  const isBigMobile = useMediaQuery('(max-width: 480px)');
+  const isSubBase = useMediaQuery('(max-width: 375px)');
 
   //get current calender
   const userCalender = useGetCalender();
   const calendarCode = userCalender?.data?.user_calender?.code;
 
-  const messageKey = "addOpiningAccount";
+  const messageKey = 'addOpiningAccount';
   const addOpenAccount = async ({
     value,
   }: {
@@ -84,18 +84,18 @@ const AddOpenAccount: React.FC<IProps> = (props) => {
     reset,
   } = useMutation(addOpenAccount, {
     onSuccess: (values, { type }) => {
-      if (type !== "0") {
+      if (type !== '0') {
         setIsShowModal({
           visible: false,
         });
-        message.success(t("Message.Transaction_add_message"));
+        message.success(t('Message.Transaction_add_message'));
       } else {
         setVisible(false);
         form.resetFields();
-        setBankValue("");
+        setBankValue('');
         message.destroy(messageKey);
         message.success({
-          content: t("Message.Transaction_add_message"),
+          content: t('Message.Transaction_add_message'),
           duration: 3,
         });
       }
@@ -111,9 +111,9 @@ const AddOpenAccount: React.FC<IProps> = (props) => {
   const onFinish = (e: any) => {
     const type = e?.key;
     form.validateFields().then(async (values) => {
-      if (type === "0") {
+      if (type === '0') {
         message.loading({
-          content: t("Message.Loading"),
+          content: t('Message.Loading'),
           key: messageKey,
         });
       }
@@ -164,7 +164,7 @@ const AddOpenAccount: React.FC<IProps> = (props) => {
 
   const handelAfterClose = () => {
     form.resetFields();
-    setBankValue("");
+    setBankValue('');
     reset();
   };
 
@@ -179,8 +179,8 @@ const AddOpenAccount: React.FC<IProps> = (props) => {
 
   const handleChangeName = (value: string) => {
     setBankValue(value);
-    if (value === "BNK" || value === "CSH") {
-      form.setFieldsValue({ type: "debit" });
+    if (value === 'BNK' || value === 'CSH') {
+      form.setFieldsValue({ type: 'debit' });
     }
   };
 
@@ -193,7 +193,7 @@ const AddOpenAccount: React.FC<IProps> = (props) => {
           <ModalDragTitle
             disabled={disabled}
             setDisabled={setDisabled}
-            title={t("Opening_accounts.Open_account_information")}
+            title={t('Opening_accounts.Open_account_information')}
           />
         }
         modalRender={(modal) => (
@@ -208,7 +208,7 @@ const AddOpenAccount: React.FC<IProps> = (props) => {
         width={500}
         onCancel={handleCancel}
         footer={
-          <Row justify="space-between">
+          <Row justify='space-between'>
             <Col>
               <ResetButton onClick={handelAfterClose} />
             </Col>
@@ -216,7 +216,7 @@ const AddOpenAccount: React.FC<IProps> = (props) => {
               <SaveAndNewButton
                 onSubmit={onFinish}
                 loading={isLoading}
-                open={visible}
+                visible={visible}
                 setVisible={setVisible}
               />
             </Col>
@@ -227,10 +227,10 @@ const AddOpenAccount: React.FC<IProps> = (props) => {
           form={form}
           hideRequiredMark={true}
           scrollToFirstError={true}
-          layout="vertical"
+          layout='vertical'
           initialValues={{
             date:
-              calendarCode === "gregory"
+              calendarCode === 'gregory'
                 ? utcDate()
                 : dayjs(changeGToJ(utcDate().format(dateFormat), dateFormat), {
                     //@ts-ignore
@@ -252,43 +252,43 @@ const AddOpenAccount: React.FC<IProps> = (props) => {
             </Col>
             <Col span={isBigMobile ? 24 : 12}>
               <Form.Item
-                name="type"
+                name='type'
                 rules={[
                   {
                     required: true,
-                    message: t("Sales.Customers.Discount.Required_type"),
+                    message: t('Sales.Customers.Discount.Required_type'),
                   },
                 ]}
                 style={styles.margin}
               >
                 <Select
-                  className="num"
-                  disabled={bankValue === "BNK" || bankValue === "CSH"}
-                  placeholder={t("Sales.Product_and_services.Type")}
+                  className='num'
+                  disabled={bankValue === 'BNK' || bankValue === 'CSH'}
+                  placeholder={t('Sales.Product_and_services.Type')}
                 >
-                  <Option value="debit">{t("Opening_accounts.Debit")}</Option>
-                  <Option value="credit">{t("Opening_accounts.Credit")}</Option>
+                  <Option value='debit'>{t('Opening_accounts.Debit')}</Option>
+                  <Option value='credit'>{t('Opening_accounts.Credit')}</Option>
                 </Select>
               </Form.Item>
             </Col>
             <Col span={isBigMobile ? 24 : 12}>
               <Form.Item
-                name="amount"
+                name='amount'
                 preserve={false}
                 style={styles.margin}
                 rules={[
                   {
                     required: true,
-                    message: t("Sales.Customers.Form.Amount_required"),
+                    message: t('Sales.Customers.Form.Amount_required'),
                   },
                 ]}
               >
                 <InputNumber
                   min={1}
-                  type="number"
-                  className="num"
-                  inputMode="numeric"
-                  placeholder={t("Sales.Customers.Form.Amount")}
+                  type='number'
+                  className='num'
+                  inputMode='numeric'
+                  placeholder={t('Sales.Customers.Form.Amount')}
                 />
               </Form.Item>
             </Col>
@@ -351,14 +351,14 @@ const AddOpenAccount: React.FC<IProps> = (props) => {
                 currencyValue={currencyValue}
                 setCurrencyValue={setCurrencyValue}
                 form={form}
-                type="openAccount"
-              />{" "}
+                type='openAccount'
+              />{' '}
             </Col>
             <Col span={24}>
               <Divider />
             </Col>
             <Col span={24}>
-              <ReceiveDetailsProperties type="openAccount" />{" "}
+              <ReceiveDetailsProperties type='openAccount' />{' '}
             </Col>
           </Row>
         </Form>
@@ -371,7 +371,7 @@ interface IStyles {
   margin: React.CSSProperties;
 }
 const styles: IStyles = {
-  margin: { margin: "0rem" },
+  margin: { margin: '0rem' },
 };
 
 export default AddOpenAccount;

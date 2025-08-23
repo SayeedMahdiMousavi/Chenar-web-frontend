@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode } from 'react';
 interface IProps {
   title: ReactNode;
   disabled: boolean;
@@ -16,7 +16,7 @@ export const ModalDragTitle: React.FC<IProps> = (props) => {
   };
   return (
     <div
-      className="drag_modal"
+      className='drag_modal'
       onMouseOver={handelOnMouseOver}
       onMouseOut={handelOnMouseOut}
       onFocus={() => {}}

@@ -57,13 +57,13 @@ interface IProps {
   filters?: any;
   filterNode?: (
     setPage: (value: number) => void,
-    setVisible: (value: boolean) => void
+    setVisible: (value: boolean) => void,
   ) => ReactNode;
   settingMenu?: ReactElement<any, string | JSXElementConstructor<any>>;
   batchAction?: (
     selectedRowKeys: Key[],
     setSelectedRowKeys: (value: Key[]) => void,
-    selectedRows: any[]
+    selectedRows: any[],
   ) => ReactNode;
   setSearch?: (value: string | number) => void;
   search?: string | number;
@@ -77,7 +77,7 @@ const EditableTable: React.FC<IProps> = (props) => {
   const [allData, setAllData] = useState([]);
   const [page, setPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(
-    props?.type === 'currencyRate' ? 10 : 5
+    props?.type === 'currencyRate' ? 10 : 5,
   );
   const [search1, setSearch1] = useState<string | number>('');
   const [order, setOrder] = useState<string>('-id');
@@ -90,7 +90,7 @@ const EditableTable: React.FC<IProps> = (props) => {
 
   const isEditing = useCallback(
     (record: any) => record.id === editingKey || record?.symbol === editingKey,
-    [editingKey]
+    [editingKey],
   );
 
   const hasSelected = selectedRowKeys?.length > 0;
@@ -127,7 +127,7 @@ const EditableTable: React.FC<IProps> = (props) => {
         ? allColumns
         : allColumns?.filter((item) => item?.dataIndex !== 'action');
     },
-    [t, tableColumns, hasSelected, props, page, pageSize]
+    [t, tableColumns, hasSelected, props, page, pageSize],
   );
 
   //filter
@@ -153,7 +153,7 @@ const EditableTable: React.FC<IProps> = (props) => {
     [props.queryKey, { page, pageSize, search, order, ...props.filters }],
     props.handleGetData,
     //@ts-ignore
-    queryConf
+    queryConf,
   );
 
   const hasMore = Boolean(data?.nextPageNumber);
@@ -164,7 +164,7 @@ const EditableTable: React.FC<IProps> = (props) => {
           props.queryKey,
           { page: page + 1, pageSize, search, order, ...props.filters },
         ],
-        props.handleGetData
+        props.handleGetData,
       );
     }
   }, [
@@ -331,7 +331,7 @@ const EditableTable: React.FC<IProps> = (props) => {
     <Space direction='vertical' size={10}>
       <Text>
         {t('Pagination.Total')} :{' '}
-        {props?.type === 'currencyRate' ? count - 1 : count ?? 0}{' '}
+        {props?.type === 'currencyRate' ? count - 1 : (count ?? 0)}{' '}
         {t('Pagination.Item')}
       </Text>
       <Table
@@ -351,7 +351,7 @@ const EditableTable: React.FC<IProps> = (props) => {
         dataSource={
           props?.type === 'currencyRate'
             ? allData?.filter(
-                (item: { name: string }) => item?.name !== baseCurrencyName
+                (item: { name: string }) => item?.name !== baseCurrencyName,
               )
             : allData
         }
@@ -371,15 +371,15 @@ const EditableTable: React.FC<IProps> = (props) => {
                     !hasSelected &&
                     checkPermissions(`change_${props?.model}`)
                   : props?.type === 'approveCenter'
-                  ? record?.id !== editingKey &&
-                    record?.symbol !== editingKey &&
-                    record?.approve_state !== 'approved' &&
-                    !hasSelected &&
-                    checkPermissions(`change_${props?.model}`)
-                  : record?.id !== editingKey &&
-                    record?.symbol !== editingKey &&
-                    !hasSelected &&
-                    checkPermissions(`change_${props?.model}`);
+                    ? record?.id !== editingKey &&
+                      record?.symbol !== editingKey &&
+                      record?.approve_state !== 'approved' &&
+                      !hasSelected &&
+                      checkPermissions(`change_${props?.model}`)
+                    : record?.id !== editingKey &&
+                      record?.symbol !== editingKey &&
+                      !hasSelected &&
+                      checkPermissions(`change_${props?.model}`);
               if (isEditable) {
                 props.edit(record);
               }
@@ -478,7 +478,7 @@ const EditableTable: React.FC<IProps> = (props) => {
                   props?.batchAction(
                     selectedRowKeys,
                     setSelectedRowKeys,
-                    selectedRows
+                    selectedRows,
                   )
                 ) : (
                   <Space size={5} align='center'>
@@ -486,7 +486,7 @@ const EditableTable: React.FC<IProps> = (props) => {
                       <PrintButton
                         disabled={selectedRowKeys?.length === 0}
                         columns={columns('print')?.filter(
-                          (item: any) => item?.key !== 'action'
+                          (item: any) => item?.key !== 'action',
                         )}
                         title={props.title}
                         dataSource={selectedRows}

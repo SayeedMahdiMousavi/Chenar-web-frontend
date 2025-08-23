@@ -135,7 +135,7 @@ const ChartsOfAccounts: React.FC<IProps> = () => {
 
     const { value } = node.props;
     const { data } = await axiosInstance.get(
-      `/chart_of_account/${value}/child/?page=1&page_size=10`
+      `/chart_of_account/${value}/child/?page=1&page_size=10`,
     );
 
     return new Promise((resolve) => {
@@ -201,7 +201,7 @@ const ChartsOfAccounts: React.FC<IProps> = () => {
   const searchCharOfAccounts = async ({ queryKey }: any) => {
     const [_key, { search }] = queryKey;
     const { data } = await axiosInstance.get(
-      `/chart_of_account/?search=${search}&page=1&page_size=15`
+      `/chart_of_account/?search=${search}&page=1&page_size=15`,
     );
     return data;
   };
@@ -211,7 +211,7 @@ const ChartsOfAccounts: React.FC<IProps> = () => {
     searchCharOfAccounts,
     {
       enabled: !!search,
-    }
+    },
   );
 
   const handleRetrySearch = () => {

@@ -1,39 +1,39 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useMutation, useQueryClient } from "react-query";
-import axiosInstance from "../../ApiBaseUrl";
-import { Drawer, Form, Col, Row, Input, Space, Modal } from "antd";
-import { useMediaQuery } from "../../MediaQurey";
-import { trimString } from "../../../Functions/TrimString";
-import { InfiniteScrollSelectFormItem } from "../../../components/antd";
-import { CancelButton, PageNewButton, SaveButton } from "../../../components";
-import { CASH_M } from "../../../constants/permissions";
-import BankCashOpenAccount from "../BankCashOpenAccount";
-import { useGetBaseCurrency, useGetCalender } from "../../../Hooks";
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useMutation, useQueryClient } from 'react-query';
+import axiosInstance from '../../ApiBaseUrl';
+import { Drawer, Form, Col, Row, Input, Space, Modal } from 'antd';
+import { useMediaQuery } from '../../MediaQurey';
+import { trimString } from '../../../Functions/TrimString';
+import { InfiniteScrollSelectFormItem } from '../../../components/antd';
+import { CancelButton, PageNewButton, SaveButton } from '../../../components';
+import { CASH_M } from '../../../constants/permissions';
+import BankCashOpenAccount from '../BankCashOpenAccount';
+import { useGetBaseCurrency, useGetCalender } from '../../../Hooks';
 import {
   changeGToJ,
   handlePrepareDateForServer,
   utcDate,
-} from "../../../Functions/utcDate";
-import dayjs from "dayjs";
-import { addMessage, manageErrors } from "../../../Functions";
+} from '../../../Functions/utcDate';
+import dayjs from 'dayjs';
+import { addMessage, manageErrors } from '../../../Functions';
 import {
   OPENING_ACCOUNT_LIST,
   OPENING_ACCOUNT_RESULT_LIST,
-} from "../../../constants/routes";
+} from '../../../constants/routes';
 
 interface IProps {
   type: string;
   baseUrl: string;
 }
-const dateFormat = "YYYY-MM-DD HH:mm";
+const dateFormat = 'YYYY-MM-DD HH:mm';
 const AddCashBox: React.FC<IProps> = (props) => {
   const queryClient = useQueryClient();
   const { t, i18n } = useTranslation();
   const [form] = Form.useForm();
   const [visible, setVisible] = useState<boolean>(false);
-  const isTablet = useMediaQuery("(max-width:768px)");
-  const isMobile = useMediaQuery("(max-width:425px)");
+  const isTablet = useMediaQuery('(max-width:768px)');
+  const isMobile = useMediaQuery('(max-width:425px)');
 
   //get current calender
   const userCalender = useGetCalender();
@@ -92,7 +92,7 @@ const AddCashBox: React.FC<IProps> = (props) => {
       const allData = {
         account_name: trimString(values.name),
         cashier: values?.employee?.map(
-          (item: { value: number }) => item?.value
+          (item: { value: number }) => item?.value,
         ),
         opening_balance:
           Boolean(values?.amount) && values?.amount > 0
@@ -100,7 +100,6 @@ const AddCashBox: React.FC<IProps> = (props) => {
             : undefined,
       };
       mutateAddCashBox(allData);
-
     });
     if (visible === false) {
       form.resetFields();
@@ -117,22 +116,22 @@ const AddCashBox: React.FC<IProps> = (props) => {
 
   return (
     <div>
-      {props.type === "cash" ? (
+      {props.type === 'cash' ? (
         <PageNewButton onClick={showDrawer} model={CASH_M} />
       ) : (
-        <div onClick={showDrawer}> {t("Banking.Cash_box.New_cash")} </div>
+        <div onClick={showDrawer}> {t('Banking.Cash_box.New_cash')} </div>
       )}
-      <Modal 
+      <Modal
         maskClosable={false}
-        title={t("Banking.Cash_box.Cash_box_information")}
-        width={isMobile ? "80%" : isTablet ? 500 : 500}
+        title={t('Banking.Cash_box.Cash_box_information')}
+        width={isMobile ? '80%' : isTablet ? 500 : 500}
         onCancel={onClose}
         open={visible}
         destroyOnClose
         // afterVisibleChange={handleAfterClose}
         // placement={i18n.language === "en" ? "right" : "left"}
         footer={
-          <div className="textAlign__end">
+          <div className='textAlign__end'>
             <Space>
               <CancelButton onClick={onClose} />
 
@@ -142,12 +141,12 @@ const AddCashBox: React.FC<IProps> = (props) => {
         }
       >
         <Form
-          layout="vertical"
+          layout='vertical'
           hideRequiredMark
           form={form}
           initialValues={{
             date:
-              calendarCode === "gregory"
+              calendarCode === 'gregory'
                 ? utcDate()
                 : dayjs(changeGToJ(utcDate().format(dateFormat), dateFormat), {
                     //@ts-ignore
@@ -163,41 +162,41 @@ const AddCashBox: React.FC<IProps> = (props) => {
           <Row gutter={10}>
             <Col span={12}>
               <Form.Item
-                name="name"
+                name='name'
                 label={
                   <span>
-                    {t("Form.Name")} <span className="star">*</span>
+                    {t('Form.Name')} <span className='star'>*</span>
                   </span>
                 }
                 rules={[
-                  { required: true, message: `${t("Form.Name_required")}` },
+                  { required: true, message: `${t('Form.Name_required')}` },
                 ]}
               >
-                <Input autoFocus={true} autoComplete="off" />
+                <Input autoFocus={true} autoComplete='off' />
               </Form.Item>
             </Col>
             <Col span={12}>
               <InfiniteScrollSelectFormItem
-                name="employee"
+                name='employee'
                 label={
                   <span>
-                    {t("Banking.Cash_box.Cashier")}
-                    <span className="star">*</span>
+                    {t('Banking.Cash_box.Cashier')}
+                    <span className='star'>*</span>
                   </span>
                 }
-                mode="multiple"
-                fields="full_name,id"
-                baseUrl="/staff_account/staff/"
+                mode='multiple'
+                fields='full_name,id'
+                baseUrl='/staff_account/staff/'
                 rules={[
                   {
                     required: true,
-                    message: `${t("Banking.Cash_box.Cashier_required")}`,
+                    message: `${t('Banking.Cash_box.Cashier_required')}`,
                   },
                 ]}
               />
             </Col>
           </Row>
-          <BankCashOpenAccount {...{ form, baseCurrencyId }} type="bank" />
+          <BankCashOpenAccount {...{ form, baseCurrencyId }} type='bank' />
         </Form>
       </Modal>
     </div>

@@ -1,13 +1,13 @@
-import React from "react";
+import React from 'react';
 
-import { GetOneChildOfChartAccount } from "./GetOneChildOfChartAccount";
+import { GetOneChildOfChartAccount } from './GetOneChildOfChartAccount';
 interface IProps {
   form: any;
   place?: string;
 }
 
-const baseUrl = "/chart_of_account/IEI-502/child/";
-const searchKey = "/chart_of_account/expense/search/";
+const baseUrl = '/chart_of_account/IEI-502/child/';
+const searchKey = '/chart_of_account/expense/search/';
 export const ExpenseProperties: React.FC<IProps> = (props) => {
   const onChangeAccountName = (value: string) => {
     props.form.setFieldsValue({ expenseId: value });
@@ -22,11 +22,11 @@ export const ExpenseProperties: React.FC<IProps> = (props) => {
   };
   return (
     <GetOneChildOfChartAccount
-      searchIn="expensetype"
+      searchIn='expensetype'
       baseUrl={baseUrl}
       searchKey={searchKey}
-      fieldId="expenseId"
-      fieldName="expenseName"
+      fieldId='expenseId'
+      fieldName='expenseName'
       onChangeAccountName={onChangeAccountName}
       onChangeAccountId={onChangeAccountId}
       place={props.place}

@@ -1,6 +1,6 @@
-import React, { useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
-import startCase from "lodash/startCase";
+import React, { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import startCase from 'lodash/startCase';
 import {
   Drawer,
   Form,
@@ -12,22 +12,22 @@ import {
   Descriptions,
   Typography,
   Spin,
-} from "antd";
-import dayjs from "dayjs";
-import moment from "moment";
-import axiosInstance from "../../ApiBaseUrl";
-import PrintInvoiceButton from "./MarketInvoiceComponents/PrintInvoiceButton";
-import { useMemo } from "react";
-import { useReactToPrint } from "react-to-print";
-import { PrinterOutlined } from "@ant-design/icons";
-import { print, math, fixedNumber } from "../../../Functions/math";
-import PrintPosInvoice from "./MarketInvoiceComponents/PrintPosInvoice";
-import { Statistics } from "../../../components/antd";
-import ShowDate from "../../SelfComponents/JalaliAntdComponents/ShowDate";
-import InvoiceSummary from "./Invoice/SalesInvoiceComponents/InvoiceSummary";
-import CashPaymentTable from "./Invoice/SalesInvoiceComponents/CashPaymentTable";
-import { changeGToJ } from "../../../Functions/utcDate";
-import { useGetCalender } from "../../../Hooks";
+} from 'antd';
+import dayjs from 'dayjs';
+import moment from 'moment';
+import axiosInstance from '../../ApiBaseUrl';
+import PrintInvoiceButton from './MarketInvoiceComponents/PrintInvoiceButton';
+import { useMemo } from 'react';
+import { useReactToPrint } from 'react-to-print';
+import { PrinterOutlined } from '@ant-design/icons';
+import { print, math, fixedNumber } from '../../../Functions/math';
+import PrintPosInvoice from './MarketInvoiceComponents/PrintPosInvoice';
+import { Statistics } from '../../../components/antd';
+import ShowDate from '../../SelfComponents/JalaliAntdComponents/ShowDate';
+import InvoiceSummary from './Invoice/SalesInvoiceComponents/InvoiceSummary';
+import CashPaymentTable from './Invoice/SalesInvoiceComponents/CashPaymentTable';
+import { changeGToJ } from '../../../Functions/utcDate';
+import { useGetCalender } from '../../../Hooks';
 
 interface IProps {
   record: any;
@@ -36,10 +36,10 @@ interface IProps {
   type: string;
   title: string;
 }
-const dateFormat = "YYYY-MM-DD";
-const datePFormat = "jYYYY/jM/jD";
+const dateFormat = 'YYYY-MM-DD';
+const datePFormat = 'jYYYY/jM/jD';
 const ReadonlyInvoiceItems = (props: IProps) => {
-  const printRef = useRef();
+  const printRef = useRef<HTMLDivElement | null>(null);
   const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -72,84 +72,84 @@ const ReadonlyInvoiceItems = (props: IProps) => {
   const globalColumns = useMemo(
     () => [
       {
-        title: t("Table.Row").toUpperCase(),
-        dataIndex: "serial",
-        align: "center",
+        title: t('Table.Row').toUpperCase(),
+        dataIndex: 'serial',
+        align: 'center',
         width: 80,
         render: (_: any, __: any, index: number) => (
           <React.Fragment>{index + 1}</React.Fragment>
         ),
       },
       {
-        title: t("Sales.Product_and_services.Product_id").toUpperCase(),
-        dataIndex: "id",
-        fixed: "left",
+        title: t('Sales.Product_and_services.Product_id').toUpperCase(),
+        dataIndex: 'id',
+        fixed: 'left',
         width: 150,
-        align: "center",
+        align: 'center',
         render: (text: { label: string }) =>
-          salesInvoiceType === "pos" ? text : text?.label,
+          salesInvoiceType === 'pos' ? text : text?.label,
       },
       {
-        title: t("Sales.All_sales.Invoice.Product_name"),
-        dataIndex: "product",
-        fixed: "left",
+        title: t('Sales.All_sales.Invoice.Product_name'),
+        dataIndex: 'product',
+        fixed: 'left',
         render: (text: { label: string }) =>
-          salesInvoiceType === "pos" ? text : text?.label,
+          salesInvoiceType === 'pos' ? text : text?.label,
       },
       {
-        title: t("Sales.All_sales.Invoice.Quantity").toUpperCase(),
-        dataIndex: "qty",
+        title: t('Sales.All_sales.Invoice.Quantity').toUpperCase(),
+        dataIndex: 'qty',
         render: (text: any) => <Statistics value={text} />,
       },
 
       {
-        title: t("Sales.Product_and_services.Units.Unit").toUpperCase(),
-        dataIndex: "unit",
+        title: t('Sales.Product_and_services.Units.Unit').toUpperCase(),
+        dataIndex: 'unit',
         render: (text: any) => <React.Fragment>{text?.label}</React.Fragment>,
       },
     ],
-    [salesInvoiceType, t]
+    [salesInvoiceType, t],
   );
 
   const columns = useMemo(
     () => [
       ...globalColumns,
       {
-        title: t("Warehouse.1").toUpperCase(),
-        dataIndex: "warehouse",
+        title: t('Warehouse.1').toUpperCase(),
+        dataIndex: 'warehouse',
         render: (value: any) => value?.label,
       },
       {
-        title: t("Sales.Product_and_services.Form.Price").toUpperCase(),
-        dataIndex: "each_price",
+        title: t('Sales.Product_and_services.Form.Price').toUpperCase(),
+        dataIndex: 'each_price',
         render: (text: any) => {
           return <Statistics value={text} />;
         },
       },
       {
-        title: t("Sales.Customers.Form.Total").toUpperCase(),
-        dataIndex: "total_price",
+        title: t('Sales.Customers.Form.Total').toUpperCase(),
+        dataIndex: 'total_price',
         render: (value: number) => value && <Statistics value={value} />,
       },
 
       {
-        title: t("Discount_percent").toUpperCase(),
-        dataIndex: "discountPercent",
+        title: t('Discount_percent').toUpperCase(),
+        dataIndex: 'discountPercent',
         render: (value: number) => value && <Statistics value={value} />,
       },
       {
-        title: t("Sales.Customers.Discount.1").toUpperCase(),
-        dataIndex: "discount",
+        title: t('Sales.Customers.Discount.1').toUpperCase(),
+        dataIndex: 'discount',
         render: (value: number) => value && <Statistics value={value} />,
       },
       {
         title: t(
-          "Sales.Product_and_services.Inventory.Expiration_date"
+          'Sales.Product_and_services.Inventory.Expiration_date',
         ).toUpperCase(),
-        dataIndex: "expirationDate",
+        dataIndex: 'expirationDate',
         render: (value: any) => {
           const date =
-            value && props.type !== "sales" && value?.format(dateFormat);
+            value && props.type !== 'sales' && value?.format(dateFormat);
           return date ? (
             date
           ) : (
@@ -162,11 +162,11 @@ const ReadonlyInvoiceItems = (props: IProps) => {
         },
       },
       {
-        title: t("Form.Description").toUpperCase(),
-        dataIndex: "description",
+        title: t('Form.Description').toUpperCase(),
+        dataIndex: 'description',
       },
     ],
-    [globalColumns, props.type, t]
+    [globalColumns, props.type, t],
   );
 
   const productTransferColumns = useMemo(
@@ -175,9 +175,9 @@ const ReadonlyInvoiceItems = (props: IProps) => {
 
       {
         title: t(
-          "Sales.Product_and_services.Inventory.Expiration_date"
+          'Sales.Product_and_services.Inventory.Expiration_date',
         ).toUpperCase(),
-        dataIndex: "expirationDate",
+        dataIndex: 'expirationDate',
         render: (value: any) =>
           value && (
             <ShowDate
@@ -189,38 +189,38 @@ const ReadonlyInvoiceItems = (props: IProps) => {
       },
 
       {
-        title: t("Sales.All_sales.Invoice.Source_warehouse"),
-        dataIndex: "warehouse_out",
+        title: t('Sales.All_sales.Invoice.Source_warehouse'),
+        dataIndex: 'warehouse_out',
         render: (text: any) => text?.label,
       },
 
       {
-        title: t("Sales.All_sales.Invoice.Destination_warehouse"),
-        dataIndex: "warehouse_in",
+        title: t('Sales.All_sales.Invoice.Destination_warehouse'),
+        dataIndex: 'warehouse_in',
         render: (text: any) => text?.label,
       },
     ],
-    [globalColumns, t]
+    [globalColumns, t],
   );
 
   const warehouseAdjustmentColumns = useMemo(
     () => [
       ...globalColumns,
       {
-        title: t("Sales.Product_and_services.Form.Price").toUpperCase(),
-        dataIndex: "each_price",
+        title: t('Sales.Product_and_services.Form.Price').toUpperCase(),
+        dataIndex: 'each_price',
         render: (value: any) => value && <Statistics value={value} />,
       },
       {
-        title: t("Sales.Customers.Form.Total").toUpperCase(),
-        dataIndex: "total_price",
+        title: t('Sales.Customers.Form.Total').toUpperCase(),
+        dataIndex: 'total_price',
         render: (value: any) => value && <Statistics value={value} />,
       },
       {
         title: t(
-          "Sales.Product_and_services.Inventory.Expiration_date"
+          'Sales.Product_and_services.Inventory.Expiration_date',
         ).toUpperCase(),
-        dataIndex: "expirationDate",
+        dataIndex: 'expirationDate',
         render: (value: any) =>
           value && (
             <ShowDate
@@ -231,8 +231,8 @@ const ReadonlyInvoiceItems = (props: IProps) => {
           ),
       },
       {
-        title: t("Warehouse.1").toUpperCase(),
-        dataIndex: "warehouse",
+        title: t('Warehouse.1').toUpperCase(),
+        dataIndex: 'warehouse',
         render: (value: any) => value?.label,
       },
       // {
@@ -241,7 +241,7 @@ const ReadonlyInvoiceItems = (props: IProps) => {
       //   render: (value: any) => value?.label,
       // },
     ],
-    [globalColumns, t]
+    [globalColumns, t],
   );
 
   const handleAfterVisibleChange = async (visible: boolean) => {
@@ -260,7 +260,7 @@ customer,currency,invoice_items.warehouse_out,invoice_items.warehouse_in,invoice
 ,invoice_items.product.product_barcode.unit,invoice_items.unit,invoice_items.product.product_units
 ,invoice_items.product.product_units.unit,invoice_items.product.price,invoice_items.product.price.unit
 ,invoice_items.product.unit_conversion,invoice_items.product.unit_conversion.unit`,
-          { timeout: 0 }
+          { timeout: 0 },
         )
         .catch((error) => {
           setLoading(false);
@@ -269,7 +269,7 @@ customer,currency,invoice_items.warehouse_out,invoice_items.warehouse_in,invoice
 
       const data = allData?.data;
 
-      if (props?.record?.sales_source === "pos") {
+      if (props?.record?.sales_source === 'pos') {
         setPosWithdraw(data?.payment_summery?.expense_of_discount?.amount ?? 0);
         setCouponTicket({
           coupon_ticket: data?.coupon_ticket,
@@ -281,7 +281,7 @@ customer,currency,invoice_items.warehouse_out,invoice_items.warehouse_in,invoice
           let total_price = item?.total_price;
           if (data?.vip_customer_card && item?.product?.is_have_vip_price) {
             const vipPrice = item?.product?.price?.find(
-              (priceItem: any) => priceItem?.unit?.id === item?.unit?.id
+              (priceItem: any) => priceItem?.unit?.id === item?.unit?.id,
             );
 
             each_price = vipPrice?.sales_rate;
@@ -292,9 +292,9 @@ customer,currency,invoice_items.warehouse_out,invoice_items.warehouse_in,invoice
             print(
               //@ts-ignore
               math.evaluate(
-                `${vipDiscount}+(${total_price}-${item?.total_price})`
-              )
-            )
+                `${vipDiscount}+(${total_price}-${item?.total_price})`,
+              ),
+            ),
           );
           return {
             ...item,
@@ -311,8 +311,8 @@ customer,currency,invoice_items.warehouse_out,invoice_items.warehouse_in,invoice
         setData(items);
       } else {
         const adjustmentType = data?.invoice_items?.[0]?.warehouse_in
-          ? t("Reports.Reward")
-          : t("Reports.Waste");
+          ? t('Reports.Reward')
+          : t('Reports.Waste');
 
         const newData = data?.invoice_items?.reduce(
           ({ items, totalOfItems, discount }: any, item: any) => {
@@ -320,23 +320,23 @@ customer,currency,invoice_items.warehouse_out,invoice_items.warehouse_in,invoice
               //@ts-ignore
               print(
                 //@ts-ignore
-                math.evaluate(`${item?.each_price ?? 0} * ${item?.qty ?? 0}`)
-              )
+                math.evaluate(`${item?.each_price ?? 0} * ${item?.qty ?? 0}`),
+              ),
             );
 
             const total = parseFloat(
               //@ts-ignore
               print(
                 //@ts-ignore
-                math.evaluate(`${totalOfItems ?? 0} + ${totalPrice ?? 0}`)
-              )
+                math.evaluate(`${totalOfItems ?? 0} + ${totalPrice ?? 0}`),
+              ),
             );
             const newDiscount = parseFloat(
               //@ts-ignore
               print(
                 //@ts-ignore
-                math.evaluate(`${discount ?? 0} + ${item?.discount ?? 0}`)
-              )
+                math.evaluate(`${discount ?? 0} + ${item?.discount ?? 0}`),
+              ),
             );
 
             const warehouse = Boolean(item?.warehouse_in)
@@ -344,8 +344,8 @@ customer,currency,invoice_items.warehouse_out,invoice_items.warehouse_in,invoice
               : item?.warehouse_out;
 
             const expireDate =
-              item?.expire_date && props?.type !== "sales"
-                ? calendarCode === "gregory"
+              item?.expire_date && props?.type !== 'sales'
+                ? calendarCode === 'gregory'
                   ? moment(item?.expire_date, dateFormat)
                   : dayjs(changeGToJ(item?.expire_date, dateFormat), {
                       //@ts-ignore
@@ -378,9 +378,9 @@ customer,currency,invoice_items.warehouse_out,invoice_items.warehouse_in,invoice
                 print(
                   //@ts-ignore
                   math.evaluate(
-                    `(100 * ${item?.discount ?? 0}) / ${totalPrice ?? 1}`
-                  )
-                )
+                    `(100 * ${item?.discount ?? 0}) / ${totalPrice ?? 1}`,
+                  ),
+                ),
               ),
               type: adjustmentType,
             };
@@ -390,7 +390,7 @@ customer,currency,invoice_items.warehouse_out,invoice_items.warehouse_in,invoice
               discount: newDiscount,
             };
           },
-          { items: [], totalOfItems: 0, discount: 0 }
+          { items: [], totalOfItems: 0, discount: 0 },
         );
 
         setData(newData?.items);
@@ -398,64 +398,64 @@ customer,currency,invoice_items.warehouse_out,invoice_items.warehouse_in,invoice
 
         const filterData = [
           {
-            label: t("Sales.All_sales.Invoice.Invoice_number"),
+            label: t('Sales.All_sales.Invoice.Invoice_number'),
             value: props?.record?.id,
-            name: "id",
+            name: 'id',
           },
           {
             label:
-              props?.type === "sales" ||
-              props?.type === "sales_rej" ||
-              props?.type === "quotation"
-                ? t("Sales.Customers.Customer")
-                : t("Expenses.Suppliers.Supplier"),
+              props?.type === 'sales' ||
+              props?.type === 'sales_rej' ||
+              props?.type === 'quotation'
+                ? t('Sales.Customers.Customer')
+                : t('Expenses.Suppliers.Supplier'),
             value: props?.record?.customer?.content_object?.full_name,
-            name: "account",
+            name: 'account',
           },
           // {
           //   label: t("Warehouse.1"),
           //   value: newData?.items?.[0]?.warehouse?.label,
           // },
           {
-            label: t("Sales.Product_and_services.Status"),
+            label: t('Sales.Product_and_services.Status'),
             value: props?.record?.invoice_state,
           },
           {
-            label: t("Sales.Product_and_services.Inventory.Currency"),
+            label: t('Sales.Product_and_services.Inventory.Currency'),
             value: props?.record?.currency?.name,
           },
           {
-            label: t("Sales.Product_and_services.Currency.Currency_rate"),
+            label: t('Sales.Product_and_services.Currency.Currency_rate'),
             value: parseFloat(props?.record?.currency_rate),
           },
           {
-            label: t("Sales.Customers.Form.Date"),
-            name: "date",
+            label: t('Sales.Customers.Form.Date'),
+            name: 'date',
             value: <ShowDate date={props?.record?.date_time} />,
           },
         ];
 
         setHeaderData(
           //@ts-ignore
-          props.type === "productTransfer"
+          props.type === 'productTransfer'
             ? filterData?.filter(
-                (item) => item?.name === "date" || item?.name === "id"
+                (item) => item?.name === 'date' || item?.name === 'id',
               )
-            : props.type === "warehouseAdjustment"
-            ? [
-                ...filterData?.filter(
-                  (item) => item?.name === "date" || item?.name === "id"
-                ),
-                {
-                  label: t("Invoice_type"),
-                  value: adjustmentType,
-                },
-              ]
-            : filterData
+            : props.type === 'warehouseAdjustment'
+              ? [
+                  ...filterData?.filter(
+                    (item) => item?.name === 'date' || item?.name === 'id',
+                  ),
+                  {
+                    label: t('Invoice_type'),
+                    value: adjustmentType,
+                  },
+                ]
+              : filterData,
         );
         if (
-          props?.type !== "productTransfer" &&
-          props?.type !== "warehouseAdjustment"
+          props?.type !== 'productTransfer' &&
+          props?.type !== 'warehouseAdjustment'
         ) {
           const cashPayment = data?.cash_payment?.reduce(
             ({ items, cashAmount }: any, item: any) => {
@@ -467,7 +467,7 @@ customer,currency,invoice_items.warehouse_out,invoice_items.warehouse_in,invoice
                 currency_calc: { value: item?.currency_calc?.id },
                 calCurrencySymbol: item?.currency_calc?.symbole,
                 bank:
-                  props?.type === "sales" || props?.type === "purchase_rej"
+                  props?.type === 'sales' || props?.type === 'purchase_rej'
                     ? item?.rec_by?.name
                     : item?.pay_by?.name,
                 key: item?.id,
@@ -479,9 +479,9 @@ customer,currency,invoice_items.warehouse_out,invoice_items.warehouse_in,invoice
                   math.evaluate(
                     `(${item?.currency_rate ?? 0} / ${
                       data?.currency_rate ?? 0
-                    }) * ${item?.amount ?? 0}`
-                  )
-                )
+                    }) * ${item?.amount ?? 0}`,
+                  ),
+                ),
               );
 
               return {
@@ -489,7 +489,7 @@ customer,currency,invoice_items.warehouse_out,invoice_items.warehouse_in,invoice
                 cashAmount: cashAmount + itemCashAmount,
               };
             },
-            { items: [], cashAmount: 0 }
+            { items: [], cashAmount: 0 },
           );
 
           setCashPayment(cashPayment?.items);
@@ -517,44 +517,44 @@ customer,currency,invoice_items.warehouse_out,invoice_items.warehouse_in,invoice
     () =>
       fixedNumber(
         //@ts-ignore
-        print(math.evaluate(`${finalAmount ?? 0} - ${cashAmount ?? 0}`))
+        print(math.evaluate(`${finalAmount ?? 0} - ${cashAmount ?? 0}`)),
       ),
-    [cashAmount, finalAmount]
+    [cashAmount, finalAmount],
   );
 
   const summary = useMemo(() => {
     const data = [
       [
         {
-          label: t("Sales.Customers.Form.Total"),
+          label: t('Sales.Customers.Form.Total'),
           value: total,
         },
         {
-          label: t("Sales.Customers.Discount.1"),
+          label: t('Sales.Customers.Discount.1'),
           value: discount,
         },
         {
-          label: t("Expenses.1"),
+          label: t('Expenses.1'),
           value: expense,
         },
-        { label: t("Final_amount"), value: finalAmount },
+        { label: t('Final_amount'), value: finalAmount },
       ],
 
       [
         {
           label:
-            props.type === "sales" || props.type === "purchase_rej"
-              ? t("Employees.Receive_cash")
-              : t("Employees.Pay_cash"),
+            props.type === 'sales' || props.type === 'purchase_rej'
+              ? t('Employees.Receive_cash')
+              : t('Employees.Pay_cash'),
           value: cashAmount,
         },
         {
-          label: t("Sales.All_sales.Invoice.Remain_amount"),
+          label: t('Sales.All_sales.Invoice.Remain_amount'),
           value: remainAmount,
         },
       ],
     ];
-    return props.type === "quotation" ? [data?.[0]] : data;
+    return props.type === 'quotation' ? [data?.[0]] : data;
   }, [
     t,
     total,
@@ -570,61 +570,60 @@ customer,currency,invoice_items.warehouse_out,invoice_items.warehouse_in,invoice
     margin:0mm
   }`;
   const handlePrint = useReactToPrint({
-    content: () => printRef.current!,
-    removeAfterPrint: true,
-    bodyClass: "market_invoice",
+    contentRef: printRef,
+    bodyClass: 'market_invoice',
     pageStyle: pageStyle,
   });
 
   return (
-    <div>
-      <div onClick={showDrawer} className="num">
-        {t("Form.View")}
+    <div ref={printRef}>
+      <div onClick={showDrawer} className='num'>
+        {t('Form.View')}
       </div>
       <Drawer
         maskClosable={false}
         mask={true}
         title={startCase(props?.title)}
-        height="100%"
+        height='100%'
         onClose={onClose}
         open={visible}
         afterVisibleChange={handleAfterVisibleChange}
         destroyOnClose
-        placement="top"
+        placement='top'
         footer={
-          <Row justify="end">
+          <Row justify='end'>
             <Col>
-              <Space size="small">
-                <Button type="primary" ghost onClick={onClose}>
-                  {t("Form.Close")}
+              <Space size='small'>
+                <Button type='primary' ghost onClick={onClose}>
+                  {t('Form.Close')}
                 </Button>
-                {props?.record?.sales_source === "pos" && (
+                {props?.record?.sales_source === 'pos' && (
                   <Button
                     // shape="round"
-                    type="primary"
+                    type='primary'
                     ghost
-                    onClick={handlePrint}
+                    onClick={() => handlePrint()}
                     icon={<PrinterOutlined />}
                     disabled={loading}
                   >
-                    {t("Form.Print")}{" "}
+                    {t('Form.Print')}{' '}
                   </Button>
                 )}
-                {props?.type === "sales" && (
+                {props?.type === 'sales' && (
                   <PrintInvoiceButton
                     disabled={!Boolean(props?.record?.id)}
-                    title={startCase(t("Warehouse_remittance"))}
+                    title={startCase(t('Warehouse_remittance'))}
                     dataSource={data}
-                    type="warehouseRemittance"
+                    type='warehouseRemittance'
                     //@ts-ignore
                     summary={[]}
                     filters={headerData?.filter(
                       (item: any) =>
-                        item?.name === "date" || item?.name === "account"
+                        item?.name === 'date' || item?.name === 'account',
                     )}
                     cashPayment={[]}
                     id={props?.record?.id}
-                    printText={t("Warehouse_remittance")}
+                    printText={t('Warehouse_remittance')}
                     isPrinted={true}
                   />
                 )}
@@ -645,38 +644,38 @@ customer,currency,invoice_items.warehouse_out,invoice_items.warehouse_in,invoice
           </Row>
         }
       >
-        <Spin spinning={loading} size="large">
+        <Spin spinning={loading} size='large'>
           <Typography.Title level={5}>
-            {t("Custom_form_styles.Header")}
+            {t('Custom_form_styles.Header')}
           </Typography.Title>
-          <Space direction="vertical" size="large">
+          <Space direction='vertical' size='large'>
             <Descriptions
               bordered
-              size="small"
+              size='small'
               style={styles.header}
               labelStyle={styles.headerLabel}
               column={1}
             >
-              {props?.type !== "productTransfer" &&
-                props?.type !== "warehouseAdjustment" && (
+              {props?.type !== 'productTransfer' &&
+                props?.type !== 'warehouseAdjustment' && (
                   <React.Fragment>
                     <Descriptions.Item
                       label={
-                        props.type === "sales" ||
-                        props.type === "sales_rej" ||
-                        props.type === "quotation"
-                          ? t("Sales.Customers.Customer")
-                          : t("Expenses.Suppliers.Supplier")
+                        props.type === 'sales' ||
+                        props.type === 'sales_rej' ||
+                        props.type === 'quotation'
+                          ? t('Sales.Customers.Customer')
+                          : t('Expenses.Suppliers.Supplier')
                       }
                     >
                       {props?.record?.customer?.content_object?.full_name}
                     </Descriptions.Item>
-                    <Descriptions.Item label={t("Warehouse.1")}>
+                    <Descriptions.Item label={t('Warehouse.1')}>
                       {data?.[0]?.warehouse?.label}
                     </Descriptions.Item>
 
-                    {props?.type === "sales" && (
-                      <Descriptions.Item label={t("Representative")}>
+                    {props?.type === 'sales' && (
+                      <Descriptions.Item label={t('Representative')}>
                         {
                           props?.record?.representative?.content_object
                             ?.full_name
@@ -684,18 +683,18 @@ customer,currency,invoice_items.warehouse_out,invoice_items.warehouse_in,invoice
                       </Descriptions.Item>
                     )}
                     <Descriptions.Item
-                      label={t("Sales.Product_and_services.Status")}
+                      label={t('Sales.Product_and_services.Status')}
                     >
                       {props?.record?.invoice_state}
                     </Descriptions.Item>
                     <Descriptions.Item
-                      label={t("Sales.Product_and_services.Inventory.Currency")}
+                      label={t('Sales.Product_and_services.Inventory.Currency')}
                     >
                       {props?.record?.currency?.name}
                     </Descriptions.Item>
                     <Descriptions.Item
                       label={t(
-                        "Sales.Product_and_services.Currency.Currency_rate"
+                        'Sales.Product_and_services.Currency.Currency_rate',
                       )}
                     >
                       {parseFloat(props?.record?.currency_rate)}
@@ -703,23 +702,23 @@ customer,currency,invoice_items.warehouse_out,invoice_items.warehouse_in,invoice
                   </React.Fragment>
                 )}
 
-              {props?.type === "warehouseAdjustment" && (
-                <Descriptions.Item label={t("Invoice_type")}>
+              {props?.type === 'warehouseAdjustment' && (
+                <Descriptions.Item label={t('Invoice_type')}>
                   {data?.[0]?.type}
                 </Descriptions.Item>
               )}
               <Descriptions.Item
-                label={t("Sales.All_sales.Invoice.Date_and_time")}
+                label={t('Sales.All_sales.Invoice.Date_and_time')}
               >
                 <ShowDate date={props?.record?.date_time} />
               </Descriptions.Item>
-              <Descriptions.Item label={t("Form.Description")}>
+              <Descriptions.Item label={t('Form.Description')}>
                 {props?.record?.description}
               </Descriptions.Item>
             </Descriptions>
             <div>
               <Typography.Title level={5}>
-                {t("Sales.All_sales.Invoice.Invoice_items")}
+                {t('Sales.All_sales.Invoice.Invoice_items')}
               </Typography.Title>
               <Table
                 bordered
@@ -727,25 +726,25 @@ customer,currency,invoice_items.warehouse_out,invoice_items.warehouse_in,invoice
                 rowKey={(record: any) => record.id}
                 //@ts-ignore
                 columns={
-                  props?.type === "productTransfer"
+                  props?.type === 'productTransfer'
                     ? productTransferColumns
-                    : props?.type === "warehouseAdjustment"
-                    ? warehouseAdjustmentColumns
-                    : columns
+                    : props?.type === 'warehouseAdjustment'
+                      ? warehouseAdjustmentColumns
+                      : columns
                 }
                 pagination={false}
                 scroll={{
-                  x: "max-content",
+                  x: 'max-content',
                   scrollToFirstRowOnChange: true,
                 }}
-                size="small"
+                size='small'
               />
             </div>
-            {props?.type !== "productTransfer" &&
-              props?.type !== "warehouseAdjustment" && (
-                <Row justify="space-between">
+            {props?.type !== 'productTransfer' &&
+              props?.type !== 'warehouseAdjustment' && (
+                <Row justify='space-between'>
                   <Col style={styles.cashPayment}>
-                    {props?.type !== "quotation" && (
+                    {props?.type !== 'quotation' && (
                       <>
                         <CashPaymentTable
                           {...{
@@ -759,7 +758,7 @@ customer,currency,invoice_items.warehouse_out,invoice_items.warehouse_in,invoice
 
                   <Col style={styles.total}>
                     <Typography.Title level={5}>
-                      {t("Invoice_total")}
+                      {t('Invoice_total')}
                     </Typography.Title>
                     <InvoiceSummary
                       {...{
@@ -784,12 +783,12 @@ customer,currency,invoice_items.warehouse_out,invoice_items.warehouse_in,invoice
 };
 
 const styles = {
-  total: { width: "250px" },
-  cashPayment: { width: "500px" },
+  total: { width: '250px' },
+  cashPayment: { width: '500px' },
   header: {
-    width: "500px",
+    width: '500px',
   },
-  headerLabel: { width: "140px" },
+  headerLabel: { width: '140px' },
 };
 
 export default ReadonlyInvoiceItems;

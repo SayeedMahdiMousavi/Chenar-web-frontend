@@ -74,7 +74,7 @@ const EditMultipleBarcode: React.FC<IProps> = (props) => {
             default: item?.default,
             id: item?.id,
           };
-        }
+        },
       );
       form.setFieldsValue({
         barcodeList: newBarcodeList,
@@ -103,7 +103,7 @@ const EditMultipleBarcode: React.FC<IProps> = (props) => {
             } else {
               return item;
             }
-          }
+          },
         );
         form.setFieldsValue({ barcodeList: newBarcodeList });
       })
@@ -178,7 +178,7 @@ const EditMultipleBarcode: React.FC<IProps> = (props) => {
               default: defaultBarcode === index ? true : false,
               original: item?.original,
             };
-          }
+          },
         );
 
         // props.setBarcodeList(newBarcodeList);
@@ -270,7 +270,7 @@ const EditMultipleBarcode: React.FC<IProps> = (props) => {
           } else if (error?.response?.data?.product?.[0]) {
             message.error(`${error?.response.data?.product?.[0]}`);
           }
-        })
+        }),
   );
 
   const { mutate: mutateAddBarcode, isLoading: saveLoading } = useMutation(
@@ -285,7 +285,7 @@ const EditMultipleBarcode: React.FC<IProps> = (props) => {
             } else {
               return item;
             }
-          }
+          },
         );
 
         form.setFieldsValue({ barcodeList: newBarcodeList });
@@ -301,7 +301,7 @@ const EditMultipleBarcode: React.FC<IProps> = (props) => {
       onError: (error) => {
         manageErrors(error);
       },
-    }
+    },
   );
 
   let editBarcode = false;
@@ -311,7 +311,7 @@ const EditMultipleBarcode: React.FC<IProps> = (props) => {
       .then(async (values) => {
         const formValue = form.getFieldsValue();
         const row = formValue?.barcodeList?.find(
-          (item: any, index: number) => index === itemIndex
+          (item: any, index: number) => index === itemIndex,
         );
         if (row?.id) {
           if (editBarcode) {
@@ -381,7 +381,7 @@ const EditMultipleBarcode: React.FC<IProps> = (props) => {
         .delete(`${props.baseUrl}barcode/${value?.id}/`)
         .then((res) => {
           const newBarcodeList = formValue?.barcodeList?.filter(
-            (item: any, index: number) => item?.id !== value?.id
+            (item: any, index: number) => item?.id !== value?.id,
           );
 
           form.setFieldsValue({ barcodeList: newBarcodeList });
@@ -398,7 +398,7 @@ const EditMultipleBarcode: React.FC<IProps> = (props) => {
           message.destroy(messageKey);
           //
           message.error(`${error?.response?.data?.data?.message}`);
-        })
+        }),
   );
   let oneRequest = false;
 
@@ -406,11 +406,11 @@ const EditMultipleBarcode: React.FC<IProps> = (props) => {
     //
     const formValue = form.getFieldsValue();
     const row = formValue?.barcodeList?.find(
-      (item: any, index: number) => index === itemIndex
+      (item: any, index: number) => index === itemIndex,
     );
     if (!row?.id) {
       const newBarcodeList = formValue?.barcodeList?.filter(
-        (item: any, index: number) => index !== itemIndex
+        (item: any, index: number) => index !== itemIndex,
       );
 
       form.setFieldsValue({ barcodeList: newBarcodeList });
@@ -547,7 +547,7 @@ const EditMultipleBarcode: React.FC<IProps> = (props) => {
                                   index === 0 ? (
                                     <span>
                                       {t(
-                                        'Sales.Product_and_services.Form.Barcode'
+                                        'Sales.Product_and_services.Form.Barcode',
                                       )}
                                       <span className='star'>*</span>
                                     </span>
@@ -561,11 +561,10 @@ const EditMultipleBarcode: React.FC<IProps> = (props) => {
                                   <Form.Item
                                     validateTrigger={['onChange', 'onBlur']}
                                     name={[field.name, 'barcode']}
-                                    fieldKey={[field.fieldKey, 'barcode']}
                                     rules={[
                                       {
                                         message: `${t(
-                                          'Sales.Product_and_services.Form.Barcode_required'
+                                          'Sales.Product_and_services.Form.Barcode_required',
                                         )}`,
                                         required: true,
                                       },
@@ -590,7 +589,6 @@ const EditMultipleBarcode: React.FC<IProps> = (props) => {
                               <Form.Item
                                 validateTrigger={['onChange', 'onBlur']}
                                 name={[field.name, 'original']}
-                                fieldKey={[field.fieldKey, 'original']}
                                 style={{
                                   marginTop: '0px',
                                   marginBottom: '0px',
@@ -599,7 +597,7 @@ const EditMultipleBarcode: React.FC<IProps> = (props) => {
                               >
                                 <Checkbox>
                                   {t(
-                                    'Sales.Product_and_services.Form.Is_origin_barcode'
+                                    'Sales.Product_and_services.Form.Is_origin_barcode',
                                   )}
                                 </Checkbox>
                               </Form.Item>
@@ -608,7 +606,6 @@ const EditMultipleBarcode: React.FC<IProps> = (props) => {
                               <Form.Item
                                 validateTrigger={['onChange', 'onBlur']}
                                 name={[field.name, 'default']}
-                                fieldKey={[field.fieldKey, 'default']}
                                 style={{
                                   marginTop: '0px',
                                   marginBottom: '0px',
@@ -617,7 +614,7 @@ const EditMultipleBarcode: React.FC<IProps> = (props) => {
                               >
                                 <Checkbox>
                                   {t(
-                                    'Sales.Product_and_services.Form.Default_barcode'
+                                    'Sales.Product_and_services.Form.Default_barcode',
                                   )}
                                 </Checkbox>
                               </Form.Item>
@@ -627,12 +624,11 @@ const EditMultipleBarcode: React.FC<IProps> = (props) => {
                                 {...field}
                                 validateTrigger={['onChange', 'onBlur']}
                                 name={[field.name, 'unit']}
-                                fieldKey={[field.fieldKey, 'unit']}
                                 label={
                                   index === 0 ? (
                                     <span>
                                       {t(
-                                        'Sales.Product_and_services.Form.Unit'
+                                        'Sales.Product_and_services.Form.Unit',
                                       )}
                                     </span>
                                   ) : (
@@ -642,7 +638,7 @@ const EditMultipleBarcode: React.FC<IProps> = (props) => {
                                 rules={[
                                   {
                                     message: `${t(
-                                      'Sales.Product_and_services.Price_recording.Unit_required'
+                                      'Sales.Product_and_services.Price_recording.Unit_required',
                                     )}`,
                                     required: true,
                                   },
@@ -663,7 +659,7 @@ const EditMultipleBarcode: React.FC<IProps> = (props) => {
                                       >
                                         {item?.unit?.name}
                                       </Select.Option>
-                                    )
+                                    ),
                                   )}
                                 </Select>
                               </Form.Item>
@@ -744,7 +740,7 @@ const EditMultipleBarcode: React.FC<IProps> = (props) => {
                               original: true,
                               default: false,
                             },
-                            fields.length
+                            fields.length,
                           )
                         }
                         block

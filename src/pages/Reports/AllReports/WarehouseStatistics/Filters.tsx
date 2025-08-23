@@ -1,22 +1,22 @@
-import React, { useEffect, memo } from "react";
-import { Row, Col, Form, Button } from "antd";
-import moment from "moment";
-import dayjs from "dayjs";
-import useGetCalender from "../../../../Hooks/useGetCalender";
-import useGetRunningPeriod from "../../../../Hooks/useGetRunningPeriod";
-import { useTranslation } from "react-i18next";
-import ReportDateFormItem from "../../Components/DateFormItem";
+import React, { useEffect, memo } from 'react';
+import { Row, Col, Form, Button } from 'antd';
+import moment from 'moment';
+import dayjs from 'dayjs';
+import useGetCalender from '../../../../Hooks/useGetCalender';
+import useGetRunningPeriod from '../../../../Hooks/useGetRunningPeriod';
+import { useTranslation } from 'react-i18next';
+import ReportDateFormItem from '../../Components/DateFormItem';
 import {
   changeGToJ,
   handlePrepareDateForServer,
   utcDate,
-} from "../../../../Functions/utcDate";
-import { indianToArabic } from "../../../../Functions/arabicToIndian";
-import { RangePickerFormItem } from "../../../SelfComponents/JalaliAntdComponents/RangePickerFormItem";
-import { useMemo } from "react";
-import { InfiniteScrollSelectFormItem } from "../../../../components/antd";
-import { defaultStartPeriodDate } from "../../../../constants";
-import { CategoryField } from "../../../SelfComponents/CategoryField";
+} from '../../../../Functions/utcDate';
+import { indianToArabic } from '../../../../Functions/arabicToIndian';
+import { RangePickerFormItem } from '../../../SelfComponents/JalaliAntdComponents/RangePickerFormItem';
+import { useMemo } from 'react';
+import { InfiniteScrollSelectFormItem } from '../../../../components/antd';
+import { defaultStartPeriodDate } from '../../../../constants';
+import { CategoryField } from '../../../SelfComponents/CategoryField';
 
 interface IProps {
   setPage: (value: number) => void;
@@ -37,8 +37,8 @@ function Filters(props: IProps) {
 
   const dateFormat = useMemo(
     () =>
-      props.type === "expiredProducts" ? "YYYY-MM-DD" : "YYYY-MM-DD HH:mm",
-    [props.type]
+      props.type === 'expiredProducts' ? 'YYYY-MM-DD' : 'YYYY-MM-DD HH:mm',
+    [props.type],
   );
   //get running period
   const runningPeriod = useGetRunningPeriod();
@@ -61,9 +61,9 @@ function Filters(props: IProps) {
     });
 
     const newFilters = {
-      product: values?.product ?? { value: "", label: "" },
-      warehouse: values?.warehouse ?? { value: "", label: "" },
-      category: values?.category ?? { value: "", label: "" },
+      product: values?.product ?? { value: '', label: '' },
+      warehouse: values?.warehouse ?? { value: '', label: '' },
+      category: values?.category ?? { value: '', label: '' },
       startDate: startDate && indianToArabic(startDate),
       endDate: endDate && indianToArabic(endDate),
     };
@@ -91,29 +91,29 @@ function Filters(props: IProps) {
   };
 
   const defaultDate = React.useMemo(
-    () => [utcDate(), moment(utcDate().add(1, "month"), dateFormat)],
-    [dateFormat]
+    () => [utcDate(), moment(utcDate().add(1, 'month'), dateFormat)],
+    [dateFormat],
   );
   const defaultJalaliDate = React.useMemo(
     () => [
       dayjs(
         changeGToJ(utcDate().format(dateFormat), dateFormat),
         //@ts-ignore
-        jalaliType
+        jalaliType,
       ),
 
       dayjs(
-        changeGToJ(utcDate().add(1, "month").format(dateFormat), dateFormat),
+        changeGToJ(utcDate().add(1, 'month').format(dateFormat), dateFormat),
         //@ts-ignore
-        jalaliType
+        jalaliType,
       ),
     ],
-    [dateFormat]
+    [dateFormat],
   );
 
   useEffect(() => {
-    if (props.type === "expiredProducts") {
-      if (calendarCode === "gregory") {
+    if (props.type === 'expiredProducts') {
+      if (calendarCode === 'gregory') {
         form.setFieldsValue({
           dateTime: defaultDate,
         });
@@ -124,7 +124,7 @@ function Filters(props: IProps) {
       }
     } else {
       if (curStartDate) {
-        if (calendarCode === "gregory") {
+        if (calendarCode === 'gregory') {
           form.setFieldsValue({
             dateTime: [moment(curStartDate, dateFormat), utcDate()],
           });
@@ -137,13 +137,13 @@ function Filters(props: IProps) {
               dayjs(
                 changeGToJ(utcDate().format(dateFormat), dateFormat),
                 //@ts-ignore
-                jalaliType
+                jalaliType,
               ),
             ],
           });
         }
       } else if (failureCount > 0) {
-        if (calendarCode === "gregory") {
+        if (calendarCode === 'gregory') {
           form.setFieldsValue({
             dateTime: [moment(defaultStartPeriodDate, dateFormat), utcDate()],
           });
@@ -156,7 +156,7 @@ function Filters(props: IProps) {
               dayjs(
                 changeGToJ(utcDate().format(dateFormat), dateFormat),
                 //@ts-ignore
-                jalaliType
+                jalaliType,
               ),
             ],
           });
@@ -186,23 +186,23 @@ function Filters(props: IProps) {
       form={form}
       hideRequiredMark
       initialValues={{
-        date: "allDates",
+        date: 'allDates',
         dateTime:
-          calendarCode === "gregory"
+          calendarCode === 'gregory'
             ? curStartDate && defaultDate
             : curStartDate && defaultJalaliDate,
       }}
     >
-      <Row gutter={[10, 10]} style={{ marginBottom: "20px" }}>
-        {props?.type === "expiredProducts" ? (
+      <Row gutter={[10, 10]} style={{ marginBottom: '20px' }}>
+        {props?.type === 'expiredProducts' ? (
           <Col xxl={5} xl={6} lg={7}>
             <RangePickerFormItem
               showTime={false}
-              placeholder={[t("Expenses.Table.Start"), t("Expenses.Table.End")]}
+              placeholder={[t('Expenses.Table.Start'), t('Expenses.Table.End')]}
               format={dateFormat}
               rules={[]}
-              name="dateTime"
-              label=""
+              name='dateTime'
+              label=''
               style={styles.formItem}
             />
           </Col>
@@ -214,52 +214,52 @@ function Filters(props: IProps) {
           />
         )}
 
-        {props?.type !== "expiredProducts" && (
+        {props?.type !== 'expiredProducts' && (
           <Col xxl={14} xl={11} lg={11}></Col>
         )}
         <Col xxl={4} xl={5} lg={5}>
           <InfiniteScrollSelectFormItem
-            name="warehouse"
+            name='warehouse'
             style={styles.formItem}
-            fields="name,id"
-            placeholder={t("Warehouse.1")}
-            baseUrl="/inventory/warehouse/"
+            fields='name,id'
+            placeholder={t('Warehouse.1')}
+            baseUrl='/inventory/warehouse/'
             allowClear={true}
           />
         </Col>
-        {props?.type === "expiredProducts" && (
+        {props?.type === 'expiredProducts' && (
           <Col xxl={14} xl={11} lg={11}></Col>
         )}
         <Col xxl={5} xl={6} lg={7}>
           <InfiniteScrollSelectFormItem
-            name="product"
+            name='product'
             style={styles.formItem}
-            fields="name,id"
-            placeholder={t("Sales.Product_and_services.Product")}
-            baseUrl="/product/items/"
+            fields='name,id'
+            placeholder={t('Sales.Product_and_services.Product')}
+            baseUrl='/product/items/'
             allowClear={true}
           />
         </Col>
-        {props?.type !== "expiredProducts" && (
+        {props?.type !== 'expiredProducts' && (
           <>
             <Col xxl={12} xl={10} lg={5}></Col>
             <Col xxl={4} xl={5} lg={5}>
               <CategoryField
                 form={form}
-                place="filter"
-                label=""
+                place='filter'
+                label=''
                 style={styles.formItem}
-                placeholder={t("Sales.Product_and_services.Form.Category")}
-                url="/product/category/"
+                placeholder={t('Sales.Product_and_services.Form.Category')}
+                url='/product/category/'
               />
             </Col>
           </>
         )}
 
         <Col xxl={8} xl={10} lg={10}>
-          <Form.Item className="margin" style={styles.formItem}>
-            <Button type="primary" size="small" htmlType="submit" shape="round">
-              {t("Form.Search")}
+          <Form.Item className='margin' style={styles.formItem}>
+            <Button type='primary' size='small' htmlType='submit' shape='round'>
+              {t('Form.Search')}
             </Button>
           </Form.Item>
         </Col>
@@ -270,7 +270,7 @@ function Filters(props: IProps) {
 
 const styles = {
   form: {
-    width: "250px",
+    width: '250px',
   },
   formItem: { marginBottom: 0 },
 };

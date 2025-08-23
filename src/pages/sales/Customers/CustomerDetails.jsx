@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useCallback } from "react";
-import EditCustomer from "./EditCustomer";
-import { useTranslation } from "react-i18next";
-import CustomerDetailsShowMore from "./CustomerDetailsShowMore";
-import CustomerDetailsActive from "./CustomerDetailsActive";
+import React, { useState, useEffect, useCallback } from 'react';
+import EditCustomer from './EditCustomer';
+import { useTranslation } from 'react-i18next';
+import CustomerDetailsShowMore from './CustomerDetailsShowMore';
+import CustomerDetailsActive from './CustomerDetailsActive';
 import {
   Row,
   Col,
@@ -17,26 +17,26 @@ import {
   Space,
   Spin,
   Affix,
-} from "antd";
+} from 'antd';
 import {
   MailTwoTone,
   PhoneTwoTone,
   MenuUnfoldOutlined,
   MenuFoldOutlined,
-} from "@ant-design/icons";
-import { useMediaQuery } from "../../MediaQurey";
+} from '@ant-design/icons';
+import { useMediaQuery } from '../../MediaQurey';
 // import NewTransaction from "./Transaction/NewTransaction";
-import { useParams } from "react-router-dom";
-import { Colors } from "../../colors";
-import axiosInstance from "../../ApiBaseUrl";
-import { useQuery, useMutation, useQueryClient } from "react-query";
-import { ActionMessage } from "../../SelfComponents/TranslateComponents/ActionMessage";
-import { checkPermissions } from "../../../Functions";
-import { CUSTOMER_M } from "../../../constants/permissions";
-import { PageBackIcon } from "../../../components";
-import { CUSTOMER } from "../../../constants/routes";
+import { useParams } from 'react-router-dom';
+import { Colors } from '../../colors';
+import axiosInstance from '../../ApiBaseUrl';
+import { useQuery, useMutation, useQueryClient } from 'react-query';
+import { ActionMessage } from '../../SelfComponents/TranslateComponents/ActionMessage';
+import { checkPermissions } from '../../../Functions';
+import { CUSTOMER_M } from '../../../constants/permissions';
+import { PageBackIcon } from '../../../components';
+import { CUSTOMER } from '../../../constants/routes';
 
-const baseUrl = "/customer_account/customer/";
+const baseUrl = '/customer_account/customer/';
 const { Paragraph } = Typography;
 const { Dragger } = Upload;
 const { TabPane } = Tabs;
@@ -46,41 +46,41 @@ const gray = Colors.borderColor;
 function CustomerDetails(props) {
   const queryClient = useQueryClient();
   const params = useParams();
-  const isMobile = useMediaQuery("(max-width: 576px)");
-  const isMobileMini = useMediaQuery("(max-width: 425px)");
+  const isMobile = useMediaQuery('(max-width: 576px)');
+  const isMobileMini = useMediaQuery('(max-width: 425px)');
   const [progress, setProgress] = useState(0);
   const [loading, setLoading] = useState(false);
   const [collapse, setCollapse] = useState(isMobile ? false : true);
   const { t } = useTranslation();
-  const [notes, setNotes] = useState("");
+  const [notes, setNotes] = useState('');
   const [save, setSave] = useState(true);
-  const isSubMobile = useMediaQuery("(max-width: 400px)");
+  const isSubMobile = useMediaQuery('(max-width: 400px)');
 
   const getCustomer = async ({ queryKey }) => {
     const { id } = queryKey?.[1] || {};
     const { data } = await axiosInstance.get(
-      `/customer_account/customer/${id}/?expand=discount_card,discount_card.discount_card,category`
+      `/customer_account/customer/${id}/?expand=discount_card,discount_card.discount_card,category`,
     );
     return data;
   };
 
   const result = useQuery(
-    ["/customer_account/customer1/", { id: params?.id }],
+    ['/customer_account/customer1/', { id: params?.id }],
     getCustomer,
-    { enabled: !!params?.id }
+    { enabled: !!params?.id },
   );
 
   const [fileList, setFileList] = useState([]);
   const [file, setFile] = useState({});
   useEffect(() => {
     const attachment =
-      result?.data?.attachment && result?.data?.attachment.split("/");
+      result?.data?.attachment && result?.data?.attachment.split('/');
     const attachmentData = result?.data?.attachment
       ? [
           {
-            uid: "-1",
+            uid: '-1',
             name: attachment?.[6],
-            status: "done",
+            status: 'done',
             url: result?.data?.attachment,
           },
         ]
@@ -95,55 +95,55 @@ function CustomerDetails(props) {
 
   const data = [
     {
-      title: `${t("Sales.Customers.Customer")}`,
+      title: `${t('Sales.Customers.Customer')}`,
       content: result?.data?.full_name,
     },
     {
-      title: `${t("Form.Email")}`,
+      title: `${t('Form.Email')}`,
       content: (
-        <a href={`mailto:${result?.data?.email}`} target="_blank">
-          {" "}
-          {result?.data?.email}{" "}
+        <a href={`mailto:${result?.data?.email}`} target='_blank'>
+          {' '}
+          {result?.data?.email}{' '}
         </a>
       ),
     },
     {
-      title: `${t("Form.Phone")}`,
+      title: `${t('Form.Phone')}`,
       content: result?.data?.phone_number,
     },
     {
-      title: `${t("Form.Mobile")}`,
-      content: result?.data?.mobile_number ? result?.data?.mobile_number : "",
+      title: `${t('Form.Mobile')}`,
+      content: result?.data?.mobile_number ? result?.data?.mobile_number : '',
     },
   ];
   const data1 = [
     {
-      title: `${t("Form.Fax")}`,
+      title: `${t('Form.Fax')}`,
       content: `${result?.data?.fax_number}`,
     },
     {
-      title: `${t("Form.Website")}`,
+      title: `${t('Form.Website')}`,
       content: (
-        <a href={`${result?.data?.website}`} target="_blank">
-          {" "}
-          {result?.data?.website}{" "}
+        <a href={`${result?.data?.website}`} target='_blank'>
+          {' '}
+          {result?.data?.website}{' '}
         </a>
       ),
     },
     {
-      title: `${t("Form.Billing_address")}`,
+      title: `${t('Form.Billing_address')}`,
       content: `${
         result?.data?.full_billing_address
           ? result?.data?.full_billing_address
-          : ""
+          : ''
       }`,
     },
     {
-      title: `${t("Form.Shipping_address")}`,
+      title: `${t('Form.Shipping_address')}`,
       content: `${
         result?.data?.full_shipping_address
           ? result?.data?.full_shipping_address
-          : ""
+          : ''
       }`,
     },
   ];
@@ -154,7 +154,7 @@ function CustomerDetails(props) {
         timeout: 0,
         onUploadProgress: (progressEvent) => {
           var percentCompleted = Math.round(
-            (progressEvent.loaded * 100) / progressEvent.total
+            (progressEvent.loaded * 100) / progressEvent.total,
           );
           setProgress(percentCompleted);
         },
@@ -162,7 +162,7 @@ function CustomerDetails(props) {
       .then((res) => {
         setFileList([file]);
         message.success(
-          <ActionMessage name={file?.name} message="Message.Update" />
+          <ActionMessage name={file?.name} message='Message.Update' />,
         );
         setLoading(false);
         setProgress(0);
@@ -190,12 +190,11 @@ function CustomerDetails(props) {
   const onChangeAttachment = async () => {
     try {
       const formData = new FormData();
-      formData.append("attachment", file);
+      formData.append('attachment', file);
       setLoading(true);
       mutateEditAttachment(formData);
     } catch (info) {
-      console.log("Validate Failed:", info);
-      
+      console.log('Validate Failed:', info);
     }
   };
 
@@ -204,7 +203,7 @@ function CustomerDetails(props) {
       .patch(`/customer_account/customer/${props.match.params.id}/`, value)
       .then((res) => {
         message.success(
-          <ActionMessage name={fileList?.[0]?.name} message="Message.Remove" />
+          <ActionMessage name={fileList?.[0]?.name} message='Message.Remove' />,
         );
         const index = fileList.indexOf(fileList?.[0]);
         const newFileList = fileList.slice();
@@ -229,7 +228,7 @@ function CustomerDetails(props) {
   });
   const prop = {
     customRequest: onChangeAttachment,
-    name: "file",
+    name: 'file',
     maxCount: 1,
     onRemove: (file) => {
       const formData = { is_delete_attach: true };
@@ -258,7 +257,7 @@ function CustomerDetails(props) {
         if (error?.response?.data?.notes) {
           message.error(`${error?.response?.data?.notes?.[0]}`);
         } else {
-          message.error("Something went wrong ");
+          message.error('Something went wrong ');
         }
       });
   };
@@ -274,27 +273,26 @@ function CustomerDetails(props) {
     try {
       mutateEditNotes({ notes: e.target.value });
     } catch (info) {
-      console.log("Validate Failed:", info);
-      
+      console.log('Validate Failed:', info);
     }
   };
 
   return (
-    <Row justify="end" style={styles.body}>
+    <Row justify='end' style={styles.body}>
       {collapse ? (
         <Col md={5} sm={7} xs={24}>
           <Affix
             offsetTop={0}
-            target={() => document.getElementById("mainComponent")}
+            target={() => document.getElementById('mainComponent')}
           >
-            <Row className="num" justify="start">
-              <Col style={{ width: "calc(100% - 1px)" }}>
+            <Row className='num' justify='start'>
+              <Col style={{ width: 'calc(100% - 1px)' }}>
                 <Row gutter={[0, 10]} style={styles.sidebar}>
                   <Col span={24}>
-                    <Row justify="space-between">
+                    <Row justify='space-between'>
                       <Col span={19}>
                         <PageBackIcon
-                          previousPageName={t("Sales.Customers.1")}
+                          previousPageName={t('Sales.Customers.1')}
                           url={CUSTOMER}
                         />
                       </Col>
@@ -302,11 +300,11 @@ function CustomerDetails(props) {
                       <Col
                         sm={{ span: 4 }}
                         xs={{ span: 4 }}
-                        style={{ textAlign: "end" }}
+                        style={{ textAlign: 'end' }}
                       >
                         <MenuFoldOutlined
                           onClick={onClickShow}
-                          className="table__header2-icon"
+                          className='table__header2-icon'
                         />
                       </Col>
                     </Row>
@@ -319,8 +317,8 @@ function CustomerDetails(props) {
               </Col>
               <Col>
                 <Divider
-                  type="vertical"
-                  className="divider"
+                  type='vertical'
+                  className='divider'
                   style={styles.divider}
                 />
               </Col>
@@ -331,26 +329,26 @@ function CustomerDetails(props) {
         <Col md={1} xs={2}>
           <Affix
             offsetTop={0}
-            target={() => document.getElementById("mainComponent")}
+            target={() => document.getElementById('mainComponent')}
           >
-            <Row className="num">
+            <Row className='num'>
               <Col
                 style={{
-                  paddingTop: "15px",
-                  width: "calc(100% - 1px)",
-                  textAlign: "center",
+                  paddingTop: '15px',
+                  width: 'calc(100% - 1px)',
+                  textAlign: 'center',
                 }}
               >
                 <MenuUnfoldOutlined
                   onClick={onClickShow}
-                  className="table__header2-icon"
+                  className='table__header2-icon'
                 />
               </Col>
 
               <Col>
                 <Divider
-                  type="vertical"
-                  className="divider"
+                  type='vertical'
+                  className='divider'
                   style={styles.divider}
                 />
               </Col>
@@ -366,12 +364,12 @@ function CustomerDetails(props) {
         // className={online ? "page-body" : "page-body-offline"}
       >
         <Spin
-          tip={t("Message.Loading")}
+          tip={t('Message.Loading')}
           spinning={result?.isFetching || result?.isLoading ? true : false}
         >
-          <Row justify="space-around">
+          <Row justify='space-around'>
             <Col span={23}>
-              <Row className="customer__details-header" align="middle">
+              <Row className='customer__details-header' align='middle'>
                 <Col
                   md={7}
                   sm={collapse ? 7 : 8}
@@ -380,17 +378,17 @@ function CustomerDetails(props) {
                 >
                   <Typography.Text
                     strong={true}
-                    className="ellipses__header boob"
+                    className='ellipses__header boob'
                   >
                     {result?.data?.full_name}
                   </Typography.Text>
                 </Col>
                 <Col md={2} sm={collapse ? 3 : 2} xs={collapse ? 3 : 4}>
-                  <Row justify="space-around">
+                  <Row justify='space-around'>
                     <Col span={11}>
-                      <a href={`mailto:${result?.data?.email}`} target="_blank">
+                      <a href={`mailto:${result?.data?.email}`} target='_blank'>
                         <MailTwoTone
-                          className="table__header2-icon"
+                          className='table__header2-icon'
                           twoToneColor={Colors.primaryColor}
                         />
                       </a>
@@ -400,11 +398,11 @@ function CustomerDetails(props) {
                         title={
                           result?.data?.mobile_number
                             ? result?.data?.mobile_number
-                            : t("Sales.Customers.Details.Phone_notFound")
+                            : t('Sales.Customers.Details.Phone_notFound')
                         }
                       >
                         <PhoneTwoTone
-                          className="table__header2-icon"
+                          className='table__header2-icon'
                           twoToneColor={Colors.primaryColor}
                         />
                       </Tooltip>
@@ -426,10 +424,10 @@ function CustomerDetails(props) {
                   }
                   xs={{ span: 12, offset: 0 }}
                 >
-                  {result?.data?.status === "active" ? (
+                  {result?.data?.status === 'active' ? (
                     <Row
-                      justify="space-around"
-                      align="middle"
+                      justify='space-around'
+                      align='middle'
                       gutter={isSubMobile ? [0, 6] : []}
                     >
                       <Col sm={7} xs={isSubMobile ? { span: 13 } : { span: 7 }}>
@@ -462,7 +460,7 @@ function CustomerDetails(props) {
                   )}
                 </Col>
               </Row>
-              <Row className="num">
+              <Row className='num'>
                 <Col
                   xl={collapse ? 17 : 19}
                   lg={collapse ? 15 : 17}
@@ -476,14 +474,14 @@ function CustomerDetails(props) {
                       md={collapse ? 18 : 19}
                       sm={collapse ? 13 : 15}
                       xs={isSubMobile ? 13 : 15}
-                      className="ellipses"
+                      className='ellipses'
                     >
                       {result?.data?.full_billing_address
                         ? result?.data?.full_billing_address
-                        : ""}
+                        : ''}
                     </Col>
                     <Col xl={10} lg={11} sm={13} xs={20}>
-                      <Paragraph className="ellipses" ellipsis={{ rows: 1 }}>
+                      <Paragraph className='ellipses' ellipsis={{ rows: 1 }}>
                         {notes}
                       </Paragraph>
                     </Col>
@@ -567,7 +565,7 @@ function CustomerDetails(props) {
                 <Col span={24}>
                   <Tabs
                     animated={true}
-                    defaultActiveKey="2"
+                    defaultActiveKey='2'
                     tabBarStyle={{
                       borderBottom: `1px solid ${gray}`,
                     }}
@@ -579,8 +577,8 @@ function CustomerDetails(props) {
                           <TransactionTable collapse={collapse} />
                         </TabPane> */}
                     <TabPane
-                      tab={t("Sales.Customers.Details.Customer_details")}
-                      key="2"
+                      tab={t('Sales.Customers.Details.Customer_details')}
+                      key='2'
                     >
                       <Row
                         gutter={{
@@ -590,9 +588,9 @@ function CustomerDetails(props) {
                           xs: 50,
                         }}
                       >
-                        {result?.data?.status === "active" && (
+                        {result?.data?.status === 'active' && (
                           <Col span={24}>
-                            <Row justify="end">
+                            <Row justify='end'>
                               <Col
                                 lg={2}
                                 md={3}
@@ -612,11 +610,11 @@ function CustomerDetails(props) {
                         )}
                         <Col md={12} xs={24}>
                           <List
-                            itemLayout="horizontal"
+                            itemLayout='horizontal'
                             dataSource={data}
                             renderItem={(item) => (
                               <List.Item style={styles.listItem}>
-                                <Row className="num">
+                                <Row className='num'>
                                   <Col style={{ width: `130px` }}>
                                     <h4> {item.title}</h4>
                                   </Col>
@@ -628,11 +626,11 @@ function CustomerDetails(props) {
                         </Col>
                         <Col md={12} xs={24}>
                           <List
-                            itemLayout="horizontal"
+                            itemLayout='horizontal'
                             dataSource={data1}
                             renderItem={(item) => (
                               <List.Item style={styles.listItem}>
-                                <Row className="num">
+                                <Row className='num'>
                                   <Col style={{ width: `130px` }}>
                                     <h4> {item.title}</h4>
                                   </Col>
@@ -646,7 +644,7 @@ function CustomerDetails(props) {
                       {!result?.data?.system_default && (
                         <Row gutter={[50, 10]} style={styles.notes}>
                           <Col md={12} sm={12} xs={24}>
-                            <div style={styles.label}>{t("Form.Notes")}</div>
+                            <div style={styles.label}>{t('Form.Notes')}</div>
 
                             <TextArea
                               defaultValue={`${result && result?.data?.notes}`}
@@ -655,11 +653,11 @@ function CustomerDetails(props) {
                               onPressEnter={onPressEnterNotes}
                               autoSize={{ minRows: 3, maxRows: 3 }}
                             />
-                            <span className="note_save">
-                              {" "}
+                            <span className='note_save'>
+                              {' '}
                               {save
-                                ? t("Sales.Customers.Details.nothing_to_save")
-                                : t("Sales.Customers.Details.Notes_edit_save")}
+                                ? t('Sales.Customers.Details.nothing_to_save')
+                                : t('Sales.Customers.Details.Notes_edit_save')}
                             </span>
                           </Col>
                           <Col
@@ -669,17 +667,17 @@ function CustomerDetails(props) {
                             style={styles.attachment}
                           >
                             <div style={styles.label}>
-                              {t("Form.Attachments")}{" "}
+                              {t('Form.Attachments')}{' '}
                             </div>
                             <Dragger {...prop}>
-                              <Row justify="center">
+                              <Row justify='center'>
                                 <Col>
-                                  <Space size="small" style={styles.dragSpace}>
-                                    <p className="ant-upload-text">
-                                      {t("Form.Drag_Drop")}
+                                  <Space size='small' style={styles.dragSpace}>
+                                    <p className='ant-upload-text'>
+                                      {t('Form.Drag_Drop')}
                                     </p>
                                     <Typography.Text strong={true}>
-                                      {loading ? progress + "%" : ""}
+                                      {loading ? progress + '%' : ''}
                                     </Typography.Text>
                                   </Space>
                                 </Col>
@@ -701,36 +699,36 @@ function CustomerDetails(props) {
 }
 
 const styles = {
-  drawerHeader: { paddingTop: "15px" },
-  attachment: { height: "85px" },
-  dragSpace: { padding: "0px 5px 5px 5px" },
+  drawerHeader: { paddingTop: '15px' },
+  attachment: { height: '85px' },
+  dragSpace: { padding: '0px 5px 5px 5px' },
   divider: {
-    height: "100vh",
-    margin: "0px",
+    height: '100vh',
+    margin: '0px',
     background: `${gray}`,
   },
   divider1: {
-    height: "100%",
-    margin: "0px",
-    width: ".4rem",
-    background: "#faad14",
+    height: '100%',
+    margin: '0px',
+    width: '.4rem',
+    background: '#faad14',
   },
   divider2: {
-    height: "100%",
-    margin: "0px",
-    width: ".4rem",
-    background: "#cf1322",
+    height: '100%',
+    margin: '0px',
+    width: '.4rem',
+    background: '#cf1322',
   },
-  margin: { margin: "0px" },
+  margin: { margin: '0px' },
   listItem: {
     borderBottom: `1px solid ${gray} `,
-    wordWrap: " break-word",
-    wordBreak: "break-all",
+    wordWrap: ' break-word',
+    wordBreak: 'break-all',
   },
-  notes: { marginBottom: "24px" },
-  sidebar: { margin: "15px 4%" },
-  body: { margin: "0px -2%" },
-  label: { margin: "7px 0px" },
+  notes: { marginBottom: '24px' },
+  sidebar: { margin: '15px 4%' },
+  body: { margin: '0px -2%' },
+  label: { margin: '7px 0px' },
 };
 
 export default CustomerDetails;

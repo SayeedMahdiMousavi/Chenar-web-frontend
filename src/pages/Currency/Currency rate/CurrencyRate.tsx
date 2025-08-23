@@ -1,18 +1,18 @@
-import React from "react";
-import { Row, Col, Menu } from "antd";
-import { Title } from "../../SelfComponents/Title";
-import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
-import { checkPermissionsModel } from "../../../Functions";
+import React from 'react';
+import { Row, Col, Menu } from 'antd';
+import { Title } from '../../SelfComponents/Title';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+import { checkPermissionsModel } from '../../../Functions';
 import {
   CURRENCY_EXCHANGE_M,
   CURRENCY_M,
   CURRENCY_RATE_M,
-} from "../../../constants/permissions";
-import CurrencyRateTable from "./Table";
-import { PageMoreButton } from "../../../components";
+} from '../../../constants/permissions';
+import CurrencyRateTable from './Table';
+import { PageMoreButton } from '../../../components';
 
-export const currencyRateBaseUrl = "/currency/active_currency_rate/";
+export const currencyRateBaseUrl = '/currency/active_currency_rate/';
 
 const baseUrl = currencyRateBaseUrl;
 const CurrencyRate: React.FC = () => {
@@ -21,15 +21,15 @@ const CurrencyRate: React.FC = () => {
   const menu = (
     <Menu>
       {checkPermissionsModel(CURRENCY_M) && (
-        <Menu.Item key="1">
-          <Link to="/currency">
-            {t("Sales.Product_and_services.Currency.1")}
+        <Menu.Item key='1'>
+          <Link to='/currency'>
+            {t('Sales.Product_and_services.Currency.1')}
           </Link>
         </Menu.Item>
       )}
       {checkPermissionsModel(CURRENCY_EXCHANGE_M) && (
-        <Menu.Item key="2">
-          <Link to="/currency-exchange">{t("Reports.Currency_exchange")}</Link>
+        <Menu.Item key='2'>
+          <Link to='/currency-exchange'>{t('Reports.Currency_exchange')}</Link>
         </Menu.Item>
       )}
     </Menu>
@@ -37,17 +37,17 @@ const CurrencyRate: React.FC = () => {
 
   return (
     <>
-      <Row className="categore-header" align="middle" justify="start">
+      <Row className='categore-header' align='middle' justify='start'>
         <Col
           md={{ span: 10 }}
           sm={{ span: 11 }}
           xs={{ span: 14 }}
-          className="Sales__content-3-body"
+          className='Sales__content-3-body'
         >
           <Row>
             <Col span={24}>
               <Title
-                value={t("Sales.Product_and_services.Currency.Currency_rate")}
+                value={t('Sales.Product_and_services.Currency.Currency_rate')}
               />
             </Col>
           </Row>

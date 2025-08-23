@@ -1,24 +1,24 @@
-import React, { Fragment, useMemo, useState } from "react";
-import { useQuery, useQueryClient } from "react-query";
+import React, { Fragment, useMemo, useState } from 'react';
+import { useQuery, useQueryClient } from 'react-query';
 import {
   SettingOutlined,
   // UpSquareTwoTone,
   // DownSquareTwoTone,
   SearchOutlined,
-} from "@ant-design/icons";
-import { Row, Col, Table, Dropdown, Button, Space, Select } from "antd";
-import { useTranslation } from "react-i18next";
-import { useMediaQuery } from "../../MediaQurey";
-import TransactionAction from "./TransactionAction";
-import { usePaginationNumber } from "../../usePaginationNumber";
-import axiosInstance from "../../ApiBaseUrl";
-import { SearchInput } from "../../SelfComponents/SearchInput";
-import PrintButton from "../../SelfComponents/PrintButton";
-import ReloadButton from "../../../components/buttons/ReloadButton";
-import ShowDate from "../../SelfComponents/JalaliAntdComponents/ShowDate";
+} from '@ant-design/icons';
+import { Row, Col, Table, Dropdown, Button, Space, Select } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { useMediaQuery } from '../../MediaQurey';
+import TransactionAction from './TransactionAction';
+import { usePaginationNumber } from '../../usePaginationNumber';
+import axiosInstance from '../../ApiBaseUrl';
+import { SearchInput } from '../../SelfComponents/SearchInput';
+import PrintButton from '../../SelfComponents/PrintButton';
+import ReloadButton from '../../../components/buttons/ReloadButton';
+import ShowDate from '../../SelfComponents/JalaliAntdComponents/ShowDate';
 // import { Colors } from "../../colors";
 
-import { checkPermissions } from "../../../Functions";
+import { checkPermissions } from '../../../Functions';
 import {
   INVOICES_P,
   // PRODUCT_TRANSFER_INVOICE_M,
@@ -29,10 +29,10 @@ import {
   SALES_INVOICE_M,
   SALES_ORDER_INVOICE_M,
   SALES_REJ_INVOICE_M,
-} from "../../../constants/permissions";
-import SalesTotal from "./SalesTotal";
-import TableError from "../../../components/antd/TableError";
-import { AntdTag, Statistics } from "../../../components/antd";
+} from '../../../constants/permissions';
+import SalesTotal from './SalesTotal';
+import TableError from '../../../components/antd/TableError';
+import { AntdTag, Statistics } from '../../../components/antd';
 import {
   PURCHASE_INVOICE_LIST,
   PURCHASE_ORDER_INVOICE_LIST,
@@ -41,9 +41,9 @@ import {
   SALES_INVOICE_LIST,
   SALES_ORDER_INVOICE_LIST,
   SALES_REJECT_INVOICE_LIST,
-} from "../../../constants/routes";
-import InvoicesTableSettings from "./InvoicesTableSettings";
-import { Colors } from "../../colors";
+} from '../../../constants/routes';
+import InvoicesTableSettings from './InvoicesTableSettings';
+import { Colors } from '../../colors';
 
 export const handleCheckViewInvoice = (invoice) => {
   return checkPermissions(`view_${invoice}`);
@@ -57,7 +57,7 @@ const TransactionTable = () => {
   const [selectedRows, setSelectedRows] = useState([]);
   const [collapsed, setCollapsed] = useState(false);
   const [visible, setVisible] = useState(false);
-  const isMobile = useMediaQuery("(max-width: 576px)");
+  const isMobile = useMediaQuery('(max-width: 576px)');
   const { t } = useTranslation();
   const [filterColumns, setColumns] = useState({
     customer: true,
@@ -74,27 +74,27 @@ const TransactionTable = () => {
     modifiedDate: false,
     description: false,
   });
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [page, setPage] = React.useState(1);
   const [pageSize, setPageSize] = useState(5);
-  const [order, setOrder] = useState("-id");
-  const [invoiceId, setInvoiceId] = useState("");
+  const [order, setOrder] = useState('-id');
+  const [invoiceId, setInvoiceId] = useState('');
   const [baseUrl, setBaseUrl] = useState(
     handleCheckViewInvoice(SALES_INVOICE_M)
       ? SALES_INVOICE_LIST
       : handleCheckViewInvoice(SALES_REJ_INVOICE_M)
-      ? SALES_REJECT_INVOICE_LIST
-      : handleCheckViewInvoice(SALES_ORDER_INVOICE_M)
-      ? SALES_ORDER_INVOICE_LIST
-      : handleCheckViewInvoice(PURCHASE_INVOICE_M)
-      ? PURCHASE_INVOICE_LIST
-      : handleCheckViewInvoice(PURCHASE_REJ_INVOICE_M)
-      ? PURCHASE_REJECT_INVOICE_LIST
-      : handleCheckViewInvoice(PURCHASE_ORDER_INVOICE_M)
-      ? PURCHASE_ORDER_INVOICE_LIST
-      : handleCheckViewInvoice(QUOTATION_INVOICE_M)
-      ? QUOTATION_INVOICE_LIST
-      : ""
+        ? SALES_REJECT_INVOICE_LIST
+        : handleCheckViewInvoice(SALES_ORDER_INVOICE_M)
+          ? SALES_ORDER_INVOICE_LIST
+          : handleCheckViewInvoice(PURCHASE_INVOICE_M)
+            ? PURCHASE_INVOICE_LIST
+            : handleCheckViewInvoice(PURCHASE_REJ_INVOICE_M)
+              ? PURCHASE_REJECT_INVOICE_LIST
+              : handleCheckViewInvoice(PURCHASE_ORDER_INVOICE_M)
+                ? PURCHASE_ORDER_INVOICE_LIST
+                : handleCheckViewInvoice(QUOTATION_INVOICE_M)
+                  ? QUOTATION_INVOICE_LIST
+                  : '',
     //  "warehouse_transfer/"
   );
 
@@ -151,26 +151,26 @@ ${invoiceId}&omit=cash_payment.date_time,cash_payment.pay_by,cash_payment.rec_by
 cash_payment.currency_rate_calc,cash_payment.currency_rate&expand=cash_payment,cash_payment.currency
 cash_payment.currency_calc,created_by,modified_by,representative,currency,customer&fields=id,currency,currency_rate,
 date_time,description,customer,created_by,created,cash_payment,invoice_state,invoice_total,invoice_type,
-modified,modified_by,representative`
+modified,modified_by,representative`,
       );
 
       return data;
     },
-    [baseUrl]
+    [baseUrl],
   );
 
   const { isLoading, isFetching, data, status, error, refetch } = useQuery(
     [baseUrl, { page, pageSize, search, order, invoiceId }],
-    getInvoices
+    getInvoices,
   );
 
   const hasMore = Boolean(data?.nextPageNumber);
-  // 
+  //
   React.useEffect(() => {
     if (hasMore && !isFetching) {
       queryClient.prefetchQuery(
         [baseUrl, { page: page + 1, pageSize, search, order, invoiceId }],
-        getInvoices
+        getInvoices,
       );
     }
   }, [
@@ -197,9 +197,9 @@ modified,modified_by,representative`
     setPage(current);
   };
   const onChangeTable = (_, __, sorter) => {
-    if (sorter.order === "ascend") {
+    if (sorter.order === 'ascend') {
       setOrder(sorter.field);
-    } else if (sorter.order === "descend") {
+    } else if (sorter.order === 'descend') {
       setOrder(`-${sorter.field}`);
     } else {
       setOrder(`-id`);
@@ -215,7 +215,7 @@ modified,modified_by,representative`
     defaultCurrent: 1,
     onChange: paginationChange,
     showTotal: (total) =>
-      `${t("Pagination.Total")} ${total} ${t("Pagination.Item")}`,
+      `${t('Pagination.Total')} ${total} ${t('Pagination.Item')}`,
     // size: isMobile ? "small" : "default",
     showQuickJumper: true,
     showSizeChanger: true,
@@ -237,21 +237,21 @@ modified,modified_by,representative`
   const hasSelected = selectedRowKeys.length > 0;
 
   const columns = useMemo(
-  (type) => {
-      const sorter = type !== "print";
+    (type) => {
+      const sorter = type !== 'print';
       return (
         <React.Fragment>
           <Column
-            title={t("Table.Row").toUpperCase()}
-            dataIndex="serial"
-            key="serial"
-            width={type !== "print" ? 80 : 40}
-            className="table-col"
-            align="center"
-            fixed={type !== "print" ? true : false}
+            title={t('Table.Row').toUpperCase()}
+            dataIndex='serial'
+            key='serial'
+            width={type !== 'print' ? 80 : 40}
+            className='table-col'
+            align='center'
+            fixed={type !== 'print' ? true : false}
             render={(text, __, index) => (
               <React.Fragment>
-                {type !== "print" ? text : index + 1}
+                {type !== 'print' ? text : index + 1}
               </React.Fragment>
             )}
           />
@@ -263,14 +263,14 @@ modified,modified_by,representative`
           > */}
           <Column
             title={t(
-              "Sales.All_sales.Purchase_and_sales.Invoice_id"
+              'Sales.All_sales.Purchase_and_sales.Invoice_id',
             ).toUpperCase()}
-            dataIndex="id"
-            key="id"
-            width={type !== "print" ? 155 : undefined}
+            dataIndex='id'
+            key='id'
+            width={type !== 'print' ? 155 : undefined}
             sorter={sorter && { multiple: 13 }}
-            className="table-col"
-            align="center"
+            className='table-col'
+            align='center'
           />
           {/* {type && (
                 <Column
@@ -293,13 +293,13 @@ modified,modified_by,representative`
               title={
                 baseUrl === PURCHASE_INVOICE_LIST ||
                 baseUrl === PURCHASE_REJECT_INVOICE_LIST
-                  ? t("Expenses.Suppliers.Supplier").toUpperCase()
-                  : t("Sales.Customers.Customer").toUpperCase()
+                  ? t('Expenses.Suppliers.Supplier').toUpperCase()
+                  : t('Sales.Customers.Customer').toUpperCase()
               }
-              dataIndex="customer"
-              key="customer"
+              dataIndex='customer'
+              key='customer'
               sorter={sorter && { multiple: 12 }}
-              className="table-col"
+              className='table-col'
               render={(text) => (
                 <React.Fragment>
                   {text?.content_object?.full_name}
@@ -323,23 +323,23 @@ modified,modified_by,representative`
               )} */}
           {date && (
             <Column
-              title={t("Sales.Customers.Form.Date").toUpperCase()}
-              dataIndex="date_time"
-              key="date_time"
+              title={t('Sales.Customers.Form.Date').toUpperCase()}
+              dataIndex='date_time'
+              key='date_time'
               sorter={sorter && { multiple: 11 }}
               render={(text) => {
                 return <ShowDate date={text} />;
               }}
-              className="table-col"
+              className='table-col'
             />
           )}
           {total && (
             <Column
-              title={t("Sales.Customers.Form.Total").toUpperCase()}
-              dataIndex="invoice_total"
-              key="invoice_total"
+              title={t('Sales.Customers.Form.Total').toUpperCase()}
+              dataIndex='invoice_total'
+              key='invoice_total'
               sorter={sorter && { multiple: 10 }}
-              className="table-col"
+              className='table-col'
               render={(value) => {
                 return value && <Statistics value={value} />;
               }}
@@ -348,33 +348,35 @@ modified,modified_by,representative`
           {currency && (
             <Column
               title={t(
-                "Sales.Product_and_services.Inventory.Currency"
+                'Sales.Product_and_services.Inventory.Currency',
               ).toUpperCase()}
-              dataIndex="currency"
-              key="currency"
+              dataIndex='currency'
+              key='currency'
               sorter={sorter && { multiple: 9 }}
-              className="table-col"
-              render={(text) => <React.Fragment>{t(`Reports.${text?.symbol}`)}</React.Fragment>}
+              className='table-col'
+              render={(text) => (
+                <React.Fragment>{t(`Reports.${text?.symbol}`)}</React.Fragment>
+              )}
             />
           )}
           {currency && (
             <Column
               title={t(
-                "Sales.Product_and_services.Currency.Currency_rate"
+                'Sales.Product_and_services.Currency.Currency_rate',
               ).toUpperCase()}
-              dataIndex="currency_rate"
-              key="currency_rate"
+              dataIndex='currency_rate'
+              key='currency_rate'
               sorter={sorter && { multiple: 8 }}
-              className="table-col"
+              className='table-col'
               render={(value) => parseFloat(value)}
             />
           )}
           {cashCurrency && baseUrl !== QUOTATION_INVOICE_LIST && (
             <Column
-              title={t("Sales.All_sales.Purchase_and_sales.Cash").toUpperCase()}
-              dataIndex="cash_payment"
-              key="cash_payment"
-              className="table-col"
+              title={t('Sales.All_sales.Purchase_and_sales.Cash').toUpperCase()}
+              dataIndex='cash_payment'
+              key='cash_payment'
+              className='table-col'
               render={(value) => {
                 return (
                   <span style={styles.unit}>
@@ -385,18 +387,18 @@ modified,modified_by,representative`
                               <Statistics
                                 value={item?.amount}
                                 suffix={item?.currency?.symbol}
-                                className="invoiceStatistic"
+                                className='invoiceStatistic'
                                 valueStyle={{ color: Colors.primaryColor }}
                               />
                               {item?.currency?.id !==
                                 item?.currency_calc?.id && (
                                 <React.Fragment>
-                                  {" "}
-                                  {t("Equivalent")}{" "}
+                                  {' '}
+                                  {t('Equivalent')}{' '}
                                   <Statistics
                                     value={item?.amount_calc}
                                     suffix={item?.currency_calc?.symbol}
-                                    className="invoiceStatistic"
+                                    className='invoiceStatistic'
                                     valueStyle={{ color: Colors.primaryColor }}
                                   />
                                 </React.Fragment>
@@ -411,17 +413,17 @@ modified,modified_by,representative`
                                 <Statistics
                                   value={item?.amount}
                                   suffix={item?.currency?.symbol}
-                                  className="invoiceStatistic"
+                                  className='invoiceStatistic'
                                 />
                                 {item?.currency?.id !==
                                   item?.currency_calc?.id && (
                                   <React.Fragment>
-                                    {" "}
-                                    {t("Equivalent")}{" "}
+                                    {' '}
+                                    {t('Equivalent')}{' '}
                                     <Statistics
                                       value={item?.amount_calc}
                                       suffix={item?.currency_calc?.symbol}
-                                      className="invoiceStatistic"
+                                      className='invoiceStatistic'
                                     />
                                   </React.Fragment>
                                 )}
@@ -433,19 +435,19 @@ modified,modified_by,representative`
                               <Statistics
                                 value={item?.amount}
                                 suffix={item?.currency?.symbol}
-                                className="invoiceStatistic"
-                                valueStyle={{ fontSize: "inherit" }}
+                                className='invoiceStatistic'
+                                valueStyle={{ fontSize: 'inherit' }}
                               />
                               {item?.currency?.id !==
                                 item?.currency_calc?.id && (
                                 <React.Fragment>
-                                  {" "}
-                                  {t("Equivalent")}{" "}
+                                  {' '}
+                                  {t('Equivalent')}{' '}
                                   <Statistics
                                     value={item?.amount_calc}
                                     suffix={item?.currency_calc?.symbol}
-                                    className="invoiceStatistic"
-                                    valueStyle={{ fontSize: "inherit" }}
+                                    className='invoiceStatistic'
+                                    valueStyle={{ fontSize: 'inherit' }}
                                   />
                                 </React.Fragment>
                               )}
@@ -459,11 +461,11 @@ modified,modified_by,representative`
           )}
           {representative && baseUrl === SALES_INVOICE_LIST && (
             <Column
-              title={t("Representative").toUpperCase()}
-              dataIndex="representative"
-              key="representative"
+              title={t('Representative').toUpperCase()}
+              dataIndex='representative'
+              key='representative'
               sorter={sorter && { multiple: 7 }}
-              className="table-col"
+              className='table-col'
               render={(text) => (
                 <React.Fragment>
                   {text?.content_object?.full_name}
@@ -473,21 +475,21 @@ modified,modified_by,representative`
           )}
           {invoiceStatus && (
             <Column
-              title={t("Sales.Product_and_services.Status").toUpperCase()}
-              dataIndex="invoice_state"
-              key="invoice_state"
+              title={t('Sales.Product_and_services.Status').toUpperCase()}
+              dataIndex='invoice_state'
+              key='invoice_state'
               sorter={sorter && { multiple: 6 }}
-              className="table-col"
+              className='table-col'
             />
           )}
 
           {createdBy && (
             <Column
-              title={t("Form.Created_by").toUpperCase()}
-              dataIndex="created_by"
-              key="created_by"
+              title={t('Form.Created_by').toUpperCase()}
+              dataIndex='created_by'
+              key='created_by'
               sorter={sorter && { multiple: 5 }}
-              width={type !== "print" ? 140 : undefined}
+              width={type !== 'print' ? 140 : undefined}
               render={(text) => (
                 <React.Fragment>{text?.username}</React.Fragment>
               )}
@@ -496,12 +498,12 @@ modified,modified_by,representative`
           {createdAt && (
             <Column
               title={t(
-                "Sales.Product_and_services.Form.Created_date"
+                'Sales.Product_and_services.Form.Created_date',
               ).toUpperCase()}
-              dataIndex="created"
-              key="created"
+              dataIndex='created'
+              key='created'
               sorter={sorter && { multiple: 4 }}
-              className="table-col"
+              className='table-col'
               render={(text) => {
                 return <ShowDate date={text} />;
               }}
@@ -510,10 +512,10 @@ modified,modified_by,representative`
           {modifiedBy && (
             <Column
               title={`${t(
-                "Sales.Product_and_services.Form.Modified_by"
+                'Sales.Product_and_services.Form.Modified_by',
               ).toUpperCase()}`}
-              dataIndex="modified_by"
-              key="modified_by"
+              dataIndex='modified_by'
+              key='modified_by'
               render={(text) => {
                 return <span>{text?.username} </span>;
               }}
@@ -523,10 +525,10 @@ modified,modified_by,representative`
           {modifiedDate && (
             <Column
               title={`${t(
-                "Sales.Product_and_services.Form.Modified_date"
+                'Sales.Product_and_services.Form.Modified_date',
               ).toUpperCase()}`}
-              dataIndex="modified"
-              key="modified"
+              dataIndex='modified'
+              key='modified'
               render={(text) => {
                 return <ShowDate date={text} />;
               }}
@@ -576,19 +578,19 @@ modified,modified_by,representative`
 
           {description && (
             <Column
-              title={t("Form.Description").toUpperCase()}
-              dataIndex="description"
-              key="description"
-              className="table-col"
+              title={t('Form.Description').toUpperCase()}
+              dataIndex='description'
+              key='description'
+              className='table-col'
               sorter={sorter && { multiple: 1 }}
             />
           )}
 
-          {type !== "print" && (
+          {type !== 'print' && (
             <Column
-              title={t("Table.Action")}
-              key="action"
-              align="center"
+              title={t('Table.Action')}
+              key='action'
+              align='center'
               width={isMobile ? 50 : 70}
               render={(text, record) => (
                 <TransactionAction
@@ -597,8 +599,8 @@ modified,modified_by,representative`
                   hasSelected={hasSelected}
                 />
               )}
-              fixed={"right"}
-              className="table-col"
+              fixed={'right'}
+              className='table-col'
             />
           )}
         </React.Fragment>
@@ -621,7 +623,7 @@ modified,modified_by,representative`
       description,
       isMobile,
       hasSelected,
-    ]
+    ],
   );
 
   const handleRetry = () => {
@@ -629,21 +631,21 @@ modified,modified_by,representative`
   };
 
   const emptyText =
-    status !== "error" ? undefined : (
+    status !== 'error' ? undefined : (
       <TableError error={error} handleRetry={handleRetry} />
     );
 
   return (
-    <div className="table-col table__padding">
+    <div className='table-col table__padding'>
       {collapsed || !checkPermissions(INVOICES_P) ? null : <SalesTotal />}
 
       <Row>
         <Col span={24}>
           <Table
             expandable
-            id="allSales"
-            className="table-content"
-            size="small"
+            id='allSales'
+            className='table-content'
+            size='small'
             locale={{ emptyText: emptyText }}
             loading={isLoading || isFetching ? true : false}
             rowSelection={rowSelection}
@@ -652,10 +654,10 @@ modified,modified_by,representative`
             pagination={pagination}
             dataSource={allData}
             bordered={true}
-            scroll={{ x: "max-content", scrollToFirstRowOnChange: true }}
+            scroll={{ x: 'max-content', scrollToFirstRowOnChange: true }}
             title={() => {
               return (
-                <Row className="num" align="middle" gutter={5}>
+                <Row className='num' align='middle' gutter={5}>
                   <Col
                     // xxl={{ span: 18 }}
                     // xl={{ span: 22 }}
@@ -664,7 +666,10 @@ modified,modified_by,representative`
                     // sm={{ span: 17 }}
                     xs={{ span: 21 }}
                   >
-                    <Space size={12} style={{display:"flex" , flexWrap:"wrap" , gap:"10px"}}>
+                    <Space
+                      size={12}
+                      style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}
+                    >
                       {/* <Col xxl={8} xl={12} md={12} sm={12} xs={12}> */}
                       {/* <BatchAction
                           selectedRowKeys={selectedRowKeys}
@@ -674,10 +679,10 @@ modified,modified_by,representative`
                         /> */}
                       <SearchInput
                         setPage={setPage}
-                        placeholder={t("Form.Search")}
+                        placeholder={t('Form.Search')}
                         setSearch={setSearch}
                         suffix={
-                          <SearchOutlined className="search_icon_color" />
+                          <SearchOutlined className='search_icon_color' />
                         }
                       />
 
@@ -685,50 +690,50 @@ modified,modified_by,representative`
                       <Col xxl={8} xl={12} md={12} sm={12} xs={12}> */}
                       <SearchInput
                         setPage={setPage}
-                        placeholder={t("Form.Filter_by_id")}
+                        placeholder={t('Form.Filter_by_id')}
                         setSearch={setInvoiceId}
-                        style={{ width: "150px" }}
+                        style={{ width: '150px' }}
                       />
                       <Select
                         value={baseUrl}
                         onChange={handleChangeBaseUrl}
-                        style={{ width: "180px" }}
+                        style={{ width: '180px' }}
                       >
                         {handleCheckViewInvoice(SALES_INVOICE_M) && (
                           <Select.Option value={SALES_INVOICE_LIST}>
-                            {t("Sales.All_sales.Invoice.Sales_invoice")}
+                            {t('Sales.All_sales.Invoice.Sales_invoice')}
                           </Select.Option>
                         )}
                         {handleCheckViewInvoice(SALES_REJ_INVOICE_M) && (
                           <Select.Option value={SALES_REJECT_INVOICE_LIST}>
-                            {t("Sales.All_sales.Invoice.Reject_sales_invoice")}
+                            {t('Sales.All_sales.Invoice.Reject_sales_invoice')}
                           </Select.Option>
                         )}
                         {handleCheckViewInvoice(SALES_ORDER_INVOICE_M) && (
                           <Select.Option value={SALES_ORDER_INVOICE_LIST}>
-                            {t("Sales_order")}
+                            {t('Sales_order')}
                           </Select.Option>
                         )}
                         {handleCheckViewInvoice(PURCHASE_INVOICE_M) && (
                           <Select.Option value={PURCHASE_INVOICE_LIST}>
-                            {t("Sales.All_sales.Invoice.Purchase_invoice")}
+                            {t('Sales.All_sales.Invoice.Purchase_invoice')}
                           </Select.Option>
                         )}
                         {handleCheckViewInvoice(PURCHASE_REJ_INVOICE_M) && (
                           <Select.Option value={PURCHASE_REJECT_INVOICE_LIST}>
                             {t(
-                              "Sales.All_sales.Invoice.Reject_purchase_invoice"
+                              'Sales.All_sales.Invoice.Reject_purchase_invoice',
                             )}
                           </Select.Option>
                         )}
                         {handleCheckViewInvoice(PURCHASE_ORDER_INVOICE_M) && (
                           <Select.Option value={PURCHASE_ORDER_INVOICE_LIST}>
-                            {t("Purchase_order")}
+                            {t('Purchase_order')}
                           </Select.Option>
                         )}
                         {handleCheckViewInvoice(QUOTATION_INVOICE_M) && (
                           <Select.Option value={QUOTATION_INVOICE_LIST}>
-                            {t("Sales.All_sales.Invoice.Quotation_invoice")}
+                            {t('Sales.All_sales.Invoice.Quotation_invoice')}
                           </Select.Option>
                         )}
 
@@ -751,16 +756,16 @@ modified,modified_by,representative`
                     // xxl={{ span: 2, offset: 4 }}
                     // xl={{ span: 2}}
                     // lg={{ span: 3, offset: 0 }}
-                    md={{ span: 2}}
+                    md={{ span: 2 }}
                     // sm={{ span: 4, offset: 7 }}
                     xs={{ span: 3 }}
-                    className="textAlign__end"
+                    className='textAlign__end'
                   >
-                    <Space size={1} align="start">
+                    <Space size={1} align='start'>
                       <PrintButton
                         disabled={selectedRowKeys?.length === 0}
-                        domColumns={columns("print")}
-                        title={t("Sales.All_sales.Purchase_and_sales.1")}
+                        domColumns={columns('print')}
+                        title={t('Sales.All_sales.Purchase_and_sales.1')}
                         dataSource={selectedRows}
                       />
                       {/* <Button
@@ -772,16 +777,16 @@ modified,modified_by,representative`
 
                       <Dropdown
                         overlay={setting}
-                        trigger={["click"]}
+                        trigger={['click']}
                         onOpenChange={handleVisibleChange}
                         open={visible}
-                        placement="bottomRight"
+                        placement='bottomRight'
                       >
                         <Button
-                          shape="circle"
+                          shape='circle'
                           icon={<SettingOutlined />}
                           style={styles.settingIcon}
-                          type="link"
+                          type='link'
                         />
                       </Dropdown>
                     </Space>
@@ -791,7 +796,7 @@ modified,modified_by,representative`
               );
             }}
           >
-            {columns("ss")}
+            {columns('ss')}
           </Table>
         </Col>
         {/* {checkPermissions(INVOICES_P) && (
@@ -817,8 +822,8 @@ modified,modified_by,representative`
 };
 
 const styles = {
-  settingIcon: { width: "26px", minWidth: "25px" },
-  icon: { fontSize: "20px" },
+  settingIcon: { width: '26px', minWidth: '25px' },
+  icon: { fontSize: '20px' },
 };
 
 export default TransactionTable;

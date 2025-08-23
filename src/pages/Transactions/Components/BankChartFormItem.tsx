@@ -1,11 +1,11 @@
-import React from "react";
-import { GetOneChildOfChartAccount } from "./GetOneChildOfChartAccount";
+import React from 'react';
+import { GetOneChildOfChartAccount } from './GetOneChildOfChartAccount';
 interface IProps {
   form: any;
 }
 
-const baseUrl = "/chart_of_account/ABN-102/child/";
-const searchKey = "/chart/bank/search/";
+const baseUrl = '/chart_of_account/ABN-102/child/';
+const searchKey = '/chart/bank/search/';
 export const BankChartFormItem: React.FC<IProps> = (props) => {
   const onChangeAccountName = (value: string) => {
     props.form.setFieldsValue({ bankId: value });
@@ -16,11 +16,11 @@ export const BankChartFormItem: React.FC<IProps> = (props) => {
   };
   return (
     <GetOneChildOfChartAccount
-      searchIn="cash"
+      searchIn='cash'
       baseUrl={baseUrl}
       searchKey={searchKey}
-      fieldId="bankId"
-      fieldName="bankName"
+      fieldId='bankId'
+      fieldName='bankName'
       onChangeAccountName={onChangeAccountName}
       onChangeAccountId={onChangeAccountId}
     />

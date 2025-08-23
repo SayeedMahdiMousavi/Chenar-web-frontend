@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { Form, Modal, Typography, Space, message, Select } from "antd";
-import { useMutation, useQueryClient } from "react-query";
-import axiosInstance from "../../../ApiBaseUrl";
-import { CancelButton, SaveButton } from "../../../../components";
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Form, Modal, Typography, Space, message, Select } from 'antd';
+import { useMutation, useQueryClient } from 'react-query';
+import axiosInstance from '../../../ApiBaseUrl';
+import { CancelButton, SaveButton } from '../../../../components';
 
 const { Title } = Typography;
 
@@ -26,7 +26,7 @@ export default function ChangeVip(props: IProps) {
         .put(`${props.baseUrl}bulk/update/vip_price/`, value)
         .then(() => {
           message.success(
-            t("Sales.Product_and_services.Form.Vip_save_message")
+            t('Sales.Product_and_services.Form.Vip_save_message'),
           );
           setVisible(false);
           setLoading(false);
@@ -46,7 +46,7 @@ export default function ChangeVip(props: IProps) {
         }),
     {
       onSuccess: () => queryClient.invalidateQueries(`${props.baseUrl}`),
-    }
+    },
   );
 
   let oneRequest = false;
@@ -59,7 +59,7 @@ export default function ChangeVip(props: IProps) {
 
     try {
       mutateChangeVip({
-        is_have_vip_price: values?.isVip === "true" ? true : false,
+        is_have_vip_price: values?.isVip === 'true' ? true : false,
         products: props?.selectedRowKeys,
       });
       oneRequest = false;
@@ -86,7 +86,7 @@ export default function ChangeVip(props: IProps) {
   return (
     <div>
       <div onClick={showModal}>
-        {t("Sales.Product_and_services.Form.Vip_price")}
+        {t('Sales.Product_and_services.Form.Vip_price')}
       </div>
       <Modal
         maskClosable={false}
@@ -99,32 +99,32 @@ export default function ChangeVip(props: IProps) {
         handelAfterClose={handelAfterClose}
       >
         <Form
-          layout="vertical"
+          layout='vertical'
           onFinish={onFinish}
           hideRequiredMark={true}
           form={form}
           initialValues={{
-            isVip: "true",
+            isVip: 'true',
           }}
         >
           <Title level={5}>
-            {t("Sales.Product_and_services.Form.Vip_price")}
+            {t('Sales.Product_and_services.Form.Vip_price')}
           </Title>
-          <Form.Item name="isVip" style={styles.formItem}>
-            <Select className="num">
-              <Select.Option value={"true"}>
-                {t("Sales.Product_and_services.Form.Has_vip_price")}
+          <Form.Item name='isVip' style={styles.formItem}>
+            <Select className='num'>
+              <Select.Option value={'true'}>
+                {t('Sales.Product_and_services.Form.Has_vip_price')}
               </Select.Option>
-              <Select.Option value={"false"}>
-                {t("Sales.Product_and_services.Form.Has_not_vip_price")}
+              <Select.Option value={'false'}>
+                {t('Sales.Product_and_services.Form.Has_not_vip_price')}
               </Select.Option>
             </Select>
           </Form.Item>
 
-          <Form.Item className="textAlign__end" style={styles.footer}>
+          <Form.Item className='textAlign__end' style={styles.footer}>
             <Space>
               <CancelButton onClick={handleCancel} />
-              <SaveButton htmlType="submit" loading={loading} />
+              <SaveButton htmlType='submit' loading={loading} />
             </Space>
           </Form.Item>
         </Form>
@@ -134,6 +134,6 @@ export default function ChangeVip(props: IProps) {
 }
 
 const styles = {
-  footer: { marginBottom: "3px", paddingTop: "12px" },
-  formItem: { marginTop: "22px" },
+  footer: { marginBottom: '3px', paddingTop: '12px' },
+  formItem: { marginTop: '22px' },
 };

@@ -4,34 +4,34 @@ import React, {
   useRef,
   useEffect,
   useCallback,
-} from "react";
-import { useTranslation } from "react-i18next";
-import { debounce } from "throttle-debounce";
-import { print, math, fixedNumber } from "../../../Functions/math";
-import { useQuery, useQueryClient, useMutation } from "react-query";
-import axiosInstance from "../../ApiBaseUrl";
-import { useReactToPrint } from "react-to-print";
-import { Drawer, Form, Col, Row, message, Modal } from "antd";
-import { MarketInvoiceTable1 } from "./MarkitInvoiceTable";
-import { HotKeys } from "react-hotkeys";
-import { gql } from "graphql-request";
-import { graphqlApiBase } from "../../graphqlApiBase";
-import { POSHeader1 } from "./MarketInvoiceComponents/POSHeader";
-import { AllProductItemsWithFilters1 } from "./MarketInvoiceComponents/AllProductItemsWithFilters";
-import axios from "axios";
+} from 'react';
+import { useTranslation } from 'react-i18next';
+import { debounce } from 'throttle-debounce';
+import { print, math, fixedNumber } from '../../../Functions/math';
+import { useQuery, useQueryClient, useMutation } from 'react-query';
+import axiosInstance from '../../ApiBaseUrl';
+import { useReactToPrint } from 'react-to-print';
+import { Drawer, Form, Col, Row, message, Modal } from 'antd';
+import { MarketInvoiceTable1 } from './MarkitInvoiceTable';
+import { HotKeys } from 'react-hotkeys';
+import { gql } from 'graphql-request';
+import { graphqlApiBase } from '../../graphqlApiBase';
+import { POSHeader1 } from './MarketInvoiceComponents/POSHeader';
+import { AllProductItemsWithFilters1 } from './MarketInvoiceComponents/AllProductItemsWithFilters';
+import axios from 'axios';
 import {
   PAY_ACCESS_TOKEN,
   PAY_REFRESH_TOKEN,
-} from "../../LocalStorageVariables";
-import { utcDate } from "../../../Functions/utcDate";
-import { ActionMessage } from "../../SelfComponents/TranslateComponents/ActionMessage";
-import useGetBaseCurrency from "../../../Hooks/useGetBaseCurrency";
-import PrintPosInvoice from "./MarketInvoiceComponents/PrintPosInvoice";
-import { Colors } from "../../colors";
-import PosInvoiceFooter from "./MarketInvoiceComponents/Footer";
-import { handleFindUnitConversionRate, manageErrors } from "../../../Functions";
-import { SALES_INVOICE_LIST } from "../../../constants/routes";
-import { manageNetworkError } from "../../../Functions/manageNetworkError";
+} from '../../LocalStorageVariables';
+import { utcDate } from '../../../Functions/utcDate';
+import { ActionMessage } from '../../SelfComponents/TranslateComponents/ActionMessage';
+import useGetBaseCurrency from '../../../Hooks/useGetBaseCurrency';
+import PrintPosInvoice from './MarketInvoiceComponents/PrintPosInvoice';
+import { Colors } from '../../colors';
+import PosInvoiceFooter from './MarketInvoiceComponents/Footer';
+import { handleFindUnitConversionRate, manageErrors } from '../../../Functions';
+import { SALES_INVOICE_LIST } from '../../../constants/routes';
+import { manageNetworkError } from '../../../Functions/manageNetworkError';
 
 const invoiceFixedNumber = (value) => {
   const newValue = fixedNumber(value, 20);
@@ -39,14 +39,14 @@ const invoiceFixedNumber = (value) => {
 };
 
 // const graphqlEndPoint = "https://anarback.xyz";
-const graphqlEndPoint = "http://192.168.1.250:4000";
+const graphqlEndPoint = 'http://192.168.1.250:4000';
 
-const dateFormat = "YYYY-MM-DD HH:mm:ss";
+const dateFormat = 'YYYY-MM-DD HH:mm:ss';
 const omitFields =
-  "id,name,barcode,photo,is_pine,is_have_vip_price,product_units,unit_conversion,price,product_barcode,vip_price,product_statistic";
-const baseUrl = "/product/items/";
+  'id,name,barcode,photo,is_pine,is_have_vip_price,product_units,unit_conversion,price,product_barcode,vip_price,product_statistic';
+const baseUrl = '/product/items/';
 const endUrl =
-  "status=active&expand=product_units,product_units.unit,unit_conversion,unit_conversion.unit,price,price.unit,product_barcode,product_barcode.unit,vip_price";
+  'status=active&expand=product_units,product_units.unit,unit_conversion,unit_conversion.unit,price,price.unit,product_barcode,product_barcode.unit,vip_price';
 const MarketInvoice = (props) => {
   const queryClient = useQueryClient();
   const { t, i18n } = useTranslation();
@@ -59,15 +59,15 @@ const MarketInvoice = (props) => {
   const withDrawRef = useRef(null);
   const barcodeButtonRef = useRef(null);
   const [form] = Form.useForm();
-  const [editingKey, setEditingKey] = useState("");
+  const [editingKey, setEditingKey] = useState('');
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [tableLoading, setTableLoading] = useState(false);
   const [searchLoading, setSearchLoading] = useState(false);
   const [productCategoryLoading, setProductCategoryLoading] = useState(false);
-  const [search, setSearch] = useState("");
-  const [searchCategory, setSearchCategory] = useState("");
-  const [category, setCategory] = useState("");
+  const [search, setSearch] = useState('');
+  const [searchCategory, setSearchCategory] = useState('');
+  const [category, setCategory] = useState('');
   const [categories, setCategories] = useState([]);
   const [data, setData] = useState([]);
   const [savedProducts, setSavedProducts] = useState([]);
@@ -90,17 +90,17 @@ const MarketInvoice = (props) => {
         await axios
           .get(`${graphqlEndPoint}/renewTokens`, {
             headers: {
-              "access-token": localStorage.getItem(PAY_ACCESS_TOKEN),
-              "refresh-token": localStorage.getItem(PAY_REFRESH_TOKEN),
+              'access-token': localStorage.getItem(PAY_ACCESS_TOKEN),
+              'refresh-token': localStorage.getItem(PAY_REFRESH_TOKEN),
             },
           })
           .then((res) => {
-            localStorage.setItem(PAY_REFRESH_TOKEN, res?.data["refresh-token"]);
-            localStorage.setItem(PAY_ACCESS_TOKEN, res?.data["access-token"]);
-            return res?.data["access-token"];
+            localStorage.setItem(PAY_REFRESH_TOKEN, res?.data['refresh-token']);
+            localStorage.setItem(PAY_ACCESS_TOKEN, res?.data['access-token']);
+            return res?.data['access-token'];
           })
           .catch((error) => {
-            if (error.response?.data === "refresh token is invalid") {
+            if (error.response?.data === 'refresh token is invalid') {
               localStorage.removeItem(PAY_REFRESH_TOKEN);
               localStorage.removeItem(PAY_ACCESS_TOKEN);
             }
@@ -109,7 +109,7 @@ const MarketInvoice = (props) => {
     })();
   }, []);
 
-  const vipPercent = useQuery("/product/setting/", async () => {
+  const vipPercent = useQuery('/product/setting/', async () => {
     const { data } = await axiosInstance.get(`/product/setting/`);
     return data;
   });
@@ -122,7 +122,7 @@ const MarketInvoice = (props) => {
       const cardId = customerCardId;
       if (isVip && cardId) {
         const priceUnit = price?.find(
-          (priceItem) => priceItem?.unit?.id === unit
+          (priceItem) => priceItem?.unit?.id === unit,
         );
         const productVipPercent =
           product?.vip_price !== null
@@ -136,19 +136,19 @@ const MarketInvoice = (props) => {
                     print(
                       math.evaluate(`((${priceUnit?.sales_rate} - ${priceUnit?.perches_rate}) *
                     ${productVipPercent}) /
-                    100`)
-                    )
-                  )}*${qty}`
-                )
+                    100`),
+                    ),
+                  )}*${qty}`,
+                ),
               )
             : 0;
-        // 
+        //
         return vipPrice < 0 ? 0 : vipPrice;
       } else {
         return 0;
       }
     },
-    [customerCardId, globalVipPercent]
+    [customerCardId, globalVipPercent],
   );
 
   const handleErrorPressEnter = (close) => {
@@ -161,7 +161,7 @@ const MarketInvoice = (props) => {
     (record, unit) => {
       const unitId = unit?.value;
       const rate = record?.price?.find((item) => item?.unit?.id === unitId);
-      console.log("record" , record)
+      console.log('record', record);
       const sales = rate?.sales_rate ? fixedNumber(rate?.sales_rate, 3) : 0;
       const purchase = rate?.perches_rate
         ? fixedNumber(rate?.perches_rate, 3)
@@ -172,12 +172,12 @@ const MarketInvoice = (props) => {
 
         if (sales < purchase) {
           Modal.warning({
-            bodyStyle: { direction: t("Dir") },
+            bodyStyle: { direction: t('Dir') },
             title: (
               <ActionMessage
                 name={record?.name}
                 message={
-                  "Sales.All_sales.Invoice.error_message_when_sales_is_less_than_purchase"
+                  'Sales.All_sales.Invoice.error_message_when_sales_is_less_than_purchase'
                 }
               />
             ),
@@ -188,12 +188,12 @@ const MarketInvoice = (props) => {
           return price;
         }
       } else if (!rate?.sales_rate || sales <= 0) {
-        console.log("sales", sales)
+        console.log('sales', sales);
         message.error({
           content: (
             <ActionMessage
               values={{ unit: unit?.label, product: record?.name }}
-              message="Pos_invoice_price_not_exist"
+              message='Pos_invoice_price_not_exist'
             />
           ),
           duration: 10,
@@ -215,7 +215,7 @@ const MarketInvoice = (props) => {
         return;
       }
     },
-    [t]
+    [t],
   );
 
   //get base currency
@@ -241,11 +241,11 @@ const MarketInvoice = (props) => {
   });
 
   const onChangeTreeSestet = useCallback(async (value) => {
-    setCategory(value?.label ?? "");
+    setCategory(value?.label ?? '');
     setProductCategoryLoading(true);
     await axiosInstance
       .get(
-        `${baseUrl}?category=${value?.label}&page=1&page_size=16&${endUrl}&fields=${omitFields}`
+        `${baseUrl}?category=${value?.label}&page=1&page_size=16&${endUrl}&fields=${omitFields}`,
       )
       .then((res) => {
         setCategories(res?.data?.results);
@@ -270,12 +270,12 @@ const MarketInvoice = (props) => {
       // const cashNumber = item?.product_statistic?.find(
       //   (item) => item?.warehouse === 106001
       // )?.available;
-      // 
+      //
       const baseUnit = item?.product_units?.find(
-        (item) => item?.base_unit === true
+        (item) => item?.base_unit === true,
       );
       if (baseUnit?.unit?.id === unitId) {
-        // 
+        //
         // const warehouseCount = qty + 1;
         // if (cashNumber < warehouseCount) {
         //   Modal.warning({
@@ -292,7 +292,7 @@ const MarketInvoice = (props) => {
         const unitConversion = handleFindUnitConversionRate(
           item?.unit_conversion,
           unitId,
-          item?.product_units
+          item?.product_units,
         );
 
         // console.log("unitConversion" , unitConversion)
@@ -312,11 +312,11 @@ const MarketInvoice = (props) => {
           return true;
         } else {
           Modal.warning({
-            bodyStyle: { direction: t("Dir") },
+            bodyStyle: { direction: t('Dir') },
             title: (
               <ActionMessage
                 values={{ unit: unit?.label, product: item?.name }}
-                message="Sales.All_sales.Invoice.Invoice_no_Conversion_message"
+                message='Sales.All_sales.Invoice.Invoice_no_Conversion_message'
               />
             ),
             onOk: handleErrorPressEnter,
@@ -326,7 +326,7 @@ const MarketInvoice = (props) => {
         }
       }
     },
-    [t]
+    [t],
   );
 
   const onClickProduct = useCallback(
@@ -337,11 +337,11 @@ const MarketInvoice = (props) => {
       posHotKey.current.focus();
 
       const allData = data?.find((item) => item?.id === value?.id);
-      // 
+      //
       if (allData) {
         let isExistItem = false;
         const purUnit = allData?.product_units?.find(
-          (item) => item?.default_sal === true
+          (item) => item?.default_sal === true,
         );
         setData((prev) => {
           const newData = prev?.map((item, index) => {
@@ -362,7 +362,7 @@ const MarketInvoice = (props) => {
                 item?.is_have_vip_price,
                 item?.price,
                 item?.unit?.value,
-                item?.qty + 1
+                item?.qty + 1,
               );
 
               // if (isOk) {
@@ -376,13 +376,13 @@ const MarketInvoice = (props) => {
                   item?.each_price &&
                   parseInt(item?.each_price * (item?.qty + 1)),
               };
-              const element = document?.getElementById("posInvoiceTable");
+              const element = document?.getElementById('posInvoiceTable');
               element &&
                 element.children[index].scrollIntoView({
-                  behavior: "smooth",
+                  behavior: 'smooth',
                 });
               const rowKey = [item?.key];
-              // 
+              //
               setSelectedRowKeys(rowKey);
               return newData;
             } else {
@@ -403,14 +403,14 @@ const MarketInvoice = (props) => {
             };
             const newPrice = getPrice(allData, unit);
 
-            const ok = findProductStatistics(allData, "add", unit, 0);
+            const ok = findProductStatistics(allData, 'add', unit, 0);
             if (ok && Boolean(newPrice)) {
               const vipPrice = getVipPrice(
                 allData,
                 allData?.is_have_vip_price,
                 allData?.price,
                 purUnit?.unit?.id,
-                1
+                1,
               );
               const newItem = {
                 ...allData,
@@ -430,12 +430,12 @@ const MarketInvoice = (props) => {
               const newCount = count + 1;
               setCount(newCount);
               setTimeout(() => {
-                const element = document?.getElementById("posInvoiceTable");
+                const element = document?.getElementById('posInvoiceTable');
 
                 element &&
                   element?.lastElementChild &&
                   element.lastElementChild.scrollIntoView({
-                    behavior: "smooth",
+                    behavior: 'smooth',
                   });
                 const rowKey = [count];
                 setSelectedRowKeys(rowKey);
@@ -452,7 +452,7 @@ const MarketInvoice = (props) => {
         }
         return;
       } else {
-        if (type === "search") {
+        if (type === 'search') {
           try {
             setTableLoading(true);
             setSearchLoading(true);
@@ -464,7 +464,7 @@ const MarketInvoice = (props) => {
                 if (res?.data) {
                   const product = res?.data;
                   const purUnit = product?.product_units?.find(
-                    (item) => item?.default_sal === true
+                    (item) => item?.default_sal === true,
                   );
                   const unit = {
                     value: purUnit?.unit?.id,
@@ -472,8 +472,8 @@ const MarketInvoice = (props) => {
                   };
                   const newPrice = getPrice(product, unit);
 
-                  const ok = findProductStatistics(product, "add", unit, 0);
-                  // 
+                  const ok = findProductStatistics(product, 'add', unit, 0);
+                  //
 
                   setData((prev) => {
                     if (ok && Boolean(newPrice)) {
@@ -482,9 +482,9 @@ const MarketInvoice = (props) => {
                         product?.is_have_vip_price,
                         product?.price,
                         purUnit?.unit?.id,
-                        1
+                        1,
                       );
-                      // 
+                      //
                       const newData = {
                         ...product,
                         key: count,
@@ -507,12 +507,12 @@ const MarketInvoice = (props) => {
                       barcodeSearch.current.blur();
                       setTimeout(() => {
                         const element =
-                          document?.getElementById("posInvoiceTable");
+                          document?.getElementById('posInvoiceTable');
 
                         element &&
                           element?.lastElementChild &&
                           element.lastElementChild.scrollIntoView({
-                            behavior: "smooth",
+                            behavior: 'smooth',
                           });
                         const rowKey = [count];
                         setSelectedRowKeys(rowKey);
@@ -537,11 +537,11 @@ const MarketInvoice = (props) => {
                   //     { behavior: "smooth" }
                   //   );
 
-                  // 
-                  // 
+                  //
+                  //
                 } else {
                   message.error(
-                    `${t("Sales.All_sales.Invoice.Product_not_found")}`
+                    `${t('Sales.All_sales.Invoice.Product_not_found')}`,
                   );
                   setTableLoading(false);
                   setSearchLoading(false);
@@ -559,7 +559,7 @@ const MarketInvoice = (props) => {
                 manageErrors(error);
                 manageNetworkError(error);
 
-                // 
+                //
                 // if (res?.barcode?.[0]) {
                 //   message.error(`${error?.response?.data?.barcode?.[0]}`);
                 //   return error;
@@ -567,15 +567,15 @@ const MarketInvoice = (props) => {
                 return error;
               });
           } catch (error) {
-            message.error(`${t("Sales.All_sales.Invoice.Product_not_found")}`);
+            message.error(`${t('Sales.All_sales.Invoice.Product_not_found')}`);
             setTableLoading(false);
             setSearchLoading(false);
-            // 
+            //
           }
         } else {
           setData((prev) => {
             const purUnit = value?.product_units?.find(
-              (item) => item?.default_sal === true
+              (item) => item?.default_sal === true,
             );
 
             const unit = {
@@ -585,14 +585,14 @@ const MarketInvoice = (props) => {
 
             const newPrice = getPrice(value, unit);
 
-            const isOk = findProductStatistics(value, "add", unit, 0);
+            const isOk = findProductStatistics(value, 'add', unit, 0);
             if (isOk && Boolean(newPrice)) {
               const vipPrice = getVipPrice(
                 value,
                 value?.is_have_vip_price,
                 value?.price,
                 purUnit?.unit?.id,
-                1
+                1,
               );
 
               const newItem = {
@@ -612,15 +612,15 @@ const MarketInvoice = (props) => {
               const newCount = count + 1;
               setCount(newCount);
               setTimeout(() => {
-                const element = document?.getElementById("posInvoiceTable");
+                const element = document?.getElementById('posInvoiceTable');
                 element &&
                   element?.lastElementChild &&
                   element.lastElementChild.scrollIntoView({
-                    behavior: "smooth",
+                    behavior: 'smooth',
                   });
                 const rowKey = [count];
 
-                // 
+                //
                 setSelectedRowKeys(rowKey);
               }, 50);
               const allData = [...prev, newItem];
@@ -633,7 +633,7 @@ const MarketInvoice = (props) => {
       }
     },
 
-    [count, data, findProductStatistics, getPrice, getVipPrice, t, responseId]
+    [count, data, findProductStatistics, getPrice, getVipPrice, t, responseId],
   );
 
   const pageStyle = `@page{
@@ -643,7 +643,7 @@ const MarketInvoice = (props) => {
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
     removeAfterPrint: true,
-    bodyClass: "market_invoice",
+    bodyClass: 'market_invoice',
     pageStyle: pageStyle,
   });
 
@@ -665,37 +665,37 @@ const MarketInvoice = (props) => {
           }
         }
       `,
-      { data: value?.value }
+      { data: value?.value },
     )
       .then((res) => {
-        if (res?.transactionMake?.__typename === "TransactionFailed") {
-          if (i18n?.language === "en") {
+        if (res?.transactionMake?.__typename === 'TransactionFailed') {
+          if (i18n?.language === 'en') {
             const error = res?.transactionMake?.message?.find(
-              (item) => item?.language === "ENGLISH"
+              (item) => item?.language === 'ENGLISH',
             );
             message.error(
-              error ? error?.text : res?.transactionMake?.message?.[0]?.text
+              error ? error?.text : res?.transactionMake?.message?.[0]?.text,
             );
-          } else if (i18n?.language === "ps") {
+          } else if (i18n?.language === 'ps') {
             const error = res?.transactionMake?.message?.find(
-              (item) => item?.language === "PASHTO"
+              (item) => item?.language === 'PASHTO',
             );
             message.error(
-              error ? error?.text : res?.transactionMake?.message?.[0]?.text
+              error ? error?.text : res?.transactionMake?.message?.[0]?.text,
             );
           } else {
             const error = res?.transactionMake?.message?.find(
-              (item) => item?.language === "PERSIAN"
+              (item) => item?.language === 'PERSIAN',
             );
             message.error(
-              error ? error?.text : res?.transactionMake?.message?.[0]?.text
+              error ? error?.text : res?.transactionMake?.message?.[0]?.text,
             );
           }
         } else {
-          if (value?.type === "credit") {
+          if (value?.type === 'credit') {
             message.success(
               `موفقانه ${value?.value?.amount} افغانی از حساب ${customer?.user?.firstName}
-              ${customer?.user?.lastName} کم شد.`
+              ${customer?.user?.lastName} کم شد.`,
             );
             setIsSendCardUsedValue(true);
           } else {
@@ -706,16 +706,16 @@ const MarketInvoice = (props) => {
         }
       })
       .catch((error) => {
-        // 
+        //
         // setLoading(false);
       });
   });
 
-  const id = localStorage.getItem("user_id");
+  const id = localStorage.getItem('user_id');
 
-  const userData = useQuery("/user_account/user_profile/getCash/", async () => {
+  const userData = useQuery('/user_account/user_profile/getCash/', async () => {
     const result = await axiosInstance.get(
-      `/user_account/user_profile/${id}/?expand=user_staff.cash&fields=id,user_staff`
+      `/user_account/user_profile/${id}/?expand=user_staff.cash&fields=id,user_staff`,
     );
     return result.data;
   });
@@ -726,7 +726,7 @@ const MarketInvoice = (props) => {
         timeout: 0,
       })
       .then((res) => {
-        // 
+        //
         responseRef.current = true;
         // const newProducts = data.sort((a, b) => {
         //   return b.total_price - a.total_price;
@@ -747,29 +747,29 @@ const MarketInvoice = (props) => {
               return {
                 vipDiscount: print(
                   math.evaluate(
-                    `${sum?.vipDiscount}+(${item?.total_price}-${item?.vipPrice})`
-                  )
+                    `${sum?.vipDiscount}+(${item?.total_price}-${item?.vipPrice})`,
+                  ),
                 ),
                 total: print(
-                  math.evaluate(`${sum?.total}+${item?.total_price}`)
+                  math.evaluate(`${sum?.total}+${item?.total_price}`),
                 ),
               };
             } else {
               return {
                 vipDiscount: sum?.vipDiscount,
                 total: print(
-                  math.evaluate(`${sum?.total}+${item?.total_price}`)
+                  math.evaluate(`${sum?.total}+${item?.total_price}`),
                 ),
               };
             }
           },
-          { vipDiscount: 0, total: 0 }
+          { vipDiscount: 0, total: 0 },
         );
         setVipDiscount(total?.vipDiscount);
         setTotalPrice(total?.total);
         setSavedProducts(data);
 
-        message.success(`${t("Sales.All_sales.Invoice.Save_message")}`);
+        message.success(`${t('Sales.All_sales.Invoice.Save_message')}`);
         // saveRef.current.blur();
         posHotKey.current.focus();
 
@@ -779,32 +779,32 @@ const MarketInvoice = (props) => {
               cardUniqueCode: customer?.cardId,
               amount: res?.data?.coupon_ticket?.discount_total
                 ? parseFloat(
-                    res?.data?.coupon_ticket?.discount_total?.toFixed(1)
+                    res?.data?.coupon_ticket?.discount_total?.toFixed(1),
                   )
                 : 0,
-              exchangeType: "CARD",
-              paymentFor: "BONUS",
-              actionOnCard: "DEBIT",
-              description: "جایزه از طرف فروشگاه انار",
+              exchangeType: 'CARD',
+              paymentFor: 'BONUS',
+              actionOnCard: 'DEBIT',
+              description: 'جایزه از طرف فروشگاه انار',
               pinCode: customer?.pinCode,
             };
-            mutateSendBalance({ value: balanceData, type: "debit" }).then(
+            mutateSendBalance({ value: balanceData, type: 'debit' }).then(
               () => {
                 (async () => {
                   await axiosInstance
                     .get(
-                      `/coupon_ticket/${res?.data?.coupon_ticket?.code}/make_unusable`
+                      `/coupon_ticket/${res?.data?.coupon_ticket?.code}/make_unusable`,
                     )
                     .then((res) => {
-                      // 
+                      //
                     })
                     .catch((error) => {
-                      // 
+                      //
                     });
                 })();
                 // setCustomer({});
                 // setCustomerCardValue(0);
-              }
+              },
             );
           })();
         }
@@ -911,10 +911,10 @@ const MarketInvoice = (props) => {
         queryClient.invalidateQueries(`/pay_receive_cash/report/journal/`);
 
         queryClient.invalidateQueries(
-          `/pay_receive_cash/report/journal/journal_result/`
+          `/pay_receive_cash/report/journal/journal_result/`,
         );
       },
-    }
+    },
   );
 
   const handleSendOrder = () => {
@@ -924,20 +924,20 @@ const MarketInvoice = (props) => {
         return;
       } else {
         if (parseFloat(values?.payCash) > parseFloat(values?.total)) {
-          message.error(t("Invoice_pos_pay_cash_error_message"));
+          message.error(t('Invoice_pos_pay_cash_error_message'));
           return;
         } else {
           let newData = [];
           setData((prev) => {
-            // 
+            //
             newData = prev;
             return prev;
           });
 
           if (newData?.length < 1) {
             Modal.warning({
-              bodyStyle: { direction: t("Dir") },
-              title: t("Sales.All_sales.Invoice.Invoice_no_data_message"),
+              bodyStyle: { direction: t('Dir') },
+              title: t('Sales.All_sales.Invoice.Invoice_no_data_message'),
             });
           } else {
             const items = newData?.map((item) => {
@@ -946,13 +946,13 @@ const MarketInvoice = (props) => {
                 unit_conversion_rate: handleFindUnitConversionRate(
                   item?.unit_conversion,
                   item?.unit.value,
-                  item?.product_units
+                  item?.product_units,
                 ),
                 product: item?.id,
                 qty: fixedNumber(item?.qty ?? 1),
                 each_price: item?.each_price
                   ? fixedNumber(
-                      parseFloat(item?.vipPrice) / parseFloat(item?.qty)
+                      parseFloat(item?.vipPrice) / parseFloat(item?.qty),
                     )
                   : 0,
                 warehouse_out: 106001,
@@ -961,7 +961,7 @@ const MarketInvoice = (props) => {
 
             let invoiceHeader = {};
             setInvoiceHeader((prev) => {
-              // 
+              //
               invoiceHeader = prev;
               return prev;
             });
@@ -978,12 +978,12 @@ const MarketInvoice = (props) => {
               currency_calc: baseCurrencyId,
               currency_rate_calc: 1,
             };
-            
+
             const allData = {
               currency: baseCurrencyId,
               currency_rate: 1,
               date_time: utcDate()?.format(dateFormat),
-              description: "",
+              description: '',
               warehouse: 106001,
               customer: invoiceHeader?.customer
                 ? invoiceHeader?.customer?.value
@@ -1001,13 +1001,13 @@ const MarketInvoice = (props) => {
               const balanceData = {
                 cardUniqueCode: customer?.cardId,
                 amount: values?.usedCardBalance,
-                exchangeType: "CARD",
-                paymentFor: "BUY",
-                actionOnCard: "CREDIT",
-                description: "خرید از فروشگاه انار",
+                exchangeType: 'CARD',
+                paymentFor: 'BUY',
+                actionOnCard: 'CREDIT',
+                description: 'خرید از فروشگاه انار',
                 pinCode: customer?.pinCode,
               };
-              mutateSendBalance({ value: balanceData, type: "credit" });
+              mutateSendBalance({ value: balanceData, type: 'credit' });
             }
 
             mutateAddSalesInvoice({
@@ -1025,9 +1025,9 @@ const MarketInvoice = (props) => {
   }, []);
 
   const handleCloseDrawer = useCallback(() => {
-    setSearch("");
+    setSearch('');
     reset();
-    setCategory("");
+    setCategory('');
     form.resetFields();
     setCount(1);
     setData([]);
@@ -1041,7 +1041,7 @@ const MarketInvoice = (props) => {
     responseRef.current = false;
     setSelectedRowKeys([]);
     setProductCategoryLoading(false);
-    setEditingKey("");
+    setEditingKey('');
     setIsSendCardUsedValue(false);
     setVipDiscount(0);
     setInvoiceHeader({});
@@ -1053,7 +1053,7 @@ const MarketInvoice = (props) => {
         handleCloseDrawer();
       }
     },
-    [handleCloseDrawer]
+    [handleCloseDrawer],
   );
 
   const handleReset = useCallback(() => {
@@ -1099,7 +1099,7 @@ const MarketInvoice = (props) => {
     const row = form.getFieldsValue();
     const total = data?.reduce(
       (sum, item) => print(math?.evaluate(`${sum}+${item?.vipPrice}`)),
-      0
+      0,
     );
     const totalDataValue = total ?? 0;
     if (parseInt(totalDataValue) <= parseInt(row?.usedCardBalance)) {
@@ -1138,7 +1138,7 @@ const MarketInvoice = (props) => {
       setCustomerCardValue(0);
       const newTotal = data?.reduce(
         (sum, item) => print(math?.evaluate(`${sum}+${item?.vipPrice}`)),
-        0
+        0,
       );
 
       form.setFieldsValue({
@@ -1148,7 +1148,7 @@ const MarketInvoice = (props) => {
         remainAmount: newTotal ?? 0,
       });
     },
-    [data, form]
+    [data, form],
   );
 
   const handleClearCustomer1 = (e) => {
@@ -1160,14 +1160,14 @@ const MarketInvoice = (props) => {
   };
 
   const keyMap = {
-    MARKET_INVOICE_PRINT: "shift+p",
-    MARKET_INVOICE_NAME_SEARCH: "f1",
-    MARKET_INVOICE_BARCODE_SEARCH: "f2",
-    MARKET_INVOICE_SAVE_ORDER: "shift+s",
-    MARKET_INVOICE_RESET_ORDER: "shift+R",
-    MARKET_INVOICE_SELECT_WITHDRAW: "f3",
+    MARKET_INVOICE_PRINT: 'shift+p',
+    MARKET_INVOICE_NAME_SEARCH: 'f1',
+    MARKET_INVOICE_BARCODE_SEARCH: 'f2',
+    MARKET_INVOICE_SAVE_ORDER: 'shift+s',
+    MARKET_INVOICE_RESET_ORDER: 'shift+R',
+    MARKET_INVOICE_SELECT_WITHDRAW: 'f3',
   };
-  // 
+  //
   const handlers = {
     MARKET_INVOICE_PRINT: (event) => {
       event.preventDefault();
@@ -1176,7 +1176,7 @@ const MarketInvoice = (props) => {
       if (responseRef.current === true) {
         handlePrint();
       } else {
-        message.warning(t("Sales.All_sales.Invoice.Print_error_message"));
+        message.warning(t('Sales.All_sales.Invoice.Print_error_message'));
       }
     },
     MARKET_INVOICE_NAME_SEARCH: (event) => {
@@ -1199,7 +1199,7 @@ const MarketInvoice = (props) => {
       event.preventDefault();
       event.stopPropagation();
       // saveRef.current.focus();
-      // 
+      //
       if (responseRef.current === false) {
         handleSendOrder();
       } else {
@@ -1209,7 +1209,7 @@ const MarketInvoice = (props) => {
     MARKET_INVOICE_SELECT_WITHDRAW: (event) => {
       event.preventDefault();
       event.stopPropagation();
-      withDrawRef.current.focus({ cursor: "all" });
+      withDrawRef.current.focus({ cursor: 'all' });
     },
   };
 
@@ -1246,7 +1246,7 @@ const MarketInvoice = (props) => {
     <HotKeys keyMap={keyMap} handlers={handlers} innerRef={posHotKey}>
       <div onClick={onClickBody}>
         <div onClick={showDrawer}>
-          {t("Sales.All_sales.Invoice.POS_invoice")}
+          {t('Sales.All_sales.Invoice.POS_invoice')}
         </div>
         <Drawer
           maskClosable={false}
@@ -1254,17 +1254,17 @@ const MarketInvoice = (props) => {
           // closeIcon={
           //   <CloseOutlined style={{ color: "red", background: "red" }} />
           // }
-          height="100%"
+          height='100%'
           afterVisibleChange={handleAfterVisibleChange}
           onClose={onClose}
           open={visible}
-          placement="top"
+          placement='top'
           destroyOnClose
           bodyStyle={styles.drawerBody}
           footer={false}
           title={
             <POSHeader1
-              type="addPOS"
+              type='addPOS'
               {...{
                 setInvoiceHeader,
                 invoiceHeader,
@@ -1297,9 +1297,9 @@ const MarketInvoice = (props) => {
             colon={false}
           >
             <Row>
-              <Col span={13} className="height">
-                <Row gutter={[0, 10]} className="height">
-                  <Col span={22} offset={1} className="height">
+              <Col span={13} className='height'>
+                <Row gutter={[0, 10]} className='height'>
+                  <Col span={22} offset={1} className='height'>
                     <MarketInvoiceTable1
                       data={data}
                       responseId={responseId}
@@ -1325,7 +1325,7 @@ const MarketInvoice = (props) => {
                       setEditingKey={setEditingKey}
                       editingKey={editingKey}
                       posHotKey={posHotKey}
-                      type="add"
+                      type='add'
                       findProductStatistics={findProductStatistics}
                       barcodeButtonRef={barcodeButtonRef}
                       loading={tableLoading}
@@ -1353,7 +1353,7 @@ const MarketInvoice = (props) => {
                       handleCancel={handleCancel}
                     >
                       <PrintPosInvoice
-                        type="add"
+                        type='add'
                         printRef={componentRef}
                         data={savedProducts}
                         discount={discount}
@@ -1367,8 +1367,8 @@ const MarketInvoice = (props) => {
               </Col>
               <Col
                 span={11}
-                className="market_invoice_product num"
-                id="posProductList"
+                className='market_invoice_product num'
+                id='posProductList'
                 style={styles.productList}
               >
                 <AllProductItemsWithFilters1
@@ -1393,21 +1393,21 @@ const MarketInvoice = (props) => {
 const styles = {
   drawerHeader: {
     background: Colors.primaryColor,
-    padding: "0px 24px 0px 24px",
-    height: "60px",
-    borderBottom: "none",
+    padding: '0px 24px 0px 24px',
+    height: '60px',
+    borderBottom: 'none',
   },
-  margin: { marginBottom: "10px" },
-  button: { height: "37px", borderRadius: "4px" },
-  input: { borderRadius: "4px" },
-  footer: { width: "475px" },
+  margin: { marginBottom: '10px' },
+  button: { height: '37px', borderRadius: '4px' },
+  input: { borderRadius: '4px' },
+  footer: { width: '475px' },
   productList: {
     height: `calc(100vh - 60px)`,
-    overflowY: "auto",
-    overflowX: "hidden",
-    textAlign: "center",
+    overflowY: 'auto',
+    overflowX: 'hidden',
+    textAlign: 'center',
   },
-  drawerBody: { padding: "0px", overflowY: "hidden" },
+  drawerBody: { padding: '0px', overflowY: 'hidden' },
 };
 
 export default MarketInvoice;

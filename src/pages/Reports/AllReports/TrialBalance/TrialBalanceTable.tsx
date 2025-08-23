@@ -104,7 +104,7 @@ const TrialBalanceTable: React.FC<IProps> = (props) => {
 
           <Column
             title={t(
-              'Sales.Product_and_services.Inventory.Currency'
+              'Sales.Product_and_services.Inventory.Currency',
             ).toUpperCase()}
             dataIndex={
               props?.title === 'Details balance' ||
@@ -146,7 +146,7 @@ const TrialBalanceTable: React.FC<IProps> = (props) => {
         </React.Fragment>
       );
     },
-    [t]
+    [t],
   );
 
   const printFilters = (
@@ -167,13 +167,13 @@ const TrialBalanceTable: React.FC<IProps> = (props) => {
       const { page, pageSize, search, order, startDate, endDate } =
         queryKey?.[1];
       const { data } = await axiosInstance.get(
-        `${props?.baseUrl}?page=${page}&page_size=${pageSize}&search=${search}`
+        `${props?.baseUrl}?page=${page}&page_size=${pageSize}&search=${search}`,
         // &date_time_before=${endDate}&date_time_after=${startDate}
       );
       console.log('data', data);
       return data;
     },
-    [props]
+    [props],
   );
 
   return (

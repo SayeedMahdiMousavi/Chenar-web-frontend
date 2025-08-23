@@ -49,19 +49,19 @@ export const CategorySelect: React.FC<IProps> = (props) => {
   });
 
   const searchCategories = React.useCallback(
-    async ({ queryKey }) => {
+    async ({ queryKey }: { queryKey: any }) => {
       const { search } = queryKey?.[1];
       const { data } = await axiosInstance.get(
-        `${props.url}?name__contains=${search}`
+        `${props.url}?name__contains=${search}`,
       );
       return data;
     },
-    [props.url]
+    [props.url],
   );
 
   const { data, isFetching } = useQuery(
     [`${props.url}`, { search }],
-    searchCategories
+    searchCategories,
   );
 
   React.useEffect(() => {
@@ -76,7 +76,7 @@ export const CategorySelect: React.FC<IProps> = (props) => {
               'axios-retry': {
                 retries: 4,
               },
-            })
+            } as any)
             .then((res) => {
               const allData = res?.data?.map((item: any) => {
                 const data = {
@@ -143,7 +143,7 @@ export const CategorySelect: React.FC<IProps> = (props) => {
             treeData: updateTreeData(
               prev.treeData,
               title,
-              data3?.length === 0 ? undefined : data3
+              data3?.length === 0 ? undefined : data3,
             ),
           };
         });

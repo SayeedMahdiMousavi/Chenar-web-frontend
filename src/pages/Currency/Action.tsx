@@ -1,12 +1,12 @@
-import React, { useCallback, useState } from "react";
-import { useQueryClient } from "react-query";
-import { Menu, Dropdown } from "antd";
-import EditCurrency from "./EditCurrency";
-import ActionButton from "../SelfComponents/ActionButton";
-import { currencyRateBaseUrl } from "./Currency rate/CurrencyRate";
-import { RemovePopconfirm } from "../../components";
-import { useRemoveItem } from "../../Hooks";
-import { CURRENCY_M } from "../../constants/permissions";
+import React, { useCallback, useState } from 'react';
+import { useQueryClient } from 'react-query';
+import { Menu, Dropdown } from 'antd';
+import EditCurrency from './EditCurrency';
+import ActionButton from '../SelfComponents/ActionButton';
+import { currencyRateBaseUrl } from './Currency rate/CurrencyRate';
+import { RemovePopconfirm } from '../../components';
+import { useRemoveItem } from '../../Hooks';
+import { CURRENCY_M } from '../../constants/permissions';
 
 interface IProps {
   record: any;
@@ -74,7 +74,7 @@ const Action: React.FC<IProps> = (props) => {
   return (
     <Dropdown
       overlay={action}
-      trigger={["click"]}
+      trigger={['click']}
       onOpenChange={handleVisibleChange}
       open={visible}
       disabled={props?.record?.system_default === true}

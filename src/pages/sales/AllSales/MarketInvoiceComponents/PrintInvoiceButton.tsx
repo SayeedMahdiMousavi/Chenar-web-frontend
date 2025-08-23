@@ -1,10 +1,10 @@
-import React, { useRef, useState } from "react";
-import { Button } from "antd";
-import { PrinterOutlined } from "@ant-design/icons";
-import { useReactToPrint } from "react-to-print";
-import { ReactNode } from "react";
-import PrintInvoices from "../../../PrintComponents/Invoices";
-import { useTranslation } from "react-i18next";
+import React, { useRef, useState } from 'react';
+import { Button } from 'antd';
+import { PrinterOutlined } from '@ant-design/icons';
+import { useReactToPrint } from 'react-to-print';
+import { ReactNode } from 'react';
+import PrintInvoices from '../../../PrintComponents/Invoices';
+import { useTranslation } from 'react-i18next';
 
 export const pageStyle = `
  @page {
@@ -30,7 +30,7 @@ interface IProps {
 }
 
 function PrintInvoiceButton(props: IProps) {
-  const printRef = useRef();
+  const printRef = useRef<HTMLDivElement | null>(null);
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [filters, setFilters] = useState<FilterData>([]);
@@ -50,34 +50,30 @@ function PrintInvoiceButton(props: IProps) {
   }, [setLoading]);
 
   const handlePrint = useReactToPrint({
-    content: () => printRef.current!,
-    removeAfterPrint: true,
-    copyStyles: true,
+    contentRef: printRef,
     pageStyle: pageStyle,
     onAfterPrint: () => {
       setFilters([]);
       setCashPayment([]);
     },
-    onBeforeGetContent: handleOnBeforeGetContent,
   });
 
   const handleClickPrint = () => {
     if (props.filters) {
-      
     } else {
       const row = props.form.getFieldsValue();
       const filterData = [
         {
-          label: t("Sales.All_sales.Invoice.Invoice_number"),
+          label: t('Sales.All_sales.Invoice.Invoice_number'),
           value: props?.id,
-          name: "id",
+          name: 'id',
         },
         {
           label:
-            props?.type === "purchase" || props?.type === "purchase_rej"
-              ? t("Expenses.Suppliers.Supplier")
-              : t("Sales.Customers.Customer"),
-          name: "account",
+            props?.type === 'purchase' || props?.type === 'purchase_rej'
+              ? t('Expenses.Suppliers.Supplier')
+              : t('Sales.Customers.Customer'),
+          name: 'account',
           value: row?.account?.label,
         },
         // {
@@ -85,52 +81,52 @@ function PrintInvoiceButton(props: IProps) {
         //   value: row?.warehouseName?.label,
         // },
         {
-          label: t("Sales.Product_and_services.Status"),
+          label: t('Sales.Product_and_services.Status'),
           value: row?.status,
         },
         {
-          label: t("Sales.Product_and_services.Inventory.Currency"),
+          label: t('Sales.Product_and_services.Inventory.Currency'),
           value: row?.currency?.label,
         },
         {
-          label: t("Sales.Product_and_services.Currency.Currency_rate"),
+          label: t('Sales.Product_and_services.Currency.Currency_rate'),
           value: parseFloat(row?.currencyRate),
         },
         {
-          label: t("Sales.Customers.Form.Date"),
-          name: "date",
-          value: row?.date.locale("fa").format("YYYY-MM-DD HH:mm"),
+          label: t('Sales.Customers.Form.Date'),
+          name: 'date',
+          value: row?.date.locale('fa').format('YYYY-MM-DD HH:mm'),
         },
       ];
 
-      const cashList = props.form.getFieldValue("cashList");
+      const cashList = props.form.getFieldValue('cashList');
       setCashPayment(cashList || []);
 
       setFilters(
         //@ts-ignore
-        props?.type === "productTransfer"
+        props?.type === 'productTransfer'
           ? filterData?.filter(
-              (item) => item?.name === "date" || item?.name === "id"
+              (item) => item?.name === 'date' || item?.name === 'id',
             )
-          : props?.type === "warehouseAdjustment"
-          ? [
-              ...filterData?.filter(
-                (item) => item?.name === "date" || item?.name === "id"
-              ),
-              {
-                label: t("Invoice_type"),
-                name: "type",
-                value:
-                  row?.type === "waste"
-                    ? t("Reports.Waste")
-                    : t("Reports.Reward"),
-              },
-            ]
-          : props?.type === "warehouseRemittance"
-          ? filterData?.filter(
-              (item) => item?.name === "date" || item?.name === "account"
-            )
-          : filterData
+          : props?.type === 'warehouseAdjustment'
+            ? [
+                ...filterData?.filter(
+                  (item) => item?.name === 'date' || item?.name === 'id',
+                ),
+                {
+                  label: t('Invoice_type'),
+                  name: 'type',
+                  value:
+                    row?.type === 'waste'
+                      ? t('Reports.Waste')
+                      : t('Reports.Reward'),
+                },
+              ]
+            : props?.type === 'warehouseRemittance'
+              ? filterData?.filter(
+                  (item) => item?.name === 'date' || item?.name === 'account',
+                )
+              : filterData,
       );
       // if (
       //   props?.type !== "productTransfer" &&
@@ -166,13 +162,13 @@ function PrintInvoiceButton(props: IProps) {
         disabled={props.disabled}
         icon={<PrinterOutlined disabled={props.disabled} />}
         onClick={handleClickPrint}
-        type="primary"
+        type='primary'
         ghost
         loading={loading}
       >
-        {props?.printText ? props?.printText : t("Form.Print")}
+        {props?.printText ? props?.printText : t('Form.Print')}
       </Button>
-      <div className="hide-print-component">
+      <div className='hide-print-component' ref={printRef}>
         <PrintInvoices
           //@ts-ignore
           printRef={printRef}

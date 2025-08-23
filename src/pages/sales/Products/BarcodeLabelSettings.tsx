@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { Form, Modal, Button, Typography, Space, Select } from "antd";
-import { BARCODE_LABEL_TYPE } from "../../LocalStorageVariables";
-import { CancelButton, SaveButton } from "../../../components";
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Form, Modal, Button, Typography, Space, Select } from 'antd';
+import { BARCODE_LABEL_TYPE } from '../../LocalStorageVariables';
+import { CancelButton, SaveButton } from '../../../components';
 
 const { Title } = Typography;
 
@@ -11,7 +11,7 @@ export default function BarcodeLabelSettings() {
   const [form] = Form.useForm();
 
   const [type, setType] = useState(
-    () => localStorage.getItem(BARCODE_LABEL_TYPE) || "10"
+    () => localStorage.getItem(BARCODE_LABEL_TYPE) || '10',
   );
   const [visible, setVisible] = useState(false);
 
@@ -38,7 +38,7 @@ export default function BarcodeLabelSettings() {
   return (
     <div>
       <div onClick={showModal}>
-        {t("Sales.Product_and_services.Barcode_label_settings")}
+        {t('Sales.Product_and_services.Barcode_label_settings')}
       </div>
       <Modal
         maskClosable={false}
@@ -51,7 +51,7 @@ export default function BarcodeLabelSettings() {
         handelAfterClose={handelAfterClose}
       >
         <Form
-          layout="vertical"
+          layout='vertical'
           onFinish={onFinish}
           hideRequiredMark={true}
           form={form}
@@ -60,27 +60,27 @@ export default function BarcodeLabelSettings() {
           }}
         >
           <Title level={5}>
-            {t("Sales.Product_and_services.Barcode_label_settings")}
+            {t('Sales.Product_and_services.Barcode_label_settings')}
           </Title>
           <Form.Item
-            name="type"
-            label={t("Sales.Product_and_services.Paper_type")}
+            name='type'
+            label={t('Sales.Product_and_services.Paper_type')}
             style={styles.formItem}
           >
-            <Select className="num">
-              <Select.Option value={"8"}>
-                {t("Sales.Product_and_services.Eight_item_perPage")}
+            <Select className='num'>
+              <Select.Option value={'8'}>
+                {t('Sales.Product_and_services.Eight_item_perPage')}
               </Select.Option>
-              <Select.Option value={"10"}>
-                {t("Sales.Product_and_services.Ten_item_perPage")}
+              <Select.Option value={'10'}>
+                {t('Sales.Product_and_services.Ten_item_perPage')}
               </Select.Option>
             </Select>
           </Form.Item>
 
-          <Form.Item className="textAlign__end" style={styles.footer}>
+          <Form.Item className='textAlign__end' style={styles.footer}>
             <Space>
               <CancelButton onClick={handleCancel} />
-              <SaveButton type="primary" htmlType="submit" />
+              <SaveButton type='primary' htmlType='submit' />
             </Space>
           </Form.Item>
         </Form>
@@ -91,8 +91,8 @@ export default function BarcodeLabelSettings() {
 
 const styles = {
   footer: {
-    paddingTop: "10px",
-    marginBottom: "5px",
+    paddingTop: '10px',
+    marginBottom: '5px',
   },
-  formItem: { marginTop: "22px" },
+  formItem: { marginTop: '22px' },
 };

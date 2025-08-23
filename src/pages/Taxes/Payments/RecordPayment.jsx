@@ -271,5 +271,5 @@ const enhancProduct = withObservables(['groups'], ({ database }) => ({
 }));
 
 export default connect(mapStateToProps)(
-  withDatabase(enhancProduct(RecordPayment))
+  withDatabase(enhancProduct(RecordPayment)),
 );

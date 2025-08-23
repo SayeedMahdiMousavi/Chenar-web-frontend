@@ -1,14 +1,14 @@
-import React, { Fragment, useState } from "react";
-import { Modal, Col, Row, Button, InputNumber } from "antd";
-import { useMediaQuery } from "../MediaQurey";
-import { Form, Input, message } from "antd";
-import { useTranslation } from "react-i18next";
-import { ModalDragTitle } from "../SelfComponents/ModalDragTitle";
-import Draggable from "react-draggable";
-import { Styles } from "../styles";
-import { BASE_URL } from "../LocalStorageVariables";
-import axiosInstance from "../ApiBaseUrl";
-import { CancelButton, SaveButton } from "../../components";
+import React, { Fragment, useState } from 'react';
+import { Modal, Col, Row, Button, InputNumber } from 'antd';
+import { useMediaQuery } from '../MediaQurey';
+import { Form, Input, message } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { ModalDragTitle } from '../SelfComponents/ModalDragTitle';
+import Draggable from 'react-draggable';
+import { Styles } from '../styles';
+import { BASE_URL } from '../LocalStorageVariables';
+import axiosInstance from '../ApiBaseUrl';
+import { CancelButton, SaveButton } from '../../components';
 
 const GetBaseUrl = () => {
   const { t } = useTranslation();
@@ -18,16 +18,16 @@ const GetBaseUrl = () => {
   });
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(true);
-  const isBgTablet = useMediaQuery("(max-width: 1024px)");
-  const isTablet = useMediaQuery("(max-width: 768px)");
-  const isMobile = useMediaQuery("(max-width: 425px)");
-  const isMiniTablet = useMediaQuery("(max-width: 576px)");
-  const isSubBase = useMediaQuery("(max-width: 375px)");
+  const isBgTablet = useMediaQuery('(max-width: 1024px)');
+  const isTablet = useMediaQuery('(max-width: 768px)');
+  const isMobile = useMediaQuery('(max-width: 425px)');
+  const isMiniTablet = useMediaQuery('(max-width: 576px)');
+  const isSubBase = useMediaQuery('(max-width: 375px)');
 
   const showModal = () => {
     if (localStorage.getItem(BASE_URL)) {
       const baseUrl = localStorage.getItem(BASE_URL);
-      const splitBaseUrl = baseUrl?.split(":");
+      const splitBaseUrl = baseUrl?.split(':');
       form.setFieldsValue({
         base: `${splitBaseUrl?.[0]}:${splitBaseUrl?.[1]}`,
         //@ts-ignore
@@ -65,11 +65,9 @@ const GetBaseUrl = () => {
         setIsShowModal({
           visible: false,
         });
-        message.success("Successfully save base url");
+        message.success('Successfully save base url');
       })
-      .catch((info) => {
-        
-      });
+      .catch((info) => {});
   };
 
   return (
@@ -81,7 +79,7 @@ const GetBaseUrl = () => {
           <ModalDragTitle
             disabled={disabled}
             setDisabled={setDisabled}
-            title="Server config information"
+            title='Server config information'
           />
         }
         modalRender={(modal) => (
@@ -92,10 +90,10 @@ const GetBaseUrl = () => {
         onCancel={onCancel}
         destroyOnClose
         afterClose={handelAfterClose}
-        wrapClassName="warehouse_add_modal"
+        wrapClassName='warehouse_add_modal'
         style={Styles.modal(isMobile)}
         bodyStyle={Styles.modalBody(isMobile, isSubBase, isMiniTablet)}
-        width={isMobile ? "100%" : isTablet ? 380 : isBgTablet ? 380 : 380}
+        width={isMobile ? '100%' : isTablet ? 380 : isBgTablet ? 380 : 380}
         footer={
           <Fragment>
             <CancelButton onClick={onCancel} />
@@ -107,17 +105,17 @@ const GetBaseUrl = () => {
           form={form}
           hideRequiredMark={true}
           scrollToFirstError={true}
-          layout="vertical"
+          layout='vertical'
         >
           <Form.Item
             style={styles.formItem}
             label={
               <span>
                 Base url
-                <span className="star">*</span>
+                <span className='star'>*</span>
               </span>
             }
-            name="base"
+            name='base'
             rules={[
               { required: true, message: `Base url is required !` },
               // { type: "url", message: `Base url is not a valid url` },
@@ -126,20 +124,20 @@ const GetBaseUrl = () => {
             <Input autoFocus />
           </Form.Item>
           <Form.Item
-            name="port"
+            name='port'
             style={styles.formItem}
             label={
               <span>
                 Port
-                <span className="star">*</span>
+                <span className='star'>*</span>
               </span>
             }
             rules={[
               { required: true, message: `Port is required !` },
-              { type: "integer", message: `Port is not av valid integer` },
+              { type: 'integer', message: `Port is not av valid integer` },
             ]}
           >
-            <InputNumber className="num" />
+            <InputNumber className='num' />
           </Form.Item>
         </Form>
       </Modal>
@@ -152,7 +150,7 @@ interface IStyles {
 }
 
 const styles: IStyles = {
-  formItem: { marginBottom: "8px" },
+  formItem: { marginBottom: '8px' },
 };
 
 export default GetBaseUrl;

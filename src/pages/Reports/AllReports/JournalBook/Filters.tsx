@@ -1,11 +1,11 @@
-import React, { memo } from "react";
-import { Row, Col, Form, Button, Select } from "antd";
-import { useTranslation } from "react-i18next";
-import CashAndBankProperties from "../../../Transactions/Components/CashAndBankProperties";
-import { handlePrepareDateForServer } from "../../../../Functions/utcDate";
-import ReportDateFormItem from "../../Components/DateFormItem";
-import { InfiniteScrollSelectFormItem } from "../../../../components/antd";
-import { useDefaultReportDateFormItem } from "../../../../Hooks";
+import React, { memo } from 'react';
+import { Row, Col, Form, Button, Select } from 'antd';
+import { useTranslation } from 'react-i18next';
+import CashAndBankProperties from '../../../Transactions/Components/CashAndBankProperties';
+import { handlePrepareDateForServer } from '../../../../Functions/utcDate';
+import ReportDateFormItem from '../../Components/DateFormItem';
+import { InfiniteScrollSelectFormItem } from '../../../../components/antd';
+import { useDefaultReportDateFormItem } from '../../../../Hooks';
 
 interface IProps {
   setPage: (value: number) => void;
@@ -31,12 +31,12 @@ function Filters(props: IProps) {
 
     const newFilters = {
       currencyData:
-        values?.currency?.value === "all"
-          ? { value: "", label: "" }
+        values?.currency?.value === 'all'
+          ? { value: '', label: '' }
           : values?.currency,
       bank:
-        values?.bankName?.value === "all"
-          ? { value: "", label: "" }
+        values?.bankName?.value === 'all'
+          ? { value: '', label: '' }
           : values?.bankName,
       accountType: values?.accountType,
       startDate: startDate,
@@ -77,11 +77,11 @@ function Filters(props: IProps) {
       form={form}
       hideRequiredMark
       initialValues={{
-        date: "allDates",
+        date: 'allDates',
         dateTime: defaultDate,
       }}
     >
-      <Row gutter={[10, 10]} style={{ marginBottom: "20px" }}>
+      <Row gutter={[10, 10]} style={{ marginBottom: '20px' }}>
         <ReportDateFormItem form={form} style={styles.formItem} />
         <Col xxl={14} xl={11} lg={11}></Col>
         <Col xxl={4} xl={5} lg={6}>
@@ -89,39 +89,39 @@ function Filters(props: IProps) {
             onChangBankName={onChangeBankName}
             onChangBankId={onChangeBankId}
             form={form}
-            fieldId="bankId"
-            fieldName="bankName"
-            place="report"
+            fieldId='bankId'
+            fieldName='bankName'
+            place='report'
           />
         </Col>
         <Col xxl={4} xl={5} lg={6}>
-          <Form.Item name="accountType" style={styles.formItem}>
+          <Form.Item name='accountType' style={styles.formItem}>
             <Select
-              className="num"
-              placeholder={t("Account_type")}
+              className='num'
+              placeholder={t('Account_type')}
               allowClear
               labelInValue
             >
-              <Option value="bank">{t("Banking.Bank")}</Option>
-              <Option value="cash">{t("Banking.Cash_box.Cash")}</Option>
+              <Option value='bank'>{t('Banking.Bank')}</Option>
+              <Option value='cash'>{t('Banking.Cash_box.Cash')}</Option>
             </Select>
           </Form.Item>
         </Col>
         <Col xxl={14} xl={11} lg={11}></Col>
         <Col xxl={4} xl={5} lg={6}>
           <InfiniteScrollSelectFormItem
-            name="currency"
-            placeholder={t("Sales.Product_and_services.Inventory.Currency")}
+            name='currency'
+            placeholder={t('Sales.Product_and_services.Inventory.Currency')}
             style={styles.formItem}
-            fields="name,id,symbol"
-            baseUrl="/currency/active_currency_rate/"
+            fields='name,id,symbol'
+            baseUrl='/currency/active_currency_rate/'
             allowClear={true}
           />
-        </Col>{" "}
+        </Col>{' '}
         <Col xxl={8} xl={10} lg={10}>
-          <Form.Item className="margin" style={styles.formItem}>
-            <Button type="primary" size="small" htmlType="submit" shape="round">
-              {t("Form.Search")}
+          <Form.Item className='margin' style={styles.formItem}>
+            <Button type='primary' size='small' htmlType='submit' shape='round'>
+              {t('Form.Search')}
             </Button>
           </Form.Item>
         </Col>
@@ -136,7 +136,7 @@ Filters = memo(Filters);
 
 const styles = {
   form: {
-    width: "250px",
+    width: '250px',
   },
   formItem: { marginBottom: 0 },
 };

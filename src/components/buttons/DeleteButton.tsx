@@ -1,8 +1,8 @@
-import { Button, ButtonProps, Popconfirm } from "antd";
-import React, { ReactNode, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { DeleteIcon } from "../../icons";
-import { ActionMessage } from "../../pages/SelfComponents/TranslateComponents/ActionMessage";
+import { Button, ButtonProps, Popconfirm } from 'antd';
+import React, { ReactNode, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { DeleteIcon } from '../../icons';
+import { ActionMessage } from '../../pages/SelfComponents/TranslateComponents/ActionMessage';
 
 interface IProps extends ButtonProps {
   itemName?: string | number;
@@ -35,19 +35,19 @@ export function DeleteButton({
 
   return (
     <Popconfirm
-      placement="topLeft"
+      placement='topLeft'
       title={
         titleMessage ? (
           titleMessage
         ) : (
           <ActionMessage
             name={itemName}
-            message="Message.Remove_item_message"
+            message='Message.Remove_item_message'
           />
         )
       }
-      okText={t("Manage_users.Yes")}
-      cancelText={t("Manage_users.No")}
+      okText={t('Manage_users.Yes')}
+      cancelText={t('Manage_users.No')}
       disabled={disabled}
       onCancel={handleClickDelete}
       open={Boolean(setVisible) ? visible : localVisible}
@@ -58,8 +58,8 @@ export function DeleteButton({
       }}
     >
       <Button
-        size="small"
-        type="text"
+        size='small'
+        type='text'
         disabled={disabled}
         onClick={handleClickDelete}
         icon={<DeleteIcon style={styles.icon} />}
@@ -69,4 +69,4 @@ export function DeleteButton({
   );
 }
 
-const styles = { icon: { fontSize: "15px" } };
+const styles = { icon: { fontSize: '15px' } };

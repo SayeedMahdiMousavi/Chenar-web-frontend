@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { Col, Row, Form, Select, InputNumber, Avatar } from "antd";
-import { debounce } from "throttle-debounce";
-import { useInfiniteQuery } from "react-query";
-import axiosInstance from "../../ApiBaseUrl";
-import { useTranslation } from "react-i18next";
-import { CenteredSpin } from "../../SelfComponents/Spin";
-import { print, math, fixedNumber } from "../../../Functions/math";
-import useGetBaseCurrency from "../../../Hooks/useGetBaseCurrency";
-import { InfiniteScrollSelectError } from "../../../components/antd";
+import React, { useState } from 'react';
+import { Col, Row, Form, Select, InputNumber, Avatar } from 'antd';
+import { debounce } from 'throttle-debounce';
+import { useInfiniteQuery } from 'react-query';
+import axiosInstance from '../../ApiBaseUrl';
+import { useTranslation } from 'react-i18next';
+import { CenteredSpin } from '../../SelfComponents/Spin';
+import { print, math, fixedNumber } from '../../../Functions/math';
+import useGetBaseCurrency from '../../../Hooks/useGetBaseCurrency';
+import { InfiniteScrollSelectError } from '../../../components/antd';
 
 interface IProps {
   form: any;
@@ -23,7 +23,7 @@ interface IProps {
 const getCurrencies = async ({ pageParam = 1, queryKey }: any) => {
   const search = queryKey?.[1];
   const res = await axiosInstance.get(
-    `/currency/active_currency_rate/?page=${pageParam}&page_size=10&search=${search}`
+    `/currency/active_currency_rate/?page=${pageParam}&page_size=10&search=${search}`,
   );
 
   return res?.data;
@@ -31,7 +31,7 @@ const getCurrencies = async ({ pageParam = 1, queryKey }: any) => {
 
 export const CurrencyPartFields: React.FC<IProps> = (props) => {
   const { t } = useTranslation();
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
 
   //get base currency
   const baseCurrency = useGetBaseCurrency();
@@ -55,12 +55,12 @@ export const CurrencyPartFields: React.FC<IProps> = (props) => {
     status,
     refetch,
   } = useInfiniteQuery(
-    ["/currency/active_currency_rate/infinite/", search],
+    ['/currency/active_currency_rate/infinite/', search],
     getCurrencies,
     {
       getNextPageParam: (lastPage, pages) => lastPage.nextPageNumber,
-      refetchOnWindowFocus:false
-    }
+      refetchOnWindowFocus: false,
+    },
   );
 
   const onChangeCurrency = (value: { label: string; value: number }) => {
@@ -74,28 +74,28 @@ export const CurrencyPartFields: React.FC<IProps> = (props) => {
       print(
         //@ts-ignore
         math.evaluate(
-          `(${newCurrency?.base_amount})/ ${newCurrency?.equal_amount}`
-        )
+          `(${newCurrency?.base_amount})/ ${newCurrency?.equal_amount}`,
+        ),
       ),
-      20
+      20,
     );
     const amount = row?.amount ?? 0;
     if (props.onChangeCurrency) {
       props.onChangeCurrency(newCurrency);
     }
-    if (props.currency === "calCurrency") {
+    if (props.currency === 'calCurrency') {
       const currencyRate1 = row?.currencyRate ?? 1;
       props.form.setFieldsValue({
         calCurrencyRate: parseFloat(currencyRate.toFixed(4)),
         calAmount: fixedNumber(
           print(
             //@ts-ignore
-            math.evaluate(`(${amount}*${currencyRate1})/ ${currencyRate}`)
+            math.evaluate(`(${amount}*${currencyRate1})/ ${currencyRate}`),
           ),
-          4
+          4,
         ),
       });
-    } else if (props?.type !== "invoice") {
+    } else if (props?.type !== 'invoice') {
       if (row.calCurrency) {
         const calCurrencyRate = row?.calCurrencyRate ?? 1;
 
@@ -104,8 +104,8 @@ export const CurrencyPartFields: React.FC<IProps> = (props) => {
           calAmount: fixedNumber(
             print(
               //@ts-ignore
-              math.evaluate(`(${amount}*${currencyRate})/ ${calCurrencyRate}`)
-            )
+              math.evaluate(`(${amount}*${currencyRate})/ ${calCurrencyRate}`),
+            ),
           ),
         });
       } else {
@@ -114,7 +114,7 @@ export const CurrencyPartFields: React.FC<IProps> = (props) => {
         });
       }
     }
-    setSearch("");
+    setSearch('');
   };
 
   const loadMore = (e: any) => {
@@ -137,24 +137,24 @@ export const CurrencyPartFields: React.FC<IProps> = (props) => {
   };
 
   const debounceChangeCurrencyRate = debounce(500, async (value: string) => {
-    const newValue = value === "" ? 1 : value;
+    const newValue = value === '' ? 1 : value;
 
-    if (props.currency === "calCurrency") {
+    if (props.currency === 'calCurrency') {
       const row = props.form.getFieldsValue();
 
       props.form.setFieldsValue({
         calAmount: fixedNumber(
           print(
             //@ts-ignore
-            math.evaluate(`(${row?.amount}*${row?.currencyRate})/ ${newValue}`)
+            math.evaluate(`(${row?.amount}*${row?.currencyRate})/ ${newValue}`),
           ),
-          4
+          4,
         ),
       });
     } else {
       const row = props.form.getFieldsValue();
 
-      if (props.currency !== "calCurrency" && props.onChangeCurrencyRate) {
+      if (props.currency !== 'calCurrency' && props.onChangeCurrencyRate) {
         props.onChangeCurrencyRate(row.currencyRate);
       }
 
@@ -164,10 +164,10 @@ export const CurrencyPartFields: React.FC<IProps> = (props) => {
             print(
               //@ts-ignore
               math.evaluate(
-                `(${row.amount}*${newValue})/ ${row.calCurrencyRate}`
-              )
+                `(${row.amount}*${newValue})/ ${row.calCurrencyRate}`,
+              ),
             ),
-            4
+            4,
           ),
         });
       }
@@ -179,7 +179,7 @@ export const CurrencyPartFields: React.FC<IProps> = (props) => {
   };
 
   const debounceChangeAmount = debounce(500, async (value: string) => {
-    if (props.currency !== "calCurrency") {
+    if (props.currency !== 'calCurrency') {
       const row = props.form.getFieldsValue();
       if (row.calCurrency) {
         props.form.setFieldsValue({
@@ -188,10 +188,10 @@ export const CurrencyPartFields: React.FC<IProps> = (props) => {
             print(
               //@ts-ignore
               math.evaluate(
-                `(${value}*${row.currencyRate})/ ${row.calCurrencyRate}`
-              )
+                `(${value}*${row.currencyRate})/ ${row.calCurrencyRate}`,
+              ),
             ),
-            4
+            4,
           ),
         });
       }
@@ -207,47 +207,47 @@ export const CurrencyPartFields: React.FC<IProps> = (props) => {
   };
   return (
     <Row gutter={10}>
-      {props.type === "openAccount" ? null : (
+      {props.type === 'openAccount' ? null : (
         <Col span={7}>
           <Form.Item
-            name={props.currency === "calCurrency" ? "calAmount" : "amount"}
-            className="margin1"
+            name={props.currency === 'calCurrency' ? 'calAmount' : 'amount'}
+            className='margin1'
             rules={[
               {
                 required: true,
-                message: t("Sales.Customers.Form.Amount_required"),
+                message: t('Sales.Customers.Form.Amount_required'),
               },
             ]}
           >
             <InputNumber
-              placeholder={t("Sales.Customers.Form.Amount")}
-              type="number"
-              className="num"
-              inputMode="numeric"
+              placeholder={t('Sales.Customers.Form.Amount')}
+              type='number'
+              className='num'
+              inputMode='numeric'
               onFocus={onFocusAmount}
               onChange={onChangeAmount}
               min={1}
-              readOnly={props.currency === "calCurrency" ? true : false}
+              readOnly={props.currency === 'calCurrency' ? true : false}
             />
           </Form.Item>
         </Col>
       )}
-      <Col span={props.type === "openAccount" ? 12 : 10}>
-        {" "}
+      <Col span={props.type === 'openAccount' ? 12 : 10}>
+        {' '}
         <Form.Item
-          name={props.currency === "calCurrency" ? "calCurrency" : "currency"}
-          className="margin1"
+          name={props.currency === 'calCurrency' ? 'calCurrency' : 'currency'}
+          className='margin1'
           rules={[
             {
               required: true,
               message: t(
-                "Sales.Product_and_services.Currency.Currency_required"
+                'Sales.Product_and_services.Currency.Currency_required',
               ),
             },
           ]}
         >
           <Select
-            placeholder={t("Sales.Product_and_services.Inventory.Currency")}
+            placeholder={t('Sales.Product_and_services.Inventory.Currency')}
             showSearch
             onSearch={onSearchCurrency}
             onChange={onChangeCurrency}
@@ -255,13 +255,13 @@ export const CurrencyPartFields: React.FC<IProps> = (props) => {
             disabled={props?.responseId}
             labelInValue
             onPopupScroll={loadMore}
-            optionFilterProp="label"
-            optionLabelProp="label"
+            optionFilterProp='label'
+            optionLabelProp='label'
             // defaultOpen
             notFoundContent={
-              status === "loading" ? (
-                <CenteredSpin size="small" style={styles.spin} />
-              ) : status !== "error" ? undefined : (
+              status === 'loading' ? (
+                <CenteredSpin size='small' style={styles.spin} />
+              ) : status !== 'error' ? undefined : (
                 <InfiniteScrollSelectError
                   error={error}
                   handleRetry={handleRetry}
@@ -272,7 +272,7 @@ export const CurrencyPartFields: React.FC<IProps> = (props) => {
               <div>
                 {menu}
                 {isFetchingNextPage || (isFetching && Boolean(search)) ? (
-                  <CenteredSpin size="small" style={styles.spin} />
+                  <CenteredSpin size='small' style={styles.spin} />
                 ) : null}
               </div>
             )}
@@ -289,9 +289,9 @@ export const CurrencyPartFields: React.FC<IProps> = (props) => {
                       // isSelectOption={props?.currency === item?.name}
                     >
                       <div>
-                        <Avatar size="small" style={{ background: "#10899e" }}>
+                        <Avatar size='small' style={{ background: '#10899e' }}>
                           {item.symbol}
-                        </Avatar>{" "}
+                        </Avatar>{' '}
                         {/* {item.name} */}
                         {t(`Reports.${item?.symbol}`)}
                       </div>
@@ -302,33 +302,33 @@ export const CurrencyPartFields: React.FC<IProps> = (props) => {
           </Select>
         </Form.Item>
       </Col>
-      <Col span={props.type === "openAccount" ? 12 : 7}>
+      <Col span={props.type === 'openAccount' ? 12 : 7}>
         <Form.Item
           name={
-            props.currency === "calCurrency"
-              ? "calCurrencyRate"
-              : "currencyRate"
+            props.currency === 'calCurrency'
+              ? 'calCurrencyRate'
+              : 'currencyRate'
           }
-          className="margin1"
+          className='margin1'
           rules={[
             {
               required: true,
               message: t(
-                "Sales.Product_and_services.Currency.Currency_rate_required"
+                'Sales.Product_and_services.Currency.Currency_rate_required',
               ),
             },
           ]}
         >
           <InputNumber
-            type="number"
-            className="num"
-            inputMode="numeric"
+            type='number'
+            className='num'
+            inputMode='numeric'
             min={0}
             readOnly={Boolean(props?.responseId)}
             onFocus={onFocusAmount}
             onChange={onChangeCurrencyRate}
             disabled={props.currencyValue !== baseCurrencyId ? false : true}
-            placeholder={t("Sales.Product_and_services.Currency.Currency_rate")}
+            placeholder={t('Sales.Product_and_services.Currency.Currency_rate')}
           />
         </Form.Item>
       </Col>
@@ -337,5 +337,5 @@ export const CurrencyPartFields: React.FC<IProps> = (props) => {
 };
 
 const styles = {
-  spin: { padding: "7px" },
+  spin: { padding: '7px' },
 };

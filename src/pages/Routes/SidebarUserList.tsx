@@ -1,8 +1,8 @@
-import React from "react";
-import { Avatar } from "antd";
-import { UserOutlined } from "@ant-design/icons";
-import { useGetUserList } from "../../Hooks";
-import { Colors } from "../colors";
+import React from 'react';
+import { Avatar } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
+import { useGetUserList } from '../../Hooks';
+import { Colors } from '../colors';
 
 export default function SidebarUserList({ collapsed }: { collapsed: boolean }) {
   const { data } = useGetUserList();
@@ -12,7 +12,7 @@ export default function SidebarUserList({ collapsed }: { collapsed: boolean }) {
       {collapsed ? (
         <Avatar
           size={40}
-          style={{ margin: "6px", backgroundColor: Colors.primaryColor }}
+          style={{ margin: '6px', backgroundColor: Colors.primaryColor }}
         >
           {data?.results?.length + 8}+
         </Avatar>
@@ -29,19 +29,19 @@ export default function SidebarUserList({ collapsed }: { collapsed: boolean }) {
                 {item?.username?.[0]?.toUpperCase()}
                 {item?.username?.[1]}
               </Avatar>
-            )
+            ),
           )}
           <Avatar style={styles.avatar} icon={<UserOutlined />} />
           <Avatar
-            src="https://joeschmoe.io/api/v1/random"
+            src='https://joeschmoe.io/api/v1/random'
             style={styles.avatar}
           />
           <Avatar
-            style={{ backgroundColor: "#1890ff", borderWidth: "2px" }}
+            style={{ backgroundColor: '#1890ff', borderWidth: '2px' }}
             icon={<UserOutlined />}
           />
           <Avatar
-            src="https://joeschmoe.io/api/v1/random"
+            src='https://joeschmoe.io/api/v1/random'
             style={styles.avatar}
           />
           <Avatar
@@ -49,17 +49,17 @@ export default function SidebarUserList({ collapsed }: { collapsed: boolean }) {
             icon={<UserOutlined />}
           />
           <Avatar
-            style={{ backgroundColor: "#1890ff", borderWidth: "2px" }}
+            style={{ backgroundColor: '#1890ff', borderWidth: '2px' }}
             icon={<UserOutlined />}
           />
 
           <Avatar
-            style={{ backgroundColor: "#1890ff", borderWidth: "2px" }}
+            style={{ backgroundColor: '#1890ff', borderWidth: '2px' }}
             icon={<UserOutlined />}
           />
 
           <Avatar
-            src="https://joeschmoe.io/api/v1/random"
+            src='https://joeschmoe.io/api/v1/random'
             style={styles.avatar}
           />
         </Avatar.Group>
@@ -76,16 +76,16 @@ interface IStyles {
 
 const styles: IStyles = {
   list: {
-    paddingInlineStart: "8px",
-    position: "fixed",
-    bottom: "0px",
-    paddingBottom: "7px",
+    paddingInlineStart: '8px',
+    position: 'fixed',
+    bottom: '0px',
+    paddingBottom: '7px',
   },
   maxStyle: {
     color: Colors.white,
     backgroundColor: Colors.primaryColor,
-    fontSize: "13px",
-    borderWidth: "2px",
+    fontSize: '13px',
+    borderWidth: '2px',
   },
-  avatar: { backgroundColor: Colors.primaryColor, borderWidth: "2px" },
+  avatar: { backgroundColor: Colors.primaryColor, borderWidth: '2px' },
 };

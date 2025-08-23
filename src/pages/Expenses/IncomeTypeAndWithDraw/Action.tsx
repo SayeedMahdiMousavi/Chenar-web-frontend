@@ -1,9 +1,9 @@
-import React, { useCallback, useState } from "react";
-import { useQueryClient } from "react-query";
-import { Menu, Dropdown } from "antd";
-import { CaretDownOutlined } from "@ant-design/icons";
-import { RemovePopconfirm } from "../../../components";
-import { useRemoveItem } from "../../../Hooks";
+import React, { useCallback, useState } from 'react';
+import { useQueryClient } from 'react-query';
+import { Menu, Dropdown } from 'antd';
+import { CaretDownOutlined } from '@ant-design/icons';
+import { RemovePopconfirm } from '../../../components';
+import { useRemoveItem } from '../../../Hooks';
 
 interface IProps {
   record: any;
@@ -49,7 +49,7 @@ const Action: React.FC<IProps> = (props) => {
     <Menu>
       <RemovePopconfirm
         itemName={props?.record?.name}
-        open={removeVisible}
+        openConfirm={removeVisible}
         loading={isLoading}
         onConfirm={handleDeleteItem}
         onCancel={handleCancel}
@@ -66,16 +66,16 @@ const Action: React.FC<IProps> = (props) => {
   return (
     <Dropdown
       overlay={action}
-      trigger={["click"]}
+      trigger={['click']}
       onOpenChange={handleVisibleChange}
       open={visible}
       disabled={
-        props.editingKey !== "" ||
+        props.editingKey !== '' ||
         props?.record?.system_default === true ||
         props.hasSelected
       }
     >
-      <a className="ant-dropdown-link" href="#">
+      <a className='ant-dropdown-link' href='#'>
         <CaretDownOutlined />
       </a>
     </Dropdown>
