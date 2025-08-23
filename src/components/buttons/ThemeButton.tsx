@@ -11,7 +11,6 @@ export function ThemeButton({ onClick, style, ...rest }: ButtonProps) {
       onClick={onClick}
       style={{
         padding: '7.5px 0px',
-        backgroundColor: 'hover:#f0f2f5',
         borderRadius: '12px',
         ...style,
       }}
@@ -31,5 +30,5 @@ export function ThemeButton({ onClick, style, ...rest }: ButtonProps) {
 }
 
 const styles = {
-  icon: { fontSize: '22px', color: 'yellow' },
+  icon: { fontSize: '22px' },
 };
