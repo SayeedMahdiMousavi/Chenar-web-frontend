@@ -96,7 +96,7 @@ export const Inventory = () => {
   lazyRetry(() => import('../Expenses/Suppliers'));
 };
 export const Contacts = () => {
-  return import('../sales/Customer'), import('../Employees');
+  return (import('../sales/Customer'), import('../Employees'));
 };
 export const ExpenseAndIncome = () => {
   return (

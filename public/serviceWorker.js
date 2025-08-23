@@ -257,10 +257,10 @@
             var D = [],
               G = 0;
             do
-              D.push(void 0),
+              (D.push(void 0),
                 G++,
                 d(m.value).s(O(D.length - 1), x),
-                (m = k.next());
+                (m = k.next()));
             while (!m.done);
           });
     };
@@ -348,8 +348,8 @@
     a = l(a);
     var c = a.next();
     ka(c);
-    if (c.done) (this.b = c.value), (this.a = b);
-    else return (this.h = a), p(this, c.value, b);
+    if (c.done) ((this.b = c.value), (this.a = b));
+    else return ((this.h = a), p(this, c.value, b));
   };
   h.j = function (a) {
     this.a = a;
@@ -430,10 +430,10 @@
     try {
       var e = b.call(a.a.h, c);
       ka(e);
-      if (!e.done) return (a.a.l = !1), e;
+      if (!e.done) return ((a.a.l = !1), e);
       var g = e.value;
     } catch (f) {
-      return (a.a.h = null), na(a.a, f), r(a);
+      return ((a.a.h = null), na(a.a, f), r(a));
     }
     a.a.h = null;
     d.call(a.a, g);
@@ -443,9 +443,9 @@
     for (; a.a.a; )
       try {
         var b = a.b(a.a);
-        if (b) return (a.a.l = !1), { value: b.value, done: !1 };
+        if (b) return ((a.a.l = !1), { value: b.value, done: !1 });
       } catch (c) {
-        (a.a.b = void 0), na(a.a, c);
+        ((a.a.b = void 0), na(a.a, c));
       }
     a.a.l = !1;
     if (a.a.c) {
@@ -685,13 +685,13 @@
     var b = 0 > a ? 1 : 0;
     a = b ? -a : a;
     if (0 === a) 0 < 1 / a ? (v = w = 0) : ((w = 0), (v = 2147483648));
-    else if (isNaN(a)) (w = 0), (v = 2147483647);
+    else if (isNaN(a)) ((w = 0), (v = 2147483647));
     else if (3.4028234663852886e38 < a)
-      (w = 0), (v = ((b << 31) | 2139095040) >>> 0);
+      ((w = 0), (v = ((b << 31) | 2139095040) >>> 0));
     else if (1.1754943508222875e-38 > a)
-      (a = Math.round(a / Math.pow(2, -149))),
+      ((a = Math.round(a / Math.pow(2, -149))),
         (w = 0),
-        (v = ((b << 31) | a) >>> 0);
+        (v = ((b << 31) | a) >>> 0));
     else {
       var c = Math.floor(Math.log(a) / Math.LN2);
       a *= Math.pow(2, -c);
@@ -720,7 +720,7 @@
   function Ma(a) {
     function b(f, k) {
       for (var m = 0; 8 > m && (1 !== f || 0 < k); m++)
-        (k = f * e[m] + k), (e[m] = k & 255), (k >>>= 8);
+        ((k = f * e[m] + k), (e[m] = k & 255), (k >>>= 8));
     }
     function c() {
       for (var f = 0; 8 > f; f++) e[f] = ~e[f] & 255;
@@ -766,7 +766,7 @@
       c = a >>> 16;
     a = 10 * b + 65536 * ((0 * b) & 65535) + 65536 * ((10 * c) & 65535);
     for (b = 0 * c + ((0 * b) >>> 16) + ((10 * c) >>> 16); 4294967296 <= a; )
-      (a -= 4294967296), (b += 1);
+      ((a -= 4294967296), (b += 1));
     return new A(a >>> 0, b >>> 0);
   }
   h.toString = function () {
@@ -774,16 +774,16 @@
       var c = new A(0, 0);
       b = new A(b.a, b.b);
       for (var d = new A(10, 0), e = new A(1, 0); !(d.b & 2147483648); )
-        (d = Oa(d)), (e = Oa(e));
+        ((d = Oa(d)), (e = Oa(e)));
       for (; 0 != e.a || 0 != e.b; )
-        0 >=
+        (0 >=
           (d.b < b.b || (d.b == b.b && d.a < b.a)
             ? -1
             : d.b == b.b && d.a == b.a
               ? 0
               : 1) && ((c = c.add(e)), (b = b.sub(d))),
           (d = Na(d)),
-          (e = Na(e));
+          (e = Na(e)));
       c = [c, b];
       b = c[0];
       a = c[1].a + a;
@@ -856,9 +856,9 @@
   }
   function F(a, b, c) {
     for (; 0 < c || 127 < b; )
-      a.a.push((b & 127) | 128),
+      (a.a.push((b & 127) | 128),
         (b = ((b >>> 7) | (c << 25)) >>> 0),
-        (c >>>= 7);
+        (c >>>= 7));
     a.a.push(b);
   }
   function I(a, b, c) {
@@ -866,13 +866,13 @@
     J(a, c);
   }
   function K(a, b) {
-    for (; 127 < b; ) a.a.push((b & 127) | 128), (b >>>= 7);
+    for (; 127 < b; ) (a.a.push((b & 127) | 128), (b >>>= 7));
     a.a.push(b);
   }
   function L(a, b) {
     if (0 <= b) K(a, b);
     else {
-      for (var c = 0; 9 > c; c++) a.a.push((b & 127) | 128), (b >>= 7);
+      for (var c = 0; 9 > c; c++) (a.a.push((b & 127) | 128), (b >>= 7));
       a.a.push(1);
     }
   }
@@ -921,19 +921,19 @@
     var isNegative = 0 > c;
     b = isNegative ? 1 : 0;
     c = isNegative ? -c : c;
-    if (0 === c) (w = 0 < 1 / c ? 0 : 2147483648), (v = 0);
-    else if (isNaN(c)) (w = 2147483647), (v = 4294967295);
+    if (0 === c) ((w = 0 < 1 / c ? 0 : 2147483648), (v = 0));
+    else if (isNaN(c)) ((w = 2147483647), (v = 4294967295));
     else if (1.7976931348623157e308 < c)
-      (w = ((b << 31) | 2146435072) >>> 0), (v = 0);
+      ((w = ((b << 31) | 2146435072) >>> 0), (v = 0));
     else if (2.2250738585072014e-308 > c)
-      (c /= Math.pow(2, -1074)),
+      ((c /= Math.pow(2, -1074)),
         (w = ((b << 31) | (c / 4294967296)) >>> 0),
-        (v = c >>> 0);
+        (v = c >>> 0));
     else {
       var d = c,
         e = 0;
-      if (2 <= d) for (; 2 <= d && 1023 > e; ) e++, (d /= 2);
-      else for (; 1 > d && -1022 < e; ) (d *= 2), e--;
+      if (2 <= d) for (; 2 <= d && 1023 > e; ) (e++, (d /= 2));
+      else for (; 1 > d && -1022 < e; ) ((d *= 2), e--);
       c *= Math.pow(2, -e);
       w = ((b << 31) | ((e + 1023) << 20) | ((1048576 * c) & 1048575)) >>> 0;
       v = (4503599627370496 * c) >>> 0;
@@ -972,7 +972,7 @@
   function Q(a, b) {
     var c = b.pop();
     for (c = a.b + a.a.length() - c; 127 < c; )
-      b.push((c & 127) | 128), (c >>>= 7), a.b++;
+      (b.push((c & 127) | 128), (c >>>= 7), a.b++);
     b.push(c);
     a.b++;
   }
@@ -1104,7 +1104,7 @@
       for (var d = a.a, e = 0; e < c.length; e++) {
         var g = c.charCodeAt(e);
         if (128 > g) d.a.push(g);
-        else if (2048 > g) d.a.push((g >> 6) | 192), d.a.push((g & 63) | 128);
+        else if (2048 > g) (d.a.push((g >> 6) | 192), d.a.push((g & 63) | 128));
         else if (65536 > g)
           if (55296 <= g && 56319 >= g && e + 1 < c.length) {
             var f = c.charCodeAt(e + 1);
@@ -1117,9 +1117,9 @@
               d.a.push((g & 63) | 128),
               e++);
           } else
-            d.a.push((g >> 12) | 224),
+            (d.a.push((g >> 12) | 224),
               d.a.push(((g >> 6) & 63) | 128),
-              d.a.push((g & 63) | 128);
+              d.a.push((g & 63) | 128));
       }
       Q(a, b);
     }
@@ -1369,7 +1369,7 @@
   h.Db = function (a, b, c) {
     if (null != b)
       for (var d = 0; d < b.length; d++)
-        P(this, a, 3), c(b[d], this), P(this, a, 4);
+        (P(this, a, 3), c(b[d], this), P(this, a, 4));
   };
   h.Bb = function (a, b) {
     if (null != b)
@@ -1638,7 +1638,7 @@
       var c = a.c[b];
       return c === ib ? (a.c[b] = []) : c;
     }
-    if (a.b) return (c = a.b[b]), c === ib ? (a.b[b] = []) : c;
+    if (a.b) return ((c = a.b[b]), c === ib ? (a.b[b] = []) : c);
   }
   function U(a, b, c) {
     a = kb(a, b);
@@ -1717,7 +1717,8 @@
           );
       } else if (a.a())
         return (
-          !this.a[b] && this.b[b] && (this.a[b] = new a.b(this.b[b])), this.a[b]
+          !this.a[b] && this.b[b] && (this.a[b] = new a.b(this.b[b])),
+          this.a[b]
         );
       return this.b[b];
     }
@@ -1756,7 +1757,7 @@
     if (gb && a instanceof Uint8Array) return new Uint8Array(a);
     b = {};
     for (c in a)
-      (d = a[c]), null != d && (b[c] = 'object' == typeof d ? ob(d) : d);
+      ((d = a[c]), null != d && (b[c] = 'object' == typeof d ? ob(d) : d));
     return b;
   }
   function pb(a) {
@@ -2062,7 +2063,7 @@
         case 1:
           return p(f, Ab(a), 2);
         case 2:
-          return (b = f.b), (c = Z(a)), p(f, Cb(a, c.href), 3);
+          return ((b = f.b), (c = Z(a)), p(f, Cb(a, c.href), 3));
         case 3:
           d = f.b;
           if (!yb(a) || zb(a)) {
@@ -2099,7 +2100,7 @@
   function Fb(a, b) {
     var c, d;
     t(function (e) {
-      if (1 == e.a) return (c = b.B()), p(e, a.g.clients.matchAll(), 2);
+      if (1 == e.a) return ((c = b.B()), p(e, a.g.clients.matchAll(), 2));
       d = e.b;
       d.forEach(function (g) {
         g.postMessage(c);
@@ -2114,9 +2115,9 @@
         case 1:
           return p(g, Ab(a), 2);
         case 2:
-          return (b = g.b), p(g, Cb(a, a.a.url), 3);
+          return ((b = g.b), p(g, Cb(a, a.a.url), 3));
         case 3:
-          return (c = g.b), p(g, b.match(c.href), 4);
+          return ((c = g.b), p(g, b.match(c.href), 4));
         case 4:
           return (
             (d = g.b),
@@ -2154,8 +2155,8 @@
       if (1 == c.a) {
         if ('GET' !== a.a.method) var d = !1;
         else
-          (d = Z(a)),
-            (d = d.hostname === a.g.location.hostname ? !0 : ub(d.hostname));
+          ((d = Z(a)),
+            (d = d.hostname === a.g.location.hostname ? !0 : ub(d.hostname)));
         return d ? p(c, Db(a), 2) : c.return(a.g.fetch(a.a));
       }
       if ((d = b = c.b)) {
@@ -2199,7 +2200,7 @@
           oa(e, 0);
           break;
         case 4:
-          pa(e), (e.a = 0);
+          (pa(e), (e.a = 0));
       }
     });
   }
@@ -2219,7 +2220,7 @@
     return t(function (f) {
       switch (f.a) {
         case 1:
-          return (f.f = 2), p(f, a.g.fetch(a.a.clone()), 4);
+          return ((f.f = 2), p(f, a.g.fetch(a.a.clone()), 4));
         case 4:
           b = f.b;
           if (b) {
@@ -2324,7 +2325,7 @@
           g = {};
           f = l(e);
           for (k = f.next(); !k.done; g = { o: g.o }, k = f.next())
-            (m = k.value),
+            ((m = k.value),
               (q = l(m)),
               (g.o = q.next().value),
               q.next(),
@@ -2334,11 +2335,11 @@
                     La.o.match(Rb) && d.searchParams.delete(La.o);
                   };
                 })(g),
-              );
+              ));
           x = new Headers();
           O = l(b.headers.entries());
           for (D = O.next(); !D.done; D = O.next())
-            (G = D.value), G[1] && x.append(G[0], G[1]);
+            ((G = D.value), G[1] && x.append(G[0], G[1]));
           H.f = 2;
           return p(H, b.text(), 4);
         case 4:
@@ -2346,7 +2347,7 @@
           oa(H, 3);
           break;
         case 2:
-          return pa(H), H.return(Promise.resolve(c));
+          return (pa(H), H.return(Promise.resolve(c)));
         case 3:
           E = {};
           E.method = b.method;
