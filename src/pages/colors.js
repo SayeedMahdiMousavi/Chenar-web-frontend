@@ -6,7 +6,7 @@ export const Colors = {
   borderColor: '#D9D9D9',
   layoutBg: '#F3F3F3',
   white: '#fff',
-  textColor: '#fff',
+  textColor: '#727272',
   buttonDividerColor: '#fff',
   red: '#FF4D4F',
   gray: 'gray',

@@ -284,7 +284,7 @@ export default function Header(props) {
         justifyContent: 'space-between',
       }}
     >
-      <Col xl={'auto'} xs={isMobile ? 12 : 14}>
+      <Col xl={'auto'} xs={isMobile ? 10 : 12}>
         <Space align='center' size='middle' style={styles.header}>
           {isMiniTablet ? (
             <MobileNav />
@@ -336,7 +336,7 @@ export default function Header(props) {
         </Space>
       </Col>
 
-      <Col xl={'auto'} xs={isMobile ? 12 : 10} style={styles.spaceParent}>
+      <Col xl={'auto'} xs={isMobile ? 14 : 12} style={styles.spaceParent}>
         <Row
           justify='space-between'
           style={{ width: 'fit-content' }}
