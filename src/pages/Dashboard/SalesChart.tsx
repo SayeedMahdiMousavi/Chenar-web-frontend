@@ -13,6 +13,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { useDarkMode } from '../../Hooks/useDarkMode';
 import { Colors } from '../colors';
+import { theme } from 'antd';
 
 
 const data = [
@@ -62,6 +63,7 @@ const SalesChart = (props: any) => {
   const { i18n, t } = useTranslation();
   const [mode] = useDarkMode();
 
+  const { token } = theme.useToken();
   // const isMobileBased = useMediaQuery("(max-width: 425px)");
   return (
     <div
@@ -88,8 +90,8 @@ const SalesChart = (props: any) => {
           {/* // <div className="container-1" style={styles.chart(isMobileBased)}> */}
           <defs>
             <linearGradient id='color' x1='0' y1='0' x2='.8' y2='1'>
-              <stop offset='5%' stopColor='#21c0ad' stopOpacity={0.6} />
-              <stop offset='95%' stopColor='#21c0ad' stopOpacity={1} />
+              <stop offset='5%' stopColor={token.colorPrimary} stopOpacity={0.6} />
+              <stop offset='95%' stopColor={token.colorPrimary} stopOpacity={1} />
             </linearGradient>
           </defs>
 
@@ -117,7 +119,7 @@ const SalesChart = (props: any) => {
           <Area
             type='monotone'
             dataKey='total'
-            stroke='#21c0ad'
+            stroke={token.colorPrimary}
             fill='url(#color)'
             strokeWidth={2}
             unit='AFN'

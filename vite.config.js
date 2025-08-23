@@ -32,6 +32,17 @@ export default defineConfig({
   optimizeDeps: {
     include: ['antd'],
   },
+  build: {
+    chunkSizeWarningLimit: 4000,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          react: ['react', 'react-dom', 'react-router', 'react-router-dom'],
+          antd: ['antd', '@ant-design/icons'],
+        },
+      },
+    },
+  },
   server: {
     port: 3000,
     open: true,

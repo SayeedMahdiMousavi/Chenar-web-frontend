@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import Routers from "./pages/Router/Route";
 import { App as AntApp, ConfigProvider } from "antd";
 import { useDarkMode } from "./Hooks/useDarkMode";
-import { lightTheme, darkTheme } from './theme';
+import { tokens } from "./theme/index";
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,7 +34,7 @@ export const queryClient = new QueryClient({
 const App = () => {
   const { t } = useTranslation();
   const [mode] = useDarkMode();
-  const selectedTheme = mode === "dark" ? darkTheme : lightTheme;
+  const selectedTheme = mode === "dark" ? tokens.dark : tokens.light;
 
   console.log("t(Dir)", t("Dir"));
   return (
