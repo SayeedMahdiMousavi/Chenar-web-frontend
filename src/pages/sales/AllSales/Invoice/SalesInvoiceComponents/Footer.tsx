@@ -1,8 +1,8 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode } from 'react';
 
-import { Row, Col, Form, InputNumber } from "antd";
-import { useTranslation } from "react-i18next";
-import InvoiceSummary from "./InvoiceSummary";
+import { Row, Col, Form, InputNumber } from 'antd';
+import { useTranslation } from 'react-i18next';
+import InvoiceSummary from './InvoiceSummary';
 
 interface IProps {
   responseId: boolean;
@@ -43,55 +43,55 @@ export default function InvoicesFooter({
     return parseInt(value) > parseInt(`${total}`)
       ? total
       : parseInt(value) < 0
-      ? 0
-      : numberInputReg1.test(value)
-      ? value
-      : numberInputReg.test(value)
-      ? 0
-      : value;
+        ? 0
+        : numberInputReg1.test(value)
+          ? value
+          : numberInputReg.test(value)
+            ? 0
+            : value;
   };
 
   const expenseFormat = (value: any) =>
     parseInt(value) < 0 ? 0 : numberInputReg.test(value) ? 0 : value;
   return (
-    <Row justify="space-between" style={{ marginBottom: "30px" }}>
-      <Col style={{ width: "400px" }}>
+    <Row justify='space-between' style={{ marginBottom: '30px' }}>
+      <Col style={{ width: '400px' }}>
         <Row gutter={15}>
           <Col span={12}>
             <Form.Item
-              name="discount"
-              label={t("Sales.Customers.Discount.1")}
+              name='discount'
+              label={t('Sales.Customers.Discount.1')}
               style={styles.totalInput}
             >
               <InputNumber
                 min={0}
                 formatter={discountFormat}
                 parser={discountFormat}
-                type="number"
+                type='number'
                 disabled={globalDiscount}
                 onFocus={onFocusNumberInput}
-                className="num"
-                onChange={(value) => handleChangeExpense(value, "discount")}
-                inputMode="numeric"
+                className='num'
+                onChange={(value) => handleChangeExpense(value, 'discount')}
+                inputMode='numeric'
                 readOnly={responseId}
               />
             </Form.Item>
           </Col>
           <Col span={12}>
             <Form.Item
-              name="expense"
-              label={t("Expenses.1")}
+              name='expense'
+              label={t('Expenses.1')}
               style={styles.totalInput}
             >
               <InputNumber
                 min={0}
-                type="number"
-                className="num"
+                type='number'
+                className='num'
                 formatter={expenseFormat}
                 onFocus={onFocusNumberInput}
                 parser={expenseFormat}
-                onChange={(value) => handleChangeExpense(value, "expense")}
-                inputMode="numeric"
+                onChange={(value) => handleChangeExpense(value, 'expense')}
+                inputMode='numeric'
                 readOnly={responseId}
               />
             </Form.Item>
@@ -167,7 +167,7 @@ export default function InvoicesFooter({
           </Col>
         </Row>
       </Col>
-      <Col style={{ width: "250px" }}>
+      <Col style={{ width: '250px' }}>
         <InvoiceSummary
           {...{
             type,
@@ -189,5 +189,5 @@ interface IStyles {
 }
 
 const styles: IStyles = {
-  totalInput: { marginBottom: "10px" },
+  totalInput: { marginBottom: '10px' },
 };

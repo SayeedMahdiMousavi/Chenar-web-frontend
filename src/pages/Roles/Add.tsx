@@ -1,25 +1,25 @@
-import React, { memo, useRef, useState } from "react";
-import { Modal, Col, Row } from "antd";
-import { useMediaQuery } from "../MediaQurey";
-import { useMutation } from "react-query";
-import axiosInstance from "../ApiBaseUrl";
-import { Form, Input, message } from "antd";
-import { useTranslation } from "react-i18next";
-import Draggable, { DraggableCore } from "react-draggable";
-import { ModalDragTitle } from "../SelfComponents/ModalDragTitle";
-import { Styles } from "../styles";
-import { ActionMessage } from "../SelfComponents/TranslateComponents/ActionMessage";
-import { trimString } from "../../Functions/TrimString";
-import { manageErrors } from "../../Functions";
-import { ROLES_LIST } from "../../constants/routes";
+import React, { memo, useRef, useState } from 'react';
+import { Modal, Col, Row } from 'antd';
+import { useMediaQuery } from '../MediaQurey';
+import { useMutation } from 'react-query';
+import axiosInstance from '../ApiBaseUrl';
+import { Form, Input, message } from 'antd';
+import { useTranslation } from 'react-i18next';
+import Draggable, { DraggableCore } from 'react-draggable';
+import { ModalDragTitle } from '../SelfComponents/ModalDragTitle';
+import { Styles } from '../styles';
+import { ActionMessage } from '../SelfComponents/TranslateComponents/ActionMessage';
+import { trimString } from '../../Functions/TrimString';
+import { manageErrors } from '../../Functions';
+import { ROLES_LIST } from '../../constants/routes';
 import {
   CancelButton,
   PageNewButton,
   PermissionsFormItem,
   SaveButton,
-} from "../../components";
-import { permissionsList, USER_ROLE_M } from "../../constants/permissions";
-import { useQuery } from "react-query";
+} from '../../components';
+import { permissionsList, USER_ROLE_M } from '../../constants/permissions';
+import { useQuery } from 'react-query';
 
 interface IProps {
   handleUpdateItems: () => void;
@@ -32,12 +32,12 @@ let AddRole: React.FC<IProps> = (props) => {
   });
 
   const [disabled, setDisabled] = useState(true);
-  const isMiniTablet = useMediaQuery("(max-width: 576px)");
-  const isMobile = useMediaQuery("(max-width: 425px)");
-  const isSubBase = useMediaQuery("(max-width: 375px)");
-  const isBgTablet = useMediaQuery("(max-width: 1024px)");
-  const isTablet = useMediaQuery("(max-width: 768px)");
-  const [permissionsState , setPermissionsState] = useState<any[]>([])
+  const isMiniTablet = useMediaQuery('(max-width: 576px)');
+  const isMobile = useMediaQuery('(max-width: 425px)');
+  const isSubBase = useMediaQuery('(max-width: 375px)');
+  const isBgTablet = useMediaQuery('(max-width: 1024px)');
+  const isTablet = useMediaQuery('(max-width: 768px)');
+  const [permissionsState, setPermissionsState] = useState<any[]>([]);
 
   const showModal = () => {
     setIsShowModal({
@@ -66,7 +66,7 @@ let AddRole: React.FC<IProps> = (props) => {
       });
 
       message.success(
-        <ActionMessage name={values?.data?.name} message="Message.Add" />
+        <ActionMessage name={values?.data?.name} message='Message.Add' />,
       );
       props.handleUpdateItems();
     },
@@ -86,7 +86,7 @@ let AddRole: React.FC<IProps> = (props) => {
         mutateAddRole(data);
       })
       .catch((info) => {
-        // 
+        //
       });
   };
 
@@ -95,51 +95,57 @@ let AddRole: React.FC<IProps> = (props) => {
     reset();
   };
 
-  const handleGetPermissionFunction = async() => {
-    const {data} = await axiosInstance.get("/user_account/permit/?page=1&page_size=10000")
-    return data
-  }
+  const handleGetPermissionFunction = async () => {
+    const { data } = await axiosInstance.get(
+      '/user_account/permit/?page=1&page_size=10000',
+    );
+    return data;
+  };
 
-  const permissionData  = useQuery("",handleGetPermissionFunction) 
-  const modalRef = useRef(null);
+  const permissionData = useQuery('', handleGetPermissionFunction);
+  const modalRef = useRef<HTMLElement>(null as unknown as HTMLElement);
 
-  if (permissionData?.data?.results?.length > 0 && permissionsState?.length === 0){
-    let createPermissions = []
-    let tempPermission:{codeName:number,
-      title:string,
-      key:string,
-      id:number}[] = []
-    for (let obj of permissionData?.data?.results){
-      if (tempPermission?.length <= 4){
-        let data:{
-          codeName:number,
-          title:string,
-          key:string,
-          id:number
+  if (
+    permissionData?.data?.results?.length > 0 &&
+    permissionsState?.length === 0
+  ) {
+    let createPermissions = [];
+    let tempPermission: {
+      codeName: number;
+      title: string;
+      key: string;
+      id: number;
+    }[] = [];
+    for (let obj of permissionData?.data?.results) {
+      if (tempPermission?.length <= 4) {
+        let data: {
+          codeName: number;
+          title: string;
+          key: string;
+          id: number;
         } = {
-          codeName:obj?.id,
-          key:obj?.codename,
-          title:obj?.name,
-          id:obj.id
-        }
-        tempPermission.push(data)
-        if (tempPermission?.length === 4){
-           createPermissions.push({
+          codeName: obj?.id,
+          key: obj?.codename,
+          title: obj?.name,
+          id: obj.id,
+        };
+        tempPermission.push(data);
+        if (tempPermission?.length === 4) {
+          createPermissions.push({
             model: tempPermission?.[0]?.title,
             title: tempPermission?.[0]?.title,
             key: tempPermission?.[0]?.title,
-            children:tempPermission
-           })
-           tempPermission= []
+            children: tempPermission,
+          });
+          tempPermission = [];
         }
       }
-
     }
     // const createPermissionList = permissionData?.data?.results?.map((item:any) =>{
-      
+
     // })
-    // 
-    setPermissionsState(createPermissions)
+    //
+    setPermissionsState(createPermissions);
   }
   return (
     <div>
@@ -151,23 +157,31 @@ let AddRole: React.FC<IProps> = (props) => {
           <ModalDragTitle
             disabled={disabled}
             setDisabled={setDisabled}
-            title={t("Roles_information")}
+            title={t('Roles_information')}
           />
         }
         modalRender={(modal) => (
-          <DraggableCore disabled={disabled} nodeRef={modalRef}>{modal}</DraggableCore>
+          <DraggableCore disabled={disabled} nodeRef={modalRef}>
+            <div
+              ref={(el) => {
+                if (el) modalRef.current = el;
+              }}
+            >
+              {modal}
+            </div>
+          </DraggableCore>
         )}
         afterClose={handleAfterClose}
         destroyOnClose
         centered
         open={isShowModal.visible}
         onCancel={onCancel}
-        wrapClassName="warehouse_add_modal"
+        wrapClassName='warehouse_add_modal'
         style={Styles.modal(isMobile)}
         bodyStyle={Styles.modalBody(isMobile, isSubBase, isMiniTablet)}
-        width={isMobile ? "100%" : isTablet ? 370 : isBgTablet ? 370 : 370}
+        width={isMobile ? '100%' : isTablet ? 370 : isBgTablet ? 370 : 370}
         footer={
-          <Row justify="end" align="middle">
+          <Row justify='end' align='middle'>
             <Col>
               <CancelButton onClick={onCancel} />
               <SaveButton onClick={handleOk} loading={isLoading} />
@@ -179,19 +193,19 @@ let AddRole: React.FC<IProps> = (props) => {
           form={form}
           hideRequiredMark={true}
           scrollToFirstError={true}
-          layout="vertical"
+          layout='vertical'
         >
           <Form.Item
             label={
               <span>
-                {t("Form.Name")}
-                <span className="star">*</span>
+                {t('Form.Name')}
+                <span className='star'>*</span>
               </span>
             }
-            name="name"
-            rules={[{ required: true, message: t("Form.Name_required") }]}
+            name='name'
+            rules={[{ required: true, message: t('Form.Name_required') }]}
           >
-            <Input autoFocus autoComplete="off" />
+            <Input autoFocus autoComplete='off' />
           </Form.Item>
           {
             //@ts-ignore
@@ -201,11 +215,11 @@ let AddRole: React.FC<IProps> = (props) => {
             // treeData={permissionsList}
             treeData={permissionsState}
             form={form}
-            label={t("Manage_users.Permissions")}
+            label={t('Manage_users.Permissions')}
             rules={[
               {
                 required: true,
-                message: t("Manage_users.Permissions_required"),
+                message: t('Manage_users.Permissions_required'),
               },
             ]}
           />

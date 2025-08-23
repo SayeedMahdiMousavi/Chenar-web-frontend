@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-import axiosInstance from "../../ApiBaseUrl";
-import { useQuery } from "react-query";
-import { Table, Menu, Typography, Checkbox } from "antd";
-import { useTranslation } from "react-i18next";
-import Action from "./Action";
-import { useMediaQuery } from "../../MediaQurey";
-import { useMemo } from "react";
-import ShowDate from "../../SelfComponents/JalaliAntdComponents/ShowDate";
-import { PaginateTable, Statistics } from "../../../components/antd";
-import { OPINING_ACCOUNT_M } from "../../../constants/permissions";
-import { checkActionColumnPermissions } from "../../../Functions";
-import { TableSummaryCell } from "../../../components";
-import { useGetBaseCurrency } from "../../../Hooks";
-import { OPENING_ACCOUNT_RESULT_LIST } from "../../../constants/routes";
+import React, { useState } from 'react';
+import axiosInstance from '../../ApiBaseUrl';
+import { useQuery } from 'react-query';
+import { Table, Menu, Typography, Checkbox } from 'antd';
+import { useTranslation } from 'react-i18next';
+import Action from './Action';
+import { useMediaQuery } from '../../MediaQurey';
+import { useMemo } from 'react';
+import ShowDate from '../../SelfComponents/JalaliAntdComponents/ShowDate';
+import { PaginateTable, Statistics } from '../../../components/antd';
+import { OPINING_ACCOUNT_M } from '../../../constants/permissions';
+import { checkActionColumnPermissions } from '../../../Functions';
+import { TableSummaryCell } from '../../../components';
+import { useGetBaseCurrency } from '../../../Hooks';
+import { OPENING_ACCOUNT_RESULT_LIST } from '../../../constants/routes';
 
 const { Column } = Table;
 interface IProps {
@@ -22,8 +22,8 @@ interface IProps {
 
 const OpenAccountsTable: React.FC<IProps> = (props) => {
   const [selectResult, setSelectResult] = useState<boolean>(false);
-  const isMobile = useMediaQuery("(max-width:425px)");
-  const [search, setSearch] = useState<number | string>("");
+  const isMobile = useMediaQuery('(max-width:425px)');
+  const [search, setSearch] = useState<number | string>('');
   const { t } = useTranslation();
   const [{ currencyRate, date, debit, credit, notes }, setColumns] = useState({
     currencyRate: true,
@@ -65,33 +65,33 @@ const OpenAccountsTable: React.FC<IProps> = (props) => {
 
   const setting = (
     <Menu style={styles.settingsMenu}>
-      <Menu.Item key="1">
+      <Menu.Item key='1'>
         <Typography.Text strong={true}>
-          {t("Sales.Product_and_services.Columns")}
+          {t('Sales.Product_and_services.Columns')}
         </Typography.Text>
       </Menu.Item>
-      <Menu.Item key="2">
+      <Menu.Item key='2'>
         <Checkbox defaultChecked onChange={onChangeCredit}>
-          {t("Opening_accounts.Credit")}
+          {t('Opening_accounts.Credit')}
         </Checkbox>
       </Menu.Item>
-      <Menu.Item key="3">
+      <Menu.Item key='3'>
         <Checkbox defaultChecked onChange={onChangeDebit}>
-          {t("Opening_accounts.Debit")}
+          {t('Opening_accounts.Debit')}
         </Checkbox>
       </Menu.Item>
-      <Menu.Item key="5">
+      <Menu.Item key='5'>
         <Checkbox defaultChecked onChange={onChangeCurrencyRate}>
-          {t("Sales.Product_and_services.Currency.Currency_rate")}
+          {t('Sales.Product_and_services.Currency.Currency_rate')}
         </Checkbox>
       </Menu.Item>
-      <Menu.Item key="6">
+      <Menu.Item key='6'>
         <Checkbox onChange={onChangeDate}>
-          {t("Sales.All_sales.Invoice.Date_and_time")}
+          {t('Sales.All_sales.Invoice.Date_and_time')}
         </Checkbox>
       </Menu.Item>
-      <Menu.Item key="7">
-        <Checkbox onChange={onChangeNotes}>{t("Form.Description")}</Checkbox>
+      <Menu.Item key='7'>
+        <Checkbox onChange={onChangeNotes}>{t('Form.Description')}</Checkbox>
       </Menu.Item>
     </Menu>
   );
@@ -105,40 +105,40 @@ const OpenAccountsTable: React.FC<IProps> = (props) => {
     async ({ queryKey }) => {
       const { page, pageSize, search, order } = queryKey?.[1];
       const { data } = await axiosInstance.get(
-        `${props.baseUrl}?expand=account.id,account.name,pay_by,rec_by,currency&page=${page}&page_size=${pageSize}&ordering=${order}&search=${search}`
+        `${props.baseUrl}?expand=account.id,account.name,pay_by,rec_by,currency&page=${page}&page_size=${pageSize}&ordering=${order}&search=${search}`,
       );
-      console.log("data" , data)
+      console.log('data', data);
       return data;
     },
-    [props.baseUrl]
+    [props.baseUrl],
   );
- //@ts-ignore
+  //@ts-ignore
   const getAllCapital = React.useCallback(async ({ queryKey }) => {
     const { search } = queryKey?.[1];
     const { data } = await axiosInstance.get(
-      `${OPENING_ACCOUNT_RESULT_LIST}?expand=*&search=${search}`
+      `${OPENING_ACCOUNT_RESULT_LIST}?expand=*&search=${search}`,
     );
     return data;
   }, []);
 
   const openingAccountsResult = useQuery(
     [OPENING_ACCOUNT_RESULT_LIST, { search }],
-    getAllCapital
+    getAllCapital,
   );
 
   const columns = useMemo(
     () => (type: string, hasSelected: boolean) => {
-      const sorter = type !== "print" ? true : false;
+      const sorter = type !== 'print' ? true : false;
       return (
         <React.Fragment>
-          {type !== "result" && (
+          {type !== 'result' && (
             <Column
-              title={t("Banking.Form.Account_number").toUpperCase()}
-              dataIndex="pay_by"
-              key="pay_by"
-              width={type === "originalTable" ? 170 : undefined}
+              title={t('Banking.Form.Account_number').toUpperCase()}
+              dataIndex='pay_by'
+              key='pay_by'
+              width={type === 'originalTable' ? 170 : undefined}
               fixed={sorter}
-              className="table-col"
+              className='table-col'
               // align="center"
               render={(record: any) => {
                 return <>{record?.id} </>;
@@ -147,25 +147,25 @@ const OpenAccountsTable: React.FC<IProps> = (props) => {
             />
           )}
           <Column
-            title={t("Banking.Form.Account_name").toUpperCase()}
-            dataIndex="pay_by"
-            key="pay_by"
+            title={t('Banking.Form.Account_name').toUpperCase()}
+            dataIndex='pay_by'
+            key='pay_by'
             fixed={sorter}
             sorter={sorter && { multiple: 7 }}
             render={(text: any) => {
               return <>{text?.name} </>;
             }}
-            className="table-col"
+            className='table-col'
           />
           {debit && (
             <Column
-              title={t("Opening_accounts.Debit").toUpperCase()}
-              dataIndex="debit"
-              key="debit"
+              title={t('Opening_accounts.Debit').toUpperCase()}
+              dataIndex='debit'
+              key='debit'
               sorter={sorter && { multiple: 5 }}
               // render={(value) => <Statistics value={value} />}
               render={(_, record: any) =>
-                record?.transaction_type === "debit" ? (
+                record?.transaction_type === 'debit' ? (
                   <Statistics value={record?.amount} />
                 ) : (
                   0
@@ -175,11 +175,11 @@ const OpenAccountsTable: React.FC<IProps> = (props) => {
           )}
           {credit && (
             <Column
-              title={t("Opening_accounts.Credit").toUpperCase()}
-              dataIndex="credit"
-              key="credit"
+              title={t('Opening_accounts.Credit').toUpperCase()}
+              dataIndex='credit'
+              key='credit'
               render={(_, record: any) =>
-                record?.transaction_type === "credit" ? (
+                record?.transaction_type === 'credit' ? (
                   <Statistics value={record?.amount} />
                 ) : (
                   0
@@ -188,38 +188,38 @@ const OpenAccountsTable: React.FC<IProps> = (props) => {
               sorter={sorter && { multiple: 6 }}
             />
           )}
-          
+
           <Column
             title={t(
-              "Sales.Product_and_services.Inventory.Currency"
+              'Sales.Product_and_services.Inventory.Currency',
             ).toUpperCase()}
-            dataIndex="currency"
-            key="currency"
+            dataIndex='currency'
+            key='currency'
             sorter={sorter && { multiple: 4 }}
             render={(text: any) => {
               return <>{t(`Reports.${text?.symbol}`)} </>;
             }}
-            className="table-col"
+            className='table-col'
           />
 
           {currencyRate && (
             <Column
               title={t(
-                "Sales.Product_and_services.Currency.Currency_rate"
+                'Sales.Product_and_services.Currency.Currency_rate',
               ).toUpperCase()}
-              dataIndex="currency_rate"
-              key="currency_rate"
+              dataIndex='currency_rate'
+              key='currency_rate'
               render={(value) => <Statistics value={value} />}
-              className="table-col"
+              className='table-col'
               sorter={sorter && { multiple: 3 }}
             />
           )}
           {date && (
             <Column
-              title={t("Sales.All_sales.Invoice.Date_and_time").toUpperCase()}
-              dataIndex="date_time"
-              key="date_time"
-              className="table-col"
+              title={t('Sales.All_sales.Invoice.Date_and_time').toUpperCase()}
+              dataIndex='date_time'
+              key='date_time'
+              className='table-col'
               render={(text: string) => {
                 return <ShowDate date={text} />;
               }}
@@ -229,21 +229,21 @@ const OpenAccountsTable: React.FC<IProps> = (props) => {
 
           {notes && (
             <Column
-              title={`${t("Form.Description").toUpperCase()}`}
-              dataIndex="description"
-              key="description"
+              title={`${t('Form.Description').toUpperCase()}`}
+              dataIndex='description'
+              key='description'
               sorter={sorter && { multiple: 1 }}
-              className="table-col"
+              className='table-col'
             />
           )}
 
-          {type === "originalTable" &&
+          {type === 'originalTable' &&
             checkActionColumnPermissions(OPINING_ACCOUNT_M) && (
               <Column
-                title={t("Table.Action").toUpperCase()}
-                key="action"
+                title={t('Table.Action').toUpperCase()}
+                key='action'
                 width={isMobile ? 50 : 70}
-                align="center"
+                align='center'
                 render={(text, record) => (
                   <Action
                     record={record}
@@ -252,25 +252,25 @@ const OpenAccountsTable: React.FC<IProps> = (props) => {
                     handleUpdateItems={props?.handleUpdateItems}
                   />
                 )}
-                fixed={"right"}
-                className="table-col"
+                fixed={'right'}
+                className='table-col'
               />
             )}
         </React.Fragment>
       );
     },
-    [credit, currencyRate, date, debit, isMobile, notes, props, t]
+    [credit, currencyRate, date, debit, isMobile, notes, props, t],
   );
   const resultColumns = useMemo(() => {
     return (
       <React.Fragment>
         <Column
-          title={t("Table.Row").toUpperCase()}
-          dataIndex="serial"
-          key="serial"
+          title={t('Table.Row').toUpperCase()}
+          dataIndex='serial'
+          key='serial'
           width={40}
-          className="table-col"
-          align="center"
+          className='table-col'
+          align='center'
           fixed={false}
           render={(text, __, index) => (
             <React.Fragment>{index + 1}</React.Fragment>
@@ -278,9 +278,9 @@ const OpenAccountsTable: React.FC<IProps> = (props) => {
         />
         {credit && (
           <Column
-            title={t("Opening_accounts.Credit").toUpperCase()}
-            dataIndex="credit"
-            key="credit"
+            title={t('Opening_accounts.Credit').toUpperCase()}
+            dataIndex='credit'
+            key='credit'
             render={(_, record: any) =>
               record?.result && (
                 <Statistics
@@ -296,9 +296,9 @@ const OpenAccountsTable: React.FC<IProps> = (props) => {
         )}
         {debit && (
           <Column
-            title={t("Opening_accounts.Debit").toUpperCase()}
-            dataIndex="debit"
-            key="debit"
+            title={t('Opening_accounts.Debit').toUpperCase()}
+            dataIndex='debit'
+            key='debit'
             render={(_, record: any) =>
               record?.result && (
                 <Statistics
@@ -314,14 +314,14 @@ const OpenAccountsTable: React.FC<IProps> = (props) => {
         )}
         <Column
           title={t(
-            "Sales.Product_and_services.Inventory.Currency"
+            'Sales.Product_and_services.Inventory.Currency',
           ).toUpperCase()}
-          dataIndex="currency"
-          key="currency"
+          dataIndex='currency'
+          key='currency'
           render={(text: any) => {
             return <>{baseCurrencyName} </>;
           }}
-          className="table-col"
+          className='table-col'
         />
       </React.Fragment>
     );
@@ -332,7 +332,7 @@ const OpenAccountsTable: React.FC<IProps> = (props) => {
   };
   return (
     <PaginateTable
-      title={t("Opening_accounts.1")}
+      title={t('Opening_accounts.1')}
       model={OPINING_ACCOUNT_M}
       columns={columns}
       queryKey={props.baseUrl}
@@ -350,81 +350,112 @@ const OpenAccountsTable: React.FC<IProps> = (props) => {
       summary={() => {
         return (
           <>
-            {[openingAccountsResult?.data]?.length > 0 && [openingAccountsResult?.data]?.map((item: any, index: number) => (
-              <Table.Summary.Row>
-                <TableSummaryCell
-                  type="checkbox"
-                  index={0}
-                  isSelected={selectResult}
-                  color={"inherit"}
-                >
-                  {index === 0 && (
-                    <Checkbox
-                      onChange={onChangeSelectResult}
-                      checked={selectResult}
+            {[openingAccountsResult?.data]?.length > 0 &&
+              [openingAccountsResult?.data]?.map((item: any, index: number) => (
+                <Table.Summary.Row>
+                  <TableSummaryCell
+                    type='checkbox'
+                    index={0}
+                    isSelected={selectResult}
+                    color={'inherit'}
+                  >
+                    {index === 0 && (
+                      <Checkbox
+                        onChange={onChangeSelectResult}
+                        checked={selectResult}
+                      />
+                    )}
+                  </TableSummaryCell>
+                  <TableSummaryCell
+                    index={1}
+                    isSelected={selectResult}
+                    color={'inherit'}
+                  />
+                  <TableSummaryCell
+                    index={2}
+                    isSelected={selectResult}
+                    color={'inherit'}
+                  >
+                    {index === 0 && t('Form.Total_price')}
+                  </TableSummaryCell>
+                  <TableSummaryCell
+                    index={3}
+                    isSelected={selectResult}
+                    color={'inherit'}
+                  >
+                    {/* {item?.account?.name} */}
+                  </TableSummaryCell>
+                  {credit && (
+                    <TableSummaryCell
+                      index={4}
+                      type='total'
+                      value={
+                        Math.sign(item?.result) === -1
+                          ? Math.abs(-item?.result)
+                          : 0
+                      }
+                      isSelected={selectResult}
+                      color={'inherit'}
+                    />
+                    // <TableSummaryCell
+                    //   index={4}
+                    //   type="total"
+                    //   value={item?.credit}
+                    //   isSelected={selectResult}
+                    // />
+                  )}
+                  {debit && (
+                    <TableSummaryCell
+                      index={5}
+                      type='total'
+                      value={
+                        Math.sign(item?.result) === 1
+                          ? Math.abs(item?.result)
+                          : 0
+                      }
+                      isSelected={selectResult}
+                      color={'inherit'}
                     />
                   )}
-                </TableSummaryCell >
-                <TableSummaryCell index={1} isSelected={selectResult} color={"inherit"}/>
-                <TableSummaryCell index={2} isSelected={selectResult}color={"inherit"} >
-                  {index === 0 && t("Form.Total_price")}
-                </TableSummaryCell>
-                <TableSummaryCell index={3} isSelected={selectResult} color={"inherit"}>
-                  {/* {item?.account?.name} */}
-                </TableSummaryCell>
-                {credit && (
                   <TableSummaryCell
-                    index={4}
-                    type="total"
-                    value={
-                      Math.sign(item?.result) === -1
-                        ? Math.abs(-item?.result)
-                        : 0
-                    }
+                    index={6}
                     isSelected={selectResult}
-                    color={"inherit"}
-                  />
-                  // <TableSummaryCell
-                  //   index={4}
-                  //   type="total"
-                  //   value={item?.credit}
-                  //   isSelected={selectResult}
-                  // />
-                )}
-                {debit && (
-                  <TableSummaryCell
-                    index={5}
-                    type="total"
-                    value={
-                      Math.sign(item?.result) === 1 ? Math.abs(item?.result) : 0
-                    }
-                    isSelected={selectResult}
-                    color={"inherit"}
-                  />
-                )}
-                <TableSummaryCell index={6} isSelected={selectResult} color={"inherit"}>
-                  {baseCurrencyName}
-                </TableSummaryCell>
+                    color={'inherit'}
+                  >
+                    {baseCurrencyName}
+                  </TableSummaryCell>
 
-                {currencyRate && (
-                  <TableSummaryCell
-                    index={7}
-                    // type="total"
-                    // value={item?.currency_rate}
-                    isSelected={selectResult}
-                    color={"inherit"}
-                  />
-                )}
+                  {currencyRate && (
+                    <TableSummaryCell
+                      index={7}
+                      // type="total"
+                      // value={item?.currency_rate}
+                      isSelected={selectResult}
+                      color={'inherit'}
+                    />
+                  )}
 
-                {date && (
-                  <TableSummaryCell index={8} isSelected={selectResult} color={"inherit"}/>
-                )}
-                {notes && (
-                  <TableSummaryCell index={9} isSelected={selectResult} color={"inherit"}/>
-                )}
-                <TableSummaryCell index={10} isSelected={selectResult}color={"inherit"} />
-              </Table.Summary.Row>
-            ))}
+                  {date && (
+                    <TableSummaryCell
+                      index={8}
+                      isSelected={selectResult}
+                      color={'inherit'}
+                    />
+                  )}
+                  {notes && (
+                    <TableSummaryCell
+                      index={9}
+                      isSelected={selectResult}
+                      color={'inherit'}
+                    />
+                  )}
+                  <TableSummaryCell
+                    index={10}
+                    isSelected={selectResult}
+                    color={'inherit'}
+                  />
+                </Table.Summary.Row>
+              ))}
           </>
         );
       }}
@@ -432,7 +463,7 @@ const OpenAccountsTable: React.FC<IProps> = (props) => {
   );
 };
 const styles = {
-  settingsMenu: { width: "160px", paddingBottom: "10px" },
+  settingsMenu: { width: '160px', paddingBottom: '10px' },
 };
 
 export default OpenAccountsTable;

@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { Form, Modal, Button, Typography, Space, InputNumber } from "antd";
-import { PRODUCT_STATISTIC_SETTINGS } from "../../../LocalStorageVariables";
-import { CancelButton, SaveButton } from "../../../../components";
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Form, Modal, Button, Typography, Space, InputNumber } from 'antd';
+import { PRODUCT_STATISTIC_SETTINGS } from '../../../LocalStorageVariables';
+import { CancelButton, SaveButton } from '../../../../components';
 
 const { Title } = Typography;
 
@@ -44,7 +44,7 @@ export default function ProductStatisticsSettings(props: IProps) {
   };
   return (
     <div>
-      <div onClick={showModal}>{t("Manage_users.Settings")}</div>
+      <div onClick={showModal}>{t('Manage_users.Settings')}</div>
       <Modal
         maskClosable={false}
         open={visible}
@@ -56,7 +56,7 @@ export default function ProductStatisticsSettings(props: IProps) {
         handelAfterClose={handelAfterClose}
       >
         <Form
-          layout="vertical"
+          layout='vertical'
           onFinish={onFinish}
           hideRequiredMark={true}
           form={form}
@@ -64,19 +64,19 @@ export default function ProductStatisticsSettings(props: IProps) {
             available: 10,
           }}
         >
-          <Title level={5}>{t("Reports.Product_statistics_settings")}</Title>
+          <Title level={5}>{t('Reports.Product_statistics_settings')}</Title>
           <Form.Item
-            name="available"
-            label={t("Reports.Minimum_available")}
-            style={{ margin: "22px 0px" }}
+            name='available'
+            label={t('Reports.Minimum_available')}
+            style={{ margin: '22px 0px' }}
           >
-            <InputNumber min={0} className="num" onFocus={handelFocus} />
+            <InputNumber min={0} className='num' onFocus={handelFocus} />
           </Form.Item>
 
-          <Form.Item className="formItem textAlign__end">
+          <Form.Item className='formItem textAlign__end'>
             <Space>
               <CancelButton onClick={handleCancel} />
-              <SaveButton htmlType="submit" />
+              <SaveButton htmlType='submit' />
             </Space>
           </Form.Item>
         </Form>

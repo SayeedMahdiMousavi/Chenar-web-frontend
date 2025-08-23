@@ -145,11 +145,11 @@ const DebitAndCreditTable: React.FC<IProps> = (props) => {
       const customerId = customer?.value ?? '';
       const transType = transactionType?.value ?? '';
       const { data } = await axiosInstance.get(
-        `${props.baseUrl}?page=${page}&page_size=${pageSize}&ordering=${order}&currency=${currencyId}&date_time_after=${startDate}&date_time_before=${endDate}&search=${search}&account=${customerId}&transaction_type=${transType}`
+        `${props.baseUrl}?page=${page}&page_size=${pageSize}&ordering=${order}&currency=${currencyId}&date_time_after=${startDate}&date_time_before=${endDate}&search=${search}&account=${customerId}&transaction_type=${transType}`,
       );
       return data;
     },
-    [props.baseUrl]
+    [props.baseUrl],
   );
 
   const result = useQuery(
@@ -174,10 +174,10 @@ const DebitAndCreditTable: React.FC<IProps> = (props) => {
         transType,
       }: any = queryKey?.[1];
       const { data } = await axiosInstance.get(
-        `${DEBIT_CREDIT_RESULT_LIST}?search=${search}&account=${customerId}&date_time_after=${startDate}&date_time_before=${endDate}&currency=${currencyId}&transaction_type=${transType}`
+        `${DEBIT_CREDIT_RESULT_LIST}?search=${search}&account=${customerId}&date_time_after=${startDate}&date_time_before=${endDate}&currency=${currencyId}&transaction_type=${transType}`,
       );
       return data;
-    }
+    },
   );
 
   const resultData = result?.data?.results;
@@ -455,7 +455,7 @@ const DebitAndCreditTable: React.FC<IProps> = (props) => {
 
               <Column
                 title={t(
-                  'Sales.Product_and_services.Inventory.Currency'
+                  'Sales.Product_and_services.Inventory.Currency',
                 ).toUpperCase()}
                 dataIndex='currency_name'
                 key='currency_name'
@@ -465,7 +465,7 @@ const DebitAndCreditTable: React.FC<IProps> = (props) => {
 
               <Column
                 title={t(
-                  'Sales.Product_and_services.Currency.Currency_rate'
+                  'Sales.Product_and_services.Currency.Currency_rate',
                 ).toUpperCase()}
                 dataIndex='currency_rate'
                 key='currency_rate'
@@ -519,7 +519,7 @@ const DebitAndCreditTable: React.FC<IProps> = (props) => {
 
               <Column
                 title={t(
-                  'Sales.Product_and_services.Inventory.Currency'
+                  'Sales.Product_and_services.Inventory.Currency',
                 ).toUpperCase()}
                 dataIndex='currency_calc_name'
                 key='currency_calc_name'
@@ -529,7 +529,7 @@ const DebitAndCreditTable: React.FC<IProps> = (props) => {
 
               <Column
                 title={t(
-                  'Sales.Product_and_services.Currency.Currency_rate'
+                  'Sales.Product_and_services.Currency.Currency_rate',
                 ).toUpperCase()}
                 dataIndex='currency_rate_calc'
                 key='currency_rate_calc'
@@ -542,7 +542,7 @@ const DebitAndCreditTable: React.FC<IProps> = (props) => {
         </React.Fragment>
       );
     },
-    [calCurrency, details, isCurrency, t]
+    [calCurrency, details, isCurrency, t],
   );
 
   const resultColumns = useMemo(
@@ -588,21 +588,21 @@ const DebitAndCreditTable: React.FC<IProps> = (props) => {
             return record?.total_receivement > record?.total_payment
               ? t('Debit')
               : record?.total_receivement < record?.total_payment
-              ? t('Credit')
-              : null;
+                ? t('Credit')
+                : null;
           }}
         />
 
         <Column
           title={t(
-            'Sales.Product_and_services.Inventory.Currency'
+            'Sales.Product_and_services.Inventory.Currency',
           ).toUpperCase()}
           dataIndex='currency'
           key='currency'
         />
       </React.Fragment>
     ),
-    [t]
+    [t],
   );
 
   const printFilters = (
@@ -708,8 +708,8 @@ const DebitAndCreditTable: React.FC<IProps> = (props) => {
                     {item?.total_receivement > item?.total_payment
                       ? t('Debit')
                       : item?.total_receivement < item?.total_payment
-                      ? t('Credit')
-                      : null}
+                        ? t('Credit')
+                        : null}
                   </TableSummaryCell>
                 </React.Fragment>
               )}

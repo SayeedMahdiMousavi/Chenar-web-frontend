@@ -1,22 +1,22 @@
-import React, { useCallback, useMemo } from "react";
-import axiosInstance from "../ApiBaseUrl";
-import { useQueryClient, useMutation } from "react-query";
-import Action from "./Action";
-import { Table, Switch, Typography, Space, Input } from "antd";
-import { useTranslation } from "react-i18next";
-import { useMediaQuery } from "../MediaQurey";
-import { checkActionColumnPermissions } from "../../Functions";
-import { CURRENCY_M } from "../../constants/permissions";
-import { PaginateTable } from "../../components/antd/PaginateTable";
-import { CURRENCY_LIST, CURRENCY_RATE_LIST } from "../../constants/routes";
+import React, { useCallback, useMemo } from 'react';
+import axiosInstance from '../ApiBaseUrl';
+import { useQueryClient, useMutation } from 'react-query';
+import Action from './Action';
+import { Table, Switch, Typography, Space, Input } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { useMediaQuery } from '../MediaQurey';
+import { checkActionColumnPermissions } from '../../Functions';
+import { CURRENCY_M } from '../../constants/permissions';
+import { PaginateTable } from '../../components/antd/PaginateTable';
+import { CURRENCY_LIST, CURRENCY_RATE_LIST } from '../../constants/routes';
 // import { TrueFalseIcon } from "../../components";
-import { useGetBaseCurrency } from "../../Hooks";
+import { useGetBaseCurrency } from '../../Hooks';
 
 const { Column } = Table;
 interface Props {}
 const CurrencyTable: React.FC<Props> = (props) => {
   const queryClient = useQueryClient();
-  const isMobile = useMediaQuery("(max-width:400px)");
+  const isMobile = useMediaQuery('(max-width:400px)');
   const { t } = useTranslation();
   //get base currency
   const baseCurrency = useGetBaseCurrency();
@@ -32,13 +32,13 @@ const CurrencyTable: React.FC<Props> = (props) => {
       onError: (err, variables, previousValue) => {
         queryClient.setQueryData(CURRENCY_LIST, previousValue);
       },
-    }
+    },
   );
 
   const handleGetCurrencyList = async ({ queryKey }: any) => {
     const { page, pageSize, search, order } = queryKey?.[1];
     const { data } = await axiosInstance.get(
-      `${CURRENCY_LIST}?page=${page}&page_size=${pageSize}&search=${search}&ordering=${order}`
+      `${CURRENCY_LIST}?page=${page}&page_size=${pageSize}&search=${search}&ordering=${order}`,
     );
 
     return data;
@@ -46,36 +46,34 @@ const CurrencyTable: React.FC<Props> = (props) => {
 
   const handleChangeStatus = useCallback(
     async (value: boolean, symbol: number) => {
-      
-
       mutateActiveCurrency({
         value: { is_active: value },
         symbol: symbol,
       });
     },
-    [mutateActiveCurrency]
+    [mutateActiveCurrency],
   );
 
   const columns = useMemo(
     () => (type: string) => {
-      const sorter = type !== "print" ? true : false;
+      const sorter = type !== 'print' ? true : false;
       return (
         <React.Fragment>
           <Column
-            title={t("Form.Name").toUpperCase()}
-            dataIndex="name"
+            title={t('Form.Name').toUpperCase()}
+            dataIndex='name'
             fixed={sorter}
-            key="name"
-            className="table-col"
+            key='name'
+            className='table-col'
             sorter={sorter && { multiple: 3 }}
-            width="20%"
+            width='20%'
           />
 
           <Column
-            title={t("Sales.Product_and_services.Units.Symbol")}
-            dataIndex="symbol"
-            key="symbol"
-            className="table-col"
+            title={t('Sales.Product_and_services.Units.Symbol')}
+            dataIndex='symbol'
+            key='symbol'
+            className='table-col'
             sorter={sorter && { multiple: 2 }}
             width={120}
           />
@@ -94,9 +92,9 @@ const CurrencyTable: React.FC<Props> = (props) => {
             sorter={sorter && { multiple: 1 }}
           /> */}
           <Column
-            title={t("Sales.Product_and_services.Status").toUpperCase()}
-            dataIndex="is_active"
-            key="is_active"
+            title={t('Sales.Product_and_services.Status').toUpperCase()}
+            dataIndex='is_active'
+            key='is_active'
             render={(value, record: any) => {
               return (
                 <Switch
@@ -108,14 +106,14 @@ const CurrencyTable: React.FC<Props> = (props) => {
               );
             }}
           />
-          {type !== "print" && checkActionColumnPermissions(CURRENCY_M) && (
+          {type !== 'print' && checkActionColumnPermissions(CURRENCY_M) && (
             <Column
-              title={t("Table.Action")}
-              key="action"
-              align="center"
+              title={t('Table.Action')}
+              key='action'
+              align='center'
               width={isMobile ? 50 : 70}
-              fixed={sorter ? "right" : undefined}
-              className="table-col"
+              fixed={sorter ? 'right' : undefined}
+              className='table-col'
               //@ts-ignore
               render={(text, record) => <Action record={record} />}
             />
@@ -123,21 +121,21 @@ const CurrencyTable: React.FC<Props> = (props) => {
         </React.Fragment>
       );
     },
-    [handleChangeStatus, isMobile, t]
+    [handleChangeStatus, isMobile, t],
   );
 
   return (
     <PaginateTable
-      title={t("Sales.Product_and_services.Currency.1")}
+      title={t('Sales.Product_and_services.Currency.1')}
       columns={columns}
       model={CURRENCY_M}
       queryKey={CURRENCY_LIST}
       handleGetData={handleGetCurrencyList}
       rowSelectable={false}
-      type="currency"
-      header={() => (
+      type='currency'
+      header={
         <Space style={styles.header} size={15}>
-          <Typography.Text>{t("Base_currency")}</Typography.Text>
+          <Typography.Text>{t('Base_currency')}</Typography.Text>
           <Input
             value={baseCurrency?.data?.name}
             suffix={baseCurrency?.data?.symbol}
@@ -145,14 +143,14 @@ const CurrencyTable: React.FC<Props> = (props) => {
             style={styles.input}
           />
         </Space>
-      )}
+      }
     />
   );
 };
 
 const styles = {
-  header: { paddingInlineStart: "15px" },
-  input: { width: "150px" },
+  header: { paddingInlineStart: '15px' },
+  input: { width: '150px' },
 };
 
 export default CurrencyTable;

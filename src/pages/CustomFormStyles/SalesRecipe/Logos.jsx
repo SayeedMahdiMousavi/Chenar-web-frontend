@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { Modal, Col, Row, Button } from "antd";
-import { useMediaQuery } from "../../MediaQurey";
+import React, { useState } from 'react';
+import { Modal, Col, Row, Button } from 'antd';
+import { useMediaQuery } from '../../MediaQurey';
 // import { connect } from "react-redux";
-import ImgCrop from "antd-img-crop";
+import ImgCrop from 'antd-img-crop';
 
 import {
   Form,
@@ -18,15 +18,15 @@ import {
   // Tabs,
   message,
   // DatePicker,
-} from "antd";
+} from 'antd';
 
 // import { QuestionCircleOutlined } from "@ant-design/icons";
 
 // import { useDatabase } from "@nozbe/watermelondb/hooks";
 // import withObservables from "@nozbe/with-observables";
 // import { withDatabase } from "@nozbe/watermelondb/DatabaseProvider";
-import { useTranslation } from "react-i18next";
-import { SaveButton } from "../../../components";
+import { useTranslation } from 'react-i18next';
+import { SaveButton } from '../../../components';
 // const { Option } = Select;
 // const { TabPane } = Tabs;
 // const AutoCompleteOption = AutoComplete.Option;
@@ -56,17 +56,17 @@ const AddEmployee = (props) => {
   // const [imageUrl, setImageUrl] = useState("");
   const [fileList, setFileList] = useState([
     {
-      uid: "-1",
-      name: "image.png",
-      status: "done",
-      url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+      uid: '-1',
+      name: 'image.png',
+      status: 'done',
+      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
     },
   ]);
 
-  const isBgTablet = useMediaQuery("(max-width: 1024px)");
-  const isTablet = useMediaQuery("(max-width: 768px)");
+  const isBgTablet = useMediaQuery('(max-width: 1024px)');
+  const isTablet = useMediaQuery('(max-width: 768px)');
   // const isTablet1 = useMediaQuery("(max-width: 765px)");
-  const isMobile = useMediaQuery("(max-width: 425px)");
+  const isMobile = useMediaQuery('(max-width: 425px)');
   // const isSubBase = useMediaQuery("(max-width: 375px)");
   const showModal = () => {
     setIsShowModal({
@@ -75,7 +75,7 @@ const AddEmployee = (props) => {
   };
 
   //   const normFile = (e) => {
-  //     
+  //
   //     if (Array.isArray(e)) {
   //       return e;
   //     }
@@ -87,7 +87,7 @@ const AddEmployee = (props) => {
     });
   };
   const handleOk = () => {
-    // 
+    //
     form
       .validateFields()
       .then(async (values) => {
@@ -138,7 +138,7 @@ const AddEmployee = (props) => {
         //   visible: false,
         // });
         form.resetFields();
-        message.info(`${t("Message.Add")} ${values.name}`);
+        message.info(`${t('Message.Add')} ${values.name}`);
       })
       .catch((info) => {
         message.error(info);
@@ -168,28 +168,28 @@ const AddEmployee = (props) => {
     //   <Col span={24}>
     <div>
       <Avatar
-        shape="square"
-        alt={`${t("Company.Logo")}`}
+        shape='square'
+        alt={`${t('Company.Logo')}`}
         size={55}
-        className="cursor"
+        className='cursor'
         onClick={showModal}
-        src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+        src='https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
       >
-        {t("Company.Logo")}
+        {t('Company.Logo')}
       </Avatar>
       <Modal
         maskClosable={false}
-        title="Logos"
+        title='Logos'
         centered
         style={styles.model(isMobile)}
         open={isShowModal.visible}
         onCancel={onCancel}
         width={
-          isMobile ? "100%" : isTablet ? "80%" : isBgTablet ? "60%" : "35%"
+          isMobile ? '100%' : isTablet ? '80%' : isBgTablet ? '60%' : '35%'
         }
         //   bodyStyle={styles.bodyStyle(isMobile, isSubBase, isTablet, isTablet1)}
         footer={
-          <Row justify="end" align="middle">
+          <Row justify='end' align='middle'>
             <Col>
               <SaveButton onClick={handleOk} />
             </Col>
@@ -204,21 +204,21 @@ const AddEmployee = (props) => {
           scrollToFirstError={true}
         >
           <Form.Item
-            name="logo"
-            valuePropName="fileList"
+            name='logo'
+            valuePropName='fileList'
             // getValueFromEvent={normFile}
             style={styles.margin}
           >
             <ImgCrop rotate>
               <Upload
-                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                listType="picture-card"
+                action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
+                listType='picture-card'
                 fileList={fileList}
                 onChange={onChange}
                 onPreview={onPreview}
                 multiple={true}
               >
-                {fileList.length < 3 && "+ Upload"}
+                {fileList.length < 3 && '+ Upload'}
               </Upload>
             </ImgCrop>
           </Form.Item>
@@ -230,23 +230,23 @@ const AddEmployee = (props) => {
 const styles = {
   model: (isMobile) => ({ top: isMobile ? 0 : 20 }),
   bodyStyle: (isMobile, isSubBase, isTablit, isTablit1) => ({
-    height: isMobile ? "75vh" : isTablit ? "66vh" : "27rem",
-    overflowY: isTablit1 ? "scroll" : "",
-    padding: isSubBase ? "20px" : "24px",
-    paddingTop: "10px",
+    height: isMobile ? '75vh' : isTablit ? '66vh' : '27rem',
+    overflowY: isTablit1 ? 'scroll' : '',
+    padding: isSubBase ? '20px' : '24px',
+    paddingTop: '10px',
   }),
-  name: { marginBottom: ".0rem" },
-  address: { marginBottom: ".5rem" },
+  name: { marginBottom: '.0rem' },
+  address: { marginBottom: '.5rem' },
 
-  drop: { height: "100%" },
+  drop: { height: '100%' },
 
   tab: (isMobile) => ({
-    marginBottom: "0rem",
-    marginTop: isMobile ? "1rem" : "2rem",
+    marginBottom: '0rem',
+    marginTop: isMobile ? '1rem' : '2rem',
   }),
-  marginBottom: { marginBottom: ".3rem" },
+  marginBottom: { marginBottom: '.3rem' },
   firstRow: (isMobile, isTablitBase) => ({
-    height: isMobile ? "13.7rem" : isTablitBase ? "12.2rem" : "10.2rem",
+    height: isMobile ? '13.7rem' : isTablitBase ? '12.2rem' : '10.2rem',
   }),
 };
 // const enhancProduct = withObservables(["groups"], ({ database }) => ({

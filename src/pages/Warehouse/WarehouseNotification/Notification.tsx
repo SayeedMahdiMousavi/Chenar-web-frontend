@@ -120,30 +120,30 @@ const Notification: React.FC<IProps> = ({ rtl }) => {
     form.setFieldsValue({
       amount_min:
         record?.min_max?.filter?.(
-          (item: any) => item?.warehouse === warehouse
+          (item: any) => item?.warehouse === warehouse,
         )?.[0]?.amount_min &&
         parseFloat(
           record?.min_max?.filter?.(
-            (item: any) => item?.warehouse === warehouse
-          )?.[0]?.amount_min
+            (item: any) => item?.warehouse === warehouse,
+          )?.[0]?.amount_min,
         ),
       amount_max:
         record?.min_max?.filter?.(
-          (item: any) => item?.warehouse === warehouse
+          (item: any) => item?.warehouse === warehouse,
         )?.[0]?.amount_max &&
         parseFloat(
           record?.min_max?.filter?.(
-            (item: any) => item?.warehouse === warehouse
-          )?.[0]?.amount_max
+            (item: any) => item?.warehouse === warehouse,
+          )?.[0]?.amount_max,
         ),
       unit: record?.min_max?.filter?.(
-        (item: any) => item?.warehouse === warehouse
+        (item: any) => item?.warehouse === warehouse,
       )?.[0]
         ? record?.min_max?.filter?.(
-            (item: any) => item?.warehouse === warehouse
+            (item: any) => item?.warehouse === warehouse,
           )?.[0]?.unit?.id
         : record?.product_units.filter(
-            (item: any) => item?.base_unit === true
+            (item: any) => item?.base_unit === true,
           )?.[0]?.unit?.id,
       // ...record,
     });
@@ -162,7 +162,7 @@ const Notification: React.FC<IProps> = ({ rtl }) => {
           <ActionMessage
             name={product}
             message={'Warehouse.Notification.Max_min_save_message'}
-          />
+          />,
         );
         setEditingKey('');
       })
@@ -186,7 +186,7 @@ const Notification: React.FC<IProps> = ({ rtl }) => {
           <ActionMessage
             name={product}
             message={'Warehouse.Notification.Max_min_save_message'}
-          />
+          />,
         );
         setEditingKey('');
       })
@@ -212,19 +212,19 @@ const Notification: React.FC<IProps> = ({ rtl }) => {
         amount_max: row?.amount_max,
         product: record?.id,
         unit: record?.product_units.filter(
-          (item: any) => item?.base_unit === true
+          (item: any) => item?.base_unit === true,
         )?.[0]?.unit?.id,
         warehouse: warehouse,
       };
 
       const productMinMax = record?.min_max?.filter?.(
-        (item: any) => item?.warehouse === warehouse
+        (item: any) => item?.warehouse === warehouse,
       );
 
       if (row?.amount_min >= row?.amount_max) {
         message.error(
           `${t('Warehouse.Notification.Max_min_Match_message')}`,
-          2.5
+          2.5,
         );
         return;
       } else {
@@ -275,13 +275,13 @@ const Notification: React.FC<IProps> = ({ rtl }) => {
       render: (text: any, record: any) => (
         <>
           {record?.min_max?.filter?.(
-            (item: any) => item?.warehouse === warehouse
+            (item: any) => item?.warehouse === warehouse,
           )?.[0]
             ? record?.min_max?.filter?.(
-                (item: any) => item?.warehouse === warehouse
+                (item: any) => item?.warehouse === warehouse,
               )?.[0]?.unit?.name
             : record?.product_units.filter(
-                (item: any) => item?.base_unit === true
+                (item: any) => item?.base_unit === true,
               )?.[0]?.unit?.name}
         </>
       ),
@@ -289,7 +289,7 @@ const Notification: React.FC<IProps> = ({ rtl }) => {
 
     {
       title: `${t(
-        'Warehouse.Notification.Minimum_product_notification'
+        'Warehouse.Notification.Minimum_product_notification',
       ).toUpperCase()}`,
       dataIndex: 'amount_min',
       editable: true,
@@ -298,19 +298,19 @@ const Notification: React.FC<IProps> = ({ rtl }) => {
       render: (text: any, record: any) => (
         <a>
           {record?.min_max?.filter?.(
-            (item: any) => item?.warehouse === warehouse
+            (item: any) => item?.warehouse === warehouse,
           )?.[0] &&
             parseFloat(
               record?.min_max?.filter?.(
-                (item: any) => item?.warehouse === warehouse
-              )?.[0]?.amount_min
+                (item: any) => item?.warehouse === warehouse,
+              )?.[0]?.amount_min,
             )}
         </a>
       ),
     },
     {
       title: `${t(
-        'Warehouse.Notification.Maximum_product_notification'
+        'Warehouse.Notification.Maximum_product_notification',
       ).toUpperCase()}`,
       dataIndex: 'amount_max',
       editable: true,
@@ -319,12 +319,12 @@ const Notification: React.FC<IProps> = ({ rtl }) => {
       render: (text: any, record: any) => (
         <a>
           {record?.min_max?.filter?.(
-            (item: any) => item?.warehouse === warehouse
+            (item: any) => item?.warehouse === warehouse,
           )?.[0] &&
             parseFloat(
               record?.min_max?.filter?.(
-                (item: any) => item?.warehouse === warehouse
-              )?.[0]?.amount_max
+                (item: any) => item?.warehouse === warehouse,
+              )?.[0]?.amount_max,
             )}
         </a>
       ),
@@ -394,21 +394,21 @@ const Notification: React.FC<IProps> = ({ rtl }) => {
   const handleGetWarehouseNotifications = async ({ queryKey }: any) => {
     const { page, pageSize, search, order } = queryKey?.[1];
     const { data } = await axiosInstance.get(
-      `${baseUrl}?page=${page}&page_size=${pageSize}&ordering=${order}&status=active&search=${search}&expand=min_max,min_max.unit,product_units,product_units.unit&omit=product_statistic,is_pine,cht_account_id,barcode,category,created,description,is_asset,is_have_vip_price,modified,modified_by,original_barcode,photo,status,supplier,created_by`
+      `${baseUrl}?page=${page}&page_size=${pageSize}&ordering=${order}&status=active&search=${search}&expand=min_max,min_max.unit,product_units,product_units.unit&omit=product_statistic,is_pine,cht_account_id,barcode,category,created,description,is_asset,is_have_vip_price,modified,modified_by,original_barcode,photo,status,supplier,created_by`,
     );
 
     return data;
   };
   const { isLoading, isFetching, data } = useQuery(
     [`${baseUrl}min_max/`, { page, pageSize, search, order }],
-    handleGetWarehouseNotifications
+    handleGetWarehouseNotifications,
   );
   const hasMore = Boolean(data?.nextPageNumber);
   React.useEffect(() => {
     if (hasMore) {
       queryClient.prefetchQuery(
         [baseUrl, { page: page + 1, pageSize, search, order }],
-        handleGetWarehouseNotifications
+        handleGetWarehouseNotifications,
       );
     }
   }, [order, data, page, pageSize, search, queryClient, hasMore]);

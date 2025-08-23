@@ -1,7 +1,7 @@
-import React from "react";
-import { Menu, MenuItemProps, Button } from "antd";
-import { DownOutlined, UpOutlined } from "@ant-design/icons";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import { Menu, MenuItemProps, Button } from 'antd';
+import { DownOutlined, UpOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 
 interface IProps extends MenuItemProps {
   visible: boolean;
@@ -22,26 +22,26 @@ export function TableSettingsMenuMoreItem({
   return (
     <Menu.Item
       {...rest}
-      key="more"
+      key='more'
       onClick={handelVisibility}
-      className="table__header2-setting-showMore"
-      style={{ textAlign: "end" }}
+      className='table__header2-setting-showMore'
+      style={{ textAlign: 'end' }}
     >
       {visible ? (
         <Button
-          type="link"
+          type='link'
           icon={<UpOutlined />}
-          className="table__header2-setting-showMore"
+          className='table__header2-setting-showMore'
         >
-          {t("Sales.Product_and_services.Show_less")}
+          {t('Sales.Product_and_services.Show_less')}
         </Button>
       ) : (
         <Button
-          type="link"
+          type='link'
           icon={<DownOutlined />}
-          className="table__header2-setting-showMore"
+          className='table__header2-setting-showMore'
         >
-          {t("Sales.Product_and_services.Show_More")}
+          {t('Sales.Product_and_services.Show_More')}
         </Button>
       )}
     </Menu.Item>

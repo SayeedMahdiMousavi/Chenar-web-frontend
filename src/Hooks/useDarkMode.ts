@@ -1,8 +1,8 @@
-import { useContext } from "react";
-import { ThemeContext } from "../context/ChangeThem";
+import { useContext } from 'react';
+import { ThemeContext } from '../context/ChangeThem';
 // import { dark } from "../vars";
 
-type DarkModeState = "dark" | "light";
+type DarkModeState = 'dark' | 'light';
 // type SetDarkModeState = React.Dispatch<React.SetStateAction<DarkModeState>>;
 export const useDarkMode = () => {
   //@ts-ignore

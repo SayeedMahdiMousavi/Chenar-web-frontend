@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useMutation, useQueryClient } from "react-query";
-import axiosInstance from "../ApiBaseUrl";
-import { Drawer, Form, Col, Row, Input, Checkbox, Space, Modal } from "antd";
-import { useMediaQuery } from "../MediaQurey";
-import { trimString } from "../../Functions/TrimString";
-import { currencyRateBaseUrl } from "./Currency rate/CurrencyRate";
-import { CancelButton, PageNewButton, SaveButton } from "../../components";
-import { CURRENCY_M } from "../../constants/permissions";
-import { addMessage, manageErrors } from "../../Functions";
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useMutation, useQueryClient } from 'react-query';
+import axiosInstance from '../ApiBaseUrl';
+import { Drawer, Form, Col, Row, Input, Checkbox, Space, Modal } from 'antd';
+import { useMediaQuery } from '../MediaQurey';
+import { trimString } from '../../Functions/TrimString';
+import { currencyRateBaseUrl } from './Currency rate/CurrencyRate';
+import { CancelButton, PageNewButton, SaveButton } from '../../components';
+import { CURRENCY_M } from '../../constants/permissions';
+import { addMessage, manageErrors } from '../../Functions';
 
 interface IProps {}
 const AddCurrency: React.FC<IProps> = (props) => {
@@ -16,8 +16,8 @@ const AddCurrency: React.FC<IProps> = (props) => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const [visible, setVisible] = useState<boolean>(false);
-  const isTablet = useMediaQuery("(max-width:768px)");
-  const isMobile = useMediaQuery("(max-width:425px)");
+  const isTablet = useMediaQuery('(max-width:768px)');
+  const isMobile = useMediaQuery('(max-width:425px)');
 
   const showDrawer = () => {
     setVisible(true);
@@ -77,15 +77,15 @@ const AddCurrency: React.FC<IProps> = (props) => {
       <PageNewButton onClick={showDrawer} model={CURRENCY_M} />
       <Modal
         maskClosable={false}
-        title={t("Sales.Product_and_services.Currency.Currency_information")}
-        width={isMobile ? "80%" : isTablet ? 400 : 400}
+        title={t('Sales.Product_and_services.Currency.Currency_information')}
+        width={isMobile ? '80%' : isTablet ? 400 : 400}
         onCancel={onClose}
         open={visible}
         destroyOnClose
         // afterClose={handleAfterClose}
         // placement={t("Dir") === "ltr" ? "right" : "left"}
         footer={
-          <Row justify="end" align="middle">
+          <Row justify='end' align='middle'>
             <Col>
               <Space>
                 <CancelButton onClick={onClose} />
@@ -96,7 +96,7 @@ const AddCurrency: React.FC<IProps> = (props) => {
         }
       >
         <Form
-          layout="vertical"
+          layout='vertical'
           hideRequiredMark
           form={form}
           initialValues={{ isActive: false }}
@@ -104,25 +104,25 @@ const AddCurrency: React.FC<IProps> = (props) => {
           <Row>
             <Col span={24}>
               <Form.Item
-                name="name"
+                name='name'
                 label={
                   <p>
-                    {t("Form.Name")} <span className="star">*</span>
+                    {t('Form.Name')} <span className='star'>*</span>
                   </p>
                 }
                 rules={[
-                  { required: true, message: `${t("Form.Name_required")}` },
+                  { required: true, message: `${t('Form.Name_required')}` },
                 ]}
               >
-                <Input autoFocus autoComplete="off" />
+                <Input autoFocus autoComplete='off' />
               </Form.Item>
             </Col>
             <Col span={24}>
               <Form.Item
-                name="symbol"
+                name='symbol'
                 label={
                   <p>
-                    {t("Form.Symbol")} <span className="star">*</span>
+                    {t('Form.Symbol')} <span className='star'>*</span>
                   </p>
                 }
                 rules={[
@@ -130,7 +130,7 @@ const AddCurrency: React.FC<IProps> = (props) => {
                     required: true,
                     whitespace: true,
                     message: `${t(
-                      "Sales.Product_and_services.Units.Required_symbol"
+                      'Sales.Product_and_services.Units.Required_symbol',
                     )}`,
                   },
                 ]}
@@ -139,9 +139,9 @@ const AddCurrency: React.FC<IProps> = (props) => {
               </Form.Item>
             </Col>
             <Col span={24}>
-              <Form.Item name="isActive" valuePropName="checked">
+              <Form.Item name='isActive' valuePropName='checked'>
                 <Checkbox>
-                  {t("Sales.Product_and_services.Currency.Is_active")}
+                  {t('Sales.Product_and_services.Currency.Is_active')}
                 </Checkbox>
               </Form.Item>
             </Col>

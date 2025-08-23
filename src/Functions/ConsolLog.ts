@@ -1,3 +1,1 @@
-export const consoleLog = (value: any) => {
-  
-};
+export const consoleLog = (value: any) => {};

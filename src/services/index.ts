@@ -1,5 +1,24 @@
+import {
+  ApiService,
+  authService,
+  productService,
+  customerService,
+} from './api';
+import { supplierService } from './supplier';
+import { staffService } from './staff';
+import { invoiceService } from './invoice';
+import { financeService } from './finance';
+import { inventoryService } from './inventory';
+import { reportsService } from './reports';
+import { bankingService } from './banking';
+
 // Export all services
-export { ApiService, authService, productService, customerService } from './api';
+export {
+  ApiService,
+  authService,
+  productService,
+  customerService,
+} from './api';
 export { supplierService } from './supplier';
 export { staffService } from './staff';
 export { invoiceService } from './invoice';
@@ -9,27 +28,23 @@ export { reportsService } from './reports';
 export { bankingService } from './banking';
 
 // Export types
-export type { 
-  ApiResponse, 
-  PaginationParams, 
-  ApiError 
-} from './api';
+export type { ApiResponse, PaginationParams, ApiError } from './api';
 
-export type { 
-  Supplier, 
-  SupplierCategory, 
-  CreateSupplierData 
+export type {
+  Supplier,
+  SupplierCategory,
+  CreateSupplierData,
 } from './supplier';
 
-export type { 
-  Staff, 
-  StaffCategory, 
+export type {
+  Staff,
+  StaffCategory,
   CreateStaffData,
   StaffSalary,
-  StaffPayment 
+  StaffPayment,
 } from './staff';
 
-export type { 
+export type {
   Invoice,
   InvoiceItem,
   CreateInvoiceData,
@@ -37,10 +52,10 @@ export type {
   PurchaseOrder,
   Estimate,
   ProductTransfer,
-  ProductAdjustment 
+  ProductAdjustment,
 } from './invoice';
 
-export type { 
+export type {
   CashFlowEntry,
   BankTransfer,
   CustomerPayment,
@@ -48,30 +63,27 @@ export type {
   ExchangeUnionEntry,
   Withdrawal,
   CreateCashFlowData,
-  CreateBankTransferData 
+  CreateBankTransferData,
 } from './finance';
 
-export type { 
+export type {
   Warehouse,
   InventoryItem,
   StockMovement,
   LowStockAlert,
-  CreateWarehouseData 
+  CreateWarehouseData,
 } from './inventory';
 
-export type { 
-  ReportFilter,
-  DashboardSummary 
-} from './reports';
+export type { ReportFilter, DashboardSummary } from './reports';
 
-export type { 
+export type {
   BankAccount,
   CashAccount,
   BankTransaction,
   BankStatement,
   BankReconciliation,
   CreateBankAccountData,
-  CreateCashAccountData 
+  CreateCashAccountData,
 } from './banking';
 
 // Service instances for easy import
@@ -87,7 +99,3 @@ export const services = {
   reports: reportsService,
   banking: bankingService,
 };
-
-
-
-

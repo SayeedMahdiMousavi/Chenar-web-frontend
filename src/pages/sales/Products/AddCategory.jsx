@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import { Modal, Button, Form, Typography, Input, message, Space } from "antd";
-import { useTranslation } from "react-i18next";
-import { useMutation, useQueryClient } from "react-query";
-import axiosInstance from "../../ApiBaseUrl";
-import { AddItem } from "../../SelfComponents/AddItem";
-import Draggable from "react-draggable";
-import { ActionMessage } from "../../SelfComponents/TranslateComponents/ActionMessage";
-import { trimString } from "../../../Functions/TrimString";
-import { CategoryFormItem } from "./Categories/CategoryFormItem";
-import { CancelButton, SaveButton } from "../../../components";
+import React, { useState } from 'react';
+import { Modal, Button, Form, Typography, Input, message, Space } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { useMutation, useQueryClient } from 'react-query';
+import axiosInstance from '../../ApiBaseUrl';
+import { AddItem } from '../../SelfComponents/AddItem';
+import Draggable from 'react-draggable';
+import { ActionMessage } from '../../SelfComponents/TranslateComponents/ActionMessage';
+import { trimString } from '../../../Functions/TrimString';
+import { CategoryFormItem } from './Categories/CategoryFormItem';
+import { CancelButton, SaveButton } from '../../../components';
 
 const { Title } = Typography;
 const AddCategory = (props) => {
@@ -69,7 +69,7 @@ const AddCategory = (props) => {
           }
         });
         message.success(
-          <ActionMessage name={res.data?.name} message="Message.Add" />
+          <ActionMessage name={res.data?.name} message='Message.Add' />,
         );
       })
       .catch((error) => {
@@ -125,14 +125,14 @@ const AddCategory = (props) => {
         )}
       >
         <Form
-          layout="vertical"
+          layout='vertical'
           onFinish={onFinish}
           hideRequiredMark={true}
           form={form}
         >
           <Title
             level={5}
-            className="drag_modal"
+            className='drag_modal'
             onMouseOver={() => {
               setDisabled(false);
             }}
@@ -142,31 +142,31 @@ const AddCategory = (props) => {
             onFocus={() => {}}
             onBlur={() => {}}
           >
-            {t("Sales.Product_and_services.Categories.Category_information")}
+            {t('Sales.Product_and_services.Categories.Category_information')}
           </Title>
           <Form.Item
-            name="name"
+            name='name'
             label={
               <span>
-                {t("Form.Name")} <span className="star">*</span>
+                {t('Form.Name')} <span className='star'>*</span>
               </span>
             }
-            rules={[{ required: true, message: `${t("Form.Name_required")}` }]}
+            rules={[{ required: true, message: `${t('Form.Name_required')}` }]}
           >
             <Input />
           </Form.Item>
           <CategoryFormItem
-            place="productAddCategory"
+            place='productAddCategory'
             form={form}
             url={props.url}
             categoryId={-12}
-            label={t("Sales.Product_and_services.Categories.Parent")}
+            label={t('Sales.Product_and_services.Categories.Parent')}
           />
 
-          <Form.Item className="margin" style={styles.footer}>
+          <Form.Item className='margin' style={styles.footer}>
             <Space>
               <CancelButton onClick={handleCancel} />
-              <SaveButton htmlType="submit" loading={loading} />
+              <SaveButton htmlType='submit' loading={loading} />
             </Space>
           </Form.Item>
         </Form>
@@ -176,7 +176,7 @@ const AddCategory = (props) => {
 };
 
 const styles = {
-  footer: { paddingTop: "30px", textAlign: "end", width: "100%" },
+  footer: { paddingTop: '30px', textAlign: 'end', width: '100%' },
 };
 
 export default AddCategory;

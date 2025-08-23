@@ -1,26 +1,26 @@
-import React, { useCallback, useMemo, useState } from "react";
-import axiosInstance from "../../ApiBaseUrl";
-import Photo from "../../sales/Products/Photo";
-import Filters from "../../sales/Products/Units/Filters";
-import { UpOutlined, DownOutlined } from "@ant-design/icons";
+import React, { useCallback, useMemo, useState } from 'react';
+import axiosInstance from '../../ApiBaseUrl';
+import Photo from '../../sales/Products/Photo';
+import Filters from '../../sales/Products/Units/Filters';
+import { UpOutlined, DownOutlined } from '@ant-design/icons';
 
-import { Row, Col, Table, Menu, Typography, Checkbox, Button } from "antd";
-import { useTranslation } from "react-i18next";
-import SupplierAction from "./SupplierAction";
-import { useMediaQuery } from "../../MediaQurey";
-import { useNavigate } from "react-router-dom";
-import { PaginateTable } from "../../../components/antd";
-import { checkActionColumnPermissions } from "../../../Functions";
-import { SUPPLIER_M } from "../../../constants/permissions";
+import { Row, Col, Table, Menu, Typography, Checkbox, Button } from 'antd';
+import { useTranslation } from 'react-i18next';
+import SupplierAction from './SupplierAction';
+import { useMediaQuery } from '../../MediaQurey';
+import { useNavigate } from 'react-router-dom';
+import { PaginateTable } from '../../../components/antd';
+import { checkActionColumnPermissions } from '../../../Functions';
+import { SUPPLIER_M } from '../../../constants/permissions';
 
 const { Column } = Table;
 
 const SuppliersTable = (props) => {
   let navigate = useNavigate();
-  const [filters, setFilters] = useState({ state: "active" });
+  const [filters, setFilters] = useState({ state: 'active' });
   // const [collapsed, setCollapsed] = useState(false);
   const [settingsVisible, setSettingsVisible] = useState(false);
-  const isMobile = useMediaQuery("(max-width:425px)");
+  const isMobile = useMediaQuery('(max-width:425px)');
   const { t, i18n } = useTranslation();
   const [
     { phone, address, email, attachments, creditLimit, photo, nationalId },
@@ -77,73 +77,73 @@ const SuppliersTable = (props) => {
 
   const setting = (
     <Menu style={styles.settingsMenu}>
-      <Menu.Item key="1">
+      <Menu.Item key='1'>
         <Typography.Text strong={true}>
-          {t("Sales.Product_and_services.Columns")}
+          {t('Sales.Product_and_services.Columns')}
         </Typography.Text>
       </Menu.Item>
-      <Menu.Item key="2">
+      <Menu.Item key='2'>
         <Checkbox onChange={onChangeAddress} checked={address}>
-          {t("Form.Address")}
+          {t('Form.Address')}
         </Checkbox>
       </Menu.Item>
-      <Menu.Item key="3">
+      <Menu.Item key='3'>
         <Checkbox onChange={onChangePhone} checked={phone}>
-          {t("Form.Phone")}
+          {t('Form.Phone')}
         </Checkbox>
       </Menu.Item>
-      <Menu.Item key="4">
+      <Menu.Item key='4'>
         <Checkbox onChange={onChangeEmail} checked={email}>
-          {t("Form.Email")}
+          {t('Form.Email')}
         </Checkbox>
       </Menu.Item>
-      <Menu.Item key="5">
+      <Menu.Item key='5'>
         <Checkbox onChange={onChangePhoto} checked={photo}>
-          {t("Form.Photo")}
+          {t('Form.Photo')}
         </Checkbox>
       </Menu.Item>
       {settingsVisible && (
         <React.Fragment>
-          <Menu.Item key="9">
+          <Menu.Item key='9'>
             <Checkbox onChange={onChangeCreditLimit} checked={creditLimit}>
-              {t("Sales.Customers.Form.Credit_limit")}
+              {t('Sales.Customers.Form.Credit_limit')}
             </Checkbox>
           </Menu.Item>
 
-          <Menu.Item key="8">
+          <Menu.Item key='8'>
             <Checkbox onChange={onChangeNationalId} checked={nationalId}>
-              {t("Sales.Customers.Form.National_id_number1")}
+              {t('Sales.Customers.Form.National_id_number1')}
             </Checkbox>
           </Menu.Item>
 
-          <Menu.Item key="7">
+          <Menu.Item key='7'>
             <Checkbox onChange={onChangeAttachments} checked={attachments}>
-              {t("Form.Attachments")}
+              {t('Form.Attachments')}
             </Checkbox>
           </Menu.Item>
         </React.Fragment>
       )}
       <Menu.Item
-        key="6"
+        key='6'
         onClick={handelMenuVisible}
-        className="table__header2-setting-showMore"
-        style={{ textAlign: "end" }}
+        className='table__header2-setting-showMore'
+        style={{ textAlign: 'end' }}
       >
         {settingsVisible ? (
           <Button
-            type="link"
+            type='link'
             icon={<UpOutlined />}
-            className="table__header2-setting-showMore"
+            className='table__header2-setting-showMore'
           >
-            {t("Sales.Product_and_services.Show_less")}
+            {t('Sales.Product_and_services.Show_less')}
           </Button>
         ) : (
           <Button
-            type="link"
+            type='link'
             icon={<DownOutlined />}
-            className="table__header2-setting-showMore"
+            className='table__header2-setting-showMore'
           >
-            {t("Sales.Product_and_services.Show_More")}
+            {t('Sales.Product_and_services.Show_More')}
           </Button>
         )}
       </Menu.Item>
@@ -154,11 +154,11 @@ const SuppliersTable = (props) => {
     async ({ queryKey }) => {
       const { page, pageSize, search, order, state } = queryKey?.[1] || {};
       const { data } = await axiosInstance.get(
-        `${props.baseUrl}?page=${page}&page_size=${pageSize}&ordering=${order}&status=${state}&search=${search}&expand=category`
+        `${props.baseUrl}?page=${page}&page_size=${pageSize}&ordering=${order}&status=${state}&search=${search}&expand=category`,
       );
       return data;
     },
-    [props.baseUrl]
+    [props.baseUrl],
   );
 
   const handleDoubleClickAction = (e) => {
@@ -166,41 +166,41 @@ const SuppliersTable = (props) => {
   };
 
   const columns = useMemo(
-  (type, hasSelected) => {
-      const sorter = type !== "print" ? true : false;
+    (type, hasSelected) => {
+      const sorter = type !== 'print' ? true : false;
       return (
         <React.Fragment>
           <Column
-            title={t("Expenses.Suppliers.Supplier_id").toUpperCase()}
-            dataIndex="id"
-            key="id"
+            title={t('Expenses.Suppliers.Supplier_id').toUpperCase()}
+            dataIndex='id'
+            key='id'
             width={
-              type !== "print" ? (i18n.language === "en" ? 145 : 160) : false
+              type !== 'print' ? (i18n.language === 'en' ? 145 : 160) : false
             }
             sorter={sorter && { multiple: 10 }}
             fixed={sorter}
-            className="table-col"
+            className='table-col'
             // align="center"
           />
           <Column
-            title={t("Expenses.Suppliers.Supplier")}
-            dataIndex="first_name"
-            key="first_name"
+            title={t('Expenses.Suppliers.Supplier')}
+            dataIndex='first_name'
+            key='first_name'
             fixed={sorter}
             render={(text, record) => (
               <React.Fragment>{record?.full_name}</React.Fragment>
             )}
             sorter={sorter && { multiple: 9 }}
-            className="table-col"
+            className='table-col'
           />
           {photo && (
             <Column
-              title={`${t("Form.Photo").toUpperCase()}`}
-              dataIndex="photo"
-              key="photo"
-              className="table-col"
+              title={`${t('Form.Photo').toUpperCase()}`}
+              dataIndex='photo'
+              key='photo'
+              className='table-col'
               width={80}
-              align="center"
+              align='center'
               render={(text, record) => {
                 return <Photo photo={text} />;
               }}
@@ -209,45 +209,45 @@ const SuppliersTable = (props) => {
           )}
           {phone && (
             <Column
-              title={t("Sales.Customers.Table.Phone")}
-              dataIndex="phone_number"
-              key="phone_number"
-              className="table-col"
+              title={t('Sales.Customers.Table.Phone')}
+              dataIndex='phone_number'
+              key='phone_number'
+              className='table-col'
               sorter={sorter && { multiple: 8 }}
             />
           )}
           <Column
-            title={t("Form.Mobile").toUpperCase()}
-            dataIndex="mobile_number"
-            key="mobile_number"
-            className="table-col"
+            title={t('Form.Mobile').toUpperCase()}
+            dataIndex='mobile_number'
+            key='mobile_number'
+            className='table-col'
             sorter={sorter && { multiple: 7 }}
           />
           {address && (
             <Column
-              title={t("Sales.Customers.Table.Address")}
-              dataIndex="full_billing_address"
-              key="full_billing_address"
+              title={t('Sales.Customers.Table.Address')}
+              dataIndex='full_billing_address'
+              key='full_billing_address'
               sorter={sorter && { multiple: 6 }}
-              className="table-col"
+              className='table-col'
             />
           )}
 
           {email && (
             <Column
-              title={t("Sales.Customers.Table.Email")}
-              dataIndex="email"
-              key="email"
-              className="table-col"
+              title={t('Sales.Customers.Table.Email')}
+              dataIndex='email'
+              key='email'
+              className='table-col'
               sorter={sorter && { multiple: 5 }}
               // width={150}
             />
           )}
           <Column
-            title={`${t("Sales.Product_and_services.Category").toUpperCase()}`}
-            dataIndex="category"
-            key="category"
-            className="table-col"
+            title={`${t('Sales.Product_and_services.Category').toUpperCase()}`}
+            dataIndex='category'
+            key='category'
+            className='table-col'
             render={(text, record) => {
               return <span>{text?.get_fomrated_path}</span>;
             }}
@@ -256,41 +256,41 @@ const SuppliersTable = (props) => {
           />
           {attachments && (
             <Column
-              title={t("Sales.Customers.Table.Attachments")}
-              dataIndex="attachment"
-              key="attachment"
+              title={t('Sales.Customers.Table.Attachments')}
+              dataIndex='attachment'
+              key='attachment'
               sorter={sorter && { multiple: 3 }}
               render={(text, record) => {
-                const phone = text?.split("/");
+                const phone = text?.split('/');
                 return <React.Fragment>{phone?.[6]}</React.Fragment>;
               }}
-              className="table-col"
+              className='table-col'
             />
           )}
           {creditLimit && (
             <Column
-              title={t("Sales.Customers.Form.Credit_limit").toUpperCase()}
-              dataIndex="credit_limit"
-              key="credit_limit"
+              title={t('Sales.Customers.Form.Credit_limit').toUpperCase()}
+              dataIndex='credit_limit'
+              key='credit_limit'
               sorter={sorter && { multiple: 2 }}
-              className="table-col"
+              className='table-col'
             />
           )}
           {nationalId && (
             <Column
-              title={t("Sales.Customers.Form.National_id_number").toUpperCase()}
-              dataIndex="national_id_number"
-              key="national_id_number"
+              title={t('Sales.Customers.Form.National_id_number').toUpperCase()}
+              dataIndex='national_id_number'
+              key='national_id_number'
               sorter={sorter && { multiple: 1 }}
-              className="table-col"
+              className='table-col'
             />
           )}
 
-          {type !== "print" && checkActionColumnPermissions(SUPPLIER_M) && (
+          {type !== 'print' && checkActionColumnPermissions(SUPPLIER_M) && (
             <Column
-              title={t("Table.Action")}
-              key="action"
-              align="center"
+              title={t('Table.Action')}
+              key='action'
+              align='center'
               width={isMobile ? 50 : 70}
               render={(text, record) => (
                 <div onDoubleClick={handleDoubleClickAction}>
@@ -301,8 +301,8 @@ const SuppliersTable = (props) => {
                   />
                 </div>
               )}
-              fixed={"right"}
-              className="table-col"
+              fixed={'right'}
+              className='table-col'
             />
           )}
         </React.Fragment>
@@ -320,7 +320,7 @@ const SuppliersTable = (props) => {
       photo,
       props.baseUrl,
       t,
-    ]
+    ],
   );
 
   return (
@@ -418,10 +418,10 @@ const SuppliersTable = (props) => {
           </Col>
         </Row>
       )} */}
-      <Row className="position__relative">
+      <Row className='position__relative'>
         <Col span={24}>
           <PaginateTable
-            title={t("Expenses.Suppliers.1")}
+            title={t('Expenses.Suppliers.1')}
             model={SUPPLIER_M}
             columns={columns}
             queryKey={props.baseUrl}
@@ -464,8 +464,8 @@ const SuppliersTable = (props) => {
   );
 };
 const styles = {
-  card: { background: "#3498db", padding: "24px 20px" },
-  settingsMenu: { width: "160px", paddingBottom: "10px" },
+  card: { background: '#3498db', padding: '24px 20px' },
+  settingsMenu: { width: '160px', paddingBottom: '10px' },
 };
 
 export default SuppliersTable;

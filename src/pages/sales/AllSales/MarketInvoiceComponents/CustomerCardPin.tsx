@@ -1,6 +1,6 @@
-import React, { useRef, useState } from "react";
-import { Form, Input, Row, Col, Typography } from "antd";
-import { useTranslation } from "react-i18next";
+import React, { useRef, useState } from 'react';
+import { Form, Input, Row, Col, Typography } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 interface IProps {
   setSaveFocus: (value: boolean) => void;
@@ -115,8 +115,8 @@ export default function CustomerCardPin(props: IProps) {
         <Col>
           <Form.Item
             style={styles.formItem}
-            validateStatus={error === true ? "error" : undefined}
-            name="firstPinCod"
+            validateStatus={error === true ? 'error' : undefined}
+            name='firstPinCod'
           >
             <Input
               ref={firstPinRef}
@@ -131,8 +131,8 @@ export default function CustomerCardPin(props: IProps) {
         <Col>
           <Form.Item
             style={styles.formItem}
-            validateStatus={error === true ? "error" : undefined}
-            name="secondPinCod"
+            validateStatus={error === true ? 'error' : undefined}
+            name='secondPinCod'
           >
             <Input
               maxLength={1}
@@ -148,8 +148,8 @@ export default function CustomerCardPin(props: IProps) {
         <Col>
           <Form.Item
             style={styles.formItem}
-            validateStatus={error === true ? "error" : undefined}
-            name="thirdPinCod"
+            validateStatus={error === true ? 'error' : undefined}
+            name='thirdPinCod'
           >
             <Input
               maxLength={1}
@@ -165,8 +165,8 @@ export default function CustomerCardPin(props: IProps) {
         <Col>
           <Form.Item
             style={styles.formItem}
-            validateStatus={error === true ? "error" : undefined}
-            name="fourthPinCod"
+            validateStatus={error === true ? 'error' : undefined}
+            name='fourthPinCod'
           >
             <Input
               maxLength={1}
@@ -181,10 +181,10 @@ export default function CustomerCardPin(props: IProps) {
         </Col>
         <Col>
           {error && (
-            <Typography.Text type="danger">
-              {t("Sales.All_sales.Invoice.Pin_code_error_message")}
+            <Typography.Text type='danger'>
+              {t('Sales.All_sales.Invoice.Pin_code_error_message')}
             </Typography.Text>
-          )}{" "}
+          )}{' '}
         </Col>
       </Row>
     </Form>
@@ -197,9 +197,9 @@ interface IStyle {
 }
 const styles: IStyle = {
   input: {
-    width: "50px",
-    textAlign: "center",
-    fontWeight: "bold",
+    width: '50px',
+    textAlign: 'center',
+    fontWeight: 'bold',
   },
-  formItem: { marginBottom: "0px" },
+  formItem: { marginBottom: '0px' },
 };

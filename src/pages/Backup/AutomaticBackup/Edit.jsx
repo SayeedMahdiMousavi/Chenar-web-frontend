@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import { Modal, Col, Row, Button, Switch } from "antd";
-import { useMediaQuery } from "../../MediaQurey";
-import { useMutation } from "react-query";
-import axiosInstance from "../../ApiBaseUrl";
-import { Form, Input, message } from "antd";
-import { useTranslation } from "react-i18next";
-import { ModalDragTitle } from "../../SelfComponents/ModalDragTitle";
-import Draggable from "react-draggable";
-import { Styles } from "../../styles";
-import { ActionMessage } from "../../SelfComponents/TranslateComponents/ActionMessage";
-import { manageErrors } from "../../../Functions";
-import { CancelButton, EditMenuItem, SaveButton } from "../../../components";
-import { BACKUP_SETTINGS_M } from "../../../constants/permissions";
+import React, { useState } from 'react';
+import { Modal, Col, Row, Button, Switch } from 'antd';
+import { useMediaQuery } from '../../MediaQurey';
+import { useMutation } from 'react-query';
+import axiosInstance from '../../ApiBaseUrl';
+import { Form, Input, message } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { ModalDragTitle } from '../../SelfComponents/ModalDragTitle';
+import Draggable from 'react-draggable';
+import { Styles } from '../../styles';
+import { ActionMessage } from '../../SelfComponents/TranslateComponents/ActionMessage';
+import { manageErrors } from '../../../Functions';
+import { CancelButton, EditMenuItem, SaveButton } from '../../../components';
+import { BACKUP_SETTINGS_M } from '../../../constants/permissions';
 
 const EditInterval = ({
   record,
@@ -28,13 +28,13 @@ const EditInterval = ({
   });
 
   const [disabled, setDisabled] = useState(true);
-  const isBgTablet = useMediaQuery("(max-width: 1024px)");
-  const isTablet = useMediaQuery("(max-width: 768px)");
-  const isMobile = useMediaQuery("(max-width: 425px)");
-  const isMiniTablet = useMediaQuery("(max-width: 576px)");
-  const isSubBase = useMediaQuery("(max-width: 375px)");
+  const isBgTablet = useMediaQuery('(max-width: 1024px)');
+  const isTablet = useMediaQuery('(max-width: 768px)');
+  const isMobile = useMediaQuery('(max-width: 425px)');
+  const isMiniTablet = useMediaQuery('(max-width: 576px)');
+  const isSubBase = useMediaQuery('(max-width: 375px)');
 
-  const intervale = record?.task_type !== "clocked";
+  const intervale = record?.task_type !== 'clocked';
 
   const showModal = () => {
     handleClickEdit();
@@ -88,7 +88,7 @@ const EditInterval = ({
         visible: false,
       });
       message.success(
-        <ActionMessage name={value?.data?.id} message="Message.Update" />
+        <ActionMessage name={value?.data?.id} message='Message.Update' />,
       );
       handleUpdateItems();
     },
@@ -123,7 +123,7 @@ const EditInterval = ({
         // }
       })
       .catch((info) => {
-        // 
+        //
       });
   };
 
@@ -148,8 +148,8 @@ const EditInterval = ({
             setDisabled={setDisabled}
             title={
               intervale
-                ? t("Company.Edit_intervale")
-                : t("Company.Edit_schedule")
+                ? t('Company.Edit_intervale')
+                : t('Company.Edit_schedule')
             }
           />
         }
@@ -163,9 +163,9 @@ const EditInterval = ({
         onCancel={onCancel}
         style={Styles.modal(isMobile)}
         bodyStyle={Styles.modalBody(isMobile, isSubBase, isMiniTablet)}
-        width={isMobile ? "100%" : isTablet ? 370 : isBgTablet ? 370 : 370}
+        width={isMobile ? '100%' : isTablet ? 370 : isBgTablet ? 370 : 370}
         footer={
-          <Row justify="end">
+          <Row justify='end'>
             <Col>
               <CancelButton onClick={onCancel} />
               <SaveButton onClick={handleOk} loading={isLoading} />
@@ -177,7 +177,7 @@ const EditInterval = ({
           form={form}
           hideRequiredMark={true}
           scrollToFirstError={true}
-          layout="vertical"
+          layout='vertical'
         >
           {/* {intervale ? (
             <Form.Item
@@ -244,17 +244,17 @@ const EditInterval = ({
             />
           )} */}
           <Form.Item
-            name="description"
-            label={t("Form.Description")}
+            name='description'
+            label={t('Form.Description')}
             style={styles.margin}
           >
             <Input.TextArea />
           </Form.Item>
           <Form.Item
-            label={t("Company.Enabled")}
-            name="enabled"
-            valuePropName="checked"
-            style={{ ...styles.margin, width: "90px" }}
+            label={t('Company.Enabled')}
+            name='enabled'
+            valuePropName='checked'
+            style={{ ...styles.margin, width: '90px' }}
           >
             <Switch />
           </Form.Item>
@@ -264,8 +264,8 @@ const EditInterval = ({
   );
 };
 const styles = {
-  margin: { marginBottom: "8px" },
-  modal: { maxHeight: `calc(100vh - 135px)`, overflowY: "auto" },
+  margin: { marginBottom: '8px' },
+  modal: { maxHeight: `calc(100vh - 135px)`, overflowY: 'auto' },
 };
 
 export default EditInterval;

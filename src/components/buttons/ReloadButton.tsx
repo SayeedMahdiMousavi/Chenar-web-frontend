@@ -1,7 +1,7 @@
-import React from "react";
-import { Space, Button, Typography } from "antd";
-import { useTranslation } from "react-i18next";
-import { CircularArrowIcon } from "../../icons";
+import React from 'react';
+import { Space, Button, Typography } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { CircularArrowIcon } from '../../icons';
 
 export default function ReloadButton(props: {
   selectedRowKeys?: string[];
@@ -11,17 +11,17 @@ export default function ReloadButton(props: {
   const { t } = useTranslation();
 
   return (
-    <Space size="small" align="center">
+    <Space size='small' align='center'>
       <Typography.Text strong={true}>
-        {props?.length ? props?.length : props.selectedRowKeys?.length}{" "}
-        {t("Pagination.Item")}
+        {props?.length ? props?.length : props.selectedRowKeys?.length}{' '}
+        {t('Pagination.Item')}
       </Typography.Text>
       <Button
-        type="primary"
-        size="small"
+        type='primary'
+        size='small'
         icon={<CircularArrowIcon rotate={30} />}
         onClick={props.onReload}
-        shape="round"
+        shape='round'
         style={styles.button}
       />
     </Space>
@@ -29,5 +29,5 @@ export default function ReloadButton(props: {
 }
 
 const styles = {
-  button: { paddingTop: "1px" },
+  button: { paddingTop: '1px' },
 };

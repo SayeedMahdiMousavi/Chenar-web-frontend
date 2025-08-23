@@ -1,27 +1,27 @@
-import React, { useCallback, useState } from "react";
-import { useTranslation } from "react-i18next";
-import startCase from "lodash/startCase";
-import { Drawer, Form, Col, Row, message, Space, Modal, Spin } from "antd";
-import axiosInstance from "../../../ApiBaseUrl";
-import { useMutation, useQueryClient } from "react-query";
-import ProductTransferTable from "./ProductTransferTable";
-import { ActionMessage } from "../../../SelfComponents/TranslateComponents/ActionMessage";
+import React, { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import startCase from 'lodash/startCase';
+import { Drawer, Form, Col, Row, message, Space, Modal, Spin } from 'antd';
+import axiosInstance from '../../../ApiBaseUrl';
+import { useMutation, useQueryClient } from 'react-query';
+import ProductTransferTable from './ProductTransferTable';
+import { ActionMessage } from '../../../SelfComponents/TranslateComponents/ActionMessage';
 import {
   handlePrepareDateForDateField,
   handlePrepareDateForServer,
-} from "../../../../Functions/utcDate";
-import { fixedNumber } from "../../../../Functions/math";
-import useGetCalender from "../../../../Hooks/useGetCalender";
+} from '../../../../Functions/utcDate';
+import { fixedNumber } from '../../../../Functions/math';
+import useGetCalender from '../../../../Hooks/useGetCalender';
 import {
   expireProductsBaseUrl,
   productStatisticsBaseUrl,
-} from "../../../Reports/AllReports/AllReports";
-import PrintInvoiceButton from "../MarketInvoiceComponents/PrintInvoiceButton";
-import { WAREHOUSE_PRODUCT_TRANSFER_LIST } from "../../../../constants/routes";
-import { CancelButton, EditMenuItem, SaveButton } from "../../../../components";
-import { PRODUCT_TRANSFER_INVOICE_M } from "../../../../constants/permissions";
-import { handleFindUnitConversionRate } from "../../../../Functions";
-import ProductTransferHeader from "./ProductTransferComponents/Header";
+} from '../../../Reports/AllReports/AllReports';
+import PrintInvoiceButton from '../MarketInvoiceComponents/PrintInvoiceButton';
+import { WAREHOUSE_PRODUCT_TRANSFER_LIST } from '../../../../constants/routes';
+import { CancelButton, EditMenuItem, SaveButton } from '../../../../components';
+import { PRODUCT_TRANSFER_INVOICE_M } from '../../../../constants/permissions';
+import { handleFindUnitConversionRate } from '../../../../Functions';
+import ProductTransferHeader from './ProductTransferComponents/Header';
 
 let EditProductTransfer = ({
   recordCurrency,
@@ -37,7 +37,7 @@ let EditProductTransfer = ({
   const [invoiceItems, setInvoiceItems] = useState([]);
   const [visible, setVisible] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const [editingKey, setEditingKey] = useState("");
+  const [editingKey, setEditingKey] = useState('');
   const [form] = Form.useForm();
   const [response, setResponse] = useState({});
   const [count, setCount] = useState(2);
@@ -45,14 +45,14 @@ let EditProductTransfer = ({
     {
       key: 1,
       row: `${1}`,
-      id: { value: "", label: "" },
+      id: { value: '', label: '' },
       serial: 1,
-      product: { value: "", label: "" },
-      unit: { value: "", label: "" },
+      product: { value: '', label: '' },
+      unit: { value: '', label: '' },
       qty: 1,
       each_price: 0,
       total_price: 0,
-      description: "",
+      description: '',
     },
   ]);
   const [editSpin, setEditSpin] = useState(false);
@@ -70,18 +70,18 @@ let EditProductTransfer = ({
     const newData = {
       key: count,
       row: `${count}`,
-      id: "",
-      product: "",
-      unit: "",
+      id: '',
+      product: '',
+      unit: '',
       qty: 1,
       each_price: 0,
       total_price: 0,
-      description: "",
+      description: '',
     };
-    const element = document?.getElementsByClassName("ant-table-body");
+    const element = document?.getElementsByClassName('ant-table-body');
     element[0] &&
       element[0].lastElementChild.lastElementChild.lastElementChild.scrollIntoView(
-        { behavior: "smooth" }
+        { behavior: 'smooth' },
       );
     // const rowKey = [newData.key];
     // props.setSelectedRowKeys(rowKey);
@@ -100,9 +100,9 @@ let EditProductTransfer = ({
           setResponse(res?.data);
           message.success(
             <ActionMessage
-              name={`${t("Sales.All_sales.Invoice.Invoice")} ${res?.data?.id}`}
-              message="Message.Update"
-            />
+              name={`${t('Sales.All_sales.Invoice.Invoice')} ${res?.data?.id}`}
+              message='Message.Update'
+            />,
           );
 
           queryClient.invalidateQueries(WAREHOUSE_PRODUCT_TRANSFER_LIST);
@@ -118,47 +118,47 @@ let EditProductTransfer = ({
           } else if (error?.response?.data?.invoice_item?.[0]) {
             if (error?.response?.data?.invoice_item?.[0]?.product?.[0]) {
               message.error(
-                `${error?.response.data?.invoice_item?.[0]?.product?.[0]}`
+                `${error?.response.data?.invoice_item?.[0]?.product?.[0]}`,
               );
             } else if (error?.response?.data?.invoice_item?.[0]?.qty?.[0]) {
               message.error(
-                `${error?.response.data?.invoice_item?.[0]?.qty?.[0]}`
+                `${error?.response.data?.invoice_item?.[0]?.qty?.[0]}`,
               );
             } else if (error?.response?.data?.invoice_item?.[0]?.unit?.[0]) {
               message.error(
-                `${error?.response.data?.invoice_item?.[0]?.unit?.[0]}`
+                `${error?.response.data?.invoice_item?.[0]?.unit?.[0]}`,
               );
             } else if (
               error?.response?.data?.invoice_item?.[0]?.expire_date?.[0]
             ) {
               message.error(
-                `${error?.response.data?.invoice_item?.[0]?.expire_date?.[0]}`
+                `${error?.response.data?.invoice_item?.[0]?.expire_date?.[0]}`,
               );
             } else if (
               error?.response?.data?.invoice_item?.[0]
                 ?.unit_conversion_rate?.[0]
             ) {
               message.error(
-                `${error?.response.data?.invoice_item?.[0]?.unit_conversion_rate?.[0]}`
+                `${error?.response.data?.invoice_item?.[0]?.unit_conversion_rate?.[0]}`,
               );
             } else if (
               error?.response?.data?.invoice_item?.[0]?.warehouse_in?.[0]
             ) {
               message.error(
-                `${error?.response.data?.invoice_item?.[0]?.warehouse_in?.[0]}`
+                `${error?.response.data?.invoice_item?.[0]?.warehouse_in?.[0]}`,
               );
             } else if (
               error?.response?.data?.invoice_item?.[0]?.warehouse_out?.[0]
             ) {
               message.error(
-                `${error?.response.data?.invoice_item?.[0]?.warehouse_out?.[0]}`
+                `${error?.response.data?.invoice_item?.[0]?.warehouse_out?.[0]}`,
               );
             }
           }
           return error;
         });
     },
-    [queryClient, recordId, t]
+    [queryClient, recordId, t],
   );
   const { mutate: mutateEditProductTransfer, isLoading } =
     useMutation(editProductTransfer);
@@ -166,7 +166,7 @@ let EditProductTransfer = ({
   const getPrice = useCallback((record, unitId) => {
     if (record?.price?.find((item) => item?.unit?.id === unitId)?.sales_rate) {
       return parseFloat(
-        record?.price?.find((item) => item?.unit?.id === unitId)?.sales_rate
+        record?.price?.find((item) => item?.unit?.id === unitId)?.sales_rate,
       )?.toFixed(3);
     }
     return;
@@ -180,7 +180,7 @@ let EditProductTransfer = ({
             const unitConversion = handleFindUnitConversionRate(
               item?.unit_conversion,
               item?.unit.value,
-              item?.product_units
+              item?.product_units,
             );
             const price = getPrice(item, item?.unit.value);
 
@@ -211,13 +211,13 @@ let EditProductTransfer = ({
         const updatedItemsIds = items?.map((item) => item?.id);
         const createdItems = items?.filter((item) => !item?.id);
         const deletedItems = invoiceItems?.filter(
-          (item) => !updatedItemsIds?.includes(item)
+          (item) => !updatedItemsIds?.includes(item),
         );
 
         if (items?.length === 0) {
           Modal.warning({
-            bodyStyle: { direction: t("Dir") },
-            title: t("Sales.All_sales.Invoice.Invoice_no_data_message"),
+            bodyStyle: { direction: t('Dir') },
+            title: t('Sales.All_sales.Invoice.Invoice_no_data_message'),
           });
         } else {
           const allData = {
@@ -228,7 +228,7 @@ let EditProductTransfer = ({
             description: values.description,
             currency: recordCurrency,
             currency_rate: recordCurrencyRate,
-            customer: "CUS-103001",
+            customer: 'CUS-103001',
             invoice_items: {
               created_items:
                 createdItems?.length === 0 ? undefined : createdItems,
@@ -254,19 +254,19 @@ let EditProductTransfer = ({
       form.resetFields();
       setCount(2);
       setResponse({});
-      setEditingKey("");
+      setEditingKey('');
       setData([
         {
           key: 1,
           row: `${1}`,
           serial: 1,
-          id: "",
-          product: "",
-          unit: "",
+          id: '',
+          product: '',
+          unit: '',
           qty: 1,
           each_price: 0,
           total_price: 0,
-          description: "",
+          description: '',
         },
       ]);
 
@@ -281,7 +281,7 @@ let EditProductTransfer = ({
 invoice_items.product.product_barcode.unit,invoice_items.product.product_units,invoice_items.product.product_units.unit,
 invoice_items.product.price,,invoice_items.product.price.unit,invoice_items.product.unit_conversion,
 invoice_items.product.unit_conversion.unit,invoice_items.product.product_statistic,invoice_items.unit`,
-          { timeout: 0 }
+          { timeout: 0 },
         )
         .catch((error) => {
           setEditSpin(false);
@@ -329,7 +329,7 @@ invoice_items.product.unit_conversion.unit,invoice_items.product.product_statist
               itemsId: [...itemsId, item?.id],
             };
           },
-          { items: [], statistic: [], itemsId: [] }
+          { items: [], statistic: [], itemsId: [] },
         );
 
         const date = handlePrepareDateForDateField({
@@ -376,26 +376,26 @@ invoice_items.product.unit_conversion.unit,invoice_items.product.product_statist
       <Drawer
         maskClosable={false}
         mask={true}
-        title={startCase(t("Sales.All_sales.Invoice.Edit_product_transfer"))}
-        height="100%"
+        title={startCase(t('Sales.All_sales.Invoice.Edit_product_transfer'))}
+        height='100%'
         onClose={onClose}
         open={visible}
         afterVisibleChange={handleAfterVisibleChange}
         destroyOnClose
-        placement="top"
+        placement='top'
         bodyStyle={{ paddingBottom: 10 }}
         footer={
-          <Row justify="end">
+          <Row justify='end'>
             <Col>
-              <Space size="small">
+              <Space size='small'>
                 <CancelButton onClick={onClose} disabled={responseId} />
                 <PrintInvoiceButton
                   disabled={!responseId}
                   title={startCase(
-                    t("Sales.All_sales.Invoice.Edit_product_transfer")
+                    t('Sales.All_sales.Invoice.Edit_product_transfer'),
                   )}
                   dataSource={data}
-                  type="productTransfer"
+                  type='productTransfer'
                   form={form}
                   id={response?.id}
                   isPrinted={true}
@@ -407,9 +407,9 @@ invoice_items.product.unit_conversion.unit,invoice_items.product.product_statist
                   disabled={
                     editSpin
                       ? true
-                      : responseId || editingKey !== ""
-                      ? true
-                      : false
+                      : responseId || editingKey !== ''
+                        ? true
+                        : false
                   }
                 />
               </Space>
@@ -418,7 +418,7 @@ invoice_items.product.unit_conversion.unit,invoice_items.product.product_statist
         }
       >
         <Form hideRequiredMark form={form}>
-          <Spin spinning={editSpin} size="large">
+          <Spin spinning={editSpin} size='large'>
             <Row>
               <Col span={6}>
                 <ProductTransferHeader disabled={responseId} />
@@ -431,7 +431,7 @@ invoice_items.product.unit_conversion.unit,invoice_items.product.product_statist
                   setCount={setCount}
                   count={count}
                   prevStatistic={prevStatistic}
-                  type="edit"
+                  type='edit'
                   setEditingKey={setEditingKey}
                   editingKey={editingKey}
                   setSelectedRowKeys={setSelectedRowKeys}

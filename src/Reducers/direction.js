@@ -1,4 +1,4 @@
-import { RTL_DIRECTION, LTR_DIRECTION } from "../actions/direction/type";
+import { RTL_DIRECTION, LTR_DIRECTION } from '../actions/direction/type';
 const initialState = { rtl: false, ltr: false };
 export default (state = initialState, action) => {
   switch (action.type) {

@@ -1,10 +1,10 @@
-import React, { memo } from "react";
-import { Row, Col, Form, Button, Select } from "antd";
-import { useTranslation } from "react-i18next";
-import ReportDateFormItem from "../../Components/DateFormItem";
-import { handlePrepareDateForServer } from "../../../../Functions/utcDate";
-import { EmployeeAndCustomerAndSupplierChart } from "../../../Transactions/Components/EmployeeAndCustomerAndSupplierChart";
-import { useDefaultReportDateFormItem } from "../../../../Hooks";
+import React, { memo } from 'react';
+import { Row, Col, Form, Button, Select } from 'antd';
+import { useTranslation } from 'react-i18next';
+import ReportDateFormItem from '../../Components/DateFormItem';
+import { handlePrepareDateForServer } from '../../../../Functions/utcDate';
+import { EmployeeAndCustomerAndSupplierChart } from '../../../Transactions/Components/EmployeeAndCustomerAndSupplierChart';
+import { useDefaultReportDateFormItem } from '../../../../Hooks';
 
 interface IProps {
   setPage: (value: number) => void;
@@ -28,8 +28,8 @@ function TotalSoldByCustomerFilters(props: IProps) {
     });
 
     const newFilters = {
-      customer: values?.accountName ?? { value: "", label: "" },
-      invoiceType: values?.invoiceType ?? { value: "", label: "sales" },
+      customer: values?.accountName ?? { value: '', label: '' },
+      invoiceType: values?.invoiceType ?? { value: '', label: 'sales' },
       startDate: startDate,
       endDate: endDate,
     };
@@ -59,33 +59,33 @@ function TotalSoldByCustomerFilters(props: IProps) {
       form={form}
       hideRequiredMark
       initialValues={{
-        date: "allDates",
+        date: 'allDates',
         dateTime: defaultDate,
         invoiceType: {
-          value: "sales",
-          label: t("Sales.All_sales.Invoice.Sales_invoice"),
+          value: 'sales',
+          label: t('Sales.All_sales.Invoice.Sales_invoice'),
         },
       }}
     >
-      <Row gutter={[10, 10]} style={{ marginBottom: "20px" }}>
+      <Row gutter={[10, 10]} style={{ marginBottom: '20px' }}>
         <ReportDateFormItem form={form} style={styles.formItem} />
         <Col xxl={14} xl={10} lg={11}></Col>
         <Col xxl={4} xl={5} lg={5}>
-          <Form.Item name="invoiceType" style={styles.formItem}>
+          <Form.Item name='invoiceType' style={styles.formItem}>
             <Select
-              className="num"
+              className='num'
               labelInValue
-              placeholder={t("Sales.Product_and_services.Type")}
+              placeholder={t('Sales.Product_and_services.Type')}
             >
-              <Select.Option value="sales">
-                {t("Sales.All_sales.Invoice.Sales_invoice")}
+              <Select.Option value='sales'>
+                {t('Sales.All_sales.Invoice.Sales_invoice')}
               </Select.Option>
               {/* <Select.Option value="sales_rej">
                 {t("Sales.All_sales.Invoice.Reject_sales_invoice")}
               </Select.Option> */}
 
-              <Select.Option value="purchase">
-                {t("Sales.All_sales.Invoice.Purchase_invoice")}
+              <Select.Option value='purchase'>
+                {t('Sales.All_sales.Invoice.Purchase_invoice')}
               </Select.Option>
 
               {/* <Select.Option value="purchase_rej">
@@ -98,9 +98,9 @@ function TotalSoldByCustomerFilters(props: IProps) {
           <EmployeeAndCustomerAndSupplierChart form={form} />
         </Col>
         <Col xxl={8} xl={10} lg={10}>
-          <Form.Item className="margin" style={styles.formItem}>
-            <Button type="primary" size="small" htmlType="submit" shape="round">
-              {t("Form.Search")}
+          <Form.Item className='margin' style={styles.formItem}>
+            <Button type='primary' size='small' htmlType='submit' shape='round'>
+              {t('Form.Search')}
             </Button>
           </Form.Item>
         </Col>
@@ -111,7 +111,7 @@ function TotalSoldByCustomerFilters(props: IProps) {
 
 const styles = {
   form: {
-    width: "250px",
+    width: '250px',
   },
   formItem: { marginBottom: 0 },
 };

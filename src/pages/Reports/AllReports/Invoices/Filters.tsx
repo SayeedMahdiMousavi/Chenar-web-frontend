@@ -1,14 +1,14 @@
-import React, { memo } from "react";
-import { Row, Col, Form, Button } from "antd";
-import { useTranslation } from "react-i18next";
-import ReportDateFormItem from "../../Components/DateFormItem";
-import { handlePrepareDateForServer } from "../../../../Functions/utcDate";
-import { useDefaultReportDateFormItem } from "../../../../Hooks";
+import React, { memo } from 'react';
+import { Row, Col, Form, Button } from 'antd';
+import { useTranslation } from 'react-i18next';
+import ReportDateFormItem from '../../Components/DateFormItem';
+import { handlePrepareDateForServer } from '../../../../Functions/utcDate';
+import { useDefaultReportDateFormItem } from '../../../../Hooks';
 import {
   InvoiceStatusSelect,
   InvoiceTypeFormItem,
-} from "../../../../components";
-import { MANI_INVOICES_VALUE } from "../../../../constants";
+} from '../../../../components';
+import { MANI_INVOICES_VALUE } from '../../../../constants';
 
 interface IProps {
   setPage: (value: number) => void;
@@ -19,7 +19,7 @@ interface IProps {
 function Filters(props: IProps) {
   const { t } = useTranslation();
 
-  const statusDefaultValue = { value: "pending", label: t("Pending") };
+  const statusDefaultValue = { value: 'pending', label: t('Pending') };
 
   const { form, defaultDate, calendarCode } = useDefaultReportDateFormItem();
 
@@ -36,8 +36,8 @@ function Filters(props: IProps) {
     const newFilters = {
       invoiceType: values?.invoiceType,
       status: values?.status,
-      startDate: startDate ?? "",
-      endDate: endDate ?? "",
+      startDate: startDate ?? '',
+      endDate: endDate ?? '',
     };
 
     props.setFilters((prev: any) => {
@@ -64,16 +64,16 @@ function Filters(props: IProps) {
       form={form}
       hideRequiredMark
       initialValues={{
-        date: "allDates",
+        date: 'allDates',
         dateTime: defaultDate,
         invoiceType: {
           value: MANI_INVOICES_VALUE,
-          label: t("All_posting_invoice"),
+          label: t('All_posting_invoice'),
         },
         status: statusDefaultValue,
       }}
     >
-      <Row gutter={[10, 10]} style={{ marginBottom: "20px" }}>
+      <Row gutter={[10, 10]} style={{ marginBottom: '20px' }}>
         <ReportDateFormItem form={form} style={styles.formItem} />
         <Col xxl={14} xl={10} lg={11}></Col>
 
@@ -86,9 +86,9 @@ function Filters(props: IProps) {
         </Col>
         {/* <Col xxl={14} xl={11} lg={11}></Col> */}
         <Col xxl={8} xl={10} lg={10}>
-          <Form.Item className="margin" style={styles.formItem}>
-            <Button type="primary" size="small" htmlType="submit" shape="round">
-              {t("Form.Search")}
+          <Form.Item className='margin' style={styles.formItem}>
+            <Button type='primary' size='small' htmlType='submit' shape='round'>
+              {t('Form.Search')}
             </Button>
           </Form.Item>
         </Col>
@@ -99,7 +99,7 @@ function Filters(props: IProps) {
 
 const styles = {
   form: {
-    width: "250px",
+    width: '250px',
   },
   formItem: { marginBottom: 0 },
 };

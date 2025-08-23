@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 function useSafeDispatch(dispatch) {
   const mounted = React.useRef(false);
@@ -12,20 +12,20 @@ function useSafeDispatch(dispatch) {
 
   return React.useCallback(
     (...args) => (mounted.current ? dispatch(...args) : void 0),
-    [dispatch]
+    [dispatch],
   );
 }
 
 function asyncReducer(state, action) {
   switch (action.type) {
-    case "pending": {
-      return { status: "pending", data: null, error: null };
+    case 'pending': {
+      return { status: 'pending', data: null, error: null };
     }
-    case "resolved": {
-      return { status: "resolved", data: action.data, error: null };
+    case 'resolved': {
+      return { status: 'resolved', data: action.data, error: null };
     }
-    case "rejected": {
-      return { status: "rejected", data: null, error: action.error };
+    case 'rejected': {
+      return { status: 'rejected', data: null, error: action.error };
     }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
@@ -35,7 +35,7 @@ function asyncReducer(state, action) {
 
 function useAsync(initialState) {
   const [state, unsafeDispatch] = React.useReducer(asyncReducer, {
-    status: "idle",
+    status: 'idle',
     data: null,
     error: null,
     ...initialState,
@@ -47,26 +47,26 @@ function useAsync(initialState) {
 
   const run = React.useCallback(
     (promise) => {
-      dispatch({ type: "pending" });
+      dispatch({ type: 'pending' });
       promise.then(
         (data) => {
-          dispatch({ type: "resolved", data });
+          dispatch({ type: 'resolved', data });
         },
         (error) => {
-          dispatch({ type: "rejected", error });
-        }
+          dispatch({ type: 'rejected', error });
+        },
       );
     },
-    [dispatch]
+    [dispatch],
   );
 
   const setData = React.useCallback(
-    (data) => dispatch({ type: "resolved", data }),
-    [dispatch]
+    (data) => dispatch({ type: 'resolved', data }),
+    [dispatch],
   );
   const setError = React.useCallback(
-    (error) => dispatch({ type: "rejected", error }),
-    [dispatch]
+    (error) => dispatch({ type: 'rejected', error }),
+    [dispatch],
   );
 
   return {

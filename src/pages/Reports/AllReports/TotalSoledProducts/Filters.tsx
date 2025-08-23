@@ -1,12 +1,12 @@
-import React, { memo } from "react";
-import { Row, Col, Form, Button, Select } from "antd";
-import { useTranslation } from "react-i18next";
-import ReportDateFormItem from "../../Components/DateFormItem";
-import { handlePrepareDateForServer } from "../../../../Functions/utcDate";
-import { CategoryField } from "../../../SelfComponents/CategoryField";
-import { EmployeeAndCustomerAndSupplierChart } from "../../../Transactions/Components/EmployeeAndCustomerAndSupplierChart";
-import { InfiniteScrollSelectFormItem } from "../../../../components/antd";
-import { useDefaultReportDateFormItem } from "../../../../Hooks";
+import React, { memo } from 'react';
+import { Row, Col, Form, Button, Select } from 'antd';
+import { useTranslation } from 'react-i18next';
+import ReportDateFormItem from '../../Components/DateFormItem';
+import { handlePrepareDateForServer } from '../../../../Functions/utcDate';
+import { CategoryField } from '../../../SelfComponents/CategoryField';
+import { EmployeeAndCustomerAndSupplierChart } from '../../../Transactions/Components/EmployeeAndCustomerAndSupplierChart';
+import { InfiniteScrollSelectFormItem } from '../../../../components/antd';
+import { useDefaultReportDateFormItem } from '../../../../Hooks';
 
 interface IProps {
   setPage: (value: number) => void;
@@ -30,10 +30,10 @@ function TotalSoledFilters(props: IProps) {
     });
 
     const newFilters = {
-      customer: values?.accountName ?? { value: "", label: "" },
-      invoiceType: values?.invoiceType ?? { value: "", label: "sales" },
-      category: values?.category ?? { value: "", label: "" },
-      product: values?.product ?? { value: "", label: "" },
+      customer: values?.accountName ?? { value: '', label: '' },
+      invoiceType: values?.invoiceType ?? { value: '', label: 'sales' },
+      category: values?.category ?? { value: '', label: '' },
+      product: values?.product ?? { value: '', label: '' },
       startDate: startDate,
       endDate: endDate,
     };
@@ -65,31 +65,31 @@ function TotalSoledFilters(props: IProps) {
       form={form}
       hideRequiredMark
       initialValues={{
-        date: "allDates",
+        date: 'allDates',
         dateTime: defaultDate,
         invoiceType: {
-          value: "sales",
-          label: t("Sales.1"),
+          value: 'sales',
+          label: t('Sales.1'),
         },
       }}
     >
-      <Row gutter={[10, 10]} style={{ marginBottom: "20px" }}>
+      <Row gutter={[10, 10]} style={{ marginBottom: '20px' }}>
         <ReportDateFormItem form={form} style={styles.formItem} />
         <Col xxl={14} xl={11} lg={11}></Col>
         <Col xxl={4} xl={5} lg={5}>
-          <Form.Item name="invoiceType" style={styles.formItem}>
+          <Form.Item name='invoiceType' style={styles.formItem}>
             <Select
-              className="num"
+              className='num'
               // allowClear
               labelInValue
-              placeholder={t("Sales.Product_and_services.Type")}
+              placeholder={t('Sales.Product_and_services.Type')}
             >
-              <Select.Option value="sales">{t("Sales.1")}</Select.Option>
+              <Select.Option value='sales'>{t('Sales.1')}</Select.Option>
               {/* <Select.Option value="sales_rej">
                 {t("Sales.All_sales.Invoice.Reject_sales_invoice")}
               </Select.Option> */}
 
-              <Select.Option value="purchase">{t("Purchase")}</Select.Option>
+              <Select.Option value='purchase'>{t('Purchase')}</Select.Option>
 
               {/* <Select.Option value="purchase_rej">
                 {t("Sales.All_sales.Invoice.Reject_purchase_invoice")}
@@ -107,28 +107,28 @@ function TotalSoledFilters(props: IProps) {
         <Col xxl={4} xl={5} lg={5}>
           <CategoryField
             form={form}
-            place="filter"
-            label=""
+            place='filter'
+            label=''
             style={styles.formItem}
-            placeholder={t("Sales.Product_and_services.Form.Category")}
-            url="/product/category/"
+            placeholder={t('Sales.Product_and_services.Form.Category')}
+            url='/product/category/'
           />
         </Col>
         <Col xxl={4} xl={6} lg={7}>
           <InfiniteScrollSelectFormItem
-            name="product"
+            name='product'
             style={styles.formItem}
-            fields="name,id"
-            placeholder={t("Sales.Product_and_services.Product")}
-            baseUrl="/product/items/"
+            fields='name,id'
+            placeholder={t('Sales.Product_and_services.Product')}
+            baseUrl='/product/items/'
             allowClear={true}
           />
         </Col>
 
         <Col xxl={8} xl={10} lg={10}>
-          <Form.Item className="margin" style={styles.formItem}>
-            <Button type="primary" size="small" htmlType="submit" shape="round">
-              {t("Form.Search")}
+          <Form.Item className='margin' style={styles.formItem}>
+            <Button type='primary' size='small' htmlType='submit' shape='round'>
+              {t('Form.Search')}
             </Button>
           </Form.Item>
         </Col>
@@ -139,7 +139,7 @@ function TotalSoledFilters(props: IProps) {
 
 const styles = {
   form: {
-    width: "250px",
+    width: '250px',
   },
   formItem: { marginBottom: 0 },
 };

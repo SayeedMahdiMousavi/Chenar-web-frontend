@@ -1,11 +1,11 @@
-import React, { useCallback, useState } from "react";
-import { useQueryClient } from "react-query";
-import { Menu, Dropdown } from "antd";
-import { CaretDownOutlined } from "@ant-design/icons";
-import { connect } from "react-redux";
-import { ActivePopconfirm, RemovePopconfirm } from "../../../../components";
-import { useActiveItem, useRemoveItem } from "../../../../Hooks";
-import { PRODUCT_UNIT_M } from "../../../../constants/permissions";
+import React, { useCallback, useState } from 'react';
+import { useQueryClient } from 'react-query';
+import { Menu, Dropdown } from 'antd';
+import { CaretDownOutlined } from '@ant-design/icons';
+import { connect } from 'react-redux';
+import { ActivePopconfirm, RemovePopconfirm } from '../../../../components';
+import { useActiveItem, useRemoveItem } from '../../../../Hooks';
+import { PRODUCT_UNIT_M } from '../../../../constants/permissions';
 
 function UnitAction(props) {
   const queryClient = useQueryClient();
@@ -41,7 +41,7 @@ function UnitAction(props) {
     setVisible,
     recordName: props.record.name,
     handleUpdateItems: handleUpdateItems,
-    type: "active",
+    type: 'active',
     setActiveVisible,
   });
 
@@ -55,7 +55,7 @@ function UnitAction(props) {
     setVisible,
     recordName: props.record.name,
     handleUpdateItems: handleUpdateItems,
-    type: "deactivate",
+    type: 'deactivate',
     setActiveVisible,
   });
 
@@ -81,7 +81,7 @@ function UnitAction(props) {
   const status = props?.record?.status;
   const action = (
     <Menu>
-      {status === "active" && (
+      {status === 'active' && (
         <RemovePopconfirm
           itemName={props?.record?.name}
           open={removeVisible}
@@ -96,12 +96,12 @@ function UnitAction(props) {
         {...{
           itemName: props?.record?.name,
           visible: activeVisible,
-          loading: status === "active" ? inactiveLoading : activeLoading,
+          loading: status === 'active' ? inactiveLoading : activeLoading,
           onConfirm:
-            status === "active" ? handleInactiveItem : handleActiveItem,
+            status === 'active' ? handleInactiveItem : handleActiveItem,
           onCancel: handleCancel,
           onClick: handleClickInactive,
-          type: status === "active" ? "deactivate" : "active",
+          type: status === 'active' ? 'deactivate' : 'active',
           permission: PRODUCT_UNIT_M,
         }}
       />
@@ -115,17 +115,17 @@ function UnitAction(props) {
   return (
     <Dropdown
       overlay={action}
-      trigger={["click"]}
+      trigger={['click']}
       onOpenChange={handleVisibleChange}
       open={visible}
       disabled={
-        props.editingKey !== "" || props?.record?.system_default === true
+        props.editingKey !== '' || props?.record?.system_default === true
       }
     >
       <a
-        disabled={props.editingKey !== ""}
-        className="ant-dropdown-link"
-        href="#"
+        disabled={props.editingKey !== ''}
+        className='ant-dropdown-link'
+        href='#'
       >
         <CaretDownOutlined />
       </a>

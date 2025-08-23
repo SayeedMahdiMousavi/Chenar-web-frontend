@@ -1,14 +1,14 @@
-import React, { useCallback, useState } from "react";
-import { useMutation, useQueryClient } from "react-query";
-import axiosInstance from "../../ApiBaseUrl";
-import EditUser from "./EditUser";
-import { message, Dropdown } from "antd";
-import { connect } from "react-redux";
-import { ActionMessage } from "../../SelfComponents/TranslateComponents/ActionMessage";
-import ActionButton from "../../SelfComponents/ActionButton";
-import { ActivePopconfirm, RemovePopconfirm } from "../../../components";
-import { useRemoveItem } from "../../../Hooks";
-import { USERS_M } from "../../../constants/permissions";
+import React, { useCallback, useState } from 'react';
+import { useMutation, useQueryClient } from 'react-query';
+import axiosInstance from '../../ApiBaseUrl';
+import EditUser from './EditUser';
+import { message, Dropdown } from 'antd';
+import { connect } from 'react-redux';
+import { ActionMessage } from '../../SelfComponents/TranslateComponents/ActionMessage';
+import ActionButton from '../../SelfComponents/ActionButton';
+import { ActivePopconfirm, RemovePopconfirm } from '../../../components';
+import { useRemoveItem } from '../../../Hooks';
+import { USERS_M } from '../../../constants/permissions';
 
 function UserTableAction(props) {
   const queryClient = useQueryClient();
@@ -20,7 +20,7 @@ function UserTableAction(props) {
     async (value) =>
       await axiosInstance.patch(
         `${props.baseUrl}${props?.record?.username}/`,
-        value
+        value,
       ),
     {
       onSuccess: () => {
@@ -30,8 +30,8 @@ function UserTableAction(props) {
         message.success(
           <ActionMessage
             name={props?.record?.username}
-            message="Message.Active"
-          />
+            message='Message.Active'
+          />,
         );
         queryClient.invalidateQueries(props.baseUrl);
       },
@@ -40,14 +40,14 @@ function UserTableAction(props) {
         setActiveVisible(false);
         setDropdownOpen(false); // Close dropdown on error
       },
-    }
+    },
   );
 
   const { mutate: mutateInactive } = useMutation(
     async (value) =>
       await axiosInstance.patch(
         `${props?.baseUrl}${props?.record?.username}/`,
-        value
+        value,
       ),
     {
       onSuccess: () => {
@@ -57,8 +57,8 @@ function UserTableAction(props) {
         message.success(
           <ActionMessage
             name={props?.record?.username}
-            message="Message.Inactive"
-          />
+            message='Message.Inactive'
+          />,
         );
         queryClient.invalidateQueries(props.baseUrl);
       },
@@ -67,7 +67,7 @@ function UserTableAction(props) {
         setActiveVisible(false);
         setDropdownOpen(false); // Close dropdown on error
       },
-    }
+    },
   );
 
   const handleActiveItem = useCallback(() => {
@@ -101,14 +101,14 @@ function UserTableAction(props) {
     (e) => {
       if (e) {
         e.stopPropagation();
-        e.preventDefault(); 
+        e.preventDefault();
       }
-      setRemoveVisible(false); 
-      setActiveVisible(false); 
-      reset(); 
-      setDropdownOpen(false); 
+      setRemoveVisible(false);
+      setActiveVisible(false);
+      reset();
+      setDropdownOpen(false);
     },
-    [reset, setRemoveVisible]
+    [reset, setRemoveVisible],
   );
 
   const handleClickRemove = useCallback((e) => {
@@ -141,7 +141,7 @@ function UserTableAction(props) {
         setDropdownOpen(true);
       }
     },
-    [removeVisible, activeVisible]
+    [removeVisible, activeVisible],
   );
 
   const permits = props?.record?.permits?.map((item) => item?.id);
@@ -152,7 +152,7 @@ function UserTableAction(props) {
 
     if (props.record.is_active) {
       items.push({
-        key: "remove",
+        key: 'remove',
         label: (
           <RemovePopconfirm
             itemName={props?.record?.username}
@@ -171,9 +171,9 @@ function UserTableAction(props) {
       });
     }
 
-    if (props.record.user_type !== "admin") {
+    if (props.record.user_type !== 'admin') {
       items.push({
-        key: "active",
+        key: 'active',
         label: (
           <ActivePopconfirm
             itemName={props?.record?.username}
@@ -185,7 +185,7 @@ function UserTableAction(props) {
             }}
             onCancel={handleCancel}
             onClick={handleClickActive}
-            type={status ? "deactivate" : "active"}
+            type={status ? 'deactivate' : 'active'}
             permission={USERS_M}
           />
         ),
@@ -194,7 +194,7 @@ function UserTableAction(props) {
 
     if (status) {
       items.push({
-        key: "edit",
+        key: 'edit',
         label: (
           <EditUser
             record={props.record}
@@ -213,11 +213,11 @@ function UserTableAction(props) {
   return (
     <Dropdown
       menu={{ items: getItems() }}
-      trigger={["click"]}
+      trigger={['click']}
       onOpenChange={handleDropdownVisibleChange}
       open={dropdownOpen}
       disabled={props?.record?.system_default === true}
-      placement="bottomRight"
+      placement='bottomRight'
     >
       <span
         onClick={(e) => {

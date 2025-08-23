@@ -1,10 +1,10 @@
-import React from "react";
-import { Row, Col, Select, Form, Input } from "antd";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import { Row, Col, Select, Form, Input } from 'antd';
+import { useTranslation } from 'react-i18next';
 
-import { handlePrepareDateForServer } from "../../../Functions/utcDate";
-import useGetCalender from "../../../Hooks/useGetCalender";
-import { ApplyButton, ResetButton } from "../../../components";
+import { handlePrepareDateForServer } from '../../../Functions/utcDate';
+import useGetCalender from '../../../Hooks/useGetCalender';
+import { ApplyButton, ResetButton } from '../../../components';
 
 interface IProps {
   setVisible: (value: boolean) => void;
@@ -31,20 +31,20 @@ export function LoginAuditingFilters(props: IProps) {
       calendarCode,
     });
 
-    const device = values?.device ?? "";
+    const device = values?.device ?? '';
 
     props.setFilters({
-      loginStatus: values?.loginStatus ?? "",
-      browser: values?.browser ?? "",
-      os: values?.os ?? "",
-      ip: values?.ip ?? "",
-      isMobile: device === "isMobile" ? true : "",
-      isPC: device === "isPC" ? true : "",
-      isTablet: device === "isTablet" ? true : "",
-      isTouchable: device === "isTouchable" ? true : "",
-      isBot: device === "isBot" ? true : "",
-      startDate: startDate ?? "",
-      endDate: endDate ?? "",
+      loginStatus: values?.loginStatus ?? '',
+      browser: values?.browser ?? '',
+      os: values?.os ?? '',
+      ip: values?.ip ?? '',
+      isMobile: device === 'isMobile' ? true : '',
+      isPC: device === 'isPC' ? true : '',
+      isTablet: device === 'isTablet' ? true : '',
+      isTouchable: device === 'isTouchable' ? true : '',
+      isBot: device === 'isBot' ? true : '',
+      startDate: startDate ?? '',
+      endDate: endDate ?? '',
     });
 
     props.setVisible(false);
@@ -53,23 +53,23 @@ export function LoginAuditingFilters(props: IProps) {
   const onReset = () => {
     form.resetFields();
     props.setFilters({
-      loginStatus: "",
-      browser: "",
-      os: "",
-      ip: "",
-      isMobile: "",
-      isPC: "",
-      isTablet: "",
-      isTouchable: "",
-      isBot: "",
-      startDate: "",
-      endDate: "",
+      loginStatus: '',
+      browser: '',
+      os: '',
+      ip: '',
+      isMobile: '',
+      isPC: '',
+      isTablet: '',
+      isTouchable: '',
+      isBot: '',
+      startDate: '',
+      endDate: '',
     });
     props.setVisible(false);
   };
 
   return (
-    <Form layout="vertical" onFinish={onFinish} form={form} style={styles.form}>
+    <Form layout='vertical' onFinish={onFinish} form={form} style={styles.form}>
       <Row gutter={[10, 10]}>
         {/* <Col span={12}>
           <Form.Item
@@ -95,27 +95,27 @@ export function LoginAuditingFilters(props: IProps) {
         </Col> */}
         <Col span={12}>
           <Form.Item
-            name="loginStatus"
-            label={t("Auditing.Login_type")}
+            name='loginStatus'
+            label={t('Auditing.Login_type')}
             style={styles.margin}
           >
-            <Select className="num " showSearch showArrow allowClear>
-              <Select.Option key="login" value="login">
-                {t("Auditing.Login")}
+            <Select className='num ' showSearch showArrow allowClear>
+              <Select.Option key='login' value='login'>
+                {t('Auditing.Login')}
               </Select.Option>
-              <Select.Option key="logout" value="logout">
-                {t("Auditing.Logout")}
+              <Select.Option key='logout' value='logout'>
+                {t('Auditing.Logout')}
               </Select.Option>
-              <Select.Option key="failed_login" value="failed_login">
-                {t("Auditing.Failed_login")}
+              <Select.Option key='failed_login' value='failed_login'>
+                {t('Auditing.Failed_login')}
               </Select.Option>
             </Select>
           </Form.Item>
         </Col>
         <Col span={12}>
           <Form.Item
-            name="os"
-            label={t("Auditing.Operating_system")}
+            name='os'
+            label={t('Auditing.Operating_system')}
             style={styles.margin}
           >
             <Input />
@@ -123,15 +123,15 @@ export function LoginAuditingFilters(props: IProps) {
         </Col>
         <Col span={12}>
           <Form.Item
-            name="browser"
-            label={t("Auditing.Browser")}
+            name='browser'
+            label={t('Auditing.Browser')}
             style={styles.margin}
           >
             <Input />
           </Form.Item>
         </Col>
         <Col span={12}>
-          <Form.Item name="ip" label={t("Auditing.IP")} style={styles.margin}>
+          <Form.Item name='ip' label={t('Auditing.IP')} style={styles.margin}>
             <Input />
           </Form.Item>
         </Col>
@@ -154,7 +154,7 @@ export function LoginAuditingFilters(props: IProps) {
 
         <Col span={24}>
           <Form.Item style={styles.margin}>
-            <Row className="num" justify="space-between">
+            <Row className='num' justify='space-between'>
               <Col>
                 <ResetButton onClick={onReset} />
               </Col>
@@ -169,7 +169,7 @@ export function LoginAuditingFilters(props: IProps) {
   );
 }
 const styles = {
-  margin: { marginBottom: "8px" },
-  form: { width: "370px" },
-  spin: { margin: "20px" },
+  margin: { marginBottom: '8px' },
+  form: { width: '370px' },
+  spin: { margin: '20px' },
 };

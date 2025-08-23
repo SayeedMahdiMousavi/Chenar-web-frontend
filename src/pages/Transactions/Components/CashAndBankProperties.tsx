@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { Col, Row, Form, Select, ColProps } from "antd";
-import { debounce } from "throttle-debounce";
-import { useQuery } from "react-query";
-import axiosInstance from "../../ApiBaseUrl";
-import { useTranslation } from "react-i18next";
-import { CenteredSpin } from "../../SelfComponents/Spin";
+import React, { useState } from 'react';
+import { Col, Row, Form, Select, ColProps } from 'antd';
+import { debounce } from 'throttle-debounce';
+import { useQuery } from 'react-query';
+import axiosInstance from '../../ApiBaseUrl';
+import { useTranslation } from 'react-i18next';
+import { CenteredSpin } from '../../SelfComponents/Spin';
 
 const getBankData = async ({ queryKey }: any) => {
   const key = queryKey?.[0];
@@ -15,7 +15,7 @@ const getBankData = async ({ queryKey }: any) => {
 const getBankSearch = async ({ queryKey }: any) => {
   const search = queryKey?.[1];
   const { data } = await axiosInstance.get(
-    `/chart_of_account/?page=1&page_size=10&name__contains=${search}&content_type__model__in=bank,cash`
+    `/chart_of_account/?page=1&page_size=10&name__contains=${search}&content_type__model__in=bank,cash`,
   );
   return data;
 };
@@ -35,7 +35,7 @@ interface IProps {
 const CashAndBankProperties: React.FC<IProps> = React.memo(
   (props) => {
     const { t } = useTranslation();
-    const [search, setSearch] = useState("");
+    const [search, setSearch] = useState('');
     const [banks, setBanks] = useState<any>([]);
     const [cashes, setCashes] = useState<any>([]);
 
@@ -51,20 +51,20 @@ const CashAndBankProperties: React.FC<IProps> = React.memo(
     const cash = useQuery(`/chart_of_account/ACB-101/child/`, getBankData);
     const searchBankData = useQuery(
       [`/chart_of_account/bankCash/`, search],
-      getBankSearch
+      getBankSearch,
     );
 
     const searchLength = searchBankData?.data?.results?.length;
     React.useEffect(() => {
       const banks = searchBankData?.data?.results?.filter((item: any) => {
-        const id = item?.id?.split("-");
+        const id = item?.id?.split('-');
 
-        return id?.[0] === "BNK";
+        return id?.[0] === 'BNK';
       });
 
       const cash = searchBankData?.data?.results?.filter((item: any) => {
-        const id = item?.id?.split("-");
-        return id?.[0] === "CSH";
+        const id = item?.id?.split('-');
+        return id?.[0] === 'CSH';
       });
       setBanks(banks);
       setCashes(cash);
@@ -74,7 +74,7 @@ const CashAndBankProperties: React.FC<IProps> = React.memo(
       if (props.onChangBankName) {
         props.onChangBankName(value?.value);
       }
-      setSearch("");
+      setSearch('');
     };
 
     // const onChangeAccountId = (value: string) => {s
@@ -201,15 +201,15 @@ const CashAndBankProperties: React.FC<IProps> = React.memo(
             </Select>
           </Form.Item>
         </Col> */}
-        <Col span={props.place === "report" ? 24 : 7} {...props?.colProps}>
+        <Col span={props.place === 'report' ? 24 : 7} {...props?.colProps}>
           <Form.Item
             name={props.fieldName}
             preserve={false}
-            className="margin1"
+            className='margin1'
             rules={[
               {
-                required: props.place !== "report" && true,
-                message: t("Banking.Form.Account_name_required"),
+                required: props.place !== 'report' && true,
+                message: t('Banking.Form.Account_name_required'),
               },
             ]}
           >
@@ -217,7 +217,7 @@ const CashAndBankProperties: React.FC<IProps> = React.memo(
               placeholder={
                 props.namePlaceholder
                   ? props.namePlaceholder
-                  : t("Banking.Form.Account_name")
+                  : t('Banking.Form.Account_name')
               }
               showSearch
               onSearch={onSearch}
@@ -226,40 +226,40 @@ const CashAndBankProperties: React.FC<IProps> = React.memo(
               disabled={props?.disabled}
               notFoundContent={
                 searchBankData?.isFetching ? (
-                  <CenteredSpin size="small" style={styles.spin} />
+                  <CenteredSpin size='small' style={styles.spin} />
                 ) : undefined
               }
               labelInValue
-              optionFilterProp="label"
+              optionFilterProp='label'
               dropdownRender={(menu) => (
                 <div>
                   {bankData?.isLoading && cash?.isLoading ? (
-                    <CenteredSpin size="small" style={styles.spin} />
+                    <CenteredSpin size='small' style={styles.spin} />
                   ) : (
                     menu
                   )}
                 </div>
               )}
             >
-              {props.place === "report" && (
+              {props.place === 'report' && (
                 <Select.Option
-                  key="all"
-                  value="all"
-                  label={t("Sales.Product_and_services.All")}
+                  key='all'
+                  value='all'
+                  label={t('Sales.Product_and_services.All')}
                 >
-                  {t("Sales.Product_and_services.All")}
+                  {t('Sales.Product_and_services.All')}
                 </Select.Option>
               )}
-              <Select.OptGroup label={t("Banking.Banks")}>
+              <Select.OptGroup label={t('Banking.Banks')}>
                 {bankData?.isLoading ? (
                   <Select.Option
                     disabled={true}
-                    key="bankLoader"
-                    value="bankLoader"
-                    label={<CenteredSpin size="small" />}
+                    key='bankLoader'
+                    value='bankLoader'
+                    label={<CenteredSpin size='small' />}
                     style={styles.option}
                   >
-                    <CenteredSpin size="small" style={styles.optionLoader} />
+                    <CenteredSpin size='small' style={styles.optionLoader} />
                   </Select.Option>
                 ) : (
                   allBanks?.map((item: any) => (
@@ -274,16 +274,16 @@ const CashAndBankProperties: React.FC<IProps> = React.memo(
                 )}
               </Select.OptGroup>
 
-              <Select.OptGroup label={t("Banking.Cash_box.1")}>
+              <Select.OptGroup label={t('Banking.Cash_box.1')}>
                 {cash?.isLoading ? (
                   <Select.Option
                     disabled={true}
-                    key="cashLoader"
-                    value="cashLoader"
-                    label={<CenteredSpin size="small" />}
+                    key='cashLoader'
+                    value='cashLoader'
+                    label={<CenteredSpin size='small' />}
                     style={styles.option}
                   >
-                    <CenteredSpin size="small" style={styles.optionLoader} />
+                    <CenteredSpin size='small' style={styles.optionLoader} />
                   </Select.Option>
                 ) : (
                   allCashes?.map((item: any) => (
@@ -317,12 +317,12 @@ const CashAndBankProperties: React.FC<IProps> = React.memo(
       return false;
     }
     return true;
-  }
+  },
 );
 const styles = {
-  spin: { padding: "7px" },
-  optionLoader: { margin: "0px" },
-  option: { height: "45px" },
+  spin: { padding: '7px' },
+  optionLoader: { margin: '0px' },
+  option: { height: '45px' },
 };
 
 export default CashAndBankProperties;

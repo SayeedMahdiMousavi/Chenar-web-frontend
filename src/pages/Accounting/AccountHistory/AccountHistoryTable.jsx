@@ -500,7 +500,7 @@ const AccountHistoryTable = ({ customers, collapse }) => {
                         {' '}
                         <Text>
                           {t(
-                            'Accounting.Reconcile.Form.Ending_balance'
+                            'Accounting.Reconcile.Form.Ending_balance',
                           ).toUpperCase()}{' '}
                         </Text>
                         <div className='header'> - {t('Taxes.Aed')}-123.00</div>
@@ -622,7 +622,7 @@ const AccountHistoryTable = ({ customers, collapse }) => {
             {reconcileStatus && (
               <Column
                 title={t(
-                  'Accounting.Bank_register.Reconcile_status'
+                  'Accounting.Bank_register.Reconcile_status',
                 ).toUpperCase()}
                 dataIndex='reconcileStatus'
                 key='reconcileStatus'
@@ -632,7 +632,7 @@ const AccountHistoryTable = ({ customers, collapse }) => {
             {bankingStatus && (
               <Column
                 title={t(
-                  'Accounting.Bank_register.Banking_status'
+                  'Accounting.Bank_register.Banking_status',
                 ).toUpperCase()}
                 dataIndex='bankingStatus'
                 key='bankingStatus'
@@ -663,7 +663,7 @@ const AccountHistoryTable = ({ customers, collapse }) => {
             {runningBalance && (
               <Column
                 title={t(
-                  'Accounting.Bank_register.Running_balance'
+                  'Accounting.Bank_register.Running_balance',
                 ).toUpperCase()}
                 dataIndex='type'
                 key='type'

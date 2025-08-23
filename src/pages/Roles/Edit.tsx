@@ -1,24 +1,24 @@
-import React, { memo, useState } from "react";
-import { Modal, Col, Row, Button } from "antd";
-import { useMediaQuery } from "../MediaQurey";
-import { useMutation, useQueryClient } from "react-query";
-import axiosInstance from "../ApiBaseUrl";
-import { Form, Input, message } from "antd";
-import { useTranslation } from "react-i18next";
-import { ModalDragTitle } from "../SelfComponents/ModalDragTitle";
-import Draggable from "react-draggable";
-import { Styles } from "../styles";
-import { ActionMessage } from "../SelfComponents/TranslateComponents/ActionMessage";
-import { trimString } from "../../Functions/TrimString";
-import { manageErrors } from "../../Functions";
+import React, { memo, useState } from 'react';
+import { Modal, Col, Row, Button } from 'antd';
+import { useMediaQuery } from '../MediaQurey';
+import { useMutation, useQueryClient } from 'react-query';
+import axiosInstance from '../ApiBaseUrl';
+import { Form, Input, message } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { ModalDragTitle } from '../SelfComponents/ModalDragTitle';
+import Draggable from 'react-draggable';
+import { Styles } from '../styles';
+import { ActionMessage } from '../SelfComponents/TranslateComponents/ActionMessage';
+import { trimString } from '../../Functions/TrimString';
+import { manageErrors } from '../../Functions';
 import {
   CancelButton,
   EditMenuItem,
   PermissionsFormItem,
   SaveButton,
-} from "../../components";
-import { permissionsList, USER_ROLE_M } from "../../constants/permissions";
-import { ROLES_LIST } from "../../constants/routes";
+} from '../../components';
+import { permissionsList, USER_ROLE_M } from '../../constants/permissions';
+import { ROLES_LIST } from '../../constants/routes';
 
 interface IRoleData {
   name: string;
@@ -50,11 +50,11 @@ let EditRole: React.FC<IProps> = ({
     visible: false,
   });
   const [disabled, setDisabled] = useState(true);
-  const isBgTablet = useMediaQuery("(max-width: 1024px)");
-  const isTablet = useMediaQuery("(max-width: 768px)");
-  const isMobile = useMediaQuery("(max-width: 425px)");
-  const isMiniTablet = useMediaQuery("(max-width: 576px)");
-  const isSubBase = useMediaQuery("(max-width: 375px)");
+  const isBgTablet = useMediaQuery('(max-width: 1024px)');
+  const isTablet = useMediaQuery('(max-width: 768px)');
+  const isMobile = useMediaQuery('(max-width: 425px)');
+  const isMiniTablet = useMediaQuery('(max-width: 576px)');
+  const isSubBase = useMediaQuery('(max-width: 375px)');
 
   const showModal = () => {
     setVisible(false);
@@ -88,7 +88,7 @@ let EditRole: React.FC<IProps> = ({
         visible: false,
       });
       message.success(
-        <ActionMessage name={value?.data?.name} message="Message.Update" />
+        <ActionMessage name={value?.data?.name} message='Message.Update' />,
       );
 
       handleUpdateItems();
@@ -126,7 +126,7 @@ let EditRole: React.FC<IProps> = ({
           <ModalDragTitle
             disabled={disabled}
             setDisabled={setDisabled}
-            title={t("Warehouse.Add_warehouse")}
+            title={t('Warehouse.Add_warehouse')}
           />
         }
         modalRender={(modal) => (
@@ -139,9 +139,9 @@ let EditRole: React.FC<IProps> = ({
         onCancel={onCancel}
         style={Styles.modal(isMobile)}
         bodyStyle={Styles.modalBody(isMobile, isSubBase, isMiniTablet)}
-        width={isMobile ? "100%" : isTablet ? 370 : isBgTablet ? 370 : 370}
+        width={isMobile ? '100%' : isTablet ? 370 : isBgTablet ? 370 : 370}
         footer={
-          <Row justify="end" align="middle">
+          <Row justify='end' align='middle'>
             <Col>
               <CancelButton onClick={onCancel} />
               <SaveButton onClick={handleOk} loading={isLoading} />
@@ -153,28 +153,28 @@ let EditRole: React.FC<IProps> = ({
           form={form}
           hideRequiredMark={true}
           scrollToFirstError={true}
-          layout="vertical"
+          layout='vertical'
         >
           <Form.Item
             label={
               <span>
-                {t("Form.Name")}
-                <span className="star">*</span>
+                {t('Form.Name')}
+                <span className='star'>*</span>
               </span>
             }
-            name="name"
-            rules={[{ required: true, message: t("Form.Name_required") }]}
+            name='name'
+            rules={[{ required: true, message: t('Form.Name_required') }]}
           >
             <Input autoFocus />
           </Form.Item>
           <PermissionsFormItem
             treeData={permissionsList}
             form={form}
-            label={t("Manage_users.Permissions")}
+            label={t('Manage_users.Permissions')}
             rules={[
               {
                 required: true,
-                message: t("Manage_users.Permissions_required"),
+                message: t('Manage_users.Permissions_required'),
               },
             ]}
           />

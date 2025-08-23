@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 // import { useTranslation } from "react-i18next";
 // import { SketchPicker } from "react-color";
 // import ImgCrop from "antd-img-crop";
@@ -24,9 +24,9 @@ import {
   // Divider,
   // Dropdown,
   // Collapse,
-} from "antd";
+} from 'antd';
 
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 // import Design from "./SalesRecipe/Design";
 // import {
 //   BankTwoTone,
@@ -58,7 +58,7 @@ const ShippingCenter = (props) => {
     setVisible(true);
   };
   // const normFile = (e) => {
-  //   
+  //
   //   if (Array.isArray(e)) {
   //     return e;
   //   }
@@ -80,23 +80,21 @@ const ShippingCenter = (props) => {
   };
   const prop = {
     showUploadList: false,
-    accept: ".csv,.xls,xlsx",
-    action: "//jsonplaceholder.typicode.com/posts/",
-    name: "file",
+    accept: '.csv,.xls,xlsx',
+    action: '//jsonplaceholder.typicode.com/posts/',
+    name: 'file',
 
     previewFile(file) {
-      
-
       // Your process logic. Here we just mock to the same file
-      return fetch("https://next.json-generator.com/api/json/get/4ytyBoLK8", {
-        method: "POST",
+      return fetch('https://next.json-generator.com/api/json/get/4ytyBoLK8', {
+        method: 'POST',
         body: file,
       })
         .then((res) => res.json())
         .then(({ thumbnail }) => thumbnail);
     },
     // fileList:{1},
-    listType: "picture",
+    listType: 'picture',
     // onChange(info) {
     //   setFileList(info.fileList.slice()); // Note: A new object must be used here!!!
     //   setLoading(true);
@@ -125,11 +123,11 @@ const ShippingCenter = (props) => {
       <Drawer
         maskClosable={false}
         mask={true}
-        title="Shipping center"
-        height="100%"
+        title='Shipping center'
+        height='100%'
         onClose={onClose}
         open={visible}
-        placement="top"
+        placement='top'
         bodyStyle={{ paddingBottom: 10 }}
         // footer={
         //   <div className='import__footer'>

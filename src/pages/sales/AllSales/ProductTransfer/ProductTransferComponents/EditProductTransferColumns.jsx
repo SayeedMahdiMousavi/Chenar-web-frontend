@@ -1,19 +1,19 @@
-import React, { useCallback } from "react";
-import { Form, Select, InputNumber, Input, Modal, Typography } from "antd";
-import axiosInstance from "../../../../ApiBaseUrl";
-import { useTranslation } from "react-i18next";
-import { InfiniteScrollSelectFormItem } from "../../../../../components/antd";
-import { manageNetworkError } from "../../../../../Functions/manageNetworkError";
-import { manageErrors } from "../../../../../Functions";
-import ShowDate from "../../../../SelfComponents/JalaliAntdComponents/ShowDate";
+import React, { useCallback } from 'react';
+import { Form, Select, InputNumber, Input, Modal, Typography } from 'antd';
+import axiosInstance from '../../../../ApiBaseUrl';
+import { useTranslation } from 'react-i18next';
+import { InfiniteScrollSelectFormItem } from '../../../../../components/antd';
+import { manageNetworkError } from '../../../../../Functions/manageNetworkError';
+import { manageErrors } from '../../../../../Functions';
+import ShowDate from '../../../../SelfComponents/JalaliAntdComponents/ShowDate';
 
 const FormItem = Form.Item;
 const { Option } = Select;
 const fields =
-  "id,name,product_units,unit_conversion,price.unit,price.sales_rate,price.perches_rate,product_barcode.unit,product_barcode.barcode,expiration_date,product_statistic.available,product_statistic.warehouse";
-const baseUrl = "/product/items/";
+  'id,name,product_units,unit_conversion,price.unit,price.sales_rate,price.perches_rate,product_barcode.unit,product_barcode.barcode,expiration_date,product_statistic.available,product_statistic.warehouse';
+const baseUrl = '/product/items/';
 const endUrl =
-  "status=active&expand=product_units,product_units.unit,unit_conversion,unit_conversion.unit,price,price.unit,product_barcode,product_barcode.unit,expiration_date";
+  'status=active&expand=product_units,product_units.unit,unit_conversion,unit_conversion.unit,price,price.unit,product_barcode,product_barcode.unit,expiration_date';
 
 const EditableCell = ({
   editing,
@@ -51,7 +51,7 @@ const EditableCell = ({
           setUnits(productUnits);
 
           const purUnit = newProduct?.product_units.find(
-            (item) => item?.default_sal === true
+            (item) => item?.default_sal === true,
           );
           const newPrice = getPrice(newProduct, purUnit?.unit?.id);
           form.setFieldsValue({
@@ -102,7 +102,7 @@ const EditableCell = ({
       record?.serial,
       setProductItem,
       save,
-    ]
+    ],
   );
 
   const handleChangeProductId = useCallback(
@@ -119,7 +119,7 @@ const EditableCell = ({
           setUnits(productUnits);
 
           const purUnit = newProduct?.product_units.find(
-            (item) => item?.default_pur === true
+            (item) => item?.default_pur === true,
           );
           const newPrice = getPrice(newProduct, purUnit?.unit?.id);
           form.setFieldsValue({
@@ -168,7 +168,7 @@ const EditableCell = ({
       setLoading,
       setProductItem,
       setUnits,
-    ]
+    ],
   );
 
   const onSave = () => {
@@ -189,10 +189,10 @@ const EditableCell = ({
     form.setFieldsValue({ expirationDate: undefined });
     if (row?.warehouse_in?.value === value?.value) {
       Modal.warning({
-        bodyStyle: { direction: t("Dir") },
+        bodyStyle: { direction: t('Dir') },
         title: (
           <Typography.Paragraph>
-            {t("Sales.All_sales.Invoice.Same_warehouse_message")}
+            {t('Sales.All_sales.Invoice.Same_warehouse_message')}
           </Typography.Paragraph>
         ),
         onOk: () => {
@@ -212,10 +212,10 @@ const EditableCell = ({
     const row = form.getFieldsValue();
     if (row?.warehouse_out?.value === value?.value) {
       Modal.warning({
-        bodyStyle: { direction: t("Dir") },
+        bodyStyle: { direction: t('Dir') },
         title: (
           <Typography.Paragraph>
-            {t("Sales.All_sales.Invoice.Same_warehouse_message")}
+            {t('Sales.All_sales.Invoice.Same_warehouse_message')}
           </Typography.Paragraph>
         ),
         onOk: () => {
@@ -243,34 +243,34 @@ const EditableCell = ({
   };
   const getInput = () => {
     switch (dataIndex) {
-      case "id":
+      case 'id':
         return (
           <InfiniteScrollSelectFormItem
             name={dataIndex}
             style={styles.margin}
-            fields="name,id"
+            fields='name,id'
             baseUrl={baseUrl}
             onChange={handleChangeProductId}
           />
         );
-      case "product":
+      case 'product':
         return (
           <InfiniteScrollSelectFormItem
             name={dataIndex}
             rules={[
               {
                 required: true,
-                message: t("Sales.All_sales.Invoice.Product_name_required"),
+                message: t('Sales.All_sales.Invoice.Product_name_required'),
               },
             ]}
             style={styles.margin}
-            fields="name,id"
+            fields='name,id'
             baseUrl={baseUrl}
             onChange={handleChangeProductName}
             dropdownMatchSelectWidth={false}
           />
         );
-      case "unit":
+      case 'unit':
         return (
           <FormItem name={dataIndex} style={styles.margin}>
             <Select
@@ -287,25 +287,25 @@ const EditableCell = ({
           </FormItem>
         );
 
-      case "warehouse_out":
+      case 'warehouse_out':
         return (
           <InfiniteScrollSelectFormItem
             name={dataIndex}
             rules={[
               {
                 required: true,
-                message: t("Sales.All_sales.Invoice.Source_warehouse_required"),
+                message: t('Sales.All_sales.Invoice.Source_warehouse_required'),
               },
             ]}
             style={styles.margin}
-            fields="name,id"
-            baseUrl="/inventory/warehouse/"
+            fields='name,id'
+            baseUrl='/inventory/warehouse/'
             onChange={onChangeWarehouseNameOut}
             dropdownMatchSelectWidth={false}
           />
         );
 
-      case "warehouse_in":
+      case 'warehouse_in':
         return (
           <InfiniteScrollSelectFormItem
             name={dataIndex}
@@ -313,18 +313,18 @@ const EditableCell = ({
               {
                 required: true,
                 message: t(
-                  "Sales.All_sales.Invoice.Destination_warehouse_required"
+                  'Sales.All_sales.Invoice.Destination_warehouse_required',
                 ),
               },
             ]}
             style={styles.margin}
-            fields="name,id"
-            baseUrl="/inventory/warehouse/"
+            fields='name,id'
+            baseUrl='/inventory/warehouse/'
             onChange={onChangeWarehouseNameIn}
             dropdownMatchSelectWidth={false}
           />
         );
-      case "qty":
+      case 'qty':
         return (
           <FormItem
             style={styles.margin}
@@ -332,21 +332,21 @@ const EditableCell = ({
             rules={[
               {
                 required: true,
-                message: t("Sales.Product_and_services.Form.Quantity_required"),
+                message: t('Sales.Product_and_services.Form.Quantity_required'),
               },
             ]}
           >
             <InputNumber
-              className="num"
+              className='num'
               min={0}
-              type="number"
-              inputMode="numeric"
+              type='number'
+              inputMode='numeric'
               onPressEnter={onChangeExpirationDate}
               onFocus={handleFocus}
             />
           </FormItem>
         );
-      case "expirationDate":
+      case 'expirationDate':
         return (
           <FormItem
             style={styles.margin}
@@ -357,8 +357,8 @@ const EditableCell = ({
             }
           >
             {({ getFieldValue }) => {
-              const warehouse = getFieldValue("warehouse_out");
-              const productStatistic = getFieldValue("productStatistic");
+              const warehouse = getFieldValue('warehouse_out');
+              const productStatistic = getFieldValue('productStatistic');
 
               return (
                 <FormItem style={styles.margin} name={dataIndex}>
@@ -367,7 +367,7 @@ const EditableCell = ({
                       ?.filter(
                         (item) =>
                           Boolean(item?.expire_date) &&
-                          warehouse?.value === item?.warehouse
+                          warehouse?.value === item?.warehouse,
                       )
                       ?.map((item) => (
                         <Option
@@ -399,6 +399,6 @@ const EditableCell = ({
 };
 const styles = {
   margin: { marginBottom: 0 },
-  spin: { margin: "10px 20px" },
+  spin: { margin: '10px 20px' },
 };
 export default EditableCell;

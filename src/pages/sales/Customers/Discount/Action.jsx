@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { useTranslation, Trans } from "react-i18next";
+import React, { useState } from 'react';
+import { useTranslation, Trans } from 'react-i18next';
 // import { useDatabase } from "@nozbe/watermelondb/hooks";
-import { useMutation, useQueryClient } from "react-query";
-import axiosInstance from "../../../ApiBaseUrl";
-import EditDiscount from "./EditDiscount";
+import { useMutation, useQueryClient } from 'react-query';
+import axiosInstance from '../../../ApiBaseUrl';
+import EditDiscount from './EditDiscount';
 import {
   Row,
   Col,
@@ -13,14 +13,14 @@ import {
   Input,
   Popconfirm,
   Typography,
-} from "antd";
-import { connect } from "react-redux";
-import { ActionMessage } from "../../../SelfComponents/TranslateComponents/ActionMessage";
-import ActionButton from "../../../SelfComponents/ActionButton";
+} from 'antd';
+import { connect } from 'react-redux';
+import { ActionMessage } from '../../../SelfComponents/TranslateComponents/ActionMessage';
+import ActionButton from '../../../SelfComponents/ActionButton';
 function Action(props) {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
-  const [confMessage, setConfMessage] = useState("");
+  const [confMessage, setConfMessage] = useState('');
   const [visible, setVisible] = useState(false);
   const [removeLoading, setRemoveLoading] = useState(false);
   const [removeVisible, setRemoveVisible] = useState(false);
@@ -37,19 +37,18 @@ function Action(props) {
           message.success(
             <ActionMessage
               name={props?.record?.name}
-              message="Message.Remove"
-            />
+              message='Message.Remove'
+            />,
           );
-          setConfMessage("");
+          setConfMessage('');
         })
         .catch((error) => {
           setRemoveLoading(false);
-          
         }),
     {
       onSuccess: () =>
         queryClient.invalidateQueries(`/customer_account/discount/card/`),
-    }
+    },
   );
   let oneRequest = false;
   const confirm = async () => {
@@ -65,7 +64,6 @@ function Action(props) {
 
       oneRequest = false;
     } catch (info) {
-      
       oneRequest = false;
     }
   };
@@ -81,7 +79,7 @@ function Action(props) {
     setRemoveVisible(false);
   };
   //popconfig
-  const text = t("Sales.Customers.Discount.Remove_Card_message1", {
+  const text = t('Sales.Customers.Discount.Remove_Card_message1', {
     name: props?.record?.name,
   });
   const onChangeMessage = (e) => {
@@ -93,7 +91,7 @@ function Action(props) {
       <Row style={styles.message}>
         <Col span={24}>
           <Trans
-            i18nKey="Sales.Customers.Discount.Remove_Card_message" // optional -> fallbacks to defaults if not provided
+            i18nKey='Sales.Customers.Discount.Remove_Card_message' // optional -> fallbacks to defaults if not provided
             values={{ name: props?.record?.name }}
             components={{
               italic: <i />,
@@ -105,7 +103,7 @@ function Action(props) {
         <br />
         <h3>{text}</h3>
         <Col span={24}>
-          <Input onChange={onChangeMessage} value={confMessage} />{" "}
+          <Input onChange={onChangeMessage} value={confMessage} />{' '}
         </Col>
       </Row>
     );
@@ -115,7 +113,7 @@ function Action(props) {
     <Menu>
       <Menu.Item>
         <Popconfirm
-          placement="topLeft"
+          placement='topLeft'
           title={confirm1}
           onConfirm={confirm}
           open={removeVisible}
@@ -123,11 +121,11 @@ function Action(props) {
             loading: removeLoading,
             disabled: text !== confMessage,
           }}
-          okText={t("Manage_users.Yes")}
-          cancelText={t("Manage_users.No")}
+          okText={t('Manage_users.Yes')}
+          cancelText={t('Manage_users.No')}
           onCancel={cancel}
         >
-          <div onClick={onClickRemove}>{t("Sales.Customers.Table.Remove")}</div>
+          <div onClick={onClickRemove}>{t('Sales.Customers.Table.Remove')}</div>
         </Popconfirm>
       </Menu.Item>
 
@@ -142,7 +140,7 @@ function Action(props) {
   return (
     <Dropdown
       overlay={action}
-      trigger={["click"]}
+      trigger={['click']}
       onOpenChange={handleVisibleChange}
       open={visible}
     >
@@ -155,6 +153,6 @@ function Action(props) {
 }
 const styles = {
   drop: { zIndex: 0 },
-  message: { width: "306px" },
+  message: { width: '306px' },
 };
 export default connect(null)(Action);

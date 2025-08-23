@@ -262,7 +262,7 @@ const EditBankAccount: React.FC<IProps> = ({
                                   required: true,
                                   whitespace: true,
                                   message: `${t(
-                                    'Banking.Form.Person_required'
+                                    'Banking.Form.Person_required',
                                   )}`,
                                 },
                               ]}
@@ -281,7 +281,7 @@ const EditBankAccount: React.FC<IProps> = ({
                                   required: true,
                                   whitespace: true,
                                   message: `${t(
-                                    'Banking.Form.Number_required'
+                                    'Banking.Form.Number_required',
                                   )}`,
                                 },
                               ]}
@@ -325,7 +325,7 @@ const EditBankAccount: React.FC<IProps> = ({
                         &nbsp;
                         <Tooltip
                           title={`${t(
-                            'Form.Fax_sample'
+                            'Form.Fax_sample',
                           )} 93799773529@efaxsend.com `}
                         >
                           <QuestionCircleOutlined />

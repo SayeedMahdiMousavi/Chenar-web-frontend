@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-import { Modal, Col, Row, Button } from "antd";
-import { useMediaQuery } from "../MediaQurey";
-import { useMutation, useQueryClient } from "react-query";
-import axiosInstance from "../ApiBaseUrl";
-import { Form, Input, message } from "antd";
-import { useTranslation } from "react-i18next";
-import { ModalDragTitle } from "../SelfComponents/ModalDragTitle";
-import Draggable from "react-draggable";
-import { Styles } from "../styles";
-import { ActionMessage } from "../SelfComponents/TranslateComponents/ActionMessage";
-import { trimString } from "../../Functions/TrimString";
-import { manageErrors } from "../../Functions";
-import { CancelButton, EditMenuItem, SaveButton } from "../../components";
-import { BRANCH_M } from "../../constants/permissions";
+import React, { useState } from 'react';
+import { Modal, Col, Row, Button } from 'antd';
+import { useMediaQuery } from '../MediaQurey';
+import { useMutation, useQueryClient } from 'react-query';
+import axiosInstance from '../ApiBaseUrl';
+import { Form, Input, message } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { ModalDragTitle } from '../SelfComponents/ModalDragTitle';
+import Draggable from 'react-draggable';
+import { Styles } from '../styles';
+import { ActionMessage } from '../SelfComponents/TranslateComponents/ActionMessage';
+import { trimString } from '../../Functions/TrimString';
+import { manageErrors } from '../../Functions';
+import { CancelButton, EditMenuItem, SaveButton } from '../../components';
+import { BRANCH_M } from '../../constants/permissions';
 
 const EditBranch = ({
   setVisible,
@@ -29,11 +29,11 @@ const EditBranch = ({
     visible: false,
   });
   const [disabled, setDisabled] = useState(true);
-  const isBgTablet = useMediaQuery("(max-width: 1024px)");
-  const isTablet = useMediaQuery("(max-width: 768px)");
-  const isMobile = useMediaQuery("(max-width: 425px)");
-  const isMiniTablet = useMediaQuery("(max-width: 576px)");
-  const isSubBase = useMediaQuery("(max-width: 375px)");
+  const isBgTablet = useMediaQuery('(max-width: 1024px)');
+  const isTablet = useMediaQuery('(max-width: 768px)');
+  const isMobile = useMediaQuery('(max-width: 425px)');
+  const isMiniTablet = useMediaQuery('(max-width: 576px)');
+  const isSubBase = useMediaQuery('(max-width: 375px)');
 
   const showModal = () => {
     handleClickEdit();
@@ -68,7 +68,7 @@ const EditBranch = ({
         visible: false,
       });
       message.success(
-        <ActionMessage name={value?.data?.name} message="Message.Update" />
+        <ActionMessage name={value?.data?.name} message='Message.Update' />,
       );
       handleUpdateItems();
       if (record?.id === 106001) {
@@ -94,7 +94,7 @@ const EditBranch = ({
         });
       })
       .catch((info) => {
-        // 
+        //
       });
   };
 
@@ -113,7 +113,7 @@ const EditBranch = ({
           <ModalDragTitle
             disabled={disabled}
             setDisabled={setDisabled}
-            title={t("Company_branch.Branch_information")}
+            title={t('Company_branch.Branch_information')}
           />
         }
         modalRender={(modal) => (
@@ -126,9 +126,9 @@ const EditBranch = ({
         onCancel={onCancel}
         style={Styles.modal(isMobile)}
         bodyStyle={Styles.modalBody(isMobile, isSubBase, isMiniTablet)}
-        width={isMobile ? "100%" : isTablet ? 370 : isBgTablet ? 370 : 370}
+        width={isMobile ? '100%' : isTablet ? 370 : isBgTablet ? 370 : 370}
         footer={
-          <Row justify="end" align="middle">
+          <Row justify='end' align='middle'>
             <Col>
               <CancelButton onClick={onCancel} />
               <SaveButton onClick={handleOk} loading={isLoading} />
@@ -140,34 +140,34 @@ const EditBranch = ({
           form={form}
           hideRequiredMark={true}
           scrollToFirstError={true}
-          layout="vertical"
+          layout='vertical'
         >
           <Form.Item
             label={
               <span>
-                {t("Form.Name")}
-                <span className="star">*</span>
+                {t('Form.Name')}
+                <span className='star'>*</span>
               </span>
             }
             style={styles.formItem}
-            name="name"
-            rules={[{ required: true, message: `${t("Form.Name_required")}` }]}
+            name='name'
+            rules={[{ required: true, message: `${t('Form.Name_required')}` }]}
           >
             <Input />
           </Form.Item>
           <Form.Item
             label={
               <span>
-                {t("Warehouse.Responsible")}
-                <span className="star">*</span>
+                {t('Warehouse.Responsible')}
+                <span className='star'>*</span>
               </span>
             }
             style={styles.formItem}
-            name="responsible"
+            name='responsible'
             rules={[
               {
                 required: true,
-                message: `${t("Warehouse.Required_responsible")}`,
+                message: `${t('Warehouse.Required_responsible')}`,
               },
             ]}
           >
@@ -176,14 +176,14 @@ const EditBranch = ({
           <Form.Item
             label={
               <span>
-                {t("Form.Address")}
-                <span className="star">*</span>
+                {t('Form.Address')}
+                <span className='star'>*</span>
               </span>
             }
-            name="address"
+            name='address'
             style={styles.formItem}
             rules={[
-              { required: true, message: `${t("Form.Required_address")}` },
+              { required: true, message: `${t('Form.Required_address')}` },
             ]}
           >
             <Input.TextArea />
@@ -194,7 +194,7 @@ const EditBranch = ({
   );
 };
 const styles = {
-  formItem: { marginBottom: "8px" },
+  formItem: { marginBottom: '8px' },
 };
 
 export default EditBranch;

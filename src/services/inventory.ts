@@ -56,7 +56,11 @@ export interface StockMovement {
     id: number;
     name: string;
   };
-  reference_type?: 'sales_invoice' | 'purchase_invoice' | 'transfer' | 'adjustment';
+  reference_type?:
+    | 'sales_invoice'
+    | 'purchase_invoice'
+    | 'transfer'
+    | 'adjustment';
   reference_id?: number;
   date: string;
   description?: string;
@@ -97,7 +101,9 @@ export class InventoryService extends ApiService {
   }
 
   // Warehouse Management
-  async getWarehouses(params?: PaginationParams): Promise<{ results: Warehouse[]; count: number }> {
+  async getWarehouses(
+    params?: PaginationParams,
+  ): Promise<{ results: Warehouse[]; count: number }> {
     return this.get('/warehouse/', params);
   }
 
@@ -109,7 +115,10 @@ export class InventoryService extends ApiService {
     return this.post('/warehouse/', data);
   }
 
-  async updateWarehouse(id: string | number, data: Partial<CreateWarehouseData>): Promise<Warehouse> {
+  async updateWarehouse(
+    id: string | number,
+    data: Partial<CreateWarehouseData>,
+  ): Promise<Warehouse> {
     return this.patch(`/warehouse/${id}/`, data);
   }
 
@@ -126,12 +135,14 @@ export class InventoryService extends ApiService {
   }
 
   // Inventory Items
-  async getInventoryItems(params?: PaginationParams & {
-    warehouse?: number;
-    product?: number;
-    low_stock?: boolean;
-    expiring_soon?: boolean;
-  }): Promise<{ results: InventoryItem[]; count: number }> {
+  async getInventoryItems(
+    params?: PaginationParams & {
+      warehouse?: number;
+      product?: number;
+      low_stock?: boolean;
+      expiring_soon?: boolean;
+    },
+  ): Promise<{ results: InventoryItem[]; count: number }> {
     return this.get('/items/', params);
   }
 
@@ -139,33 +150,44 @@ export class InventoryService extends ApiService {
     return this.get(`/items/${id}/`);
   }
 
-  async updateInventoryItem(id: string | number, data: {
-    quantity?: string;
-    cost_per_unit?: string;
-    expiry_date?: string;
-    batch_number?: string;
-    location_in_warehouse?: string;
-  }): Promise<InventoryItem> {
+  async updateInventoryItem(
+    id: string | number,
+    data: {
+      quantity?: string;
+      cost_per_unit?: string;
+      expiry_date?: string;
+      batch_number?: string;
+      location_in_warehouse?: string;
+    },
+  ): Promise<InventoryItem> {
     return this.patch(`/items/${id}/`, data);
   }
 
-  async getProductInventory(productId: string | number, warehouseId?: number): Promise<InventoryItem[]> {
+  async getProductInventory(
+    productId: string | number,
+    warehouseId?: number,
+  ): Promise<InventoryItem[]> {
     const params = warehouseId ? { warehouse: warehouseId } : {};
     return this.get(`/items/by_product/${productId}/`, params);
   }
 
-  async getWarehouseInventory(warehouseId: string | number, params?: PaginationParams): Promise<{ results: InventoryItem[]; count: number }> {
+  async getWarehouseInventory(
+    warehouseId: string | number,
+    params?: PaginationParams,
+  ): Promise<{ results: InventoryItem[]; count: number }> {
     return this.get(`/items/by_warehouse/${warehouseId}/`, params);
   }
 
   // Stock Movements
-  async getStockMovements(params?: PaginationParams & {
-    product?: number;
-    warehouse?: number;
-    movement_type?: string;
-    date_from?: string;
-    date_to?: string;
-  }): Promise<{ results: StockMovement[]; count: number }> {
+  async getStockMovements(
+    params?: PaginationParams & {
+      product?: number;
+      warehouse?: number;
+      movement_type?: string;
+      date_from?: string;
+      date_to?: string;
+    },
+  ): Promise<{ results: StockMovement[]; count: number }> {
     return this.get('/movements/', params);
   }
 
@@ -187,7 +209,10 @@ export class InventoryService extends ApiService {
     return this.post('/movements/', data);
   }
 
-  async getProductMovementHistory(productId: string | number, params?: PaginationParams): Promise<{ results: StockMovement[]; count: number }> {
+  async getProductMovementHistory(
+    productId: string | number,
+    params?: PaginationParams,
+  ): Promise<{ results: StockMovement[]; count: number }> {
     return this.get(`/movements/by_product/${productId}/`, params);
   }
 
@@ -205,7 +230,9 @@ export class InventoryService extends ApiService {
     return this.post('/adjustments/', data);
   }
 
-  async getStockAdjustments(params?: PaginationParams): Promise<{ results: any[]; count: number }> {
+  async getStockAdjustments(
+    params?: PaginationParams,
+  ): Promise<{ results: any[]; count: number }> {
     return this.get('/adjustments/', params);
   }
 
@@ -227,7 +254,9 @@ export class InventoryService extends ApiService {
     return this.post('/transfers/', data);
   }
 
-  async getStockTransfers(params?: PaginationParams): Promise<{ results: any[]; count: number }> {
+  async getStockTransfers(
+    params?: PaginationParams,
+  ): Promise<{ results: any[]; count: number }> {
     return this.get('/transfers/', params);
   }
 
@@ -240,17 +269,22 @@ export class InventoryService extends ApiService {
   }
 
   // Low Stock Alerts
-  async getLowStockAlerts(params?: PaginationParams & {
-    warehouse?: number;
-    status?: string;
-  }): Promise<{ results: LowStockAlert[]; count: number }> {
+  async getLowStockAlerts(
+    params?: PaginationParams & {
+      warehouse?: number;
+      status?: string;
+    },
+  ): Promise<{ results: LowStockAlert[]; count: number }> {
     return this.get('/low_stock_alerts/', params);
   }
 
-  async updateLowStockAlert(id: string | number, data: {
-    status?: 'active' | 'resolved' | 'ignored';
-    recommended_order_quantity?: string;
-  }): Promise<LowStockAlert> {
+  async updateLowStockAlert(
+    id: string | number,
+    data: {
+      status?: 'active' | 'resolved' | 'ignored';
+      recommended_order_quantity?: string;
+    },
+  ): Promise<LowStockAlert> {
     return this.patch(`/low_stock_alerts/${id}/`, data);
   }
 
@@ -263,7 +297,9 @@ export class InventoryService extends ApiService {
     return this.post('/minimum_stock_levels/', data);
   }
 
-  async getMinimumStockLevels(params?: PaginationParams): Promise<{ results: any[]; count: number }> {
+  async getMinimumStockLevels(
+    params?: PaginationParams,
+  ): Promise<{ results: any[]; count: number }> {
     return this.get('/minimum_stock_levels/', params);
   }
 
@@ -323,7 +359,9 @@ export class InventoryService extends ApiService {
     return this.post('/stock_counts/', data);
   }
 
-  async getStockCounts(params?: PaginationParams): Promise<{ results: any[]; count: number }> {
+  async getStockCounts(
+    params?: PaginationParams,
+  ): Promise<{ results: any[]; count: number }> {
     return this.get('/stock_counts/', params);
   }
 
@@ -332,11 +370,13 @@ export class InventoryService extends ApiService {
   }
 
   // Batch and Serial Number Tracking
-  async getBatches(params?: PaginationParams & {
-    product?: number;
-    warehouse?: number;
-    expired?: boolean;
-  }): Promise<{ results: any[]; count: number }> {
+  async getBatches(
+    params?: PaginationParams & {
+      product?: number;
+      warehouse?: number;
+      expired?: boolean;
+    },
+  ): Promise<{ results: any[]; count: number }> {
     return this.get('/batches/', params);
   }
 
@@ -352,11 +392,13 @@ export class InventoryService extends ApiService {
     return this.post('/batches/', data);
   }
 
-  async getSerialNumbers(params?: PaginationParams & {
-    product?: number;
-    warehouse?: number;
-    status?: string;
-  }): Promise<{ results: any[]; count: number }> {
+  async getSerialNumbers(
+    params?: PaginationParams & {
+      product?: number;
+      warehouse?: number;
+      status?: string;
+    },
+  ): Promise<{ results: any[]; count: number }> {
     return this.get('/serial_numbers/', params);
   }
 
@@ -371,4 +413,3 @@ export class InventoryService extends ApiService {
 }
 
 export const inventoryService = new InventoryService();
-

@@ -1,13 +1,13 @@
-import React, { useCallback, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useQueryClient } from "react-query";
-import { Menu, Dropdown } from "antd";
-import EditPayAndReceiveCash from "./PayAndReceiveTransactions/EditPayAndRecCash";
-import EditTransaction from "./EditTransaction";
-import ActionButton from "../SelfComponents/ActionButton";
-import { RemovePopconfirm } from "../../components";
-import { useRemoveItem } from "../../Hooks";
-import { checkPermissions } from "../../Functions";
+import React, { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useQueryClient } from 'react-query';
+import { Menu, Dropdown } from 'antd';
+import EditPayAndReceiveCash from './PayAndReceiveTransactions/EditPayAndRecCash';
+import EditTransaction from './EditTransaction';
+import ActionButton from '../SelfComponents/ActionButton';
+import { RemovePopconfirm } from '../../components';
+import { useRemoveItem } from '../../Hooks';
+import { checkPermissions } from '../../Functions';
 
 // import {
 //   journalResultUrl,
@@ -64,10 +64,10 @@ const Action: React.FC<IProps> = (props) => {
     baseUrl: `${props.baseUrl}${props?.record?.id}/`,
     setVisible,
     recordName: t(
-      "Sales.All_sales.Purchase_and_sales.Transaction"
+      'Sales.All_sales.Purchase_and_sales.Transaction',
     ).toLocaleLowerCase(),
     handleUpdateItems: handleUpdateItems,
-    removeMessage: t("Message.Transaction_remove_message"),
+    removeMessage: t('Message.Transaction_remove_message'),
   });
 
   const handleCancel = () => {
@@ -85,15 +85,15 @@ const Action: React.FC<IProps> = (props) => {
   };
 
   const payCashId =
-    props?.record?.pay_by && props?.record?.pay_by?.id?.split("-");
+    props?.record?.pay_by && props?.record?.pay_by?.id?.split('-');
 
   const action = (
     <Menu>
       <RemovePopconfirm
         itemName={t(
-          "Sales.All_sales.Purchase_and_sales.Transaction"
+          'Sales.All_sales.Purchase_and_sales.Transaction',
         ).toLocaleLowerCase()}
-        open={removeVisible}
+        openConfirm={removeVisible}
         loading={isLoading}
         onConfirm={handleDeleteItem}
         onCancel={handleCancel}
@@ -103,20 +103,19 @@ const Action: React.FC<IProps> = (props) => {
 
       {checkPermissions(`change_${props.model}`) && (
         <Menu.Item onClick={handleClickEdit}>
-          {props.place === "customerPayAndRecCash" ||
-          props.place === "employeePayAndRecCash" ||
-          props.place === "supplierPayAndRecCash" ||
-          props.place === "currencyExchange" ||
-          props.place === "withdrawPayAndRecCash" ? (
+          {props.place === 'customerPayAndRecCash' ||
+          props.place === 'employeePayAndRecCash' ||
+          props.place === 'supplierPayAndRecCash' ||
+          props.place === 'currencyExchange' ||
+          props.place === 'withdrawPayAndRecCash' ? (
             <EditPayAndReceiveCash
               record={props.record}
               baseUrl={props.baseUrl}
               place={props.place}
-              type={payCashId?.[0] === "CSH" ? "payCash" : "recCash"}
+              type={payCashId?.[0] === 'CSH' ? 'payCash' : 'recCash'}
               setVisible={setVisible}
             />
           ) : (
-            
             <EditTransaction
               record={props.record}
               setVisible={setVisible}
@@ -137,7 +136,7 @@ const Action: React.FC<IProps> = (props) => {
   return (
     <Dropdown
       overlay={action}
-      trigger={["click"]}
+      trigger={['click']}
       onOpenChange={handleVisibleChange}
       open={visible}
       disabled={props.hasSelected}

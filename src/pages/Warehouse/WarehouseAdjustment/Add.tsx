@@ -1,37 +1,37 @@
-import React, { useState, useCallback } from "react";
-import { useTranslation } from "react-i18next";
-import startCase from "lodash/startCase";
-import { Drawer, Form, Col, Row, message, Space, Modal } from "antd";
-import dayjs from "dayjs";
-import axiosInstance from "../../ApiBaseUrl";
-import { useMutation, useQueryClient } from "react-query";
+import React, { useState, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+import startCase from 'lodash/startCase';
+import { Drawer, Form, Col, Row, message, Space, Modal } from 'antd';
+import dayjs from 'dayjs';
+import axiosInstance from '../../ApiBaseUrl';
+import { useMutation, useQueryClient } from 'react-query';
 import {
   changeGToJ,
   handlePrepareDateForServer,
   utcDate,
-} from "../../../Functions/utcDate";
-import { fixedNumber } from "../../../Functions/math";
-import useGetCalender from "../../../Hooks/useGetCalender";
-import useGetBaseCurrency from "../../../Hooks/useGetBaseCurrency";
-import { ActionMessage } from "../../SelfComponents/TranslateComponents/ActionMessage";
-import SaveDropdownButton from "../../../components/buttons/SaveDropdownButton";
-import WarehouseAdjustmentEditableTable from "./EditableTable";
-import { Key } from "antd/lib/table/interface";
-import { CancelButton, PageNewButton, ResetButton } from "../../../components";
-import { WAREHOUSE_ADJUSTMENT_M } from "../../../constants/permissions";
-import { WAREHOUSE_ADJUSTMENT_INVOICE_LIST } from "../../../constants/routes";
+} from '../../../Functions/utcDate';
+import { fixedNumber } from '../../../Functions/math';
+import useGetCalender from '../../../Hooks/useGetCalender';
+import useGetBaseCurrency from '../../../Hooks/useGetBaseCurrency';
+import { ActionMessage } from '../../SelfComponents/TranslateComponents/ActionMessage';
+import SaveDropdownButton from '../../../components/buttons/SaveDropdownButton';
+import WarehouseAdjustmentEditableTable from './EditableTable';
+import { Key } from 'antd/lib/table/interface';
+import { CancelButton, PageNewButton, ResetButton } from '../../../components';
+import { WAREHOUSE_ADJUSTMENT_M } from '../../../constants/permissions';
+import { WAREHOUSE_ADJUSTMENT_INVOICE_LIST } from '../../../constants/routes';
 // import { handleFindUnitConversionRate } from "../../../Functions";
-import PrintInvoiceButton from "../../sales/AllSales/MarketInvoiceComponents/PrintInvoiceButton";
-import ProductTransferHeader from "../../sales/AllSales/ProductTransfer/ProductTransferComponents/Header";
+import PrintInvoiceButton from '../../sales/AllSales/MarketInvoiceComponents/PrintInvoiceButton';
+import ProductTransferHeader from '../../sales/AllSales/ProductTransfer/ProductTransferComponents/Header';
 
-const dateFormat = "YYYY-MM-DD HH:mm";
+const dateFormat = 'YYYY-MM-DD HH:mm';
 
 export default function AddWarehouseAdjustment() {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([]);
-  const [editingKey, setEditingKey] = useState("");
+  const [editingKey, setEditingKey] = useState('');
   const [form] = Form.useForm();
   const [response, setResponse] = useState<any>({});
   const [count, setCount] = useState(2);
@@ -59,7 +59,7 @@ export default function AddWarehouseAdjustment() {
     form.resetFields();
     setCount(2);
     setResponse({});
-    setEditingKey("");
+    setEditingKey('');
     setData([
       {
         key: 1,
@@ -69,21 +69,21 @@ export default function AddWarehouseAdjustment() {
     setSelectedRowKeys([]);
   }, [form]);
 
-  const messageKey = "addWarehouseAdjustment";
+  const messageKey = 'addWarehouseAdjustment';
   const addWarehouseAdjustment = useCallback(
-    async ({ value, type }) => {
+    async ({ value, type }: { value: any; type: any }) => {
       return await axiosInstance
         .post(WAREHOUSE_ADJUSTMENT_INVOICE_LIST, value, { timeout: 0 })
         .then((res) => {
-          if (type === "0") {
+          if (type === '0') {
             message.destroy(messageKey);
             message.success(
               <ActionMessage
-                name={`${t("Sales.All_sales.Invoice.Invoice")} ${
+                name={`${t('Sales.All_sales.Invoice.Invoice')} ${
                   res?.data?.id
                 }`}
-                message="Message.Add"
-              />
+                message='Message.Add'
+              />,
             );
             handleAfterVisibleChange();
             setVisibleDrop(false);
@@ -91,11 +91,11 @@ export default function AddWarehouseAdjustment() {
             setResponse(res.data);
             message.success(
               <ActionMessage
-                name={`${t("Sales.All_sales.Invoice.Invoice")} ${
+                name={`${t('Sales.All_sales.Invoice.Invoice')} ${
                   res?.data?.id
                 }`}
-                message="Message.Add"
-              />
+                message='Message.Add'
+              />,
             );
           }
           queryClient.invalidateQueries(WAREHOUSE_ADJUSTMENT_INVOICE_LIST);
@@ -110,51 +110,51 @@ export default function AddWarehouseAdjustment() {
           } else if (error?.response?.data?.invoice_item?.[0]) {
             if (error?.response?.data?.invoice_item?.[0]?.product?.[0]) {
               message.error(
-                `${error?.response.data?.invoice_item?.[0]?.product?.[0]}`
+                `${error?.response.data?.invoice_item?.[0]?.product?.[0]}`,
               );
             } else if (error?.response?.data?.invoice_item?.[0]?.qty?.[0]) {
               message.error(
-                `${error?.response.data?.invoice_item?.[0]?.qty?.[0]}`
+                `${error?.response.data?.invoice_item?.[0]?.qty?.[0]}`,
               );
             } else if (error?.response?.data?.invoice_item?.[0]?.unit?.[0]) {
               message.error(
-                `${error?.response.data?.invoice_item?.[0]?.unit?.[0]}`
+                `${error?.response.data?.invoice_item?.[0]?.unit?.[0]}`,
               );
             } else if (
               error?.response?.data?.invoice_item?.[0]?.expire_date?.[0]
             ) {
               message.error(
-                `${error?.response.data?.invoice_item?.[0]?.expire_date?.[0]}`
+                `${error?.response.data?.invoice_item?.[0]?.expire_date?.[0]}`,
               );
             } else if (
               error?.response?.data?.invoice_item?.[0]
                 ?.unit_conversion_rate?.[0]
             ) {
               message.error(
-                `${error?.response.data?.invoice_item?.[0]?.unit_conversion_rate?.[0]}`
+                `${error?.response.data?.invoice_item?.[0]?.unit_conversion_rate?.[0]}`,
               );
             } else if (
               error?.response?.data?.invoice_item?.[0]?.warehouse_in?.[0]
             ) {
               message.error(
-                `${error?.response.data?.invoice_item?.[0]?.warehouse_in?.[0]}`
+                `${error?.response.data?.invoice_item?.[0]?.warehouse_in?.[0]}`,
               );
             } else if (
               error?.response?.data?.invoice_item?.[0]?.warehouse_out?.[0]
             ) {
               message.error(
-                `${error?.response.data?.invoice_item?.[0]?.warehouse_out?.[0]}`
+                `${error?.response.data?.invoice_item?.[0]?.warehouse_out?.[0]}`,
               );
             }
           }
           return error;
         });
     },
-    [handleAfterVisibleChange, queryClient, t]
+    [handleAfterVisibleChange, queryClient, t],
   );
 
   const { mutate: mutateAddWarehouseAdjustment, isLoading } = useMutation(
-    addWarehouseAdjustment
+    addWarehouseAdjustment,
   );
 
   const handleSendOrder = (e: any) => {
@@ -177,10 +177,10 @@ export default function AddWarehouseAdjustment() {
               expire_date: item?.expirationDate,
             };
 
-            if (values?.type === "waste") {
-              delete newItem["warehouse_in"];
+            if (values?.type === 'waste') {
+              delete newItem['warehouse_in'];
             } else {
-              delete newItem["warehouse_out"];
+              delete newItem['warehouse_out'];
             }
 
             return [...items, newItem];
@@ -191,13 +191,20 @@ export default function AddWarehouseAdjustment() {
 
         if (items?.length === 0) {
           Modal.warning({
-            bodyStyle: { direction: t("Dir") },
-            title: t("Sales.All_sales.Invoice.Invoice_no_data_message"),
+            bodyStyle: {
+              direction: t('Dir') as
+                | 'ltr'
+                | 'rtl'
+                | 'inherit'
+                | 'initial'
+                | 'unset',
+            },
+            title: t('Sales.All_sales.Invoice.Invoice_no_data_message'),
           });
         } else {
-          if (submitType === "0") {
+          if (submitType === '0') {
             message.loading({
-              content: t("Message.Loading"),
+              content: t('Message.Loading'),
               key: messageKey,
             });
           }
@@ -210,9 +217,9 @@ export default function AddWarehouseAdjustment() {
             currency: baseCurrencyId,
             currency_rate: 1,
             invoice_items: items,
-            customer: "CUS-103001",
+            customer: 'CUS-103001',
           };
-          // 
+          //
           mutateAddWarehouseAdjustment({ value: allData, type: submitType });
         }
       }
@@ -236,27 +243,27 @@ export default function AddWarehouseAdjustment() {
       <Drawer
         maskClosable={false}
         mask={true}
-        title={startCase(t("Warehouse.Warehouse_adjustment_information"))}
-        height="100%"
+        title={startCase(t('Warehouse.Warehouse_adjustment_information'))}
+        height='100%'
         onClose={onClose}
         open={visible}
         afterVisibleChange={handleAfterVisibleChange}
         destroyOnClose
-        placement="top"
+        placement='top'
         bodyStyle={{ paddingBottom: 10 }}
         footer={
-          <Row justify="end">
+          <Row justify='end'>
             <Col>
-              <Space size="small">
+              <Space size='small'>
                 <CancelButton onClick={onClose} disabled={responseId} />
                 <ResetButton ghost onClick={handleAfterVisibleChange} />
                 <PrintInvoiceButton
                   disabled={!responseId}
                   title={startCase(
-                    t("Warehouse.Warehouse_adjustment_information")
+                    t('Warehouse.Warehouse_adjustment_information'),
                   )}
                   dataSource={data}
-                  type="warehouseAdjustment"
+                  type='warehouseAdjustment'
                   form={form}
                   id={response?.id}
                 />
@@ -268,7 +275,7 @@ export default function AddWarehouseAdjustment() {
                   dropdownProps={{
                     visible: visibleDrop,
                     onOpenChange: handleVisibleChange,
-                    disabled: editingKey !== "" || responseId,
+                    disabled: editingKey !== '' || responseId,
                   }}
                 />
               </Space>
@@ -281,18 +288,18 @@ export default function AddWarehouseAdjustment() {
           form={form}
           initialValues={{
             date:
-              calendarCode === "gregory"
+              calendarCode === 'gregory'
                 ? utcDate()
                 : dayjs(changeGToJ(utcDate().format(dateFormat), dateFormat), {
                     //@ts-ignore
                     jalali: true,
                   }),
-            type: "waste",
+            type: 'waste',
           }}
         >
           <Row>
             <Col span={6}>
-              <ProductTransferHeader type="adjustment" disabled={responseId} />
+              <ProductTransferHeader type='adjustment' disabled={responseId} />
             </Col>
 
             <Col span={24}>
@@ -301,7 +308,7 @@ export default function AddWarehouseAdjustment() {
                 setData={setData}
                 setCount={setCount}
                 count={count}
-                type="add"
+                type='add'
                 setEditingKey={setEditingKey}
                 editingKey={editingKey}
                 setSelectedRowKeys={setSelectedRowKeys}

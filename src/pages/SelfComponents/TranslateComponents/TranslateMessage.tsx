@@ -1,6 +1,6 @@
-import React from "react";
-import { Trans } from "react-i18next";
-import { Typography } from "antd";
+import React from 'react';
+import { Trans } from 'react-i18next';
+import { Typography } from 'antd';
 
 interface IProps {
   values: any;
@@ -12,7 +12,7 @@ export const TranslateMessage: React.FC<IProps> = (props) => {
       i18nKey={props?.message} // optional -> fallbacks to defaults if not provided
       values={props?.values}
       components={{
-        danger: <Typography.Text type="danger" strong={true} />,
+        danger: <Typography.Text type='danger' strong={true} />,
         bold: <Typography.Text strong={true} />,
       }}
     />

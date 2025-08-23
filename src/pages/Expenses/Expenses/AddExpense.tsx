@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import { Modal, Col, Row } from "antd";
-import { useMediaQuery } from "../../MediaQurey";
-import { useMutation, useQueryClient } from "react-query";
-import axiosInstance from "../../ApiBaseUrl";
-import { Form, Input } from "antd";
-import { useTranslation } from "react-i18next";
-import { ModalDragTitle } from "../../SelfComponents/ModalDragTitle";
-import Draggable from "react-draggable";
-import { CategoryField } from "../../SelfComponents/CategoryField";
-import { Styles } from "../../styles";
-import { trimString } from "../../../Functions/TrimString";
-import { useGetDefaultCategory } from "../../../Hooks";
-import { CancelButton, PageNewButton, SaveButton } from "../../../components";
-import { EXPENSE_TYPE_M } from "../../../constants/permissions";
-import { addMessage, manageErrors } from "../../../Functions";
+import React, { useState } from 'react';
+import { Modal, Col, Row } from 'antd';
+import { useMediaQuery } from '../../MediaQurey';
+import { useMutation, useQueryClient } from 'react-query';
+import axiosInstance from '../../ApiBaseUrl';
+import { Form, Input } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { ModalDragTitle } from '../../SelfComponents/ModalDragTitle';
+import Draggable from 'react-draggable';
+import { CategoryField } from '../../SelfComponents/CategoryField';
+import { Styles } from '../../styles';
+import { trimString } from '../../../Functions/TrimString';
+import { useGetDefaultCategory } from '../../../Hooks';
+import { CancelButton, PageNewButton, SaveButton } from '../../../components';
+import { EXPENSE_TYPE_M } from '../../../constants/permissions';
+import { addMessage, manageErrors } from '../../../Functions';
 
 interface IProps {
   type: string;
@@ -28,11 +28,11 @@ const AddExpense = (props: IProps) => {
     visible: false,
   });
   const [disabled, setDisabled] = useState(true);
-  const isBgTablet = useMediaQuery("(max-width: 1024px)");
-  const isTablet = useMediaQuery("(max-width: 768px)");
-  const isMobile = useMediaQuery("(max-width: 425px)");
-  const isMiniTablet = useMediaQuery("(max-width: 576px)");
-  const isSubBase = useMediaQuery("(max-width: 375px)");
+  const isBgTablet = useMediaQuery('(max-width: 1024px)');
+  const isTablet = useMediaQuery('(max-width: 768px)');
+  const isMobile = useMediaQuery('(max-width: 425px)');
+  const isMiniTablet = useMediaQuery('(max-width: 576px)');
+  const isSubBase = useMediaQuery('(max-width: 375px)');
 
   // open add expense method
   const showModal = () => {
@@ -92,10 +92,10 @@ const AddExpense = (props: IProps) => {
 
   return (
     <div>
-      {props?.type === "expense" ? (
+      {props?.type === 'expense' ? (
         <PageNewButton onClick={showModal} model={EXPENSE_TYPE_M} />
       ) : (
-        <div onClick={showModal}>{t("Expenses.New_expense")} </div>
+        <div onClick={showModal}>{t('Expenses.New_expense')} </div>
       )}
       <Modal
         maskClosable={false}
@@ -103,7 +103,7 @@ const AddExpense = (props: IProps) => {
           <ModalDragTitle
             disabled={disabled}
             setDisabled={setDisabled}
-            title={t("Expenses.Definition_expense_information")}
+            title={t('Expenses.Definition_expense_information')}
           />
         }
         modalRender={(modal) => (
@@ -114,12 +114,12 @@ const AddExpense = (props: IProps) => {
         onCancel={onCancel}
         destroyOnClose
         afterClose={handelAfterClose}
-        wrapClassName="warehouse_add_modal"
+        wrapClassName='warehouse_add_modal'
         style={Styles.modal(isMobile)}
         bodyStyle={Styles.modalBody(isMobile, isSubBase, isMiniTablet)}
-        width={isMobile ? "100%" : isTablet ? 360 : isBgTablet ? 360 : 360}
+        width={isMobile ? '100%' : isTablet ? 360 : isBgTablet ? 360 : 360}
         footer={
-          <Row justify="end" align="middle">
+          <Row justify='end' align='middle'>
             <Col>
               <CancelButton onClick={onCancel} />
               <SaveButton onClick={handleOk} loading={isLoading} />
@@ -131,7 +131,7 @@ const AddExpense = (props: IProps) => {
           form={form}
           hideRequiredMark={true}
           scrollToFirstError={true}
-          layout="vertical"
+          layout='vertical'
           initialValues={{
             category: { label: defaultCategory?.name, value: 1 },
           }}
@@ -139,24 +139,24 @@ const AddExpense = (props: IProps) => {
           <Form.Item
             label={
               <span>
-                {t("Form.Name")}
-                <span className="star">*</span>
+                {t('Form.Name')}
+                <span className='star'>*</span>
               </span>
             }
-            name="name"
-            rules={[{ required: true, message: t("Form.Name_required") }]}
+            name='name'
+            rules={[{ required: true, message: t('Form.Name_required') }]}
           >
-            <Input autoFocus autoComplete="off" />
+            <Input autoFocus autoComplete='off' />
           </Form.Item>
           <Form.Item noStyle>
             <CategoryField
               form={form}
-              place="expense"
+              place='expense'
               url={`${props.baseUrl}category/`}
               label={
                 <span>
-                  {t("Sales.Product_and_services.Form.Category")}
-                  <span className="star">*</span>
+                  {t('Sales.Product_and_services.Form.Category')}
+                  <span className='star'>*</span>
                 </span>
               }
             />

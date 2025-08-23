@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import { Modal, Col, Row } from "antd";
-import { useMediaQuery } from "../../MediaQurey";
-import { useMutation, useQueryClient } from "react-query";
-import axiosInstance from "../../ApiBaseUrl";
-import { Form, Input } from "antd";
-import { useTranslation } from "react-i18next";
-import { ModalDragTitle } from "../../SelfComponents/ModalDragTitle";
-import Draggable from "react-draggable";
-import { trimString } from "../../../Functions/TrimString";
-import { CancelButton, PageNewButton, SaveButton } from "../../../components";
-import { addMessage, manageErrors } from "../../../Functions";
+import React, { useState } from 'react';
+import { Modal, Col, Row } from 'antd';
+import { useMediaQuery } from '../../MediaQurey';
+import { useMutation, useQueryClient } from 'react-query';
+import axiosInstance from '../../ApiBaseUrl';
+import { Form, Input } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { ModalDragTitle } from '../../SelfComponents/ModalDragTitle';
+import Draggable from 'react-draggable';
+import { trimString } from '../../../Functions/TrimString';
+import { CancelButton, PageNewButton, SaveButton } from '../../../components';
+import { addMessage, manageErrors } from '../../../Functions';
 
 interface IProps {
   title: string;
@@ -26,9 +26,9 @@ const AddIncomeType: React.FC<IProps> = (props) => {
   const [isShowModal, setIsShowModal] = useState({
     visible: false,
   });
-  const isBgTablet = useMediaQuery("(max-width: 1024px)");
-  const isTablet = useMediaQuery("(max-width: 768px)");
-  const isMobile = useMediaQuery("(max-width: 425px)");
+  const isBgTablet = useMediaQuery('(max-width: 1024px)');
+  const isTablet = useMediaQuery('(max-width: 768px)');
+  const isMobile = useMediaQuery('(max-width: 425px)');
 
   const showModal = () => {
     setIsShowModal({
@@ -78,13 +78,13 @@ const AddIncomeType: React.FC<IProps> = (props) => {
 
   return (
     <div>
-      {props?.type === "incomeType" ? (
+      {props?.type === 'incomeType' ? (
         <PageNewButton onClick={showModal} model={props?.model} />
-      ) : props?.type === "chartOfAccount" &&
-        props?.baseUrl === "/expense_revenue/revenue/" ? (
-        <div onClick={showModal}> {t("Expenses.Income.New_income_type")}</div>
+      ) : props?.type === 'chartOfAccount' &&
+        props?.baseUrl === '/expense_revenue/revenue/' ? (
+        <div onClick={showModal}> {t('Expenses.Income.New_income_type')}</div>
       ) : (
-        <div onClick={showModal}> {t("Expenses.With_draw.New_withdraw")}</div>
+        <div onClick={showModal}> {t('Expenses.With_draw.New_withdraw')}</div>
       )}
       <Modal
         maskClosable={false}
@@ -103,9 +103,9 @@ const AddIncomeType: React.FC<IProps> = (props) => {
         afterClose={handelAfterClose}
         open={isShowModal.visible}
         onCancel={onCancel}
-        width={isMobile ? "100%" : isTablet ? 360 : isBgTablet ? 360 : 360}
+        width={isMobile ? '100%' : isTablet ? 360 : isBgTablet ? 360 : 360}
         footer={
-          <Row justify="end" align="middle">
+          <Row justify='end' align='middle'>
             <Col>
               <CancelButton onClick={onCancel} />
               <SaveButton onClick={handleOk} loading={isLoading} />
@@ -117,19 +117,19 @@ const AddIncomeType: React.FC<IProps> = (props) => {
           form={form}
           hideRequiredMark={true}
           scrollToFirstError={true}
-          layout="vertical"
+          layout='vertical'
         >
           <Form.Item
             label={
               <span>
-                {t("Form.Name")}
-                <span className="star">*</span>
+                {t('Form.Name')}
+                <span className='star'>*</span>
               </span>
             }
-            name="name"
-            rules={[{ required: true, message: t("Form.Name_required") }]}
+            name='name'
+            rules={[{ required: true, message: t('Form.Name_required') }]}
           >
-            <Input autoFocus autoComplete="off" />
+            <Input autoFocus autoComplete='off' />
           </Form.Item>
         </Form>
       </Modal>

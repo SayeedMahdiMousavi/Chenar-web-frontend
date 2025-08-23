@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Modal,
   Button,
@@ -7,13 +7,13 @@ import {
   Input,
   // TreeSelect,
   message,
-} from "antd";
-import { useTranslation } from "react-i18next";
-import { useMutation, useQueryClient } from "react-query";
-import axiosInstance from "../../../../ApiBaseUrl";
-import { AddItem } from "../../../../SelfComponents/AddItem";
-import { ActionMessage } from "../../../../SelfComponents/TranslateComponents/ActionMessage";
-import { trimString } from "../../../../../Functions/TrimString";
+} from 'antd';
+import { useTranslation } from 'react-i18next';
+import { useMutation, useQueryClient } from 'react-query';
+import axiosInstance from '../../../../ApiBaseUrl';
+import { AddItem } from '../../../../SelfComponents/AddItem';
+import { ActionMessage } from '../../../../SelfComponents/TranslateComponents/ActionMessage';
+import { trimString } from '../../../../../Functions/TrimString';
 const { Title } = Typography;
 
 const AddType = (props) => {
@@ -29,13 +29,13 @@ const AddType = (props) => {
       .then((res) => {
         // setLoading(false);
         setVisible(false);
-        // 
+        //
         props.form.setFieldsValue({
           type: res?.data?.id,
         });
         // form.resetFields();
         message.success(
-          <ActionMessage name={res?.data?.name} message="Message.Add" />
+          <ActionMessage name={res?.data?.name} message='Message.Add' />,
         );
       })
       .catch((error) => {
@@ -51,7 +51,7 @@ const AddType = (props) => {
   });
 
   const onFinish = async (value) => {
-    // 
+    //
     setLoading(true);
     const allData = {
       name: trimString(value?.name),
@@ -93,39 +93,39 @@ const AddType = (props) => {
             </Button>,
           ] */}
         <Form
-          layout="vertical"
+          layout='vertical'
           onFinish={onFinish}
           hideRequiredMark={true}
           form={form}
         >
-          <Title level={5}>{t("Sales.Customers.Discount.Add_card_type")}</Title>
+          <Title level={5}>{t('Sales.Customers.Discount.Add_card_type')}</Title>
           <Form.Item
-            name="name"
+            name='name'
             label={
               <span>
-                {t("Form.Name")} <span className="star">*</span>
+                {t('Form.Name')} <span className='star'>*</span>
               </span>
             }
-            rules={[{ required: true, message: `${t("Form.Name_required")}` }]}
+            rules={[{ required: true, message: `${t('Form.Name_required')}` }]}
           >
             <Input autoFocus />
           </Form.Item>
 
-          <Form.Item className="margin">
-            <div className="import__footer">
+          <Form.Item className='margin'>
+            <div className='import__footer'>
               <div>
-                <Button shape="round" onClick={handleCancel}>
-                  {t("Form.Cancel")}
+                <Button shape='round' onClick={handleCancel}>
+                  {t('Form.Cancel')}
                 </Button>
               </div>
               <div>
                 <Button
-                  type="primary"
-                  shape="round"
-                  htmlType="submit"
+                  type='primary'
+                  shape='round'
+                  htmlType='submit'
                   loading={loading}
                 >
-                  {t("Form.Save")}
+                  {t('Form.Save')}
                 </Button>
               </div>
             </div>

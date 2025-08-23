@@ -1,11 +1,11 @@
-import React, { useCallback, useState } from "react";
-import { useQueryClient } from "react-query";
-import EditEmployee from "./EditEmployee";
-import { Menu, Dropdown } from "antd";
-import ActionButton from "../SelfComponents/ActionButton";
-import { ActivePopconfirm, RemovePopconfirm } from "../../components";
-import { useActiveItem, useRemoveItem } from "../../Hooks";
-import { EMPLOYEE_M } from "../../constants/permissions";
+import React, { useCallback, useState } from 'react';
+import { useQueryClient } from 'react-query';
+import EditEmployee from './EditEmployee';
+import { Menu, Dropdown } from 'antd';
+import ActionButton from '../SelfComponents/ActionButton';
+import { ActivePopconfirm, RemovePopconfirm } from '../../components';
+import { useActiveItem, useRemoveItem } from '../../Hooks';
+import { EMPLOYEE_M } from '../../constants/permissions';
 
 function EmployeesAction(props) {
   const queryClient = useQueryClient();
@@ -27,7 +27,7 @@ function EmployeesAction(props) {
     setVisible,
     recordName: props?.record?.full_name,
     handleUpdateItems: handleUpdateItems,
-    type: "active",
+    type: 'active',
     setActiveVisible,
   });
 
@@ -41,7 +41,7 @@ function EmployeesAction(props) {
     setVisible,
     recordName: props?.record?.full_name,
     handleUpdateItems: handleUpdateItems,
-    type: "deactivate",
+    type: 'deactivate',
     setActiveVisible,
   });
 
@@ -82,13 +82,13 @@ function EmployeesAction(props) {
     setActiveVisible(false);
   };
 
-  const attachmentName = props?.record?.attachment?.split("/")?.at(-1);
+  const attachmentName = props?.record?.attachment?.split('/')?.at(-1);
 
   const status = props?.record?.status;
 
   const action = (
     <Menu>
-      {status === "active" && props?.record?.system_default === false && (
+      {status === 'active' && props?.record?.system_default === false && (
         <RemovePopconfirm
           itemName={props?.record?.full_name}
           open={removeVisible}
@@ -104,24 +104,24 @@ function EmployeesAction(props) {
           {...{
             itemName: props?.record?.full_name,
             visible: activeVisible,
-            loading: status === "active" ? inactiveLoading : activeLoading,
+            loading: status === 'active' ? inactiveLoading : activeLoading,
             onConfirm:
-              status === "active" ? handleInactiveItem : handleActiveItem,
+              status === 'active' ? handleInactiveItem : handleActiveItem,
             onCancel: handleCancel,
             onClick: handleClickInactive,
-            type: status === "active" ? "deactivate" : "active",
+            type: status === 'active' ? 'deactivate' : 'active',
             permission: EMPLOYEE_M,
           }}
         />
       )}
-      {status === "active" && (
+      {status === 'active' && (
         <EditEmployee
           setVisible={setVisible}
           record={props.record}
           attachment={attachmentName}
           baseUrl={props.baseUrl}
           onClickEdit={onClickEdit}
-          type="table"
+          type='table'
         />
       )}
       {/* {status === "active" && (
@@ -137,7 +137,7 @@ function EmployeesAction(props) {
   return (
     <Dropdown
       overlay={action}
-      trigger={["click"]}
+      trigger={['click']}
       onOpenChange={handleVisibleChange}
       open={visible}
       disabled={props.hasSelected}

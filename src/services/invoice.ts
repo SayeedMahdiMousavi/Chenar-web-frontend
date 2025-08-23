@@ -102,7 +102,9 @@ export class InvoiceService extends ApiService {
   }
 
   // Sales Invoices
-  async getSalesInvoices(params?: PaginationParams): Promise<{ results: Invoice[]; count: number }> {
+  async getSalesInvoices(
+    params?: PaginationParams,
+  ): Promise<{ results: Invoice[]; count: number }> {
     return this.get('/sales/', params);
   }
 
@@ -114,7 +116,10 @@ export class InvoiceService extends ApiService {
     return this.post('/sales/', data);
   }
 
-  async updateSalesInvoice(id: string | number, data: Partial<CreateInvoiceData>): Promise<Invoice> {
+  async updateSalesInvoice(
+    id: string | number,
+    data: Partial<CreateInvoiceData>,
+  ): Promise<Invoice> {
     return this.patch(`/sales/${id}/`, data);
   }
 
@@ -123,7 +128,9 @@ export class InvoiceService extends ApiService {
   }
 
   // Purchase Invoices
-  async getPurchaseInvoices(params?: PaginationParams): Promise<{ results: Invoice[]; count: number }> {
+  async getPurchaseInvoices(
+    params?: PaginationParams,
+  ): Promise<{ results: Invoice[]; count: number }> {
     return this.get('/purchase/', params);
   }
 
@@ -135,7 +142,10 @@ export class InvoiceService extends ApiService {
     return this.post('/purchase/', data);
   }
 
-  async updatePurchaseInvoice(id: string | number, data: Partial<CreateInvoiceData>): Promise<Invoice> {
+  async updatePurchaseInvoice(
+    id: string | number,
+    data: Partial<CreateInvoiceData>,
+  ): Promise<Invoice> {
     return this.patch(`/purchase/${id}/`, data);
   }
 
@@ -144,7 +154,9 @@ export class InvoiceService extends ApiService {
   }
 
   // Sales Orders
-  async getSalesOrders(params?: PaginationParams): Promise<{ results: SalesOrder[]; count: number }> {
+  async getSalesOrders(
+    params?: PaginationParams,
+  ): Promise<{ results: SalesOrder[]; count: number }> {
     return this.get('/sales_order/', params);
   }
 
@@ -152,11 +164,16 @@ export class InvoiceService extends ApiService {
     return this.get(`/sales_order/${id}/`);
   }
 
-  async createSalesOrder(data: CreateInvoiceData & { delivery_date?: string }): Promise<SalesOrder> {
+  async createSalesOrder(
+    data: CreateInvoiceData & { delivery_date?: string },
+  ): Promise<SalesOrder> {
     return this.post('/sales_order/', data);
   }
 
-  async updateSalesOrder(id: string | number, data: Partial<CreateInvoiceData & { delivery_date?: string }>): Promise<SalesOrder> {
+  async updateSalesOrder(
+    id: string | number,
+    data: Partial<CreateInvoiceData & { delivery_date?: string }>,
+  ): Promise<SalesOrder> {
     return this.patch(`/sales_order/${id}/`, data);
   }
 
@@ -169,7 +186,9 @@ export class InvoiceService extends ApiService {
   }
 
   // Purchase Orders
-  async getPurchaseOrders(params?: PaginationParams): Promise<{ results: PurchaseOrder[]; count: number }> {
+  async getPurchaseOrders(
+    params?: PaginationParams,
+  ): Promise<{ results: PurchaseOrder[]; count: number }> {
     return this.get('/purchase_order/', params);
   }
 
@@ -177,11 +196,16 @@ export class InvoiceService extends ApiService {
     return this.get(`/purchase_order/${id}/`);
   }
 
-  async createPurchaseOrder(data: CreateInvoiceData & { expected_delivery_date?: string }): Promise<PurchaseOrder> {
+  async createPurchaseOrder(
+    data: CreateInvoiceData & { expected_delivery_date?: string },
+  ): Promise<PurchaseOrder> {
     return this.post('/purchase_order/', data);
   }
 
-  async updatePurchaseOrder(id: string | number, data: Partial<CreateInvoiceData & { expected_delivery_date?: string }>): Promise<PurchaseOrder> {
+  async updatePurchaseOrder(
+    id: string | number,
+    data: Partial<CreateInvoiceData & { expected_delivery_date?: string }>,
+  ): Promise<PurchaseOrder> {
     return this.patch(`/purchase_order/${id}/`, data);
   }
 
@@ -194,7 +218,9 @@ export class InvoiceService extends ApiService {
   }
 
   // Estimates
-  async getEstimates(params?: PaginationParams): Promise<{ results: Estimate[]; count: number }> {
+  async getEstimates(
+    params?: PaginationParams,
+  ): Promise<{ results: Estimate[]; count: number }> {
     return this.get('/estimate/', params);
   }
 
@@ -202,11 +228,16 @@ export class InvoiceService extends ApiService {
     return this.get(`/estimate/${id}/`);
   }
 
-  async createEstimate(data: CreateInvoiceData & { valid_until?: string }): Promise<Estimate> {
+  async createEstimate(
+    data: CreateInvoiceData & { valid_until?: string },
+  ): Promise<Estimate> {
     return this.post('/estimate/', data);
   }
 
-  async updateEstimate(id: string | number, data: Partial<CreateInvoiceData & { valid_until?: string }>): Promise<Estimate> {
+  async updateEstimate(
+    id: string | number,
+    data: Partial<CreateInvoiceData & { valid_until?: string }>,
+  ): Promise<Estimate> {
     return this.patch(`/estimate/${id}/`, data);
   }
 
@@ -223,7 +254,9 @@ export class InvoiceService extends ApiService {
   }
 
   // Product Transfers
-  async getProductTransfers(params?: PaginationParams): Promise<{ results: ProductTransfer[]; count: number }> {
+  async getProductTransfers(
+    params?: PaginationParams,
+  ): Promise<{ results: ProductTransfer[]; count: number }> {
     return this.get('/transfer/', params);
   }
 
@@ -231,11 +264,16 @@ export class InvoiceService extends ApiService {
     return this.get(`/transfer/${id}/`);
   }
 
-  async createProductTransfer(data: Omit<ProductTransfer, 'id' | 'transfer_number'>): Promise<ProductTransfer> {
+  async createProductTransfer(
+    data: Omit<ProductTransfer, 'id' | 'transfer_number'>,
+  ): Promise<ProductTransfer> {
     return this.post('/transfer/', data);
   }
 
-  async updateProductTransfer(id: string | number, data: Partial<Omit<ProductTransfer, 'id' | 'transfer_number'>>): Promise<ProductTransfer> {
+  async updateProductTransfer(
+    id: string | number,
+    data: Partial<Omit<ProductTransfer, 'id' | 'transfer_number'>>,
+  ): Promise<ProductTransfer> {
     return this.patch(`/transfer/${id}/`, data);
   }
 
@@ -252,19 +290,28 @@ export class InvoiceService extends ApiService {
   }
 
   // Product Adjustments
-  async getProductAdjustments(params?: PaginationParams): Promise<{ results: ProductAdjustment[]; count: number }> {
+  async getProductAdjustments(
+    params?: PaginationParams,
+  ): Promise<{ results: ProductAdjustment[]; count: number }> {
     return this.get('/adjustment/', params);
   }
 
-  async getProductAdjustmentById(id: string | number): Promise<ProductAdjustment> {
+  async getProductAdjustmentById(
+    id: string | number,
+  ): Promise<ProductAdjustment> {
     return this.get(`/adjustment/${id}/`);
   }
 
-  async createProductAdjustment(data: Omit<ProductAdjustment, 'id' | 'adjustment_number'>): Promise<ProductAdjustment> {
+  async createProductAdjustment(
+    data: Omit<ProductAdjustment, 'id' | 'adjustment_number'>,
+  ): Promise<ProductAdjustment> {
     return this.post('/adjustment/', data);
   }
 
-  async updateProductAdjustment(id: string | number, data: Partial<Omit<ProductAdjustment, 'id' | 'adjustment_number'>>): Promise<ProductAdjustment> {
+  async updateProductAdjustment(
+    id: string | number,
+    data: Partial<Omit<ProductAdjustment, 'id' | 'adjustment_number'>>,
+  ): Promise<ProductAdjustment> {
     return this.patch(`/adjustment/${id}/`, data);
   }
 
@@ -272,20 +319,32 @@ export class InvoiceService extends ApiService {
     return this.delete(`/adjustment/${id}/`);
   }
 
-  async approveProductAdjustment(id: string | number): Promise<ProductAdjustment> {
+  async approveProductAdjustment(
+    id: string | number,
+  ): Promise<ProductAdjustment> {
     return this.post(`/adjustment/${id}/approve/`);
   }
 
-  async completeProductAdjustment(id: string | number): Promise<ProductAdjustment> {
+  async completeProductAdjustment(
+    id: string | number,
+  ): Promise<ProductAdjustment> {
     return this.post(`/adjustment/${id}/complete/`);
   }
 
   // Common operations
-  async getInvoiceStatistics(params?: { date_from?: string; date_to?: string; type?: string }) {
+  async getInvoiceStatistics(params?: {
+    date_from?: string;
+    date_to?: string;
+    type?: string;
+  }) {
     return this.get('/statistics/', params);
   }
 
-  async printInvoice(type: string, id: string | number, format: 'pdf' | 'html' = 'pdf') {
+  async printInvoice(
+    type: string,
+    id: string | number,
+    format: 'pdf' | 'html' = 'pdf',
+  ) {
     return this.get(`/${type}/${id}/print/?format=${format}`);
   }
 
@@ -299,4 +358,3 @@ export class InvoiceService extends ApiService {
 }
 
 export const invoiceService = new InvoiceService();
-

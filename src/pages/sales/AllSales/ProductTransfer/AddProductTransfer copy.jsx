@@ -1,6 +1,6 @@
-import React, { useState, useCallback } from "react";
-import { useTranslation } from "react-i18next";
-import startCase from "lodash/startCase";
+import React, { useState, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+import startCase from 'lodash/startCase';
 import {
   Drawer,
   Form,
@@ -12,53 +12,53 @@ import {
   Space,
   Modal,
   Descriptions,
-} from "antd";
-import dayjs from "dayjs";
-import axiosInstance from "../../../ApiBaseUrl";
-import { useMutation, useQueryClient } from "react-query";
-import ProductTransferTable from "./ProductTransferTable";
-import { DatePickerFormItem } from "../../../SelfComponents/JalaliAntdComponents/DatePickerFormItem";
-import { changeGToJ, utcDate } from "../../../../Functions/utcDate";
-import { fixedNumber } from "../../../../Functions/math";
-import useGetCalender from "../../../../Hooks/useGetCalender";
-import useGetBaseCurrency from "../../../../Hooks/useGetBaseCurrency";
-import PrintInvoiceButton from "../MarketInvoiceComponents/PrintInvoiceButton";
-import { ActionMessage } from "../../../SelfComponents/TranslateComponents/ActionMessage";
-import SaveDropdownButton from "../../../../components/buttons/SaveDropdownButton";
+} from 'antd';
+import dayjs from 'dayjs';
+import axiosInstance from '../../../ApiBaseUrl';
+import { useMutation, useQueryClient } from 'react-query';
+import ProductTransferTable from './ProductTransferTable';
+import { DatePickerFormItem } from '../../../SelfComponents/JalaliAntdComponents/DatePickerFormItem';
+import { changeGToJ, utcDate } from '../../../../Functions/utcDate';
+import { fixedNumber } from '../../../../Functions/math';
+import useGetCalender from '../../../../Hooks/useGetCalender';
+import useGetBaseCurrency from '../../../../Hooks/useGetBaseCurrency';
+import PrintInvoiceButton from '../MarketInvoiceComponents/PrintInvoiceButton';
+import { ActionMessage } from '../../../SelfComponents/TranslateComponents/ActionMessage';
+import SaveDropdownButton from '../../../../components/buttons/SaveDropdownButton';
 import {
   expireProductsBaseUrl,
   productStatisticsBaseUrl,
-} from "../../../Reports/AllReports/AllReports";
-import { PageNewButton } from "../../../../components";
-import { PRODUCT_TRANSFER_INVOICE_M } from "../../../../constants/permissions";
-import { WAREHOUSE_PRODUCT_TRANSFER_LIST } from "../../../../constants/routes";
-import { handleFindUnitConversionRate } from "../../../../Functions";
+} from '../../../Reports/AllReports/AllReports';
+import { PageNewButton } from '../../../../components';
+import { PRODUCT_TRANSFER_INVOICE_M } from '../../../../constants/permissions';
+import { WAREHOUSE_PRODUCT_TRANSFER_LIST } from '../../../../constants/routes';
+import { handleFindUnitConversionRate } from '../../../../Functions';
 
-const dateFormat = "YYYY-MM-DD HH:mm:ss";
+const dateFormat = 'YYYY-MM-DD HH:mm:ss';
 const AddProductTransfer = (props) => {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const [editingKey, setEditingKey] = useState("");
+  const [editingKey, setEditingKey] = useState('');
   const [form] = Form.useForm();
   const [response, setResponse] = useState({});
   const [count, setCount] = useState(2);
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState('');
   const [visibleDrop, setVisibleDrop] = useState(false);
   const [data, setData] = useState([
     {
       key: 1,
       row: `${1}`,
-      id: { value: "", label: "" },
+      id: { value: '', label: '' },
       serial: 1,
-      product: { value: "", label: "" },
-      unit: { value: "", label: "" },
+      product: { value: '', label: '' },
+      unit: { value: '', label: '' },
       qty: 1,
       each_price: 0,
       total_price: 0,
-      description: "",
+      description: '',
     },
   ]);
 
@@ -73,18 +73,18 @@ const AddProductTransfer = (props) => {
     const newData = {
       key: count,
       row: `${count}`,
-      id: { value: "", label: "" },
-      product: { value: "", label: "" },
-      unit: { value: "", label: "" },
+      id: { value: '', label: '' },
+      product: { value: '', label: '' },
+      unit: { value: '', label: '' },
       qty: 1,
       each_price: 0,
       total_price: 0,
-      description: "",
+      description: '',
     };
-    const element = document?.getElementsByClassName("ant-table-body");
+    const element = document?.getElementsByClassName('ant-table-body');
     element[0] &&
       element[0].lastElementChild.lastElementChild.lastElementChild.scrollIntoView(
-        { behavior: "smooth" }
+        { behavior: 'smooth' },
       );
     // const rowKey = [newData.key];
     // props.setSelectedRowKeys(rowKey);
@@ -102,41 +102,41 @@ const AddProductTransfer = (props) => {
     setLoading(false);
     setCount(2);
     setResponse({});
-    setEditingKey("");
-    setDescription("");
+    setEditingKey('');
+    setDescription('');
     setData([
       {
         key: 1,
         row: `${1}`,
         serial: 1,
-        id: { value: "", label: "" },
-        product: { value: "", label: "" },
-        unit: { value: "", label: "" },
+        id: { value: '', label: '' },
+        product: { value: '', label: '' },
+        unit: { value: '', label: '' },
         qty: 1,
         each_price: 0,
         total_price: 0,
-        description: "",
+        description: '',
       },
     ]);
     // setCurrencyValue(1);
     setSelectedRowKeys([]);
   }, [form]);
 
-  const messageKey = "addProductTransfer";
+  const messageKey = 'addProductTransfer';
   const addSalesInvoice = useCallback(
     async ({ value, type }) => {
       await axiosInstance
         .post(WAREHOUSE_PRODUCT_TRANSFER_LIST, value, { timeout: 0 })
         .then((res) => {
-          if (type === "0") {
+          if (type === '0') {
             message.destroy(messageKey);
             message.success(
               <ActionMessage
-                name={`${t("Sales.All_sales.Invoice.Invoice")} ${
+                name={`${t('Sales.All_sales.Invoice.Invoice')} ${
                   res?.data?.id
                 }`}
-                message="Message.Add"
-              />
+                message='Message.Add'
+              />,
             );
             handleAfterVisibleChange();
             setVisibleDrop(false);
@@ -144,11 +144,11 @@ const AddProductTransfer = (props) => {
             setResponse(res.data);
             message.success(
               <ActionMessage
-                name={`${t("Sales.All_sales.Invoice.Invoice")} ${
+                name={`${t('Sales.All_sales.Invoice.Invoice')} ${
                   res?.data?.id
                 }`}
-                message="Message.Add"
-              />
+                message='Message.Add'
+              />,
             );
           }
 
@@ -167,46 +167,46 @@ const AddProductTransfer = (props) => {
           } else if (error?.response?.data?.invoice_item?.[0]) {
             if (error?.response?.data?.invoice_item?.[0]?.product?.[0]) {
               message.error(
-                `${error?.response.data?.invoice_item?.[0]?.product?.[0]}`
+                `${error?.response.data?.invoice_item?.[0]?.product?.[0]}`,
               );
             } else if (error?.response?.data?.invoice_item?.[0]?.qty?.[0]) {
               message.error(
-                `${error?.response.data?.invoice_item?.[0]?.qty?.[0]}`
+                `${error?.response.data?.invoice_item?.[0]?.qty?.[0]}`,
               );
             } else if (error?.response?.data?.invoice_item?.[0]?.unit?.[0]) {
               message.error(
-                `${error?.response.data?.invoice_item?.[0]?.unit?.[0]}`
+                `${error?.response.data?.invoice_item?.[0]?.unit?.[0]}`,
               );
             } else if (
               error?.response?.data?.invoice_item?.[0]?.expire_date?.[0]
             ) {
               message.error(
-                `${error?.response.data?.invoice_item?.[0]?.expire_date?.[0]}`
+                `${error?.response.data?.invoice_item?.[0]?.expire_date?.[0]}`,
               );
             } else if (
               error?.response?.data?.invoice_item?.[0]
                 ?.unit_conversion_rate?.[0]
             ) {
               message.error(
-                `${error?.response.data?.invoice_item?.[0]?.unit_conversion_rate?.[0]}`
+                `${error?.response.data?.invoice_item?.[0]?.unit_conversion_rate?.[0]}`,
               );
             } else if (
               error?.response?.data?.invoice_item?.[0]?.warehouse_in?.[0]
             ) {
               message.error(
-                `${error?.response.data?.invoice_item?.[0]?.warehouse_in?.[0]}`
+                `${error?.response.data?.invoice_item?.[0]?.warehouse_in?.[0]}`,
               );
             } else if (
               error?.response?.data?.invoice_item?.[0]?.warehouse_out?.[0]
             ) {
               message.error(
-                `${error?.response.data?.invoice_item?.[0]?.warehouse_out?.[0]}`
+                `${error?.response.data?.invoice_item?.[0]?.warehouse_out?.[0]}`,
               );
             }
           }
         });
     },
-    [handleAfterVisibleChange, queryClient, t]
+    [handleAfterVisibleChange, queryClient, t],
   );
 
   const { mutate: mutateAddSalesInvoice } = useMutation(addSalesInvoice, {
@@ -218,7 +218,7 @@ const AddProductTransfer = (props) => {
   const getPrice = useCallback((record, unitId) => {
     if (record?.price?.find((item) => item?.unit?.id === unitId)?.sales_rate) {
       return parseFloat(
-        record?.price?.find((item) => item?.unit?.id === unitId)?.sales_rate
+        record?.price?.find((item) => item?.unit?.id === unitId)?.sales_rate,
       )?.toFixed(3);
     } else if (
       record?.unit_conversion?.find((item) => item?.from_unit?.id === unitId)
@@ -249,10 +249,10 @@ const AddProductTransfer = (props) => {
             const unitConversion = handleFindUnitConversionRate(
               item?.unit_conversion,
               item?.unit.value,
-              item?.product_units
+              item?.product_units,
             );
             const price = getPrice(item, item?.unit.value);
-            // 
+            //
             return [
               ...items,
               {
@@ -276,9 +276,9 @@ const AddProductTransfer = (props) => {
           }
         }, []);
 
-        if (submitType === "0") {
+        if (submitType === '0') {
           message.loading({
-            content: t("Message.Loading"),
+            content: t('Message.Loading'),
             key: messageKey,
           });
         } else {
@@ -287,8 +287,8 @@ const AddProductTransfer = (props) => {
 
         if (items?.length === 0) {
           Modal.warning({
-            bodyStyle: { direction: t("Dir") },
-            title: t("Sales.All_sales.Invoice.Invoice_no_data_message"),
+            bodyStyle: { direction: t('Dir') },
+            title: t('Sales.All_sales.Invoice.Invoice_no_data_message'),
           });
         } else {
           setLoading(true);
@@ -299,7 +299,7 @@ const AddProductTransfer = (props) => {
             currency_rate: 1,
             invoice_item: items,
           };
-          // 
+          //
           mutateAddSalesInvoice({ value: allData, type: submitType });
         }
       }
@@ -316,12 +316,12 @@ const AddProductTransfer = (props) => {
 
   const printFilters = (
     <Descriptions
-      layout="horizontal"
-      style={{ width: "100%", paddingTop: "40px" }}
+      layout='horizontal'
+      style={{ width: '100%', paddingTop: '40px' }}
       column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}
-      size="small"
+      size='small'
     >
-      <Descriptions.Item label={t("Sales.All_sales.Invoice.Invoice_number")}>
+      <Descriptions.Item label={t('Sales.All_sales.Invoice.Invoice_number')}>
         {response?.id ?? 0}
       </Descriptions.Item>
       {/* <Descriptions.Item label={t("Form.Description")}>
@@ -342,34 +342,34 @@ const AddProductTransfer = (props) => {
         maskClosable={false}
         mask={true}
         // headerStyle={{ padding: ".8rem 0 .7rem 0 " }}
-        title={startCase(t("Sales.All_sales.Invoice.Product_transfer"))}
-        height="100%"
+        title={startCase(t('Sales.All_sales.Invoice.Product_transfer'))}
+        height='100%'
         onClose={onClose}
         open={visible}
         afterVisibleChange={handleAfterVisibleChange}
         destroyOnClose
-        placement="top"
+        placement='top'
         bodyStyle={{ paddingBottom: 10 }}
         footer={
-          <Row justify="end">
+          <Row justify='end'>
             <Col>
-              <Space size="small">
+              <Space size='small'>
                 <Button
-                  type="primary"
+                  type='primary'
                   ghost
                   onClick={onClose}
                   disabled={response?.id}
                 >
-                  {t("Form.Cancel")}
+                  {t('Form.Cancel')}
                 </Button>
                 <Button
                   // shape="round"
-                  type="primary"
+                  type='primary'
                   ghost
                   onClick={handleAfterVisibleChange}
-                  disabled={editingKey !== ""}
+                  disabled={editingKey !== ''}
                 >
-                  {t("Form.Reset")}
+                  {t('Form.Reset')}
                 </Button>
                 {/* <PrintInvoiceButton
                   disabled={!response?.id}
@@ -382,7 +382,7 @@ const AddProductTransfer = (props) => {
                   filters={printFilters}
                 /> */}
 
-                <div style={{ width: "130px" }}>
+                <div style={{ width: '130px' }}>
                   <Row>
                     <Col span={24}>
                       <SaveDropdownButton
@@ -391,7 +391,7 @@ const AddProductTransfer = (props) => {
                         dropdownProps={{
                           visible: visibleDrop,
                           onOpenChange: handleVisibleChange,
-                          disabled: editingKey !== "" || response?.id,
+                          disabled: editingKey !== '' || response?.id,
                         }}
                       />
                     </Col>
@@ -439,7 +439,7 @@ const AddProductTransfer = (props) => {
           form={form}
           initialValues={{
             date:
-              userCalender?.data?.user_calender?.code === "gregory"
+              userCalender?.data?.user_calender?.code === 'gregory'
                 ? utcDate()
                 : dayjs(changeGToJ(utcDate().format(dateFormat), dateFormat), {
                     //@ts-ignore
@@ -452,21 +452,21 @@ const AddProductTransfer = (props) => {
               <Row gutter={10}>
                 <Col span={24}>
                   <DatePickerFormItem
-                    placeholder={t("Sales.Customers.Form.Date")}
-                    name="date"
-                    label=""
+                    placeholder={t('Sales.Customers.Form.Date')}
+                    name='date'
+                    label=''
                     showTime={true}
-                    format="YYYY-MM-DD hh:mm "
-                    rules={[{ type: "object" }]}
+                    format='YYYY-MM-DD hh:mm '
+                    rules={[{ type: 'object' }]}
                     style={styles.margin}
                     disabled={true}
                   />
                 </Col>
                 <Col span={24}>
-                  <Form.Item name="description">
+                  <Form.Item name='description'>
                     <Input.TextArea
                       autoSize={{ minRows: 2, maxRows: 3 }}
-                      placeholder={t("Form.Description")}
+                      placeholder={t('Form.Description')}
                       showCount
                       allowClear
                       onChange={onChangeDescription}
@@ -483,7 +483,7 @@ const AddProductTransfer = (props) => {
                 setData={setData}
                 setCount={setCount}
                 count={count}
-                type="add"
+                type='add'
                 setEditingKey={setEditingKey}
                 editingKey={editingKey}
                 setSelectedRowKeys={setSelectedRowKeys}
@@ -496,16 +496,16 @@ const AddProductTransfer = (props) => {
             <Col span={24}>
               <Row>
                 <Col span={12}>
-                  {" "}
+                  {' '}
                   <Button
                     onClick={handleAddProduct}
-                    type="primary"
+                    type='primary'
                     style={{
                       marginBottom: 16,
                     }}
                     disabled={Boolean(response?.id)}
                   >
-                    {t("Sales.All_sales.Invoice.Add_a_row")}
+                    {t('Sales.All_sales.Invoice.Add_a_row')}
                   </Button>
                 </Col>
               </Row>
@@ -519,9 +519,9 @@ const AddProductTransfer = (props) => {
 };
 
 const styles = {
-  margin: { marginBottom: "8px" },
-  save: { width: "142%" },
-  drop: { height: "100%", width: "100%" },
+  margin: { marginBottom: '8px' },
+  save: { width: '142%' },
+  drop: { height: '100%', width: '100%' },
 };
 
 export default AddProductTransfer;

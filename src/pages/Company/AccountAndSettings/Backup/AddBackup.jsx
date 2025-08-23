@@ -1,20 +1,20 @@
-import React, { useState } from "react";
-import { Modal, Col, Row, Button } from "antd";
-import { useMediaQuery } from "../../../MediaQurey";
-import { useMutation, useQueryClient } from "react-query";
-import axiosInstance from "../../../ApiBaseUrl";
-import { Form, Input, Descriptions, Progress, message, Checkbox } from "antd";
-import { useTranslation } from "react-i18next";
-import { ModalDragTitle } from "../../../SelfComponents/ModalDragTitle";
-import Draggable from "react-draggable";
-import ShowDate from "../../../SelfComponents/JalaliAntdComponents/ShowDate";
+import React, { useState } from 'react';
+import { Modal, Col, Row, Button } from 'antd';
+import { useMediaQuery } from '../../../MediaQurey';
+import { useMutation, useQueryClient } from 'react-query';
+import axiosInstance from '../../../ApiBaseUrl';
+import { Form, Input, Descriptions, Progress, message, Checkbox } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { ModalDragTitle } from '../../../SelfComponents/ModalDragTitle';
+import Draggable from 'react-draggable';
+import ShowDate from '../../../SelfComponents/JalaliAntdComponents/ShowDate';
 import {
   CancelButton,
   PageNewButton,
   SaveButton,
-} from "../../../../components";
-import { BACKUP_M } from "../../../../constants/permissions";
-import { manageErrors } from "../../../../Functions";
+} from '../../../../components';
+import { BACKUP_M } from '../../../../constants/permissions';
+import { manageErrors } from '../../../../Functions';
 
 const AddBackup = (props) => {
   const queryClient = useQueryClient();
@@ -26,11 +26,11 @@ const AddBackup = (props) => {
 
   const [response, setResponse] = useState({});
   const [disabled, setDisabled] = useState(true);
-  const isBgTablet = useMediaQuery("(max-width: 1024px)");
-  const isTablet = useMediaQuery("(max-width: 768px)");
-  const isMobile = useMediaQuery("(max-width: 425px)");
+  const isBgTablet = useMediaQuery('(max-width: 1024px)');
+  const isTablet = useMediaQuery('(max-width: 768px)');
+  const isMobile = useMediaQuery('(max-width: 425px)');
   const [percent, setPercent] = useState(0);
-  const [status, setStatus] = useState("normal");
+  const [status, setStatus] = useState('normal');
 
   const showModal = () => {
     setIsShowModal({
@@ -55,7 +55,7 @@ const AddBackup = (props) => {
         //   var percentCompleted = Math.round(
         //     (progressEvent.loaded * 100) / progressEvent.total
         //   );
-        //   
+        //
         //   // setPercent(percentCompleted);
         // },
         // onDownloadProgress: function (progressEvent) {
@@ -64,9 +64,9 @@ const AddBackup = (props) => {
         //     (progressEvent.loaded * 100) / progressEvent.total
         //   );
         //   setPercent(percentCompleted);
-        //   
+        //
         // },
-      }
+      },
       // {
       //   onUploadProgress: (progressEvent) => {
       //     var percentCompleted = Math.round(
@@ -84,21 +84,21 @@ const AddBackup = (props) => {
   } = useMutation(AddBackup, {
     onSuccess: (values) => {
       setPercent(100);
-      setStatus("success");
+      setStatus('success');
       setResponse(values?.data);
       queryClient.invalidateQueries(props.baseUrl);
     },
     onError: (error) => {
-      setStatus("exception");
+      setStatus('exception');
       manageErrors(error);
     },
   });
 
   const handleOk = () => {
     form.validateFields().then(async (values) => {
-      setStatus("active");
+      setStatus('active');
       setPercent(99.9);
-      
+
       mutateAddBackup({
         note: values.note,
         media_backup: values.media_backup,
@@ -108,7 +108,7 @@ const AddBackup = (props) => {
 
   const handleAfterClose = () => {
     setPercent(0);
-    setStatus("normal");
+    setStatus('normal');
     form.resetFields();
     setResponse({});
     reset();
@@ -123,7 +123,7 @@ const AddBackup = (props) => {
           <ModalDragTitle
             disabled={disabled}
             setDisabled={setDisabled}
-            title={t("Company.New_backup")}
+            title={t('Company.New_backup')}
           />
         }
         modalRender={(modal) => (
@@ -134,17 +134,17 @@ const AddBackup = (props) => {
         centered
         open={isShowModal.visible}
         onCancel={onCancel}
-        width={isMobile ? "100%" : isTablet ? 400 : isBgTablet ? 400 : 400}
+        width={isMobile ? '100%' : isTablet ? 400 : isBgTablet ? 400 : 400}
         footer={
-          <Row justify="end" align="middle">
+          <Row justify='end' align='middle'>
             <Col>
-              <Button type="primary" ghost disabled={!response.db_file_path}>
+              <Button type='primary' ghost disabled={!response.db_file_path}>
                 <a
                   href={`${response?.db_file_path}`}
-                  target="blank"
-                  rel="download"
+                  target='blank'
+                  rel='download'
                 >
-                  {t("Upload.Download")}
+                  {t('Upload.Download')}
                 </a>
               </Button>
               <CancelButton
@@ -164,16 +164,16 @@ const AddBackup = (props) => {
           form={form}
           hideRequiredMark={true}
           scrollToFirstError={true}
-          layout="vertical"
+          layout='vertical'
           initialValues={{ media_backup: false }}
         >
-          <Row justify="center">
+          <Row justify='center'>
             <Col>
               <Progress
-                type="circle"
+                type='circle'
                 strokeColor={{
-                  "0%": "#108ee9",
-                  "100%": "#87d068",
+                  '0%': '#108ee9',
+                  '100%': '#87d068',
                 }}
                 percent={percent}
                 status={status}
@@ -186,16 +186,16 @@ const AddBackup = (props) => {
                 <Descriptions
                   column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 2, xs: 1 }}
                 >
-                  <Descriptions.Item label={t("Company.Created_by")}>
+                  <Descriptions.Item label={t('Company.Created_by')}>
                     {response?.created_by}
                   </Descriptions.Item>
-                  <Descriptions.Item label={t("Company.File_size")}>
+                  <Descriptions.Item label={t('Company.File_size')}>
                     {response?.db_file_size_formated}
                   </Descriptions.Item>
-                  <Descriptions.Item label={t("Sales.Customers.Form.Date")}>
+                  <Descriptions.Item label={t('Sales.Customers.Form.Date')}>
                     <ShowDate date={response?.created} />
                   </Descriptions.Item>
-                  <Descriptions.Item label={t("Form.Notes")}>
+                  <Descriptions.Item label={t('Form.Notes')}>
                     {response?.note}
                   </Descriptions.Item>
                 </Descriptions>
@@ -204,18 +204,18 @@ const AddBackup = (props) => {
           ) : (
             <>
               <Form.Item
-                name="note"
-                label={t("Form.Description")}
-                style={{ marginBottom: "8px" }}
+                name='note'
+                label={t('Form.Description')}
+                style={{ marginBottom: '8px' }}
               >
                 <Input.TextArea />
               </Form.Item>
               <Form.Item
-                name="media_backup"
-                valuePropName="checked"
+                name='media_backup'
+                valuePropName='checked'
                 style={styles.formItem}
               >
-                <Checkbox>{t("Company.Media_backup")}</Checkbox>
+                <Checkbox>{t('Company.Media_backup')}</Checkbox>
               </Form.Item>
             </>
           )}
@@ -226,6 +226,6 @@ const AddBackup = (props) => {
 };
 
 const styles = {
-  formItem: { marginBottom: "0px" },
+  formItem: { marginBottom: '0px' },
 };
 export default AddBackup;

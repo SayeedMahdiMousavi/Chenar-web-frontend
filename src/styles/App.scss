@@ -1,5 +1,4 @@
-@import "./base/settings";
-
+@import './base/settings';
 
 $color-primary: #dce1ee;
 $color-secondary: #edeff2;
@@ -56,7 +55,7 @@ $Button-color: #0fb269;
       margin-right: 0;
       margin-left: 20px;
     }
-    [data-theme="dark"] .head-example {
+    [data-theme='dark'] .head-example {
       background: rgba(255, 255, 255, 0.12);
     }
 
@@ -107,7 +106,6 @@ $Button-color: #0fb269;
     @error "Unknown direction #{$direction}.";
   }
 }
-
 
 .Router-Container {
   height: 100vh;
@@ -601,10 +599,10 @@ body {
   border-radius: 40%;
 }
 
-.ant-menu > .ant-menu-item-divider{
+.ant-menu > .ant-menu-item-divider {
   height: 0px;
 }
 
-.ant-menu-item-divider{
+.ant-menu-item-divider {
   height: 0px;
 }

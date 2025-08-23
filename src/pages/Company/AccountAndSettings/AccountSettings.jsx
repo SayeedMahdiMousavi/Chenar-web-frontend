@@ -1,25 +1,25 @@
-import React, { useState } from "react";
-import { useMediaQuery } from "../../MediaQurey";
-import { useTranslation } from "react-i18next";
-import { Layout, Drawer, Button, Menu } from "antd";
-import BillingAndSubscriptions from "./BillingAndSubscriptions";
-import { connect } from "react-redux";
-import Company from "./Company";
-import Navbar from "./Navbar";
-import STMPEmail from "./STMPEmail";
-import Backup from "./Backup/index";
-import FinancialPeriod from "./Financial";
-import { useDarkMode } from "../../../Hooks/useDarkMode";
-import InvoiceSettings from "./InvoicesSettings";
+import React, { useState } from 'react';
+import { useMediaQuery } from '../../MediaQurey';
+import { useTranslation } from 'react-i18next';
+import { Layout, Drawer, Button, Menu } from 'antd';
+import BillingAndSubscriptions from './BillingAndSubscriptions';
+import { connect } from 'react-redux';
+import Company from './Company';
+import Navbar from './Navbar';
+import STMPEmail from './STMPEmail';
+import Backup from './Backup/index';
+import FinancialPeriod from './Financial';
+import { useDarkMode } from '../../../Hooks/useDarkMode';
+import InvoiceSettings from './InvoicesSettings';
 
 const { Sider, Content } = Layout;
 const AccountSettings = (props) => {
   const { t } = useTranslation();
   const [mode] = useDarkMode();
   const [visible, setVisible] = useState(false);
-  const [current, setCurrent] = useState("company");
+  const [current, setCurrent] = useState('company');
 
-  const isTablet = useMediaQuery("(max-width: 767px)");
+  const isTablet = useMediaQuery('(max-width: 767px)');
 
   const onClickMenu = ({ item, key }) => {
     setCurrent(key);
@@ -31,12 +31,12 @@ const AccountSettings = (props) => {
 
   const onClose = () => {
     setVisible(false);
-    setCurrent("company");
+    setCurrent('company');
   };
 
   return (
     <div>
-      <div onClick={showDrawer}>{t("Company.Account_and_settings")}</div>
+      <div onClick={showDrawer}>{t('Company.Account_and_settings')}</div>
 
       <Drawer
         maskClosable={false}
@@ -49,21 +49,21 @@ const AccountSettings = (props) => {
                   <Navbar onClickMenu={onClickMenu} current={current} />
                 </div>
               )}
-              <div>{t("Company.Account_and_settings")}</div>
+              <div>{t('Company.Account_and_settings')}</div>
               <div></div>
             </div>
           </div>
         }
-        height="100%"
+        height='100%'
         onClose={onClose}
         destroyOnClose
         open={visible}
-        placement="top"
-        bodyStyle={{ padding: 0, overflow: "hidden" }}
+        placement='top'
+        bodyStyle={{ padding: 0, overflow: 'hidden' }}
         footer={
-          <div style={{ textAlign: "end" }}>
-            <Button type="primary" shape="round" onClick={onClose}>
-              {t("Step.Done")}
+          <div style={{ textAlign: 'end' }}>
+            <Button type='primary' shape='round' onClick={onClose}>
+              {t('Step.Done')}
             </Button>
           </div>
         }
@@ -76,28 +76,28 @@ const AccountSettings = (props) => {
             theme={mode}
           >
             <Menu
-              mode="vertical"
+              mode='vertical'
               theme={mode}
-              style={{ height: "100vh" }}
-              defaultOpenKeys={["1"]}
+              style={{ height: '100vh' }}
+              defaultOpenKeys={['1']}
               selectedKeys={[current]}
-              defaultSelectedKeys={["1"]}
+              defaultSelectedKeys={['1']}
               onClick={onClickMenu}
             >
               <Menu.Item
                 // className="Account__details__show"
-                key="company"
+                key='company'
                 style={styles.margin}
               >
-                {t("Company.1")}
+                {t('Company.1')}
               </Menu.Item>
               <Menu.Item
-                key="smtpEmail"
+                key='smtpEmail'
                 style={styles.margin}
 
                 // className="Account__details__show"
               >
-                {t("Company.SMTP_email")}
+                {t('Company.SMTP_email')}
               </Menu.Item>
               {/* <Menu.Item
                 key="invoices"
@@ -139,16 +139,16 @@ const AccountSettings = (props) => {
             </Menu>
           </Sider>
 
-          <Content className="account_setting_drawer">
-            {current === "company" ? (
+          <Content className='account_setting_drawer'>
+            {current === 'company' ? (
               <Company />
-            ) : current === "smtpEmail" ? (
+            ) : current === 'smtpEmail' ? (
               <STMPEmail />
-            ) : current === "billing" ? (
+            ) : current === 'billing' ? (
               <BillingAndSubscriptions />
-            ) : current === "backup" ? (
+            ) : current === 'backup' ? (
               <Backup />
-            ) : current === "period" ? (
+            ) : current === 'period' ? (
               <FinancialPeriod />
             ) : (
               // : current === "invoices" ? (
@@ -163,14 +163,14 @@ const AccountSettings = (props) => {
   );
 };
 const styles = {
-  nav: (isMobileBased) => ({ height: isMobileBased ? "7vh" : "5vh" }),
-  upload: { marginTop: "4rem" },
-  margin: { margin: "0rem" },
-  cancel: { margin: "0 8px" },
+  nav: (isMobileBased) => ({ height: isMobileBased ? '7vh' : '5vh' }),
+  upload: { marginTop: '4rem' },
+  margin: { margin: '0rem' },
+  cancel: { margin: '0 8px' },
   row: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 };
 

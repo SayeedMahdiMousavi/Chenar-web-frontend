@@ -1,42 +1,46 @@
-import React, { createContext, useLayoutEffect, useState, useMemo } from "react";
-import { useTranslation } from "react-i18next";
-import axiosInstance from "../pages/ApiBaseUrl";
-import { dark, lightThemeVars  } from "../vars";
-import less from "less";
+import React, {
+  createContext,
+  useLayoutEffect,
+  useState,
+  useMemo,
+} from 'react';
+import { useTranslation } from 'react-i18next';
+import axiosInstance from '../pages/ApiBaseUrl';
+import { lessVars } from '../theme/index';
+import less from 'less';
 
 export const ThemeContext = createContext(null);
-type DarkModeState = "dark" | "light";
-const ChangeThem:React.FC<any> = (props: any) => {
-  const {t} = useTranslation()
-  const preferDarkQuery = "(prefers-color-scheme: dark)";
-  const [userName] = useState(() => window.localStorage.getItem("user_id"));
+type DarkModeState = 'dark' | 'light';
+const ChangeThem: React.FC<any> = (props: any) => {
+  const { t } = useTranslation();
+  const preferDarkQuery = '(prefers-color-scheme: dark)';
+  const [userName] = useState(() => window.localStorage.getItem('user_id'));
   //@ts-ignore
   const [mode, setMode] = useState<DarkModeState>(() => {
-    const lsVal = window.localStorage.getItem("colorMode");
-    const id = localStorage.getItem("user_id");
+    const lsVal = window.localStorage.getItem('colorMode');
+    const id = localStorage.getItem('user_id');
     const newLightThemeVars = {
-      ...lightThemeVars,
-      "@font-family":t("Font_family")
-    }
+      ...lessVars.light,
+      '@font-family': t('Font_family'),
+    };
     const newDarkThemeVars = {
-      ...dark,
-      "@font-family":t("Font_family")
-    }
+      ...lessVars.dark,
+      '@font-family': t('Font_family'),
+    };
     if (id) {
       if (lsVal) {
-        if (lsVal === "dark") {
+        if (lsVal === 'dark') {
           //@ts-ignore
           window.less.modifyVars(newDarkThemeVars);
 
-          return "dark";
+          return 'dark';
         } else {
           //@ts-ignore
           window.less.modifyVars(newLightThemeVars);
-          return "light";
+          return 'light';
         }
-        //   return lsVal === "dark" ? "dark" : "light";
       } else {
-        return window.matchMedia(preferDarkQuery).matches ? "dark" : "light";
+        return window.matchMedia(preferDarkQuery).matches ? 'dark' : 'light';
       }
     }
   });
@@ -44,52 +48,66 @@ const ChangeThem:React.FC<any> = (props: any) => {
   React.useEffect(() => {
     const mediaQuery = window.matchMedia(preferDarkQuery);
     const handleChange = () => {
+      const newLightThemeVars = {
+        ...lessVars.light,
+        '@font-family': t('Font_family'),
+      };
+      const newDarkThemeVars = {
+        ...lessVars.dark,
+        '@font-family': t('Font_family'),
+      };
       if (mediaQuery.matches) {
         //@ts-ignore
-        window.less.modifyVars(dark);
-        setMode("dark");
+        window.less.modifyVars(newDarkThemeVars);
+        setMode('dark');
       } else {
         //@ts-ignore
-        window.less.modifyVars(lightThemeVars);
-        setMode("light");
+        window.less.modifyVars(newLightThemeVars);
+        setMode('light');
       }
     };
-    mediaQuery.addEventListener("change", handleChange);
-    return () => mediaQuery.removeEventListener("change", handleChange);
-  }, []);
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, [t]);
 
   React.useEffect(() => {
-    window.localStorage.setItem("colorMode", mode);
+    window.localStorage.setItem('colorMode', mode);
   }, [mode]);
 
   useLayoutEffect(() => {
     (async () => {
+      const newLightThemeVars = {
+        ...lessVars.light,
+        '@font-family': t('Font_family'),
+      };
+      const newDarkThemeVars = {
+        ...lessVars.dark,
+        '@font-family': t('Font_family'),
+      };
       if (userName) {
         await axiosInstance
           .get(
-            `/user_account/user_profile/${userName}/?expand=*&fields=user_theme`
+            `/user_account/user_profile/${userName}/?expand=*&fields=user_theme`,
           )
           .then((res) => {
             const data = res?.data;
-            if (data?.user_theme?.type === "dark") {
+            if (data?.user_theme?.type === 'dark') {
               //@ts-ignore
-              window.less.modifyVars(dark);
-              setMode("dark");
+              window.less.modifyVars(newDarkThemeVars);
+              setMode('dark');
             } else {
               //@ts-ignore
-              window.less.modifyVars(lightThemeVars);
-              setMode("light");
+              window.less.modifyVars(newLightThemeVars);
+              setMode('light');
             }
           });
       } else {
         //@ts-ignore
-        less.modifyVars(lightThemeVars);
+        less.modifyVars(newLightThemeVars);
       }
     })();
-  }, [userName]);
- 
+  }, [userName, t]);
 
-  // 
   const value = useMemo(() => [mode, setMode], [mode, setMode]);
   return (
     <ThemeContext.Provider

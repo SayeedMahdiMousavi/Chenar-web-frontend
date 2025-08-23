@@ -1,15 +1,15 @@
-import React, { useCallback } from "react";
-import { Form, InputNumber, Input, Select, Tooltip } from "antd";
-import axiosInstance from "../../ApiBaseUrl";
-import { useTranslation } from "react-i18next";
-import { InfiniteScrollSelectFormItem } from "../../../components/antd";
-import { manageNetworkError } from "../../../Functions/manageNetworkError";
-import { PRODUCT_LIST } from "../../../constants/routes";
-import { InfoCircleOutlined } from "@ant-design/icons";
-import { InputNumberWithAddAfter } from "../../../components";
-import { fixedNumber } from "../../../Functions/math";
-import { manageErrors } from "../../../Functions";
-import ShowDate from "../../SelfComponents/JalaliAntdComponents/ShowDate";
+import React, { useCallback } from 'react';
+import { Form, InputNumber, Input, Select, Tooltip } from 'antd';
+import axiosInstance from '../../ApiBaseUrl';
+import { useTranslation } from 'react-i18next';
+import { InfiniteScrollSelectFormItem } from '../../../components/antd';
+import { manageNetworkError } from '../../../Functions/manageNetworkError';
+import { PRODUCT_LIST } from '../../../constants/routes';
+import { InfoCircleOutlined } from '@ant-design/icons';
+import { InputNumberWithAddAfter } from '../../../components';
+import { fixedNumber } from '../../../Functions/math';
+import { manageErrors } from '../../../Functions';
+import ShowDate from '../../SelfComponents/JalaliAntdComponents/ShowDate';
 
 const FormItem = Form.Item;
 
@@ -34,19 +34,19 @@ const WarehouseAdjustmentEditableCell = ({
   const { t } = useTranslation();
 
   const handleChangeProduct = useCallback(
-    async (value) => {
-      // 
+    async (value: any) => {
+      //
       setLoading(true);
       await axiosInstance
         .get(`${PRODUCT_LIST}${value?.value}?${endUrl}&fields=${fields}`)
         .then((res) => {
           const newProduct = res?.data;
           const baseUnit = res?.data?.product_units?.find(
-            (item: any) => item?.base_unit === true
+            (item: any) => item?.base_unit === true,
           )?.unit;
 
           const price = res?.data?.price?.find(
-            (item: any) => item?.unit?.id === baseUnit?.id
+            (item: any) => item?.unit?.id === baseUnit?.id,
           )?.sales_rate;
 
           const row = form.getFieldsValue();
@@ -92,7 +92,7 @@ const WarehouseAdjustmentEditableCell = ({
         });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [setLoading, record?.key, record?.row, form, save, setProductItem]
+    [setLoading, record?.key, record?.row, form, save, setProductItem],
   );
 
   const onSave = () => {
@@ -135,10 +135,10 @@ const WarehouseAdjustmentEditableCell = ({
     return parseFloat(value) > 0
       ? value
       : parseFloat(value) <= 0
-      ? 0.0000001
-      : numberInputReg.test(value)
-      ? 0
-      : value;
+        ? 0.0000001
+        : numberInputReg.test(value)
+          ? 0
+          : value;
   };
 
   const available =
@@ -146,30 +146,30 @@ const WarehouseAdjustmentEditableCell = ({
     record?.product_statistic &&
     record?.product_statistic?.find(
       (item: { warehouse: number }) =>
-        item?.warehouse === record?.warehouse?.value
+        item?.warehouse === record?.warehouse?.value,
     )?.available;
 
   const getInput = () => {
     switch (dataIndex) {
-      case "product":
+      case 'product':
         return (
           <InfiniteScrollSelectFormItem
             name={dataIndex}
             rules={[
               {
                 required: true,
-                message: t("Sales.All_sales.Invoice.Product_name_required"),
+                message: t('Sales.All_sales.Invoice.Product_name_required'),
               },
             ]}
             style={styles.margin}
-            fields="name,id"
+            fields='name,id'
             baseUrl={PRODUCT_LIST}
             onChange={handleChangeProduct}
             dropdownMatchSelectWidth={false}
           />
         );
 
-      case "warehouse":
+      case 'warehouse':
         return (
           <InfiniteScrollSelectFormItem
             name={dataIndex}
@@ -177,18 +177,18 @@ const WarehouseAdjustmentEditableCell = ({
               {
                 required: true,
                 message: t(
-                  "Sales.All_sales.Invoice.Destination_warehouse_required"
+                  'Sales.All_sales.Invoice.Destination_warehouse_required',
                 ),
               },
             ]}
             style={styles.margin}
-            fields="name,id"
-            baseUrl="/inventory/warehouse/"
+            fields='name,id'
+            baseUrl='/inventory/warehouse/'
             onChange={handleChangeWarehouse}
             dropdownMatchSelectWidth={false}
           />
         );
-      case "expirationDate":
+      case 'expirationDate':
         return (
           <FormItem
             style={styles.margin}
@@ -198,8 +198,8 @@ const WarehouseAdjustmentEditableCell = ({
             }
           >
             {({ getFieldValue }) => {
-              const warehouse = getFieldValue("warehouse");
-              const productStatistic = getFieldValue("productStatistic");
+              const warehouse = getFieldValue('warehouse');
+              const productStatistic = getFieldValue('productStatistic');
 
               return (
                 <FormItem style={styles.margin} name={dataIndex}>
@@ -208,7 +208,7 @@ const WarehouseAdjustmentEditableCell = ({
                       ?.filter(
                         (item: { expire_date: string; warehouse: number }) =>
                           Boolean(item?.expire_date) &&
-                          warehouse?.value === item?.warehouse
+                          warehouse?.value === item?.warehouse,
                       )
                       ?.map((item: any) => (
                         <Option
@@ -237,7 +237,7 @@ const WarehouseAdjustmentEditableCell = ({
       //       </Select>
       //     </FormItem>
       //   );
-      case "qty":
+      case 'qty':
         return (
           <FormItem
             style={styles.margin}
@@ -245,7 +245,7 @@ const WarehouseAdjustmentEditableCell = ({
             rules={[
               {
                 required: true,
-                message: t("Sales.Product_and_services.Form.Quantity_required"),
+                message: t('Sales.Product_and_services.Form.Quantity_required'),
               },
             ]}
           >
@@ -260,7 +260,7 @@ const WarehouseAdjustmentEditableCell = ({
             />
           </FormItem>
         );
-      case "each_price":
+      case 'each_price':
         return (
           <FormItem
             style={styles.margin}
@@ -268,16 +268,16 @@ const WarehouseAdjustmentEditableCell = ({
             rules={[
               {
                 required: true,
-                message: t("Sales.Product_and_services.Form.Price_required"),
+                message: t('Sales.Product_and_services.Form.Price_required'),
               },
             ]}
           >
             <InputNumber
-              className="num"
+              className='num'
               formatter={priceFormat}
               parser={priceFormat}
-              type="number"
-              inputMode="numeric"
+              type='number'
+              inputMode='numeric'
               onPressEnter={handleChangeNewAvailable}
               onFocus={handleFocus}
             />
@@ -296,7 +296,7 @@ const WarehouseAdjustmentEditableCell = ({
 
 const styles = {
   margin: { marginBottom: 0 },
-  spin: { margin: "10px 20px" },
+  spin: { margin: '10px 20px' },
 };
 
 export default WarehouseAdjustmentEditableCell;

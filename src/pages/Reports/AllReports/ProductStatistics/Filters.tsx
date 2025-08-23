@@ -1,8 +1,8 @@
-import React from "react";
-import { Row, Col, Form, Button, Select } from "antd";
-import { useTranslation } from "react-i18next";
-import { CategoryField } from "../../../SelfComponents/CategoryField";
-import { InfiniteScrollSelectFormItem } from "../../../../components/antd";
+import React from 'react';
+import { Row, Col, Form, Button, Select } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { CategoryField } from '../../../SelfComponents/CategoryField';
+import { InfiniteScrollSelectFormItem } from '../../../../components/antd';
 
 interface IProps {
   setPage: (value: number) => void;
@@ -43,52 +43,52 @@ export default function Filters(props: IProps) {
 
   return (
     <Form
-      layout="horizontal"
+      layout='horizontal'
       onFinish={onFinish}
       form={form}
       colon={false}
       hideRequiredMark
       initialValues={{
-        date: "allDates",
+        date: 'allDates',
         minMax: [0, 3000],
-        priceMethod: { value: "average", label: t("Reports.Average_price") },
+        priceMethod: { value: 'average', label: t('Reports.Average_price') },
       }}
     >
       <Row gutter={[10, 0]}>
         <Col xxl={5} xl={6} lg={6}>
-          {props.type === "purchasePrice" || props.type === "salesPrice" ? (
-            <Form.Item name="priceMethod" style={styles.formItem}>
+          {props.type === 'purchasePrice' || props.type === 'salesPrice' ? (
+            <Form.Item name='priceMethod' style={styles.formItem}>
               <Select labelInValue>
-                <Select.Option value="default">
-                  {t("Reports.Default_price")}
+                <Select.Option value='default'>
+                  {t('Reports.Default_price')}
                 </Select.Option>
                 {/* <Select.Option value="fifo ">First </Select.Option> */}
-                <Select.Option value="average">
-                  {t("Reports.Average_price")}
+                <Select.Option value='average'>
+                  {t('Reports.Average_price')}
                 </Select.Option>
-                <Select.Option value="last">
-                  {t("Reports.Last_price")}
+                <Select.Option value='last'>
+                  {t('Reports.Last_price')}
                 </Select.Option>
               </Select>
             </Form.Item>
           ) : (
             <InfiniteScrollSelectFormItem
-              name="warehouse"
+              name='warehouse'
               style={styles.formItem}
-              fields="name,id"
-              placeholder={t("Warehouse.1")}
-              baseUrl="/inventory/warehouse/"
+              fields='name,id'
+              placeholder={t('Warehouse.1')}
+              baseUrl='/inventory/warehouse/'
               allowClear={true}
             />
           )}
         </Col>
         <Col xxl={5} xl={6} lg={6}>
           <InfiniteScrollSelectFormItem
-            name="product"
+            name='product'
             style={styles.formItem}
-            fields="name,id"
-            placeholder={t("Sales.Product_and_services.Product")}
-            baseUrl="/product/items/"
+            fields='name,id'
+            placeholder={t('Sales.Product_and_services.Product')}
+            baseUrl='/product/items/'
             allowClear={true}
           />
         </Col>
@@ -112,28 +112,28 @@ export default function Filters(props: IProps) {
         <Col xxl={5} xl={6} lg={6}>
           <CategoryField
             form={form}
-            place="filter"
-            label=""
+            place='filter'
+            label=''
             style={styles.formItem}
-            placeholder={t("Sales.Product_and_services.Form.Category")}
-            url="/product/category/"
+            placeholder={t('Sales.Product_and_services.Form.Category')}
+            url='/product/category/'
           />
         </Col>
 
         <Col xxl={5} xl={6} lg={6}>
           <InfiniteScrollSelectFormItem
-            name="supplier"
-            placeholder={t("Expenses.Suppliers.Supplier")}
+            name='supplier'
+            placeholder={t('Expenses.Suppliers.Supplier')}
             style={styles.formItem}
-            fields="full_name,id"
-            baseUrl="/supplier_account/supplier/"
+            fields='full_name,id'
+            baseUrl='/supplier_account/supplier/'
             allowClear={true}
           />
         </Col>
         <Col span={7}>
-          <Form.Item className="margin" style={styles.formItem}>
-            <Button type="primary" size="small" htmlType="submit" shape="round">
-              {t("Form.Search")}
+          <Form.Item className='margin' style={styles.formItem}>
+            <Button type='primary' size='small' htmlType='submit' shape='round'>
+              {t('Form.Search')}
             </Button>
           </Form.Item>
         </Col>
@@ -144,7 +144,7 @@ export default function Filters(props: IProps) {
 
 const styles = {
   form: {
-    width: "250px",
+    width: '250px',
   },
   formItem: { marginBottom: 10 },
 };

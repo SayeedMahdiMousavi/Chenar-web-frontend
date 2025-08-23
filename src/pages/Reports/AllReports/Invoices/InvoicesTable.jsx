@@ -1,27 +1,27 @@
-import React, { useEffect, useMemo, useState } from "react";
-import Filters from "./Filters";
-import moment from "moment";
-import { useQuery } from "react-query";
-import { DownOutlined, UpOutlined } from "@ant-design/icons";
-import { Checkbox, Table, Button, Menu, Typography, Descriptions } from "antd";
-import { useTranslation } from "react-i18next";
-import { useMediaQuery } from "../../../MediaQurey";
-import axiosInstance from "../../../ApiBaseUrl";
-import { utcDate } from "../../../../Functions/utcDate";
-import useGetRunningPeriod from "../../../../Hooks/useGetRunningPeriod";
-import ShowDate from "../../../SelfComponents/JalaliAntdComponents/ShowDate";
-import { AntdTag, ReportTable, Statistics } from "../../../../components/antd";
-import { TableSummaryCell } from "../../../../components";
-import { Colors } from "../../../colors";
-import { INVOICES_RESULT_LIST } from "../../../../constants/routes";
-import { MANI_INVOICES_VALUE } from "../../../../constants";
+import React, { useEffect, useMemo, useState } from 'react';
+import Filters from './Filters';
+import moment from 'moment';
+import { useQuery } from 'react-query';
+import { DownOutlined, UpOutlined } from '@ant-design/icons';
+import { Checkbox, Table, Button, Menu, Typography, Descriptions } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { useMediaQuery } from '../../../MediaQurey';
+import axiosInstance from '../../../ApiBaseUrl';
+import { utcDate } from '../../../../Functions/utcDate';
+import useGetRunningPeriod from '../../../../Hooks/useGetRunningPeriod';
+import ShowDate from '../../../SelfComponents/JalaliAntdComponents/ShowDate';
+import { AntdTag, ReportTable, Statistics } from '../../../../components/antd';
+import { TableSummaryCell } from '../../../../components';
+import { Colors } from '../../../colors';
+import { INVOICES_RESULT_LIST } from '../../../../constants/routes';
+import { MANI_INVOICES_VALUE } from '../../../../constants';
 
 const { Column } = Table;
-const dateFormat = "YYYY-MM-DD HH:mm";
+const dateFormat = 'YYYY-MM-DD HH:mm';
 
 const InvoicesTable = (props) => {
   const [selectResult, setSelectResult] = useState(false);
-  const isMobile = useMediaQuery("(max-width: 576px)");
+  const isMobile = useMediaQuery('(max-width: 576px)');
   const { t } = useTranslation();
   const [visibility, setVisibility] = useState(false);
   const [
@@ -55,10 +55,10 @@ const InvoicesTable = (props) => {
   const [filters, setFilters] = useState({
     invoiceType: {
       value: MANI_INVOICES_VALUE,
-      label: t("All_posting_invoice"),
+      label: t('All_posting_invoice'),
     },
-    status: { value: "pending", label: t("Pending") },
-    startDate: "",
+    status: { value: 'pending', label: t('Pending') },
+    startDate: '',
     endDate: utcDate().format(dateFormat),
   });
   const { startDate, endDate, invoiceType, status } = filters;
@@ -74,12 +74,12 @@ const InvoicesTable = (props) => {
           ...prev,
           startDate: curStartDate
             ? moment(curStartDate, dateFormat).format(dateFormat)
-            : "",
+            : '',
         };
       });
     }
   }, [curStartDate]);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
 
   // setting  checkbox show More
   const handelVisibility = () => {
@@ -144,90 +144,90 @@ const InvoicesTable = (props) => {
 
   const setting = (
     <Menu style={styles.settingsMenu}>
-      <Menu.Item key="1">
+      <Menu.Item key='1'>
         <Typography.Text strong={true}>
-          {t("Sales.Product_and_services.Columns")}
+          {t('Sales.Product_and_services.Columns')}
         </Typography.Text>
       </Menu.Item>
 
-      <Menu.Item key="3">
+      <Menu.Item key='3'>
         <Checkbox onChange={onChangeType} checked={type}>
-          {t("Sales.Product_and_services.Type")}
+          {t('Sales.Product_and_services.Type')}
         </Checkbox>
       </Menu.Item>
-      <Menu.Item key="2">
+      <Menu.Item key='2'>
         <Checkbox onChange={onChangeCustomer} checked={customer}>
-          {t("Sales.Customers.Customer")}
+          {t('Sales.Customers.Customer')}
         </Checkbox>
       </Menu.Item>
-      <Menu.Item key="4">
+      <Menu.Item key='4'>
         <Checkbox onChange={onChangeDate} checked={date}>
-          {t("Sales.Customers.Form.Date")}
+          {t('Sales.Customers.Form.Date')}
         </Checkbox>
       </Menu.Item>
-      <Menu.Item key="7">
+      <Menu.Item key='7'>
         <Checkbox onChange={onChangeExpense} checked={expense}>
-          {t("Expenses.1")}
+          {t('Expenses.1')}
         </Checkbox>
       </Menu.Item>
-      <Menu.Item key="6">
+      <Menu.Item key='6'>
         <Checkbox onChange={onChangeDiscount} checked={discount}>
-          {t("Sales.Customers.Discount.1")}
+          {t('Sales.Customers.Discount.1')}
         </Checkbox>
       </Menu.Item>
-      <Menu.Item key="8">
+      <Menu.Item key='8'>
         <Checkbox onChange={onChangeTotal} checked={total}>
-          {t("Sales.Customers.Form.Total")}
+          {t('Sales.Customers.Form.Total')}
         </Checkbox>
       </Menu.Item>
 
       {visibility && (
         <React.Fragment>
-          <Menu.Item key="5">
+          <Menu.Item key='5'>
             <Checkbox onChange={onChangeRemind} checked={remind}>
-              {t("Sales.All_sales.Invoice.Remain_amount")}
+              {t('Sales.All_sales.Invoice.Remain_amount')}
             </Checkbox>
           </Menu.Item>
-          <Menu.Item key="10">
+          <Menu.Item key='10'>
             <Checkbox onChange={onChangeCurrency} checked={currency}>
-              {t("Sales.Product_and_services.Inventory.Currency")}
+              {t('Sales.Product_and_services.Inventory.Currency')}
             </Checkbox>
           </Menu.Item>
-          <Menu.Item key="9">
+          <Menu.Item key='9'>
             <Checkbox onChange={onchangeCashAmount} checked={cashAmount}>
-              {t("Sales.All_sales.Purchase_and_sales.Cash")}
+              {t('Sales.All_sales.Purchase_and_sales.Cash')}
             </Checkbox>
           </Menu.Item>
 
-          <Menu.Item key="11">
+          <Menu.Item key='11'>
             <Checkbox onChange={onChangeDescription} checked={description}>
-              {t("Form.Description")}
+              {t('Form.Description')}
             </Checkbox>
           </Menu.Item>
         </React.Fragment>
       )}
 
       <Menu.Item
-        key="14"
+        key='14'
         onClick={handelVisibility}
-        className="table__header2-setting-showMore"
-        style={{ textAlign: "end" }}
+        className='table__header2-setting-showMore'
+        style={{ textAlign: 'end' }}
       >
         {visibility ? (
           <Button
-            type="link"
+            type='link'
             icon={<UpOutlined />}
-            className="table__header2-setting-showMore"
+            className='table__header2-setting-showMore'
           >
-            {t("Sales.Product_and_services.Show_less")}
+            {t('Sales.Product_and_services.Show_less')}
           </Button>
         ) : (
           <Button
-            type="link"
+            type='link'
             icon={<DownOutlined />}
-            className="table__header2-setting-showMore"
+            className='table__header2-setting-showMore'
           >
-            {t("Sales.Product_and_services.Show_More")}
+            {t('Sales.Product_and_services.Show_More')}
           </Button>
         )}
       </Menu.Item>
@@ -251,18 +251,18 @@ const InvoicesTable = (props) => {
       const invoiceValue = invoiceType?.value;
       const statusValue = status?.value;
       const { data } = await axiosInstance.get(
-        `${props.baseUrl}?page=${page}&page_size=${pageSize}&search=${search}&ordering=${order}&expand=currency,cash_payment.currency,cash_payment.currency_calc&date_time_after=${startDate}&date_time_before=${endDate}&invoice_type_in=${invoiceValue}&invoice_state=${statusValue}`
+        `${props.baseUrl}?page=${page}&page_size=${pageSize}&search=${search}&ordering=${order}&expand=currency,cash_payment.currency,cash_payment.currency_calc&date_time_after=${startDate}&date_time_before=${endDate}&invoice_type_in=${invoiceValue}&invoice_state=${statusValue}`,
       );
       return data;
     },
-    [props.baseUrl]
+    [props.baseUrl],
   );
 
   const getInvoicesResult = React.useCallback(async ({ queryKey }) => {
     const { search, startDate, endDate, invoiceValue, statusValue } =
       queryKey?.[1] || {};
     const { data } = await axiosInstance.get(
-      `${INVOICES_RESULT_LIST}?expand=currency&search=${search}&page_size=200&date_time_after=${startDate}&date_time_before=${endDate}&invoice_type_in=${invoiceValue}&invoice_state=${statusValue}`
+      `${INVOICES_RESULT_LIST}?expand=currency&search=${search}&page_size=200&date_time_after=${startDate}&date_time_before=${endDate}&invoice_type_in=${invoiceValue}&invoice_state=${statusValue}`,
     );
     return data;
   }, []);
@@ -278,12 +278,13 @@ const InvoicesTable = (props) => {
         statusValue,
       },
     ],
-    getInvoicesResult
+    getInvoicesResult,
     // { enabled: !!startDate, cacheTime: 0 }
   );
 
-  const columns = useMemo( (tableType) => {
-      const sorter = tableType !== "print" ? true : false;
+  const columns = useMemo(
+    (tableType) => {
+      const sorter = tableType !== 'print' ? true : false;
       return (
         <React.Fragment>
           {/* <ColumnGroup
@@ -293,85 +294,85 @@ const InvoicesTable = (props) => {
           > */}
           <Column
             title={t(
-              "Sales.All_sales.Purchase_and_sales.Invoice_id"
+              'Sales.All_sales.Purchase_and_sales.Invoice_id',
             ).toUpperCase()}
-            dataIndex="id"
-            key="id"
-            width={tableType !== "print" ? 130 : undefined}
+            dataIndex='id'
+            key='id'
+            width={tableType !== 'print' ? 130 : undefined}
             sorter={sorter && { multiple: 12 }}
-            className="table-col"
-            align="center"
+            className='table-col'
+            align='center'
           />
           {type && (
             <Column
-              title={t("Sales.Product_and_services.Type").toUpperCase()}
-              dataIndex="invoice_type"
-              key="invoice_type"
+              title={t('Sales.Product_and_services.Type').toUpperCase()}
+              dataIndex='invoice_type'
+              key='invoice_type'
               sorter={sorter && { multiple: 11 }}
-              className="table-col"
+              className='table-col'
             />
           )}
           {customer && (
             <Column
-              title={t("Sales.Customers.Customer").toUpperCase()}
-              dataIndex="customer"
-              key="customer"
+              title={t('Sales.Customers.Customer').toUpperCase()}
+              dataIndex='customer'
+              key='customer'
               sorter={sorter && { multiple: 10 }}
-              className="table-col"
+              className='table-col'
             />
           )}
           {date && (
             <Column
-              title={t("Sales.Customers.Form.Date").toUpperCase()}
-              width={tableType !== "print" ? (isMobile ? 70 : 180) : undefined}
-              dataIndex="date_time"
-              key="date_time"
+              title={t('Sales.Customers.Form.Date').toUpperCase()}
+              width={tableType !== 'print' ? (isMobile ? 70 : 180) : undefined}
+              dataIndex='date_time'
+              key='date_time'
               sorter={sorter && { multiple: 9 }}
               render={(text) => {
                 return <ShowDate date={text} />;
               }}
-              className="table-col"
+              className='table-col'
             />
           )}
           {expense && (
             <Column
-              title={t("Expenses.1").toUpperCase()}
-              dataIndex="expense"
-              key="expense"
+              title={t('Expenses.1').toUpperCase()}
+              dataIndex='expense'
+              key='expense'
               sorter={sorter && { multiple: 8 }}
-              className="table-col"
+              className='table-col'
               render={(value) => <Statistics value={value} />}
             />
           )}
           {discount && (
             <Column
-              title={t("Sales.Customers.Discount.1").toUpperCase()}
-              dataIndex="discount"
-              key="discount"
+              title={t('Sales.Customers.Discount.1').toUpperCase()}
+              dataIndex='discount'
+              key='discount'
               sorter={sorter && { multiple: 7 }}
-              className="table-col"
+              className='table-col'
               render={(value) => <Statistics value={value} />}
             />
           )}
 
           {total && (
             <Column
-              title={t("Sales.Customers.Form.Total").toUpperCase()}
-              dataIndex="invoice_total"
-              key="invoice_total"
+              title={t('Sales.Customers.Form.Total').toUpperCase()}
+              dataIndex='invoice_total'
+              key='invoice_total'
               sorter={sorter && { multiple: 6 }}
-              className="table-col"
+              className='table-col'
               render={(value) => <Statistics value={value} />}
             />
           )}
           {remind && (
             <Column
-              title={t("Sales.All_sales.Invoice.Remain_amount").toUpperCase()}
-              dataIndex="remain"
-              key="remain"
+              title={t('Sales.All_sales.Invoice.Remain_amount').toUpperCase()}
+              dataIndex='remain'
+              key='remain'
               sorter={sorter && { multiple: 5 }}
-              width={tableType !== "print" ? 160 : undefined}
-              className="table-col"
+              width={tableType !== 'print' ? 160 : undefined}
+              className='table-col'
               render={(value) => <Statistics value={value} />}
             />
           )}
@@ -379,14 +380,14 @@ const InvoicesTable = (props) => {
           {currency && (
             <Column
               title={t(
-                "Sales.Product_and_services.Inventory.Currency"
+                'Sales.Product_and_services.Inventory.Currency',
               ).toUpperCase()}
-              dataIndex="currency"
-              key="currency"
+              dataIndex='currency'
+              key='currency'
               sorter={sorter && { multiple: 4 }}
-              className="table-col"
-              render={(currency) =>{
-                return(<span>{t(`Reports.${currency?.symbol}`)}</span>)
+              className='table-col'
+              render={(currency) => {
+                return <span>{t(`Reports.${currency?.symbol}`)}</span>;
               }}
             />
           )}
@@ -397,10 +398,10 @@ const InvoicesTable = (props) => {
             > */}
           {cashAmount && (
             <Column
-              title={t("Sales.All_sales.Purchase_and_sales.Cash").toUpperCase()}
-              dataIndex="cash_payment"
-              key="cash_payment"
-              className="table-col"
+              title={t('Sales.All_sales.Purchase_and_sales.Cash').toUpperCase()}
+              dataIndex='cash_payment'
+              key='cash_payment'
+              className='table-col'
               render={(value) => {
                 return (
                   <span style={styles.unit}>
@@ -411,18 +412,18 @@ const InvoicesTable = (props) => {
                               <Statistics
                                 value={item?.amount}
                                 suffix={item?.currency?.symbol}
-                                className="invoiceStatistic"
+                                className='invoiceStatistic'
                                 valueStyle={{ color: Colors.primaryColor }}
                               />
                               {item?.currency?.id !==
                                 item?.currency_calc?.id && (
                                 <React.Fragment>
-                                  {" "}
-                                  {t("Equivalent")}{" "}
+                                  {' '}
+                                  {t('Equivalent')}{' '}
                                   <Statistics
                                     value={item?.amount_calc}
                                     suffix={item?.currency_calc?.symbol}
-                                    className="invoiceStatistic"
+                                    className='invoiceStatistic'
                                     valueStyle={{
                                       color: Colors.primaryColor,
                                     }}
@@ -439,17 +440,17 @@ const InvoicesTable = (props) => {
                                 <Statistics
                                   value={item?.amount}
                                   suffix={item?.currency?.symbol}
-                                  className="invoiceStatistic"
+                                  className='invoiceStatistic'
                                 />
                                 {item?.currency?.id !==
                                   item?.currency_calc?.id && (
                                   <React.Fragment>
-                                    {" "}
-                                    {t("Equivalent")}{" "}
+                                    {' '}
+                                    {t('Equivalent')}{' '}
                                     <Statistics
                                       value={item?.amount_calc}
                                       suffix={item?.currency_calc?.symbol}
-                                      className="invoiceStatistic"
+                                      className='invoiceStatistic'
                                     />
                                   </React.Fragment>
                                 )}
@@ -461,19 +462,19 @@ const InvoicesTable = (props) => {
                               <Statistics
                                 value={item?.amount}
                                 suffix={item?.currency?.symbol}
-                                className="invoiceStatistic"
-                                valueStyle={{ fontSize: "inherit" }}
+                                className='invoiceStatistic'
+                                valueStyle={{ fontSize: 'inherit' }}
                               />
                               {item?.currency?.id !==
                                 item?.currency_calc?.id && (
                                 <React.Fragment>
-                                  {" "}
-                                  {t("Equivalent")}{" "}
+                                  {' '}
+                                  {t('Equivalent')}{' '}
                                   <Statistics
                                     value={item?.amount_calc}
                                     suffix={item?.currency_calc?.symbol}
-                                    className="invoiceStatistic"
-                                    valueStyle={{ fontSize: "inherit" }}
+                                    className='invoiceStatistic'
+                                    valueStyle={{ fontSize: 'inherit' }}
                                   />
                                 </React.Fragment>
                               )}
@@ -500,10 +501,10 @@ const InvoicesTable = (props) => {
           )} */}
           {description && (
             <Column
-              title={t("Form.Description").toUpperCase()}
-              dataIndex="description"
-              key="description"
-              className="table-col"
+              title={t('Form.Description').toUpperCase()}
+              dataIndex='description'
+              key='description'
+              className='table-col'
               sorter={sorter && { multiple: 1 }}
             />
           )}
@@ -523,18 +524,18 @@ const InvoicesTable = (props) => {
       t,
       total,
       type,
-    ]
+    ],
   );
 
   const resultColumns = useMemo(
     () => (
       <React.Fragment>
         <Column
-          title={t("Table.Row").toUpperCase()}
-          dataIndex="serial"
-          key="serial"
+          title={t('Table.Row').toUpperCase()}
+          dataIndex='serial'
+          key='serial'
           width={40}
-          align="center"
+          align='center'
           render={(_, __, index) => (
             <React.Fragment>{index + 1}</React.Fragment>
           )}
@@ -542,33 +543,33 @@ const InvoicesTable = (props) => {
 
         {expense && (
           <Column
-            title={t("Expenses.1").toUpperCase()}
-            dataIndex="total_expense"
+            title={t('Expenses.1').toUpperCase()}
+            dataIndex='total_expense'
             render={(value) => <Statistics value={value} />}
           />
         )}
         {discount && (
           <Column
-            title={t("Sales.Customers.Discount.1").toUpperCase()}
-            dataIndex="total_discount"
-            key="total_discount"
+            title={t('Sales.Customers.Discount.1').toUpperCase()}
+            dataIndex='total_discount'
+            key='total_discount'
             render={(value) => <Statistics value={value} />}
           />
         )}
 
         {total && (
           <Column
-            title={t("Sales.Customers.Form.Total").toUpperCase()}
-            dataIndex="total_net_amount"
-            key="total_net_amount"
+            title={t('Sales.Customers.Form.Total').toUpperCase()}
+            dataIndex='total_net_amount'
+            key='total_net_amount'
             render={(value) => <Statistics value={value} />}
           />
         )}
         {remind && (
           <Column
-            title={t("Sales.All_sales.Invoice.Remain_amount").toUpperCase()}
-            dataIndex="total_remain"
-            key="total_remain"
+            title={t('Sales.All_sales.Invoice.Remain_amount').toUpperCase()}
+            dataIndex='total_remain'
+            key='total_remain'
             render={(value) => <Statistics value={value} />}
           />
         )}
@@ -576,21 +577,27 @@ const InvoicesTable = (props) => {
         {currency && (
           <Column
             title={t(
-              "Sales.Product_and_services.Inventory.Currency"
+              'Sales.Product_and_services.Inventory.Currency',
             ).toUpperCase()}
-            dataIndex="currency"
-            key="currency"
+            dataIndex='currency'
+            key='currency'
             render={(currency) => {
-              return <span>{currency?.symbol ? t(`Reports.${currency?.symbol}`) : currency}</span>
+              return (
+                <span>
+                  {currency?.symbol
+                    ? t(`Reports.${currency?.symbol}`)
+                    : currency}
+                </span>
+              );
             }}
           />
         )}
 
         {cashAmount && (
           <Column
-            title={t("Sales.All_sales.Invoice.Cash_amount").toUpperCase()}
-            dataIndex="total_cash"
-            key="total_cash"
+            title={t('Sales.All_sales.Invoice.Cash_amount').toUpperCase()}
+            dataIndex='total_cash'
+            key='total_cash'
             render={(value) => <Statistics value={value} />}
           />
         )}
@@ -605,26 +612,26 @@ const InvoicesTable = (props) => {
         )} */}
       </React.Fragment>
     ),
-    [cashAmount, currency, discount, expense, remind, t, total]
+    [cashAmount, currency, discount, expense, remind, t, total],
   );
 
   const printFilters = (
     <Descriptions
-      layout="horizontal"
-      style={{ width: "100%", paddingTop: "40px" }}
+      layout='horizontal'
+      style={{ width: '100%', paddingTop: '40px' }}
       column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}
-      size="small"
+      size='small'
     >
-      <Descriptions.Item label={t("Form.From")}>
-        {startDate} {t("Form.To")} : {endDate}
+      <Descriptions.Item label={t('Form.From')}>
+        {startDate} {t('Form.To')} : {endDate}
       </Descriptions.Item>
       {invoiceType?.label && (
-        <Descriptions.Item label={t("Sales.Product_and_services.Type")}>
+        <Descriptions.Item label={t('Sales.Product_and_services.Type')}>
           {invoiceType?.label}
         </Descriptions.Item>
       )}
       {status?.label && (
-        <Descriptions.Item label={t("Sales.Product_and_services.Status")}>
+        <Descriptions.Item label={t('Sales.Product_and_services.Status')}>
           {status?.label}
         </Descriptions.Item>
       )}
@@ -639,7 +646,7 @@ const InvoicesTable = (props) => {
     return (
       <>
         <Table.Summary.Row>
-          <TableSummaryCell index={0} type="checkbox">
+          <TableSummaryCell index={0} type='checkbox'>
             <Checkbox onChange={onChangeSelectResult} checked={selectResult} />
           </TableSummaryCell>
           <TableSummaryCell index={1} />
@@ -648,32 +655,32 @@ const InvoicesTable = (props) => {
           {customer && <TableSummaryCell index={4} />}
           {date && <TableSummaryCell index={5} />}
           {expense && (
-            <TableSummaryCell index={6}>{t("Expenses.1")}</TableSummaryCell>
+            <TableSummaryCell index={6}>{t('Expenses.1')}</TableSummaryCell>
           )}
           {discount && (
             <TableSummaryCell index={7}>
-              {t("Sales.Customers.Discount.1")}
+              {t('Sales.Customers.Discount.1')}
             </TableSummaryCell>
           )}
           {total && (
             <TableSummaryCell index={8}>
-              {t("Sales.Customers.Form.Total")}
+              {t('Sales.Customers.Form.Total')}
             </TableSummaryCell>
           )}
           {remind && (
             <TableSummaryCell index={9}>
-              {t("Sales.All_sales.Invoice.Remain_amount")}
+              {t('Sales.All_sales.Invoice.Remain_amount')}
             </TableSummaryCell>
           )}
 
           {currency && (
             <TableSummaryCell index={10}>
-              {t("Sales.Product_and_services.Inventory.Currency")}
+              {t('Sales.Product_and_services.Inventory.Currency')}
             </TableSummaryCell>
           )}
           {cashAmount && (
             <TableSummaryCell index={11}>
-              {t("Sales.All_sales.Invoice.Cash_amount")}
+              {t('Sales.All_sales.Invoice.Cash_amount')}
             </TableSummaryCell>
           )}
 
@@ -697,7 +704,7 @@ const InvoicesTable = (props) => {
                 <TableSummaryCell
                   isSelected={selectResult}
                   index={6}
-                  type="total"
+                  type='total'
                   value={item?.total_expense}
                 />
               )}
@@ -706,7 +713,7 @@ const InvoicesTable = (props) => {
                 <TableSummaryCell
                   isSelected={selectResult}
                   index={7}
-                  type="total"
+                  type='total'
                   value={item?.total_discount}
                 />
               )}
@@ -714,7 +721,7 @@ const InvoicesTable = (props) => {
                 <TableSummaryCell
                   isSelected={selectResult}
                   index={8}
-                  type="total"
+                  type='total'
                   value={item?.total_net_amount}
                 />
               )}
@@ -722,7 +729,7 @@ const InvoicesTable = (props) => {
                 <TableSummaryCell
                   isSelected={selectResult}
                   index={9}
-                  type="total"
+                  type='total'
                   value={item?.total_remain}
                 />
               )}
@@ -737,7 +744,7 @@ const InvoicesTable = (props) => {
                 <TableSummaryCell
                   isSelected={selectResult}
                   index={11}
-                  type="total"
+                  type='total'
                   value={item?.total_cash}
                 />
               )}
@@ -754,48 +761,48 @@ const InvoicesTable = (props) => {
 
   return (
     <>
-    <ReportTable
-    pagination={true}
-      setSearch={setSearch}
-      search={search}
-      setSelectResult={setSelectResult}
-      selectResult={selectResult}
-      title={t("Reports.Invoices")}
-      columns={columns}
-      queryKey={props.baseUrl}
-      handleGetData={handleGetInvoices}
-      settingMenu={setting}
-      filters={filters}
-      filterNode={(setPage, setSelectedRowKeys) => (
-        <Filters
-          setFilters={setFilters}
-          setPage={setPage}
-          setSelectedRowKeys={setSelectedRowKeys}
-          setSelectResult={setSelectResult}
-        />
-      )}
-      filtersComponent={printFilters}
-      resultDataSource={result?.data?.results}
-      resultDomColumns={resultColumns}
-      // queryConf={{ cacheTime: 0 }}
-      // summary={summary}
-      resultLoading={result.isLoading}
-      resultFetching={result.isFetching}
-    />
-    <div>
-      <Table 
-      // columns={resultColumns}
-      dataSource={result?.data?.results}
-      >
-        {resultColumns}
-      </Table>
-    </div>
+      <ReportTable
+        pagination={true}
+        setSearch={setSearch}
+        search={search}
+        setSelectResult={setSelectResult}
+        selectResult={selectResult}
+        title={t('Reports.Invoices')}
+        columns={columns}
+        queryKey={props.baseUrl}
+        handleGetData={handleGetInvoices}
+        settingMenu={setting}
+        filters={filters}
+        filterNode={(setPage, setSelectedRowKeys) => (
+          <Filters
+            setFilters={setFilters}
+            setPage={setPage}
+            setSelectedRowKeys={setSelectedRowKeys}
+            setSelectResult={setSelectResult}
+          />
+        )}
+        filtersComponent={printFilters}
+        resultDataSource={result?.data?.results}
+        resultDomColumns={resultColumns}
+        // queryConf={{ cacheTime: 0 }}
+        // summary={summary}
+        resultLoading={result.isLoading}
+        resultFetching={result.isFetching}
+      />
+      <div>
+        <Table
+          // columns={resultColumns}
+          dataSource={result?.data?.results}
+        >
+          {resultColumns}
+        </Table>
+      </div>
     </>
   );
 };
 const styles = {
-  card: { background: "#3498db", padding: "24px 20px" },
-  settingsMenu: { width: "170px", paddingBottom: "10px" },
+  card: { background: '#3498db', padding: '24px 20px' },
+  settingsMenu: { width: '170px', paddingBottom: '10px' },
 };
 
 export default InvoicesTable;

@@ -1,14 +1,14 @@
-import React, { useCallback, useMemo, useState } from "react";
-import { message, InputNumber, Form } from "antd";
-import axiosInstance from "../../ApiBaseUrl";
-import { useMutation, useQueryClient } from "react-query";
-import { useTranslation } from "react-i18next";
-import { ActionMessage } from "../../SelfComponents/TranslateComponents/ActionMessage";
-import { EditableTable, Statistics } from "../../../components/antd";
-import { currencyHistoryBaseUrl } from "../../Reports/AllReports/CurrencyHistory/CurrencyHistory";
-import { CURRENCY_RATE_M } from "../../../constants/permissions";
-import { EditableTableActionColumnRender } from "../../../components";
-import { manageErrors } from "../../../Functions";
+import React, { useCallback, useMemo, useState } from 'react';
+import { message, InputNumber, Form } from 'antd';
+import axiosInstance from '../../ApiBaseUrl';
+import { useMutation, useQueryClient } from 'react-query';
+import { useTranslation } from 'react-i18next';
+import { ActionMessage } from '../../SelfComponents/TranslateComponents/ActionMessage';
+import { EditableTable, Statistics } from '../../../components/antd';
+import { currencyHistoryBaseUrl } from '../../Reports/AllReports/CurrencyHistory/CurrencyHistory';
+import { CURRENCY_RATE_M } from '../../../constants/permissions';
+import { EditableTableActionColumnRender } from '../../../components';
+import { manageErrors } from '../../../Functions';
 
 const EditableCell = ({
   editing,
@@ -39,21 +39,21 @@ const EditableCell = ({
             {
               required: true,
               message:
-                dataIndex === "base_amount"
+                dataIndex === 'base_amount'
                   ? t(
-                      "Sales.Product_and_services.Currency.Default_rate_required"
+                      'Sales.Product_and_services.Currency.Default_rate_required',
                     )
                   : t(
-                      "Sales.Product_and_services.Currency.Currency_rate_required"
+                      'Sales.Product_and_services.Currency.Currency_rate_required',
                     ),
             },
           ]}
         >
           <InputNumber
             min={0}
-            type="number"
-            className="num"
-            inputMode="numeric"
+            type='number'
+            className='num'
+            inputMode='numeric'
             onFocus={handleSelectValueOfInputNumber}
             // onPressEnter={() => save(record)}
           />
@@ -69,11 +69,11 @@ export default function CurrencyRateTable(props: { baseUrl: string }) {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
   const [form] = Form.useForm();
-  const [editingKey, setEditingKey] = useState("");
+  const [editingKey, setEditingKey] = useState('');
 
   const isEditing = useCallback(
     (record: any) => record.symbol === editingKey,
-    [editingKey]
+    [editingKey],
   );
 
   const edit = useCallback(
@@ -85,11 +85,11 @@ export default function CurrencyRateTable(props: { baseUrl: string }) {
       });
       setEditingKey(record.symbol);
     },
-    [form]
+    [form],
   );
 
   const cancel = () => {
-    setEditingKey("");
+    setEditingKey('');
   };
 
   const editCurrencyRate = async ({ value, symbol }: any) =>
@@ -102,10 +102,10 @@ export default function CurrencyRateTable(props: { baseUrl: string }) {
         message.success(
           <ActionMessage
             name={values?.data?.name}
-            message="Sales.Product_and_services.Currency.Update_currency_rate_message"
-          />
+            message='Sales.Product_and_services.Currency.Update_currency_rate_message'
+          />,
         );
-        setEditingKey("");
+        setEditingKey('');
 
         queryClient.invalidateQueries(props?.baseUrl);
         queryClient.invalidateQueries(currencyHistoryBaseUrl);
@@ -113,7 +113,7 @@ export default function CurrencyRateTable(props: { baseUrl: string }) {
       onError: (error) => {
         manageErrors(error);
       },
-    }
+    },
   );
 
   const save = useCallback(
@@ -126,132 +126,135 @@ export default function CurrencyRateTable(props: { baseUrl: string }) {
         };
         mutateEditCurrencyRate({ value: allData, symbol: record.symbol });
       } catch (errInfo) {
-        // 
+        //
       }
     },
-    [form, mutateEditCurrencyRate]
+    [form, mutateEditCurrencyRate],
   );
 
   const columns = useMemo(
-    () => () =>
-      [
-        {
-          title: (
-            <span>
-              {t(
-                "Sales.Product_and_services.Currency.Currency_rate"
-              ).toUpperCase()}
-            </span>
-          ),
-          dataIndex: "equal_amount",
-          // with:180,
-          editable: true,
-          sorter: { multiple: 5 },
-          fixed: true,
-          key: "equal_amount",
-          render: (text: any) => {
-            return <Statistics value={text} />;
-          },
+    () => () => [
+      {
+        title: (
+          <span>
+            {t(
+              'Sales.Product_and_services.Currency.Currency_rate',
+            ).toUpperCase()}
+          </span>
+        ),
+        dataIndex: 'equal_amount',
+        // with:180,
+        editable: true,
+        sorter: { multiple: 5 },
+        fixed: true,
+        key: 'equal_amount',
+        render: (text: any) => {
+          return <Statistics value={text} />;
         },
-        {
-          title: t(
-            "Sales.Product_and_services.Inventory.Currency"
-          ).toUpperCase(),
-          dataIndex: "symbol",
-          // className: "table-col",
-          // editable: true,
-          sorter: { multiple: 4 },
-          key: "symbol",
-          render:(text:string) => t(`Reports.${text}`)
-        },
+      },
+      {
+        title: t('Sales.Product_and_services.Inventory.Currency').toUpperCase(),
+        dataIndex: 'symbol',
+        // className: "table-col",
+        // editable: true,
+        sorter: { multiple: 4 },
+        key: 'symbol',
+        render: (text: string) => t(`Reports.${text}`),
+      },
 
-        {
-          title: `${t(
-            "Sales.Product_and_services.Currency.Default_rate"
-          ).toUpperCase()}`,
-          dataIndex: "base_amount",
-          // className: "table-col",
-          editable: true,
-          sorter: { multiple: 3 },
-          key: "base_amount",
-          render: (text: any) => {
-            return <Statistics value={text} />;
-          },
+      {
+        title: `${t(
+          'Sales.Product_and_services.Currency.Default_rate',
+        ).toUpperCase()}`,
+        dataIndex: 'base_amount',
+        // className: "table-col",
+        editable: true,
+        sorter: { multiple: 3 },
+        key: 'base_amount',
+        render: (text: any) => {
+          return <Statistics value={text} />;
         },
-        {
-          title: `${t(
-            "Sales.Product_and_services.Currency.Default_currency"
-          ).toUpperCase()}`,
-          // dataIndex: "currency",
-          dataIndex:"currency",
-          
-          // className: "table-col",
-          // editable: true,
-          sorter: { multiple: 2 },
-          key: "currency",
-          render: (text: { name: string } , record:any) => {
-            console.log("record"  , record )
-            return text?.name
-          }
-        },
+      },
+      {
+        title: `${t(
+          'Sales.Product_and_services.Currency.Default_currency',
+        ).toUpperCase()}`,
+        // dataIndex: "currency",
+        dataIndex: 'currency',
 
-        {
-          title: `${t(
-            "Sales.Product_and_services.Currency.Exchange_rate_default_currency"
-          ).toUpperCase()}`,
-          dataIndex: "exchange",
-          // className: "table-col",
-          // editable: true,
-          sorter: { multiple: 1 },
-          key: "exchange",
-          render: (text: any, record: any) => {
-            console.log("record" , record)
-            const  baseAmount = parseFloat(record?.base_amount)
-            const equalAmount = parseFloat(record?.equal_amount)
-            var num = baseAmount > equalAmount ? baseAmount /equalAmount : equalAmount /baseAmount ;
-            return <Statistics value={num} />;
-          },
+        // className: "table-col",
+        // editable: true,
+        sorter: { multiple: 2 },
+        key: 'currency',
+        render: (text: { name: string }, record: any) => {
+          console.log('record', record);
+          return text?.name;
         },
-        {
-          title: `${t("Table.Action")}`,
-          dataIndex: "action",
-          width: 70,
-          key: "action",
-          align: "center",
+      },
 
-          fixed: "right",
-          render: (text: any, record: any) => {
-            const editable = isEditing(record);
-            return (
-              <EditableTableActionColumnRender
-                {...{
-                  record,
-                  save,
-                  edit,
-                  editingKey,
-                  onCancel: cancel,
-                  model: CURRENCY_RATE_M,
-                  editable,
-                  disabled: editingKey !== "",
-                }}
-              >
-                {null}
-              </EditableTableActionColumnRender>
-            );
-          },
+      {
+        title: `${t(
+          'Sales.Product_and_services.Currency.Exchange_rate_default_currency',
+        ).toUpperCase()}`,
+        dataIndex: 'exchange',
+        // className: "table-col",
+        // editable: true,
+        sorter: { multiple: 1 },
+        key: 'exchange',
+        render: (text: any, record: any) => {
+          console.log('record', record);
+          const baseAmount = parseFloat(record?.base_amount);
+          const equalAmount = parseFloat(record?.equal_amount);
+          var num =
+            baseAmount > equalAmount
+              ? baseAmount / equalAmount
+              : equalAmount / baseAmount;
+          return <Statistics value={num} />;
         },
-      ],
-    [edit, editingKey, isEditing, save, t]
+      },
+      {
+        title: `${t('Table.Action')}`,
+        dataIndex: 'action',
+        width: 70,
+        key: 'action',
+        align: 'center',
+
+        fixed: 'right',
+        render: (text: any, record: any) => {
+          const editable = isEditing(record);
+          return (
+            <EditableTableActionColumnRender
+              {...{
+                record,
+                save,
+                edit,
+                editingKey,
+                onCancel: cancel,
+                model: CURRENCY_RATE_M,
+                editable,
+                disabled: editingKey !== '',
+              }}
+            >
+              {null}
+            </EditableTableActionColumnRender>
+          );
+        },
+      },
+    ],
+    [edit, editingKey, isEditing, save, t],
   );
 
-  const handleGetCurrencyRates = useCallback(async ({ queryKey }) => {
-    const { page, pageSize, search, order } = queryKey?.[1];
-    const { data } = await axiosInstance.get(
-      `${props?.baseUrl}?page=${page}&page_size=${pageSize}&search=${search}&ordering=${order}`
-    );
+  const handleGetCurrencyRates = useCallback(
+    async ({ queryKey }: { queryKey: any }) => {
+      const { page, pageSize, search, order } = queryKey?.[1];
+      const { data } = await axiosInstance.get(
+        `${props?.baseUrl}?page=${page}&page_size=${pageSize}&search=${search}&ordering=${order}`,
+      );
 
-    return data;
-  }, []);
+      return data;
+    },
+    [],
+  );
   return (
     <Form form={form} component={false}>
       <EditableTable
@@ -265,7 +268,7 @@ export default function CurrencyRateTable(props: { baseUrl: string }) {
         editableCell={EditableCell}
         editingKey={editingKey}
         rowSelectable={false}
-        type="currencyRate"
+        type='currencyRate'
       />
     </Form>
   );

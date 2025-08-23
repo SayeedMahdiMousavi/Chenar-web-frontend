@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
 // import { useDatabase } from "@nozbe/watermelondb/hooks";
-import EditAccount from "./EditAccounts";
+import EditAccount from './EditAccounts';
 import {
   //   Checkbox,
   //   Row,
@@ -16,10 +16,10 @@ import {
   //   Input,
   //   Modal,
   Popconfirm,
-} from "antd";
+} from 'antd';
 
-import { CaretDownOutlined } from "@ant-design/icons";
-import { connect } from "react-redux";
+import { CaretDownOutlined } from '@ant-design/icons';
+import { connect } from 'react-redux';
 // const ReachableContext = React.createContext();
 
 function Action(props) {
@@ -37,7 +37,7 @@ function Action(props) {
   //     props.deleteProducts(props.record.Key);
   //   },
   //   onCancel() {
-  //     
+  //
   //   }
   // };
   const inActive = async () => {
@@ -83,21 +83,21 @@ function Action(props) {
       // }}
       >
         <Popconfirm
-          placement="topLeft"
-          title="Are your sure to inactive this customer?"
+          placement='topLeft'
+          title='Are your sure to inactive this customer?'
           onConfirm={inActive}
-          okText="Yes"
-          cancelText="No"
+          okText='Yes'
+          cancelText='No'
           onCancel={cancel}
         >
-          {t("Sales.Customers.Table.inactive")}
+          {t('Sales.Customers.Table.inactive')}
         </Popconfirm>
       </Menu.Item>
       <Menu.Item>
-        {" "}
+        {' '}
         <EditAccount open={edit} record={props.record} />
       </Menu.Item>
-      <Menu.Item>{t("Employees.Run_report")}</Menu.Item>
+      <Menu.Item>{t('Employees.Run_report')}</Menu.Item>
       {props.record.type && <Menu.Item>Account history</Menu.Item>}
     </Menu>
   );
@@ -109,12 +109,12 @@ function Action(props) {
     //   <div>
     <Dropdown
       overlay={action}
-      trigger={["click"]}
+      trigger={['click']}
       onOpenChange={handleVisibleChange}
       open={visible}
     >
-      <a className="ant-dropdown-link" href="#">
-        {t("Sales.Customers.Table.Edit")}
+      <a className='ant-dropdown-link' href='#'>
+        {t('Sales.Customers.Table.Edit')}
         <CaretDownOutlined />
       </a>
     </Dropdown>

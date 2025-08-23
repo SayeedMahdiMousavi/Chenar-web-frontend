@@ -1,5 +1,5 @@
-import { useQuery } from "react-query";
-import axiosInstance from "../pages/ApiBaseUrl";
+import { useQuery } from 'react-query';
+import axiosInstance from '../pages/ApiBaseUrl';
 
 export default function useGetOneItem(url: string, restUrl: string) {
   const { data } = useQuery(
@@ -11,7 +11,7 @@ export default function useGetOneItem(url: string, restUrl: string) {
     {
       cacheTime: 86400000,
       // refetchOnWindowFocus: false,
-    }
+    },
   );
   return data;
 }

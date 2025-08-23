@@ -1,15 +1,15 @@
-import React, { useCallback, useState } from "react";
-import { Dropdown } from "antd";
-import { connect } from "react-redux";
-import { useQueryClient } from "react-query";
-import EditPOSDesignInvoice from "./POSInvoice/Edit";
-import { RemovePopconfirm } from "../../components";
-import { useRemoveItem } from "../../Hooks";
-import { CUSTOM_FORM_STYLE_M } from "../../constants/permissions";
-import { checkPermissions } from "../../Functions";
-import { Button } from "antd";
-import { DotsIcon } from "../../icons";
-import { Colors } from "../colors";
+import React, { useCallback, useState } from 'react';
+import { Dropdown } from 'antd';
+import { connect } from 'react-redux';
+import { useQueryClient } from 'react-query';
+import EditPOSDesignInvoice from './POSInvoice/Edit';
+import { RemovePopconfirm } from '../../components';
+import { useRemoveItem } from '../../Hooks';
+import { CUSTOM_FORM_STYLE_M } from '../../constants/permissions';
+import { checkPermissions } from '../../Functions';
+import { Button } from 'antd';
+import { DotsIcon } from '../../icons';
+import { Colors } from '../colors';
 
 function Action(props) {
   const queryClient = useQueryClient();
@@ -35,7 +35,7 @@ function Action(props) {
 
   const handleCancel = () => {
     setRemoveVisible(false);
-    handleVisibleChange(false)
+    handleVisibleChange(false);
     reset();
   };
 
@@ -47,12 +47,10 @@ function Action(props) {
     setRemoveVisible(!removeVisible);
   };
 
-  
-
   // Define menu items using the `items` prop
   const menuItems = [
     {
-      key: "remove",
+      key: 'remove',
       label: (
         <RemovePopconfirm
           itemName={props?.record?.template_name_fa}
@@ -66,7 +64,7 @@ function Action(props) {
       ),
     },
     checkPermissions(`change_${CUSTOM_FORM_STYLE_M}`) && {
-      key: "edit",
+      key: 'edit',
       label: (
         <EditPOSDesignInvoice
           record={props?.record}
@@ -79,43 +77,42 @@ function Action(props) {
   ].filter(Boolean);
 
   const handleVisibleChange = (flag) => {
-    if(!removeVisible){
+    if (!removeVisible) {
       setVisible(true);
     }
-    if(removeVisible){
-      setRemoveVisible(false)
+    if (removeVisible) {
+      setRemoveVisible(false);
     }
-    setVisible(true)
+    setVisible(true);
   };
 
   return (
     <Dropdown
-    menu={{ items: menuItems }} 
-    trigger={["click"]}
-    onOpenChange={handleVisibleChange}
-    open={visible}
+      menu={{ items: menuItems }}
+      trigger={['click']}
+      onOpenChange={handleVisibleChange}
+      open={visible}
       disabled={props?.record?.system_default}
     >
       <Button
-      type="text"
-      size="small"
-      onClick={handleVisibleChange}
-      icon={
-        <DotsIcon
-          style={props.disabled ? styles.actionButton1 : styles.actionButton}
-          className="action-button"
-        />
-      }
-      disabled={props?.record?.system_default}
-    />
+        type='text'
+        size='small'
+        onClick={handleVisibleChange}
+        icon={
+          <DotsIcon
+            style={props.disabled ? styles.actionButton1 : styles.actionButton}
+            className='action-button'
+          />
+        }
+        disabled={props?.record?.system_default}
+      />
     </Dropdown>
   );
 }
 
 const styles = {
-  actionButton: { fontSize: "20px", color: Colors.primaryColor },
-  actionButton1: { fontSize: "20px", color: "gray" },
+  actionButton: { fontSize: '20px', color: Colors.primaryColor },
+  actionButton1: { fontSize: '20px', color: 'gray' },
 };
-
 
 export default connect(null)(Action);

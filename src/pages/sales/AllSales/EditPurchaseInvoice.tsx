@@ -1,10 +1,10 @@
-import React from "react";
-import EditInvoice from "./Invoice/EditInvoice";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import EditInvoice from './Invoice/EditInvoice';
+import { useTranslation } from 'react-i18next';
 import {
   PURCHASE_INVOICE_LIST,
   PURCHASE_ORDER_INVOICE_LIST,
-} from "../../../constants/routes";
+} from '../../../constants/routes';
 interface IProps {
   setVisible: (value: boolean) => void;
   record: any;
@@ -16,16 +16,16 @@ export const EditPurchaseInvoice = (props: IProps) => {
     <EditInvoice
       {...props}
       title={
-        props?.type === "purchaseOrder"
-          ? t("Edit_purchase_order")
-          : t("Sales.All_sales.Invoice.Edit_purchase_invoice")
+        props?.type === 'purchaseOrder'
+          ? t('Edit_purchase_order')
+          : t('Sales.All_sales.Invoice.Edit_purchase_invoice')
       }
       baseUrl={
-        props?.type === "purchaseOrder"
+        props?.type === 'purchaseOrder'
           ? PURCHASE_ORDER_INVOICE_LIST
           : PURCHASE_INVOICE_LIST
       }
-      type="purchase"
+      type='purchase'
     />
   );
 };

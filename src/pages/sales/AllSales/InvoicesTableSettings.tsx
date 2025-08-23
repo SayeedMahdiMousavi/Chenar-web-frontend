@@ -1,16 +1,16 @@
-import React, { Fragment, memo, useState } from "react";
-import { useTranslation } from "react-i18next";
+import React, { Fragment, memo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   TableSettingsMenu,
   TableSettingsMenuItem,
   TableSettingsMenuMoreItem,
-} from "../../../components";
+} from '../../../components';
 import {
   PURCHASE_INVOICE_LIST,
   PURCHASE_REJECT_INVOICE_LIST,
   QUOTATION_INVOICE_LIST,
   SALES_INVOICE_LIST,
-} from "../../../constants/routes";
+} from '../../../constants/routes';
 
 function InvoicesTableSettings({
   setColumns,
@@ -38,55 +38,55 @@ function InvoicesTableSettings({
     <TableSettingsMenu {...rest}>
       <TableSettingsMenuItem
         setColumns={setColumns}
-        name="customer"
+        name='customer'
         checked={customer}
       >
         {baseUrl === PURCHASE_INVOICE_LIST ||
         baseUrl === PURCHASE_REJECT_INVOICE_LIST
-          ? t("Expenses.Suppliers.Supplier")
-          : t("Sales.Customers.Customer")}
+          ? t('Expenses.Suppliers.Supplier')
+          : t('Sales.Customers.Customer')}
       </TableSettingsMenuItem>
-      <TableSettingsMenuItem setColumns={setColumns} name="date" checked={date}>
-        {t("Sales.Customers.Form.Date")}
+      <TableSettingsMenuItem setColumns={setColumns} name='date' checked={date}>
+        {t('Sales.Customers.Form.Date')}
       </TableSettingsMenuItem>
       <TableSettingsMenuItem
         setColumns={setColumns}
-        name="total"
+        name='total'
         checked={total}
       >
-        {t("Sales.Customers.Form.Total")}
+        {t('Sales.Customers.Form.Total')}
       </TableSettingsMenuItem>
       <TableSettingsMenuItem
         setColumns={setColumns}
-        name="currency"
+        name='currency'
         checked={currency}
       >
-        {t("Sales.Product_and_services.Inventory.Currency")}
+        {t('Sales.Product_and_services.Inventory.Currency')}
       </TableSettingsMenuItem>
       {baseUrl !== QUOTATION_INVOICE_LIST && (
         <TableSettingsMenuItem
           setColumns={setColumns}
-          name="cashCurrency"
+          name='cashCurrency'
           checked={cashCurrency}
         >
-          {t("Sales.All_sales.Purchase_and_sales.Cash")}
+          {t('Sales.All_sales.Purchase_and_sales.Cash')}
         </TableSettingsMenuItem>
       )}
       {baseUrl === SALES_INVOICE_LIST && (
         <TableSettingsMenuItem
           setColumns={setColumns}
-          name="representative"
+          name='representative'
           checked={representative}
         >
-          {t("Representative")}
+          {t('Representative')}
         </TableSettingsMenuItem>
       )}
       <TableSettingsMenuItem
         setColumns={setColumns}
-        name="invoiceStatus"
+        name='invoiceStatus'
         checked={invoiceStatus}
       >
-        {t("Sales.Product_and_services.Status")}
+        {t('Sales.Product_and_services.Status')}
       </TableSettingsMenuItem>
 
       {visible && (
@@ -94,37 +94,37 @@ function InvoicesTableSettings({
           <TableSettingsMenuItem
             checked={createdBy}
             setColumns={setColumns}
-            name="createdBy"
+            name='createdBy'
           >
-            {t("Sales.Product_and_services.Form.Created_by")}
+            {t('Sales.Product_and_services.Form.Created_by')}
           </TableSettingsMenuItem>
           <TableSettingsMenuItem
             setColumns={setColumns}
-            name="createdAt"
+            name='createdAt'
             checked={createdAt}
           >
-            {t("Sales.Product_and_services.Form.Created_date")}
+            {t('Sales.Product_and_services.Form.Created_date')}
           </TableSettingsMenuItem>
           <TableSettingsMenuItem
             setColumns={setColumns}
-            name="modifiedBy"
+            name='modifiedBy'
             checked={modifiedBy}
           >
-            {t("Sales.Product_and_services.Form.Modified_by")}
+            {t('Sales.Product_and_services.Form.Modified_by')}
           </TableSettingsMenuItem>
           <TableSettingsMenuItem
             setColumns={setColumns}
-            name="modifiedDate"
+            name='modifiedDate'
             checked={modifiedDate}
           >
-            {t("Sales.Product_and_services.Form.Modified_date")}
+            {t('Sales.Product_and_services.Form.Modified_date')}
           </TableSettingsMenuItem>
           <TableSettingsMenuItem
             setColumns={setColumns}
-            name="description"
+            name='description'
             checked={description}
           >
-            {t("Form.Description")}
+            {t('Form.Description')}
           </TableSettingsMenuItem>
         </Fragment>
       )}

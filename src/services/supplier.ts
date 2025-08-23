@@ -37,7 +37,9 @@ export class SupplierService extends ApiService {
     super('/supplier_account');
   }
 
-  async getSuppliers(params?: PaginationParams): Promise<{ results: Supplier[]; count: number }> {
+  async getSuppliers(
+    params?: PaginationParams,
+  ): Promise<{ results: Supplier[]; count: number }> {
     return this.get('/supplier/', params);
   }
 
@@ -49,7 +51,10 @@ export class SupplierService extends ApiService {
     return this.post('/supplier/', data);
   }
 
-  async updateSupplier(id: string | number, data: Partial<CreateSupplierData>): Promise<Supplier> {
+  async updateSupplier(
+    id: string | number,
+    data: Partial<CreateSupplierData>,
+  ): Promise<Supplier> {
     return this.patch(`/supplier/${id}/`, data);
   }
 
@@ -65,15 +70,23 @@ export class SupplierService extends ApiService {
     return this.patch(`/supplier/${id}/`, { status: 'deactivate' });
   }
 
-  async getSupplierCategories(params?: PaginationParams): Promise<{ results: SupplierCategory[] }> {
+  async getSupplierCategories(
+    params?: PaginationParams,
+  ): Promise<{ results: SupplierCategory[] }> {
     return this.get('/supplier_category/', params);
   }
 
-  async createSupplierCategory(data: { name: string; description?: string }): Promise<SupplierCategory> {
+  async createSupplierCategory(data: {
+    name: string;
+    description?: string;
+  }): Promise<SupplierCategory> {
     return this.post('/supplier_category/', data);
   }
 
-  async updateSupplierCategory(id: string | number, data: { name?: string; description?: string }): Promise<SupplierCategory> {
+  async updateSupplierCategory(
+    id: string | number,
+    data: { name?: string; description?: string },
+  ): Promise<SupplierCategory> {
     return this.patch(`/supplier_category/${id}/`, data);
   }
 
@@ -81,11 +94,17 @@ export class SupplierService extends ApiService {
     return this.delete(`/supplier_category/${id}/`);
   }
 
-  async getSupplierPayments(supplierId: string | number, params?: PaginationParams) {
+  async getSupplierPayments(
+    supplierId: string | number,
+    params?: PaginationParams,
+  ) {
     return this.get(`/supplier/${supplierId}/payments/`, params);
   }
 
-  async getSupplierInvoices(supplierId: string | number, params?: PaginationParams) {
+  async getSupplierInvoices(
+    supplierId: string | number,
+    params?: PaginationParams,
+  ) {
     return this.get(`/supplier/${supplierId}/invoices/`, params);
   }
 
@@ -105,4 +124,3 @@ export class SupplierService extends ApiService {
 }
 
 export const supplierService = new SupplierService();
-

@@ -17,6 +17,7 @@ export default [
         sourceType: 'module',
       },
     },
+    linterOptions: { reportUnusedDisableDirectives: 'off' },
     settings: { react: { version: '18.3' } },
     plugins: {
       react,
@@ -32,6 +33,7 @@ export default [
       'no-unused-vars': 'off',
       'react/prop-types': 'off',
       'react-refresh/only-export-components': 'off', // Changed from 'warn' to 'off'
+      'react-hooks/exhaustive-deps': 'off',
     },
   },
 ];

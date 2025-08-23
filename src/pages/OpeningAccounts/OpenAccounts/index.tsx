@@ -1,18 +1,18 @@
-import React from "react";
-import Navbar from "../../Accounting/Navbar";
-import { useTranslation } from "react-i18next";
-import { Title } from "../../SelfComponents/Title";
-import { Row, Col, Layout } from "antd";
-import AddOpenAccount from "./AddOpenAccount";
-import OpenAccountTable from "./OpenAccountTable";
-import { OPINING_ACCOUNT_M } from "../../../constants/permissions";
+import React from 'react';
+import Navbar from '../../Accounting/Navbar';
+import { useTranslation } from 'react-i18next';
+import { Title } from '../../SelfComponents/Title';
+import { Row, Col, Layout } from 'antd';
+import AddOpenAccount from './AddOpenAccount';
+import OpenAccountTable from './OpenAccountTable';
+import { OPINING_ACCOUNT_M } from '../../../constants/permissions';
 import {
   JOURNAL_LIST,
   JOURNAL_RESULT_LIST,
   OPENING_ACCOUNT_LIST,
   OPENING_ACCOUNT_RESULT_LIST,
-} from "../../../constants/routes";
-import { useQueryClient } from "react-query";
+} from '../../../constants/routes';
+import { useQueryClient } from 'react-query';
 
 const baseUrl = OPENING_ACCOUNT_LIST;
 
@@ -31,14 +31,14 @@ const OpenAccounts: React.FC = () => {
     <Layout>
       <Navbar />
 
-      <Row className="categore-header" align="middle" justify="start">
+      <Row className='categore-header' align='middle' justify='start'>
         <Col
           md={{ span: 10 }}
           sm={{ span: 11 }}
           xs={{ span: 14 }}
-          className="Sales__content-3-body"
+          className='Sales__content-3-body'
         >
-          <Title value={t("Opening_accounts.1")} model={OPINING_ACCOUNT_M} />
+          <Title value={t('Opening_accounts.1')} model={OPINING_ACCOUNT_M} />
         </Col>
         <Col
           xl={{ span: 3, offset: 11 }}

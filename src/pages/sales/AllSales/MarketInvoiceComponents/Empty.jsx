@@ -1,6 +1,6 @@
-import React from "react";
-import { Empty, Typography } from "antd";
-import { Colors } from "../../../colors";
+import React from 'react';
+import { Empty, Typography } from 'antd';
+import { Colors } from '../../../colors';
 
 const EmptyFile = (props) => {
   return (

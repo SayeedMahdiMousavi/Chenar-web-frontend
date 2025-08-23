@@ -45,9 +45,9 @@ export default function New() {
   return (
     <Card
       actions={[
-        <Row key="action-row">
+        <Row key='action-row'>
           <Col
-            key="action-col"
+            key='action-col'
             // offset={1}
             span={showMore ? 24 : 12}
             style={styles.action(showMore)}

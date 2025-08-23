@@ -1,18 +1,18 @@
-import React, { useMemo, useState } from "react";
-import axiosInstance from "../../../ApiBaseUrl";
-import { Checkbox, Menu, Descriptions, Table, Typography } from "antd";
-import { useTranslation } from "react-i18next";
-import Filters from "./Filters";
-import { fixedNumber } from "../../../../Functions/math";
-import ProductStatisticsSettings from "./Settings";
-import { PRODUCT_STATISTIC_SETTINGS } from "../../../LocalStorageVariables";
-import { ProductStatisticsDetails } from "./Details";
-import { ReportTable, Statistics } from "../../../../components/antd";
+import React, { useMemo, useState } from 'react';
+import axiosInstance from '../../../ApiBaseUrl';
+import { Checkbox, Menu, Descriptions, Table, Typography } from 'antd';
+import { useTranslation } from 'react-i18next';
+import Filters from './Filters';
+import { fixedNumber } from '../../../../Functions/math';
+import ProductStatisticsSettings from './Settings';
+import { PRODUCT_STATISTIC_SETTINGS } from '../../../LocalStorageVariables';
+import { ProductStatisticsDetails } from './Details';
+import { ReportTable, Statistics } from '../../../../components/antd';
 
 const { Column } = Table;
 const ProductStatisticsTable = ({ title, baseUrl, type }) => {
   const [minAvailable, setMinAvailable] = useState(() =>
-    localStorage.getItem(PRODUCT_STATISTIC_SETTINGS)
+    localStorage.getItem(PRODUCT_STATISTIC_SETTINGS),
   );
   const { t } = useTranslation();
   const [{ unit, purchase, sales, barcode }, setColumns] = useState({
@@ -22,11 +22,11 @@ const ProductStatisticsTable = ({ title, baseUrl, type }) => {
     barcode: true,
   });
   const [filters, setFilters] = useState({
-    category: { value: "", label: "" },
-    product: { value: "", label: "" },
-    warehouse: { value: "", label: "" },
-    supplier: { value: "", label: "" },
-    priceMethod: { value: "average", label: t("Reports.Average_price") },
+    category: { value: '', label: '' },
+    product: { value: '', label: '' },
+    warehouse: { value: '', label: '' },
+    supplier: { value: '', label: '' },
+    priceMethod: { value: 'average', label: t('Reports.Average_price') },
     // availableMin: 1,
     // availableMax: 3000,
   });
@@ -63,33 +63,33 @@ const ProductStatisticsTable = ({ title, baseUrl, type }) => {
 
   const setting = (
     <Menu style={styles.settingsMenu}>
-      <Menu.Item key="1">
+      <Menu.Item key='1'>
         <Typography.Text strong={true}>
-          {t("Sales.Product_and_services.Columns")}
+          {t('Sales.Product_and_services.Columns')}
         </Typography.Text>
       </Menu.Item>
-      <Menu.Item key="8">
+      <Menu.Item key='8'>
         <Checkbox checked={barcode} onChange={onChangeBarcode}>
-          {t("Sales.Product_and_services.Barcode")}
+          {t('Sales.Product_and_services.Barcode')}
         </Checkbox>
       </Menu.Item>
-      <Menu.Item key="2">
+      <Menu.Item key='2'>
         <Checkbox checked={unit} onChange={onChangeUnit}>
-          {t("Sales.Product_and_services.Units.Unit")}
+          {t('Sales.Product_and_services.Units.Unit')}
         </Checkbox>
       </Menu.Item>
 
-      {type === "purchasePrice" && (
-        <Menu.Item key="3">
+      {type === 'purchasePrice' && (
+        <Menu.Item key='3'>
           <Checkbox checked={purchase} onChange={onChangePurchase}>
-            {t("Taxes.Tax_rates.Purchases")}
+            {t('Taxes.Tax_rates.Purchases')}
           </Checkbox>
         </Menu.Item>
       )}
-      {type === "salesPrice" && (
-        <Menu.Item key="4">
+      {type === 'salesPrice' && (
+        <Menu.Item key='4'>
           <Checkbox checked={sales} onChange={onChangeSales}>
-            {t("Sales.1")}
+            {t('Sales.1')}
           </Checkbox>
         </Menu.Item>
       )}
@@ -107,7 +107,7 @@ const ProductStatisticsTable = ({ title, baseUrl, type }) => {
           </Checkbox>
         </Menu.Item>
       )} */}
-      <Menu.Item key="7">
+      <Menu.Item key='7'>
         <ProductStatisticsSettings setMinAvailable={setMinAvailable} />
       </Menu.Item>
     </Menu>
@@ -129,78 +129,78 @@ const ProductStatisticsTable = ({ title, baseUrl, type }) => {
           supplier,
           priceMethod,
         } = queryKey?.[1] ?? {};
-        const productId = product?.value ?? "";
-        const warehouseId = warehouse?.value ?? "";
-        const categoryId = category?.value ?? "";
-        const supplierId = supplier?.value ?? "";
-        const priceMethodValue = priceMethod?.value ?? "";
+        const productId = product?.value ?? '';
+        const warehouseId = warehouse?.value ?? '';
+        const categoryId = category?.value ?? '';
+        const supplierId = supplier?.value ?? '';
+        const priceMethodValue = priceMethod?.value ?? '';
 
         const fields = `id,name,available,unit,barcode${
-          type === "salesPrice" ? ",sales_price" : ""
-        }${type === "purchasePrice" ? ",purchase_price" : ""}`;
+          type === 'salesPrice' ? ',sales_price' : ''
+        }${type === 'purchasePrice' ? ',purchase_price' : ''}`;
 
         const { data } = await axiosInstance.get(
           `${baseUrl}?page=${page}&page_size=${pageSize}&ordering=${order}&id=${productId}&search=${search}&category=${categoryId}&supplier=${supplierId}${
-            type === "productDeficits" || type === "productStatistics"
+            type === 'productDeficits' || type === 'productStatistics'
               ? `&warehouse=${warehouseId}`
-              : type === "purchasePrice" || type === "salesPrice"
-              ? `&price_method=${priceMethodValue}`
-              : ""
-          }&fields=${fields}`
+              : type === 'purchasePrice' || type === 'salesPrice'
+                ? `&price_method=${priceMethodValue}`
+                : ''
+          }&fields=${fields}`,
         );
         return data;
       },
-    [baseUrl, type]
+    [baseUrl, type],
   );
 
   const minimumAvailable = minAvailable ?? 10;
 
   const columns = useMemo(
-(tableType) => {
-      const sorter = tableType !== "print";
+    (tableType) => {
+      const sorter = tableType !== 'print';
       return (
         <React.Fragment>
           <Column
-            title={t("Sales.Product_and_services.Product_id").toUpperCase()}
-            dataIndex="id"
-            key="id"
-            fixed={tableType !== "print" ? true : undefined}
-            width={tableType !== "print" ? 130 : undefined}
+            title={t('Sales.Product_and_services.Product_id').toUpperCase()}
+            dataIndex='id'
+            key='id'
+            fixed={tableType !== 'print' ? true : undefined}
+            width={tableType !== 'print' ? 130 : undefined}
             sorter={sorter && { multiple: 6 }}
-            className="table-col"
-            align="center"
+            className='table-col'
+            align='center'
           />
           <Column
-            title={t("Sales.All_sales.Invoice.Product_name").toUpperCase()}
-            dataIndex="name"
-            key="name"
-            fixed={tableType !== "print" ? true : undefined}
-            className="table-col"
+            title={t('Sales.All_sales.Invoice.Product_name').toUpperCase()}
+            dataIndex='name'
+            key='name'
+            fixed={tableType !== 'print' ? true : undefined}
+            className='table-col'
             sorter={sorter && { multiple: 5 }}
           />
           {barcode && (
             <Column
-              title={t("Sales.Product_and_services.Barcode").toUpperCase()}
-              dataIndex="barcode"
-              key="barcode"
-              className="table-col"
+              title={t('Sales.Product_and_services.Barcode').toUpperCase()}
+              dataIndex='barcode'
+              key='barcode'
+              className='table-col'
               sorter={sorter && { multiple: 4 }}
             />
           )}
           {unit && (
             <Column
-              title={t("Sales.Product_and_services.Units.Unit").toUpperCase()}
-              dataIndex="unit"
-              key="unit"
-              className="table-col"
+              title={t('Sales.Product_and_services.Units.Unit').toUpperCase()}
+              dataIndex='unit'
+              key='unit'
+              className='table-col'
             />
           )}
-          {(type === "productStatistics" || type === "productDeficits") && (
+          {(type === 'productStatistics' || type === 'productDeficits') && (
             <Column
-              title={t("Reports.Available_quantity").toUpperCase()}
-              dataIndex="available"
-              key="available"
-              className="table-col"
+              title={t('Reports.Available_quantity').toUpperCase()}
+              dataIndex='available'
+              key='available'
+              className='table-col'
               sorter={sorter && { multiple: 3 }}
               render={(value) => (
                 <Statistics
@@ -208,30 +208,30 @@ const ProductStatisticsTable = ({ title, baseUrl, type }) => {
                   valueStyle={{
                     color:
                       fixedNumber(value ?? 0, 0) <= parseFloat(minimumAvailable)
-                        ? "red"
-                        : "",
-                    fontWeight: "bold",
+                        ? 'red'
+                        : '',
+                    fontWeight: 'bold',
                   }}
                 />
               )}
             />
           )}
-          {purchase && type === "purchasePrice" && (
+          {purchase && type === 'purchasePrice' && (
             <Column
-              title={t("Taxes.Tax_rates.Purchases").toUpperCase()}
-              dataIndex="purchase_price"
-              key="purchase_price"
-              className="table-col"
+              title={t('Taxes.Tax_rates.Purchases').toUpperCase()}
+              dataIndex='purchase_price'
+              key='purchase_price'
+              className='table-col'
               sorter={sorter && { multiple: 2 }}
               render={(value) => <Statistics value={value} />}
             />
           )}
-          {sales && type === "salesPrice" && (
+          {sales && type === 'salesPrice' && (
             <Column
-              title={t("Sales.1").toUpperCase()}
-              dataIndex="sales_price"
-              key="sales_price"
-              className="table-col"
+              title={t('Sales.1').toUpperCase()}
+              dataIndex='sales_price'
+              key='sales_price'
+              className='table-col'
               sorter={sorter && { multiple: 1 }}
               render={(value) => <Statistics value={value} />}
             />
@@ -263,15 +263,15 @@ const ProductStatisticsTable = ({ title, baseUrl, type }) => {
               sorter={{ multiple: 1 }}
             />
           )} */}
-          {(type === "productStatistics" || type === "productDeficits") &&
-            tableType !== "print" && (
+          {(type === 'productStatistics' || type === 'productDeficits') &&
+            tableType !== 'print' && (
               <Column
-                title={t("Table.Action").toUpperCase()}
-                dataIndex="action"
-                key="action"
-                align="center"
+                title={t('Table.Action').toUpperCase()}
+                dataIndex='action'
+                key='action'
+                align='center'
                 width={60}
-                fixed={tableType !== "print" ? "right" : undefined}
+                fixed={tableType !== 'print' ? 'right' : undefined}
                 render={(_, record) => (
                   <ProductStatisticsDetails
                     id={record?.id}
@@ -284,41 +284,41 @@ const ProductStatisticsTable = ({ title, baseUrl, type }) => {
         </React.Fragment>
       );
     },
-    [barcode, minimumAvailable, type, purchase, sales, t, unit]
+    [barcode, minimumAvailable, type, purchase, sales, t, unit],
   );
 
   const printFilters = (
     <Descriptions
-      layout="horizontal"
+      layout='horizontal'
       style={styles.printFilter}
       column={1}
-      size="small"
+      size='small'
     >
       {warehouse?.label && (
-        <Descriptions.Item label={t("Warehouse.1")}>
+        <Descriptions.Item label={t('Warehouse.1')}>
           {warehouse?.label}
         </Descriptions.Item>
       )}
       {product?.label && (
-        <Descriptions.Item label={t("Sales.Product_and_services.Product")}>
+        <Descriptions.Item label={t('Sales.Product_and_services.Product')}>
           {product?.label}
         </Descriptions.Item>
       )}
       {category?.label && (
         <Descriptions.Item
-          label={t("Sales.Product_and_services.Form.Category")}
+          label={t('Sales.Product_and_services.Form.Category')}
         >
           {category?.label}
         </Descriptions.Item>
       )}
       {supplier?.label && (
-        <Descriptions.Item label={t("Expenses.Suppliers.Supplier")}>
+        <Descriptions.Item label={t('Expenses.Suppliers.Supplier')}>
           {supplier?.label}
         </Descriptions.Item>
       )}
 
-      {(type === "purchasePrice" || type === "salesPrice") && (
-        <Descriptions.Item label={t("Reports.Price_type")}>
+      {(type === 'purchasePrice' || type === 'salesPrice') && (
+        <Descriptions.Item label={t('Reports.Price_type')}>
           {priceMethod?.label}
         </Descriptions.Item>
       )}
@@ -342,21 +342,21 @@ const ProductStatisticsTable = ({ title, baseUrl, type }) => {
         />
       )}
       filtersComponent={
-        type === "purchasePrice" || type === "salesPrice"
+        type === 'purchasePrice' || type === 'salesPrice'
           ? printFilters
           : Boolean(warehouse?.label) ||
-            Boolean(product?.label) ||
-            Boolean(category?.label) ||
-            Boolean(supplier?.label)
-          ? printFilters
-          : undefined
+              Boolean(product?.label) ||
+              Boolean(category?.label) ||
+              Boolean(supplier?.label)
+            ? printFilters
+            : undefined
       }
     />
   );
 };
 const styles = {
-  settingsMenu: { width: "180px", paddingBottom: "10px" },
-  printFilter: { width: "100%", paddingTop: "40px" },
+  settingsMenu: { width: '180px', paddingBottom: '10px' },
+  printFilter: { width: '100%', paddingTop: '40px' },
 };
 
 export default ProductStatisticsTable;

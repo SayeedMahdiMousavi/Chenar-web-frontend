@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 function SvgComponent(props) {
   return (
@@ -19,7 +19,7 @@ function SvgComponent(props) {
         </clipPath>
         <style>
           {
-            ".prefix__str0{stroke:#1890ff;stroke-width:27.78;stroke-miterlimit:2.61313;stroke-dasharray:55.559055 138.897638}.prefix__fil0{fill:none}"
+            '.prefix__str0{stroke:#1890ff;stroke-width:27.78;stroke-miterlimit:2.61313;stroke-dasharray:55.559055 138.897638}.prefix__fil0{fill:none}'
           }
         </style>
       </defs>

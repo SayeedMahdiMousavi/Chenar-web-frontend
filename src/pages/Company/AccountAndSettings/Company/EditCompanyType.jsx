@@ -1,8 +1,8 @@
-import React from "react";
-import { useMediaQuery } from "../../../MediaQurey";
-import { useTranslation } from "react-i18next";
-import { Form, Button, Col, Row, Select, Typography } from "antd";
-import { EditOutlined } from "@ant-design/icons";
+import React from 'react';
+import { useMediaQuery } from '../../../MediaQurey';
+import { useTranslation } from 'react-i18next';
+import { Form, Button, Col, Row, Select, Typography } from 'antd';
+import { EditOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
 const { Text } = Typography;
@@ -10,8 +10,8 @@ export default function EditCompanyType(props) {
   const { t } = useTranslation();
   const [form] = Form.useForm();
 
-  const isTablet = useMediaQuery("(max-width: 575px)");
-  const isMobile = useMediaQuery("(max-width: 425px)");
+  const isTablet = useMediaQuery('(max-width: 575px)');
+  const isMobile = useMediaQuery('(max-width: 425px)');
   const onTypeClick = () => {
     props.setInfo(false);
     props.setName(false);
@@ -26,43 +26,43 @@ export default function EditCompanyType(props) {
     <div>
       {props.type ? (
         <Form form={form} onFinish={onFinish}>
-          <Row gutter={[5, 15]} className="account_setting_drawer_name">
+          <Row gutter={[5, 15]} className='account_setting_drawer_name'>
             <Col lg={5} sm={6} xs={24} style={styles.title(isTablet)}>
-              {" "}
-              <Text strong={true}> {t("Company.Company_type")}</Text>
+              {' '}
+              <Text strong={true}> {t('Company.Company_type')}</Text>
             </Col>
             <Col lg={7} sm={8} xs={isMobile ? 24 : 10}>
-              {" "}
-              <Text strong={true}> {t("Company.Company_type")}</Text>
+              {' '}
+              <Text strong={true}> {t('Company.Company_type')}</Text>
             </Col>
             <Col lg={10} sm={12} xs={isMobile ? 24 : 14}>
-              {" "}
-              <Form.Item name="type" style={styles.margin}>
+              {' '}
+              <Form.Item name='type' style={styles.margin}>
                 <Select>
-                  <Option value="Sole proprietor">
-                    {t("Company.Form.Sole_proprietor")}
+                  <Option value='Sole proprietor'>
+                    {t('Company.Form.Sole_proprietor')}
                   </Option>
 
-                  <Option value="Partisanship of limited liability company">
-                    {t("Company.Form.Partisanship_limited_liability_company")}
+                  <Option value='Partisanship of limited liability company'>
+                    {t('Company.Form.Partisanship_limited_liability_company')}
                   </Option>
-                  <Option value="Small business corporation, two or more owners">
-                    {t("Company.Form.Small_business_corporation")}
+                  <Option value='Small business corporation, two or more owners'>
+                    {t('Company.Form.Small_business_corporation')}
                   </Option>
-                  <Option value="Corporation, one or more shareholders">
-                    {t("Company.Form.Corporation")}
+                  <Option value='Corporation, one or more shareholders'>
+                    {t('Company.Form.Corporation')}
                   </Option>
-                  <Option value="Non profile organization">
-                    {t("Company.Form.Non_profile_organization")}
+                  <Option value='Non profile organization'>
+                    {t('Company.Form.Non_profile_organization')}
                   </Option>
-                  <Option value="Limited liability">
-                    {t("Company.Form.Limited_liability")}
+                  <Option value='Limited liability'>
+                    {t('Company.Form.Limited_liability')}
                   </Option>
-                  <Option value="No sure/Other/None">
-                    {t("Company.Form.No_sure/Other/None")}
+                  <Option value='No sure/Other/None'>
+                    {t('Company.Form.No_sure/Other/None')}
                   </Option>
                 </Select>
-              </Form.Item>{" "}
+              </Form.Item>{' '}
             </Col>
             {/* <Col lg={5} sm={0} xs={0}></Col> */}
             {/* <Col lg={5} sm={6} xs={0}></Col> */}
@@ -143,46 +143,46 @@ export default function EditCompanyType(props) {
             <Col lg={12} sm={14} xs={isMobile ? 0 : 10}></Col>
 
             <Col lg={12} sm={10} xs={isMobile ? 24 : 14}>
-              {" "}
-              <Button htmlType="button" shape="round" onClick={cancel}>
-                {t("Form.Cancel")}
-              </Button>{" "}
+              {' '}
+              <Button htmlType='button' shape='round' onClick={cancel}>
+                {t('Form.Cancel')}
+              </Button>{' '}
               <Button
-                type="primary"
-                shape="round"
-                htmlType="submit"
+                type='primary'
+                shape='round'
+                htmlType='submit'
                 style={styles.cancel}
               >
-                {t("Form.Save")}
+                {t('Form.Save')}
               </Button>
             </Col>
           </Row>
         </Form>
       ) : (
         <Row
-          className="account_setting_drawer_hover line_height account_setting_drawer_name"
+          className='account_setting_drawer_hover line_height account_setting_drawer_name'
           onClick={onTypeClick}
         >
           <Col lg={5} sm={6} xs={24}>
-            {" "}
-            <Text strong={true}>{t("Company.Company_type")}</Text>
+            {' '}
+            <Text strong={true}>{t('Company.Company_type')}</Text>
           </Col>
           <Col lg={7} sm={8} xs={10}>
-            {" "}
-            <Text>{t("Company.Company_type")}</Text>
+            {' '}
+            <Text>{t('Company.Company_type')}</Text>
             {/* <br />
             <Text> {t("Company.Industry")}</Text> */}
           </Col>
           <Col lg={12} sm={10} xs={14}>
-            <Row justify="space-between">
+            <Row justify='space-between'>
               <Col>
-                {" "}
+                {' '}
                 <Text> {props.data?.type}</Text>
                 {/* <br />
                 <Text>Wholesale Trade</Text> */}
               </Col>
               <Col>
-                <EditOutlined className="font" />
+                <EditOutlined className='font' />
               </Col>
             </Row>
           </Col>
@@ -192,10 +192,10 @@ export default function EditCompanyType(props) {
   );
 }
 const styles = {
-  margin: { margin: "0rem" },
-  cancel: { margin: "10px 10px" },
+  margin: { margin: '0rem' },
+  cancel: { margin: '10px 10px' },
   title: (isTablet) => ({
-    textAlign: isTablet ? "center" : "",
-    padding: isTablet ? "23px 0px 23px 0px" : "",
+    textAlign: isTablet ? 'center' : '',
+    padding: isTablet ? '23px 0px 23px 0px' : '',
   }),
 };

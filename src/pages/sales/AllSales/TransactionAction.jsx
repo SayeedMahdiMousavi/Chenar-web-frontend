@@ -1,23 +1,23 @@
-import React, { useCallback, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { Menu, Dropdown } from "antd";
-import { useQueryClient } from "react-query";
-import ActionButton from "../../SelfComponents/ActionButton";
-import EditMarketInvoice from "./EditMarkitInvoice";
-import ReadonlyInvoiceItems from "./ReadonlyInvoiceItems";
-import { EditSalesInvoice } from "./EditSalesInvoice";
-import { EditRejectSalesInvoice } from "./EditRejectSalesInvoice";
-import { EditPurchaseInvoice } from "./EditPurchaseInvoice";
-import { EditRejectPurchaseInvoice } from "./EditRejectPurchaseInvoice";
-import { EditQuotationInvoice } from "./EditQuotationInvoice";
+import React, { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Menu, Dropdown } from 'antd';
+import { useQueryClient } from 'react-query';
+import ActionButton from '../../SelfComponents/ActionButton';
+import EditMarketInvoice from './EditMarkitInvoice';
+import ReadonlyInvoiceItems from './ReadonlyInvoiceItems';
+import { EditSalesInvoice } from './EditSalesInvoice';
+import { EditRejectSalesInvoice } from './EditRejectSalesInvoice';
+import { EditPurchaseInvoice } from './EditPurchaseInvoice';
+import { EditRejectPurchaseInvoice } from './EditRejectPurchaseInvoice';
+import { EditQuotationInvoice } from './EditQuotationInvoice';
 // import EditProductTransfer from "./ProductTransfer/EditProductTransfer";
 
 import {
   expireProductsBaseUrl,
   productStatisticsBaseUrl,
-} from "../../Reports/AllReports/AllReports";
-import { RemovePopconfirm } from "../../../components";
-import { useRemoveItem } from "../../../Hooks";
+} from '../../Reports/AllReports/AllReports';
+import { RemovePopconfirm } from '../../../components';
+import { useRemoveItem } from '../../../Hooks';
 import {
   // PRODUCT_TRANSFER_INVOICE_M,
   PURCHASE_INVOICE_M,
@@ -25,8 +25,8 @@ import {
   QUOTATION_INVOICE_M,
   SALES_INVOICE_M,
   SALES_REJ_INVOICE_M,
-} from "../../../constants/permissions";
-import { checkPermissions } from "../../../Functions";
+} from '../../../constants/permissions';
+import { checkPermissions } from '../../../Functions';
 import {
   PURCHASE_INVOICE_LIST,
   PURCHASE_ORDER_INVOICE_LIST,
@@ -35,7 +35,7 @@ import {
   SALES_INVOICE_LIST,
   SALES_ORDER_INVOICE_LIST,
   SALES_REJECT_INVOICE_LIST,
-} from "../../../constants/routes";
+} from '../../../constants/routes';
 
 function TransactionAction(props) {
   const queryClient = useQueryClient();
@@ -60,7 +60,7 @@ function TransactionAction(props) {
   } = useRemoveItem({
     baseUrl: `${props.baseUrl}${props?.record?.id}/`,
     setVisible,
-    recordName: `${t("Sales.All_sales.Invoice.Invoice")} ${props?.record?.id}`,
+    recordName: `${t('Sales.All_sales.Invoice.Invoice')} ${props?.record?.id}`,
     handleUpdateItems: handleUpdateItems,
   });
 
@@ -82,49 +82,49 @@ function TransactionAction(props) {
     props.baseUrl === SALES_REJECT_INVOICE_LIST
       ? {
           baseUrl: SALES_REJECT_INVOICE_LIST,
-          type: "sales_rej",
-          title: t("Sales.All_sales.Invoice.Reject_sales_invoice"),
+          type: 'sales_rej',
+          title: t('Sales.All_sales.Invoice.Reject_sales_invoice'),
           permission: SALES_REJ_INVOICE_M,
         }
       : props.baseUrl === PURCHASE_INVOICE_LIST
-      ? {
-          baseUrl: PURCHASE_INVOICE_LIST,
-          type: "purchase",
-          title: t("Sales.All_sales.Invoice.Purchase_invoice"),
-          permission: PURCHASE_INVOICE_M,
-        }
-      : props.baseUrl === PURCHASE_REJECT_INVOICE_LIST
-      ? {
-          baseUrl: PURCHASE_REJECT_INVOICE_LIST,
-          type: "purchase_rej",
-          title: t("Sales.All_sales.Invoice.Reject_purchase_invoice"),
-          permission: PURCHASE_REJ_INVOICE_M,
-        }
-      : props.baseUrl === QUOTATION_INVOICE_LIST
-      ? {
-          baseUrl: QUOTATION_INVOICE_LIST,
-          type: "quotation",
-          title: t("Sales.All_sales.Invoice.Quotation_invoice"),
-          permission: QUOTATION_INVOICE_M,
-        }
-      : // : props.baseUrl === "warehouse_transfer_invoice/"
-        // ? {
-        //     baseUrl: "warehouse_transfer_invoice/",
-        //     type: "productTransfer",
-        //     title: startCase(t("Sales.All_sales.Invoice.Product_transfer")),
-        //     permission: PRODUCT_TRANSFER_INVOICE_M,
-        //   }
-        {
-          baseUrl: SALES_INVOICE_LIST,
-          type: "sales",
-          title: t("Sales.All_sales.Invoice.Sales_invoice"),
-          permission: SALES_INVOICE_M,
-        };
+        ? {
+            baseUrl: PURCHASE_INVOICE_LIST,
+            type: 'purchase',
+            title: t('Sales.All_sales.Invoice.Purchase_invoice'),
+            permission: PURCHASE_INVOICE_M,
+          }
+        : props.baseUrl === PURCHASE_REJECT_INVOICE_LIST
+          ? {
+              baseUrl: PURCHASE_REJECT_INVOICE_LIST,
+              type: 'purchase_rej',
+              title: t('Sales.All_sales.Invoice.Reject_purchase_invoice'),
+              permission: PURCHASE_REJ_INVOICE_M,
+            }
+          : props.baseUrl === QUOTATION_INVOICE_LIST
+            ? {
+                baseUrl: QUOTATION_INVOICE_LIST,
+                type: 'quotation',
+                title: t('Sales.All_sales.Invoice.Quotation_invoice'),
+                permission: QUOTATION_INVOICE_M,
+              }
+            : // : props.baseUrl === "warehouse_transfer_invoice/"
+              // ? {
+              //     baseUrl: "warehouse_transfer_invoice/",
+              //     type: "productTransfer",
+              //     title: startCase(t("Sales.All_sales.Invoice.Product_transfer")),
+              //     permission: PRODUCT_TRANSFER_INVOICE_M,
+              //   }
+              {
+                baseUrl: SALES_INVOICE_LIST,
+                type: 'sales',
+                title: t('Sales.All_sales.Invoice.Sales_invoice'),
+                permission: SALES_INVOICE_M,
+              };
 
   const action = (
     <Menu>
       <RemovePopconfirm
-        itemName={`${t("Sales.All_sales.Invoice.Invoice")} ${
+        itemName={`${t('Sales.All_sales.Invoice.Invoice')} ${
           props?.record?.id
         }`}
         open={removeVisible}
@@ -164,7 +164,7 @@ function TransactionAction(props) {
             <EditSalesInvoice
               setVisible={setVisible}
               record={props?.record}
-              type="salesOrder"
+              type='salesOrder'
             />
           ) : props.baseUrl === PURCHASE_INVOICE_LIST ? (
             <EditPurchaseInvoice
@@ -175,7 +175,7 @@ function TransactionAction(props) {
             <EditPurchaseInvoice
               setVisible={setVisible}
               record={props?.record}
-              type="purchaseOrder"
+              type='purchaseOrder'
             />
           ) : props.baseUrl === PURCHASE_REJECT_INVOICE_LIST ? (
             <EditRejectPurchaseInvoice
@@ -193,7 +193,7 @@ function TransactionAction(props) {
           //     record={props?.record}
           //     baseUrl="/invoice/warehouse_transfer_invoice/"
           //   />
-          props?.record?.sales_source === "pos" &&
+          props?.record?.sales_source === 'pos' &&
             props.baseUrl === SALES_INVOICE_LIST ? (
             <EditMarketInvoice setVisible={setVisible} record={props?.record} />
           ) : (
@@ -218,7 +218,7 @@ function TransactionAction(props) {
   return (
     <Dropdown
       overlay={action}
-      trigger={["click"]}
+      trigger={['click']}
       onOpenChange={handleVisibleChange}
       open={visible}
       disabled={props.hasSelected}

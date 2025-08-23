@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import Draggable from "react-draggable";
-import { Row, Col, Avatar, Typography, List, Table, Divider } from "antd";
-import { useTranslation } from "react-i18next";
+import React, { useState } from 'react';
+import Draggable from 'react-draggable';
+import { Row, Col, Avatar, Typography, List, Table, Divider } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 const { Text, Title, Paragraph } = Typography;
 const { Column } = Table;
@@ -11,8 +11,8 @@ export default function Design(props) {
   const [activeDrags, setActiveDrags] = useState(0);
 
   // const eventLogger = (e, data) => {
-  //   
-  //   
+  //
+  //
   // };
   const onStart = () => {
     setActiveDrags(activeDrags + 1);
@@ -234,7 +234,6 @@ export default function Design(props) {
     });
   };
   const handleDragFooter = (e, ui) => {
-    
     props.drag.setDragData((prev) => {
       return {
         ...prev,
@@ -279,15 +278,15 @@ export default function Design(props) {
     });
   };
   return (
-    <div style={{ position: "relative" }}>
+    <div style={{ position: 'relative' }}>
       <div
-        className="custom_form_style_pdf_content"
+        className='custom_form_style_pdf_content'
         style={styles.pdf_margin(
           props.top,
           props.right,
           props.bottom,
           props.left,
-          props.fitWindow
+          props.fitWindow,
         )}
       >
         <Row>
@@ -300,43 +299,43 @@ export default function Design(props) {
                 position={null}
                 //   grid={[2, 25]}
                 scale={1}
-                bounds="parent"
+                bounds='parent'
                 // onStart={handleStart}
                 onDrag={handleDragTitle}
                 // onStop={handleStop}
                 {...dragHandlers}
               >
-                <Title level={4} className="header_pdf">
-                  {" "}
+                <Title level={4} className='header_pdf'>
+                  {' '}
                   {props.edit.titleContent}
                 </Title>
               </Draggable>
             </Col>
           )}
           <Col
-            style={{ height: "290px", position: "relative" }}
+            style={{ height: '290px', position: 'relative' }}
             span={24}
             onClick={props.edit.onClickHeader}
-            className="cursor"
+            className='cursor'
           >
             <Draggable
               //   axis='y'
-              handle=".header_pdf"
+              handle='.header_pdf'
               defaultPosition={props.drag.phoneDrag}
               position={null}
               //   grid={[2, 25]}
               scale={1}
-              bounds="parent"
+              bounds='parent'
               // onStart={handleStart}
               onDrag={handleDragPhone}
               // onStop={handleStop}
               {...dragHandlers}
             >
               <div
-                className="header_pdf"
+                className='header_pdf'
                 style={
                   !props.edit.phoneShow &&
-                  !props.edit.phone && { cursor: "pointer", border: "none" }
+                  !props.edit.phone && { cursor: 'pointer', border: 'none' }
                 }
               >
                 {props.edit.phoneShow && props.edit.phone && (
@@ -344,7 +343,7 @@ export default function Design(props) {
                     style={styles.font(
                       props.fontSize,
                       props.fontFamily,
-                      props.background
+                      props.background,
                     )}
                   >
                     {props.edit.phone}
@@ -361,18 +360,18 @@ export default function Design(props) {
                 position={null}
                 //   grid={[2, 25]}
                 scale={1}
-                bounds="parent"
+                bounds='parent'
                 // onStart={handleStart}
                 onDrag={handleDragEmail}
                 // onStop={handleStop}
                 {...dragHandlers}
               >
                 <div
-                  className="header_pdf"
+                  className='header_pdf'
                   style={styles.font(
                     props.fontSize,
                     props.fontFamily,
-                    props.background
+                    props.background,
                   )}
                 >
                   {props.edit.email}
@@ -387,18 +386,18 @@ export default function Design(props) {
                 position={props.drag.websiteDrag}
                 //   grid={[2, 25]}
                 scale={1}
-                bounds="parent"
+                bounds='parent'
                 // onStart={handleStart}
                 onDrag={handleDragWebsite}
                 // onStop={handleStop}
                 {...dragHandlers}
               >
                 <div
-                  className="header_pdf"
+                  className='header_pdf'
                   style={styles.font(
                     props.fontSize,
                     props.fontFamily,
-                    props.background
+                    props.background,
                   )}
                 >
                   {props.edit.website}
@@ -413,18 +412,18 @@ export default function Design(props) {
                 position={null}
                 //   grid={[2, 25]}
                 scale={1}
-                bounds="parent"
+                bounds='parent'
                 // onStart={handleStart}
                 onDrag={handleDragCompany}
                 // onStop={handleStop}
                 {...dragHandlers}
               >
                 <div
-                  className="header_pdf"
+                  className='header_pdf'
                   style={styles.font(
                     props.fontSize,
                     props.fontFamily,
-                    props.background
+                    props.background,
                   )}
                 >
                   Company registration number &nbsp;
@@ -440,26 +439,26 @@ export default function Design(props) {
               position={props.drag.logoDrag}
               //   grid={[2, 25]}
               scale={1}
-              bounds="parent"
+              bounds='parent'
               // onStart={handleStart}
               onDrag={handleDragLogo}
               // onStop={handleStop}
               {...dragHandlers}
             >
               <div
-                className="header_pdf"
-                style={!props.showLogo && { cursor: "pointer", border: "none" }}
+                className='header_pdf'
+                style={!props.showLogo && { cursor: 'pointer', border: 'none' }}
               >
                 {props.showLogo && (
                   <Avatar
-                    shape="square"
-                    alt={`${t("Company.Logo")}`}
+                    shape='square'
+                    alt={`${t('Company.Logo')}`}
                     size={props.size}
                     // className='header_pdf'
-                    style={{ cursor: "move" }}
-                    src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                    style={{ cursor: 'move' }}
+                    src='https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
                   >
-                    {t("Company.Logo")}
+                    {t('Company.Logo')}
                   </Avatar>
                 )}
               </div>
@@ -481,11 +480,11 @@ export default function Design(props) {
                 {...dragHandlers}
               >
                 <h5
-                  className="header_pdf"
+                  className='header_pdf'
                   style={styles.color(
                     props.background,
                     props.fontSize,
-                    props.fontFamily
+                    props.fontFamily,
                   )}
                 >
                   {props.edit.taxInvoice.toUpperCase()}
@@ -499,36 +498,36 @@ export default function Design(props) {
                 props.showLogo ? props.drag.billDragLogo : props.drag.billDrag
               }
               position={null}
-              handle=".list_pdf"
+              handle='.list_pdf'
               //   grid={[2, 25]}
               scale={1}
-              bounds="parent"
+              bounds='parent'
               // onStart={handleStart}
               onDrag={handleDragBill}
               // onStop={handleStop}
               {...dragHandlers}
             >
               <List
-                itemLayout="horizontal"
+                itemLayout='horizontal'
                 dataSource={props.data}
-                className="list_pdf"
-                size="small"
+                className='list_pdf'
+                size='small'
                 style={styles.font(props.fontSize, props.fontFamily)}
                 split={false}
                 renderItem={(item) => (
                   <List.Item
                     style={{
                       // borderBottom: `1px solid ${gray} `,
-                      wordWrap: " break-word",
-                      wordBreak: "break-all",
+                      wordWrap: ' break-word',
+                      wordBreak: 'break-all',
 
-                      padding: "0px",
+                      padding: '0px',
                     }}
                   >
                     {item.show && (
-                      <Row className="num" gutter={5}>
+                      <Row className='num' gutter={5}>
                         <Col xs={12}>
-                          <h4> {item.description}</h4>{" "}
+                          <h4> {item.description}</h4>{' '}
                         </Col>
                         <Col xs={12}>{item.content}</Col>
                       </Row>
@@ -545,44 +544,44 @@ export default function Design(props) {
                 props.showLogo ? props.drag.shipDragLogo : props.drag.shipDrag
               }
               position={null}
-              handle=".list_pdf"
+              handle='.list_pdf'
               //   grid={[2, 25]}
               scale={1}
-              bounds="parent"
+              bounds='parent'
               // onStart={handleStart}
               onDrag={handleDragShip}
               // onStop={handleStop}
               {...dragHandlers}
             >
               <div
-                className="list_pdf"
+                className='list_pdf'
                 style={
                   !props.edit.shipping && {
-                    cursor: "pointer",
-                    border: "none",
+                    cursor: 'pointer',
+                    border: 'none',
                   }
                 }
               >
                 {props.edit.shipping && (
                   <List
-                    itemLayout="horizontal"
+                    itemLayout='horizontal'
                     dataSource={props.dataA}
-                    size="small"
+                    size='small'
                     split={false}
                     style={styles.font(props.fontSize, props.fontFamily)}
                     renderItem={(item) => (
                       <List.Item
                         style={{
                           // borderBottom: `1px solid ${gray} `,
-                          wordWrap: " break-word",
-                          wordBreak: "break-all",
+                          wordWrap: ' break-word',
+                          wordBreak: 'break-all',
 
-                          padding: "0px",
+                          padding: '0px',
                         }}
                       >
-                        <Row className="num" gutter={5}>
+                        <Row className='num' gutter={5}>
                           <Col xs={12}>
-                            <h4> {item.description}</h4>{" "}
+                            <h4> {item.description}</h4>{' '}
                           </Col>
                           <Col xs={12}>{item.content}</Col>
                         </Row>
@@ -602,44 +601,44 @@ export default function Design(props) {
                   : props.drag.shipDateDrag
               }
               position={null}
-              handle=".list_pdf"
+              handle='.list_pdf'
               //   grid={[2, 25]}
               scale={1}
-              bounds="parent"
+              bounds='parent'
               // onStart={handleStart}
               onDrag={handleDragShipDate}
               // onStop={handleStop}
               {...dragHandlers}
             >
               <div
-                className="list_pdf"
+                className='list_pdf'
                 style={
                   !props.edit.shipping && {
-                    cursor: "pointer",
-                    border: "none",
+                    cursor: 'pointer',
+                    border: 'none',
                   }
                 }
               >
                 {props.edit.shipping && (
                   <List
-                    itemLayout="horizontal"
+                    itemLayout='horizontal'
                     dataSource={props.dataB}
-                    size="small"
+                    size='small'
                     split={false}
                     style={styles.font(props.fontSize, props.fontFamily)}
                     renderItem={(item) => (
                       <List.Item
                         style={{
                           // borderBottom: `1px solid ${gray} `,
-                          wordWrap: " break-word",
-                          wordBreak: "break-all",
+                          wordWrap: ' break-word',
+                          wordBreak: 'break-all',
 
-                          padding: "0px",
+                          padding: '0px',
                         }}
                       >
-                        <Row className="num" gutter={5}>
+                        <Row className='num' gutter={5}>
                           <Col xs={12}>
-                            <h4> {item.description}</h4>{" "}
+                            <h4> {item.description}</h4>{' '}
                           </Col>
                           <Col xs={12}>{item.content}</Col>
                         </Row>
@@ -659,36 +658,36 @@ export default function Design(props) {
                   : props.drag.taxInvoiceDrag
               }
               position={null}
-              handle=".list_pdf"
+              handle='.list_pdf'
               //   grid={[2, 25]}
               scale={1}
-              bounds="parent"
+              bounds='parent'
               // onStart={handleStart}
               onDrag={handleDragTaxInvoice}
               // onStop={handleStop}
               {...dragHandlers}
             >
               <List
-                itemLayout="horizontal"
+                itemLayout='horizontal'
                 dataSource={props.dataC}
-                className="list_pdf"
-                size="small"
+                className='list_pdf'
+                size='small'
                 split={false}
                 style={styles.font(props.fontSize, props.fontFamily)}
                 renderItem={(item) => (
                   <List.Item
                     style={{
                       // borderBottom: `1px solid ${gray} `,
-                      wordWrap: " break-word",
-                      wordBreak: "break-all",
+                      wordWrap: ' break-word',
+                      wordBreak: 'break-all',
 
-                      padding: "0px",
+                      padding: '0px',
                     }}
                   >
                     {item.show && (
-                      <Row className="num" gutter={5}>
+                      <Row className='num' gutter={5}>
                         <Col xs={12}>
-                          <h4> {item.description}</h4>{" "}
+                          <h4> {item.description}</h4>{' '}
                         </Col>
                         <Col xs={12}>{item.content}</Col>
                       </Row>
@@ -707,23 +706,23 @@ export default function Design(props) {
                     : props.drag.custom1Drag
                 }
                 position={null}
-                handle=".custom_pdf"
+                handle='.custom_pdf'
                 //   grid={[2, 25]}
                 scale={1}
-                bounds="parent"
+                bounds='parent'
                 // onStart={handleStart}
                 // onDrag={
                 onStop={props.drag.handleStopCustom1}
                 {...dragHandlers}
               >
                 <Row
-                  className="custom_pdf"
+                  className='custom_pdf'
                   style={styles.font(props.fontSize, props.fontFamily)}
                 >
                   <Col xs={24}>
-                    <Text type="secondary" strong={true}>
+                    <Text type='secondary' strong={true}>
                       {props.edit.custom1}
-                    </Text>{" "}
+                    </Text>{' '}
                   </Col>
                   <Col xs={24}>Custom-1</Col>
                 </Row>
@@ -739,23 +738,23 @@ export default function Design(props) {
                     : props.drag.custom2Drag
                 }
                 position={null}
-                handle=".custom_pdf"
+                handle='.custom_pdf'
                 //   grid={[2, 25]}
                 scale={1}
-                bounds="parent"
+                bounds='parent'
                 // onStart={handleStart}
                 // onDrag={handleStopCustom2}
                 // onStop={handleStop}
                 {...dragHandlers}
               >
                 <Row
-                  className="custom_pdf"
+                  className='custom_pdf'
                   style={styles.font(props.fontSize, props.fontFamily)}
                 >
                   <Col xs={24}>
-                    <Text type="secondary" strong={true}>
+                    <Text type='secondary' strong={true}>
                       {props.edit.custom2}
-                    </Text>{" "}
+                    </Text>{' '}
                   </Col>
                   <Col xs={24}>Custom-2</Col>
                 </Row>
@@ -771,31 +770,31 @@ export default function Design(props) {
                     : props.drag.custom3Drag
                 }
                 position={null}
-                handle=".custom_pdf"
+                handle='.custom_pdf'
                 //   grid={[2, 25]}
                 scale={1}
-                bounds="parent"
+                bounds='parent'
                 // onStart={handleStart}
                 onDrag={handleDrag.custom3}
                 // onStop={handleStop}
                 {...dragHandlers}
               >
                 <Row
-                  className="custom_pdf"
+                  className='custom_pdf'
                   style={styles.font(props.fontSize, props.fontFamily)}
                 >
                   <Col xs={24}>
-                    <Text type="secondary" strong={true}>
-                      {" "}
+                    <Text type='secondary' strong={true}>
+                      {' '}
                       {props.edit.custom3}
-                    </Text>{" "}
+                    </Text>{' '}
                   </Col>
                   <Col xs={24}>Custom-3</Col>
                 </Row>
               </Draggable>
             )}
           </Col>
-          <Col span={24} style={{ heigh: "auto" }}>
+          <Col span={24} style={{ heigh: 'auto' }}>
             {props.edit.showInvoice && (
               <Draggable
                 //   axis='y'
@@ -804,24 +803,24 @@ export default function Design(props) {
                 position={null}
                 //   grid={[2, 25]}
                 scale={1}
-                bounds="parent"
+                bounds='parent'
                 // onStart={handleStart}
                 onDrag={handleDragShowInvoice}
                 // onStop={handleStop}
                 {...dragHandlers}
               >
                 <Row
-                  className="footer_page_number_pdf"
+                  className='footer_page_number_pdf'
                   style={styles.font(props.fontSize, props.fontFamily)}
                 >
                   <Col span={24}>
-                    {" "}
+                    {' '}
                     ACCOUNT SUMMARY
-                    <Divider style={{ margin: "3px " }} />
+                    <Divider style={{ margin: '3px ' }} />
                   </Col>
                   <Col span={4}>01/07/2018</Col>
                   <Col span={16}>
-                    {" "}
+                    {' '}
                     Balance Forward
                     <br />
                     Payments and credits between 01/12/2016 and 12/01/2016
@@ -839,7 +838,7 @@ export default function Design(props) {
                     <br />
                     AED715.00
                   </Col>
-                  <Divider style={{ margin: "7px 0px " }} />
+                  <Divider style={{ margin: '7px 0px ' }} />
                 </Row>
               </Draggable>
             )}
@@ -850,20 +849,20 @@ export default function Design(props) {
               position={null}
               //   grid={[2, 25]}
               scale={1}
-              bounds="parent"
+              bounds='parent'
               // onStart={handleStart}
               onDrag={handleDragTable1}
               // onStop={handleStop}
               {...dragHandlers}
             >
-              <Row className="header_pdf">
+              <Row className='header_pdf'>
                 <Col span={24}>
                   <Table
-                    size="small"
-                    tableLayout="fixed"
+                    size='small'
+                    tableLayout='fixed'
                     dataSource={props.dataSours}
                     pagination={false}
-                    headerClassName="header_pdf1"
+                    headerClassName='header_pdf1'
                   >
                     {props.edit.date && (
                       <Column
@@ -872,21 +871,21 @@ export default function Design(props) {
                             style={styles.tableHeader(
                               props.background,
                               props.fontSize,
-                              props.fontFamily
+                              props.fontFamily,
                             )}
                           >
                             Date
                           </div>
                         }
-                        dataIndex="date"
-                        key="date"
-                        className="account_setting_drawer_hover"
+                        dataIndex='date'
+                        key='date'
+                        className='account_setting_drawer_hover'
                         render={(text, record) => {
                           return {
                             props: {
                               style: styles.font(
                                 props.fontSize,
-                                props.fontFamily
+                                props.fontFamily,
                               ),
                             },
                             children: <div>{text}</div>,
@@ -902,21 +901,21 @@ export default function Design(props) {
                             style={styles.tableHeader(
                               props.background,
                               props.fontSize,
-                              props.fontFamily
+                              props.fontFamily,
                             )}
                           >
                             ACTIVITY
                           </div>
                         }
-                        dataIndex="activity"
-                        key="activity"
-                        className="account_setting_drawer_hover"
+                        dataIndex='activity'
+                        key='activity'
+                        className='account_setting_drawer_hover'
                         render={(text, record) => {
                           return {
                             props: {
                               style: styles.font(
                                 props.fontSize,
-                                props.fontFamily
+                                props.fontFamily,
                               ),
                             },
                             children: <div>{text}</div>,
@@ -931,21 +930,21 @@ export default function Design(props) {
                             style={styles.tableHeader(
                               props.background,
                               props.fontSize,
-                              props.fontFamily
+                              props.fontFamily,
                             )}
                           >
                             DESCRIPTION
                           </div>
                         }
                         width={100}
-                        dataIndex="description"
-                        key="email"
+                        dataIndex='description'
+                        key='email'
                         render={(text, record) => {
                           return {
                             props: {
                               style: styles.font(
                                 props.fontSize,
-                                props.fontFamily
+                                props.fontFamily,
                               ),
                             },
                             children: <div>{text}</div>,
@@ -960,20 +959,20 @@ export default function Design(props) {
                             style={styles.tableHeader(
                               props.background,
                               props.fontSize,
-                              props.fontFamily
+                              props.fontFamily,
                             )}
                           >
                             TAX
                           </div>
                         }
-                        dataIndex="tax"
-                        key="tax"
+                        dataIndex='tax'
+                        key='tax'
                         render={(text, record) => {
                           return {
                             props: {
                               style: styles.font(
                                 props.fontSize,
-                                props.fontFamily
+                                props.fontFamily,
                               ),
                             },
                             children: <div>{text}</div>,
@@ -988,20 +987,20 @@ export default function Design(props) {
                             style={styles.tableHeader(
                               props.background,
                               props.fontSize,
-                              props.fontFamily
+                              props.fontFamily,
                             )}
                           >
                             QTY
                           </div>
                         }
-                        dataIndex="qty"
-                        key="qty"
+                        dataIndex='qty'
+                        key='qty'
                         render={(text, record) => {
                           return {
                             props: {
                               style: styles.font(
                                 props.fontSize,
-                                props.fontFamily
+                                props.fontFamily,
                               ),
                             },
                             children: <div>{text}</div>,
@@ -1016,20 +1015,20 @@ export default function Design(props) {
                             style={styles.tableHeader(
                               props.background,
                               props.fontSize,
-                              props.fontFamily
+                              props.fontFamily,
                             )}
                           >
                             Due
                           </div>
                         }
-                        dataIndex="due"
-                        key="due"
+                        dataIndex='due'
+                        key='due'
                         render={(text, record) => {
                           return {
                             props: {
                               style: styles.font(
                                 props.fontSize,
-                                props.fontFamily
+                                props.fontFamily,
                               ),
                             },
                             children: <div>{text}</div>,
@@ -1044,20 +1043,20 @@ export default function Design(props) {
                             style={styles.tableHeader(
                               props.background,
                               props.fontSize,
-                              props.fontFamily
+                              props.fontFamily,
                             )}
                           >
                             RATE
                           </div>
                         }
-                        dataIndex="rate"
-                        key="rate"
+                        dataIndex='rate'
+                        key='rate'
                         render={(text, record) => {
                           return {
                             props: {
                               style: styles.font(
                                 props.fontSize,
-                                props.fontFamily
+                                props.fontFamily,
                               ),
                             },
                             children: <div>{text}</div>,
@@ -1072,20 +1071,20 @@ export default function Design(props) {
                             style={styles.tableHeader(
                               props.background,
                               props.fontSize,
-                              props.fontFamily
+                              props.fontFamily,
                             )}
                           >
                             AMOUNT
                           </div>
                         }
-                        dataIndex="amount"
-                        key="amount"
+                        dataIndex='amount'
+                        key='amount'
                         render={(text, record) => {
                           return {
                             props: {
                               style: styles.font(
                                 props.fontSize,
-                                props.fontFamily
+                                props.fontFamily,
                               ),
                             },
                             children: <div>{text}</div>,
@@ -1100,20 +1099,20 @@ export default function Design(props) {
                             style={styles.tableHeader(
                               props.background,
                               props.fontSize,
-                              props.fontFamily
+                              props.fontFamily,
                             )}
                           >
                             SKU
                           </div>
                         }
-                        dataIndex="sku"
-                        key="sku"
+                        dataIndex='sku'
+                        key='sku'
                         render={(text, record) => {
                           return {
                             props: {
                               style: styles.font(
                                 props.fontSize,
-                                props.fontFamily
+                                props.fontFamily,
                               ),
                             },
                             children: <div>{text}</div>,
@@ -1134,14 +1133,14 @@ export default function Design(props) {
               position={null}
               //   grid={[2, 25]}
               scale={1}
-              bounds="parent"
+              bounds='parent'
               // onStart={handleStart}
               onDrag={handleDrag}
               // onStop={handleStop}
               {...dragHandlers}
             >
               <div
-                className="footer_header_pdf"
+                className='footer_header_pdf'
                 style={styles.font(props.fontSize, props.fontFamily)}
               >
                 <Paragraph>{props.edit.customerMessage}</Paragraph>
@@ -1154,34 +1153,34 @@ export default function Design(props) {
               position={null}
               //   grid={[2, 25]}
               scale={1}
-              bounds="parent"
+              bounds='parent'
               // onStart={handleStart}
               onDrag={handleDragTotal}
               // onStop={handleStop}
               {...dragHandlers}
             >
-              <div className="footer_header_pdf">
-                {" "}
+              <div className='footer_header_pdf'>
+                {' '}
                 <List
-                  itemLayout="horizontal"
+                  itemLayout='horizontal'
                   dataSource={props.data1}
-                  size="small"
+                  size='small'
                   split={false}
                   style={styles.font(props.fontSize, props.fontFamily)}
                   renderItem={(item) => (
                     <List.Item
                       style={{
                         // borderBottom: `1px solid ${gray} `,
-                        wordWrap: " break-word",
-                        wordBreak: "break-all",
+                        wordWrap: ' break-word',
+                        wordBreak: 'break-all',
 
-                        padding: "0px",
+                        padding: '0px',
                       }}
                     >
                       {item.show && (
-                        <Row className="num" gutter={5}>
+                        <Row className='num' gutter={5}>
                           <Col xs={12}>
-                            <h4> {item.description}</h4>{" "}
+                            <h4> {item.description}</h4>{' '}
                           </Col>
                           <Col xs={12}>{item.content}</Col>
                         </Row>
@@ -1190,7 +1189,7 @@ export default function Design(props) {
                   )}
                 />
                 <Row
-                  className="footer_list_pdf font_size_pdf"
+                  className='footer_list_pdf font_size_pdf'
                   style={styles.font(props.fontSize, props.fontFamily)}
                 >
                   <Col xs={12}>BALANCE DUE</Col>
@@ -1206,51 +1205,51 @@ export default function Design(props) {
                 position={null}
                 //   grid={[2, 25]}
                 scale={1}
-                bounds="parent"
+                bounds='parent'
                 // onStart={handleStart}
                 onDrag={handleDragEstimate}
                 // onStop={handleStop}
                 {...dragHandlers}
               >
-                <Row className="footer_header_pdf num">
-                  <Col xs={24} className="num">
-                    {" "}
+                <Row className='footer_header_pdf num'>
+                  <Col xs={24} className='num'>
+                    {' '}
                     <Text
                       style={styles.color(
                         props.background,
                         props.fontSize,
-                        props.fontFamily
+                        props.fontFamily,
                       )}
                     >
-                      {" "}
+                      {' '}
                       Estimate summary
                     </Text>
                     <Divider
                       style={{
-                        margin: "3px 0px",
+                        margin: '3px 0px',
                       }}
                     />
                   </Col>
                   <List
-                    itemLayout="horizontal"
+                    itemLayout='horizontal'
                     dataSource={props.data2}
-                    size="small"
-                    className="num"
+                    size='small'
+                    className='num'
                     split={false}
                     style={styles.font(props.fontSize, props.fontFamily)}
                     renderItem={(item) => (
                       <List.Item
                         style={{
                           // borderBottom: `1px solid ${gray} `,
-                          wordWrap: " break-word",
-                          wordBreak: "break-all",
+                          wordWrap: ' break-word',
+                          wordBreak: 'break-all',
 
-                          padding: "0px",
+                          padding: '0px',
                         }}
                       >
-                        <Row style={{ width: "100%" }} gutter={5}>
+                        <Row style={{ width: '100%' }} gutter={5}>
                           <Col span={12}>
-                            <h4> {item.description}</h4>{" "}
+                            <h4> {item.description}</h4>{' '}
                           </Col>
                           <Col span={12}>{item.content}</Col>
                         </Row>
@@ -1259,7 +1258,7 @@ export default function Design(props) {
                   />
                   <Divider
                     style={{
-                      margin: "3px 0px 0px 0px",
+                      margin: '3px 0px 0px 0px',
                     }}
                   />
                 </Row>
@@ -1273,7 +1272,7 @@ export default function Design(props) {
                 position={null}
                 //   grid={[2, 25]}
                 scale={1}
-                bounds="parent"
+                bounds='parent'
                 // onStart={handleStart}
                 onDrag={handleDragTaxSummary}
                 // onStop={handleStop}
@@ -1281,7 +1280,7 @@ export default function Design(props) {
               >
                 <Row>
                   <Col
-                    className="header_pdf"
+                    className='header_pdf'
                     style={styles.font(props.fontSize, props.fontFamily)}
                   >
                     Tax summary
@@ -1296,17 +1295,17 @@ export default function Design(props) {
               position={null}
               //   grid={[2, 25]}
               scale={1}
-              bounds="parent"
+              bounds='parent'
               // onStart={handleStart}
               onDrag={handleDragTable2}
               // onStop={handleStop}
               {...dragHandlers}
             >
-              <Row className="header_pdf">
+              <Row className='header_pdf'>
                 <Col span={24}>
                   <Table
-                    size="small"
-                    tableLayout="fixed"
+                    size='small'
+                    tableLayout='fixed'
                     dataSource={props.dataSours1}
                     pagination={false}
                   >
@@ -1316,7 +1315,7 @@ export default function Design(props) {
                           props: {
                             style: styles.font(
                               props.fontSize,
-                              props.fontFamily
+                              props.fontFamily,
                             ),
                           },
                           children: <div>{text}</div>,
@@ -1327,14 +1326,14 @@ export default function Design(props) {
                           style={styles.tableHeader(
                             props.background,
                             props.fontSize,
-                            props.fontFamily
+                            props.fontFamily,
                           )}
                         >
                           RATE
                         </div>
                       }
-                      dataIndex="rate"
-                      key="rate"
+                      dataIndex='rate'
+                      key='rate'
                     />
                     <Column
                       render={(text, record) => {
@@ -1342,7 +1341,7 @@ export default function Design(props) {
                           props: {
                             style: styles.font(
                               props.fontSize,
-                              props.fontFamily
+                              props.fontFamily,
                             ),
                           },
                           children: <div>{text}</div>,
@@ -1353,14 +1352,14 @@ export default function Design(props) {
                           style={styles.tableHeader(
                             props.background,
                             props.fontSize,
-                            props.fontFamily
+                            props.fontFamily,
                           )}
                         >
                           VAT
                         </div>
                       }
-                      dataIndex="vat"
-                      key="vat"
+                      dataIndex='vat'
+                      key='vat'
                     />
                     <Column
                       render={(text, record) => {
@@ -1368,7 +1367,7 @@ export default function Design(props) {
                           props: {
                             style: styles.font(
                               props.fontSize,
-                              props.fontFamily
+                              props.fontFamily,
                             ),
                           },
                           children: <div>{text}</div>,
@@ -1379,14 +1378,14 @@ export default function Design(props) {
                           style={styles.tableHeader(
                             props.background,
                             props.fontSize,
-                            props.fontFamily
+                            props.fontFamily,
                           )}
                         >
                           NET
                         </div>
                       }
-                      dataIndex="net"
-                      key="net"
+                      dataIndex='net'
+                      key='net'
                     />
                   </Table>
                 </Col>
@@ -1399,7 +1398,7 @@ export default function Design(props) {
               position={null}
               //   grid={[2, 25]}
               scale={1}
-              bounds="parent"
+              bounds='parent'
               // onStart={handleStart}
               onDrag={handleDragPaymentDetails}
               // onStop={handleStop}
@@ -1408,7 +1407,7 @@ export default function Design(props) {
               <Row style={styles.font(props.fontSize, props.fontFamily)}>
                 <Col
                   span={24}
-                  className="footer_header_pdf"
+                  className='footer_header_pdf'
                   style={styles.paymentDetails(props.background)}
                 >
                   {props.edit.paymentDetails}
@@ -1424,14 +1423,14 @@ export default function Design(props) {
               position={null}
               //   grid={[2, 25]}
               scale={1}
-              bounds="parent"
+              bounds='parent'
               // onStart={handleStart}
               onDrag={handleDragFooter}
               // onStop={handleStop}
               {...dragHandlers}
             >
               <Row
-                className="header_pdf"
+                className='header_pdf'
                 style={styles.font(props.fontSize, props.fontFamily)}
               >
                 <Col span={24}>
@@ -1458,19 +1457,19 @@ const styles = {
     fontFamily: fontFamily,
   }),
   pdf_margin: (top, right, bottom, left, fitWindow) => ({
-    padding: fitWindow ? "20px" : `${top}px ${right}px ${bottom}px ${left}px`,
+    padding: fitWindow ? '20px' : `${top}px ${right}px ${bottom}px ${left}px`,
   }),
   tableHeader: (background, fontSize, fontFamily) => ({
     background: `${background}`,
-    paddingInlineStart: "8px",
-    paddingTop: "4px",
-    paddingBottom: "4px",
+    paddingInlineStart: '8px',
+    paddingTop: '4px',
+    paddingBottom: '4px',
     fontSize: fontSize,
     fontFamily: fontFamily,
   }),
   paymentDetails: (background) => ({
     background: `${background}`,
-    padding: "2px 8px",
-    marginBottom: "60px",
+    padding: '2px 8px',
+    marginBottom: '60px',
   }),
 };

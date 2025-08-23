@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { Col, Row, Form, Select } from "antd";
-import { debounce } from "throttle-debounce";
-import { useQuery } from "react-query";
-import axiosInstance from "../../../ApiBaseUrl";
-import { useTranslation } from "react-i18next";
-import { CenteredSpin } from "../../../SelfComponents/Spin";
+import React, { useState } from 'react';
+import { Col, Row, Form, Select } from 'antd';
+import { debounce } from 'throttle-debounce';
+import { useQuery } from 'react-query';
+import axiosInstance from '../../../ApiBaseUrl';
+import { useTranslation } from 'react-i18next';
+import { CenteredSpin } from '../../../SelfComponents/Spin';
 
 const getData = async ({ queryKey }: { queryKey: string[] }) => {
   const [key] = queryKey;
@@ -15,7 +15,7 @@ const getData = async ({ queryKey }: { queryKey: string[] }) => {
 const getSearchData = async ({ queryKey }: { queryKey: string[] }) => {
   const search = queryKey?.[1];
   const { data } = await axiosInstance.get(
-    `/chart_of_account/?page=1&page_size=10&name__contains=${search}&content_type__model__in=staff,customer,bank,cash,supplier,incometype,expensetype,widthdraw`
+    `/chart_of_account/?page=1&page_size=10&name__contains=${search}&content_type__model__in=staff,customer,bank,cash,supplier,incometype,expensetype,widthdraw`,
   );
   return data;
 };
@@ -27,7 +27,7 @@ interface IProps {
 }
 export const CashTransactionsItems: React.FC<IProps> = (props) => {
   const { t } = useTranslation();
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [banks, setBanks] = useState<any>([]);
   const [cashes, setCashes] = useState<any>([]);
   const [customers, setCustomers] = useState<any>([]);
@@ -56,42 +56,42 @@ export const CashTransactionsItems: React.FC<IProps> = (props) => {
   const withDrawData = useQuery(`/chart_of_account/WTC-302/child/`, getData);
   const searchAllData = useQuery(
     [`/chart_of_account/cashTransactions/`, search],
-    getSearchData
+    getSearchData,
   );
 
   React.useEffect(() => {
     const banks = searchAllData?.data?.results?.filter((item: any) => {
-      const id = item?.id?.split("-");
-      return id?.[0] === "BNK";
+      const id = item?.id?.split('-');
+      return id?.[0] === 'BNK';
     });
-    // 
+    //
     const cash = searchAllData?.data?.results?.filter((item: any) => {
-      const id = item?.id?.split("-");
-      return id?.[0] === "CSH";
+      const id = item?.id?.split('-');
+      return id?.[0] === 'CSH';
     });
     const customer = searchAllData?.data?.results?.filter((item: any) => {
-      const id = item?.id?.split("-");
-      return id?.[0] === "CUS";
+      const id = item?.id?.split('-');
+      return id?.[0] === 'CUS';
     });
     const employee = searchAllData?.data?.results?.filter((item: any) => {
-      const id = item?.id?.split("-");
-      return id?.[0] === "STF";
+      const id = item?.id?.split('-');
+      return id?.[0] === 'STF';
     });
     const supplier = searchAllData?.data?.results?.filter((item: any) => {
-      const id = item?.id?.split("-");
-      return id?.[0] === "SUP";
+      const id = item?.id?.split('-');
+      return id?.[0] === 'SUP';
     });
     const expense = searchAllData?.data?.results?.filter((item: any) => {
-      const id = item?.id?.split("-");
-      return id?.[0] === "OXP";
+      const id = item?.id?.split('-');
+      return id?.[0] === 'OXP';
     });
     const income = searchAllData?.data?.results?.filter((item: any) => {
-      const id = item?.id?.split("-");
-      return id?.[0] === "EIC";
+      const id = item?.id?.split('-');
+      return id?.[0] === 'EIC';
     });
     const withdraw = searchAllData?.data?.results?.filter((item: any) => {
-      const id = item?.id?.split("-");
-      return id?.[0] === "TAK";
+      const id = item?.id?.split('-');
+      return id?.[0] === 'TAK';
     });
     setBanks(banks);
     setCashes(cash);
@@ -104,11 +104,11 @@ export const CashTransactionsItems: React.FC<IProps> = (props) => {
   }, [searchAllData?.data?.results?.length]);
   //when bank name change
   const onChangeAccountName = (value: any) => {
-    // 
+    //
 
     // const valueType = value?.value.split("-");
 
-    setSearch("");
+    setSearch('');
   };
 
   const allBanks = search ? banks : bankData?.data?.results;
@@ -126,7 +126,7 @@ export const CashTransactionsItems: React.FC<IProps> = (props) => {
         <Form.Item
           name={props.name}
           // label="Warehouse Name"
-          className="margin1"
+          className='margin1'
         >
           <Select
             placeholder={props.placeholder}
@@ -138,22 +138,22 @@ export const CashTransactionsItems: React.FC<IProps> = (props) => {
             labelInValue
             notFoundContent={
               searchAllData?.isLoading || searchAllData?.isFetching ? (
-                <CenteredSpin size="small" style={styles.spin} />
+                <CenteredSpin size='small' style={styles.spin} />
               ) : undefined
             }
-            optionFilterProp="label"
+            optionFilterProp='label'
             dropdownRender={(menu) => <div>{menu}</div>}
           >
-            <Select.OptGroup label={t("Banking.Banks")}>
+            <Select.OptGroup label={t('Banking.Banks')}>
               {bankData?.isLoading ? (
                 <Select.Option
                   disabled={true}
-                  key="sdsds"
-                  value="dsdsd"
-                  label="sdfsdfds"
-                  style={{ height: "40px" }}
+                  key='sdsds'
+                  value='dsdsd'
+                  label='sdfsdfds'
+                  style={{ height: '40px' }}
                 >
-                  <CenteredSpin size="small" style={styles.spin} />
+                  <CenteredSpin size='small' style={styles.spin} />
                 </Select.Option>
               ) : (
                 allBanks?.map((item: any) => (
@@ -168,16 +168,16 @@ export const CashTransactionsItems: React.FC<IProps> = (props) => {
               )}
             </Select.OptGroup>
 
-            <Select.OptGroup label={t("Banking.Cash_box.1")}>
+            <Select.OptGroup label={t('Banking.Cash_box.1')}>
               {cash?.isLoading ? (
                 <Select.Option
                   disabled={true}
-                  key="sdsds"
-                  value="dsdsd"
-                  label="sdfsdfds"
-                  style={{ height: "40px" }}
+                  key='sdsds'
+                  value='dsdsd'
+                  label='sdfsdfds'
+                  style={{ height: '40px' }}
                 >
-                  <CenteredSpin size="small" style={styles.spin} />
+                  <CenteredSpin size='small' style={styles.spin} />
                 </Select.Option>
               ) : (
                 allCashes?.map((item: any) => (
@@ -191,16 +191,16 @@ export const CashTransactionsItems: React.FC<IProps> = (props) => {
                 ))
               )}
             </Select.OptGroup>
-            <Select.OptGroup label={t("Sales.Customers.1")}>
+            <Select.OptGroup label={t('Sales.Customers.1')}>
               {customerData?.isLoading ? (
                 <Select.Option
                   disabled={true}
-                  key="sdsds"
-                  value="dsdsd"
-                  label="sdfsdfds"
-                  style={{ height: "40px" }}
+                  key='sdsds'
+                  value='dsdsd'
+                  label='sdfsdfds'
+                  style={{ height: '40px' }}
                 >
-                  <CenteredSpin size="small" style={styles.spin} />
+                  <CenteredSpin size='small' style={styles.spin} />
                 </Select.Option>
               ) : (
                 allCustomers?.map((item: any) => (
@@ -214,16 +214,16 @@ export const CashTransactionsItems: React.FC<IProps> = (props) => {
                 ))
               )}
             </Select.OptGroup>
-            <Select.OptGroup label={t("Expenses.Suppliers.1")}>
+            <Select.OptGroup label={t('Expenses.Suppliers.1')}>
               {supplierData?.isLoading ? (
                 <Select.Option
                   disabled={true}
-                  key="sdsds"
-                  value="dsdsd"
-                  label="sdfsdfds"
-                  style={{ height: "40px" }}
+                  key='sdsds'
+                  value='dsdsd'
+                  label='sdfsdfds'
+                  style={{ height: '40px' }}
                 >
-                  <CenteredSpin size="small" style={styles.spin} />
+                  <CenteredSpin size='small' style={styles.spin} />
                 </Select.Option>
               ) : (
                 allSuppliers?.map((item: any) => (
@@ -237,16 +237,16 @@ export const CashTransactionsItems: React.FC<IProps> = (props) => {
                 ))
               )}
             </Select.OptGroup>
-            <Select.OptGroup label={t("Employees.1")}>
+            <Select.OptGroup label={t('Employees.1')}>
               {employeeData?.isLoading ? (
                 <Select.Option
                   disabled={true}
-                  key="sdsds"
-                  value="dsdsd"
-                  label="sdfsdfds"
-                  style={{ height: "40px" }}
+                  key='sdsds'
+                  value='dsdsd'
+                  label='sdfsdfds'
+                  style={{ height: '40px' }}
                 >
-                  <CenteredSpin size="small" style={styles.spin} />
+                  <CenteredSpin size='small' style={styles.spin} />
                 </Select.Option>
               ) : (
                 allEmployees?.map((item: any) => (
@@ -260,16 +260,16 @@ export const CashTransactionsItems: React.FC<IProps> = (props) => {
                 ))
               )}
             </Select.OptGroup>
-            <Select.OptGroup label={t("Expenses.1")}>
+            <Select.OptGroup label={t('Expenses.1')}>
               {expenseData?.isLoading ? (
                 <Select.Option
                   disabled={true}
-                  key="sdsds"
-                  value="dsdsd"
-                  label="sdfsdfds"
-                  style={{ height: "40px" }}
+                  key='sdsds'
+                  value='dsdsd'
+                  label='sdfsdfds'
+                  style={{ height: '40px' }}
                 >
-                  <CenteredSpin size="small" style={styles.spin} />
+                  <CenteredSpin size='small' style={styles.spin} />
                 </Select.Option>
               ) : (
                 allExpenses?.map((item: any) => (
@@ -283,16 +283,16 @@ export const CashTransactionsItems: React.FC<IProps> = (props) => {
                 ))
               )}
             </Select.OptGroup>
-            <Select.OptGroup label={t("Expenses.Income.1")}>
+            <Select.OptGroup label={t('Expenses.Income.1')}>
               {incomeData?.isLoading ? (
                 <Select.Option
                   disabled={true}
-                  key="sdsds"
-                  value="dsdsd"
-                  label="sdfsdfds"
-                  style={{ height: "40px" }}
+                  key='sdsds'
+                  value='dsdsd'
+                  label='sdfsdfds'
+                  style={{ height: '40px' }}
                 >
-                  <CenteredSpin size="small" style={styles.spin} />
+                  <CenteredSpin size='small' style={styles.spin} />
                 </Select.Option>
               ) : (
                 allIncomes?.map((item: any) => (
@@ -306,16 +306,16 @@ export const CashTransactionsItems: React.FC<IProps> = (props) => {
                 ))
               )}
             </Select.OptGroup>
-            <Select.OptGroup label={t("Expenses.With_draw.1")}>
+            <Select.OptGroup label={t('Expenses.With_draw.1')}>
               {withDrawData?.isLoading ? (
                 <Select.Option
                   disabled={true}
-                  key="sdsds"
-                  value="dsdsd"
-                  label="sdfsdfds"
-                  style={{ height: "40px" }}
+                  key='sdsds'
+                  value='dsdsd'
+                  label='sdfsdfds'
+                  style={{ height: '40px' }}
                 >
-                  <CenteredSpin size="small" style={styles.spin} />
+                  <CenteredSpin size='small' style={styles.spin} />
                 </Select.Option>
               ) : (
                 allWithDraws?.map((item: any) => (
@@ -335,4 +335,4 @@ export const CashTransactionsItems: React.FC<IProps> = (props) => {
     </Row>
   );
 };
-const styles = { spin: { padding: "7px" } };
+const styles = { spin: { padding: '7px' } };

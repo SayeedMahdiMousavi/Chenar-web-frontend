@@ -1,12 +1,12 @@
-import React from "react";
-import ExpensesTable from "./ExpensesTable";
-import ReportBody from "../../ReportBody";
+import React from 'react';
+import ExpensesTable from './ExpensesTable';
+import ReportBody from '../../ReportBody';
 
 const ExpensesReport = (props) => {
   return (
     <ReportBody
       title={props.title}
-      type="financial"
+      type='financial'
       table={
         <ExpensesTable
           baseUrl={props.baseUrl}

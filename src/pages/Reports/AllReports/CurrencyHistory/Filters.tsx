@@ -1,10 +1,10 @@
-import React, { memo } from "react";
-import { Row, Col, Form, Button } from "antd";
-import { useTranslation } from "react-i18next";
-import { handlePrepareDateForServer } from "../../../../Functions/utcDate";
-import ReportDateFormItem from "../../Components/DateFormItem";
-import { InfiniteScrollSelectFormItem } from "../../../../components/antd";
-import { useDefaultReportDateFormItem } from "../../../../Hooks";
+import React, { memo } from 'react';
+import { Row, Col, Form, Button } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { handlePrepareDateForServer } from '../../../../Functions/utcDate';
+import ReportDateFormItem from '../../Components/DateFormItem';
+import { InfiniteScrollSelectFormItem } from '../../../../components/antd';
+import { useDefaultReportDateFormItem } from '../../../../Hooks';
 
 interface Item {
   startDate: string;
@@ -32,9 +32,9 @@ function Filters(props: IProps) {
       calendarCode,
     });
     const newFilters = {
-      currency: values?.currency ?? { value: "", label: "" },
-      startDate: startDate ?? "",
-      endDate: endDate ?? "",
+      currency: values?.currency ?? { value: '', label: '' },
+      startDate: startDate ?? '',
+      endDate: endDate ?? '',
     };
     //@ts-ignore
     props.setFilters((prev: any) => {
@@ -55,11 +55,11 @@ function Filters(props: IProps) {
 
   return (
     <Form
-      layout="vertical"
+      layout='vertical'
       onFinish={onFinish}
       form={form}
       initialValues={{
-        date: "allDates",
+        date: 'allDates',
         dateTime: defaultDate,
       }}
     >
@@ -84,20 +84,20 @@ function Filters(props: IProps) {
         </Col> */}
         <Col xxl={4} xl={5} lg={5}>
           <InfiniteScrollSelectFormItem
-            name="currency"
-            placeholder={t("Sales.Product_and_services.Currency.1")}
+            name='currency'
+            placeholder={t('Sales.Product_and_services.Currency.1')}
             style={styles.margin}
-            fields="name,id,symbol,is_active&ordering=-is_active"
-            baseUrl="/currency/"
-            place="currencyHistory"
+            fields='name,id,symbol,is_active&ordering=-is_active'
+            baseUrl='/currency/'
+            place='currencyHistory'
             allowClear={true}
           />
         </Col>
 
         <Col xxl={8} xl={10} lg={10}>
-          <Form.Item className="margin" style={styles.margin}>
-            <Button type="primary" size="small" htmlType="submit" shape="round">
-              {t("Form.Search")}
+          <Form.Item className='margin' style={styles.margin}>
+            <Button type='primary' size='small' htmlType='submit' shape='round'>
+              {t('Form.Search')}
             </Button>
           </Form.Item>
         </Col>
@@ -106,8 +106,8 @@ function Filters(props: IProps) {
   );
 }
 const styles = {
-  margin: { marginBottom: "4px" },
-  spin: { margin: "20px" },
+  margin: { marginBottom: '4px' },
+  spin: { margin: '20px' },
 };
 
 //@ts-ignore

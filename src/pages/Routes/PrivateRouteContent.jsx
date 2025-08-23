@@ -1,5 +1,5 @@
-import React from "react";
-import { ErrorBoundary } from "react-error-boundary";
+import React from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 
 import {
   Layout,
@@ -10,21 +10,21 @@ import {
   FloatButton,
   Divider,
   Spin,
-} from "antd";
-import Heade from "../Header";
-import { useTranslation } from "react-i18next";
-import { Detector } from "react-detect-offline";
-import jalaliday from "jalaliday";
-import dayjs from "dayjs";
-import enUS from "antd/lib/locale/en_US";
-import fa_IR from "antd/lib/locale/fa_IR";
-import "moment/locale/fa";
-import Sidebar from "./Sidebar";
-import { useDarkMode } from "../../Hooks/useDarkMode";
-import RetryButton from "../SelfComponents/RetryButton";
-import { Colors } from "../colors";
+} from 'antd';
+import Heade from '../Header';
+import { useTranslation } from 'react-i18next';
+import { Detector } from 'react-detect-offline';
+import jalaliday from 'jalaliday';
+import dayjs from 'dayjs';
+import enUS from 'antd/lib/locale/en_US';
+import fa_IR from 'antd/lib/locale/fa_IR';
+import 'moment/locale/fa';
+import Sidebar from './Sidebar';
+import { useDarkMode } from '../../Hooks/useDarkMode';
+import RetryButton from '../SelfComponents/RetryButton';
+import { Colors } from '../colors';
 dayjs.extend(jalaliday);
-dayjs.calendar("jalali");
+dayjs.calendar('jalali');
 
 const { Header, Content } = Layout;
 
@@ -32,31 +32,30 @@ export default function PrivateRouteContent(props) {
   const [mode] = useDarkMode();
   const { t } = useTranslation();
 
-
   return (
     <ConfigProvider
-      direction={t("Dir") === "ltr" ? "ltr" : "rtl"}
-      locale={t("Dir") === "ltr" ? enUS : fa_IR}
+      direction={t('Dir') === 'ltr' ? 'ltr' : 'rtl'}
+      locale={t('Dir') === 'ltr' ? enUS : fa_IR}
     >
       <Detector
         render={({ online }) => (
           <Row>
             <Col span={24}>
-              <div style={{ width: "100%" }}>
+              <div style={{ width: '100%' }}>
                 {online ? null : (
                   <Alert
-                    type="error"
+                    type='error'
                     message={
-                      <span className="internet_error">
-                        {t("Internet.No_internet_message")}
+                      <span className='internet_error'>
+                        {t('Internet.No_internet_message')}
                       </span>
                     }
                     // banner
                     style={{
-                      width: "100%",
-                      height: "30px",
-                      fontSize: "11px",
-                      fontWeight: "bold",
+                      width: '100%',
+                      height: '30px',
+                      fontSize: '11px',
+                      fontWeight: 'bold',
                     }}
                     banner
                   />
@@ -69,49 +68,53 @@ export default function PrivateRouteContent(props) {
               >
                 <Sidebar />
                 <Divider
-                  type="vertical"
-                  style={{ height: "1vh", margin: "0px" }}
+                  type='vertical'
+                  style={{ height: '1vh', margin: '0px' }}
                 />
-  
+
                 <Layout style={styles.layout1}>
                   <Header
-                    style= {mode === "dark" ? { padding: "0px" } : styles.header}
+                    style={mode === 'dark' ? { padding: '0px' } : styles.header}
                     // className='dashboard_header'
-                    className="site-layout-background"
+                    className='site-layout-background'
                   >
                     <Heade />
                   </Header>
                   <Content
-                    className={
-                      online
-                        ? "page-body"
-                        : "page-body-offline"
-                    }
+                    className={online ? 'page-body' : 'page-body-offline'}
                     style={{
-                      backgroundColor: mode === "dark" ? Colors.secondaryDarkBackground : "#f5f5f5",
-                      width: "100%",
-                    }
-                    }
-                    id="mainComponent"
+                      backgroundColor:
+                        mode === 'dark'
+                          ? Colors.secondaryDarkBackground
+                          : '#f5f5f5',
+                      width: '100%',
+                    }}
+                    id='mainComponent'
                   >
                     <ErrorBoundary
                       FallbackComponent={({ error, resetErrorBoundary }) => (
                         <div
                           style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            height: "95vh",
-                            width: "100%",
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            height: '95vh',
+                            width: '100%',
                           }}
                         >
-                          <div style={{ width: "50%", textAlign: "center", color: mode === "dark" ? "white" : "black" }}>
+                          <div
+                            style={{
+                              width: '50%',
+                              textAlign: 'center',
+                              color: mode === 'dark' ? 'white' : 'black',
+                            }}
+                          >
                             مشکلی روخ دارد
                             <RetryButton
                               handleRetry={() => resetErrorBoundary()}
-                              size="middle"
+                              size='middle'
                             />
-                            <pre style={{ whiteSpace: "normal" }}>
+                            <pre style={{ whiteSpace: 'normal' }}>
                               {error.message}
                             </pre>
                           </div>
@@ -120,19 +123,23 @@ export default function PrivateRouteContent(props) {
                     >
                       <React.Suspense
                         fallback={
-                          <div className="suspense">
-                            <Spin size="large" />
+                          <div className='suspense'>
+                            <Spin size='large' />
                           </div>
                         }
                       >
-                        <Row className="customer__table" justify="space-around" style={{  padding: "0px 24px"}}>                        
-                            {props.component}
+                        <Row
+                          className='customer__table'
+                          justify='space-around'
+                          style={{ padding: '0px 24px' }}
+                        >
+                          {props.component}
                         </Row>
                       </React.Suspense>
                     </ErrorBoundary>
                     <FloatButton.BackTop
                       visibilityHeight={200}
-                      target={() => document.getElementById("mainComponent")}
+                      target={() => document.getElementById('mainComponent')}
                     >
                       {/* <div className="backTop"
                       >{t("BackTop.1")}</div> */}
@@ -151,25 +158,25 @@ export default function PrivateRouteContent(props) {
 }
 const styles = {
   // layout: { height: `calc(100vh - 30px)`, overflow: "hidden" },
-  offlineStyle: { height: `calc(100vh - 30px)`, overflow: "hidden" },
-  layout: { height: `100vh`, overflow: "hidden" },
-  layout1: { overflow: "hidden" },
+  offlineStyle: { height: `calc(100vh - 30px)`, overflow: 'hidden' },
+  layout: { height: `100vh`, overflow: 'hidden' },
+  layout1: { overflow: 'hidden' },
   sider: {
     // boxShadow: "2px 2px 2px rgba(1 10, 110, 110, 0.452)",
   },
 
   header: {
-    padding: "0",
-    background: "#fff",
+    padding: '0',
+    background: '#fff',
   },
   themeIcon: {
-    position: "absolute",
-    left: "30px",
-    bottom: "30px",
+    position: 'absolute',
+    left: '30px',
+    bottom: '30px',
   },
   themeIcon1: {
-    position: "absolute",
-    right: "30px",
-    bottom: "30px",
+    position: 'absolute',
+    right: '30px',
+    bottom: '30px',
   },
 };

@@ -60,7 +60,9 @@ export class StaffService extends ApiService {
     super('/staff_account');
   }
 
-  async getStaff(params?: PaginationParams): Promise<{ results: Staff[]; count: number }> {
+  async getStaff(
+    params?: PaginationParams,
+  ): Promise<{ results: Staff[]; count: number }> {
     return this.get('/staff/', params);
   }
 
@@ -72,7 +74,10 @@ export class StaffService extends ApiService {
     return this.post('/staff/', data);
   }
 
-  async updateStaff(id: string | number, data: Partial<CreateStaffData>): Promise<Staff> {
+  async updateStaff(
+    id: string | number,
+    data: Partial<CreateStaffData>,
+  ): Promise<Staff> {
     return this.patch(`/staff/${id}/`, data);
   }
 
@@ -88,15 +93,23 @@ export class StaffService extends ApiService {
     return this.patch(`/staff/${id}/`, { status: 'deactivate' });
   }
 
-  async getStaffCategories(params?: PaginationParams): Promise<{ results: StaffCategory[] }> {
+  async getStaffCategories(
+    params?: PaginationParams,
+  ): Promise<{ results: StaffCategory[] }> {
     return this.get('/staff_category/', params);
   }
 
-  async createStaffCategory(data: { name: string; description?: string }): Promise<StaffCategory> {
+  async createStaffCategory(data: {
+    name: string;
+    description?: string;
+  }): Promise<StaffCategory> {
     return this.post('/staff_category/', data);
   }
 
-  async updateStaffCategory(id: string | number, data: { name?: string; description?: string }): Promise<StaffCategory> {
+  async updateStaffCategory(
+    id: string | number,
+    data: { name?: string; description?: string },
+  ): Promise<StaffCategory> {
     return this.patch(`/staff_category/${id}/`, data);
   }
 
@@ -105,7 +118,9 @@ export class StaffService extends ApiService {
   }
 
   // Staff Financial Operations
-  async getStaffSalaries(params?: PaginationParams & { staff?: number }): Promise<{ results: StaffSalary[] }> {
+  async getStaffSalaries(
+    params?: PaginationParams & { staff?: number },
+  ): Promise<{ results: StaffSalary[] }> {
     return this.get('/staff/salary/', params);
   }
 
@@ -113,7 +128,10 @@ export class StaffService extends ApiService {
     return this.post('/staff/salary/', data);
   }
 
-  async updateStaffSalary(id: string | number, data: Partial<Omit<StaffSalary, 'id'>>): Promise<StaffSalary> {
+  async updateStaffSalary(
+    id: string | number,
+    data: Partial<Omit<StaffSalary, 'id'>>,
+  ): Promise<StaffSalary> {
     return this.patch(`/staff/salary/${id}/`, data);
   }
 
@@ -121,15 +139,22 @@ export class StaffService extends ApiService {
     return this.delete(`/staff/salary/${id}/`);
   }
 
-  async getStaffPayments(params?: PaginationParams & { staff?: number }): Promise<{ results: StaffPayment[] }> {
+  async getStaffPayments(
+    params?: PaginationParams & { staff?: number },
+  ): Promise<{ results: StaffPayment[] }> {
     return this.get('/staff/payments/', params);
   }
 
-  async createStaffPayment(data: Omit<StaffPayment, 'id'>): Promise<StaffPayment> {
+  async createStaffPayment(
+    data: Omit<StaffPayment, 'id'>,
+  ): Promise<StaffPayment> {
     return this.post('/staff/payments/', data);
   }
 
-  async updateStaffPayment(id: string | number, data: Partial<Omit<StaffPayment, 'id'>>): Promise<StaffPayment> {
+  async updateStaffPayment(
+    id: string | number,
+    data: Partial<Omit<StaffPayment, 'id'>>,
+  ): Promise<StaffPayment> {
     return this.patch(`/staff/payments/${id}/`, data);
   }
 
@@ -141,7 +166,10 @@ export class StaffService extends ApiService {
     return this.get(`/staff/${staffId}/balance/`);
   }
 
-  async getStaffTimesheet(staffId: string | number, params?: { date_from?: string; date_to?: string }) {
+  async getStaffTimesheet(
+    staffId: string | number,
+    params?: { date_from?: string; date_to?: string },
+  ) {
     return this.get(`/staff/${staffId}/timesheet/`, params);
   }
 
@@ -157,4 +185,3 @@ export class StaffService extends ApiService {
 }
 
 export const staffService = new StaffService();
-

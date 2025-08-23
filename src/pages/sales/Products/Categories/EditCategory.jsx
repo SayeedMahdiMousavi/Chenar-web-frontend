@@ -1,8 +1,8 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient, useMutation } from 'react-query';
 import axiosInstance from '../../../ApiBaseUrl';
-import { Drawer, Form,  Col, Row, Input, Space } from 'antd';
+import { Drawer, Form, Col, Row, Input, Space } from 'antd';
 import { useMediaQuery } from '../../../MediaQurey';
 import { CategoryFormItem } from './CategoryFormItem';
 import { trimString } from '../../../../Functions/TrimString';
@@ -41,7 +41,8 @@ const addTreeData = (list, parentId, children) => {
       };
     }
     return node;
-  });};
+  });
+};
 
 const deleteTreeData = (list, id, parent) => {
   return list?.map((node) => {
@@ -112,8 +113,7 @@ const EditCategory = ({
       }
       if (
         values?.data?.node_parent?.id === record?.node_parent?.id ||
-        (!values?.data?.node_parent?.id &&
-          record?.node_parent === null)
+        (!values?.data?.node_parent?.id && record?.node_parent === null)
       ) {
         setTreeData((prev) => {
           const data = updateTreeData(prev.allData, record.id, values?.data);
@@ -132,7 +132,7 @@ const EditCategory = ({
               allData: deleteTreeData(
                 prev.allData,
                 record?.id,
-                record?.node_parent?.name
+                record?.node_parent?.name,
               ),
             };
           }
@@ -148,7 +148,7 @@ const EditCategory = ({
               allData: addTreeData(
                 prev.allData,
                 values?.data?.node_parent?.id,
-                values?.data
+                values?.data,
               ),
             };
           }

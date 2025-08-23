@@ -1,29 +1,29 @@
-import React, { useEffect, useState } from "react";
-import { Title } from "../../../SelfComponents/Title";
-import axiosInstance from "../../../ApiBaseUrl";
-import { Row, Col, Table, Descriptions } from "antd";
-import { useTranslation } from "react-i18next";
-import Filters from "./Filters";
-import { useMemo } from "react";
-import ShowDate from "../../../SelfComponents/JalaliAntdComponents/ShowDate";
-import { ReportTable, Statistics } from "../../../../components/antd";
-import useGetRunningPeriod from "../../../../Hooks/useGetRunningPeriod";
-import moment from "moment";
-import { reportsDateFormat } from "../../../../Context";
-import { PageBackIcon } from "../../../../components";
-import { REPORT } from "../../../../constants/routes";
+import React, { useEffect, useState } from 'react';
+import { Title } from '../../../SelfComponents/Title';
+import axiosInstance from '../../../ApiBaseUrl';
+import { Row, Col, Table, Descriptions } from 'antd';
+import { useTranslation } from 'react-i18next';
+import Filters from './Filters';
+import { useMemo } from 'react';
+import ShowDate from '../../../SelfComponents/JalaliAntdComponents/ShowDate';
+import { ReportTable, Statistics } from '../../../../components/antd';
+import useGetRunningPeriod from '../../../../Hooks/useGetRunningPeriod';
+import moment from 'moment';
+import { reportsDateFormat } from '../../../../Context';
+import { PageBackIcon } from '../../../../components';
+import { REPORT } from '../../../../constants/routes';
 
 interface IProps {}
 const { Column } = Table;
 const dateFormat = reportsDateFormat;
-export const currencyHistoryBaseUrl = "/currency/currency_rate_history/";
+export const currencyHistoryBaseUrl = '/currency/currency_rate_history/';
 const baseUrl = currencyHistoryBaseUrl;
 const CurrencyHistory: React.FC<IProps> = (props) => {
   const { t } = useTranslation();
   const [filters, setFilters] = useState({
-    startDate: "",
-    endDate: "",
-    currency: { value: "", label: "" },
+    startDate: '',
+    endDate: '',
+    currency: { value: '', label: '' },
   });
 
   const { startDate, endDate, currency } = filters;
@@ -39,7 +39,7 @@ const CurrencyHistory: React.FC<IProps> = (props) => {
           ...prev,
           startDate: curStartDate
             ? moment(curStartDate, dateFormat).format(dateFormat)
-            : "",
+            : '',
         };
       });
     }
@@ -50,50 +50,50 @@ const CurrencyHistory: React.FC<IProps> = (props) => {
       queryKey?.[1];
     const currencyId = currency?.value;
     const { data } = await axiosInstance.get(
-      `${baseUrl}?page=${page}&page_size=${pageSize}&search=${search}&ordering=${order}&date_before=${endDate}&date_after=${startDate}&currency=${currencyId}`
+      `${baseUrl}?page=${page}&page_size=${pageSize}&search=${search}&ordering=${order}&date_before=${endDate}&date_after=${startDate}&currency=${currencyId}`,
     );
     return data;
   };
 
   const columns = useMemo(
     () => (type: string) => {
-      const sorter = type !== "print" ? true : false;
+      const sorter = type !== 'print' ? true : false;
       return (
         <React.Fragment>
           <Column
             title={t(
-              "Sales.Product_and_services.Currency.Date_of_registration"
+              'Sales.Product_and_services.Currency.Date_of_registration',
             ).toUpperCase()}
-            dataIndex="update_date"
-            key="update_date"
+            dataIndex='update_date'
+            key='update_date'
             render={(text) => {
               return <ShowDate date={text} />;
             }}
-            className="table-col"
+            className='table-col'
             sorter={sorter && { multiple: 3 }}
           />
           <Column
-            title={t("Sales.Product_and_services.Currency.1").toUpperCase()}
-            dataIndex="currency"
-            key="currency"
-            className="table-col"
+            title={t('Sales.Product_and_services.Currency.1').toUpperCase()}
+            dataIndex='currency'
+            key='currency'
+            className='table-col'
             sorter={sorter && { multiple: 2 }}
             render={(text) => <React.Fragment>{text?.name}</React.Fragment>}
           />
           <Column
             title={t(
-              "Sales.Product_and_services.Currency.Currency_rate"
+              'Sales.Product_and_services.Currency.Currency_rate',
             ).toUpperCase()}
-            dataIndex="to_currency_rate"
-            key="to_currency_rate"
-            className="table-col"
+            dataIndex='to_currency_rate'
+            key='to_currency_rate'
+            className='table-col'
             sorter={sorter && { multiple: 1 }}
             render={(value) => <Statistics value={value} />}
           />
         </React.Fragment>
       );
     },
-    [t]
+    [t],
   );
 
   // const columns = useMemo(
@@ -144,17 +144,17 @@ const CurrencyHistory: React.FC<IProps> = (props) => {
 
   const printFilters = (
     <Descriptions
-      layout="horizontal"
-      style={{ width: "100%", paddingTop: "40px" }}
+      layout='horizontal'
+      style={{ width: '100%', paddingTop: '40px' }}
       column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}
-      size="small"
+      size='small'
     >
-      <Descriptions.Item label={t("Form.From")}>
-        {startDate} {t("Form.To")} : {endDate}
+      <Descriptions.Item label={t('Form.From')}>
+        {startDate} {t('Form.To')} : {endDate}
       </Descriptions.Item>
 
       {currency?.label && (
-        <Descriptions.Item label={t("Sales.Product_and_services.Currency.1")}>
+        <Descriptions.Item label={t('Sales.Product_and_services.Currency.1')}>
           {currency?.label}
         </Descriptions.Item>
       )}
@@ -163,18 +163,18 @@ const CurrencyHistory: React.FC<IProps> = (props) => {
 
   return (
     <>
-      <Row className="categore-header" align="middle" justify="start">
+      <Row className='categore-header' align='middle' justify='start'>
         <Col
           md={{ span: 10 }}
           sm={{ span: 11 }}
           xs={{ span: 14 }}
-          className="Sales__content-3-body"
+          className='Sales__content-3-body'
         >
           <Row>
             <Col span={24}>
               <Title
                 value={t(
-                  "Sales.Product_and_services.Currency.Currency_history"
+                  'Sales.Product_and_services.Currency.Currency_history',
                 )}
               />
             </Col>
@@ -185,7 +185,7 @@ const CurrencyHistory: React.FC<IProps> = (props) => {
               xs={{ span: 17, offset: 0 }}
             >
               <PageBackIcon
-                previousPageName={t("Reports.1")}
+                previousPageName={t('Reports.1')}
                 url={`${REPORT}/financial`}
               />
             </Col>
@@ -201,7 +201,7 @@ const CurrencyHistory: React.FC<IProps> = (props) => {
       </Row>
 
       <ReportTable
-        title={t("Sales.Product_and_services.Currency.Currency_history")}
+        title={t('Sales.Product_and_services.Currency.Currency_history')}
         columns={columns}
         queryKey={baseUrl}
         handleGetData={handleGetCurrencyHistory}

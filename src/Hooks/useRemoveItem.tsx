@@ -1,8 +1,8 @@
-import { message } from "antd";
-import React, { useCallback, useState } from "react";
-import { useMutation } from "react-query";
-import axiosInstance from "../pages/ApiBaseUrl";
-import { ActionMessage } from "../pages/SelfComponents/TranslateComponents/ActionMessage";
+import { message } from 'antd';
+import React, { useCallback, useState } from 'react';
+import { useMutation } from 'react-query';
+import axiosInstance from '../pages/ApiBaseUrl';
+import { ActionMessage } from '../pages/SelfComponents/TranslateComponents/ActionMessage';
 
 interface IParams {
   baseUrl: string;
@@ -32,8 +32,8 @@ export default function useRemoveItem({
           <ActionMessage
             name={recordName}
             values={messageValues}
-            message={removeMessage ? removeMessage : "Message.Remove"}
-          />
+            message={removeMessage ? removeMessage : 'Message.Remove'}
+          />,
         );
         handleUpdateItems();
         if (setVisible) {
@@ -45,7 +45,7 @@ export default function useRemoveItem({
           message.error(error?.response?.data?.data?.message);
         }
       },
-    }
+    },
   );
 
   const handleDeleteItem = useCallback(() => {

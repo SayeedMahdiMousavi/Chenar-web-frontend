@@ -1,29 +1,29 @@
-import React, { useMemo, useState } from "react";
-import axiosInstance from "../../ApiBaseUrl";
-import Photo from "../Products/Photo";
-import Filters from "./Filters";
-import { Checkbox, Row, Col, Table, Menu, Typography } from "antd";
-import { useTranslation } from "react-i18next";
-import CustomerAction from "./CustomerAction";
-import { useMediaQuery } from "../../MediaQurey";
-import { useNavigate } from "react-router-dom";
-import { PaginateTable, Statistics } from "../../../components/antd";
-import { checkActionColumnPermissions } from "../../../Functions";
-import { CUSTOMER_M } from "../../../constants/permissions";
+import React, { useMemo, useState } from 'react';
+import axiosInstance from '../../ApiBaseUrl';
+import Photo from '../Products/Photo';
+import Filters from './Filters';
+import { Checkbox, Row, Col, Table, Menu, Typography } from 'antd';
+import { useTranslation } from 'react-i18next';
+import CustomerAction from './CustomerAction';
+import { useMediaQuery } from '../../MediaQurey';
+import { useNavigate } from 'react-router-dom';
+import { PaginateTable, Statistics } from '../../../components/antd';
+import { checkActionColumnPermissions } from '../../../Functions';
+import { CUSTOMER_M } from '../../../constants/permissions';
 
 const { Column } = Table;
 const CustomerTable = (props) => {
   let navigate = useNavigate();
   // const [collapsed, setCollapsed] = useState(false);
   const [filters, setFilters] = useState({
-    state: "active",
-    category: "",
-    discountCards: "",
-    isCardExist: "known",
-    isCardExpire: "known",
-    discountCardType: "",
+    state: 'active',
+    category: '',
+    discountCards: '',
+    isCardExist: 'known',
+    isCardExpire: 'known',
+    discountCardType: '',
   });
-  const isMobile = useMediaQuery("(max-width:425px)");
+  const isMobile = useMediaQuery('(max-width:425px)');
   const { t } = useTranslation();
   const [
     { phone, address, discountCard, email, attachments, photo },
@@ -71,31 +71,31 @@ const CustomerTable = (props) => {
 
   const setting = (
     <Menu style={styles.settingsMenu}>
-      <Menu.Item key="1">
+      <Menu.Item key='1'>
         <Typography.Text strong={true}>
-          {t("Sales.Product_and_services.Columns")}
+          {t('Sales.Product_and_services.Columns')}
         </Typography.Text>
       </Menu.Item>
-      <Menu.Item key="2">
+      <Menu.Item key='2'>
         <Checkbox onChange={onChangeAddress} checked={address}>
-          {t("Form.Address")}
+          {t('Form.Address')}
         </Checkbox>
       </Menu.Item>
-      <Menu.Item key="3">
+      <Menu.Item key='3'>
         <Checkbox onChange={onChangePhone} checked={phone}>
-          {t("Form.Phone")}
+          {t('Form.Phone')}
         </Checkbox>
       </Menu.Item>
-      <Menu.Item key="4">
-        <Checkbox onChange={onChangeDescription}>{t("Form.Email")}</Checkbox>
+      <Menu.Item key='4'>
+        <Checkbox onChange={onChangeDescription}>{t('Form.Email')}</Checkbox>
       </Menu.Item>
-      <Menu.Item key="5">
+      <Menu.Item key='5'>
         <Checkbox onChange={onChangeAttachments}>
-          {t("Form.Attachments")}
+          {t('Form.Attachments')}
         </Checkbox>
       </Menu.Item>
-      <Menu.Item key="6">
-        <Checkbox onChange={onChangePhoto}>{t("Form.Photo")}</Checkbox>
+      <Menu.Item key='6'>
+        <Checkbox onChange={onChangePhoto}>{t('Form.Photo')}</Checkbox>
       </Menu.Item>
     </Menu>
   );
@@ -115,11 +115,11 @@ const CustomerTable = (props) => {
         isCardExpire,
       } = queryKey?.[1] || {};
       const { data } = await axiosInstance.get(
-        `${props.baseUrl}?page=${page}&page_size=${pageSize}&ordering=${order}&status=${state}&search=${search}&card_not_exist=${isCardExist}&category__name=${category}&discount_card_expire=${isCardExpire}&discount_card_name=${discountCards}&discount_card_type=${discountCardType}&expand=discount_card,discount_card.discount_card,category`
+        `${props.baseUrl}?page=${page}&page_size=${pageSize}&ordering=${order}&status=${state}&search=${search}&card_not_exist=${isCardExist}&category__name=${category}&discount_card_expire=${isCardExpire}&discount_card_name=${discountCards}&discount_card_type=${discountCardType}&expand=discount_card,discount_card.discount_card,category`,
       );
       return data;
     },
-    [props.baseUrl]
+    [props.baseUrl],
   );
 
   const handleDoubleClickAction = (e) => {
@@ -127,40 +127,40 @@ const CustomerTable = (props) => {
   };
 
   const columns = useMemo(
- (type, hasSelected) => {
-      const sorter = type !== "print" ? true : false;
+    (type, hasSelected) => {
+      const sorter = type !== 'print' ? true : false;
       return (
         <React.Fragment>
           <Column
-            title={t("Sales.Customers.Customer_id").toUpperCase()}
-            dataIndex="id"
-            key="id"
-            width={type !== "print" ? 145 : false}
+            title={t('Sales.Customers.Customer_id').toUpperCase()}
+            dataIndex='id'
+            key='id'
+            width={type !== 'print' ? 145 : false}
             sorter={sorter && { multiple: 10 }}
             fixed={sorter}
-            className="table-col"
+            className='table-col'
             // align="center"
           />
           <Column
-            title={t("Sales.Customers.Customer").toUpperCase()}
+            title={t('Sales.Customers.Customer').toUpperCase()}
             // width={isMobile ? 70 : 170}
-            dataIndex="first_name"
-            key="first_name"
+            dataIndex='first_name'
+            key='first_name'
             fixed={sorter}
             render={(text, record) => (
               <React.Fragment>{record?.full_name}</React.Fragment>
             )}
             sorter={sorter && { multiple: 9 }}
-            className="table-col"
+            className='table-col'
           />
           {photo && (
             <Column
-              title={`${t("Form.Photo").toUpperCase()}`}
-              dataIndex="photo"
-              key="photo"
-              className="table-col"
+              title={`${t('Form.Photo').toUpperCase()}`}
+              dataIndex='photo'
+              key='photo'
+              className='table-col'
               width={80}
-              align="center"
+              align='center'
               render={(text, record) => {
                 return <Photo photo={text} />;
               }}
@@ -168,10 +168,10 @@ const CustomerTable = (props) => {
           )}
           {phone && (
             <Column
-              title={t("Form.Phone").toUpperCase()}
-              dataIndex="phone_number"
-              key="phone_number"
-              className="table-col"
+              title={t('Form.Phone').toUpperCase()}
+              dataIndex='phone_number'
+              key='phone_number'
+              className='table-col'
               sorter={sorter && { multiple: 8 }}
             />
           )}
@@ -186,28 +186,28 @@ const CustomerTable = (props) => {
 
           {address && (
             <Column
-              title={t("Sales.Customers.Table.Address")}
-              dataIndex="full_billing_address"
-              key="full_billing_address"
+              title={t('Sales.Customers.Table.Address')}
+              dataIndex='full_billing_address'
+              key='full_billing_address'
               sorter={sorter && { multiple: 7 }}
-              className="table-col"
+              className='table-col'
             />
           )}
 
           {email && (
             <Column
-              title={t("Sales.Customers.Table.Email")}
-              dataIndex="email"
-              key="email"
-              className="table-col"
+              title={t('Sales.Customers.Table.Email')}
+              dataIndex='email'
+              key='email'
+              className='table-col'
               sorter={sorter && { multiple: 6 }}
             />
           )}
           <Column
-            title={`${t("Sales.Product_and_services.Category").toUpperCase()}`}
-            dataIndex="category"
-            key="category"
-            className="table-col"
+            title={`${t('Sales.Product_and_services.Category').toUpperCase()}`}
+            dataIndex='category'
+            key='category'
+            className='table-col'
             render={(text, record) => {
               return <>{text?.get_fomrated_path}</>;
             }}
@@ -216,51 +216,51 @@ const CustomerTable = (props) => {
           {discountCard && (
             <Column
               title={t(
-                "Sales.Customers.Discount.Customers_discount"
+                'Sales.Customers.Discount.Customers_discount',
               ).toUpperCase()}
-              dataIndex="discount_card"
-              key="discount_card"
+              dataIndex='discount_card'
+              key='discount_card'
               sorter={sorter && { multiple: 4 }}
               render={(text, record) => {
                 return <React.Fragment>{text?.id}</React.Fragment>;
               }}
-              className="table-col"
+              className='table-col'
             />
           )}
           {attachments && (
             <Column
-              title={t("Sales.Customers.Table.Attachments")}
-              dataIndex="attachment"
-              key="attachment"
+              title={t('Sales.Customers.Table.Attachments')}
+              dataIndex='attachment'
+              key='attachment'
               sorter={sorter && { multiple: 3 }}
               render={(text, record) => {
-                const phone = text?.split("/");
+                const phone = text?.split('/');
                 return <React.Fragment>{phone?.[6]}</React.Fragment>;
               }}
-              className="table-col"
+              className='table-col'
             />
           )}
           <Column
-            title={t("Sales.Customers.Form.Credit_limit").toUpperCase()}
-            dataIndex="credit_limit"
-            key="credit_limit"
+            title={t('Sales.Customers.Form.Credit_limit').toUpperCase()}
+            dataIndex='credit_limit'
+            key='credit_limit'
             sorter={sorter && { multiple: 2 }}
-            className="table-col"
+            className='table-col'
             render={(value) => <Statistics value={value} />}
           />
           <Column
-            title={t("Sales.Customers.Form.National_id_number").toUpperCase()}
-            dataIndex="national_id_number"
-            key="national_id_number"
+            title={t('Sales.Customers.Form.National_id_number').toUpperCase()}
+            dataIndex='national_id_number'
+            key='national_id_number'
             sorter={sorter && { multiple: 1 }}
-            className="table-col"
+            className='table-col'
           />
 
-          {type !== "print" && checkActionColumnPermissions(CUSTOMER_M) && (
+          {type !== 'print' && checkActionColumnPermissions(CUSTOMER_M) && (
             <Column
-              title={t("Table.Action")}
-              key="action"
-              align="center"
+              title={t('Table.Action')}
+              key='action'
+              align='center'
               width={isMobile ? 50 : 70}
               render={(text, record) => (
                 <div onDoubleClick={handleDoubleClickAction}>
@@ -271,8 +271,8 @@ const CustomerTable = (props) => {
                   />
                 </div>
               )}
-              fixed={"right"}
-              className="table-col"
+              fixed={'right'}
+              className='table-col'
             />
           )}
         </React.Fragment>
@@ -289,7 +289,7 @@ const CustomerTable = (props) => {
       props.baseUrl,
 
       t,
-    ]
+    ],
   );
 
   return (
@@ -386,11 +386,11 @@ const CustomerTable = (props) => {
           </Col>
         </Row>
       )} */}
-      <Row className="position__relative">
+      <Row className='position__relative'>
         <Col span={24}>
           <PaginateTable
             model={CUSTOMER_M}
-            title={t("Sales.Customers.1")}
+            title={t('Sales.Customers.1')}
             columns={columns}
             queryKey={props.baseUrl}
             handleGetData={handleGetCustomers}
@@ -432,8 +432,8 @@ const CustomerTable = (props) => {
   );
 };
 const styles = {
-  card: { background: "#3498db", padding: "24px 20px" },
-  settingsMenu: { width: "160px", paddingBottom: "10px" },
+  card: { background: '#3498db', padding: '24px 20px' },
+  settingsMenu: { width: '160px', paddingBottom: '10px' },
 };
 
 export default CustomerTable;

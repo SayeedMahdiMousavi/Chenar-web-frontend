@@ -1,12 +1,12 @@
-import React, { ReactNode } from "react";
-import { DatePicker, Form } from "antd";
-import { DatePicker as DatePickerJalali } from "antd-jalali";
-import { useTranslation } from "react-i18next";
-import moment from "moment";
-import fa from "antd/es/date-picker/locale/fa_IR";
-import en from "antd/es/date-picker/locale/en_US";
-import useGetRunningPeriod from "../../../Hooks/useGetRunningPeriod";
-import useGetCalender from "../../../Hooks/useGetCalender";
+import React, { ReactNode } from 'react';
+import { DatePicker, Form } from 'antd';
+import { DatePicker as DatePickerJalali } from 'antd-jalali';
+import { useTranslation } from 'react-i18next';
+import moment from 'moment';
+import fa from 'antd/es/date-picker/locale/fa_IR';
+import en from 'antd/es/date-picker/locale/en_US';
+import useGetRunningPeriod from '../../../Hooks/useGetRunningPeriod';
+import useGetCalender from '../../../Hooks/useGetCalender';
 
 interface IProps {
   name: string;
@@ -37,7 +37,7 @@ export const RangePickerFormItem: React.FC<IProps> = (props) => {
 
   function disabledDate(current: any) {
     return (
-      current && current < moment(curStartDate, props.format).startOf("day")
+      current && current < moment(curStartDate, props.format).startOf('day')
     );
   }
 
@@ -51,22 +51,22 @@ export const RangePickerFormItem: React.FC<IProps> = (props) => {
       onClick={handelStopePropagation}
       onDoubleClick={handelStopePropagation}
     >
-      {userCalender?.data?.user_calender?.code === "gregory" ? (
+      {userCalender?.data?.user_calender?.code === 'gregory' ? (
         <RangePicker
           showTime={props.showTime}
-          className="num"
+          className='num'
           placeholder={props.placeholder}
           format={props.format}
           disabledDate={props.disabledDate ? props.disabledDate : disabledDate}
           disabled={props.disabled}
           allowClear={false}
           onChange={props.onChange}
-          popupClassName="expenses_rangePicker"
+          popupClassName='expenses_rangePicker'
         />
       ) : (
         <DatePickerJalali.RangePicker
-          locale={i18n.language === "en" ? en : fa}
-          dir="rtl"
+          locale={i18n.language === 'en' ? en : fa}
+          dir='rtl'
           disabledDate={props.disabledDate ? props.disabledDate : disabledDate}
           disabled={props.disabled}
           onChange={props.onChange}
@@ -74,11 +74,11 @@ export const RangePickerFormItem: React.FC<IProps> = (props) => {
           // defaultValue={dayjs("1399-10-03", { jalali: false })}
           // defaultValue={moment('1367/04/11', 'YYYY/MM/DD')}
           showTime={props.showTime}
-          className="num"
+          className='num'
           allowClear={false}
           placeholder={props.placeholder}
           format={props.format}
-          popupClassName="expenses_rangePicker"
+          popupClassName='expenses_rangePicker'
         />
       )}
     </Form.Item>

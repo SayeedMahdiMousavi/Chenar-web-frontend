@@ -1,23 +1,23 @@
-import React, { Fragment, useCallback, useState } from "react";
-import EditProduct from "./EditProduct";
-import { useTranslation } from "react-i18next";
-import { useMutation, useQueryClient } from "react-query";
-import axiosInstance from "../../ApiBaseUrl";
-import { message, Menu, Dropdown, Popconfirm } from "antd";
+import React, { Fragment, useCallback, useState } from 'react';
+import EditProduct from './EditProduct';
+import { useTranslation } from 'react-i18next';
+import { useMutation, useQueryClient } from 'react-query';
+import axiosInstance from '../../ApiBaseUrl';
+import { message, Menu, Dropdown, Popconfirm } from 'antd';
 // import Edit from "./services/Edit";
-import EditDefaultUnit from "./EditDefaultUnit";
-import EditUnitConversion from "./EditUnitConversion";
-import { ActionMessage } from "../../SelfComponents/TranslateComponents/ActionMessage";
-import ActionButton from "../../SelfComponents/ActionButton";
-import PrintBarcode from "./PrintSections/PrintBarcode";
-import ProductVipPercent from "./ProductVipPercent";
-import EditMultipleBarcode from "./MultipleBarcode/EditMultipleBarcode";
-import AddUnitsToProductItem from "./AddUnitsToProductItem";
-import { ActivePopconfirm, RemovePopconfirm } from "../../../components";
-import { useActiveItem, useRemoveItem } from "../../../Hooks";
-import { PRODUCT_M } from "../../../constants/permissions";
-import { checkPermissions } from "../../../Functions";
-import ProductView from "./ProductView";
+import EditDefaultUnit from './EditDefaultUnit';
+import EditUnitConversion from './EditUnitConversion';
+import { ActionMessage } from '../../SelfComponents/TranslateComponents/ActionMessage';
+import ActionButton from '../../SelfComponents/ActionButton';
+import PrintBarcode from './PrintSections/PrintBarcode';
+import ProductVipPercent from './ProductVipPercent';
+import EditMultipleBarcode from './MultipleBarcode/EditMultipleBarcode';
+import AddUnitsToProductItem from './AddUnitsToProductItem';
+import { ActivePopconfirm, RemovePopconfirm } from '../../../components';
+import { useActiveItem, useRemoveItem } from '../../../Hooks';
+import { PRODUCT_M } from '../../../constants/permissions';
+import { checkPermissions } from '../../../Functions';
+import ProductView from './ProductView';
 
 function TableAction(props) {
   const queryClient = useQueryClient();
@@ -37,7 +37,7 @@ function TableAction(props) {
     setVisible,
     recordName: props.record.name,
     handleUpdateItems: props?.handleUpdateItems,
-    type: "active",
+    type: 'active',
     setActiveVisible,
   });
 
@@ -51,7 +51,7 @@ function TableAction(props) {
     setVisible,
     recordName: props.record.name,
     handleUpdateItems: props?.handleUpdateItems,
-    type: "deactivate",
+    type: 'deactivate',
     setActiveVisible,
   });
 
@@ -84,8 +84,8 @@ function TableAction(props) {
           message.success(
             <ActionMessage
               name={props.record?.name}
-              message="Sales.Product_and_services.Form.Vip_remove_success_message"
-            />
+              message='Sales.Product_and_services.Form.Vip_remove_success_message'
+            />,
           );
           setVisible(false);
         })
@@ -96,7 +96,7 @@ function TableAction(props) {
         }),
     {
       onSuccess: handleSuccessEditVip,
-    }
+    },
   );
   let removeVip = false;
 
@@ -114,7 +114,6 @@ function TableAction(props) {
 
       removeVip = false;
     } catch (info) {
-      
       removeVip = false;
     }
   };
@@ -148,7 +147,7 @@ function TableAction(props) {
     setRemoveVisible(false);
     setActiveVisible(false);
     setRemoveVipVisible(false);
-    // 
+    //
   };
 
   const status = props?.record?.status;
@@ -158,7 +157,7 @@ function TableAction(props) {
       <Menu.Item onClick={handleClickEdit}>
         <ProductView record={props?.record} setDropDownVisible={setVisible} />
       </Menu.Item>
-      {status === "active" && (
+      {status === 'active' && (
         <RemovePopconfirm
           itemName={props?.record?.name}
           open={removeVisible}
@@ -169,7 +168,7 @@ function TableAction(props) {
           permission={PRODUCT_M}
         />
       )}
-      {status === "active" && checkPermissions(`change_${PRODUCT_M}`) && (
+      {status === 'active' && checkPermissions(`change_${PRODUCT_M}`) && (
         <Fragment>
           <Menu.Item onClick={handleClickEdit}>
             {/* {props.record.product_type === "service" ? (
@@ -209,17 +208,17 @@ function TableAction(props) {
         {...{
           itemName: props?.record?.name,
           visible: activeVisible,
-          loading: status === "active" ? inactiveLoading : activeLoading,
+          loading: status === 'active' ? inactiveLoading : activeLoading,
           onConfirm:
-            status === "active" ? handleInactiveItem : handleActiveItem,
+            status === 'active' ? handleInactiveItem : handleActiveItem,
           onCancel: handleCancel,
           onClick: handleClickInactive,
-          type: status === "active" ? "deactivate" : "active",
+          type: status === 'active' ? 'deactivate' : 'active',
           permission: PRODUCT_M,
         }}
       />
 
-      {status === "active" &&
+      {status === 'active' &&
         props?.record?.product_units?.length > 1 &&
         checkPermissions(`change_${PRODUCT_M}`) && (
           <Menu.Item onClick={handleClickEdit}>
@@ -228,7 +227,7 @@ function TableAction(props) {
               record={props?.record}
               unit={props?.record?.default_unit?.name}
               baseUrl={props.baseUrl}
-            />{" "}
+            />{' '}
           </Menu.Item>
         )}
 
@@ -242,16 +241,16 @@ function TableAction(props) {
           />{" "}
         </Menu.Item>
       )} */}
-      {status === "active" && props?.record?.product_barcode?.length > 0 && (
+      {status === 'active' && props?.record?.product_barcode?.length > 0 && (
         <Menu.Item onClick={handleClickEdit}>
           <PrintBarcode
             setVisible={setVisible}
             record={props?.record}
-            type="single"
-          />{" "}
+            type='single'
+          />{' '}
         </Menu.Item>
       )}
-      {status === "active" &&
+      {status === 'active' &&
         props?.record?.product_units?.length > 1 &&
         checkPermissions(`change_${PRODUCT_M}`) && (
           <Menu.Item onClick={handleClickEdit}>
@@ -262,7 +261,7 @@ function TableAction(props) {
             />
           </Menu.Item>
         )}
-      {status === "active" &&
+      {status === 'active' &&
         props?.record?.is_have_vip_price &&
         checkPermissions(`change_${PRODUCT_M}`) && (
           <Menu.Item onClick={handleClickEdit}>
@@ -273,28 +272,28 @@ function TableAction(props) {
             />
           </Menu.Item>
         )}
-      {status === "active" &&
+      {status === 'active' &&
         props?.record?.vip_price !== null &&
         props?.record?.is_have_vip_price &&
         checkPermissions(`delete_${PRODUCT_M}`) && (
           <Menu.Item>
             <Popconfirm
-              placement="topRight"
+              placement='topRight'
               open={removeVipVisible}
               okButtonProps={{ loading: removeVipLoading }}
               title={
                 <ActionMessage
                   name={props?.record?.name}
-                  message="Sales.Product_and_services.Form.Vip_remove_message"
+                  message='Sales.Product_and_services.Form.Vip_remove_message'
                 />
               }
               onConfirm={handelDeleteVipPercent}
-              okText={t("Manage_users.Yes")}
-              cancelText={t("Manage_users.No")}
+              okText={t('Manage_users.Yes')}
+              cancelText={t('Manage_users.No')}
               onCancel={handleCancel}
             >
               <div onClick={handelClickVipRemove}>
-                {t("Sales.Product_and_services.Form.Remove_vip_percent")}
+                {t('Sales.Product_and_services.Form.Remove_vip_percent')}
               </div>
             </Popconfirm>
           </Menu.Item>
@@ -308,7 +307,7 @@ function TableAction(props) {
   return (
     <Dropdown
       overlay={action}
-      trigger={["click"]}
+      trigger={['click']}
       onOpenChange={handleVisibleChange}
       open={visible}
       disabled={props.hasSelected}

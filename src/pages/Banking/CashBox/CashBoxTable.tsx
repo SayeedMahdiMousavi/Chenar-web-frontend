@@ -1,21 +1,21 @@
-import React, { useState } from "react";
-import { Input, Form } from "antd";
-import axiosInstance from "../../ApiBaseUrl";
-import { useQueryClient, useMutation } from "react-query";
-import { useTranslation } from "react-i18next";
-import Action from "./Action";
-import { trimString } from "../../../Functions/TrimString";
-import { useMemo } from "react";
-import { useCallback } from "react";
+import React, { useState } from 'react';
+import { Input, Form } from 'antd';
+import axiosInstance from '../../ApiBaseUrl';
+import { useQueryClient, useMutation } from 'react-query';
+import { useTranslation } from 'react-i18next';
+import Action from './Action';
+import { trimString } from '../../../Functions/TrimString';
+import { useMemo } from 'react';
+import { useCallback } from 'react';
 import {
   EditableTable,
   InfiniteScrollSelectFormItem,
   AntdTag,
-} from "../../../components/antd";
-import { Colors } from "../../colors";
-import { CASH_M } from "../../../constants/permissions";
-import { EditableTableActionColumnRender } from "../../../components";
-import { manageErrors, updateMessage } from "../../../Functions";
+} from '../../../components/antd';
+import { Colors } from '../../colors';
+import { CASH_M } from '../../../constants/permissions';
+import { EditableTableActionColumnRender } from '../../../components';
+import { manageErrors, updateMessage } from '../../../Functions';
 
 const EditableCell = ({
   editing,
@@ -30,19 +30,19 @@ const EditableCell = ({
   const { t } = useTranslation();
 
   const message =
-    dataIndex === "cashier"
-      ? t("Banking.Cash_box.Cashier_required")
-      : t("Form.Name_required");
+    dataIndex === 'cashier'
+      ? t('Banking.Cash_box.Cashier_required')
+      : t('Form.Name_required');
   return (
     <td {...restProps}>
       {editing ? (
-        dataIndex === "cashier" ? (
+        dataIndex === 'cashier' ? (
           <InfiniteScrollSelectFormItem
-            name="employee"
-            mode="multiple"
+            name='employee'
+            mode='multiple'
             style={styles.formItem}
-            fields="full_name,id"
-            baseUrl="/staff_account/staff/"
+            fields='full_name,id'
+            baseUrl='/staff_account/staff/'
             rules={[
               {
                 required: true,
@@ -65,7 +65,7 @@ const EditableCell = ({
               },
             ]}
           >
-            <Input className="num" onPressEnter={save} />
+            <Input className='num' onPressEnter={save} />
           </Form.Item>
         )
       ) : (
@@ -83,7 +83,7 @@ const CashBox: React.FC<IProps> = (props) => {
   const { t, i18n } = useTranslation();
   const queryClient = useQueryClient();
   const [form] = Form.useForm();
-  const [editingKey, setEditingKey] = useState("");
+  const [editingKey, setEditingKey] = useState('');
 
   const edit = useCallback(
     (record: any) => {
@@ -96,11 +96,11 @@ const CashBox: React.FC<IProps> = (props) => {
       });
       setEditingKey(record.id);
     },
-    [form]
+    [form],
   );
 
   const cancel = () => {
-    setEditingKey("");
+    setEditingKey('');
   };
 
   const editCashBox = async ({ value, id }: any) =>
@@ -108,7 +108,7 @@ const CashBox: React.FC<IProps> = (props) => {
 
   const { mutate: mutateEditCashbox, isLoading } = useMutation(editCashBox, {
     onSuccess: (values: any) => {
-      setEditingKey("");
+      setEditingKey('');
       updateMessage(values?.data?.account_name);
 
       queryClient.invalidateQueries(props.baseUrl);
@@ -123,7 +123,7 @@ const CashBox: React.FC<IProps> = (props) => {
       try {
         const row = await form.validateFields();
         const cashier = row?.employee?.map(
-          (item: { value: number }) => item?.value
+          (item: { value: number }) => item?.value,
         );
         const allData = {
           account_name: trimString(row.account_name),
@@ -131,38 +131,38 @@ const CashBox: React.FC<IProps> = (props) => {
         };
         mutateEditCashbox({ value: allData, id: record.id });
       } catch (errInfo) {
-        // 
+        //
       }
     },
-    [form, mutateEditCashbox]
+    [form, mutateEditCashbox],
   );
 
   const columns = useMemo(
     () => (type: string, hasSelected: boolean) => {
-      const sorter = type !== "print" ? true : false;
+      const sorter = type !== 'print' ? true : false;
       return [
         {
-          title: `${t("Banking.Cash_box.Cash_box_id").toUpperCase()}`,
-          dataIndex: "id",
-          key: "id",
+          title: `${t('Banking.Cash_box.Cash_box_id').toUpperCase()}`,
+          dataIndex: 'id',
+          key: 'id',
           width:
-            type !== "print" ? (i18n.language === "en" ? 140 : 165) : undefined,
-          fixed: type !== "print" ? true : undefined,
-          className: "table-col",
+            type !== 'print' ? (i18n.language === 'en' ? 140 : 165) : undefined,
+          fixed: type !== 'print' ? true : undefined,
+          className: 'table-col',
           // align: "center",
           sorter: sorter && { multiple: 3 },
         },
         {
-          title: <span>{t("Form.Name").toUpperCase()}</span>,
-          dataIndex: "account_name",
+          title: <span>{t('Form.Name').toUpperCase()}</span>,
+          dataIndex: 'account_name',
           editable: true,
           sorter: sorter && { multiple: 2 },
-          key: "account_name",
+          key: 'account_name',
         },
         {
-          title: `${t("Banking.Cash_box.Cashier").toUpperCase()}`,
-          dataIndex: "cashier",
-          key: "cashier",
+          title: `${t('Banking.Cash_box.Cashier').toUpperCase()}`,
+          dataIndex: 'cashier',
+          key: 'cashier',
 
           render: (text: any, record: any) => (
             <div>
@@ -178,12 +178,12 @@ const CashBox: React.FC<IProps> = (props) => {
         },
 
         {
-          title: `${t("Table.Action")}`,
-          dataIndex: "action",
+          title: `${t('Table.Action')}`,
+          dataIndex: 'action',
           width: 70,
-          key: "action",
-          align: "center",
-          fixed: "right",
+          key: 'action',
+          align: 'center',
+          fixed: 'right',
           // className: "table-col",
           render: (_: any, record: any) => {
             return (
@@ -195,7 +195,7 @@ const CashBox: React.FC<IProps> = (props) => {
                   editingKey,
                   onCancel: cancel,
                   model: CASH_M,
-                  disabled: editingKey !== "" || hasSelected,
+                  disabled: editingKey !== '' || hasSelected,
                 }}
               >
                 <Action
@@ -210,7 +210,7 @@ const CashBox: React.FC<IProps> = (props) => {
         },
       ];
     },
-    [edit, editingKey, i18n.language, props.baseUrl, save, t]
+    [edit, editingKey, i18n.language, props.baseUrl, save, t],
   );
 
   const handleGetCashes = useCallback(
@@ -218,20 +218,20 @@ const CashBox: React.FC<IProps> = (props) => {
     async ({ queryKey }) => {
       const { page, pageSize, search, order } = queryKey?.[1];
       const { data } = await axiosInstance.get(
-        `${props.baseUrl}?page=${page}&page_size=${pageSize}&search=${search}&ordering=${order}&expand=*`
+        `${props.baseUrl}?page=${page}&page_size=${pageSize}&search=${search}&ordering=${order}&expand=*`,
       );
 
       return data;
     },
-    [props.baseUrl]
+    [props.baseUrl],
   );
 
   return (
     <Form form={form} component={false}>
       <EditableTable
         model={CASH_M}
-        placeholder={t("Employees.Filter_by_name")}
-        title={t("Banking.Cash_box.1")}
+        placeholder={t('Employees.Filter_by_name')}
+        title={t('Banking.Cash_box.1')}
         columns={columns}
         queryKey={props.baseUrl}
         handleGetData={handleGetCashes}
@@ -245,7 +245,7 @@ const CashBox: React.FC<IProps> = (props) => {
   );
 };
 const styles = {
-  formItem: { marginBottom: "0px" },
+  formItem: { marginBottom: '0px' },
 };
 
 export default CashBox;

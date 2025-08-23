@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import { useQuery, useQueryClient } from "react-query";
-import { Table } from "antd";
-import { useTranslation } from "react-i18next";
-import { usePaginationNumber } from "../../../usePaginationNumber";
-import axiosInstance from "../../../ApiBaseUrl";
-import { WAREHOUSE_SALES_INVOICE_RESULT_LIST } from "../../../../constants/routes";
+import React, { useState } from 'react';
+import { useQuery, useQueryClient } from 'react-query';
+import { Table } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { usePaginationNumber } from '../../../usePaginationNumber';
+import axiosInstance from '../../../ApiBaseUrl';
+import { WAREHOUSE_SALES_INVOICE_RESULT_LIST } from '../../../../constants/routes';
 
 const SalesInvoiceResultTable = (props) => {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
   const [page, setPage] = React.useState(1);
   const [pageSize, setPageSize] = useState(5);
-  const [order, setOrder] = useState("-id");
+  const [order, setOrder] = useState('-id');
 
   //row selection
   const onSelectChange = (selectedRowKeys, selectedRows) => {
@@ -47,7 +47,7 @@ const SalesInvoiceResultTable = (props) => {
       statusValue,
     } = queryKey?.[1] || {};
     const { data } = await axiosInstance.get(
-      `${WAREHOUSE_SALES_INVOICE_RESULT_LIST}?page=${page}&ordering=${order}&page_size=${pageSize}&search=${search}&customer=${accountId}&representative=${representativeId}&invoice_state=${statusValue}&date_time_after=${startDate}&date_time_before=${endDate}`
+      `${WAREHOUSE_SALES_INVOICE_RESULT_LIST}?page=${page}&ordering=${order}&page_size=${pageSize}&search=${search}&customer=${accountId}&representative=${representativeId}&invoice_state=${statusValue}&date_time_after=${startDate}&date_time_before=${endDate}`,
     );
     return data;
   }, []);
@@ -67,7 +67,7 @@ const SalesInvoiceResultTable = (props) => {
         statusValue,
       },
     ],
-    getSalesResult
+    getSalesResult,
     // { enabled: !!startDate }
   );
 
@@ -89,7 +89,7 @@ const SalesInvoiceResultTable = (props) => {
             statusValue,
           },
         ],
-        getSalesResult
+        getSalesResult,
       );
     }
   }, [
@@ -109,7 +109,7 @@ const SalesInvoiceResultTable = (props) => {
     statusValue,
   ]);
 
-  // 
+  //
   //pagination
   const paginationChange = (page, pageSize) => {
     setPage(page);
@@ -120,9 +120,9 @@ const SalesInvoiceResultTable = (props) => {
     setPage(current);
   };
   const onChangeTable = (pagination, filters, sorter) => {
-    if (sorter.order === "ascend") {
+    if (sorter.order === 'ascend') {
       setOrder(sorter.field);
-    } else if (sorter.order === "descend") {
+    } else if (sorter.order === 'descend') {
       setOrder(`-${sorter.field}`);
     } else {
       setOrder(`-id`);
@@ -138,7 +138,7 @@ const SalesInvoiceResultTable = (props) => {
     defaultCurrent: 1,
     onChange: paginationChange,
     showTotal: (total) =>
-      `${t("Pagination.Total")} ${total} ${t("Pagination.Item")}`,
+      `${t('Pagination.Total')} ${total} ${t('Pagination.Item')}`,
     showQuickJumper: true,
     showSizeChanger: true,
     responsive: true,
@@ -151,9 +151,9 @@ const SalesInvoiceResultTable = (props) => {
   return (
     <Table
       expandable
-      id="allSales"
-      className="table-content"
-      size="small"
+      id='allSales'
+      className='table-content'
+      size='small'
       loading={isLoading || isFetching ? true : false}
       rowSelection={rowSelection}
       rowKey={(record) => record.serial}
@@ -161,7 +161,7 @@ const SalesInvoiceResultTable = (props) => {
       pagination={pagination}
       dataSource={allData}
       bordered={true}
-      scroll={{ x: "max-content", scrollToFirstRowOnChange: true }}
+      scroll={{ x: 'max-content', scrollToFirstRowOnChange: true }}
     >
       {props.tableChildren}
     </Table>

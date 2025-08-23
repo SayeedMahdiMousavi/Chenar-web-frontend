@@ -1,6 +1,6 @@
-import React, { useMemo } from "react";
-import { Form, Select } from "antd";
-import { useTranslation } from "react-i18next";
+import React, { useMemo } from 'react';
+import { Form, Select } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 const { Option } = Select;
 
@@ -14,29 +14,29 @@ export function InvoiceStatusSelect(props: {
   const statusList = useMemo(
     () => [
       {
-        label: t("Pending"),
-        value: "pending",
+        label: t('Pending'),
+        value: 'pending',
       },
       {
-        label: t("Accepted"),
-        value: "accepted",
+        label: t('Accepted'),
+        value: 'accepted',
       },
       {
-        label: t("Rejected"),
-        value: "rejected",
+        label: t('Rejected'),
+        value: 'rejected',
       },
       // {
       //   label: t("Void"),
       //   value: "void",
       // },
     ],
-    [t]
+    [t],
   );
 
   return (
-    <Form.Item name="status" style={{ ...style, ...props?.style }}>
+    <Form.Item name='status' style={{ ...style, ...props?.style }}>
       <Select
-        placeholder={t("Sales.Product_and_services.Status")}
+        placeholder={t('Sales.Product_and_services.Status')}
         disabled={props?.disabled}
         // labelInValue={props?.labelInValue}
       >
@@ -51,5 +51,5 @@ export function InvoiceStatusSelect(props: {
 }
 
 const style = {
-  marginBottom: "8px",
+  marginBottom: '8px',
 };

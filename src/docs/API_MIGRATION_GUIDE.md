@@ -5,6 +5,7 @@ This guide helps you migrate from the old API patterns to the new modern TanStac
 ## Overview
 
 The new API system provides:
+
 - ✅ Modern TanStack React Query v5 patterns
 - ✅ Consistent error handling
 - ✅ Optimistic updates
@@ -18,6 +19,7 @@ The new API system provides:
 ### Before vs After: Product Management
 
 #### OLD WAY (Legacy)
+
 ```jsx
 // OLD - src/pages/sales/Products/AddProduct.jsx
 import { useMutation, useQueryClient } from 'react-query';
@@ -25,7 +27,7 @@ import axiosInstance from '../../ApiBaseUrl';
 
 const AddProduct = () => {
   const queryClient = useQueryClient();
-  
+
   const { mutate: mutateAddProduct, isLoading } = useMutation(
     async (value) => await axiosInstance.post(`/product/items/`, value),
     {
@@ -36,14 +38,15 @@ const AddProduct = () => {
       onError: (error) => {
         message.error('Failed to add product');
       },
-    }
+    },
   );
-  
+
   // Manual form handling...
 };
 ```
 
 #### NEW WAY (Modern)
+
 ```jsx
 // NEW - Using modern hooks
 import { useCreateProduct, useProducts } from '../../../hooks';
@@ -54,7 +57,7 @@ const AddProduct = () => {
     page: 1,
     page_size: 20,
   });
-  
+
   const handleSubmit = (values) => {
     createProduct(values, {
       onSuccess: (newProduct) => {
@@ -64,7 +67,7 @@ const AddProduct = () => {
       },
     });
   };
-  
+
   // Form JSX...
 };
 ```
@@ -72,16 +75,19 @@ const AddProduct = () => {
 ### Before vs After: Customer Operations
 
 #### OLD WAY
+
 ```jsx
 // OLD - Multiple manual API calls
 const CustomerDetails = () => {
   const [customer, setCustomer] = useState(null);
   const [loading, setLoading] = useState(true);
-  
+
   useEffect(() => {
     const fetchCustomer = async () => {
       try {
-        const response = await axiosInstance.get(`/customer_account/customer/${id}/`);
+        const response = await axiosInstance.get(
+          `/customer_account/customer/${id}/`,
+        );
         setCustomer(response.data);
       } catch (error) {
         message.error('Failed to load customer');
@@ -89,18 +95,18 @@ const CustomerDetails = () => {
         setLoading(false);
       }
     };
-    
+
     if (id) {
       fetchCustomer();
     }
   }, [id]);
-  
+
   const handleUpdate = async (data) => {
     try {
       await axiosInstance.patch(`/customer_account/customer/${id}/`, data);
       message.success('Customer updated');
       // Manual state update
-      setCustomer(prev => ({ ...prev, ...data }));
+      setCustomer((prev) => ({ ...prev, ...data }));
     } catch (error) {
       message.error('Update failed');
     }
@@ -109,6 +115,7 @@ const CustomerDetails = () => {
 ```
 
 #### NEW WAY
+
 ```jsx
 // NEW - Declarative with automatic caching
 import { useCustomer, useUpdateCustomer } from '../../../hooks';
@@ -116,24 +123,27 @@ import { useCustomer, useUpdateCustomer } from '../../../hooks';
 const CustomerDetails = ({ customerId }) => {
   const { data: customer, isLoading, error } = useCustomer(customerId);
   const { mutate: updateCustomer, isPending } = useUpdateCustomer();
-  
+
   const handleUpdate = (data) => {
-    updateCustomer({ 
-      id: customerId, 
-      data 
-    }, {
-      onSuccess: () => {
-        // Auto-handled: cache update, success message, optimistic updates
+    updateCustomer(
+      {
+        id: customerId,
+        data,
       },
-    });
+      {
+        onSuccess: () => {
+          // Auto-handled: cache update, success message, optimistic updates
+        },
+      },
+    );
   };
-  
+
   if (isLoading) return <Spin />;
-  if (error) return <Alert message="Failed to load customer" type="error" />;
-  
+  if (error) return <Alert message='Failed to load customer' type='error' />;
+
   return (
-    <CustomerForm 
-      customer={customer} 
+    <CustomerForm
+      customer={customer}
       onSubmit={handleUpdate}
       loading={isPending}
     />
@@ -144,19 +154,23 @@ const CustomerDetails = ({ customerId }) => {
 ### Before vs After: Authentication
 
 #### OLD WAY
+
 ```jsx
 // OLD - src/pages/Login/LoginPage.jsx
 const LoginPage = () => {
   const [loading, setLoading] = useState(false);
-  
+
   const onFinish = async (values) => {
     setLoading(true);
     try {
-      const response = await axiosInstance.post('/user_account/tokens/obtain/', {
-        username: values.username,
-        password: values.password,
-      });
-      
+      const response = await axiosInstance.post(
+        '/user_account/tokens/obtain/',
+        {
+          username: values.username,
+          password: values.password,
+        },
+      );
+
       localStorage.setItem('access_token', response.data.access);
       localStorage.setItem('refresh_token', response.data.refresh);
       // Manual navigation and state management
@@ -171,6 +185,7 @@ const LoginPage = () => {
 ```
 
 #### NEW WAY
+
 ```jsx
 // NEW - Clean and simple
 import { useLogin } from '../../../hooks';
@@ -178,7 +193,7 @@ import { useLogin } from '../../../hooks';
 const LoginPage = () => {
   const { mutate: login, isPending } = useLogin();
   const navigate = useNavigate();
-  
+
   const onFinish = (values) => {
     login(values, {
       onSuccess: () => {
@@ -187,15 +202,11 @@ const LoginPage = () => {
       },
     });
   };
-  
+
   return (
     <Form onFinish={onFinish}>
       {/* Form fields */}
-      <Button 
-        type="primary" 
-        htmlType="submit" 
-        loading={isPending}
-      >
+      <Button type='primary' htmlType='submit' loading={isPending}>
         Login
       </Button>
     </Form>
@@ -208,27 +219,30 @@ const LoginPage = () => {
 ### 1. Replace Direct Axios Calls
 
 **OLD:**
+
 ```js
 const response = await axiosInstance.get('/api/endpoint');
 ```
 
 **NEW:**
+
 ```js
-const { data, isLoading, error } = useGenericQuery(
-  ['endpoint'],
-  () => service.getEndpoint()
+const { data, isLoading, error } = useGenericQuery(['endpoint'], () =>
+  service.getEndpoint(),
 );
 ```
 
 ### 2. Replace Manual Cache Management
 
 **OLD:**
+
 ```js
 queryClient.invalidateQueries('/products/');
 queryClient.invalidateQueries('/categories/');
 ```
 
 **NEW:**
+
 ```js
 // Automatic cache invalidation in hooks
 const { mutate } = useCreateProduct(); // Auto-invalidates related queries
@@ -237,6 +251,7 @@ const { mutate } = useCreateProduct(); // Auto-invalidates related queries
 ### 3. Replace Manual Error Handling
 
 **OLD:**
+
 ```js
 .catch((error) => {
   if (error.response?.data?.message) {
@@ -248,6 +263,7 @@ const { mutate } = useCreateProduct(); // Auto-invalidates related queries
 ```
 
 **NEW:**
+
 ```js
 // Automatic error handling in hooks
 const { mutate } = useCreateProduct(); // Auto-handles errors with proper messages
@@ -256,6 +272,7 @@ const { mutate } = useCreateProduct(); // Auto-handles errors with proper messag
 ### 4. Replace Manual Loading States
 
 **OLD:**
+
 ```js
 const [loading, setLoading] = useState(false);
 const [error, setError] = useState(null);
@@ -274,16 +291,17 @@ const fetchData = async () => {
 ```
 
 **NEW:**
+
 ```js
-const { data, isLoading, error } = useGenericQuery(
-  ['data'],
-  () => service.getData()
+const { data, isLoading, error } = useGenericQuery(['data'], () =>
+  service.getData(),
 );
 ```
 
 ## Available Services and Hooks
 
 ### Services
+
 - `authService` - Authentication operations
 - `productService` - Product management
 - `customerService` - Customer management
@@ -296,6 +314,7 @@ const { data, isLoading, error } = useGenericQuery(
 - `bankingService` - Banking operations (NEW)
 
 ### Hooks
+
 - `useProducts()`, `useCreateProduct()`, `useUpdateProduct()`, etc.
 - `useCustomers()`, `useCreateCustomer()`, `useUpdateCustomer()`, etc.
 - `useSuppliers()`, `useCreateSupplier()`, `useUpdateSupplier()`, etc.
@@ -345,7 +364,9 @@ const ProductList = () => {
     const fetchProducts = async () => {
       setLoading(true);
       try {
-        const response = await axiosInstance.get(`/product/items/?page=${page}&page_size=20`);
+        const response = await axiosInstance.get(
+          `/product/items/?page=${page}&page_size=20`,
+        );
         setProducts(response.data.results);
       } catch (error) {
         message.error('Failed to load products');
@@ -360,7 +381,7 @@ const ProductList = () => {
     try {
       await axiosInstance.delete(`/product/items/${id}/`);
       message.success('Product deleted');
-      setProducts(prev => prev.filter(p => p.id !== id));
+      setProducts((prev) => prev.filter((p) => p.id !== id));
       queryClient.invalidateQueries('/product/items/');
     } catch (error) {
       message.error('Delete failed');
@@ -368,7 +389,7 @@ const ProductList = () => {
   };
 
   return (
-    <Table 
+    <Table
       dataSource={products}
       loading={loading}
       pagination={{
@@ -379,9 +400,7 @@ const ProductList = () => {
         {
           title: 'Actions',
           render: (_, record) => (
-            <Button onClick={() => handleDelete(record.id)}>
-              Delete
-            </Button>
+            <Button onClick={() => handleDelete(record.id)}>Delete</Button>
           ),
         },
       ]}
@@ -392,15 +411,12 @@ const ProductList = () => {
 // AFTER: Modern component with hooks
 const ProductList = () => {
   const [page, setPage] = useState(1);
-  
-  const { 
-    data: productsData, 
-    isLoading 
-  } = useProducts({ 
-    page, 
-    page_size: 20 
+
+  const { data: productsData, isLoading } = useProducts({
+    page,
+    page_size: 20,
   });
-  
+
   const { mutate: deleteProduct } = useDeleteProduct();
 
   const handleDelete = (id) => {
@@ -412,7 +428,7 @@ const ProductList = () => {
   };
 
   return (
-    <Table 
+    <Table
       dataSource={productsData?.results || []}
       loading={isLoading}
       pagination={{
@@ -424,9 +440,7 @@ const ProductList = () => {
         {
           title: 'Actions',
           render: (_, record) => (
-            <Button onClick={() => handleDelete(record.id)}>
-              Delete
-            </Button>
+            <Button onClick={() => handleDelete(record.id)}>Delete</Button>
           ),
         },
       ]}
@@ -436,13 +450,10 @@ const ProductList = () => {
 ```
 
 This migration results in:
+
 - ✅ 50% less code
 - ✅ Better error handling
 - ✅ Automatic cache management
 - ✅ Better TypeScript support
 - ✅ Consistent patterns across app
 - ✅ Better performance (caching, deduplication)
-
-
-
-

@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import { Col } from "antd";
-import { useTranslation } from "react-i18next";
-import { changeGToJ, utcDate } from "../../../Functions/utcDate";
-import DateFormItem from "../../SelfComponents/DateFormItem";
-import { RangePickerFormItem } from "../../SelfComponents/JalaliAntdComponents/RangePickerFormItem";
-import dayjs from "dayjs";
-import moment from "moment";
-import useGetRunningPeriod from "../../../Hooks/useGetRunningPeriod";
-import useGetCalender from "../../../Hooks/useGetCalender";
-import { indianToArabic } from "../../../Functions/arabicToIndian";
+import React, { useState } from 'react';
+import { Col } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { changeGToJ, utcDate } from '../../../Functions/utcDate';
+import DateFormItem from '../../SelfComponents/DateFormItem';
+import { RangePickerFormItem } from '../../SelfComponents/JalaliAntdComponents/RangePickerFormItem';
+import dayjs from 'dayjs';
+import moment from 'moment';
+import useGetRunningPeriod from '../../../Hooks/useGetRunningPeriod';
+import useGetCalender from '../../../Hooks/useGetCalender';
+import { indianToArabic } from '../../../Functions/arabicToIndian';
 
 const jalaliType: { jalali: boolean } = {
   //@ts-ignore
@@ -18,9 +18,9 @@ const jalaliType: { jalali: boolean } = {
 const ReportDateFormItem = React.memo(
   (props: { form: any; style: React.CSSProperties; type?: string }) => {
     const { t } = useTranslation();
-    const [dateType, setDateType] = useState("dasdfasd");
+    const [dateType, setDateType] = useState('dasdfasd');
     const dateFormat =
-      props.type === "expiredProducts" ? "YYYY-MM-DD" : "YYYY-MM-DD HH:mm";
+      props.type === 'expiredProducts' ? 'YYYY-MM-DD' : 'YYYY-MM-DD HH:mm';
 
     //get running period
     const runningPeriod = useGetRunningPeriod();
@@ -30,38 +30,38 @@ const ReportDateFormItem = React.memo(
     const calenderCode = userCalender?.data?.user_calender?.code;
 
     const defaultDate = React.useMemo(
-      () => [utcDate(), moment(utcDate().add(1, "month"), dateFormat)],
-      [dateFormat]
+      () => [utcDate(), moment(utcDate().add(1, 'month'), dateFormat)],
+      [dateFormat],
     );
     const defaultJalaliDate = React.useMemo(
       () => [
         dayjs(
           changeGToJ(utcDate().format(dateFormat), dateFormat),
           //@ts-ignore
-          jalaliType
+          jalaliType,
         ),
 
         dayjs(
-          changeGToJ(utcDate().add(1, "month").format(dateFormat), dateFormat),
+          changeGToJ(utcDate().add(1, 'month').format(dateFormat), dateFormat),
           //@ts-ignore
-          jalaliType
+          jalaliType,
         ),
       ],
-      [dateFormat]
+      [dateFormat],
     );
 
     const onChangeDateTime = (value: string) => {
       setDateType(value);
-      if (calenderCode === "gregory") {
-        if (value === "custom" || value === "allDates") {
+      if (calenderCode === 'gregory') {
+        if (value === 'custom' || value === 'allDates') {
           props.form.setFieldsValue({
             dateTime:
-              props.type === "expiredProducts"
+              props.type === 'expiredProducts'
                 ? defaultDate
                 : [moment(curStartDate, dateFormat), utcDate()],
           });
         } else {
-          const date = value?.split("_");
+          const date = value?.split('_');
           props.form.setFieldsValue({
             dateTime: [
               moment(indianToArabic(date?.[0]), dateFormat),
@@ -70,10 +70,10 @@ const ReportDateFormItem = React.memo(
           });
         }
       } else {
-        if (value === "custom" || value === "allDates") {
+        if (value === 'custom' || value === 'allDates') {
           props.form.setFieldsValue({
             dateTime:
-              props.type === "expiredProducts"
+              props.type === 'expiredProducts'
                 ? defaultJalaliDate
                 : [
                     //@ts-ignore
@@ -82,12 +82,12 @@ const ReportDateFormItem = React.memo(
                     dayjs(
                       changeGToJ(utcDate().format(dateFormat), dateFormat),
                       //@ts-ignore
-                      jalaliType
+                      jalaliType,
                     ),
                   ],
           });
         } else {
-          const date = value?.split("_");
+          const date = value?.split('_');
           props.form.setFieldsValue({
             dateTime: [
               //@ts-ignore
@@ -105,26 +105,26 @@ const ReportDateFormItem = React.memo(
         <Col xxl={4} xl={5} lg={5}>
           <DateFormItem
             style={props.style}
-            label=""
+            label=''
             onChange={onChangeDateTime}
-          />{" "}
+          />{' '}
         </Col>
 
         <Col xxl={6} xl={8} lg={8}>
           <RangePickerFormItem
-            showTime={props.type === "expiredProducts" ? false : true}
-            placeholder={[t("Expenses.Table.Start"), t("Expenses.Table.End")]}
+            showTime={props.type === 'expiredProducts' ? false : true}
+            placeholder={[t('Expenses.Table.Start'), t('Expenses.Table.End')]}
             format={dateFormat}
             rules={[]}
-            name="dateTime"
-            label=""
+            name='dateTime'
+            label=''
             style={props.style}
-            disabled={dateType === "custom" ? false : true}
+            disabled={dateType === 'custom' ? false : true}
           />
         </Col>
       </React.Fragment>
     );
-  }
+  },
 );
 
 export default ReportDateFormItem;

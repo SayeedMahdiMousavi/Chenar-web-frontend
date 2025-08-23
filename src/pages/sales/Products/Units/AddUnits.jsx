@@ -1,25 +1,25 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useMutation } from "react-query";
-import axiosInstance from "../../../ApiBaseUrl";
-import { Drawer, Form, Col, Row, Input, Space } from "antd";
-import { useMediaQuery } from "../../../MediaQurey";
-import { trimString } from "../../../../Functions/TrimString";
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useMutation } from 'react-query';
+import axiosInstance from '../../../ApiBaseUrl';
+import { Drawer, Form, Col, Row, Input, Space } from 'antd';
+import { useMediaQuery } from '../../../MediaQurey';
+import { trimString } from '../../../../Functions/TrimString';
 import {
   CancelButton,
   PageNewButton,
   SaveButton,
-} from "../../../../components";
-import { PRODUCT_UNIT_M } from "../../../../constants/permissions";
-import { addMessage, manageErrors } from "../../../../Functions";
+} from '../../../../components';
+import { PRODUCT_UNIT_M } from '../../../../constants/permissions';
+import { addMessage, manageErrors } from '../../../../Functions';
 
 const AddUnit = (props) => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const [visible, setVisible] = useState(false);
 
-  const isTablet = useMediaQuery("(max-width:768px)");
-  const isMobile = useMediaQuery("(max-width:425px)");
+  const isTablet = useMediaQuery('(max-width:768px)');
+  const isMobile = useMediaQuery('(max-width:425px)');
 
   const showDrawer = () => {
     setVisible(true);
@@ -69,14 +69,14 @@ const AddUnit = (props) => {
       <PageNewButton onClick={showDrawer} model={PRODUCT_UNIT_M} />
       <Drawer
         maskClosable={false}
-        title={t("Sales.Product_and_services.Units.Unit_information")}
-        width={isMobile ? "80%" : isTablet ? 360 : 370}
+        title={t('Sales.Product_and_services.Units.Unit_information')}
+        width={isMobile ? '80%' : isTablet ? 360 : 370}
         onClose={handleClose}
         open={visible}
-        placement={t("Dir") === "ltr" ? "right" : "left"}
+        placement={t('Dir') === 'ltr' ? 'right' : 'left'}
         afterVisibleChange={handleAfterVisibleChange}
         footer={
-          <div className="textAlign__end">
+          <div className='textAlign__end'>
             <Space>
               <CancelButton onClick={handleClose} />
               <SaveButton onClick={onFinish} loading={isLoading} />
@@ -84,21 +84,21 @@ const AddUnit = (props) => {
           </div>
         }
       >
-        <Form layout="vertical" hideRequiredMark form={form}>
+        <Form layout='vertical' hideRequiredMark form={form}>
           <Row>
             <Col span={24}>
               <Form.Item
-                name="name"
+                name='name'
                 label={
                   <span>
-                    {t("Form.Name")} <span className="star">*</span>
+                    {t('Form.Name')} <span className='star'>*</span>
                   </span>
                 }
                 rules={[
                   {
                     required: true,
                     whitespace: true,
-                    message: t("Form.Name_required"),
+                    message: t('Form.Name_required'),
                   },
                 ]}
               >
@@ -107,10 +107,10 @@ const AddUnit = (props) => {
             </Col>
             <Col span={24}>
               <Form.Item
-                name="symbol"
+                name='symbol'
                 label={
                   <span>
-                    {t("Form.Symbol")} <span className="star">*</span>
+                    {t('Form.Symbol')} <span className='star'>*</span>
                   </span>
                 }
                 rules={[
@@ -118,7 +118,7 @@ const AddUnit = (props) => {
                     required: true,
                     whitespace: true,
                     message: t(
-                      "Sales.Product_and_services.Units.Required_symbol"
+                      'Sales.Product_and_services.Units.Required_symbol',
                     ),
                   },
                 ]}

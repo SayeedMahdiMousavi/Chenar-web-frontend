@@ -70,7 +70,6 @@ const POSInvoice = (props) => {
     return data;
   });
 
-
   const [
     {
       standardSubject,
@@ -129,7 +128,6 @@ const POSInvoice = (props) => {
   const [googlePlay, setGooglePlay] = useState(true);
   const [appStore, setAppStore] = useState(true);
 
- 
   const onClearInvoiceType = () => {
     form.resetFields();
     setShowLogo(false);
@@ -156,13 +154,11 @@ const POSInvoice = (props) => {
     setTitleLevel(4);
     setAddress([0]);
     setPhone([0]);
-
-   
   };
 
   const onChangeInvoiceType = (value) => {
     const invoice = posSettings?.data?.results?.find(
-      (item) => item.id === value
+      (item) => item.id === value,
     );
 
     if (invoice) {
@@ -213,11 +209,8 @@ const POSInvoice = (props) => {
       setTitleLevel(invoice?.invoice_title?.title_level);
       setAddress(invoice?.address?.address_list);
       setPhone(invoice?.mobile?.mobile_list);
-
     }
-  
   };
-
 
   const showDrawer = () => {
     setVisible(true);
@@ -463,7 +456,7 @@ const POSInvoice = (props) => {
   const smallLogo = () => {
     setSize(45);
   };
-  
+
   const onClickDetails = () => {
     setFont(false);
     setEditPrintSetting(false);
@@ -553,8 +546,6 @@ const POSInvoice = (props) => {
     setAddress(row.address);
   };
 
-
-
   const edit = {
     showLogo,
     logoSize,
@@ -628,7 +619,6 @@ const POSInvoice = (props) => {
       return { ...prev, reminderCustomerGreeting: value };
     });
   };
-  
 
   const handleChangeComplete = (color) => {
     setBackground(color.hex);
@@ -733,10 +723,7 @@ const POSInvoice = (props) => {
           <Row>
             <Col span={12}>
               <Row align='middle' gutter={[0, 40]}>
-                <Col span={24}>
-                  {' '}
-                  
-                </Col>
+                <Col span={24}> </Col>
                 {current === 'design' ? (
                   <Col span={24}>
                     {' '}
@@ -877,7 +864,6 @@ const POSInvoice = (props) => {
                           {t('Custom_form_styles.Eft_details')}
                         </div>
                       </Col>
-                    
                     </Row>
                   </Col>
                 ) : current === 'content' ? (
@@ -1013,7 +999,7 @@ const POSInvoice = (props) => {
                           style={styles.marginBottom}
                           // className="edit_fields_pdf"
                           label={t(
-                            'Custom_form_styles.Business_name_font_size'
+                            'Custom_form_styles.Business_name_font_size',
                           )}
                         >
                           <InputNumber
@@ -1072,7 +1058,7 @@ const POSInvoice = (props) => {
                           />
                         </Form.Item>
                       </Col>
-                     
+
                       {/* {consoleLog(defaultPosSettings?.data)} */}
                       <Col span={24}>
                         <Form.Item
@@ -1415,16 +1401,11 @@ const POSInvoice = (props) => {
             </Col>
             <Col span={12}>
               {current === 'design' ? (
-                <Design
-                
-                />
+                <Design />
               ) : current === 'content' ? (
                 <Content1 edit={edit} data={data} />
-              ) : 
-              current === 'emails' ? (
-                <Email
-              
-                />
+              ) : current === 'emails' ? (
+                <Email />
               ) : (
                 <div></div>
               )}

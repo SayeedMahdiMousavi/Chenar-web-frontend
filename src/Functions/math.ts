@@ -1,8 +1,8 @@
-import { create, all } from "mathjs";
+import { create, all } from 'mathjs';
 const config = {
   // Default type of number
   // Available options: 'number' (default), 'BigNumber', or 'Fraction'
-  number: "BigNumber",
+  number: 'BigNumber',
   // number:"Fraction",
 
   // Number of significant digits for BigNumbers

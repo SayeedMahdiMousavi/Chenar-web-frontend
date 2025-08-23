@@ -1,12 +1,12 @@
-import React from "react";
-import TotalSoldByCustomerTable from "./TotalSoldByCustomerTable";
-import ReportBody from "../../ReportBody";
+import React from 'react';
+import TotalSoldByCustomerTable from './TotalSoldByCustomerTable';
+import ReportBody from '../../ReportBody';
 
 const TotalSoldByCustomer = (props) => {
   return (
     <ReportBody
       title={props.title}
-      type="warehouse"
+      type='warehouse'
       table={
         <TotalSoldByCustomerTable
           baseUrl={props.baseUrl}

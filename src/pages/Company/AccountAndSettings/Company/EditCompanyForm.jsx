@@ -102,13 +102,16 @@ export default function EditCompanyForm({
     formData.append('website', values.website ? values.website : '');
     formData.append('slogan', values.slogan ? values.slogan : '');
     const mobileData = values?.mobiles?.map((item) => item.mobile);
-    const mobile = { mobile_list: mobileData };    
+    const mobile = { mobile_list: mobileData };
     formData.append('mobile', JSON.stringify(mobile));
     const social_media = { social_media_list: values.socialMedia };
     formData.append('social_media', JSON.stringify(social_media));
     const address = JSON.stringify({ address_list: values.addresses });
     formData.append('address', address);
-    formData.append('business_number', values.businessIdNo ? values.businessIdNo : '');
+    formData.append(
+      'business_number',
+      values.businessIdNo ? values.businessIdNo : '',
+    );
 
     if (error === 204) {
       setLoading(true);
@@ -120,8 +123,8 @@ export default function EditCompanyForm({
   };
 
   return (
-    <Form onFinish={onFinish} form={form} name="dynamic_form_item">
-      <Row className="account_setting_drawer_name">
+    <Form onFinish={onFinish} form={form} name='dynamic_form_item'>
+      <Row className='account_setting_drawer_name'>
         <Col span={24} gutter={[5, 5]}>
           <Row gutter={[5, 5]}>
             <Col lg={5} sm={6} xs={24} style={styles.title(isTablet)}>
@@ -130,18 +133,20 @@ export default function EditCompanyForm({
             <Col lg={7} sm={8} xs={isMobile ? 11 : 10}>
               <Text strong={true}>{t('Company.Company_logo')}</Text>
               <br />
-              <Text type="secondary">{t('Company.Company_logo_description')}</Text>
+              <Text type='secondary'>
+                {t('Company.Company_logo_description')}
+              </Text>
             </Col>
             <Col lg={12} sm={10} xs={isMobile ? 13 : 14}>
-              <Row justify="space-between">
+              <Row justify='space-between'>
                 <Col style={styles.upload1}>
                   <Form.Item
-                    name="upload"
-                    valuePropName="fileList"
+                    name='upload'
+                    valuePropName='fileList'
                     getValueFromEvent={normFile}
                     style={styles.margin}
                   >
-                    <Upload name="logo" listType="picture-card" {...prop}>
+                    <Upload name='logo' listType='picture-card' {...prop}>
                       {fileList?.length >= 1 ? null : t('Company.Logo')}
                     </Upload>
                   </Form.Item>
@@ -166,11 +171,13 @@ export default function EditCompanyForm({
             <Col lg={7} sm={8} xs={isMobile ? 11 : 10}>
               <Text strong={true}>{t('Company.Company_name')}</Text>
               <br />
-              <Text type="secondary">{t('Company.Company_name_description')}</Text>
+              <Text type='secondary'>
+                {t('Company.Company_name_description')}
+              </Text>
             </Col>
             <Col lg={7} sm={9} xs={isMobile ? 13 : 12}>
               <Form.Item
-                name="name"
+                name='name'
                 style={styles.margin}
                 rules={[
                   {
@@ -186,10 +193,12 @@ export default function EditCompanyForm({
             <Col lg={5} sm={1} xs={isMobile ? 0 : 2}></Col>
             <Col lg={5} sm={6} xs={0}></Col>
             <Col lg={7} sm={8} xs={isMobile ? 11 : 10}>
-              <Text strong={true}>{t('Expenses.Suppliers.Business_id_no')}</Text>
+              <Text strong={true}>
+                {t('Expenses.Suppliers.Business_id_no')}
+              </Text>
             </Col>
             <Col lg={7} sm={9} xs={isMobile ? 13 : 12}>
-              <Form.Item name="businessIdNo" style={styles.margin}>
+              <Form.Item name='businessIdNo' style={styles.margin}>
                 <Input />
               </Form.Item>
             </Col>
@@ -200,7 +209,7 @@ export default function EditCompanyForm({
             </Col>
             <Col lg={7} sm={9} xs={isMobile ? 13 : 12}>
               <Form.Item
-                name="type"
+                name='type'
                 style={styles.margin}
                 rules={[
                   {
@@ -210,8 +219,12 @@ export default function EditCompanyForm({
                 ]}
               >
                 <Select>
-                  <Option value="supermarket">{t('Company.Form.Supermarket')}</Option>
-                  <Option value="commercial">{t('Company.Form.Commercial')}</Option>
+                  <Option value='supermarket'>
+                    {t('Company.Form.Supermarket')}
+                  </Option>
+                  <Option value='commercial'>
+                    {t('Company.Form.Commercial')}
+                  </Option>
                 </Select>
               </Form.Item>
             </Col>
@@ -220,11 +233,13 @@ export default function EditCompanyForm({
             <Col lg={7} sm={8} xs={isMobile ? 11 : 10}>
               <Text strong={true}>{t('Company.Company_email')}</Text>
               <br />
-              <Text type="secondary">{t('Company.Company_email_description')}</Text>
+              <Text type='secondary'>
+                {t('Company.Company_email_description')}
+              </Text>
             </Col>
             <Col lg={7} sm={9} xs={isMobile ? 13 : 12}>
               <Form.Item
-                name="email"
+                name='email'
                 style={styles.margin}
                 rules={[
                   {
@@ -241,17 +256,17 @@ export default function EditCompanyForm({
             <Col lg={7} sm={8} xs={isMobile ? 11 : 10}>
               <Text strong={true}>{t('Company.Company_mobile')}</Text>
               <br />
-              <Text type="secondary">{t('Company.Website_description')}</Text>
+              <Text type='secondary'>{t('Company.Website_description')}</Text>
             </Col>
             <Col lg={7} sm={9} xs={isMobile ? 13 : 12}>
               <Form.List
-                name="mobiles"
+                name='mobiles'
                 rules={[
                   {
                     validator: async (_, addresses) => {
                       if (!addresses || addresses.length < 1) {
                         return Promise.reject(
-                          new Error(`${t('Company.Company_mobile_required')}`)
+                          new Error(`${t('Company.Company_mobile_required')}`),
                         );
                       }
                     },
@@ -293,9 +308,9 @@ export default function EditCompanyForm({
                       </Form.Item>
                     ))}
                     {fields?.length < 3 ? (
-                      <Form.Item className="margin">
+                      <Form.Item className='margin'>
                         <Button
-                          type="dashed"
+                          type='dashed'
                           onClick={() => add()}
                           block
                           icon={<PlusOutlined />}
@@ -314,11 +329,11 @@ export default function EditCompanyForm({
             <Col lg={7} sm={8} xs={isMobile ? 11 : 10}>
               <Text strong={true}>{t('Form.Website')}</Text>
               <br />
-              <Text type="secondary">{t('Company.Website_description')}</Text>
+              <Text type='secondary'>{t('Company.Website_description')}</Text>
             </Col>
             <Col lg={7} sm={9} xs={isMobile ? 13 : 12}>
               <Form.Item
-                name="website"
+                name='website'
                 style={styles.margin}
                 rules={[
                   {
@@ -335,10 +350,10 @@ export default function EditCompanyForm({
             <Col lg={7} sm={8} xs={isMobile ? 11 : 10}>
               <Text strong={true}>{t('Company.Slogan')}</Text>
               <br />
-              <Text type="secondary">{t('Company.Website_description')}</Text>
+              <Text type='secondary'>{t('Company.Website_description')}</Text>
             </Col>
             <Col lg={7} sm={9} xs={isMobile ? 13 : 12}>
-              <Form.Item name="slogan" style={styles.margin}>
+              <Form.Item name='slogan' style={styles.margin}>
                 <Input />
               </Form.Item>
             </Col>
@@ -347,16 +362,20 @@ export default function EditCompanyForm({
             <Col lg={7} sm={8} xs={isMobile ? 11 : 10}>
               <Text strong={true}>{t('Company.Social_media')}</Text>
               <br />
-              <Text type="secondary">{t('Company.Website_description')}</Text>
+              <Text type='secondary'>{t('Company.Website_description')}</Text>
             </Col>
             <Col lg={7} sm={9} xs={isMobile ? 13 : 12}>
-              <Form.List name="socialMedia">
+              <Form.List name='socialMedia'>
                 {(fields, { add, remove }, { errors }) => (
                   <>
                     {fields?.map((field) => (
-                      <Row key={field.key} style={{ marginBottom: 8 }} align="bottom">
+                      <Row
+                        key={field.key}
+                        style={{ marginBottom: 8 }}
+                        align='bottom'
+                      >
                         <Col style={{ width: `calc(100% - 32px)` }}>
-                          <Row gutter={10} align="bottom">
+                          <Row gutter={10} align='bottom'>
                             <Col span={12}>
                               <Form.Item
                                 {...field}
@@ -370,7 +389,7 @@ export default function EditCompanyForm({
                                     message: `${t('Form.Name_required')}`,
                                   },
                                 ]}
-                                className="margin1"
+                                className='margin1'
                               >
                                 <Select
                                   placeholder={t('Company.Social_media_name')}
@@ -391,7 +410,7 @@ export default function EditCompanyForm({
                                 validateTrigger={['onChange', 'onBlur']}
                                 name={[field.name, 'social_address']}
                                 key={[field.key, 'social_address']}
-                                className="margin1"
+                                className='margin1'
                                 rules={[
                                   {
                                     required: true,
@@ -400,7 +419,11 @@ export default function EditCompanyForm({
                                   },
                                 ]}
                               >
-                                <Input placeholder={t('Company.Social_media_address')} />
+                                <Input
+                                  placeholder={t(
+                                    'Company.Social_media_address',
+                                  )}
+                                />
                               </Form.Item>
                             </Col>
                           </Row>
@@ -416,11 +439,11 @@ export default function EditCompanyForm({
                     {fields?.length < 3 ? (
                       <Form.Item>
                         <Button
-                          type="dashed"
+                          type='dashed'
                           onClick={() => add()}
                           block
                           icon={<PlusOutlined />}
-                          className="margin"
+                          className='margin'
                         >
                           {t('Company.Add_social_media')}
                         </Button>
@@ -435,17 +458,17 @@ export default function EditCompanyForm({
             <Col lg={7} sm={8} xs={isMobile ? 11 : 10}>
               <Text strong={true}>{t('Company.Company_address')}</Text>
               <br />
-              <Text type="secondary">{t('Company.Website_description')}</Text>
+              <Text type='secondary'>{t('Company.Website_description')}</Text>
             </Col>
             <Col lg={7} sm={9} xs={isMobile ? 13 : 12}>
               <Form.List
-                name="addresses"
+                name='addresses'
                 rules={[
                   {
                     validator: async (_, addresses) => {
                       if (!addresses || addresses.length < 1) {
                         return Promise.reject(
-                          new Error(`${t('Company.Company_address_required')}`)
+                          new Error(`${t('Company.Company_address_required')}`),
                         );
                       }
                     },
@@ -458,7 +481,7 @@ export default function EditCompanyForm({
                       <Space
                         key={field.key}
                         style={{ display: 'flex', marginBottom: 8 }}
-                        align="baseline"
+                        align='baseline'
                       >
                         <Form.Item
                           {...field}
@@ -472,7 +495,7 @@ export default function EditCompanyForm({
                               message: `${t('Form.Name_required')}`,
                             },
                           ]}
-                          className="margin1"
+                          className='margin1'
                         >
                           <Input placeholder={t('Company.Address_name')} />
                         </Form.Item>
@@ -481,7 +504,7 @@ export default function EditCompanyForm({
                           validateTrigger={['onChange', 'onBlur']}
                           name={[field.name, 'address_place']}
                           fieldKey={[field.fieldKey, 'address_place']}
-                          className="margin1"
+                          className='margin1'
                           rules={[
                             {
                               required: true,
@@ -493,18 +516,20 @@ export default function EditCompanyForm({
                           <Input placeholder={t('Company.Address_place')} />
                         </Form.Item>
                         {fields?.length > 1 ? (
-                          <MinusCircleOutlined onClick={() => remove(field.name)} />
+                          <MinusCircleOutlined
+                            onClick={() => remove(field.name)}
+                          />
                         ) : null}
                       </Space>
                     ))}
                     {fields?.length < 3 ? (
                       <Form.Item>
                         <Button
-                          type="dashed"
+                          type='dashed'
                           onClick={() => add()}
                           block
                           icon={<PlusOutlined />}
-                          className="margin"
+                          className='margin'
                         >
                           {t('Company.Add_address')}
                         </Button>
@@ -519,7 +544,7 @@ export default function EditCompanyForm({
             <Col lg={12} sm={10} xs={isMobile ? 13 : 14}>
               <Space>
                 <CancelButton onClick={cancel} />
-                <SaveButton htmlType="submit" loading={loading} />
+                <SaveButton htmlType='submit' loading={loading} />
               </Space>
             </Col>
           </Row>

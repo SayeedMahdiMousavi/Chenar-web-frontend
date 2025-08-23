@@ -1,16 +1,9 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMutation } from 'react-query';
 import axiosInstance from '../../../ApiBaseUrl';
 
-import {
-  Form,
-  Col,
-  Row,
-  Input,
-  Space,
-  Modal,
-} from 'antd';
+import { Form, Col, Row, Input, Space, Modal } from 'antd';
 import { useMediaQuery } from '../../../MediaQurey';
 import { trimString } from '../../../../Functions/TrimString';
 import {
@@ -69,7 +62,7 @@ const AddCategory = (props) => {
             allData: addTreeData(
               prev.allData,
               values?.data?.node_parent?.id,
-              values?.data
+              values?.data,
             ),
           };
         }
@@ -90,7 +83,6 @@ const AddCategory = (props) => {
     });
     form.resetFields();
   };
-
 
   const handleClose = () => {
     setVisible(false);
@@ -148,7 +140,6 @@ const AddCategory = (props) => {
                 <Input.TextArea showCount />
               </Form.Item>
             </Col>
- 
           </Row>
         </Form>
       </Modal>

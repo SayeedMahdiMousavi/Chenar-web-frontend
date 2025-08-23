@@ -1,23 +1,23 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { Row, Col, Layout } from "antd";
-import AddCurrency from "./AddCurrency";
-import { useMediaQuery } from "../MediaQurey";
-import CurrencyTable from "./CurrencyTable";
-import { Title } from "../SelfComponents/Title";
-import { CURRENCY_M } from "../../constants/permissions";
-import { checkPermissions } from "../../Functions";
-import { PageBackIcon } from "../../components";
-import { CURRENCY_RATE } from "../../constants/routes";
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { Row, Col, Layout } from 'antd';
+import AddCurrency from './AddCurrency';
+import { useMediaQuery } from '../MediaQurey';
+import CurrencyTable from './CurrencyTable';
+import { Title } from '../SelfComponents/Title';
+import { CURRENCY_M } from '../../constants/permissions';
+import { checkPermissions } from '../../Functions';
+import { PageBackIcon } from '../../components';
+import { CURRENCY_RATE } from '../../constants/routes';
 
 interface Props {
   rtl: string;
 }
 const FirstPeriod: React.FC<Props> = (props) => {
   const { t } = useTranslation();
-  const isMobile = useMediaQuery("(max-width:425px)");
-  const isMiniMobile = useMediaQuery("(max-width:375px)");
-  const isMiniTablet = useMediaQuery("(max-width:485px)");
+  const isMobile = useMediaQuery('(max-width:425px)');
+  const isMiniMobile = useMediaQuery('(max-width:375px)');
+  const isMiniTablet = useMediaQuery('(max-width:485px)');
 
   // const menu = (
   //   <Menu>
@@ -33,18 +33,18 @@ const FirstPeriod: React.FC<Props> = (props) => {
   // );
   return (
     <Layout>
-      <Row className="categore-header" align="middle" justify="start">
+      <Row className='categore-header' align='middle' justify='start'>
         <Col
           xl={{ span: 7 }}
           md={{ span: 8 }}
           sm={{ span: 10 }}
           xs={{ span: 13 }}
-          className="Sales__content-3-body"
+          className='Sales__content-3-body'
         >
           <Row>
             <Col span={24}>
               <Title
-                value={t("Sales.Product_and_services.Currency.1")}
+                value={t('Sales.Product_and_services.Currency.1')}
                 model={CURRENCY_M}
               />
             </Col>
@@ -56,7 +56,7 @@ const FirstPeriod: React.FC<Props> = (props) => {
             >
               <PageBackIcon
                 previousPageName={t(
-                  "Sales.Product_and_services.Currency.Currency_rate"
+                  'Sales.Product_and_services.Currency.Currency_rate',
                 )}
                 url={CURRENCY_RATE}
               />
@@ -71,11 +71,11 @@ const FirstPeriod: React.FC<Props> = (props) => {
             isMiniMobile
               ? { span: 8, offset: 3 }
               : isMiniTablet
-              ? { span: 7, offset: 4 }
-              : { span: 6, offset: 5 }
+                ? { span: 7, offset: 4 }
+                : { span: 6, offset: 5 }
           }
         >
-          <Row justify={isMobile ? "center" : "space-around"} gutter={[0, 5]}>
+          <Row justify={isMobile ? 'center' : 'space-around'} gutter={[0, 5]}>
             <Col xl={10} md={10} sm={9} xs={23}></Col>
             <Col xl={13} md={12} sm={13} xs={24}>
               <AddCurrency />

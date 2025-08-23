@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useMutation, useQueryClient } from "react-query";
-import axiosInstance from "../../../ApiBaseUrl";
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useMutation, useQueryClient } from 'react-query';
+import axiosInstance from '../../../ApiBaseUrl';
 // import {
 //   CustomerServiceOutlined,
 //   CaretDownOutlined,
@@ -20,15 +20,15 @@ import {
   // Divider,
   Modal,
   message,
-} from "antd";
-import { useMediaQuery } from "../../../MediaQurey";
+} from 'antd';
+import { useMediaQuery } from '../../../MediaQurey';
 
-import { connect } from "react-redux";
-import { ModalDragTitle } from "../../../SelfComponents/ModalDragTitle";
-import Draggable from "react-draggable";
-import { trimString } from "../../../../Functions/TrimString";
-import { ActionMessage } from "../../../SelfComponents/TranslateComponents/ActionMessage";
-import { CancelButton, SaveButton } from "../../../../components";
+import { connect } from 'react-redux';
+import { ModalDragTitle } from '../../../SelfComponents/ModalDragTitle';
+import Draggable from 'react-draggable';
+import { trimString } from '../../../../Functions/TrimString';
+import { ActionMessage } from '../../../SelfComponents/TranslateComponents/ActionMessage';
+import { CancelButton, SaveButton } from '../../../../components';
 
 // import { useDatabase } from "@nozbe/watermelondb/hooks";
 // import withObservables from "@nozbe/with-observables";
@@ -62,14 +62,14 @@ const ModalAppServices = (props) => {
   // useEffect(() => {
   //   setItems(props.groups);
   // }, [props.groups]);
-  const isMiniComputer = useMediaQuery("(max-width:1024px)");
-  const isTablitBase = useMediaQuery("(max-width:768px)");
-  const isMiniTablit = useMediaQuery("(max-width:576px)");
-  const isMobileBase = useMediaQuery("(max-width:425px)");
+  const isMiniComputer = useMediaQuery('(max-width:1024px)');
+  const isTablitBase = useMediaQuery('(max-width:768px)');
+  const isMiniTablit = useMediaQuery('(max-width:576px)');
+  const isMobileBase = useMediaQuery('(max-width:425px)');
   const [fields, setFields] = useState([
-    { name: ["name"], value: props.record.name },
-    { name: ["price"], value: props.record.price },
-    { name: ["description"], value: props.record.description },
+    { name: ['name'], value: props.record.name },
+    { name: ['price'], value: props.record.price },
+    { name: ['description'], value: props.record.description },
   ]);
   // const onNameChange = (event) => {
   //   const name = event.target.value;
@@ -77,7 +77,7 @@ const ModalAppServices = (props) => {
   // };
 
   // const addItem = async () => {
-  //   // 
+  //   //
   //   // const { items, name } = this.state;
   //   if (!name) {
   //   } else {
@@ -101,7 +101,7 @@ const ModalAppServices = (props) => {
         });
 
         message.success(
-          <ActionMessage name={res.data?.name} message="Message.Update" />
+          <ActionMessage name={res.data?.name} message='Message.Update' />,
         );
       })
       .catch((error) => {
@@ -120,7 +120,7 @@ const ModalAppServices = (props) => {
   });
 
   const onFinish = async () => {
-    // 
+    //
     // setProducts(values);
     form
       .validateFields()
@@ -148,9 +148,7 @@ const ModalAppServices = (props) => {
           onSuccess: () => {},
         });
       })
-      .catch((info) => {
-        
-      });
+      .catch((info) => {});
   };
 
   const showModal = () => {
@@ -172,12 +170,12 @@ const ModalAppServices = (props) => {
   };
 
   // const onFieldsChange = (changedFields, allFields) => {
-  //   
+  //
   // };
   return (
     <Row>
-      <div onClick={showModal} className="num">
-        {t("Sales.Product_and_services.Edit_service")}{" "}
+      <div onClick={showModal} className='num'>
+        {t('Sales.Product_and_services.Edit_service')}{' '}
       </div>
       <Modal
         maskClosable={false}
@@ -185,7 +183,7 @@ const ModalAppServices = (props) => {
           <ModalDragTitle
             disabled={disabled}
             setDisabled={setDisabled}
-            title={t("Sales.Product_and_services.Service_information")}
+            title={t('Sales.Product_and_services.Service_information')}
           />
         }
         modalRender={(modal) => (
@@ -196,20 +194,20 @@ const ModalAppServices = (props) => {
         destroyOnClose={true}
         width={
           isMobileBase
-            ? "100vw"
+            ? '100vw'
             : isMiniTablit
-            ? "70vw"
-            : isTablitBase
-            ? "50vw"
-            : isMiniComputer
-            ? "40vw"
-            : "30vw"
+              ? '70vw'
+              : isTablitBase
+                ? '50vw'
+                : isMiniComputer
+                  ? '40vw'
+                  : '30vw'
         }
         onCancel={handleCancel}
         afterClose={handleAfterClose}
         bodyStyle={styles.bodyStyle}
         footer={
-          <Row justify="end">
+          <Row justify='end'>
             <Col>
               <CancelButton onClick={handleCancel} />
               <SaveButton onClick={onFinish} loading={loading} />
@@ -238,47 +236,47 @@ const ModalAppServices = (props) => {
           // name='nest-messages'
           // layout={isMobileBase ? "vertical" : "horizontal"}
           fields={fields}
-          layout="vertical"
+          layout='vertical'
           hideRequiredMark={true}
           colon={false}
           form={form}
           // onFieldsChange={onFieldsChange}
         >
           <Form.Item
-            name="name"
+            name='name'
             label={
               <span>
-                {t("Form.Name")} <span className="star">*</span>
+                {t('Form.Name')} <span className='star'>*</span>
               </span>
             }
             rules={[
               {
                 required: true,
-                message: t("Form.Name_required"),
+                message: t('Form.Name_required'),
               },
               {
                 whitespace: true,
-                message: t("Form.Name_required"),
+                message: t('Form.Name_required'),
               },
             ]}
-            className="margin"
+            className='margin'
           >
             <Input />
           </Form.Item>
 
           <Form.Item
-            name="price"
+            name='price'
             label={
               <span>
-                {t("Sales.Product_and_services.Form.Price")}
-                <span className="star">*</span>
+                {t('Sales.Product_and_services.Form.Price')}
+                <span className='star'>*</span>
               </span>
             }
-            className="margin"
+            className='margin'
             rules={[
               {
                 message: `${t(
-                  "Sales.Product_and_services.Form.Price_required"
+                  'Sales.Product_and_services.Form.Price_required',
                 )}`,
                 required: true,
               },
@@ -286,17 +284,17 @@ const ModalAppServices = (props) => {
           >
             <InputNumber
               min={1}
-              type="number"
-              className="num"
-              inputMode="numeric"
+              type='number'
+              className='num'
+              inputMode='numeric'
             />
           </Form.Item>
 
           <Form.Item
-            name="description"
+            name='description'
             style={styles.description}
-            label={t("Form.Description")}
-            className="margin1"
+            label={t('Form.Description')}
+            className='margin1'
           >
             <Input.TextArea showCount />
           </Form.Item>
@@ -308,24 +306,24 @@ const ModalAppServices = (props) => {
 const styles = {
   bodyStyle: {
     maxHeight: `calc(100vh - 194px)`,
-    overflowY: "auto",
+    overflowY: 'auto',
   },
   drop: (isMobileBase, isTablitBase) => ({
-    height: "100%",
-    width: "100%",
+    height: '100%',
+    width: '100%',
   }),
   add: {
-    flex: "none",
-    padding: "4px",
-    display: "block",
-    cursor: "pointer",
+    flex: 'none',
+    padding: '4px',
+    display: 'block',
+    cursor: 'pointer',
   },
   marginButtom: (isMobileBase) => ({
-    marginBottom: isMobileBase ? ".5rem" : "",
+    marginBottom: isMobileBase ? '.5rem' : '',
   }),
 
   description: {
-    marginBottom: "0rem",
+    marginBottom: '0rem',
   },
 };
 const mapStateToProps = (state) => ({

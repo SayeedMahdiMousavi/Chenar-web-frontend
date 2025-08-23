@@ -1,7 +1,7 @@
-import React from "react";
-import { Menu } from "antd";
-import { useTranslation } from "react-i18next";
-import { checkPermissions } from "../Functions";
+import React from 'react';
+import { Menu } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { checkPermissions } from '../Functions';
 
 export function EditMenuItem({
   permission,
@@ -16,7 +16,7 @@ export function EditMenuItem({
   const { t } = useTranslation();
   return !checkPermissions(`change_${permission}`) ? null : (
     <Menu.Item {...rest} onClick={onClick} key={key}>
-      {t("Sales.Customers.Table.Edit")}
+      {t('Sales.Customers.Table.Edit')}
     </Menu.Item>
   );
 }

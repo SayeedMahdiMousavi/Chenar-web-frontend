@@ -25,7 +25,6 @@ import {
 import { useMediaQuery } from '../../../MediaQurey';
 import { useTranslation } from 'react-i18next';
 
-
 const ConnectBank = () => {
   const { t } = useTranslation();
   const isTablet = useMediaQuery('(max-width:768px)');

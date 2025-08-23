@@ -73,7 +73,7 @@ const EditProduct = (props) => {
 
         formData.append(
           'category',
-          values.category ? values.category?.value : ''
+          values.category ? values.category?.value : '',
         );
         if (values?.supplier?.value) {
           formData.append('supplier', values?.supplier?.value);
@@ -84,7 +84,7 @@ const EditProduct = (props) => {
         formData.append('is_have_vip_price', values.isVip);
         formData.append(
           'description',
-          values.description ? values?.description : ''
+          values.description ? values?.description : '',
         );
         mutateEditProduct(formData);
       }
@@ -105,7 +105,7 @@ const EditProduct = (props) => {
           status: 'done',
           url: props?.record?.photo,
         },
-      ]
+      ],
     );
 
     form.setFieldsValue({
@@ -182,12 +182,12 @@ const EditProduct = (props) => {
           isMobile
             ? '100vw'
             : isMiniTablet
-            ? '85vw'
-            : isTablet
-            ? 440
-            : isMiniComputer
-            ? 440
-            : 440
+              ? '85vw'
+              : isTablet
+                ? 440
+                : isMiniComputer
+                  ? 440
+                  : 440
         }
         onCancel={handleCancel}
         style={Styles.modal(isMobile)}

@@ -1,18 +1,18 @@
-import React, { useEffect, useMemo, useState } from "react";
-import moment from "moment";
-import axiosInstance from "../../../ApiBaseUrl";
-import { useQuery } from "react-query";
-import { DownOutlined, UpOutlined } from "@ant-design/icons";
-import { Checkbox, Menu, Button, Table, Typography, Descriptions } from "antd";
-import { useTranslation } from "react-i18next";
-import Filters from "./Filters";
-import { utcDate } from "../../../../Functions/utcDate";
-import useGetRunningPeriod from "../../../../Hooks/useGetRunningPeriod";
-import { ReportTable, Statistics } from "../../../../components/antd";
-import { ProductStatisticsDetails } from "../ProductStatistics/Details";
-import { reportsDateFormat } from "../../../../Context";
-import { TableSummaryCell } from "../../../../components";
-import { WAREHOUSE_STATISTIC_RESULT_LIST } from "../../../../constants/routes";
+import React, { useEffect, useMemo, useState } from 'react';
+import moment from 'moment';
+import axiosInstance from '../../../ApiBaseUrl';
+import { useQuery } from 'react-query';
+import { DownOutlined, UpOutlined } from '@ant-design/icons';
+import { Checkbox, Menu, Button, Table, Typography, Descriptions } from 'antd';
+import { useTranslation } from 'react-i18next';
+import Filters from './Filters';
+import { utcDate } from '../../../../Functions/utcDate';
+import useGetRunningPeriod from '../../../../Hooks/useGetRunningPeriod';
+import { ReportTable, Statistics } from '../../../../components/antd';
+import { ProductStatisticsDetails } from '../ProductStatistics/Details';
+import { reportsDateFormat } from '../../../../Context';
+import { TableSummaryCell } from '../../../../components';
+import { WAREHOUSE_STATISTIC_RESULT_LIST } from '../../../../constants/routes';
 
 const { Column } = Table;
 const dateFormat = reportsDateFormat;
@@ -49,16 +49,16 @@ const WarehouseStatisticsTable = (props) => {
     reward: true,
   });
   const [filters, setFilters] = useState({
-    product: { value: "", label: "" },
-    warehouse: { value: "", label: "" },
-    startDate: "",
+    product: { value: '', label: '' },
+    warehouse: { value: '', label: '' },
+    startDate: '',
     endDate: utcDate().format(dateFormat),
-    category: { value: "", label: "" },
+    category: { value: '', label: '' },
   });
 
   const { warehouse, product, startDate, endDate, category } = filters;
 
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
 
   //get running period
   const runningPeriod = useGetRunningPeriod();
@@ -71,7 +71,7 @@ const WarehouseStatisticsTable = (props) => {
           ...prev,
           startDate: curStartDate
             ? moment(curStartDate, dateFormat).format(dateFormat)
-            : "",
+            : '',
         };
       });
     }
@@ -137,95 +137,95 @@ const WarehouseStatisticsTable = (props) => {
 
   const setting = (
     <Menu style={styles.settingsMenu}>
-      <Menu.Item key="1">
+      <Menu.Item key='1'>
         <Typography.Text strong={true}>
-          {t("Sales.Product_and_services.Columns")}
+          {t('Sales.Product_and_services.Columns')}
         </Typography.Text>
       </Menu.Item>
-      <Menu.Item key="2">
+      <Menu.Item key='2'>
         <Checkbox checked={unit} onChange={onChangeUnit}>
-          {t("Sales.Product_and_services.Units.Unit")}
+          {t('Sales.Product_and_services.Units.Unit')}
         </Checkbox>
       </Menu.Item>
 
-      <Menu.Item key="4">
+      <Menu.Item key='4'>
         <Checkbox checked={inventory} onChange={onChangeInventory}>
-          {t("Reports.Inventory")}
+          {t('Reports.Inventory')}
         </Checkbox>
       </Menu.Item>
-      <Menu.Item key="3">
+      <Menu.Item key='3'>
         <Checkbox checked={purchase} onChange={onChangePurchase}>
-          {t("Sales.Product_and_services.Price_recording.Purchase_price")}
+          {t('Sales.Product_and_services.Price_recording.Purchase_price')}
         </Checkbox>
       </Menu.Item>
 
-      <Menu.Item key="5">
+      <Menu.Item key='5'>
         <Checkbox onChange={onChangePurchaseReturn} checked={purchaseReturn}>
-          {t("Reports.Purchase_return")}
+          {t('Reports.Purchase_return')}
         </Checkbox>
       </Menu.Item>
-      <Menu.Item key="6">
+      <Menu.Item key='6'>
         <Checkbox onChange={onChangeSales} checked={sales}>
-          {t("Sales.Product_and_services.Price_recording.Sales_price")}
+          {t('Sales.Product_and_services.Price_recording.Sales_price')}
         </Checkbox>
       </Menu.Item>
 
       {settingsVisible && (
         <React.Fragment>
-          <Menu.Item key="7">
+          <Menu.Item key='7'>
             <Checkbox onChange={onChangeSalesReturn} checked={salesReturn}>
-              {t("Reports.Sales_return")}
+              {t('Reports.Sales_return')}
             </Checkbox>
           </Menu.Item>
-          <Menu.Item key="8">
+          <Menu.Item key='8'>
             <Checkbox onChange={onChangeIncoming} checked={incoming}>
-              {t("Reports.Incoming")}
+              {t('Reports.Incoming')}
             </Checkbox>
           </Menu.Item>
-          <Menu.Item key="9">
+          <Menu.Item key='9'>
             <Checkbox onChange={onChangeOutgoing} checked={outgoing}>
-              {t("Reports.Outgoing")}
+              {t('Reports.Outgoing')}
             </Checkbox>
           </Menu.Item>
-          <Menu.Item key="10">
+          <Menu.Item key='10'>
             <Checkbox onChange={onChangeWaste} checked={waste}>
-              {t("Reports.Waste")}
+              {t('Reports.Waste')}
             </Checkbox>
           </Menu.Item>
-          <Menu.Item key="11">
+          <Menu.Item key='11'>
             <Checkbox onChange={onChangeReward} checked={reward}>
-              {t("Reports.Reward")}
+              {t('Reports.Reward')}
             </Checkbox>
           </Menu.Item>
-          <Menu.Item key="12">
+          <Menu.Item key='12'>
             <Checkbox checked={available} onChange={onChangeAvailable}>
-              {t("Reports.Available_quantity")}
+              {t('Reports.Available_quantity')}
             </Checkbox>
           </Menu.Item>
         </React.Fragment>
       )}
 
       <Menu.Item
-        key="13"
+        key='13'
         onClick={handleSettingVisibleChange}
-        className="table__header2-setting-showMore"
-        style={{ textAlign: "end" }}
+        className='table__header2-setting-showMore'
+        style={{ textAlign: 'end' }}
       >
         {settingsVisible ? (
           <Button
-            type="link"
+            type='link'
             icon={<UpOutlined />}
-            className="table__header2-setting-showMore"
+            className='table__header2-setting-showMore'
           >
-            {t("Sales.Product_and_services.Show_less")}
+            {t('Sales.Product_and_services.Show_less')}
           </Button>
         ) : (
           <Button
-            type="link"
+            type='link'
             icon={<DownOutlined />}
-            className="table__header2-setting-showMore"
+            className='table__header2-setting-showMore'
           >
-            {t("Sales.Product_and_services.Show_More")}
+            {t('Sales.Product_and_services.Show_More')}
           </Button>
         )}
       </Menu.Item>
@@ -234,7 +234,7 @@ const WarehouseStatisticsTable = (props) => {
 
   const warehouseId = warehouse?.value;
   const productId = product?.value;
-  const categoryId = category?.value ?? "";
+  const categoryId = category?.value ?? '';
   const handleGetWarehouseStatistics = React.useCallback(
     async ({ queryKey }) => {
       const {
@@ -249,12 +249,12 @@ const WarehouseStatisticsTable = (props) => {
         category,
       } = queryKey?.[1] || {};
       const { data } = await axiosInstance.get(
-        `${props.baseUrl}?page=${page}&page_size=${pageSize}&ordering=${order}&id=${product?.value}&search=${search}&warehouse=${warehouse?.value}&category=${category?.value}&date_time_after=${startDate}&date_time_before=${endDate}`
+        `${props.baseUrl}?page=${page}&page_size=${pageSize}&ordering=${order}&id=${product?.value}&search=${search}&warehouse=${warehouse?.value}&category=${category?.value}&date_time_after=${startDate}&date_time_before=${endDate}`,
       );
 
       return data;
     },
-    [props.baseUrl]
+    [props.baseUrl],
   );
 
   const getWarehouseStatisticResult = React.useCallback(
@@ -262,11 +262,11 @@ const WarehouseStatisticsTable = (props) => {
       const { search, productId, warehouseId, startDate, endDate, categoryId } =
         queryKey?.[1] || {};
       const { data } = await axiosInstance.get(
-        `${WAREHOUSE_STATISTIC_RESULT_LIST}?id=${productId}&search=${search}&warehouse=${warehouseId}&category=${categoryId}&date_time_after=${startDate}&date_time_before=${endDate}`
+        `${WAREHOUSE_STATISTIC_RESULT_LIST}?id=${productId}&search=${search}&warehouse=${warehouseId}&category=${categoryId}&date_time_after=${startDate}&date_time_before=${endDate}`,
       );
       return data;
     },
-    []
+    [],
   );
 
   const result = useQuery(
@@ -281,52 +281,52 @@ const WarehouseStatisticsTable = (props) => {
         categoryId,
       },
     ],
-    getWarehouseStatisticResult
+    getWarehouseStatisticResult,
     // { enabled: !!startDate, cacheTime: 0 }
   );
 
   const resultData = [result?.data];
 
   const columns = useMemo(
-     (type) => {
-      const sorter = type !== "print";
+    (type) => {
+      const sorter = type !== 'print';
       return (
         <React.Fragment>
           <Column
-            title={t("Sales.Product_and_services.Product_id").toUpperCase()}
-            dataIndex="product_id"
-            key="product_id"
-            fixed={type !== "print" ? true : undefined}
-            width={type !== "print" ? 130 : undefined}
+            title={t('Sales.Product_and_services.Product_id').toUpperCase()}
+            dataIndex='product_id'
+            key='product_id'
+            fixed={type !== 'print' ? true : undefined}
+            width={type !== 'print' ? 130 : undefined}
             sorter={sorter && { multiple: 13 }}
-            className="table-col"
-            align="center"
+            className='table-col'
+            align='center'
           />
           <Column
-            title={`${t("Sales.All_sales.Invoice.Product_name").toUpperCase()}`}
-            dataIndex="product_name"
-            key="product_name"
-            fixed={type !== "print" ? true : undefined}
-            className="table-col"
+            title={`${t('Sales.All_sales.Invoice.Product_name').toUpperCase()}`}
+            dataIndex='product_name'
+            key='product_name'
+            fixed={type !== 'print' ? true : undefined}
+            className='table-col'
             sorter={sorter && { multiple: 12 }}
           />
 
           {unit && (
             <Column
-              title={t("Sales.Product_and_services.Units.Unit").toUpperCase()}
-              dataIndex="base_unit"
-              key="base_unit"
+              title={t('Sales.Product_and_services.Units.Unit').toUpperCase()}
+              dataIndex='base_unit'
+              key='base_unit'
               sorter={sorter && { multiple: 11 }}
-              className="table-col"
+              className='table-col'
             />
           )}
 
           {inventory && (
             <Column
-              title={t("Reports.Inventory").toUpperCase()}
-              dataIndex="on_hand"
-              key="on_hand"
-              className="table-col"
+              title={t('Reports.Inventory').toUpperCase()}
+              dataIndex='on_hand'
+              key='on_hand'
+              className='table-col'
               sorter={sorter && { multiple: 10 }}
               render={(value) => <Statistics value={value} />}
             />
@@ -334,21 +334,21 @@ const WarehouseStatisticsTable = (props) => {
           {purchase && (
             <Column
               title={t(
-                "Sales.Product_and_services.Price_recording.Purchase_price"
+                'Sales.Product_and_services.Price_recording.Purchase_price',
               ).toUpperCase()}
-              dataIndex="purchase"
-              key="purchase"
-              className="table-col"
+              dataIndex='purchase'
+              key='purchase'
+              className='table-col'
               sorter={sorter && { multiple: 9 }}
               render={(value) => <Statistics value={value} />}
             />
           )}
           {purchaseReturn && (
             <Column
-              title={t("Reports.Purchase_return").toUpperCase()}
-              dataIndex="purchase_rej"
-              key="purchase_rej"
-              className="table-col"
+              title={t('Reports.Purchase_return').toUpperCase()}
+              dataIndex='purchase_rej'
+              key='purchase_rej'
+              className='table-col'
               sorter={sorter && { multiple: 8 }}
               render={(value) => <Statistics value={value} />}
             />
@@ -357,59 +357,59 @@ const WarehouseStatisticsTable = (props) => {
           {sales && (
             <Column
               title={t(
-                "Sales.Product_and_services.Price_recording.Sales_price"
+                'Sales.Product_and_services.Price_recording.Sales_price',
               ).toUpperCase()}
-              dataIndex="sales"
-              key="sales"
-              className="table-col"
+              dataIndex='sales'
+              key='sales'
+              className='table-col'
               sorter={sorter && { multiple: 7 }}
               render={(value) => <Statistics value={value} />}
             />
           )}
           {salesReturn && (
             <Column
-              title={t("Reports.Sales_return").toUpperCase()}
-              dataIndex="sales_rej"
-              key="sales_rej"
-              className="table-col"
+              title={t('Reports.Sales_return').toUpperCase()}
+              dataIndex='sales_rej'
+              key='sales_rej'
+              className='table-col'
               sorter={sorter && { multiple: 6 }}
               render={(value) => <Statistics value={value} />}
             />
           )}
           {incoming && (
             <Column
-              title={t("Reports.Incoming").toUpperCase()}
-              dataIndex="warehous_in_rec"
-              key="warehous_in_rec"
-              className="table-col"
+              title={t('Reports.Incoming').toUpperCase()}
+              dataIndex='warehous_in_rec'
+              key='warehous_in_rec'
+              className='table-col'
               sorter={sorter && { multiple: 5 }}
               render={(value) => <Statistics value={value} />}
             />
           )}
           {outgoing && (
             <Column
-              title={t("Reports.Outgoing").toUpperCase()}
-              dataIndex="warehous_out_rec"
-              key="warehous_out_rec"
-              className="table-col"
+              title={t('Reports.Outgoing').toUpperCase()}
+              dataIndex='warehous_out_rec'
+              key='warehous_out_rec'
+              className='table-col'
               sorter={sorter && { multiple: 4 }}
               render={(value) => <Statistics value={value} />}
             />
           )}
           {waste && (
             <Column
-              title={t("Reports.Waste").toUpperCase()}
-              dataIndex="waste"
-              key="waste"
+              title={t('Reports.Waste').toUpperCase()}
+              dataIndex='waste'
+              key='waste'
               sorter={sorter && { multiple: 3 }}
               render={(value) => <Statistics value={value} />}
             />
           )}
           {reward && (
             <Column
-              title={t("Reports.Reward").toUpperCase()}
-              dataIndex="reward"
-              key="reward"
+              title={t('Reports.Reward').toUpperCase()}
+              dataIndex='reward'
+              key='reward'
               sorter={sorter && { multiple: 2 }}
               render={(value) => <Statistics value={value} />}
             />
@@ -417,10 +417,10 @@ const WarehouseStatisticsTable = (props) => {
 
           {available && (
             <Column
-              title={t("Reports.Available_quantity").toUpperCase()}
-              dataIndex="available"
-              key="available"
-              className="table-col"
+              title={t('Reports.Available_quantity').toUpperCase()}
+              dataIndex='available'
+              key='available'
+              className='table-col'
               sorter={sorter && { multiple: 1 }}
               render={(value) => {
                 // const inventory = record?.remind ?? 0;
@@ -442,14 +442,14 @@ const WarehouseStatisticsTable = (props) => {
               }}
             />
           )}
-          {type !== "print" && (
+          {type !== 'print' && (
             <Column
-              title={t("Table.Action").toUpperCase()}
-              dataIndex="action"
-              key="action"
-              align="center"
+              title={t('Table.Action').toUpperCase()}
+              dataIndex='action'
+              key='action'
+              align='center'
               width={60}
-              fixed={type !== "print" ? "right" : undefined}
+              fixed={type !== 'print' ? 'right' : undefined}
               render={(text, record) => {
                 // const inventory = record?.remind ?? 0;
                 // const sales = record?.sales ?? 0;
@@ -492,101 +492,101 @@ const WarehouseStatisticsTable = (props) => {
       t,
       unit,
       waste,
-    ]
+    ],
   );
 
   const resultColumns = useMemo(
     () => (
       <React.Fragment>
         <Column
-          title={t("Table.Row").toUpperCase()}
-          dataIndex="serial"
-          key="serial"
+          title={t('Table.Row').toUpperCase()}
+          dataIndex='serial'
+          key='serial'
           width={40}
-          align="center"
+          align='center'
           render={(_, __, index) => (
             <React.Fragment>{index + 1}</React.Fragment>
           )}
         />
         {inventory && (
           <Column
-            title={t("Sales.Product_and_services.Inventory.1").toUpperCase()}
-            dataIndex="total_onhand"
-            key="total_onhand"
+            title={t('Sales.Product_and_services.Inventory.1').toUpperCase()}
+            dataIndex='total_onhand'
+            key='total_onhand'
             render={(value) => <Statistics value={value} />}
           />
         )}
         {purchase && (
           <Column
-            title={t("Taxes.Tax_rates.Purchases").toUpperCase()}
-            dataIndex="total_purchase"
-            key="total_purchase"
+            title={t('Taxes.Tax_rates.Purchases').toUpperCase()}
+            dataIndex='total_purchase'
+            key='total_purchase'
             render={(value) => <Statistics value={value} />}
           />
         )}
         {purchaseReturn && (
           <Column
-            title={t("Reports.Purchase_return").toUpperCase()}
-            dataIndex="total_purchase_rej"
-            key="total_purchase_rej"
+            title={t('Reports.Purchase_return').toUpperCase()}
+            dataIndex='total_purchase_rej'
+            key='total_purchase_rej'
             render={(value) => <Statistics value={value} />}
           />
         )}
 
         {sales && (
           <Column
-            title={t("Sales.1").toUpperCase()}
-            dataIndex="total_sales"
-            key="total_sales"
+            title={t('Sales.1').toUpperCase()}
+            dataIndex='total_sales'
+            key='total_sales'
             render={(value) => <Statistics value={value} />}
           />
         )}
         {salesReturn && (
           <Column
-            title={t("Reports.Sales_return").toUpperCase()}
-            dataIndex="total_sales_rej"
-            key="total_sales_rej"
+            title={t('Reports.Sales_return').toUpperCase()}
+            dataIndex='total_sales_rej'
+            key='total_sales_rej'
             render={(value) => <Statistics value={value} />}
           />
         )}
         {incoming && (
           <Column
-            title={t("Reports.Incoming").toUpperCase()}
-            dataIndex="total_warehouse_in"
-            key="total_warehouse_in"
+            title={t('Reports.Incoming').toUpperCase()}
+            dataIndex='total_warehouse_in'
+            key='total_warehouse_in'
             render={(value) => <Statistics value={value} />}
           />
         )}
         {outgoing && (
           <Column
-            title={t("Reports.Outgoing").toUpperCase()}
-            dataIndex="total_warehouse_out"
-            key="total_warehouse_out"
+            title={t('Reports.Outgoing').toUpperCase()}
+            dataIndex='total_warehouse_out'
+            key='total_warehouse_out'
             render={(value) => <Statistics value={value} />}
           />
         )}
         {waste && (
           <Column
-            title={t("Reports.Waste").toUpperCase()}
-            dataIndex="total_waste"
-            key="total_waste"
+            title={t('Reports.Waste').toUpperCase()}
+            dataIndex='total_waste'
+            key='total_waste'
             render={(value) => <Statistics value={value} />}
           />
         )}
         {reward && (
           <Column
-            title={t("Reports.Reward").toUpperCase()}
-            dataIndex="total_reward"
-            key="total_reward"
+            title={t('Reports.Reward').toUpperCase()}
+            dataIndex='total_reward'
+            key='total_reward'
             render={(value) => <Statistics value={value} />}
           />
         )}
 
         {available && (
           <Column
-            title={t("Reports.Available_quantity").toUpperCase()}
-            dataIndex="total_available"
-            key="total_available"
+            title={t('Reports.Available_quantity').toUpperCase()}
+            dataIndex='total_available'
+            key='total_available'
             render={(value) => {
               // const totalInventory = record?.total_remind ?? 0;
               // const totalSales = record?.total_sales ?? 0;
@@ -621,32 +621,32 @@ const WarehouseStatisticsTable = (props) => {
       salesReturn,
       t,
       waste,
-    ]
+    ],
   );
 
   const printFilters = (
     <Descriptions
-      layout="horizontal"
-      style={{ width: "100%", paddingTop: "40px" }}
+      layout='horizontal'
+      style={{ width: '100%', paddingTop: '40px' }}
       column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}
-      size="small"
+      size='small'
     >
-      <Descriptions.Item label={t("Form.From")}>
-        {startDate} {t("Form.To")} : {endDate}
+      <Descriptions.Item label={t('Form.From')}>
+        {startDate} {t('Form.To')} : {endDate}
       </Descriptions.Item>
       {warehouse?.label && (
-        <Descriptions.Item label={t("Warehouse.1")}>
+        <Descriptions.Item label={t('Warehouse.1')}>
           {warehouse?.label}
         </Descriptions.Item>
       )}
       {product?.label && (
-        <Descriptions.Item label={t("Sales.Product_and_services.Product")}>
+        <Descriptions.Item label={t('Sales.Product_and_services.Product')}>
           {product?.label}
         </Descriptions.Item>
       )}
       {category?.label && (
         <Descriptions.Item
-          label={t("Sales.Product_and_services.Form.Category")}
+          label={t('Sales.Product_and_services.Form.Category')}
         >
           {category?.label}
         </Descriptions.Item>
@@ -681,7 +681,7 @@ const WarehouseStatisticsTable = (props) => {
             <Table.Summary.Row key={item?.id}>
               <TableSummaryCell
                 index={0}
-                type="checkbox"
+                type='checkbox'
                 isSelected={selectResult}
               >
                 <Checkbox
@@ -691,7 +691,7 @@ const WarehouseStatisticsTable = (props) => {
               </TableSummaryCell>
 
               <TableSummaryCell index={1} isSelected={selectResult}>
-                {index === 0 && t("Sales.Customers.Form.Total")}
+                {index === 0 && t('Sales.Customers.Form.Total')}
               </TableSummaryCell>
 
               <TableSummaryCell isSelected={selectResult} index={2} />
@@ -704,7 +704,7 @@ const WarehouseStatisticsTable = (props) => {
                 <TableSummaryCell
                   isSelected={selectResult}
                   index={5}
-                  type="total"
+                  type='total'
                   value={item?.total_onhand}
                 />
               )}
@@ -713,7 +713,7 @@ const WarehouseStatisticsTable = (props) => {
                 <TableSummaryCell
                   isSelected={selectResult}
                   index={6}
-                  type="total"
+                  type='total'
                   value={item?.total_purchase}
                 />
               )}
@@ -722,7 +722,7 @@ const WarehouseStatisticsTable = (props) => {
                 <TableSummaryCell
                   isSelected={selectResult}
                   index={7}
-                  type="total"
+                  type='total'
                   value={item?.total_purchase_rej}
                 />
               )}
@@ -731,7 +731,7 @@ const WarehouseStatisticsTable = (props) => {
                 <TableSummaryCell
                   isSelected={selectResult}
                   index={8}
-                  type="total"
+                  type='total'
                   value={item?.total_sales}
                 />
               )}
@@ -739,7 +739,7 @@ const WarehouseStatisticsTable = (props) => {
                 <TableSummaryCell
                   isSelected={selectResult}
                   index={9}
-                  type="total"
+                  type='total'
                   value={item?.total_sales_rej}
                 />
               )}
@@ -747,7 +747,7 @@ const WarehouseStatisticsTable = (props) => {
                 <TableSummaryCell
                   isSelected={selectResult}
                   index={10}
-                  type="total"
+                  type='total'
                   value={item?.total_warehouse_in}
                 />
               )}
@@ -755,7 +755,7 @@ const WarehouseStatisticsTable = (props) => {
                 <TableSummaryCell
                   isSelected={selectResult}
                   index={11}
-                  type="total"
+                  type='total'
                   value={item?.total_warehouse_out}
                 />
               )}
@@ -763,7 +763,7 @@ const WarehouseStatisticsTable = (props) => {
                 <TableSummaryCell
                   isSelected={selectResult}
                   index={12}
-                  type="total"
+                  type='total'
                   value={item?.total_waste}
                 />
               )}
@@ -771,7 +771,7 @@ const WarehouseStatisticsTable = (props) => {
                 <TableSummaryCell
                   isSelected={selectResult}
                   index={13}
-                  type="total"
+                  type='total'
                   value={item?.total_reward}
                 />
               )}
@@ -779,7 +779,7 @@ const WarehouseStatisticsTable = (props) => {
                 <TableSummaryCell
                   isSelected={selectResult}
                   index={14}
-                  type="total"
+                  type='total'
                   value={item?.total_available}
                 />
               )}
@@ -794,14 +794,14 @@ const WarehouseStatisticsTable = (props) => {
 
   return (
     <ReportTable
-    pagination={true}
+      pagination={true}
       setSearch={setSearch}
       search={search}
       isSearch={false}
       setSelectResult={setSelectResult}
       title={props.title}
       columns={columns}
-      rowKey="product_id"
+      rowKey='product_id'
       queryKey={props.baseUrl}
       handleGetData={handleGetWarehouseStatistics}
       settingMenu={setting}
@@ -828,7 +828,7 @@ const WarehouseStatisticsTable = (props) => {
 };
 
 const styles = {
-  settingsMenu: { width: "165px", paddingBottom: "10px" },
+  settingsMenu: { width: '165px', paddingBottom: '10px' },
 };
 
 export default WarehouseStatisticsTable;

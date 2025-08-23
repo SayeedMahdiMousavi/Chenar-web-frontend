@@ -1,4 +1,4 @@
-import { INTERNET, NO_INTERNET } from "./type";
+import { INTERNET, NO_INTERNET } from './type';
 export const noInternet = () => {
   return {
     type: NO_INTERNET,

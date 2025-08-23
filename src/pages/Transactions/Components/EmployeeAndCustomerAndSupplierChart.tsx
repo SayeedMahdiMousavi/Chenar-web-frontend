@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { Form, Select } from "antd";
-import { debounce } from "throttle-debounce";
-import { useQuery } from "react-query";
-import axiosInstance from "../../ApiBaseUrl";
-import { useTranslation } from "react-i18next";
-import { CenteredSpin } from "../../SelfComponents/Spin";
+import React, { useState } from 'react';
+import { Form, Select } from 'antd';
+import { debounce } from 'throttle-debounce';
+import { useQuery } from 'react-query';
+import axiosInstance from '../../ApiBaseUrl';
+import { useTranslation } from 'react-i18next';
+import { CenteredSpin } from '../../SelfComponents/Spin';
 
 const getData = async ({ queryKey }: any) => {
   const key = queryKey?.[0];
@@ -15,7 +15,7 @@ const getData = async ({ queryKey }: any) => {
 const getSearchData = async ({ queryKey }: any) => {
   const search = queryKey?.[1];
   const { data } = await axiosInstance.get(
-    `/chart_of_account/?page=1&page_size=7&name__contains=${search}&content_type__model__in=customer,staff,supplier`
+    `/chart_of_account/?page=1&page_size=7&name__contains=${search}&content_type__model__in=customer,staff,supplier`,
   );
   return data;
 };
@@ -30,10 +30,10 @@ interface IProps {
   style?: React.CSSProperties;
 }
 export const EmployeeAndCustomerAndSupplierChart: React.FC<IProps> = (
-  props
+  props,
 ) => {
   const { t } = useTranslation();
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [customers, setCustomers] = useState<any>([]);
   const [employees, setEmployees] = useState<any>([]);
   const [suppliers, setSuppliers] = useState<any>([]);
@@ -52,23 +52,23 @@ export const EmployeeAndCustomerAndSupplierChart: React.FC<IProps> = (
   const employeeData = useQuery(`/chart_of_account/LST-203/child/`, getData);
   const searchAllData = useQuery(
     [`/chart_of_account/customerEmployeeSupplier/`, search],
-    getSearchData
+    getSearchData,
   );
 
   React.useEffect(() => {
     const customer = searchAllData?.data?.results?.filter((item: any) => {
-      const id = item?.id?.split("-");
-      return id?.[0] === "CUS";
+      const id = item?.id?.split('-');
+      return id?.[0] === 'CUS';
     });
 
     const employee = searchAllData?.data?.results?.filter((item: any) => {
-      const id = item?.id?.split("-");
-      return id?.[0] === "SUP";
+      const id = item?.id?.split('-');
+      return id?.[0] === 'SUP';
     });
 
     const supplier = searchAllData?.data?.results?.filter((item: any) => {
-      const id = item?.id?.split("-");
-      return id?.[0] === "SUP";
+      const id = item?.id?.split('-');
+      return id?.[0] === 'SUP';
     });
     setCustomers(customer);
     setEmployees(employee);
@@ -80,43 +80,43 @@ export const EmployeeAndCustomerAndSupplierChart: React.FC<IProps> = (
   const allSuppliers = search ? suppliers : supplierData?.data?.results;
   return (
     <Form.Item
-      name={Boolean(props?.name) ? props.name : "accountName"}
+      name={Boolean(props?.name) ? props.name : 'accountName'}
       label={props?.label}
       style={props?.style}
       rules={
         props?.rules ?? [
           {
             required: props?.required ? true : false,
-            message: t("Banking.Form.Account_name_required"),
+            message: t('Banking.Form.Account_name_required'),
           },
         ]
       }
     >
       <Select
-        placeholder={props.placeholder ?? t("Banking.Form.Account_name")}
+        placeholder={props.placeholder ?? t('Banking.Form.Account_name')}
         showSearch
         onSearch={onSearch}
         showArrow
         notFoundContent={
           searchAllData?.isFetching || searchAllData.isLoading ? (
-            <CenteredSpin size="small" style={styles.spin} />
+            <CenteredSpin size='small' style={styles.spin} />
           ) : undefined
         }
         allowClear={props?.required ? false : true}
         labelInValue
-        optionFilterProp="label"
+        optionFilterProp='label'
         dropdownRender={(menu) => <div>{menu}</div>}
       >
-        <Select.OptGroup label={t("Sales.Customers.1")}>
+        <Select.OptGroup label={t('Sales.Customers.1')}>
           {customerData?.isLoading ? (
             <Select.Option
               disabled={true}
-              key="customerLoader"
-              value="customerLoader"
-              label={<CenteredSpin size="small" />}
+              key='customerLoader'
+              value='customerLoader'
+              label={<CenteredSpin size='small' />}
               style={styles.option}
             >
-              <CenteredSpin size="small" style={styles.optionLoader} />
+              <CenteredSpin size='small' style={styles.optionLoader} />
             </Select.Option>
           ) : (
             allCustomers?.map((item: any) => (
@@ -126,16 +126,16 @@ export const EmployeeAndCustomerAndSupplierChart: React.FC<IProps> = (
             ))
           )}
         </Select.OptGroup>
-        <Select.OptGroup label={t("Expenses.Suppliers.1")}>
+        <Select.OptGroup label={t('Expenses.Suppliers.1')}>
           {supplierData?.isLoading ? (
             <Select.Option
               disabled={true}
-              key="supplierLoader"
-              value="supplierLoader"
-              label={<CenteredSpin size="small" />}
+              key='supplierLoader'
+              value='supplierLoader'
+              label={<CenteredSpin size='small' />}
               style={styles.option}
             >
-              <CenteredSpin size="small" style={styles.optionLoader} />
+              <CenteredSpin size='small' style={styles.optionLoader} />
             </Select.Option>
           ) : (
             allSuppliers?.map((item: any) => (
@@ -145,16 +145,16 @@ export const EmployeeAndCustomerAndSupplierChart: React.FC<IProps> = (
             ))
           )}
         </Select.OptGroup>
-        <Select.OptGroup label={t("Employees.1")}>
+        <Select.OptGroup label={t('Employees.1')}>
           {employeeData?.isLoading ? (
             <Select.Option
               disabled={true}
-              key="employeeLoader"
-              value="employeeLoader"
-              label={<CenteredSpin size="small" />}
+              key='employeeLoader'
+              value='employeeLoader'
+              label={<CenteredSpin size='small' />}
               style={styles.option}
             >
-              <CenteredSpin size="small" style={styles.optionLoader} />
+              <CenteredSpin size='small' style={styles.optionLoader} />
             </Select.Option>
           ) : (
             allEmployees?.map((item: any) => (
@@ -170,7 +170,7 @@ export const EmployeeAndCustomerAndSupplierChart: React.FC<IProps> = (
 };
 
 const styles = {
-  spin: { padding: "7px" },
-  optionLoader: { margin: "0px" },
-  option: { height: "45px" },
+  spin: { padding: '7px' },
+  optionLoader: { margin: '0px' },
+  option: { height: '45px' },
 };

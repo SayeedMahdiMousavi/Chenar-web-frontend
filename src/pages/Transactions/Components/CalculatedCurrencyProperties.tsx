@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import { CurrencyPartFields } from "./CurrencyPartFields";
+import { CurrencyPartFields } from './CurrencyPartFields';
 interface IProps {
   form: any;
   type: string;
@@ -9,5 +9,5 @@ interface IProps {
   onChangeCurrency?: (value: any) => void;
 }
 export const CalculatedCurrencyProperties: React.FC<IProps> = (props) => {
-  return <CurrencyPartFields {...props} currency="calCurrency" />;
+  return <CurrencyPartFields {...props} currency='calCurrency' />;
 };

@@ -1,51 +1,51 @@
-import React, { useState } from "react";
-import { Modal, Col, Row, Divider, Form, message, Typography } from "antd";
-import { useMediaQuery } from "../../MediaQurey";
-import { GlobalHotKeys } from "react-hotkeys";
-import dayjs from "dayjs";
-import moment from "moment";
-import { useMutation, useQueryClient } from "react-query";
-import axiosInstance from "../../ApiBaseUrl";
-import { useTranslation } from "react-i18next";
-import { Styles } from "../../styles";
-import Draggable from "react-draggable";
-import { ModalDragTitle } from "../../SelfComponents/ModalDragTitle";
-import { CurrencyProperties } from "../Components/CurrencyProperties";
-import { ReceiveDetailsProperties } from "../Components/ReceiveDetailsProperties";
-import { CalculatedCurrencyProperties } from "../Components/CalculatedCurrencyProperties";
-import { CashBoxProperties } from "../Components/CashBoxProperries";
-import { SupplierProperties } from "../Components/SupplierProperties";
-import { EmployeeProperties } from "../Components/EmployeeProperties";
-import CashAndBankProperties from "../Components/CashAndBankProperties";
-import { CustomerProperties } from "../Components/CustomerProperties";
-import { WithdrawProperties } from "../Components/WithdrawProperties";
-import Checkbox from "antd/lib/checkbox/Checkbox";
-import { TranslateMessage } from "../../SelfComponents/TranslateComponents/TranslateMessage";
+import React, { useState } from 'react';
+import { Modal, Col, Row, Divider, Form, message, Typography } from 'antd';
+import { useMediaQuery } from '../../MediaQurey';
+import { GlobalHotKeys } from 'react-hotkeys';
+import dayjs from 'dayjs';
+import moment from 'moment';
+import { useMutation, useQueryClient } from 'react-query';
+import axiosInstance from '../../ApiBaseUrl';
+import { useTranslation } from 'react-i18next';
+import { Styles } from '../../styles';
+import Draggable from 'react-draggable';
+import { ModalDragTitle } from '../../SelfComponents/ModalDragTitle';
+import { CurrencyProperties } from '../Components/CurrencyProperties';
+import { ReceiveDetailsProperties } from '../Components/ReceiveDetailsProperties';
+import { CalculatedCurrencyProperties } from '../Components/CalculatedCurrencyProperties';
+import { CashBoxProperties } from '../Components/CashBoxProperries';
+import { SupplierProperties } from '../Components/SupplierProperties';
+import { EmployeeProperties } from '../Components/EmployeeProperties';
+import CashAndBankProperties from '../Components/CashAndBankProperties';
+import { CustomerProperties } from '../Components/CustomerProperties';
+import { WithdrawProperties } from '../Components/WithdrawProperties';
+import Checkbox from 'antd/lib/checkbox/Checkbox';
+import { TranslateMessage } from '../../SelfComponents/TranslateComponents/TranslateMessage';
 import {
   changeGToJ,
   handlePrepareDateForServer,
   utcDate,
-} from "../../../Functions/utcDate";
+} from '../../../Functions/utcDate';
 // import {
 //   journalResultUrl,
 //   journalUrl,
 // } from "../../Reports/AllReports/JournalBook/JournalBook";
-import useGetCalender from "../../../Hooks/useGetCalender";
-import useGetRunningPeriod from "../../../Hooks/useGetRunningPeriod";
+import useGetCalender from '../../../Hooks/useGetCalender';
+import useGetRunningPeriod from '../../../Hooks/useGetRunningPeriod';
 // import { accountStatisticsUrl } from "../../Reports/AllReports/AccountsStatistics/AccountsStatistics";
 // import { debitCreditUrl } from "../../Reports/AllReports/DebitAndCredit/DebitAndCredit";
 // import { cashTransactionsUrl } from "../../Reports/AllReports/AllReports";
-import useGetBaseCurrency from "../../../Hooks/useGetBaseCurrency";
-import { EmployeeCustomerSupplierChart } from "../Components/EmployeeCustomerSupplierChart";
+import useGetBaseCurrency from '../../../Hooks/useGetBaseCurrency';
+import { EmployeeCustomerSupplierChart } from '../Components/EmployeeCustomerSupplierChart';
 import {
   PageNewButton,
   ResetButton,
   SaveAndNewButton,
-} from "../../../components";
-import { manageErrors } from "../../../Functions";
-import { JOURNAL_RESULT_LIST } from "../../../constants/routes";
-import { fixedNumber, math, print } from "../../../Functions/math";
-import { manageNetworkError } from "../../../Functions/manageNetworkError";
+} from '../../../components';
+import { manageErrors } from '../../../Functions';
+import { JOURNAL_RESULT_LIST } from '../../../constants/routes';
+import { fixedNumber, math, print } from '../../../Functions/math';
+import { manageNetworkError } from '../../../Functions/manageNetworkError';
 // import { useDatabase } from "@nozbe/watermelondb/hooks";
 // import withObservables from "@nozbe/with-observables";
 // import { withDatabase } from "@nozbe/watermelondb/DatabaseProvider";
@@ -63,7 +63,7 @@ interface IProps {
   title: string;
   model: string;
 }
-const dateFormat = "YYYY-MM-DD HH:mm:ss";
+const dateFormat = 'YYYY-MM-DD HH:mm:ss';
 const PayAndReceiveCash: React.FC<IProps> = (props) => {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
@@ -74,11 +74,11 @@ const PayAndReceiveCash: React.FC<IProps> = (props) => {
   });
   const [disabled, setDisabled] = useState(true);
   const [showCalCurrency, setShowCalCurrency] = useState(false);
-  const isBgTablet = useMediaQuery("(max-width: 1024px)");
-  const isTablet = useMediaQuery("(max-width: 768px)");
-  const isMiniTablet = useMediaQuery("(max-width: 576px)");
-  const isMobile = useMediaQuery("(max-width: 425px)");
-  const isSubBase = useMediaQuery("(max-width: 375px)");
+  const isBgTablet = useMediaQuery('(max-width: 1024px)');
+  const isTablet = useMediaQuery('(max-width: 768px)');
+  const isMiniTablet = useMediaQuery('(max-width: 576px)');
+  const isMobile = useMediaQuery('(max-width: 425px)');
+  const isSubBase = useMediaQuery('(max-width: 375px)');
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [currencyValue, setCurrencyValue] = useState(1);
@@ -102,7 +102,7 @@ const PayAndReceiveCash: React.FC<IProps> = (props) => {
   const runningPeriod = useGetRunningPeriod();
   const curStartDate = runningPeriod?.data?.start_date;
 
-  const messageKey = "transactionAdd";
+  const messageKey = 'transactionAdd';
 
   const addTransaction = async ({
     value,
@@ -124,13 +124,13 @@ const PayAndReceiveCash: React.FC<IProps> = (props) => {
 
   const { mutate: mutateAddTransaction } = useMutation(addTransaction, {
     onSuccess: (_, { type }) => {
-      if (type !== "0") {
+      if (type !== '0') {
         setIsShowModal({
           visible: false,
         });
-        message.success(`${t("Message.Transaction_add_message")}`);
+        message.success(`${t('Message.Transaction_add_message')}`);
       }
-      if (type === "0") {
+      if (type === '0') {
         setVisible(false);
         form.resetFields();
 
@@ -139,7 +139,7 @@ const PayAndReceiveCash: React.FC<IProps> = (props) => {
         setCalCurrencyValue(baseCurrencyId);
         message.destroy(messageKey);
         message.success({
-          content: `${t("Message.Transaction_add_message")}`,
+          content: `${t('Message.Transaction_add_message')}`,
 
           duration: 3,
         });
@@ -167,16 +167,16 @@ const PayAndReceiveCash: React.FC<IProps> = (props) => {
     form
       .validateFields()
       .then(async (values) => {
-        // 
+        //
         setLoading(true);
         const dateTime = handlePrepareDateForServer({
           date: values?.date,
           calendarCode,
         });
 
-        if (type === "0") {
+        if (type === '0') {
           message.loading({
-            content: t("Message.Loading"),
+            content: t('Message.Loading'),
             key: messageKey,
           });
         }
@@ -193,27 +193,27 @@ const PayAndReceiveCash: React.FC<IProps> = (props) => {
         };
         const allData = {
           pay_by:
-            props.type === "payCash"
+            props.type === 'payCash'
               ? values?.cashBoxName?.value
-              : props.place === "employeePayAndRecCash"
-              ? values?.employeeName?.value
-              : props.place === "customerPayAndRecCash"
-              ? values?.customerName?.value
-              : props.place === "withdrawPayAndRecCash"
-              ? values?.withdrawName?.value
-              : values?.supplierName?.value,
+              : props.place === 'employeePayAndRecCash'
+                ? values?.employeeName?.value
+                : props.place === 'customerPayAndRecCash'
+                  ? values?.customerName?.value
+                  : props.place === 'withdrawPayAndRecCash'
+                    ? values?.withdrawName?.value
+                    : values?.supplierName?.value,
           rec_by:
-            props.type === "recCash"
+            props.type === 'recCash'
               ? values?.recBankName?.value
-              : props.place === "employeePayAndRecCash"
-              ? values?.employeeName?.value
-              : props.place === "customerPayAndRecCash"
-              ? values?.customerName?.value
-              : props.place === "withdrawPayAndRecCash"
-              ? values?.withdrawName?.value
-              : props.place === "currencyExchange"
-              ? values?.accountName?.value
-              : values?.supplierName?.value,
+              : props.place === 'employeePayAndRecCash'
+                ? values?.employeeName?.value
+                : props.place === 'customerPayAndRecCash'
+                  ? values?.customerName?.value
+                  : props.place === 'withdrawPayAndRecCash'
+                    ? values?.withdrawName?.value
+                    : props.place === 'currencyExchange'
+                      ? values?.accountName?.value
+                      : values?.supplierName?.value,
           date_time: dateTime,
           description: values?.description,
           amount: values?.amount,
@@ -231,26 +231,26 @@ const PayAndReceiveCash: React.FC<IProps> = (props) => {
 
           ...currencyExchangeFields,
         };
-        if (props.place === "recordSalaries") {
-          delete allData["pay_by"];
+        if (props.place === 'recordSalaries') {
+          delete allData['pay_by'];
         }
 
-        if (props.type === "payCash") {
-          // 
+        if (props.type === 'payCash') {
+          //
 
           const startDate = curStartDate
             ? moment(curStartDate, dateFormat).format(dateFormat)
-            : "";
+            : '';
           await axiosInstance
             .get(
               `${JOURNAL_RESULT_LIST}?account=${
                 values?.cashBoxName?.value
               }&date_time_after=${startDate}&date_time_before=${utcDate().format(
-                dateFormat
-              )}&currency=${values?.currency?.value}`
+                dateFormat,
+              )}&currency=${values?.currency?.value}`,
             )
             .then((res) => {
-              // 
+              //
               if (res?.data?.length === 0) {
                 message.error(
                   <TranslateMessage
@@ -258,8 +258,8 @@ const PayAndReceiveCash: React.FC<IProps> = (props) => {
                       bank: values?.cashBoxName?.label,
                       currency: values?.currency?.label,
                     }}
-                    message="Sales.Customers.Receive_cash.Pay_cash_enough_money_error_message"
-                  />
+                    message='Sales.Customers.Receive_cash.Pay_cash_enough_money_error_message'
+                  />,
                 );
                 setLoading(false);
                 message.destroy(messageKey);
@@ -269,8 +269,8 @@ const PayAndReceiveCash: React.FC<IProps> = (props) => {
                   math.evaluate(
                     `${res?.data?.[0]?.debit ?? 0} - ${
                       res?.data?.[0]?.credit ?? 0
-                    }`
-                  )
+                    }`,
+                  ),
                 );
 
                 if (fixedNumber(available, 10) < parseFloat(values?.amount)) {
@@ -280,13 +280,13 @@ const PayAndReceiveCash: React.FC<IProps> = (props) => {
                         bank: values?.cashBoxName?.label,
                         currency: values?.currency?.label,
                       }}
-                      message="Sales.Customers.Receive_cash.Pay_cash_enough_money_error_message"
-                    />
+                      message='Sales.Customers.Receive_cash.Pay_cash_enough_money_error_message'
+                    />,
                   );
                   setLoading(false);
                   message.destroy(messageKey);
                 } else {
-                  // 
+                  //
 
                   mutateAddTransaction({ value: allData, type });
                 }
@@ -301,11 +301,9 @@ const PayAndReceiveCash: React.FC<IProps> = (props) => {
         } else {
           mutateAddTransaction({ value: allData, type });
         }
-        // 
+        //
       })
-      .catch((info) => {
-        
-      });
+      .catch((info) => {});
   };
 
   const onReset = () => {
@@ -328,7 +326,7 @@ const PayAndReceiveCash: React.FC<IProps> = (props) => {
   };
 
   const keyMap = {
-    NEW_CUSTOMER: ["Control+M", "Control+m"],
+    NEW_CUSTOMER: ['Control+M', 'Control+m'],
   };
 
   const handlers = {
@@ -341,7 +339,7 @@ const PayAndReceiveCash: React.FC<IProps> = (props) => {
     },
   };
 
-  const orientation = t("Dir") === "ltr" ? "left" : "right";
+  const orientation = t('Dir') === 'ltr' ? 'left' : 'right';
 
   React.useEffect(() => {
     setCurrencyValue(baseCurrencyId);
@@ -352,14 +350,14 @@ const PayAndReceiveCash: React.FC<IProps> = (props) => {
     (value: { value: string; label: string }) => {
       form.setFieldsValue({ recBankName: value });
     },
-    [form]
+    [form],
   );
 
   const onChangRecBankName = React.useCallback(
     (value: string) => {
       form.setFieldsValue({ recBankId: value });
     },
-    [form]
+    [form],
   );
 
   const onChangeCalCurrency = (e: any) => {
@@ -388,17 +386,17 @@ const PayAndReceiveCash: React.FC<IProps> = (props) => {
           onClick={showModal}
           model={props?.model}
           text={
-            props.type === "payCash" && props.place === "withdrawPayAndRecCash"
-              ? t("Expenses.With_draw.1")
-              : props.type === "payCash" && props.place === "currencyExchange"
-              ? t("Sales.Product_and_services.New")
-              : props.type === "payCash" &&
-                props.place !== "withdrawPayAndRecCash"
-              ? t("Employees.Pay_cash")
-              : props.type === "recCash" &&
-                props.place === "withdrawPayAndRecCash"
-              ? t("Expenses.With_draw.Deposit")
-              : t("Employees.Receive_cash")
+            props.type === 'payCash' && props.place === 'withdrawPayAndRecCash'
+              ? t('Expenses.With_draw.1')
+              : props.type === 'payCash' && props.place === 'currencyExchange'
+                ? t('Sales.Product_and_services.New')
+                : props.type === 'payCash' &&
+                    props.place !== 'withdrawPayAndRecCash'
+                  ? t('Employees.Pay_cash')
+                  : props.type === 'recCash' &&
+                      props.place === 'withdrawPayAndRecCash'
+                    ? t('Expenses.With_draw.Deposit')
+                    : t('Employees.Receive_cash')
           }
         />
         {/* <Button
@@ -438,15 +436,15 @@ const PayAndReceiveCash: React.FC<IProps> = (props) => {
         afterClose={onReset}
         open={isShowModal.visible}
         onCancel={handleCancel}
-        width={isMobile ? "100%" : isTablet ? "70%" : isBgTablet ? 700 : 700}
+        width={isMobile ? '100%' : isTablet ? '70%' : isBgTablet ? 700 : 700}
         style={Styles.modal(isMobile)}
         bodyStyle={Styles.modalBody(isMobile, isSubBase, isMiniTablet)}
         footer={
-          <Row justify="space-between" align="middle">
+          <Row justify='space-between' align='middle'>
             <Col>
               <ResetButton onClick={onReset} />
             </Col>
-            <Col className="text_align_center">
+            <Col className='text_align_center'>
               {/* <a href="#">{t("Form.Privacy")}</a> */}
             </Col>
 
@@ -454,7 +452,7 @@ const PayAndReceiveCash: React.FC<IProps> = (props) => {
               <SaveAndNewButton
                 onSubmit={handleOk}
                 loading={loading}
-                open={visible}
+                visible={visible}
                 setVisible={setVisible}
               />
             </Col>
@@ -472,7 +470,7 @@ const PayAndReceiveCash: React.FC<IProps> = (props) => {
           // layout='vertical'
           initialValues={{
             date:
-              calendarCode === "gregory"
+              calendarCode === 'gregory'
                 ? utcDate()
                 : dayjs(changeGToJ(utcDate().format(dateFormat), dateFormat), {
                     //@ts-ignore
@@ -496,26 +494,26 @@ const PayAndReceiveCash: React.FC<IProps> = (props) => {
             <Col span={24}>
               {/* <Typography.Title level={5}>Payer</Typography.Title> */}
               <Divider orientation={orientation}>
-                {t("Sales.Customers.Receive_cash.Payer")}{" "}
+                {t('Sales.Customers.Receive_cash.Payer')}{' '}
               </Divider>
-              {props.type === "payCash" ? (
+              {props.type === 'payCash' ? (
                 <CashBoxProperties form={form} />
-              ) : props.place === "employeePayAndRecCash" ? (
+              ) : props.place === 'employeePayAndRecCash' ? (
                 <EmployeeProperties form={form} />
-              ) : props.place === "customerPayAndRecCash" ? (
+              ) : props.place === 'customerPayAndRecCash' ? (
                 <CustomerProperties form={form} />
-              ) : props.place === "withdrawPayAndRecCash" ? (
+              ) : props.place === 'withdrawPayAndRecCash' ? (
                 <WithdrawProperties form={form} />
               ) : (
                 <SupplierProperties form={form} />
               )}
 
               <Divider orientation={orientation}>
-                {t("Sales.Customers.Receive_cash.Receive_details")}{" "}
+                {t('Sales.Customers.Receive_cash.Receive_details')}{' '}
               </Divider>
-              <ReceiveDetailsProperties type="recordExpanse" />
+              <ReceiveDetailsProperties type='recordExpanse' />
               <Divider orientation={orientation}>
-                {t("Sales.Customers.Receive_cash.Paid_currency")}{" "}
+                {t('Sales.Customers.Receive_cash.Paid_currency')}{' '}
               </Divider>
               <CurrencyProperties
                 setCurrencyValue={setCurrencyValue}
@@ -523,38 +521,38 @@ const PayAndReceiveCash: React.FC<IProps> = (props) => {
                 form={form}
                 type={props.place}
               />
-              {props.place !== "currencyExchange" && (
+              {props.place !== 'currencyExchange' && (
                 <Form.Item
-                  name="showCalCurrency"
-                  valuePropName="checked"
+                  name='showCalCurrency'
+                  valuePropName='checked'
                   style={styles.calculatedCurrencyFormItem}
                 >
                   <Checkbox onChange={onChangeCalCurrency}>
-                    {" "}
+                    {' '}
                     <Typography.Text strong={true}>
-                      {t("Sales.Customers.Receive_cash.Calculate_currency")}
-                    </Typography.Text>{" "}
+                      {t('Sales.Customers.Receive_cash.Calculate_currency')}
+                    </Typography.Text>{' '}
                   </Checkbox>
                 </Form.Item>
               )}
               {/* {console.log(showCalCurrency)} */}
-              {props.place === "currencyExchange" ? (
+              {props.place === 'currencyExchange' ? (
                 <Divider orientation={orientation}>
-                  {t("Sales.Customers.Receive_cash.Receive_currency")}
+                  {t('Sales.Customers.Receive_cash.Receive_currency')}
                 </Divider>
               ) : (
                 showCalCurrency && (
                   <Divider orientation={orientation}>
-                    {t("Sales.Customers.Receive_cash.Calculate_currency")}
+                    {t('Sales.Customers.Receive_cash.Calculate_currency')}
                   </Divider>
                 )
               )}
-              {props.place === "currencyExchange" ? (
+              {props.place === 'currencyExchange' ? (
                 <CalculatedCurrencyProperties
                   setCurrencyValue={setCalCurrencyValue}
                   currencyValue={calCurrencyValue}
                   form={form}
-                  type="recordExpanse"
+                  type='recordExpanse'
                 />
               ) : (
                 showCalCurrency && (
@@ -562,28 +560,28 @@ const PayAndReceiveCash: React.FC<IProps> = (props) => {
                     setCurrencyValue={setCalCurrencyValue}
                     currencyValue={calCurrencyValue}
                     form={form}
-                    type="recordExpanse"
+                    type='recordExpanse'
                   />
                 )
               )}
               <Divider orientation={orientation}>
-                {t("Sales.Customers.Receive_cash.Receiver")}{" "}
+                {t('Sales.Customers.Receive_cash.Receiver')}{' '}
               </Divider>
-              {props.type === "recCash" ? (
+              {props.type === 'recCash' ? (
                 <CashAndBankProperties
                   onChangBankName={onChangRecBankName}
                   onChangBankId={onChangRecBankId}
                   form={form}
-                  fieldId="recBankId"
-                  fieldName="recBankName"
+                  fieldId='recBankId'
+                  fieldName='recBankName'
                 />
-              ) : props.place === "employeePayAndRecCash" ? (
+              ) : props.place === 'employeePayAndRecCash' ? (
                 <EmployeeProperties form={form} />
-              ) : props.place === "customerPayAndRecCash" ? (
+              ) : props.place === 'customerPayAndRecCash' ? (
                 <CustomerProperties form={form} />
-              ) : props.place === "withdrawPayAndRecCash" ? (
+              ) : props.place === 'withdrawPayAndRecCash' ? (
                 <WithdrawProperties form={form} />
-              ) : props.place === "currencyExchange" ? (
+              ) : props.place === 'currencyExchange' ? (
                 <EmployeeCustomerSupplierChart form={form} />
               ) : (
                 <SupplierProperties form={form} />
@@ -597,7 +595,7 @@ const PayAndReceiveCash: React.FC<IProps> = (props) => {
 };
 
 const styles = {
-  calculatedCurrencyFormItem: { marginBottom: "0px", marginTop: "5px" },
+  calculatedCurrencyFormItem: { marginBottom: '0px', marginTop: '5px' },
 };
 
 export default PayAndReceiveCash;

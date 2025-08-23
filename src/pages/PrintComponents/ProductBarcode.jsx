@@ -1,5 +1,5 @@
-import React from "react";
-import Barcode from "react-barcode";
+import React from 'react';
+import Barcode from 'react-barcode';
 const ProductBarcode = (props) => {
   return (
     <Barcode

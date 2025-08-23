@@ -1,27 +1,27 @@
-import React, { useCallback, useMemo, useState } from "react";
-import axiosInstance from "../ApiBaseUrl";
-import Photo from "../sales/Products/Photo";
-import Filters from "../sales/Products/Units/Filters";
-import { UpOutlined, DownOutlined } from "@ant-design/icons";
-import { Table, Menu, Typography, Checkbox, Button } from "antd";
-import { useTranslation } from "react-i18next";
-import EmployeesAction from "./EmployeesAction";
-import { useMediaQuery } from "../MediaQurey";
-import ShowDate from "../SelfComponents/JalaliAntdComponents/ShowDate";
-import { PaginateTable, Statistics } from "../../components/antd";
-import { EMPLOYEE_M } from "../../constants/permissions";
-import { checkActionColumnPermissions } from "../../Functions";
-import { EMPLOYEE_DETAILS } from "../../constants/routes";
-import { useNavigate } from "react-router-dom";
+import React, { useCallback, useMemo, useState } from 'react';
+import axiosInstance from '../ApiBaseUrl';
+import Photo from '../sales/Products/Photo';
+import Filters from '../sales/Products/Units/Filters';
+import { UpOutlined, DownOutlined } from '@ant-design/icons';
+import { Table, Menu, Typography, Checkbox, Button } from 'antd';
+import { useTranslation } from 'react-i18next';
+import EmployeesAction from './EmployeesAction';
+import { useMediaQuery } from '../MediaQurey';
+import ShowDate from '../SelfComponents/JalaliAntdComponents/ShowDate';
+import { PaginateTable, Statistics } from '../../components/antd';
+import { EMPLOYEE_M } from '../../constants/permissions';
+import { checkActionColumnPermissions } from '../../Functions';
+import { EMPLOYEE_DETAILS } from '../../constants/routes';
+import { useNavigate } from 'react-router-dom';
 
 const { Column } = Table;
-const dateFormat = "YYYY-MM-DD";
-const datePFormat = "jYYYY/jM/jD";
+const dateFormat = 'YYYY-MM-DD';
+const datePFormat = 'jYYYY/jM/jD';
 
 const EmployeesTable = (props) => {
-  const [filters, setFilters] = useState({ state: "active" });
+  const [filters, setFilters] = useState({ state: 'active' });
   const [settingsVisible, setSettingsVisible] = useState(false);
-  const isMobile = useMediaQuery("(max-width:425px)");
+  const isMobile = useMediaQuery('(max-width:425px)');
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -121,96 +121,96 @@ const EmployeesTable = (props) => {
   };
   const setting = (
     <Menu style={styles.settingsMenu}>
-      <Menu.Item key="1">
+      <Menu.Item key='1'>
         <Typography.Text strong={true}>
-          {t("Sales.Product_and_services.Columns")}
+          {t('Sales.Product_and_services.Columns')}
         </Typography.Text>
       </Menu.Item>
-      <Menu.Item key="2">
+      <Menu.Item key='2'>
         <Checkbox onChange={onChangeSalary} checked={salary}>
-          {t("Employees.Salary")}
+          {t('Employees.Salary')}
         </Checkbox>
       </Menu.Item>
-      <Menu.Item key="3">
+      <Menu.Item key='3'>
         <Checkbox onChange={onChangePhone} checked={phone}>
-          {t("Form.Phone")}
+          {t('Form.Phone')}
         </Checkbox>
       </Menu.Item>
-      <Menu.Item key="4">
+      <Menu.Item key='4'>
         <Checkbox onChange={onChangeAddress} checked={address}>
-          {t("Form.Address")}
+          {t('Form.Address')}
         </Checkbox>
       </Menu.Item>
-      <Menu.Item key="5">
+      <Menu.Item key='5'>
         <Checkbox onChange={onChangeEmail} checked={email}>
-          {t("Form.Email")}
+          {t('Form.Email')}
         </Checkbox>
       </Menu.Item>
-      <Menu.Item key="6">
+      <Menu.Item key='6'>
         <Checkbox onChange={onChangePhoto} checked={photo}>
-          {t("Form.Photo")}
+          {t('Form.Photo')}
         </Checkbox>
       </Menu.Item>
-      <Menu.Item key="7">
+      <Menu.Item key='7'>
         <Checkbox onChange={onChangeNationalId} checked={nationalId}>
-          {t("Sales.Customers.Form.National_id_number1")}
+          {t('Sales.Customers.Form.National_id_number1')}
         </Checkbox>
       </Menu.Item>
       {settingsVisible && (
         <React.Fragment>
-          <Menu.Item key="9">
+          <Menu.Item key='9'>
             <Checkbox onChange={onChangeBirthDate} checked={birthDate}>
-              {t("Employees.BirthDate")}
+              {t('Employees.BirthDate')}
             </Checkbox>
           </Menu.Item>
 
-          <Menu.Item key="8">
+          <Menu.Item key='8'>
             <Checkbox onChange={onChangeReleased} checked={released}>
-              {t("Employees.Released")}
+              {t('Employees.Released')}
             </Checkbox>
           </Menu.Item>
 
-          <Menu.Item key="10">
+          <Menu.Item key='10'>
             <Checkbox onChange={onChangeGender} checked={gender}>
-              {t("Employees.Gender")}
+              {t('Employees.Gender')}
             </Checkbox>
           </Menu.Item>
 
-          <Menu.Item key="11">
+          <Menu.Item key='11'>
             <Checkbox onChange={onChangeNotes} checked={notes}>
-              {t("Form.Notes")}
+              {t('Form.Notes')}
             </Checkbox>
           </Menu.Item>
 
-          <Menu.Item key="12">
+          <Menu.Item key='12'>
             <Checkbox onChange={onChangeAttachment} checked={attachment}>
-              {t("Form.Attachments")}
+              {t('Form.Attachments')}
             </Checkbox>
           </Menu.Item>
         </React.Fragment>
       )}
 
       <Menu.Item
-        key="13"
+        key='13'
         onClick={handelMenuVisible}
-        className="table__header2-setting-showMore"
-        style={{ textAlign: "end" }}
+        className='table__header2-setting-showMore'
+        style={{ textAlign: 'end' }}
       >
         {settingsVisible ? (
           <Button
-            type="link"
+            type='link'
             icon={<UpOutlined />}
-            className="table__header2-setting-showMore"
+            className='table__header2-setting-showMore'
           >
-            {t("Sales.Product_and_services.Show_less")}
+            {t('Sales.Product_and_services.Show_less')}
           </Button>
         ) : (
           <Button
-            type="link"
+            type='link'
             icon={<DownOutlined />}
-            className="table__header2-setting-showMore"
+            className='table__header2-setting-showMore'
           >
-            {t("Sales.Product_and_services.Show_More")}
+            {t('Sales.Product_and_services.Show_More')}
           </Button>
         )}
       </Menu.Item>
@@ -221,51 +221,52 @@ const EmployeesTable = (props) => {
     async ({ queryKey }) => {
       const { page, pageSize, search, order, state } = queryKey?.[1] || {};
       const { data } = await axiosInstance.get(
-        `${props.baseUrl}?page=${page}&page_size=${pageSize}&ordering=${order}&status=${state}&search=${search}&expand=*&omit=cash`
+        `${props.baseUrl}?page=${page}&page_size=${pageSize}&ordering=${order}&status=${state}&search=${search}&expand=*&omit=cash`,
       );
       return data;
     },
-    [props.baseUrl]
+    [props.baseUrl],
   );
 
   const handleDoubleClickAction = (e) => {
     e.stopPropagation();
   };
 
-  const columns = useMemo( (type, hasSelected) => {
-      const sorter = type !== "print" ? true : false;
+  const columns = useMemo(
+    (type, hasSelected) => {
+      const sorter = type !== 'print' ? true : false;
       return (
         <React.Fragment>
           <Column
-            title={t("Employees.Employee_id").toUpperCase()}
-            dataIndex="id"
-            key="id"
-            width={type !== "print" ? 145 : false}
+            title={t('Employees.Employee_id').toUpperCase()}
+            dataIndex='id'
+            key='id'
+            width={type !== 'print' ? 145 : false}
             sorter={sorter && { multiple: 16 }}
             fixed={sorter}
-            className="table-col"
+            className='table-col'
             // align="center"
           />
           <Column
-            title={t("Employees.Employee").toUpperCase()}
+            title={t('Employees.Employee').toUpperCase()}
             // width={isMobile ? 70 : 170}
-            dataIndex="first_name"
-            key="first_name"
+            dataIndex='first_name'
+            key='first_name'
             fixed={sorter}
             render={(text, record) => (
               <React.Fragment>{record?.full_name}</React.Fragment>
             )}
             sorter={sorter && { multiple: 15 }}
-            className="table-col"
+            className='table-col'
           />
           {photo && (
             <Column
-              title={`${t("Form.Photo").toUpperCase()}`}
-              dataIndex="photo"
-              key="photo"
-              className="table-col"
+              title={`${t('Form.Photo').toUpperCase()}`}
+              dataIndex='photo'
+              key='photo'
+              className='table-col'
               width={80}
-              align="center"
+              align='center'
               render={(text, record) => {
                 return <Photo photo={text} />;
               }}
@@ -274,20 +275,20 @@ const EmployeesTable = (props) => {
           )}
           {salary && (
             <Column
-              title={t("Employees.Salary").toUpperCase()}
-              dataIndex="salary"
-              key="salary"
+              title={t('Employees.Salary').toUpperCase()}
+              dataIndex='salary'
+              key='salary'
               sorter={sorter && { multiple: 14 }}
-              className="table-col"
+              className='table-col'
               render={(value) => <Statistics value={value} />}
             />
           )}
           {phone && (
             <Column
-              title={t("Sales.Customers.Table.Phone")}
-              dataIndex="phone_number"
-              key="phone_number"
-              className="table-col"
+              title={t('Sales.Customers.Table.Phone')}
+              dataIndex='phone_number'
+              key='phone_number'
+              className='table-col'
               sorter={sorter && { multiple: 13 }}
             />
           )}
@@ -304,26 +305,26 @@ const EmployeesTable = (props) => {
           /> */}
           {/* )} */}
           <Column
-            title={t("Employees.Position").toUpperCase()}
-            dataIndex="position"
-            key="position"
+            title={t('Employees.Position').toUpperCase()}
+            dataIndex='position'
+            key='position'
             sorter={sorter && { multiple: 12 }}
-            className="table-col"
+            className='table-col'
           />
           {address && (
             <Column
-              title={t("Sales.Customers.Table.Address")}
-              dataIndex="full_billing_address"
-              key="full_billing_address"
+              title={t('Sales.Customers.Table.Address')}
+              dataIndex='full_billing_address'
+              key='full_billing_address'
               sorter={sorter && { multiple: 11 }}
-              className="table-col"
+              className='table-col'
             />
           )}
           <Column
-            title={`${t("Sales.Product_and_services.Category").toUpperCase()}`}
-            dataIndex="category"
-            key="category"
-            className="table-col"
+            title={`${t('Sales.Product_and_services.Category').toUpperCase()}`}
+            dataIndex='category'
+            key='category'
+            className='table-col'
             render={(text, record) => {
               return <span>{text?.get_fomrated_path}</span>;
             }}
@@ -333,28 +334,28 @@ const EmployeesTable = (props) => {
 
           {email && (
             <Column
-              title={t("Sales.Customers.Table.Email")}
-              dataIndex="email"
-              key="email"
-              className="table-col"
+              title={t('Sales.Customers.Table.Email')}
+              dataIndex='email'
+              key='email'
+              className='table-col'
               sorter={sorter && { multiple: 9 }}
               // width={150}
             />
           )}
           {nationalId && (
             <Column
-              title={t("Sales.Customers.Form.National_id_number").toUpperCase()}
-              dataIndex="national_id_number"
-              key="national_id_number"
+              title={t('Sales.Customers.Form.National_id_number').toUpperCase()}
+              dataIndex='national_id_number'
+              key='national_id_number'
               sorter={sorter && { multiple: 8 }}
-              className="table-col"
+              className='table-col'
             />
           )}
           {birthDate && (
             <Column
-              title={t("Employees.BirthDate").toUpperCase()}
-              dataIndex="date_of_birth"
-              key="date_of_birth"
+              title={t('Employees.BirthDate').toUpperCase()}
+              dataIndex='date_of_birth'
+              key='date_of_birth'
               render={(text) => {
                 return (
                   <ShowDate
@@ -365,14 +366,14 @@ const EmployeesTable = (props) => {
                 );
               }}
               sorter={sorter && { multiple: 7 }}
-              className="table-col"
+              className='table-col'
             />
           )}
 
           <Column
-            title={t("Employees.Hire_date").toUpperCase()}
-            dataIndex="hire_date"
-            key="hire_date"
+            title={t('Employees.Hire_date').toUpperCase()}
+            dataIndex='hire_date'
+            key='hire_date'
             sorter={sorter && { multiple: 6 }}
             render={(text) => {
               return (
@@ -383,14 +384,14 @@ const EmployeesTable = (props) => {
                 />
               );
             }}
-            className="table-col"
+            className='table-col'
           />
 
           {released && (
             <Column
-              title={t("Employees.Released").toUpperCase()}
-              dataIndex="release_date"
-              key="release_date"
+              title={t('Employees.Released').toUpperCase()}
+              dataIndex='release_date'
+              key='release_date'
               render={(text) => {
                 return (
                   <ShowDate
@@ -401,56 +402,56 @@ const EmployeesTable = (props) => {
                 );
               }}
               sorter={sorter && { multiple: 5 }}
-              className="table-col"
+              className='table-col'
             />
           )}
           {gender && (
             <Column
-              title={t("Employees.Gender").toUpperCase()}
-              dataIndex="gender"
-              key="gender"
+              title={t('Employees.Gender').toUpperCase()}
+              dataIndex='gender'
+              key='gender'
               sorter={sorter && { multiple: 4 }}
-              className="table-col"
+              className='table-col'
             />
           )}
 
           <Column
-            title={t("Employees.Employee_uid").toUpperCase()}
-            dataIndex="Staff_UID"
-            key="Staff_UID"
+            title={t('Employees.Employee_uid').toUpperCase()}
+            dataIndex='Staff_UID'
+            key='Staff_UID'
             sorter={sorter && { multiple: 3 }}
-            className="table-col"
+            className='table-col'
           />
 
           {attachment && (
             <Column
-              title={t("Sales.Customers.Table.Attachments").toUpperCase()}
-              dataIndex="attachment"
-              key="attachment"
+              title={t('Sales.Customers.Table.Attachments').toUpperCase()}
+              dataIndex='attachment'
+              key='attachment'
               sorter={sorter && { multiple: 2 }}
               render={(text, record) => {
-                const attachment = text?.split("/");
+                const attachment = text?.split('/');
                 return <React.Fragment>{attachment?.[6]}</React.Fragment>;
               }}
-              className="table-col"
+              className='table-col'
             />
           )}
           {notes && (
             <Column
-              title={t("Form.Notes").toUpperCase()}
-              dataIndex="notes"
-              key="notes"
+              title={t('Form.Notes').toUpperCase()}
+              dataIndex='notes'
+              key='notes'
               sorter={sorter && { multiple: 1 }}
-              className="table-col"
+              className='table-col'
             />
           )}
 
-          {type !== "print" && checkActionColumnPermissions(EMPLOYEE_M) && (
+          {type !== 'print' && checkActionColumnPermissions(EMPLOYEE_M) && (
             <Column
-              title={t("Table.Action").toUpperCase()}
-              key="action"
+              title={t('Table.Action').toUpperCase()}
+              key='action'
               width={isMobile ? 50 : 70}
-              align="center"
+              align='center'
               render={(text, record) => (
                 <div onDoubleClick={handleDoubleClickAction}>
                   <EmployeesAction
@@ -460,8 +461,8 @@ const EmployeesTable = (props) => {
                   />
                 </div>
               )}
-              fixed={"right"}
-              className="table-col"
+              fixed={'right'}
+              className='table-col'
             />
           )}
         </React.Fragment>
@@ -482,12 +483,12 @@ const EmployeesTable = (props) => {
       released,
       salary,
       t,
-    ]
+    ],
   );
 
   return (
     <PaginateTable
-      title={t("Employees.1")}
+      title={t('Employees.1')}
       model={EMPLOYEE_M}
       columns={columns}
       queryKey={props.baseUrl}
@@ -513,7 +514,7 @@ const EmployeesTable = (props) => {
 };
 
 const styles = {
-  settingsMenu: { width: "170px", paddingBottom: "10px" },
+  settingsMenu: { width: '170px', paddingBottom: '10px' },
 };
 
 export default EmployeesTable;

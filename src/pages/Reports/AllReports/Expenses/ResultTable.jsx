@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { useQuery } from "react-query";
-import { Table } from "antd";
-import axiosInstance from "../../../ApiBaseUrl";
+import React, { useState } from 'react';
+import { useQuery } from 'react-query';
+import { Table } from 'antd';
+import axiosInstance from '../../../ApiBaseUrl';
 
 export const globalPaginationConf = {
   keepPreviousData: true,
@@ -9,7 +9,7 @@ export const globalPaginationConf = {
 };
 
 const ExpensesResultTable = (props) => {
-  const [order, setOrder] = useState("-id");
+  const [order, setOrder] = useState('-id');
 
   //row selection
   const onSelectChange = (selectedRowKeys, selectedRows) => {
@@ -30,30 +30,30 @@ const ExpensesResultTable = (props) => {
     async ({ queryKey }) => {
       const { search, order, accountId, startDate, endDate, payId, recId } =
         queryKey?.[1] || {
-          search: "",
-          order: "-id",
-          accountId: "",
-          startDate: "",
-          endDate: "",
-          payId: "",
-          recId: "",
+          search: '',
+          order: '-id',
+          accountId: '',
+          startDate: '',
+          endDate: '',
+          payId: '',
+          recId: '',
         };
       const { data } = await axiosInstance.get(
         `${props.baseUrl}result/?search=${search}&ordering=${order}${
-          props.place !== "currencyExchange" && props.place !== "moneyTransfer"
+          props.place !== 'currencyExchange' && props.place !== 'moneyTransfer'
             ? `&account=${accountId}`
-            : ""
+            : ''
         }&date_time_after=${startDate}&date_time_before=${endDate}${
-          props.place === "cashTransactions" ||
-          props.place === "moneyTransfer" ||
-          props.place === "currencyExchange"
+          props.place === 'cashTransactions' ||
+          props.place === 'moneyTransfer' ||
+          props.place === 'currencyExchange'
             ? `&pay_by=${payId}&rec_by=${recId}`
-            : ""
-        }`
+            : ''
+        }`,
       );
       return data;
     },
-    [props.baseUrl, props.place]
+    [props.baseUrl, props.place],
   );
 
   const { isLoading, isFetching, data } = useQuery(
@@ -69,14 +69,14 @@ const ExpensesResultTable = (props) => {
         recId,
       },
     ],
-    getSalesReport
+    getSalesReport,
     // usePaginatedProps
   );
 
   const onChangeTable = (pagination, filters, sorter) => {
-    if (sorter.order === "ascend") {
+    if (sorter.order === 'ascend') {
       setOrder(sorter.field);
-    } else if (sorter.order === "descend") {
+    } else if (sorter.order === 'descend') {
       setOrder(`-${sorter.field}`);
     } else {
       setOrder(`-id`);
@@ -86,9 +86,9 @@ const ExpensesResultTable = (props) => {
   return (
     <Table
       expandable
-      id="allSales"
-      className="table-content"
-      size="small"
+      id='allSales'
+      className='table-content'
+      size='small'
       loading={isLoading || isFetching ? true : false}
       rowSelection={rowSelection}
       rowKey={(record) => record.serial}
@@ -96,7 +96,7 @@ const ExpensesResultTable = (props) => {
       pagination={false}
       dataSource={data}
       bordered={true}
-      scroll={{ x: "max-content", scrollToFirstRowOnChange: true }}
+      scroll={{ x: 'max-content', scrollToFirstRowOnChange: true }}
     >
       {props?.columns}
     </Table>

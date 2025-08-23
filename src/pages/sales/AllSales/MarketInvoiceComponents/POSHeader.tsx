@@ -163,7 +163,7 @@ const POSHeader = ({
             treeData: updateTreeData(
               prev.treeData,
               title,
-              data3?.length === 0 ? undefined : data3
+              data3?.length === 0 ? undefined : data3,
             ),
           };
         });
@@ -178,14 +178,14 @@ const POSHeader = ({
   const searchCategories = useCallback(async ({ queryKey }: any) => {
     const { searchCategory } = queryKey?.[1];
     const { data } = await axiosInstance.get(
-      `${categoryBaseUrl}?name__contains=${searchCategory}`
+      `${categoryBaseUrl}?name__contains=${searchCategory}`,
     );
     return data;
   }, []);
 
   const { data, isFetching } = useQuery(
     [`${categoryBaseUrl}`, { searchCategory }],
-    searchCategories
+    searchCategories,
   );
 
   const allData = data?.results?.map((item: any) => {

@@ -1,10 +1,10 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
-import { useTranslation } from "react-i18next";
-import { print, math, fixedNumber } from "../../../Functions/math";
-import { useQuery, useQueryClient, useMutation } from "react-query";
-import axiosInstance from "../../ApiBaseUrl";
-import { debounce } from "throttle-debounce";
-import { useReactToPrint } from "react-to-print";
+import React, { useState, useRef, useEffect, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+import { print, math, fixedNumber } from '../../../Functions/math';
+import { useQuery, useQueryClient, useMutation } from 'react-query';
+import axiosInstance from '../../ApiBaseUrl';
+import { debounce } from 'throttle-debounce';
+import { useReactToPrint } from 'react-to-print';
 import {
   Drawer,
   Form,
@@ -16,24 +16,24 @@ import {
   Modal,
   Spin,
   Space,
-} from "antd";
-import { Colors } from "../../colors";
-import { MarketInvoiceTable1 } from "./MarkitInvoiceTable";
-import { HotKeys } from "react-hotkeys";
-import { POSHeader1 } from "./MarketInvoiceComponents/POSHeader";
-import { AllProductItemsWithFilters1 } from "./MarketInvoiceComponents/AllProductItemsWithFilters";
-import { ActionMessage } from "../../SelfComponents/TranslateComponents/ActionMessage";
-import useGetBaseCurrency from "../../../Hooks/useGetBaseCurrency";
-import PrintPosInvoice from "./MarketInvoiceComponents/PrintPosInvoice";
-import { handleFindUnitConversionRate } from "../../../Functions";
+} from 'antd';
+import { Colors } from '../../colors';
+import { MarketInvoiceTable1 } from './MarkitInvoiceTable';
+import { HotKeys } from 'react-hotkeys';
+import { POSHeader1 } from './MarketInvoiceComponents/POSHeader';
+import { AllProductItemsWithFilters1 } from './MarketInvoiceComponents/AllProductItemsWithFilters';
+import { ActionMessage } from '../../SelfComponents/TranslateComponents/ActionMessage';
+import useGetBaseCurrency from '../../../Hooks/useGetBaseCurrency';
+import PrintPosInvoice from './MarketInvoiceComponents/PrintPosInvoice';
+import { handleFindUnitConversionRate } from '../../../Functions';
 
-const graphqlEndPoint = "http://192.168.1.250:4000";
+const graphqlEndPoint = 'http://192.168.1.250:4000';
 
 const omitFields =
-  "id,name,barcode,photo,is_pine,is_have_vip_price,product_units,unit_conversion,price,product_barcode,vip_price,product_statistic";
-const baseUrl = "/product/items/";
+  'id,name,barcode,photo,is_pine,is_have_vip_price,product_units,unit_conversion,price,product_barcode,vip_price,product_statistic';
+const baseUrl = '/product/items/';
 const endUrl =
-  "status=active&expand=product_units,product_units.unit,unit_conversion,unit_conversion.unit,price,price.unit,product_barcode,product_barcode.unit,vip_price";
+  'status=active&expand=product_units,product_units.unit,unit_conversion,unit_conversion.unit,price,price.unit,product_barcode,product_barcode.unit,vip_price';
 const EditMarketInvoice = (props) => {
   const queryClient = useQueryClient();
   const { t, i18n } = useTranslation();
@@ -46,22 +46,22 @@ const EditMarketInvoice = (props) => {
   const withDrawRef = useRef(null);
   const barcodeButtonRef = useRef(null);
   const [form] = Form.useForm();
-  const [editingKey, setEditingKey] = useState("");
+  const [editingKey, setEditingKey] = useState('');
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [tableLoading, setTableLoading] = useState(false);
   const [searchLoading, setSearchLoading] = useState(false);
   const [productCategoryLoading, setProductCategoryLoading] = useState(false);
   const [editSpin, setEditSpin] = useState(false);
-  const [search, setSearch] = useState("");
-  const [searchCategory, setSearchCategory] = useState("");
-  const [category, setCategory] = useState("");
+  const [search, setSearch] = useState('');
+  const [searchCategory, setSearchCategory] = useState('');
+  const [category, setCategory] = useState('');
   const [categories, setCategories] = useState([]);
   const [data, setData] = useState([]);
   const [savedProducts, setSavedProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [paymentSummery, setPaymentSummery] = useState({});
-  const [cash, setCash] = useState("");
+  const [cash, setCash] = useState('');
   const [discount, setDiscount] = useState(0);
   const [vipDiscount, setVipDiscount] = useState(0);
   const [prevTotal, setPrevTotal] = useState(0);
@@ -74,7 +74,7 @@ const EditMarketInvoice = (props) => {
 
   const responseId = Boolean(response?.id);
 
-  const vipPercent = useQuery("/product/setting/", async () => {
+  const vipPercent = useQuery('/product/setting/', async () => {
     const { data } = await axiosInstance.get(`/product/setting/`);
     return data;
   });
@@ -86,7 +86,7 @@ const EditMarketInvoice = (props) => {
     (product, isVip, price, unit, qty) => {
       if (isVip && customerCardId) {
         const priceUnit = price?.find(
-          (priceItem) => priceItem?.unit?.id === unit
+          (priceItem) => priceItem?.unit?.id === unit,
         );
         const productVipPercent =
           product?.vip_price !== null
@@ -100,30 +100,30 @@ const EditMarketInvoice = (props) => {
                     print(
                       math.evaluate(`((${priceUnit?.sales_rate} - ${priceUnit?.perches_rate}) *
                     ${productVipPercent}) /
-                    100`)
-                    )
-                  )}*${qty}`
-                )
+                    100`),
+                    ),
+                  )}*${qty}`,
+                ),
               )
             : 0;
-        // 
+        //
         return vipPrice < 0 ? 0 : vipPrice;
       } else {
         return 0;
       }
     },
-    [customerCardId, globalVipPercent]
+    [customerCardId, globalVipPercent],
   );
 
   const totalWrapperCol = {
-    xxl: i18n.language === "en" ? { span: 13 } : { span: 16 },
-    xl: i18n.language === "en" ? { span: 13 } : { span: 16 },
-    lg: i18n.language === "en" ? { span: 13 } : { span: 16 },
+    xxl: i18n.language === 'en' ? { span: 13 } : { span: 16 },
+    xl: i18n.language === 'en' ? { span: 13 } : { span: 16 },
+    lg: i18n.language === 'en' ? { span: 13 } : { span: 16 },
   };
   const totalLabelCol = {
-    xxl: i18n.language === "en" ? { span: 11 } : { span: 8 },
-    xl: i18n.language === "en" ? { span: 11 } : { span: 8 },
-    lg: i18n.language === "en" ? { span: 11 } : { span: 8 },
+    xxl: i18n.language === 'en' ? { span: 11 } : { span: 8 },
+    xl: i18n.language === 'en' ? { span: 11 } : { span: 8 },
+    lg: i18n.language === 'en' ? { span: 11 } : { span: 8 },
   };
 
   const handleErrorPressEnter = (close) => {
@@ -146,7 +146,7 @@ const EditMarketInvoice = (props) => {
             <ActionMessage
               name={record?.name}
               message={
-                "Sales.All_sales.Invoice.error_message_when_sales_is_less_than_purchase"
+                'Sales.All_sales.Invoice.error_message_when_sales_is_less_than_purchase'
               }
             />
           ),
@@ -203,7 +203,7 @@ const EditMarketInvoice = (props) => {
     setProductCategoryLoading(true);
     await axiosInstance
       .get(
-        `${baseUrl}?category=${value?.label}&page=1&page_size=16${endUrl}&fields=${omitFields}`
+        `${baseUrl}?category=${value?.label}&page=1&page_size=16${endUrl}&fields=${omitFields}`,
       )
       .then((res) => {
         setCategories(res?.data?.results);
@@ -224,21 +224,21 @@ const EditMarketInvoice = (props) => {
       // const newPrevStatistic = prevStatistic?.find(
       //   (prevItem) => prevItem?.id === item?.id
       // )?.statistic;
-      // // 
+      // //
       // const warehouseStatistic = item?.product_statistic?.find(
       //   (item) => item?.warehouse === 106001
       // )?.available;
-      // // 
+      // //
       // const cashNumber = newPrevStatistic
       //   ? warehouseStatistic + newPrevStatistic
       //   : warehouseStatistic;
 
       const baseUnit = item?.product_units?.find(
-        (item) => item?.base_unit === true
+        (item) => item?.base_unit === true,
       );
 
       if (baseUnit?.unit?.id === unitId) {
-        // 
+        //
         // const warehouseCount = qty + 1;
         // if (cashNumber < warehouseCount) {
         //   Modal.warning({
@@ -255,7 +255,7 @@ const EditMarketInvoice = (props) => {
         const unitConversion = handleFindUnitConversionRate(
           item?.unit_conversion,
           unitId,
-          item?.product_units
+          item?.product_units,
         );
         // console.log("unitConversion" , unitConversion)
         if (unitConversion) {
@@ -273,8 +273,8 @@ const EditMarketInvoice = (props) => {
           return true;
         } else {
           Modal.warning({
-            bodyStyle: { direction: t("Dir") },
-            title: t("Sales.All_sales.Invoice.Invoice_no_Conversion_message"),
+            bodyStyle: { direction: t('Dir') },
+            title: t('Sales.All_sales.Invoice.Invoice_no_Conversion_message'),
             onOk: handleErrorPressEnter,
           });
           return false;
@@ -282,19 +282,19 @@ const EditMarketInvoice = (props) => {
         // }
       }
     },
-    [t]
+    [t],
   );
 
   const onClickProduct = useCallback(
     async (value, type) => {
-      // 
+      //
       posHotKey.current.focus();
       const allData = data?.find((item) => item?.id === value?.id);
 
       if (allData) {
         let isExistItem = false;
         const purUnit = allData?.product_units?.find(
-          (item) => item?.default_sal === true
+          (item) => item?.default_sal === true,
         );
         setData((prev) => {
           const newData = prev?.map((item, index) => {
@@ -316,9 +316,9 @@ const EditMarketInvoice = (props) => {
                 item?.is_have_vip_price,
                 item?.price,
                 item?.unit?.value,
-                newQty
+                newQty,
               );
-              // 
+              //
               const newData = {
                 ...item,
                 vipPrice: item?.each_price
@@ -329,11 +329,11 @@ const EditMarketInvoice = (props) => {
                   item?.each_price &&
                   item?.each_price * (parseFloat(item?.qty) + 1),
               };
-              const element = document?.getElementById("posInvoiceTable");
+              const element = document?.getElementById('posInvoiceTable');
               element &&
-                element.children[index].scrollIntoView({ behavior: "smooth" });
+                element.children[index].scrollIntoView({ behavior: 'smooth' });
               const rowKey = [item?.key];
-              // 
+              //
               setSelectedRowKeys(rowKey);
               // const newData = {
               //   ...item,
@@ -357,9 +357,9 @@ const EditMarketInvoice = (props) => {
             const newPrice = getPrice(allData, purUnit?.unit?.id);
             const ok = findProductStatistics(
               allData,
-              "add",
+              'add',
               purUnit?.unit?.id,
-              0
+              0,
             );
             if (ok) {
               const vipPrice = getVipPrice(
@@ -367,7 +367,7 @@ const EditMarketInvoice = (props) => {
                 allData?.is_have_vip_price,
                 allData?.price,
                 purUnit?.unit?.id,
-                1
+                1,
               );
               const newItem = {
                 ...allData,
@@ -383,16 +383,16 @@ const EditMarketInvoice = (props) => {
                 total_price: newPrice ? 1 * parseFloat(newPrice) : 0,
               };
               const newData = [...prev, newItem];
-              // 
+              //
               const newCount = count + 1;
               setCount(newCount);
               setTimeout(() => {
-                const element = document?.getElementById("posInvoiceTable");
+                const element = document?.getElementById('posInvoiceTable');
 
                 element &&
                   element?.lastElementChild &&
                   element.lastElementChild.scrollIntoView({
-                    behavior: "smooth",
+                    behavior: 'smooth',
                   });
                 const rowKey = [count];
                 setSelectedRowKeys(rowKey);
@@ -409,7 +409,7 @@ const EditMarketInvoice = (props) => {
         }
         return;
       } else {
-        if (type === "search") {
+        if (type === 'search') {
           try {
             setTableLoading(true);
             setSearchLoading(true);
@@ -419,23 +419,23 @@ const EditMarketInvoice = (props) => {
               })
               .then((res) => {
                 if (res?.data) {
-                  // 
-                  //  
+                  //
+                  //
                   const product = res?.data;
                   const purUnit = product?.product_units?.find(
-                    (item) => item?.default_sal === true
+                    (item) => item?.default_sal === true,
                   );
                   const newPrice = getPrice(product, purUnit?.unit?.id);
                   const salesUnitId = product?.product_units?.find(
-                    (item) => item?.default_sal === true
+                    (item) => item?.default_sal === true,
                   )?.unit?.id;
                   const ok = findProductStatistics(
                     product,
-                    "add",
+                    'add',
                     salesUnitId,
-                    0
+                    0,
                   );
-                  // 
+                  //
                   setData((prev) => {
                     if (ok) {
                       const vipPrice = getVipPrice(
@@ -443,7 +443,7 @@ const EditMarketInvoice = (props) => {
                         product?.is_have_vip_price,
                         product?.price,
                         purUnit?.unit?.id,
-                        1
+                        1,
                       );
                       const newData = {
                         ...product,
@@ -467,12 +467,12 @@ const EditMarketInvoice = (props) => {
                       barcodeSearch.current.blur();
                       setTimeout(() => {
                         const element =
-                          document?.getElementById("posInvoiceTable");
+                          document?.getElementById('posInvoiceTable');
 
                         element &&
                           element?.lastElementChild &&
                           element.lastElementChild.scrollIntoView({
-                            behavior: "smooth",
+                            behavior: 'smooth',
                           });
                         const rowKey = [count];
                         setSelectedRowKeys(rowKey);
@@ -497,11 +497,11 @@ const EditMarketInvoice = (props) => {
                   //     { behavior: "smooth" }
                   //   );
 
-                  // 
-                  // 
+                  //
+                  //
                 } else {
                   message.error(
-                    `${t("Sales.All_sales.Invoice.Product_not_found")}`
+                    `${t('Sales.All_sales.Invoice.Product_not_found')}`,
                   );
                   setTableLoading(false);
                   setSearchLoading(false);
@@ -516,7 +516,7 @@ const EditMarketInvoice = (props) => {
                 setCount(newCount);
                 setTableLoading(false);
                 setSearchLoading(false);
-                // 
+                //
                 // if (error?.response?.data?.barcode?.[0]) {
                 //   message.error(`${error?.response?.data?.barcode?.[0]}`);
                 //   return error;
@@ -524,20 +524,20 @@ const EditMarketInvoice = (props) => {
                 return error;
               });
           } catch (error) {
-            message.error(`${t("Sales.All_sales.Invoice.Product_not_found")}`);
+            message.error(`${t('Sales.All_sales.Invoice.Product_not_found')}`);
             setTableLoading(false);
             setSearchLoading(false);
-            // 
+            //
           }
         } else {
           setData((prev) => {
             const salesUnitId = value?.product_units?.find(
-              (item) => item?.default_sal === true
+              (item) => item?.default_sal === true,
             )?.unit?.id;
-            const ok = findProductStatistics(value, "add", salesUnitId, 0);
+            const ok = findProductStatistics(value, 'add', salesUnitId, 0);
             if (ok) {
               const purUnit = value?.product_units?.find(
-                (item) => item?.default_sal === true
+                (item) => item?.default_sal === true,
               );
               const newPrice = getPrice(value, purUnit?.unit?.id);
 
@@ -546,7 +546,7 @@ const EditMarketInvoice = (props) => {
                 value?.is_have_vip_price,
                 value?.price,
                 purUnit?.unit?.id,
-                1
+                1,
               );
               const newItem = {
                 ...value,
@@ -565,15 +565,15 @@ const EditMarketInvoice = (props) => {
               const newCount = count + 1;
               setCount(newCount);
               setTimeout(() => {
-                const element = document?.getElementById("posInvoiceTable");
+                const element = document?.getElementById('posInvoiceTable');
                 element &&
                   element?.lastElementChild &&
                   element.lastElementChild.scrollIntoView({
-                    behavior: "smooth",
+                    behavior: 'smooth',
                   });
                 const rowKey = [count];
 
-                // 
+                //
                 setSelectedRowKeys(rowKey);
               }, 100);
               const allData = [...prev, newItem];
@@ -586,7 +586,7 @@ const EditMarketInvoice = (props) => {
       }
     },
 
-    [data, getVipPrice, getPrice, findProductStatistics, count, t]
+    [data, getVipPrice, getPrice, findProductStatistics, count, t],
   );
 
   // const { mutate: mutatePine,isLoading} = useMutation(
@@ -595,7 +595,7 @@ const EditMarketInvoice = (props) => {
   //       .patch(`${baseUrl}${value.name}/`, value.value)
   //       .then((res) => {})
   //       .catch((error) => {
-  //         // 
+  //         //
   //       }),
   //   {
   //     onMutate: (value) => {
@@ -706,7 +706,7 @@ const EditMarketInvoice = (props) => {
 
   //     Inactive = false;
   //   } catch (info) {
-  //     // 
+  //     //
   //     Inactive = false;
   //   }
   // };
@@ -714,7 +714,7 @@ const EditMarketInvoice = (props) => {
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
     removeAfterPrint: true,
-    bodyClass: "market_invoice",
+    bodyClass: 'market_invoice',
     // fonts: [
     //   { family: "Regular", source: "../../../fonts/IRANSansLightRegular.ttf" },
     // ],
@@ -728,7 +728,7 @@ const EditMarketInvoice = (props) => {
         value,
         {
           timeout: 0,
-        }
+        },
       )
       .then((res) => {
         setResponse(res?.data);
@@ -747,29 +747,29 @@ const EditMarketInvoice = (props) => {
               return {
                 vipDiscount: print(
                   math.evaluate(
-                    `${sum?.vipDiscount}+(${item?.total_price}-${item?.vipPrice})`
-                  )
+                    `${sum?.vipDiscount}+(${item?.total_price}-${item?.vipPrice})`,
+                  ),
                 ),
                 total: print(
-                  math.evaluate(`${sum?.total}+${item?.total_price}`)
+                  math.evaluate(`${sum?.total}+${item?.total_price}`),
                 ),
               };
             } else {
               return {
                 vipDiscount: sum?.vipDiscount,
                 total: print(
-                  math.evaluate(`${sum?.total}+${item?.total_price}`)
+                  math.evaluate(`${sum?.total}+${item?.total_price}`),
                 ),
               };
             }
           },
-          { vipDiscount: 0, total: 0 }
+          { vipDiscount: 0, total: 0 },
         );
         setVipDiscount(total?.vipDiscount);
         setTotalPrice(total?.total);
         setSavedProducts(data);
         setLoading(false);
-        message.success(`${t("Sales.All_sales.Invoice.Save_message")}`);
+        message.success(`${t('Sales.All_sales.Invoice.Save_message')}`);
         // saveRef.current.blur();
         posHotKey.current.focus();
         handlePrint();
@@ -848,7 +848,7 @@ const EditMarketInvoice = (props) => {
     // onSuccess: () => queryClient.invalidateQueries(`/invoice/sales_invoice/`),
   });
 
-  // 
+  //
 
   let isSendOrder = false;
   const handleSendOrder = () => {
@@ -856,22 +856,22 @@ const EditMarketInvoice = (props) => {
     form
       .validateFields()
       .then(async (values) => {
-        console.log("values" , values)
+        console.log('values', values);
         setLoading(true);
         if (data?.length < 1) {
           Modal.warning({
-            bodyStyle: { direction: t("Dir") },
-            title: t("Sales.All_sales.Invoice.Invoice_no_data_message"),
+            bodyStyle: { direction: t('Dir') },
+            title: t('Sales.All_sales.Invoice.Invoice_no_data_message'),
           });
           setLoading(false);
         } else {
-          // 
-          // 
+          //
+          //
           if (parseFloat(values?.total) < parseFloat(values?.usedCardBalance)) {
             Modal.warning({
-              bodyStyle: { direction: t("Dir") },
+              bodyStyle: { direction: t('Dir') },
               title: t(
-                "Sales.All_sales.Invoice.Pos_invoice_less_coupon_amount_message"
+                'Sales.All_sales.Invoice.Pos_invoice_less_coupon_amount_message',
               ),
             });
             setLoading(false);
@@ -890,7 +890,7 @@ const EditMarketInvoice = (props) => {
               //     item?.unit?.value,
               //     item?.qty
               //   );
-              //   // 
+              //   //
               //   vip = vipPrice;
               // }
               return {
@@ -900,7 +900,7 @@ const EditMarketInvoice = (props) => {
                 unit_conversion_rate: handleFindUnitConversionRate(
                   item?.unit_conversion,
                   item?.unit.value,
-                  item?.product_units
+                  item?.product_units,
                 ),
                 product: item?.id,
                 qty: item?.qty ? fixedNumber(item?.qty, 3) : 0,
@@ -922,11 +922,11 @@ const EditMarketInvoice = (props) => {
                 total_price: item?.vipPrice
                   ? fixedNumber(item?.vipPrice, 4)
                   : 0,
-                description: "",
+                description: '',
                 warehouse: 106001,
                 discount: 0,
                 expense: 0,
-                discount_type: "simple",
+                discount_type: 'simple',
                 invoice: props?.record?.id,
                 id: item?.itemId ? item?.itemId : 34,
               };
@@ -936,44 +936,44 @@ const EditMarketInvoice = (props) => {
               // id: paymentSummery?.cash_fin?.id,
               fiscal_year: paymentSummery?.cash_fin?.fiscal_year,
               pay_by: `CUS-${103001}`,
-              rec_by: cash !== "" && cash,
+              rec_by: cash !== '' && cash,
               date_time: paymentSummery?.cash_fin?.date_time,
-              description: "",
+              description: '',
               amount: fixedNumber(values?.total, 10),
               currency: baseCurrencyId,
               currency_rate: 1,
               amount_calc: fixedNumber(values?.total, 10),
               currency_calc: baseCurrencyId,
               currency_rate_calc: 1,
-              transaction_type: "invoice",
-              related_to: "customer",
+              transaction_type: 'invoice',
+              related_to: 'customer',
             };
 
             const expenseOfDiscount = {
               // id: paymentSummery?.expense_of_discount?.id,
               fiscal_year: paymentSummery?.expense_of_discount?.fiscal_year,
-              pay_by: cash !== "" && cash,
+              pay_by: cash !== '' && cash,
               rec_by: `CUS-103002`,
               date_time: paymentSummery?.expense_of_discount?.date_time,
-              description: "",
+              description: '',
               amount: values?.usedCardBalance,
               currency: baseCurrencyId,
               currency_rate: 1,
               amount_calc: values?.usedCardBalance,
               currency_calc: baseCurrencyId,
               currency_rate_calc: 1,
-              transaction_type: "normal",
-              related_to: "customer",
+              transaction_type: 'normal',
+              related_to: 'customer',
             };
 
             const allData = {
               vip_customer_card: customer?.cardId && customer?.cardId,
-              sales_source: "pos",
+              sales_source: 'pos',
               fiscal_year: props?.record?.fiscal_year,
               currency: baseCurrencyId,
               currency_rate: 1,
               date_time: props?.record?.date_time,
-              description: "",
+              description: '',
               warehouse: 106001,
               customer: `CUS-${103001}`,
               payment_summery: {
@@ -982,7 +982,7 @@ const EditMarketInvoice = (props) => {
                 expense: 0,
                 net_amount: parseFloat(values?.total),
                 remain: 0,
-                invoice_type: "sales",
+                invoice_type: 'sales',
                 coupon_amount: values?.usedCardBalance
                   ? values?.usedCardBalance
                   : 0,
@@ -1006,15 +1006,13 @@ const EditMarketInvoice = (props) => {
 
               isSendOrder = false;
             } catch (info) {
-              // 
+              //
               isSendOrder = false;
             }
           }
         }
       })
-      .catch((info) => {
-        
-      });
+      .catch((info) => {});
   };
 
   const onCancel = () => {
@@ -1025,11 +1023,11 @@ const EditMarketInvoice = (props) => {
 
   const handleAfterVisibleChange = useCallback(
     async (visible) => {
-      // 
+      //
       if (visible === false) {
-        setSearch("");
+        setSearch('');
         setLoading(false);
-        setCategory("");
+        setCategory('');
         form.resetFields();
         setCount(1);
         setData([]);
@@ -1042,30 +1040,30 @@ const EditMarketInvoice = (props) => {
         responseRef.current = false;
         setSelectedRowKeys([]);
         setProductCategoryLoading(false);
-        setEditingKey("");
+        setEditingKey('');
         setPaymentSummery({});
         setEditSpin(false);
-        setCash("");
+        setCash('');
         setPrevStatistic([]);
         setPrevTotal(0);
         setVipDiscount(0);
         queryClient.invalidateQueries(`/invoice/sales_invoice/`);
         queryClient.invalidateQueries(`/pay_receive_cash/report/journal/`);
         queryClient.invalidateQueries(
-          `/pay_receive_cash/report/journal/journal_result/`
+          `/pay_receive_cash/report/journal/journal_result/`,
         );
       } else {
         const { data } = await axiosInstance
           .get(
             `/invoice/sales_invoice/${recordId}/?expand=*,invoice_item.product.vip_price,invoice_item.product.product_barcode,invoice_item.product.product_barcode.unit,invoice_item.product.barcode,payment_summery.cash_fin.rec_by,payment_summery.expense_of_discount,invoice_item.product,invoice_item.unit,invoice_item.product.product_units,invoice_item.product.product_units.unit,invoice_item.product.price,invoice_item.product.unit_conversion,invoice_item.product.unit_conversion.unit,invoice_item.product.price.unit`,
-            { timeout: 0 }
+            { timeout: 0 },
           )
           .catch((error) => {
-            // 
+            //
             setEditSpin(false);
             return error;
           });
-        // 
+        //
         if (data?.vip_customer_card) {
           setCustomer({ cardId: data?.vip_customer_card });
         }
@@ -1092,13 +1090,13 @@ const EditMarketInvoice = (props) => {
           //   item?.unit?.id,
           //   1
           // );
-          // 
+          //
           let each_price = item?.each_price;
           let total_price = item?.total_price;
           // && item?.is_have_vip_price
           if (data?.vip_customer_card && item?.product?.is_have_vip_price) {
             const vipPrice = item?.product?.price?.find(
-              (priceItem) => priceItem?.unit?.id === item?.unit?.id
+              (priceItem) => priceItem?.unit?.id === item?.unit?.id,
             );
             //
             each_price = vipPrice?.sales_rate;
@@ -1129,14 +1127,14 @@ const EditMarketInvoice = (props) => {
         setPrevTotal(
           data?.payment_summery?.net_amount
             ? data?.payment_summery?.net_amount
-            : 0
+            : 0,
         );
         setDiscount(
           data?.payment_summery?.expense_of_discount?.amount
             ? data?.payment_summery?.expense_of_discount?.amount
-            : 0
+            : 0,
         );
-        // 
+        //
         form.setFieldsValue({
           usedCardBalance: data?.payment_summery?.expense_of_discount?.amount
             ? data?.payment_summery?.expense_of_discount?.amount
@@ -1148,18 +1146,18 @@ const EditMarketInvoice = (props) => {
         setEditSpin(false);
       }
     },
-    [form, recordId, queryClient]
+    [form, recordId, queryClient],
   );
 
   useEffect(() => {
     const row = form.getFieldsValue();
     const total = data?.reduce(
       (sum, item) => print(math.evaluate(`${sum}+${item?.vipPrice}`)),
-      0
+      0,
     );
     const totalDataValue = total ?? 0;
     // if (totalDataValue <= row.usedCardBalance) {
-    //   // 
+    //   //
     //   form.setFieldsValue({
     //     usedCardBalance: totalDataValue,
     //     total: totalDataValue,
@@ -1174,12 +1172,12 @@ const EditMarketInvoice = (props) => {
     const remainAmount = totalDataValue
       ? print(math.evaluate(`${newTotal}-(${parseFloat(prevTotal)})`))
       : 0;
-    // 
-    // 
+    //
+    //
     form.setFieldsValue({ total: newTotal, remainAmount: remainAmount });
     setTotalPrice(newTotal);
     // }
-    // 
+    //
   }, [prevTotal, form, data]);
 
   const handleClearCustomer = useCallback(
@@ -1187,7 +1185,7 @@ const EditMarketInvoice = (props) => {
       e.stopPropagation();
       const total = data?.reduce(
         (sum, item) => print(math.evaluate(`${sum}+${item?.vipPrice}`)),
-        0
+        0,
       );
       const newTotal = total ?? 0;
       // setCustomerData({});
@@ -1200,7 +1198,7 @@ const EditMarketInvoice = (props) => {
         remainAmount: newTotal ?? 0,
       });
     },
-    [data, form]
+    [data, form],
   );
 
   const onClickBody = () => {
@@ -1208,23 +1206,23 @@ const EditMarketInvoice = (props) => {
   };
 
   const keyMap = {
-    MARKET_INVOICE_PRINT: "shift+p",
-    MARKET_INVOICE_NAME_SEARCH: "f1",
-    MARKET_INVOICE_BARCODE_SEARCH: "f2",
-    MARKET_INVOICE_SAVE_ORDER: "shift+s",
-    MARKET_INVOICE_RESET_ORDER: "shift+R",
-    MARKET_INVOICE_SELECT_WITHDRAW: "f3",
+    MARKET_INVOICE_PRINT: 'shift+p',
+    MARKET_INVOICE_NAME_SEARCH: 'f1',
+    MARKET_INVOICE_BARCODE_SEARCH: 'f2',
+    MARKET_INVOICE_SAVE_ORDER: 'shift+s',
+    MARKET_INVOICE_RESET_ORDER: 'shift+R',
+    MARKET_INVOICE_SELECT_WITHDRAW: 'f3',
   };
-  // 
+  //
   const handlers = {
     MARKET_INVOICE_PRINT: (event) => {
       event.preventDefault();
       event.stopPropagation();
-      // 
+      //
       if (responseRef.current === true) {
         handlePrint();
       } else {
-        message.warning(t("Sales.All_sales.Invoice.Print_error_message"));
+        message.warning(t('Sales.All_sales.Invoice.Print_error_message'));
       }
     },
     MARKET_INVOICE_NAME_SEARCH: (event) => {
@@ -1257,7 +1255,7 @@ const EditMarketInvoice = (props) => {
     MARKET_INVOICE_SELECT_WITHDRAW: (event) => {
       event.preventDefault();
       event.stopPropagation();
-      withDrawRef.current.focus({ cursor: "all" });
+      withDrawRef.current.focus({ cursor: 'all' });
     },
   };
 
@@ -1265,18 +1263,18 @@ const EditMarketInvoice = (props) => {
     <HotKeys keyMap={keyMap} handlers={handlers} innerRef={posHotKey}>
       <div onClick={onClickBody}>
         <div onClick={showDrawer}>
-          {t("Sales.All_sales.Invoice.Edit_POS_invoice")}
+          {t('Sales.All_sales.Invoice.Edit_POS_invoice')}
         </div>
         <Drawer
           maskClosable={false}
           closable={false}
-          height="100%"
+          height='100%'
           afterVisibleChange={handleAfterVisibleChange}
           onClose={onClose}
           open={visible}
-          placement="top"
+          placement='top'
           destroyOnClose
-          bodyStyle={{ padding: "0px", overflowY: "hidden" }}
+          bodyStyle={{ padding: '0px', overflowY: 'hidden' }}
           footer={false}
           title={
             <POSHeader1
@@ -1287,7 +1285,7 @@ const EditMarketInvoice = (props) => {
               onSearch={onSearch}
               setSearchCategory={setSearchCategory}
               nameSearch={nameSearch}
-              type="editPOS"
+              type='editPOS'
             />
           }
           headerStyle={styles.drawerHeader}
@@ -1304,10 +1302,10 @@ const EditMarketInvoice = (props) => {
             colon={false}
           >
             <Row>
-              <Col span={13} className="height">
+              <Col span={13} className='height'>
                 <Spin spinning={editSpin}>
-                  <Row gutter={[0, 10]} className="height">
-                    <Col span={22} offset={1} className="height">
+                  <Row gutter={[0, 10]} className='height'>
+                    <Col span={22} offset={1} className='height'>
                       <MarketInvoiceTable1
                         data={data}
                         responseId={responseId}
@@ -1332,7 +1330,7 @@ const EditMarketInvoice = (props) => {
                         setEditingKey={setEditingKey}
                         editingKey={editingKey}
                         posHotKey={posHotKey}
-                        type="edit"
+                        type='edit'
                         findProductStatistics={findProductStatistics}
                         barcodeButtonRef={barcodeButtonRef}
                         loading={tableLoading}
@@ -1347,26 +1345,26 @@ const EditMarketInvoice = (props) => {
                           <Row gutter={15}>
                             <Col span={12}>
                               <Form.Item
-                                name="total"
-                                label={t("Sales.Customers.Form.Total")}
+                                name='total'
+                                label={t('Sales.Customers.Form.Total')}
                                 labelCol={totalLabelCol}
                                 wrapperCol={totalWrapperCol}
-                                labelAlign="right"
+                                labelAlign='right'
                                 style={styles.margin}
                               >
                                 <InputNumber
-                                  type="number"
-                                  className="num"
-                                  inputMode="numeric"
+                                  type='number'
+                                  className='num'
+                                  inputMode='numeric'
                                   disabled
                                   style={styles.input}
                                   // size="small"
                                 />
                               </Form.Item>
                               <Form.Item
-                                name="remainAmount"
+                                name='remainAmount'
                                 label={t(
-                                  "Sales.All_sales.Invoice.Remain_amount"
+                                  'Sales.All_sales.Invoice.Remain_amount',
                                 )}
                                 style={styles.margin}
                                 labelCol={totalLabelCol}
@@ -1375,50 +1373,50 @@ const EditMarketInvoice = (props) => {
                                 <InputNumber
                                   disabled
                                   style={styles.input}
-                                  type="number"
-                                  className="num"
-                                  inputMode="numeric"
+                                  type='number'
+                                  className='num'
+                                  inputMode='numeric'
                                   // size="small"
                                 />
                               </Form.Item>
                             </Col>
                             <Col span={12}>
                               <Form.Item
-                                name="usedCardBalance"
-                                label={t("Sales.All_sales.Invoice.With_draw")}
+                                name='usedCardBalance'
+                                label={t('Sales.All_sales.Invoice.With_draw')}
                                 style={styles.margin}
                                 labelCol={totalLabelCol}
                                 wrapperCol={totalWrapperCol}
                               >
                                 <InputNumber
                                   min={0}
-                                  type="number"
+                                  type='number'
                                   disabled
                                   style={styles.input}
-                                  inputMode="numeric"
-                                  className="num"
+                                  inputMode='numeric'
+                                  className='num'
                                 />
                               </Form.Item>
                             </Col>
                           </Row>
-                          <Space size={33} style={{ marginTop: "10px" }}>
+                          <Space size={33} style={{ marginTop: '10px' }}>
                             <Button
                               onClick={handlePrint}
                               style={styles.button}
                               disabled={!response?.id}
                             >
-                              {t("Sales.All_sales.Invoice.Print_order")}
+                              {t('Sales.All_sales.Invoice.Print_order')}
                               <div
                                 style={{
-                                  display: "none",
-                                  overflow: "hidden",
-                                  height: "0",
+                                  display: 'none',
+                                  overflow: 'hidden',
+                                  height: '0',
                                 }}
                               >
                                 <PrintPosInvoice
                                   printRef={componentRef}
                                   data={savedProducts}
-                                  type="edit"
+                                  type='edit'
                                   discount={discount}
                                   vipDiscount={vipDiscount}
                                   totalPrice={totalPrice}
@@ -1427,18 +1425,18 @@ const EditMarketInvoice = (props) => {
                               </div>
                             </Button>
 
-                            <Form.Item style={{ marginBottom: "0px" }}>
+                            <Form.Item style={{ marginBottom: '0px' }}>
                               <Button
                                 // shape="round"
-                                disabled={response?.id || editingKey !== ""}
+                                disabled={response?.id || editingKey !== ''}
                                 ref={saveRef}
-                                type="primary"
+                                type='primary'
                                 onClick={handleSendOrder}
                                 // htmlType="submit"
                                 loading={loading}
                                 style={styles.button}
                               >
-                                {t("Sales.All_sales.Invoice.Send_order")}
+                                {t('Sales.All_sales.Invoice.Send_order')}
                               </Button>
                             </Form.Item>
                             <Button
@@ -1446,7 +1444,7 @@ const EditMarketInvoice = (props) => {
                               style={styles.button}
                               // disabled={response?.id}
                             >
-                              {t("Form.Close")}
+                              {t('Form.Close')}
                             </Button>
                           </Space>
                         </Col>
@@ -1457,12 +1455,12 @@ const EditMarketInvoice = (props) => {
               </Col>
               <Col
                 span={11}
-                className="market_invoice_product num"
-                id="posProductList"
+                className='market_invoice_product num'
+                id='posProductList'
                 style={{
                   height: `calc(100vh - 60px)`,
-                  overflowY: "auto",
-                  overflowX: "hidden",
+                  overflowY: 'auto',
+                  overflowX: 'hidden',
                 }}
               >
                 <AllProductItemsWithFilters1
@@ -1486,34 +1484,34 @@ const EditMarketInvoice = (props) => {
 const styles = {
   drawerHeader: {
     background: `${Colors.primaryColor}`,
-    padding: "0px 24px 0px 24px",
-    height: "60px",
-    borderBottom: "none",
+    padding: '0px 24px 0px 24px',
+    height: '60px',
+    borderBottom: 'none',
   },
-  margin: { marginBottom: "10px" },
+  margin: { marginBottom: '10px' },
   cardBody: {
-    padding: "10px 5px",
-    height: "50px",
-    background: "#fafafa",
-    lineHeight: "20px",
+    padding: '10px 5px',
+    height: '50px',
+    background: '#fafafa',
+    lineHeight: '20px',
   },
   cardTitle: {
     margin: 0,
     fontSize: 13,
-    textAlign: "center",
+    textAlign: 'center',
   },
   cardImage: {
-    height: "85px",
-    width: "100%",
+    height: '85px',
+    width: '100%',
   },
-  productItem: { paddingInlineEnd: "10px" },
+  productItem: { paddingInlineEnd: '10px' },
   cardCover: {
-    height: "84px",
+    height: '84px',
   },
-  spin: { margin: "50px" },
-  button: { height: "37px", borderRadius: "4px" },
-  input: { borderRadius: "4px" },
-  footer: { width: "475px" },
+  spin: { margin: '50px' },
+  button: { height: '37px', borderRadius: '4px' },
+  input: { borderRadius: '4px' },
+  footer: { width: '475px' },
 };
 // const mapStateToProps = (state) => {
 //   return {

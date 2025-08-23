@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import EditOpenAccount from "./EditOpenAccount";
-import { Menu, Dropdown } from "antd";
-import ActionButton from "../../SelfComponents/ActionButton";
-import { RemovePopconfirm } from "../../../components";
-import { useRemoveItem } from "../../../Hooks";
-import { useTranslation } from "react-i18next";
-import { OPINING_ACCOUNT_M } from "../../../constants/permissions";
+import React, { useState } from 'react';
+import EditOpenAccount from './EditOpenAccount';
+import { Menu, Dropdown } from 'antd';
+import ActionButton from '../../SelfComponents/ActionButton';
+import { RemovePopconfirm } from '../../../components';
+import { useRemoveItem } from '../../../Hooks';
+import { useTranslation } from 'react-i18next';
+import { OPINING_ACCOUNT_M } from '../../../constants/permissions';
 
 interface IProps {
   record: any;
@@ -29,7 +29,7 @@ const Action: React.FC<IProps> = (props) => {
     setVisible,
     recordName: props?.record?.account?.name,
     handleUpdateItems: props?.handleUpdateItems,
-    removeMessage: t("Message.Transaction_remove_message"),
+    removeMessage: t('Message.Transaction_remove_message'),
   });
 
   const handleCancel = () => {
@@ -50,9 +50,9 @@ const Action: React.FC<IProps> = (props) => {
     <Menu>
       <RemovePopconfirm
         itemName={t(
-          "Sales.All_sales.Purchase_and_sales.Transaction"
+          'Sales.All_sales.Purchase_and_sales.Transaction',
         ).toLocaleLowerCase()}
-        open={removeVisible}
+        openConfirm={removeVisible}
         loading={isLoading}
         onConfirm={handleDeleteItem}
         onCancel={handleCancel}
@@ -77,10 +77,10 @@ const Action: React.FC<IProps> = (props) => {
   return (
     <Dropdown
       overlay={action}
-      trigger={["click"]}
+      trigger={['click']}
       onOpenChange={handleVisibleChange}
       open={visible}
-      disabled={props?.record?.account?.id === "CCA-301" || props?.hasSelected}
+      disabled={props?.record?.account?.id === 'CCA-301' || props?.hasSelected}
     >
       <ActionButton
         onClick={handleVisibleChange}

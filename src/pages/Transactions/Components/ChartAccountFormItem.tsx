@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { Form, Select } from "antd";
-import { debounce } from "throttle-debounce";
-import { useInfiniteQuery, useQuery } from "react-query";
-import axiosInstance from "../../ApiBaseUrl";
-import { useTranslation } from "react-i18next";
-import { CenteredSpin } from "../../SelfComponents/Spin";
-import { InfiniteScrollSelectError } from "../../../components/antd";
+import React, { useState } from 'react';
+import { Form, Select } from 'antd';
+import { debounce } from 'throttle-debounce';
+import { useInfiniteQuery, useQuery } from 'react-query';
+import axiosInstance from '../../ApiBaseUrl';
+import { useTranslation } from 'react-i18next';
+import { CenteredSpin } from '../../SelfComponents/Spin';
+import { InfiniteScrollSelectError } from '../../../components/antd';
 
 interface IProps {
   searchIn: string;
@@ -20,14 +20,14 @@ interface IProps {
 const getData = async ({ pageParam = 1, queryKey }: any) => {
   const key = queryKey?.[0];
   const res = await axiosInstance.get(
-    `${key}?page=${pageParam}&page_size=10&ordering=-id&status=active`
+    `${key}?page=${pageParam}&page_size=10&ordering=-id&status=active`,
   );
   return res.data;
 };
 
 export const ChartAccountFormItem: React.FC<IProps> = (props) => {
   const { t } = useTranslation();
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
 
   const {
     data,
@@ -43,14 +43,14 @@ export const ChartAccountFormItem: React.FC<IProps> = (props) => {
   });
 
   const getSearchData = React.useCallback(
-    async ({ queryKey }) => {
+    async ({ queryKey }: { queryKey: any }) => {
       const search = queryKey?.[1];
       const { data } = await axiosInstance.get(
-        `/chart_of_account/?page_size=10&name__contains=${search}&ordering=-id&status=active&content_type__model__in=${props.searchIn}`
+        `/chart_of_account/?page_size=10&name__contains=${search}&ordering=-id&status=active&content_type__model__in=${props.searchIn}`,
       );
       return data;
     },
-    [props.searchIn]
+    [props.searchIn],
   );
 
   const searchData = useQuery([`${props.searchKey}`, search], getSearchData);
@@ -62,7 +62,7 @@ export const ChartAccountFormItem: React.FC<IProps> = (props) => {
   });
 
   const onChangeAccount = (value: { value: string; label: string }) => {
-    setSearch("");
+    setSearch('');
   };
 
   const loadMore = (e: any) => {
@@ -84,9 +84,9 @@ export const ChartAccountFormItem: React.FC<IProps> = (props) => {
   const allData: any[] = search
     ? [{ results: searchData?.data?.results }]
     : Array.isArray(data?.pages)
-    ? data?.pages
-    : //@ts-ignore
-      [{ results: data?.results }];
+      ? data?.pages
+      : //@ts-ignore
+        [{ results: data?.results }];
 
   const handleRetry = () => {
     refetch();
@@ -94,31 +94,31 @@ export const ChartAccountFormItem: React.FC<IProps> = (props) => {
 
   return (
     <Form.Item
-      name={props.name ? props.name : "accountName"}
-      className="margin1"
+      name={props.name ? props.name : 'accountName'}
+      className='margin1'
       rules={[
         {
-          required: props?.place !== "report" && true,
-          message: t("Banking.Form.Account_name_required"),
+          required: props?.place !== 'report' && true,
+          message: t('Banking.Form.Account_name_required'),
         },
       ]}
     >
       <Select
         placeholder={
-          props.placeholder ? props.placeholder : t("Banking.Form.Account_name")
+          props.placeholder ? props.placeholder : t('Banking.Form.Account_name')
         }
         showSearch
         onSearch={onSearch}
         onChange={onChangeAccount}
         showArrow
         labelInValue
-        allowClear={props?.place === "report" && true}
-        optionFilterProp="label"
+        allowClear={props?.place === 'report' && true}
+        optionFilterProp='label'
         onPopupScroll={loadMore}
         notFoundContent={
-          status === "loading" ? (
-            <CenteredSpin size="small" style={styles.spin} />
-          ) : status !== "error" ? undefined : (
+          status === 'loading' ? (
+            <CenteredSpin size='small' style={styles.spin} />
+          ) : status !== 'error' ? undefined : (
             <InfiniteScrollSelectError
               error={error}
               handleRetry={handleRetry}
@@ -129,7 +129,7 @@ export const ChartAccountFormItem: React.FC<IProps> = (props) => {
           <div>
             {menu}
             {isFetchingNextPage || searchData?.isFetching ? (
-              <CenteredSpin size="small" style={styles.spin} />
+              <CenteredSpin size='small' style={styles.spin} />
             ) : null}
           </div>
         )}
@@ -153,5 +153,5 @@ export const ChartAccountFormItem: React.FC<IProps> = (props) => {
   );
 };
 const styles = {
-  spin: { padding: "7px" },
+  spin: { padding: '7px' },
 };

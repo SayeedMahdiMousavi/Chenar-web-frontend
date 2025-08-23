@@ -1,11 +1,11 @@
-import React, { memo } from "react";
-import { Row, Col, Form, Button } from "antd";
-import { useTranslation } from "react-i18next";
-import ReportDateFormItem from "../../Components/DateFormItem";
-import { handlePrepareDateForServer } from "../../../../Functions/utcDate";
-import { CategoryField } from "../../../SelfComponents/CategoryField";
-import { InfiniteScrollSelectFormItem } from "../../../../components/antd";
-import { useDefaultReportDateFormItem } from "../../../../Hooks";
+import React, { memo } from 'react';
+import { Row, Col, Form, Button } from 'antd';
+import { useTranslation } from 'react-i18next';
+import ReportDateFormItem from '../../Components/DateFormItem';
+import { handlePrepareDateForServer } from '../../../../Functions/utcDate';
+import { CategoryField } from '../../../SelfComponents/CategoryField';
+import { InfiniteScrollSelectFormItem } from '../../../../components/antd';
+import { useDefaultReportDateFormItem } from '../../../../Hooks';
 
 interface IProps {
   setPage: (value: number) => void;
@@ -28,8 +28,8 @@ function Filters(props: IProps) {
       calendarCode,
     });
 
-    const category = values?.category ?? { value: "", label: "" };
-    const product = values?.product ?? { value: "", label: "" };
+    const category = values?.category ?? { value: '', label: '' };
+    const product = values?.product ?? { value: '', label: '' };
 
     const newFilters = {
       category: category,
@@ -66,40 +66,40 @@ function Filters(props: IProps) {
       form={form}
       hideRequiredMark
       initialValues={{
-        date: "allDates",
+        date: 'allDates',
         dateTime: defaultDate,
       }}
       // className="table__header1-filter-drop"
       //   style={styles.form}
     >
-      <Row gutter={[10, 10]} style={{ marginBottom: "20px" }}>
+      <Row gutter={[10, 10]} style={{ marginBottom: '20px' }}>
         <ReportDateFormItem form={form} style={styles.formItem} />
         <Col xxl={14} xl={10} lg={11}></Col>
         <Col xxl={4} xl={5} lg={5}>
           <InfiniteScrollSelectFormItem
-            name="product"
+            name='product'
             style={styles.formItem}
-            fields="name,id"
-            placeholder={t("Sales.Product_and_services.Product")}
-            baseUrl="/product/items/"
+            fields='name,id'
+            placeholder={t('Sales.Product_and_services.Product')}
+            baseUrl='/product/items/'
             allowClear={true}
           />
         </Col>
         <Col xxl={4} xl={5} lg={5}>
           <CategoryField
             form={form}
-            place="filter"
-            label=""
+            place='filter'
+            label=''
             style={styles.formItem}
-            placeholder={t("Sales.Product_and_services.Form.Category")}
-            url="/product/category/"
+            placeholder={t('Sales.Product_and_services.Form.Category')}
+            url='/product/category/'
           />
         </Col>
 
         <Col xxl={8} xl={10} lg={10}>
-          <Form.Item className="margin" style={styles.formItem}>
-            <Button type="primary" size="small" htmlType="submit" shape="round">
-              {t("Form.Search")}
+          <Form.Item className='margin' style={styles.formItem}>
+            <Button type='primary' size='small' htmlType='submit' shape='round'>
+              {t('Form.Search')}
             </Button>
           </Form.Item>
         </Col>
@@ -110,7 +110,7 @@ function Filters(props: IProps) {
 
 const styles = {
   form: {
-    width: "250px",
+    width: '250px',
   },
   formItem: { marginBottom: 0 },
 };

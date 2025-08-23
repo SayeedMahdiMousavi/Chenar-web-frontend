@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { useMediaQuery } from "../MediaQurey";
-import UploadFile from "../sales/UploadFile";
-import { useMutation, useQueryClient } from "react-query";
-import axiosInstance from "../ApiBaseUrl";
+import React, { useState } from 'react';
+import { useMediaQuery } from '../MediaQurey';
+import UploadFile from '../sales/UploadFile';
+import { useMutation, useQueryClient } from 'react-query';
+import axiosInstance from '../ApiBaseUrl';
 import {
   Form,
   Input,
@@ -14,40 +14,39 @@ import {
   Modal,
   Col,
   Row,
-  DatePicker
-} from "antd";
-import Uplod from "../sales/Upload";
-import { QuestionCircleOutlined } from "@ant-design/icons";
-import { useTranslation } from "react-i18next";
-import { Styles } from "../styles";
-import { ModalDragTitle } from "../SelfComponents/ModalDragTitle";
-import Draggable from "react-draggable";
-import { CategoryField } from "../SelfComponents/CategoryField";
-import { DatePickerFormItem } from "../SelfComponents/JalaliAntdComponents/DatePickerFormItem";
-import { ActionMessage } from "../SelfComponents/TranslateComponents/ActionMessage";
-import { trimString } from "../../Functions/TrimString";
+  DatePicker,
+} from 'antd';
+import Uplod from '../sales/Upload';
+import { QuestionCircleOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
+import { Styles } from '../styles';
+import { ModalDragTitle } from '../SelfComponents/ModalDragTitle';
+import Draggable from 'react-draggable';
+import { CategoryField } from '../SelfComponents/CategoryField';
+import { DatePickerFormItem } from '../SelfComponents/JalaliAntdComponents/DatePickerFormItem';
+import { ActionMessage } from '../SelfComponents/TranslateComponents/ActionMessage';
+import { trimString } from '../../Functions/TrimString';
 import {
   changeGToJ,
   handlePrepareDateForServer,
   utcDate,
-} from "../../Functions/utcDate";
-import useGetCalender from "../../Hooks/useGetCalender";
-import { useGetBaseCurrency, useGetDefaultCategory } from "../../Hooks";
-import { PageNewButton, ResetButton, SaveAndNewButton } from "../../components";
-import { EMPLOYEE_M } from "../../constants/permissions";
-import BankCashOpenAccount from "../Banking/BankCashOpenAccount";
-import dayjs from "dayjs";
-import { debounce } from "throttle-debounce";
-import { addMessage, manageErrors } from "../../Functions";
+} from '../../Functions/utcDate';
+import useGetCalender from '../../Hooks/useGetCalender';
+import { useGetBaseCurrency, useGetDefaultCategory } from '../../Hooks';
+import { PageNewButton, ResetButton, SaveAndNewButton } from '../../components';
+import { EMPLOYEE_M } from '../../constants/permissions';
+import BankCashOpenAccount from '../Banking/BankCashOpenAccount';
+import dayjs from 'dayjs';
+import { debounce } from 'throttle-debounce';
+import { addMessage, manageErrors } from '../../Functions';
 import {
   OPENING_ACCOUNT_LIST,
   OPENING_ACCOUNT_RESULT_LIST,
-} from "../../constants/routes";
-
+} from '../../constants/routes';
 
 const { Option } = Select;
 const { TabPane } = Tabs;
-const dateFormat = "YYYY-MM-DD";
+const dateFormat = 'YYYY-MM-DD';
 const AddEmployee = (props) => {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
@@ -63,12 +62,12 @@ const AddEmployee = (props) => {
   const [attachmentError, setAttachmentError] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [visible, setVisible] = useState(false);
-  const [activeKey, setActiveKey] = useState("1");
-  const isBgTablet = useMediaQuery("(max-width: 1024px)");
-  const isTablet = useMediaQuery("(max-width: 768px)");
-  const isMiniTablet = useMediaQuery("(max-width: 576px)");
-  const isMobile = useMediaQuery("(max-width: 425px)");
-  const isSubBase = useMediaQuery("(max-width: 375px)");
+  const [activeKey, setActiveKey] = useState('1');
+  const isBgTablet = useMediaQuery('(max-width: 1024px)');
+  const isTablet = useMediaQuery('(max-width: 768px)');
+  const isMiniTablet = useMediaQuery('(max-width: 576px)');
+  const isMobile = useMediaQuery('(max-width: 425px)');
+  const isSubBase = useMediaQuery('(max-width: 375px)');
 
   //get current calender
   const userCalender = useGetCalender();
@@ -87,10 +86,10 @@ const AddEmployee = (props) => {
 
   //get default category
   const defaultCategory = useGetDefaultCategory(
-    "/staff_account/staff_category/"
+    '/staff_account/staff_category/',
   );
 
-  const messageKey = "addEmployee";
+  const messageKey = 'addEmployee';
   const addEmployee = async ({ value, type }) =>
     await axiosInstance.post(`${props.baseUrl}`, value, { timeout: 0 });
 
@@ -101,7 +100,7 @@ const AddEmployee = (props) => {
   } = useMutation(addEmployee, {
     onSuccess: (values, { type, opening_balance }) => {
       queryClient.invalidateQueries(props.baseUrl);
-      if (type !== "0") {
+      if (type !== '0') {
         setIsShowModal({
           visible: false,
         });
@@ -113,7 +112,7 @@ const AddEmployee = (props) => {
         setAttachmentError(false);
         setFileList([]);
         setFile();
-        setActiveKey("1");
+        setActiveKey('1');
         setAttachments([]);
         setAttachment();
 
@@ -122,7 +121,7 @@ const AddEmployee = (props) => {
           content: (
             <ActionMessage
               name={`${values.data.first_name} ${values.data.last_name}`}
-              message="Message.Add"
+              message='Message.Add'
             />
           ),
 
@@ -141,12 +140,12 @@ const AddEmployee = (props) => {
       if (error?.response?.data?.non_field_errors?.[0]) {
         if (
           error?.response?.data?.non_field_errors?.[0] ===
-          "this person  is already exist"
+          'this person  is already exist'
         ) {
           message.error(
             `${error?.response?.data?.non_field_errors?.[0]}. ${t(
-              "Sales.Customers.Form.First_and_last_name_error"
-            )}`
+              'Sales.Customers.Form.First_and_last_name_error',
+            )}`,
           );
         } else {
           message.error(`${error?.response.data?.non_field_errors?.[0]}`);
@@ -158,7 +157,7 @@ const AddEmployee = (props) => {
   const handleOk = (e) => {
     const type = e?.key;
     form.validateFields().then(async (value) => {
-      // 
+      //
       // const birthDate = await ChangeJalaliDateToGregorian(
       //   value["birthDate"] && value["birthDate"].format("YYYY-MM-DD")
       // );
@@ -170,12 +169,12 @@ const AddEmployee = (props) => {
       // );
       if (error || attachmentError) {
         message.error(
-          `${t("Sales.Product_and_services.Form.Units_error_message")}`
+          `${t('Sales.Product_and_services.Form.Units_error_message')}`,
         );
         return;
       } else {
         const birthDate =
-          value["birthDate"] &&
+          value['birthDate'] &&
           handlePrepareDateForServer({
             date: value?.birthDate,
             dateFormat,
@@ -183,7 +182,7 @@ const AddEmployee = (props) => {
           });
 
         const released =
-          value["released"] &&
+          value['released'] &&
           handlePrepareDateForServer({
             date: value?.released,
             dateFormat,
@@ -191,7 +190,7 @@ const AddEmployee = (props) => {
           });
 
         const hireDate =
-          value["hireDate"] &&
+          value['hireDate'] &&
           handlePrepareDateForServer({
             date: value?.hireDate,
             dateFormat,
@@ -206,73 +205,73 @@ const AddEmployee = (props) => {
         };
         const formData = new FormData();
         if (file?.name) {
-          formData.append("photo", file, file.name);
+          formData.append('photo', file, file.name);
         }
         if (attachment?.name) {
-          formData.append("attachment", attachment);
+          formData.append('attachment', attachment);
         }
-        formData.append("first_name", trimString(values.name));
-        formData.append("last_name", trimString(values.lastName));
+        formData.append('first_name', trimString(values.name));
+        formData.append('last_name', trimString(values.lastName));
         formData.append(
-          "nike_name",
-          values.nickName ? trimString(values.nickName) : ""
+          'nike_name',
+          values.nickName ? trimString(values.nickName) : '',
         );
-        formData.append("category", values.category?.value);
+        formData.append('category', values.category?.value);
         formData.append(
-          "position",
-          values.position ? trimString(values.position) : ""
+          'position',
+          values.position ? trimString(values.position) : '',
         );
 
-        formData.append("salary", values.salary ? values.salary : "");
-        formData.append("email", values.email ? values.email : "");
-        formData.append("phone_number", values.phone ? values?.phone : "");
-        formData.append("mobile_number", values.mobile ? values?.mobile : "");
+        formData.append('salary', values.salary ? values.salary : '');
+        formData.append('email', values.email ? values.email : '');
+        formData.append('phone_number', values.phone ? values?.phone : '');
+        formData.append('mobile_number', values.mobile ? values?.mobile : '');
         formData.append(
-          "date_of_birth",
-          values.birthDate ? values?.birthDate : ""
+          'date_of_birth',
+          values.birthDate ? values?.birthDate : '',
         );
         formData.append(
-          "national_id_number",
-          values.nationalIdNumber ? values.nationalIdNumber : ""
+          'national_id_number',
+          values.nationalIdNumber ? values.nationalIdNumber : '',
         );
-        formData.append("notes", values.notes ? values.notes : "");
+        formData.append('notes', values.notes ? values.notes : '');
 
         const currentDate = utcDate().format(dateFormat);
 
         formData.append(
-          "hire_date",
-          values?.hireDate ? values?.hireDate : currentDate
+          'hire_date',
+          values?.hireDate ? values?.hireDate : currentDate,
         );
         formData.append(
-          "release_date",
-          values?.released ? values?.released : currentDate
+          'release_date',
+          values?.released ? values?.released : currentDate,
         );
-        formData.append("gender", values.gender ? values.gender : "female");
+        formData.append('gender', values.gender ? values.gender : 'female');
         formData.append(
-          "Staff_UID",
-          values.employeeId ? values.employeeId : ""
-        );
-        formData.append(
-          "street",
-          values?.bill_address?.street ? values.bill_address.street : ""
+          'Staff_UID',
+          values.employeeId ? values.employeeId : '',
         );
         formData.append(
-          "country",
-          values?.bill_address?.country ? values.bill_address.country : ""
+          'street',
+          values?.bill_address?.street ? values.bill_address.street : '',
         );
         formData.append(
-          "city",
-          values?.bill_address?.city ? values.bill_address.city : ""
+          'country',
+          values?.bill_address?.country ? values.bill_address.country : '',
         );
         formData.append(
-          "province",
-          values?.bill_address?.province ? values.bill_address.province : ""
+          'city',
+          values?.bill_address?.city ? values.bill_address.city : '',
         );
         formData.append(
-          "plate_number",
+          'province',
+          values?.bill_address?.province ? values.bill_address.province : '',
+        );
+        formData.append(
+          'plate_number',
           values?.bill_address?.plate_number
             ? values.bill_address.plate_number
-            : ""
+            : '',
         );
 
         const openBalance = {
@@ -287,12 +286,12 @@ const AddEmployee = (props) => {
         };
         const isOpen = Boolean(values?.amount) && values?.amount > 0;
         if (isOpen) {
-          formData.append("opening_balance", JSON.stringify([openBalance]));
+          formData.append('opening_balance', JSON.stringify([openBalance]));
         }
 
-        if (type === "0") {
+        if (type === '0') {
           message.loading({
-            content: t("Message.Loading"),
+            content: t('Message.Loading'),
             key: messageKey,
           });
         }
@@ -318,7 +317,7 @@ const AddEmployee = (props) => {
     setAttachmentError(false);
     setFileList([]);
     setFile();
-    setActiveKey("1");
+    setActiveKey('1');
     setAttachments([]);
     setAttachment();
   };
@@ -354,14 +353,14 @@ const AddEmployee = (props) => {
   const debounceFunc = debounce(500, async () => {
     const formData = form.getFieldsValue();
     form.setFieldsValue({
-      displayName: `${formData?.name ?? ""} ${formData?.lastName ?? ""} ${
-        formData?.nickName ?? ""
+      displayName: `${formData?.name ?? ''} ${formData?.lastName ?? ''} ${
+        formData?.nickName ?? ''
       }`,
     });
   });
 
   return (
-    <Row className="modal">
+    <Row className='modal'>
       <Col span={24}>
         <PageNewButton onClick={showModal} model={EMPLOYEE_M} />
 
@@ -371,7 +370,7 @@ const AddEmployee = (props) => {
             <ModalDragTitle
               disabled={disabled}
               setDisabled={setDisabled}
-              title={t("Employees.Employee_information")}
+              title={t('Employees.Employee_information')}
             />
           }
           modalRender={(modal) => (
@@ -382,15 +381,15 @@ const AddEmployee = (props) => {
           afterClose={handelAfterClose}
           open={isShowModal.visible}
           onCancel={handleCancel}
-          width={isMobile ? "100%" : isTablet ? "80%" : isBgTablet ? 600 : 600}
+          width={isMobile ? '100%' : isTablet ? '80%' : isBgTablet ? 600 : 600}
           style={Styles.modal(isMobile)}
           bodyStyle={Styles.modalBody(isMobile, isSubBase, isMiniTablet)}
           footer={
-            <Row justify="space-between" align="middle">
+            <Row justify='space-between' align='middle'>
               <Col>
                 <ResetButton onClick={handelAfterClose} />
               </Col>
-              <Col className="text_align_center">
+              <Col className='text_align_center'>
                 {/* <a href="#">{t("Form.Privacy")}</a> */}
               </Col>
 
@@ -409,46 +408,46 @@ const AddEmployee = (props) => {
             form={form}
             hideRequiredMark={true}
             scrollToFirstError={true}
-            layout="vertical"
+            layout='vertical'
             initialValues={{
               category: { label: defaultCategory?.name, value: 1 },
               bill_address: {
-                country: t("Sales.Customers.Form.Afghanistan"),
+                country: t('Sales.Customers.Form.Afghanistan'),
               },
-              prefix: "0093",
-              prefi: "0093",
-              gender: "male",
+              prefix: '0093',
+              prefi: '0093',
+              gender: 'male',
               date:
-                calendarCode === "gregory"
+                calendarCode === 'gregory'
                   ? utcDate()
                   : dayjs(
                       changeGToJ(utcDate().format(dateFormat), dateFormat),
                       {
                         //@ts-ignore
                         jalali: true,
-                      }
+                      },
                     ),
               currency: {
                 value: baseCurrencyId,
                 label: baseCurrencyName,
               },
               currencyRate: 1,
-              transactionType: "credit",
+              transactionType: 'credit',
             }}
           >
-            <Row gutter={[10]} align="bottom">
+            <Row gutter={[10]} align='bottom'>
               <Col xl={{ span: 6 }}>
                 <Form.Item
-                  name="upload"
-                  valuePropName="fileList"
+                  name='upload'
+                  valuePropName='fileList'
                   getValueFromEvent={normFile}
-                  help={error ? `${t("Form.Photo_error")}` : undefined}
-                  validateStatus={error === true ? "error" : undefined}
-                  className="upload margin1"
+                  help={error ? `${t('Form.Photo_error')}` : undefined}
+                  validateStatus={error === true ? 'error' : undefined}
+                  className='upload margin1'
                 >
                   <Uplod
                     setFile={setFile}
-                    name={t("Form.Photo")}
+                    name={t('Form.Photo')}
                     setFileList={setFileList}
                     fileList={fileList}
                     onChange={onChange}
@@ -462,46 +461,46 @@ const AddEmployee = (props) => {
                     <Form.Item
                       label={
                         <span>
-                          {t("Form.Name1")}
-                          <span className="star">*</span>
+                          {t('Form.Name1')}
+                          <span className='star'>*</span>
                         </span>
                       }
                       // hasFeedback
-                      name="name"
+                      name='name'
                       style={styles.formItem}
                       rules={[
                         {
                           whitespace: true,
-                          message: `${t("Form.Name_required")}`,
+                          message: `${t('Form.Name_required')}`,
                           required: true,
                         },
                       ]}
                     >
                       <Input
                         autoFocus
-                        autoComplete="off"
+                        autoComplete='off'
                         onChange={handleChangeName}
                       />
                     </Form.Item>
                   </Col>
 
                   <Col xl={{ span: 12 }}>
-                    {" "}
+                    {' '}
                     <Form.Item
                       label={
                         <span>
-                          {t("Form.Last_Name")}
-                          <span className="star">*</span>
+                          {t('Form.Last_Name')}
+                          <span className='star'>*</span>
                         </span>
                       }
                       rules={[
                         {
-                          message: `${t("Form.Required_last_name")}`,
+                          message: `${t('Form.Required_last_name')}`,
                           required: true,
                           whitespace: true,
                         },
                       ]}
-                      name="lastName"
+                      name='lastName'
                       style={styles.formItem}
                     >
                       <Input onChange={handleChangeName} />
@@ -509,8 +508,8 @@ const AddEmployee = (props) => {
                   </Col>
                   <Col xl={{ span: 12 }}>
                     <Form.Item
-                      label={<span>{t("Form.Nick_name")}</span>}
-                      name="nickName"
+                      label={<span>{t('Form.Nick_name')}</span>}
+                      name='nickName'
                       style={styles.formItem}
                     >
                       <Input onChange={handleChangeName} />
@@ -518,8 +517,8 @@ const AddEmployee = (props) => {
                   </Col>
                   <Col xl={{ span: 12 }}>
                     <Form.Item
-                      label={<span>{t("Display_name")}</span>}
-                      name="displayName"
+                      label={<span>{t('Display_name')}</span>}
+                      name='displayName'
                       style={styles.formItem}
                     >
                       <Input />
@@ -533,11 +532,11 @@ const AddEmployee = (props) => {
                 <Form.Item noStyle>
                   <CategoryField
                     form={form}
-                    url="/staff_account/staff_category/"
+                    url='/staff_account/staff_category/'
                     label={
                       <span>
-                        {t("Sales.Product_and_services.Form.Category")}
-                        <span className="star">*</span>
+                        {t('Sales.Product_and_services.Form.Category')}
+                        <span className='star'>*</span>
                       </span>
                     }
                     style={styles.formItem}
@@ -546,64 +545,63 @@ const AddEmployee = (props) => {
               </Col>
               <Col span={12}>
                 <Form.Item
-                  name="nationalIdNumber"
-                  label={t("Sales.Customers.Form.National_id_number")}
-                  className="margin"
+                  name='nationalIdNumber'
+                  label={t('Sales.Customers.Form.National_id_number')}
+                  className='margin'
                 >
                   <InputNumber
-                    type="number"
-                    className="num"
-                    inputMode="numeric"
+                    type='number'
+                    className='num'
+                    inputMode='numeric'
                   />
                 </Form.Item>
               </Col>
               <Col span={8}>
                 <Form.Item
-                  name="salary"
+                  name='salary'
                   label={
                     <span>
-                      {t("Employees.Salary")}
-                      <span className="star">*</span>
+                      {t('Employees.Salary')}
+                      <span className='star'>*</span>
                     </span>
                   }
-                  className="margin"
+                  className='margin'
                   rules={[
                     {
-                      message: `${t("Employees.Required_salary")}`,
+                      message: `${t('Employees.Required_salary')}`,
                       required: true,
                     },
                   ]}
                 >
                   <InputNumber
                     min={1}
-                    type="number"
-                    className="num"
-                    inputMode="numeric"
+                    type='number'
+                    className='num'
+                    inputMode='numeric'
                   />
                 </Form.Item>
               </Col>
 
               <Col span={8}>
-                {" "}
+                {' '}
                 <Form.Item
-                  name="position"
-                  label={t("Employees.Position")}
-                  className="margin"
+                  name='position'
+                  label={t('Employees.Position')}
+                  className='margin'
                 >
                   <Input />
                 </Form.Item>
               </Col>
               <Col span={8}>
                 <DatePickerFormItem
-                  name="birthDate"
-                  label={t("Employees.BirthDate")}
+                  name='birthDate'
+                  label={t('Employees.BirthDate')}
                   showTime={false}
-                  format=""
-                  placeholder=""
-                  rules={[{ type: "object" }]}
+                  format=''
+                  placeholder=''
+                  rules={[{ type: 'object' }]}
                   allowClear={true}
                   // disabledDate={true}
-                  
                 />
                 {/* <DatePicker
           showTime={false}
@@ -619,42 +617,42 @@ const AddEmployee = (props) => {
             </Row>
 
             <Tabs
-              type="card"
+              type='card'
               //   animated={true}
-              size="small"
+              size='small'
               tabBarStyle={styles.tab(isMobile)}
               activeKey={activeKey}
               onTabClick={onTabClick}
             >
-              <TabPane tab={t("Opening_account")} key="1">
+              <TabPane tab={t('Opening_account')} key='1'>
                 <Row>
-                  <Col md={24} sm={24} xs={24} style={{ padding: "10px 0px" }}>
+                  <Col md={24} sm={24} xs={24} style={{ padding: '10px 0px' }}>
                     <BankCashOpenAccount
                       {...{ form, baseCurrencyId }}
-                      type="customer"
+                      type='customer'
                     />
                   </Col>
                 </Row>
               </TabPane>
-              <TabPane tab={t("Employees.Contact")} key="2">
+              <TabPane tab={t('Employees.Contact')} key='2'>
                 <Row gutter={[10]}>
                   <Col sm={12} xs={24}>
-                    {" "}
+                    {' '}
                     <Form.Item
-                      name="phone"
+                      name='phone'
                       label={
                         <span>
-                          {t("Form.Phone")}&nbsp;
+                          {t('Form.Phone')}&nbsp;
                           <Tooltip
                             title={
-                              <span>{t("Form.Phone_sample")} 799773529</span>
+                              <span>{t('Form.Phone_sample')} 799773529</span>
                             }
                           >
                             <QuestionCircleOutlined />
                           </Tooltip>
                         </span>
                       }
-                      className="margin"
+                      className='margin'
                       rules={[]}
                     >
                       <Input style={styles.row} />
@@ -662,32 +660,32 @@ const AddEmployee = (props) => {
                   </Col>
                   <Col sm={{ span: 12 }} xs={24}>
                     <Form.Item
-                      name="mobile"
+                      name='mobile'
                       label={
                         <span>
-                          {t("Form.Mobile")}&nbsp;
+                          {t('Form.Mobile')}&nbsp;
                           <Tooltip
-                            title={`${t("Form.Mobile_sample")} 0799773529 `}
+                            title={`${t('Form.Mobile_sample')} 0799773529 `}
                           >
                             <QuestionCircleOutlined />
                           </Tooltip>
                         </span>
                       }
-                      className="margin"
+                      className='margin'
                     >
                       <Input />
                     </Form.Item>
                   </Col>
                   <Col span={24}>
-                    {" "}
+                    {' '}
                     <Form.Item
-                      name="email"
-                      label={t("Form.Email")}
+                      name='email'
+                      label={t('Form.Email')}
                       style={styles.email}
                       rules={[
                         {
-                          type: "email",
-                          message: `${t("Form.Email_Message")}`,
+                          type: 'email',
+                          message: `${t('Form.Email_Message')}`,
                         },
                       ]}
                     >
@@ -697,91 +695,91 @@ const AddEmployee = (props) => {
                 </Row>
               </TabPane>
 
-              <TabPane tab={t("Form.Address")} key="3">
+              <TabPane tab={t('Form.Address')} key='3'>
                 <Row gutter={[10]}>
                   <Col md={24} sm={24} xs={24}>
                     <Form.Item
-                      label={<span>{t("Form.Address")}</span>}
-                      name={["bill_address", "street"]}
+                      label={<span>{t('Form.Address')}</span>}
+                      name={['bill_address', 'street']}
                       style={styles.address}
                     >
-                      <Input placeholder={t("Form.Street")} />
+                      <Input placeholder={t('Form.Street')} />
                     </Form.Item>
                   </Col>
                   <Col md={{ span: 12 }} sm={12} xs={24}>
                     <Form.Item
-                      name={["bill_address", "country"]}
+                      name={['bill_address', 'country']}
                       style={styles.address}
                     >
-                      <Input placeholder={t("Form.Country")} />
+                      <Input placeholder={t('Form.Country')} />
                     </Form.Item>
                     <Form.Item
-                      name={["bill_address", "city"]}
-                      className="margin1"
+                      name={['bill_address', 'city']}
+                      className='margin1'
                     >
-                      <Input placeholder={t("Form.City/Town")} />
+                      <Input placeholder={t('Form.City/Town')} />
                     </Form.Item>
                   </Col>
                   <Col sm={12} xs={24}>
                     <Form.Item
-                      name={["bill_address", "province"]}
+                      name={['bill_address', 'province']}
                       style={styles.address}
                     >
-                      <Input placeholder={t("Form.State/Province")} />
+                      <Input placeholder={t('Form.State/Province')} />
                     </Form.Item>
                     <Form.Item
-                      name={["bill_address", "plate_number"]}
-                      className="margin1"
+                      name={['bill_address', 'plate_number']}
+                      className='margin1'
                     >
-                      <Input placeholder={t("Form.Postal_code")} />
+                      <Input placeholder={t('Form.Postal_code')} />
                     </Form.Item>
                   </Col>
                 </Row>
               </TabPane>
 
-              <TabPane tab={t("Form.Notes")} key="4">
+              <TabPane tab={t('Form.Notes')} key='4'>
                 <Row gutter={10}>
                   <Col span={12}>
                     <Form.Item
-                      name="notes"
-                      label={t("Form.Notes")}
-                      className="margin1"
+                      name='notes'
+                      label={t('Form.Notes')}
+                      className='margin1'
                     >
                       <Input.TextArea autoSize={{ minRows: 3, maxRows: 3 }} />
                     </Form.Item>
                   </Col>
                   <Col span={12}>
                     <Form.Item
-                      className="margin1"
+                      className='margin1'
                       label={
                         <span>
-                          {t("Form.Attachments")} &nbsp;
+                          {t('Form.Attachments')} &nbsp;
                           <Tooltip
-                            title={t("Form.Attachments_tooltip")}
-                            placement="left"
+                            title={t('Form.Attachments_tooltip')}
+                            placement='left'
                           >
                             <QuestionCircleOutlined />
                           </Tooltip>
                         </span>
                       }
                       validateStatus={
-                        attachmentError === true ? "error" : undefined
+                        attachmentError === true ? 'error' : undefined
                       }
                       help={
                         attachmentError === true
-                          ? t("Form.Attachments_tooltip")
+                          ? t('Form.Attachments_tooltip')
                           : undefined
                       }
                     >
                       <Form.Item
-                        name="attachment"
-                        valuePropName="fileList"
+                        name='attachment'
+                        valuePropName='fileList'
                         getValueFromEvent={normFile1}
                         noStyle
                       >
                         <UploadFile
                           setFile={setAttachment}
-                          name={t("Form.Drag_Drop")}
+                          name={t('Form.Drag_Drop')}
                           setFileList={setAttachments}
                           fileList={attachments}
                           onChange={onChangeDrag}
@@ -792,51 +790,51 @@ const AddEmployee = (props) => {
                   </Col>
                 </Row>
               </TabPane>
-              <TabPane tab={t("Sales.Customers.Other")} key="5">
+              <TabPane tab={t('Sales.Customers.Other')} key='5'>
                 <Row gutter={[10]}>
                   <Col md={12} sm={12} xs={24}>
                     <DatePickerFormItem
-                      rules={[{ type: "object" }]}
-                      name="hireDate"
-                      label={t("Employees.Hire_date")}
+                      rules={[{ type: 'object' }]}
+                      name='hireDate'
+                      label={t('Employees.Hire_date')}
                       showTime={false}
-                      format=""
-                      placeholder=""
+                      format=''
+                      placeholder=''
                       style={styles.formItem}
                     />
                   </Col>
                   <Col md={12} sm={12} xs={24}>
                     <DatePickerFormItem
-                      name="released"
-                      label={t("Employees.Released")}
+                      name='released'
+                      label={t('Employees.Released')}
                       showTime={false}
-                      format=""
-                      placeholder=""
+                      format=''
+                      placeholder=''
                       style={styles.formItem}
-                      rules={[{ type: "object" }]}
+                      rules={[{ type: 'object' }]}
                     />
                   </Col>
 
                   <Col md={12} sm={12} xs={24}>
-                    {" "}
+                    {' '}
                     <Form.Item
-                      name="employeeId"
-                      label={t("Employees.Employee_uid")}
-                      className="margin"
+                      name='employeeId'
+                      label={t('Employees.Employee_uid')}
+                      className='margin'
                     >
                       <Input />
                     </Form.Item>
                   </Col>
                   <Col md={12} sm={12} xs={24}>
-                    {" "}
+                    {' '}
                     <Form.Item
-                      name="gender"
-                      label={t("Employees.Gender")}
-                      className="margin"
+                      name='gender'
+                      label={t('Employees.Gender')}
+                      className='margin'
                     >
                       <Select>
-                        <Option value="male">{t("Employees.Male")}</Option>
-                        <Option value="female">{t("Employees.Female")}</Option>
+                        <Option value='male'>{t('Employees.Male')}</Option>
+                        <Option value='female'>{t('Employees.Female')}</Option>
                       </Select>
                     </Form.Item>
                   </Col>
@@ -850,12 +848,12 @@ const AddEmployee = (props) => {
   );
 };
 const styles = {
-  email: { marginBottom: ".0rem" },
-  address: { marginBottom: ".5rem" },
+  email: { marginBottom: '.0rem' },
+  address: { marginBottom: '.5rem' },
   tab: (isMobile) => ({
-    marginBottom: "8px",
+    marginBottom: '8px',
   }),
-  formItem: { marginBottom: "10px" },
+  formItem: { marginBottom: '10px' },
 };
 
 export default AddEmployee;

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import axiosInstance from "../../../ApiBaseUrl";
-import { useQueryClient, useMutation } from "react-query";
-import Action from "./Action";
+import React, { useState } from 'react';
+import axiosInstance from '../../../ApiBaseUrl';
+import { useQueryClient, useMutation } from 'react-query';
+import Action from './Action';
 import {
   message,
   Typography,
@@ -11,20 +11,20 @@ import {
   Select,
   Menu,
   Checkbox,
-} from "antd";
-import { useTranslation } from "react-i18next";
-import { useMediaQuery } from "../../../MediaQurey";
-import PriceRecordingSettings from "./PriceRecordingSettings";
-import { ActionMessage } from "../../../SelfComponents/TranslateComponents/ActionMessage";
-import AddVipPercent from "../BachActions/AddVipPercent";
-import { useMemo } from "react";
-import { useCallback } from "react";
-import { EditableTable, Statistics } from "../../../../components/antd";
-import { PRODUCT_PRICE_M } from "../../../../constants/permissions";
-import { EditableTableActionColumnRender } from "../../../../components";
-import { manageErrors } from "../../../../Functions";
+} from 'antd';
+import { useTranslation } from 'react-i18next';
+import { useMediaQuery } from '../../../MediaQurey';
+import PriceRecordingSettings from './PriceRecordingSettings';
+import { ActionMessage } from '../../../SelfComponents/TranslateComponents/ActionMessage';
+import AddVipPercent from '../BachActions/AddVipPercent';
+import { useMemo } from 'react';
+import { useCallback } from 'react';
+import { EditableTable, Statistics } from '../../../../components/antd';
+import { PRODUCT_PRICE_M } from '../../../../constants/permissions';
+import { EditableTableActionColumnRender } from '../../../../components';
+import { manageErrors } from '../../../../Functions';
 
-const baseUrl = "/product/items/";
+const baseUrl = '/product/items/';
 const FormItem = Form.Item;
 const EditableCell = ({
   editing,
@@ -44,7 +44,7 @@ const EditableCell = ({
   };
   const getInput = () => {
     switch (dataIndex) {
-      case "unit":
+      case 'unit':
         return (
           <Form.Item name={dataIndex} style={styles.formItem}>
             <Select>
@@ -56,7 +56,7 @@ const EditableCell = ({
             </Select>
           </Form.Item>
         );
-      case "price__sales_rate":
+      case 'price__sales_rate':
         return (
           <Form.Item
             name={dataIndex}
@@ -65,7 +65,7 @@ const EditableCell = ({
               {
                 required: true,
                 message: t(
-                  "Sales.Product_and_services.Price_recording.Sales_required"
+                  'Sales.Product_and_services.Price_recording.Sales_required',
                 ),
               },
             ]}
@@ -73,9 +73,9 @@ const EditableCell = ({
             <InputNumber
               min={0.01}
               max={20}
-              type="number"
-              className="num"
-              inputMode="numeric"
+              type='number'
+              className='num'
+              inputMode='numeric'
               onFocus={handleFocusInputNumber}
               onPressEnter={() => save(record)}
             />
@@ -90,7 +90,7 @@ const EditableCell = ({
               {
                 required: true,
                 message: t(
-                  "Sales.Product_and_services.Price_recording.Purchases_required"
+                  'Sales.Product_and_services.Price_recording.Purchases_required',
                 ),
               },
             ]}
@@ -98,10 +98,10 @@ const EditableCell = ({
             <InputNumber
               min={0.01}
               autoFocus
-              type="number"
+              type='number'
               max={20}
-              className="num"
-              inputMode="numeric"
+              className='num'
+              inputMode='numeric'
               onFocus={handleFocusInputNumber}
               onPressEnter={() => save(record)}
             />
@@ -117,7 +117,7 @@ const baseUnit = (record: any) => {
 };
 const baseUnitPrice = (record: any) => {
   return record?.price?.find((item: any) =>
-    item?.unit_pro_relation?.includes("base_unit")
+    item?.unit_pro_relation?.includes('base_unit'),
   );
 };
 
@@ -125,8 +125,8 @@ interface Props {}
 const PriceRecordingTable: React.FC<Props> = (props) => {
   const queryClient = useQueryClient();
   const [form] = Form.useForm();
-  const isMobile = useMediaQuery("(max-width:400px)");
-  const [editingKey, setEditingKey] = useState("");
+  const isMobile = useMediaQuery('(max-width:400px)');
+  const [editingKey, setEditingKey] = useState('');
   const [columnFilters, setColumnFilters] = useState<string[]>([]);
   const { t } = useTranslation();
 
@@ -146,16 +146,16 @@ const PriceRecordingTable: React.FC<Props> = (props) => {
         message.success(
           <ActionMessage
             name={product}
-            message="Sales.Product_and_services.Price_recording.Update_message"
-          />
+            message='Sales.Product_and_services.Price_recording.Update_message'
+          />,
         );
-        setEditingKey("");
+        setEditingKey('');
         onSuccessPrice();
       },
       onError: (error) => {
         manageErrors(error);
       },
-    }
+    },
   );
 
   const handleAddPriceRecording = async ({ value }: any) =>
@@ -167,10 +167,10 @@ const PriceRecordingTable: React.FC<Props> = (props) => {
         message.success(
           <ActionMessage
             name={product}
-            message="Sales.Product_and_services.Price_recording.Add_message"
-          />
+            message='Sales.Product_and_services.Price_recording.Add_message'
+          />,
         );
-        setEditingKey("");
+        setEditingKey('');
         onSuccessPrice();
       },
       onError: (error) => {
@@ -188,10 +188,10 @@ const PriceRecordingTable: React.FC<Props> = (props) => {
         message.success(
           <ActionMessage
             name={product}
-            message="Sales.Product_and_services.Price_recording.Update_message"
-          />
+            message='Sales.Product_and_services.Price_recording.Update_message'
+          />,
         );
-        setEditingKey("");
+        setEditingKey('');
         onSuccessPrice();
       },
       onError: (error: any) => {
@@ -200,12 +200,12 @@ const PriceRecordingTable: React.FC<Props> = (props) => {
           message.error(`${error?.response.data?.non_field_errors?.[0]}`);
         }
       },
-    }
+    },
   );
 
   const getPriceRecording = (unitId: number, record: any) => {
     const unit = record?.unit_conversion?.find(
-      (item: any) => item?.from_unit?.id === unitId
+      (item: any) => item?.from_unit?.id === unitId,
     );
     return unit?.ratio ? unit?.ratio : 0;
   };
@@ -236,21 +236,28 @@ const PriceRecordingTable: React.FC<Props> = (props) => {
 
         if (parseFloat(sales) < parseFloat(purchases)) {
           Modal.warning({
-            bodyStyle: { direction: t("Dir") },
+            bodyStyle: {
+              direction: t('Dir') as
+                | 'ltr'
+                | 'rtl'
+                | 'inherit'
+                | 'initial'
+                | 'unset',
+            },
             title: (
               <ActionMessage
                 name={record?.name}
                 message={
-                  "Sales.All_sales.Invoice.error_message_when_sales_is_less_than_purchase"
+                  'Sales.All_sales.Invoice.error_message_when_sales_is_less_than_purchase'
                 }
               />
             ),
             content: (
               <img
-                width="200px"
-                height="200px"
-                src="/gif/salesError.gif"
-                alt="fklasdfsa"
+                width='200px'
+                height='200px'
+                src='/gif/salesError.gif'
+                alt='fklasdfsa'
               />
             ),
           });
@@ -274,7 +281,7 @@ const PriceRecordingTable: React.FC<Props> = (props) => {
             });
           } else {
             const newPrice = record?.price?.filter(
-              (item: any) => !item?.unit_pro_relation?.includes("base_unit")
+              (item: any) => !item?.unit_pro_relation?.includes('base_unit'),
             );
             const priceRecording = newPrice?.map((item: any) => {
               return {
@@ -298,9 +305,7 @@ const PriceRecordingTable: React.FC<Props> = (props) => {
             });
           }
         }
-      } catch (errInfo) {
-        
-      }
+      } catch (errInfo) {}
     },
     [
       form,
@@ -308,7 +313,7 @@ const PriceRecordingTable: React.FC<Props> = (props) => {
       mutateEditPriceRecording,
       mutateEditPricing,
       t,
-    ]
+    ],
   );
 
   const edit = useCallback(
@@ -324,49 +329,49 @@ const PriceRecordingTable: React.FC<Props> = (props) => {
       });
       setEditingKey(record.id);
     },
-    [form]
+    [form],
   );
 
   const cancel = () => {
-    setEditingKey("");
+    setEditingKey('');
   };
 
   const columnFiltersLength = columnFilters?.length;
 
   const columns = useMemo(
     () => (type: string, hasSelected: boolean) => {
-      const sorter = type !== "print";
+      const sorter = type !== 'print';
       const allColumns = [
         {
-          title: t("Form.Name").toUpperCase(),
-          dataIndex: "name",
-          key: "name",
-          fixed: type !== "print" ? true : undefined,
-          className: "table-col",
+          title: t('Form.Name').toUpperCase(),
+          dataIndex: 'name',
+          key: 'name',
+          fixed: type !== 'print' ? true : undefined,
+          className: 'table-col',
           sorter: sorter && { multiple: 5 },
         },
         {
-          title: t("Sales.Product_and_services.Barcode").toUpperCase(),
-          dataIndex: "barcode",
-          key: "barcode",
-          className: "table-col",
+          title: t('Sales.Product_and_services.Barcode').toUpperCase(),
+          dataIndex: 'barcode',
+          key: 'barcode',
+          className: 'table-col',
           sorter: sorter && { multiple: 4 },
           render: (text: any, record: any) => (
             <React.Fragment>
               {
                 record?.product_barcode?.find(
-                  (item: any) => item?.default === true
+                  (item: any) => item?.default === true,
                 )?.barcode
               }
             </React.Fragment>
           ),
         },
         {
-          title: t("Sales.Product_and_services.Units.Unit").toUpperCase(),
-          dataIndex: "unit",
-          key: "unit",
-          width: type !== "print" ? 170 : undefined,
-          className: "table-col",
+          title: t('Sales.Product_and_services.Units.Unit').toUpperCase(),
+          dataIndex: 'unit',
+          key: 'unit',
+          width: type !== 'print' ? 170 : undefined,
+          className: 'table-col',
 
           render: (text: any, record: any) => (
             <>
@@ -379,12 +384,12 @@ const PriceRecordingTable: React.FC<Props> = (props) => {
 
         {
           title: t(
-            "Sales.Product_and_services.Price_recording.Purchase_price"
+            'Sales.Product_and_services.Price_recording.Purchase_price',
           ).toUpperCase(),
-          width: type !== "print" ? 155 : undefined,
-          dataIndex: "price__perches_rate",
-          key: "price__perches_rate",
-          className: "table-col",
+          width: type !== 'print' ? 155 : undefined,
+          dataIndex: 'price__perches_rate',
+          key: 'price__perches_rate',
+          className: 'table-col',
           sorter: sorter && { multiple: 3 },
           editable: true,
           render: (text: any, record: any) =>
@@ -394,12 +399,12 @@ const PriceRecordingTable: React.FC<Props> = (props) => {
         },
         {
           title: t(
-            "Sales.Product_and_services.Price_recording.Sales_price"
+            'Sales.Product_and_services.Price_recording.Sales_price',
           ).toUpperCase(),
-          width: type !== "print" ? 140 : undefined,
-          dataIndex: "price__sales_rate",
-          key: "price__sales_rate",
-          className: "table-col",
+          width: type !== 'print' ? 140 : undefined,
+          dataIndex: 'price__sales_rate',
+          key: 'price__sales_rate',
+          className: 'table-col',
           sorter: sorter && { multiple: 2 },
           editable: true,
           render: (text: any, record: any) => {
@@ -412,15 +417,15 @@ const PriceRecordingTable: React.FC<Props> = (props) => {
         },
         {
           title: t(
-            "Sales.Product_and_services.Price_recording.Benefit_percent"
+            'Sales.Product_and_services.Price_recording.Benefit_percent',
           ).toUpperCase(),
-          width: type !== "print" ? 160 : undefined,
-          dataIndex: "benefit",
-          key: "benefit",
-          className: "table-col",
+          width: type !== 'print' ? 160 : undefined,
+          dataIndex: 'benefit',
+          key: 'benefit',
+          className: 'table-col',
 
           sorter: (a: any, b: any) => a?.email?.localeCompare(b?.email),
-          sortDirections: ["ascend", "descend"],
+          sortDirections: ['ascend', 'descend'],
           render: (text: any, record: any) => {
             const baseUnit = baseUnitPrice(record);
             const benefit =
@@ -429,7 +434,7 @@ const PriceRecordingTable: React.FC<Props> = (props) => {
 
             return (
               baseUnitPrice(record)?.unit?.name && (
-                <Statistics value={benefit} suffix={"%"} />
+                <Statistics value={benefit} suffix={'%'} />
               )
             );
           },
@@ -437,12 +442,12 @@ const PriceRecordingTable: React.FC<Props> = (props) => {
 
         {
           title: t(
-            "Sales.Product_and_services.Inventory.Currency"
+            'Sales.Product_and_services.Inventory.Currency',
           ).toUpperCase(),
-          width: type !== "print" ? 120 : undefined,
-          dataIndex: "currency",
-          key: "currency",
-          className: "table-col",
+          width: type !== 'print' ? 120 : undefined,
+          dataIndex: 'currency',
+          key: 'currency',
+          className: 'table-col',
           sorter: sorter && { multiple: 1 },
           render: (text: any, record: any) => (
             <>
@@ -454,12 +459,12 @@ const PriceRecordingTable: React.FC<Props> = (props) => {
         },
 
         {
-          title: t("Table.Action").toUpperCase(),
-          key: "action",
-          className: "table-col",
+          title: t('Table.Action').toUpperCase(),
+          key: 'action',
+          className: 'table-col',
           width: isMobile ? 50 : 80,
-          align: "center",
-          fixed: "right",
+          align: 'center',
+          fixed: 'right',
           render: (text: any, record: any) => {
             return (
               <EditableTableActionColumnRender
@@ -470,7 +475,7 @@ const PriceRecordingTable: React.FC<Props> = (props) => {
                   editingKey,
                   onCancel: cancel,
                   model: PRODUCT_PRICE_M,
-                  disabled: editingKey !== "" || hasSelected,
+                  disabled: editingKey !== '' || hasSelected,
                 }}
               >
                 <Action
@@ -487,7 +492,7 @@ const PriceRecordingTable: React.FC<Props> = (props) => {
       return allColumns?.filter((item) => !columnFilters?.includes(item?.key));
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [columnFiltersLength, edit, editingKey, isMobile, save, t]
+    [columnFiltersLength, edit, editingKey, isMobile, save, t],
   );
 
   const changeFilter = (value: boolean, column: string) => {
@@ -500,79 +505,82 @@ const PriceRecordingTable: React.FC<Props> = (props) => {
     });
   };
 
-  const onChangeBarcode = (e: any) => changeFilter(e.target.checked, "barcode");
+  const onChangeBarcode = (e: any) => changeFilter(e.target.checked, 'barcode');
 
-  const onChangeUnits = (e: any) => changeFilter(e.target.checked, "unit");
+  const onChangeUnits = (e: any) => changeFilter(e.target.checked, 'unit');
 
-  const onChangeBenefit = (e: any) => changeFilter(e.target.checked, "benefit");
+  const onChangeBenefit = (e: any) => changeFilter(e.target.checked, 'benefit');
 
   const onChangeCurrency = (e: any) =>
-    changeFilter(e.target.checked, "currency");
+    changeFilter(e.target.checked, 'currency');
 
   const menu = (
     <Menu>
-      <Menu.Item key="1">
+      <Menu.Item key='1'>
         <Typography.Text strong={true}>
-          {t("Sales.Product_and_services.Columns")}
+          {t('Sales.Product_and_services.Columns')}
         </Typography.Text>
       </Menu.Item>
-      <Menu.Item key="2">
+      <Menu.Item key='2'>
         <Checkbox
-          checked={!columnFilters?.includes("barcode")}
+          checked={!columnFilters?.includes('barcode')}
           onChange={onChangeBarcode}
         >
-          {t("Sales.Product_and_services.Form.Barcode")}
+          {t('Sales.Product_and_services.Form.Barcode')}
         </Checkbox>
       </Menu.Item>
-      <Menu.Item key="3">
+      <Menu.Item key='3'>
         <Checkbox
-          checked={!columnFilters?.includes("unit")}
+          checked={!columnFilters?.includes('unit')}
           onChange={onChangeUnits}
         >
-          {t("Sales.Product_and_services.Form.Units")}
+          {t('Sales.Product_and_services.Form.Units')}
         </Checkbox>
       </Menu.Item>
-      <Menu.Item key="4">
+      <Menu.Item key='4'>
         <Checkbox
-          checked={!columnFilters?.includes("benefit")}
+          checked={!columnFilters?.includes('benefit')}
           onChange={onChangeBenefit}
         >
-          {t("Sales.Product_and_services.Price_recording.Benefit_percent")}
+          {t('Sales.Product_and_services.Price_recording.Benefit_percent')}
         </Checkbox>
       </Menu.Item>
 
-      <Menu.Item key="5">
+      <Menu.Item key='5'>
         <Checkbox
-          checked={!columnFilters?.includes("currency")}
+          checked={!columnFilters?.includes('currency')}
           onChange={onChangeCurrency}
         >
-          {t("Sales.Product_and_services.Inventory.Currency")}
+          {t('Sales.Product_and_services.Inventory.Currency')}
         </Checkbox>
       </Menu.Item>
-      <Menu.Item key="6">
+      <Menu.Item key='6'>
         <PriceRecordingSettings />
       </Menu.Item>
-      <Menu.Item key="7">
+      <Menu.Item key='7'>
         <AddVipPercent />
       </Menu.Item>
     </Menu>
   );
 
-  const handleGetProductPrices = useCallback(async ({ queryKey }) => {
-    const { page, pageSize, search, order } = queryKey?.[1];
-    const { data } = await axiosInstance.get(
-      `${baseUrl}?page=${page}&page_size=${pageSize}&ordering=${order}&status=active&search=${search}&expand=price,price.unit,price.currency,product_units,product_units.unit,unit_conversion,product_barcode.unit&omit=product_statistic,min_max,is_pine,cht_account_id,barcode,category,created,description,is_asset,is_have_vip_price,modified,modified_by,original_barcode,photo,status,supplier,created_by`
-    );
+  const handleGetProductPrices = useCallback(
+    async ({ queryKey }: { queryKey: any }) => {
+      const { page, pageSize, search, order } = queryKey?.[1];
+      const { data } = await axiosInstance.get(
+        `${baseUrl}?page=${page}&page_size=${pageSize}&ordering=${order}&status=active&search=${search}&expand=price,price.unit,price.currency,product_units,product_units.unit,unit_conversion,product_barcode.unit&omit=product_statistic,min_max,is_pine,cht_account_id,barcode,category,created,description,is_asset,is_have_vip_price,modified,modified_by,original_barcode,photo,status,supplier,created_by`,
+      );
 
-    return data;
-  }, []);
+      return data;
+    },
+    [],
+  );
 
   return (
     <Form form={form} component={false}>
       <EditableTable
         model={PRODUCT_PRICE_M}
-        placeholder={t("Sales.Product_and_services.Find_Products_and_Services")}
-        title={t("Sales.Product_and_services.Price_recording.1")}
+        placeholder={t('Sales.Product_and_services.Find_Products_and_Services')}
+        title={t('Sales.Product_and_services.Price_recording.1')}
         columns={columns}
         queryKey={`${baseUrl}price/`}
         handleGetData={handleGetProductPrices}

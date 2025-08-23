@@ -256,7 +256,7 @@ const AddTax = (props) => {
                       <Col span={24}>
                         <Form.Item
                           label={t(
-                            'Taxes.Tax_rates.Show_tax_amount_on_return_line'
+                            'Taxes.Tax_rates.Show_tax_amount_on_return_line',
                           )}
                           style={styles.margin}
                         >
@@ -333,7 +333,7 @@ const AddTax = (props) => {
                       <Col span={24}>
                         <Form.Item
                           label={t(
-                            'Taxes.Tax_rates.Show_tax_amount_on_return_line'
+                            'Taxes.Tax_rates.Show_tax_amount_on_return_line',
                           )}
                           style={styles.margin}
                         >
@@ -343,7 +343,7 @@ const AddTax = (props) => {
                             </Select.Option>
                             <Select.Option value='Adjustments to reclaimable tax on purchases'>
                               {t(
-                                'Taxes.Tax_rates.Adjustments_reclaimable_tax_purchases'
+                                'Taxes.Tax_rates.Adjustments_reclaimable_tax_purchases',
                               )}
                             </Select.Option>
                           </Select>
@@ -357,7 +357,7 @@ const AddTax = (props) => {
                           <Select>
                             <Select.Option value='Total taxable purchases in period, before tax'>
                               {t(
-                                'Taxes.Tax_rates.Total_taxable_purchases_period'
+                                'Taxes.Tax_rates.Total_taxable_purchases_period',
                               )}
                             </Select.Option>
                             <Select.Option value='Not applicable (N/A)'>
@@ -426,7 +426,7 @@ const AddTax = (props) => {
                                     required: true,
                                     whitespace: true,
                                     message: `${t(
-                                      'Taxes.Form.Required_tax_rate'
+                                      'Taxes.Form.Required_tax_rate',
                                     )}`,
                                   },
                                 ]}
@@ -454,7 +454,7 @@ const AddTax = (props) => {
                                     required: true,
                                     whitespace: true,
                                     message: `${t(
-                                      'Taxes.Form.Required_applicable_on'
+                                      'Taxes.Form.Required_applicable_on',
                                     )}`,
                                   },
                                 ]}
@@ -496,7 +496,7 @@ const AddTax = (props) => {
                                       required: true,
                                       whitespace: true,
                                       message: `${t(
-                                        'Taxes.Form.Required_tax_rate'
+                                        'Taxes.Form.Required_tax_rate',
                                       )}`,
                                     },
                                   ]}
@@ -524,7 +524,7 @@ const AddTax = (props) => {
                                       required: true,
                                       whitespace: true,
                                       message: `${t(
-                                        'Taxes.Form.Required_applicable_on'
+                                        'Taxes.Form.Required_applicable_on',
                                       )}`,
                                     },
                                   ]}

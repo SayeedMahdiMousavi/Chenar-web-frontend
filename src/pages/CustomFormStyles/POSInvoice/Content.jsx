@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Typography, Row, Col, Space, Divider, Image } from 'antd';
-import {QRCodeSVG} from 'qrcode.react';
+import { QRCodeSVG } from 'qrcode.react';
 import MarketInvoiceItem from '../../sales/AllSales/MarketInvoiceComponents/MarketInvoiceItem';
 import moment from 'moment';
 import ShowDate from '../../SelfComponents/JalaliAntdComponents/ShowDate';
@@ -65,8 +65,8 @@ const Content = (props) => {
                     {i18n.language === 'en'
                       ? props?.data?.en_name
                       : i18n.language === 'fa'
-                      ? props?.data?.fa_name
-                      : props?.data?.ps_name}
+                        ? props?.data?.fa_name
+                        : props?.data?.ps_name}
                   </Typography.Title>
                 </Col>
               </Row>

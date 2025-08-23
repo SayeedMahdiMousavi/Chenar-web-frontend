@@ -1,12 +1,12 @@
-import React from "react";
-import WarehouseStatisticsTable from "./WarehouseStatisticsTable";
-import ReportBody from "../../ReportBody";
+import React from 'react';
+import WarehouseStatisticsTable from './WarehouseStatisticsTable';
+import ReportBody from '../../ReportBody';
 
 const WarehouseStatistics = (props) => {
   return (
     <ReportBody
       title={props.title}
-      type="warehouse"
+      type='warehouse'
       table={
         <WarehouseStatisticsTable
           baseUrl={props.baseUrl}

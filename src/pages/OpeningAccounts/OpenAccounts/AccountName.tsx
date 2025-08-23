@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { Col, Row, Form, Select } from "antd";
-import { debounce } from "throttle-debounce";
-import { useQuery } from "react-query";
-import axiosInstance from "../../ApiBaseUrl";
-import { useTranslation } from "react-i18next";
-import { CenteredSpin } from "../../SelfComponents/Spin";
+import React, { useState } from 'react';
+import { Col, Row, Form, Select } from 'antd';
+import { debounce } from 'throttle-debounce';
+import { useQuery } from 'react-query';
+import axiosInstance from '../../ApiBaseUrl';
+import { useTranslation } from 'react-i18next';
+import { CenteredSpin } from '../../SelfComponents/Spin';
 
 const getData = async ({ queryKey }: { queryKey: string[] }) => {
   const [key] = queryKey;
@@ -15,7 +15,7 @@ const getData = async ({ queryKey }: { queryKey: string[] }) => {
 const getSearchData = async ({ queryKey }: { queryKey: string[] }) => {
   const [_, search] = queryKey;
   const { data } = await axiosInstance.get(
-    `/chart_of_account/?page=1&page_size=10&name__contains=${search}&content_type__model__in=staff,customer,bank,cash,supplier`
+    `/chart_of_account/?page=1&page_size=10&name__contains=${search}&content_type__model__in=staff,customer,bank,cash,supplier`,
   );
   return data;
 };
@@ -25,7 +25,7 @@ interface IProps {
 }
 export const AccountName: React.FC<IProps> = (props) => {
   const { t } = useTranslation();
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [banks, setBanks] = useState<any>([]);
   const [cashes, setCashes] = useState<any>([]);
   const [customers, setCustomers] = useState<any>([]);
@@ -47,30 +47,30 @@ export const AccountName: React.FC<IProps> = (props) => {
   const supplierData = useQuery(`/chart_of_account/LSU-201/child/`, getData);
   const searchAllData = useQuery(
     [`/chart_of_account/bankCashCustomerEmployeeSupplier/`, search],
-    getSearchData
+    getSearchData,
   );
 
   React.useEffect(() => {
     const banks = searchAllData?.data?.results?.filter((item: any) => {
-      const id = item?.id?.split("-");
-      return id?.[0] === "BNK";
+      const id = item?.id?.split('-');
+      return id?.[0] === 'BNK';
     });
 
     const cash = searchAllData?.data?.results?.filter((item: any) => {
-      const id = item?.id?.split("-");
-      return id?.[0] === "CSH";
+      const id = item?.id?.split('-');
+      return id?.[0] === 'CSH';
     });
     const customer = searchAllData?.data?.results?.filter((item: any) => {
-      const id = item?.id?.split("-");
-      return id?.[0] === "CUS";
+      const id = item?.id?.split('-');
+      return id?.[0] === 'CUS';
     });
     const employee = searchAllData?.data?.results?.filter((item: any) => {
-      const id = item?.id?.split("-");
-      return id?.[0] === "STF";
+      const id = item?.id?.split('-');
+      return id?.[0] === 'STF';
     });
     const supplier = searchAllData?.data?.results?.filter((item: any) => {
-      const id = item?.id?.split("-");
-      return id?.[0] === "SUP";
+      const id = item?.id?.split('-');
+      return id?.[0] === 'SUP';
     });
     setBanks(banks);
     setCashes(cash);
@@ -80,11 +80,11 @@ export const AccountName: React.FC<IProps> = (props) => {
   }, [searchAllData?.data?.results?.length]);
 
   const onChangeAccountName = (value: any) => {
-    const splitValue = value?.value.split("-");
+    const splitValue = value?.value.split('-');
     const newValue = splitValue?.[0];
     props.onChange(newValue);
 
-    setSearch("");
+    setSearch('');
   };
 
   const allBanks = search ? banks : bankData?.data?.results;
@@ -97,41 +97,41 @@ export const AccountName: React.FC<IProps> = (props) => {
     <Row gutter={10}>
       <Col span={24}>
         <Form.Item
-          name="accountName"
+          name='accountName'
           // label="Warehouse Name"
-          className="margin1"
+          className='margin1'
           rules={[
             {
               required: true,
-              message: t("Banking.Form.Account_name_required"),
+              message: t('Banking.Form.Account_name_required'),
             },
           ]}
         >
           <Select
-            placeholder={t("Banking.Form.Account_name")}
+            placeholder={t('Banking.Form.Account_name')}
             showSearch
             onSearch={onSearch}
             onChange={onChangeAccountName}
             showArrow
             labelInValue
-            optionFilterProp="label"
+            optionFilterProp='label'
             notFoundContent={
               searchAllData?.isLoading || searchAllData?.isFetching ? (
-                <CenteredSpin size="small" style={styles.spin} />
+                <CenteredSpin size='small' style={styles.spin} />
               ) : undefined
             }
             dropdownRender={(menu) => <div>{menu}</div>}
           >
-            <Select.OptGroup label={t("Banking.Banks")}>
+            <Select.OptGroup label={t('Banking.Banks')}>
               {bankData?.isLoading ? (
                 <Select.Option
                   disabled={true}
-                  key="bankLoader"
-                  value="bankLoader"
-                  label={<CenteredSpin size="small" />}
+                  key='bankLoader'
+                  value='bankLoader'
+                  label={<CenteredSpin size='small' />}
                   style={styles.option}
                 >
-                  <CenteredSpin size="small" style={styles.optionLoader} />
+                  <CenteredSpin size='small' style={styles.optionLoader} />
                 </Select.Option>
               ) : (
                 allBanks?.map((item: any) => (
@@ -146,16 +146,16 @@ export const AccountName: React.FC<IProps> = (props) => {
               )}
             </Select.OptGroup>
 
-            <Select.OptGroup label={t("Banking.Cash_box.1")}>
+            <Select.OptGroup label={t('Banking.Cash_box.1')}>
               {cash?.isLoading ? (
                 <Select.Option
                   disabled={true}
-                  key="cashLoader"
-                  value="cashLoader"
-                  label={<CenteredSpin size="small" />}
+                  key='cashLoader'
+                  value='cashLoader'
+                  label={<CenteredSpin size='small' />}
                   style={styles.option}
                 >
-                  <CenteredSpin size="small" style={styles.optionLoader} />
+                  <CenteredSpin size='small' style={styles.optionLoader} />
                 </Select.Option>
               ) : (
                 allCashes?.map((item: any) => (
@@ -169,16 +169,16 @@ export const AccountName: React.FC<IProps> = (props) => {
                 ))
               )}
             </Select.OptGroup>
-            <Select.OptGroup label={t("Sales.Customers.1")}>
+            <Select.OptGroup label={t('Sales.Customers.1')}>
               {customerData?.isLoading ? (
                 <Select.Option
                   disabled={true}
-                  key="customerLoader"
-                  value="customerLoader"
-                  label={<CenteredSpin size="small" />}
+                  key='customerLoader'
+                  value='customerLoader'
+                  label={<CenteredSpin size='small' />}
                   style={styles.option}
                 >
-                  <CenteredSpin size="small" style={styles.optionLoader} />
+                  <CenteredSpin size='small' style={styles.optionLoader} />
                 </Select.Option>
               ) : (
                 allCustomers?.map((item: any) => (
@@ -192,16 +192,16 @@ export const AccountName: React.FC<IProps> = (props) => {
                 ))
               )}
             </Select.OptGroup>
-            <Select.OptGroup label={t("Employees.1")}>
+            <Select.OptGroup label={t('Employees.1')}>
               {employeeData?.isLoading ? (
                 <Select.Option
                   disabled={true}
-                  key="employeeLoader"
-                  value="employeeLoader"
-                  label={<CenteredSpin size="small" />}
+                  key='employeeLoader'
+                  value='employeeLoader'
+                  label={<CenteredSpin size='small' />}
                   style={styles.option}
                 >
-                  <CenteredSpin size="small" style={styles.optionLoader} />
+                  <CenteredSpin size='small' style={styles.optionLoader} />
                 </Select.Option>
               ) : (
                 allEmployees?.map((item: any) => (
@@ -215,16 +215,16 @@ export const AccountName: React.FC<IProps> = (props) => {
                 ))
               )}
             </Select.OptGroup>
-            <Select.OptGroup label={t("Expenses.Suppliers.1")}>
+            <Select.OptGroup label={t('Expenses.Suppliers.1')}>
               {supplierData?.isLoading ? (
                 <Select.Option
                   disabled={true}
-                  key="supplierLoader"
-                  value="supplierLoader"
-                  label={<CenteredSpin size="small" />}
+                  key='supplierLoader'
+                  value='supplierLoader'
+                  label={<CenteredSpin size='small' />}
                   style={styles.option}
                 >
-                  <CenteredSpin size="small" style={styles.optionLoader} />
+                  <CenteredSpin size='small' style={styles.optionLoader} />
                 </Select.Option>
               ) : (
                 allSuppliers?.map((item: any) => (
@@ -247,8 +247,8 @@ export const AccountName: React.FC<IProps> = (props) => {
 
 const styles = {
   spin: {
-    padding: "7px",
+    padding: '7px',
   },
-  optionLoader: { margin: "0px" },
-  option: { height: "45px" },
+  optionLoader: { margin: '0px' },
+  option: { height: '45px' },
 };

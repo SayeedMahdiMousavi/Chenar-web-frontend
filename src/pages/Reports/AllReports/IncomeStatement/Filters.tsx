@@ -1,9 +1,9 @@
-import React, { memo } from "react";
-import { Row, Col, Form, Button } from "antd";
-import { useTranslation } from "react-i18next";
-import ReportDateFormItem from "../../Components/DateFormItem";
-import { handlePrepareDateForServer } from "../../../../Functions/utcDate";
-import { useDefaultReportDateFormItem } from "../../../../Hooks";
+import React, { memo } from 'react';
+import { Row, Col, Form, Button } from 'antd';
+import { useTranslation } from 'react-i18next';
+import ReportDateFormItem from '../../Components/DateFormItem';
+import { handlePrepareDateForServer } from '../../../../Functions/utcDate';
+import { useDefaultReportDateFormItem } from '../../../../Hooks';
 
 interface IProps {
   setPage: (value: number) => void;
@@ -11,7 +11,7 @@ interface IProps {
   setSelectedRowKeys: (value: any) => void;
 }
 
-const dateFormat = "YYYY-MM-DD";
+const dateFormat = 'YYYY-MM-DD';
 
 function IncomeStatementsFilters(props: IProps) {
   const { t } = useTranslation();
@@ -30,8 +30,8 @@ function IncomeStatementsFilters(props: IProps) {
     });
 
     const newFilters = {
-      startDate: startDate ?? "",
-      endDate: endDate ?? "",
+      startDate: startDate ?? '',
+      endDate: endDate ?? '',
     };
 
     props.setFilters((prev: any) => {
@@ -61,21 +61,21 @@ function IncomeStatementsFilters(props: IProps) {
       form={form}
       hideRequiredMark
       initialValues={{
-        date: "allDates",
+        date: 'allDates',
         dateTime: defaultDate,
       }}
     >
-      <Row gutter={[10, 10]} style={{ marginBottom: "20px" }}>
+      <Row gutter={[10, 10]} style={{ marginBottom: '20px' }}>
         <ReportDateFormItem
           form={form}
           style={styles.formItem}
-          type="expiredProducts"
+          type='expiredProducts'
         />
 
         <Col xxl={8} xl={10} lg={10}>
-          <Form.Item className="margin" style={styles.formItem}>
-            <Button type="primary" size="small" htmlType="submit" shape="round">
-              {t("Form.Search")}
+          <Form.Item className='margin' style={styles.formItem}>
+            <Button type='primary' size='small' htmlType='submit' shape='round'>
+              {t('Form.Search')}
             </Button>
           </Form.Item>
         </Col>

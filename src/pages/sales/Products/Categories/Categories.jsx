@@ -36,7 +36,7 @@ const updateTreeData = (list, parent, children) => {
 const Categories = (props) => {
   const isMobile = useMediaQuery('(max-width:400px)');
   const { t } = useTranslation();
-  const [ setPage] = React.useState(1);
+  const [setPage] = React.useState(1);
   const [search, setSearch] = useState('');
   const [loadData, setLoadData] = useState(['']);
   const [expandedRowKeys, setExpandedRowKeys] = useState([]);
@@ -51,12 +51,12 @@ const Categories = (props) => {
       const { data } = await axiosInstance.get(`${props.url}?search=${search}`);
       return data;
     },
-    [props.url]
+    [props.url],
   );
 
   const searchData = useQuery(
     [`/product/category/`, { search }],
-    searchCategory
+    searchCategory,
   );
 
   React.useEffect(() => {
@@ -73,7 +73,7 @@ const Categories = (props) => {
               'axios-retry': {
                 retries: 4,
               },
-            }
+            },
           );
           const allData = data?.map((item) => {
             return {
@@ -95,7 +95,7 @@ const Categories = (props) => {
     });
   };
 
-  const onExpandTable =  (expanded, { name, id }) => {
+  const onExpandTable = (expanded, { name, id }) => {
     return new Promise((resolve) => {
       setTreeData((prev) => {
         return { ...prev, status: 'pending' };
@@ -107,39 +107,39 @@ const Categories = (props) => {
         resolve();
         return;
       } else {
-        axiosInstance.get(`${props.url}${id}/child/`)
-          .then(({ data }) => {
-            const data3 = data?.map((item) => {
+        axiosInstance.get(`${props.url}${id}/child/`).then(({ data }) => {
+          const data3 = data?.map((item) => {
+            return {
+              ...item,
+              children: [],
+            };
+          });
+
+          setTimeout(() => {
+            setTreeData((prev) => {
               return {
-                ...item,
-                children: [],
+                ...prev,
+                allData: updateTreeData(prev.allData, name, data3),
               };
             });
 
-            setTimeout(() => {
+            if (!data?.[0]) {
               setTreeData((prev) => {
-                return {
-                  ...prev,
-                  allData: updateTreeData(prev.allData, name, data3),
-                };
+                return { ...prev, status: 'resolved' };
               });
-
-              if (!data?.[0]) {
-                setTreeData((prev) => {
-                  return { ...prev, status: 'resolved' };
-                });
-              }
-              resolve(
-                setTreeData((prev) => {
-                  return { ...prev, status: 'resolved' };
-                }),
-                //@ts-ignore
-                setLoadData((prev) => [...prev, name])
-              );
-            }, 300);
-          });
+            }
+            resolve(
+              setTreeData((prev) => {
+                return { ...prev, status: 'resolved' };
+              }),
+              //@ts-ignore
+              setLoadData((prev) => [...prev, name]),
+            );
+          }, 300);
+        });
       }
-    });  };
+    });
+  };
 
   const onExpandedRowsChange = (expandedRows) => {
     setExpandedRowKeys(expandedRows);

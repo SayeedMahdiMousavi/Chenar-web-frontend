@@ -140,11 +140,11 @@ const AccountsStatisticsTable: React.FC<IProps> = (props) => {
       const currencyId = currency?.value ?? '';
       const customerId = customer?.value ?? '';
       const { data } = await axiosInstance.get(
-        `${props.baseUrl}?page=${page}&page_size=${pageSize}&ordering=${order}&currency=${currencyId}&date_time_after=${startDate}&date_time_before=${endDate}&search=${search}&account=${customerId}`
+        `${props.baseUrl}?page=${page}&page_size=${pageSize}&ordering=${order}&currency=${currencyId}&date_time_after=${startDate}&date_time_before=${endDate}&search=${search}&account=${customerId}`,
       );
       return data;
     },
-    [props.baseUrl]
+    [props.baseUrl],
   );
 
   const result = useQuery(
@@ -162,14 +162,14 @@ const AccountsStatisticsTable: React.FC<IProps> = (props) => {
       const { endDate, startDate, customerId, search, currencyId }: any =
         queryKey?.[1];
       const { data } = await axiosInstance.get(
-        `${ACCOUNT_STATISTIC_RESULT_LIST}?search=${search}&account=${customerId}&date_time_after=${startDate}&date_time_before=${endDate}&currency=${currencyId}`
+        `${ACCOUNT_STATISTIC_RESULT_LIST}?search=${search}&account=${customerId}&date_time_after=${startDate}&date_time_before=${endDate}&currency=${currencyId}`,
       );
       return data;
     },
     {
       enabled: !!customerId,
       // cacheTime: 0
-    }
+    },
   );
 
   const resultData = result?.data?.results;
@@ -332,7 +332,7 @@ const AccountsStatisticsTable: React.FC<IProps> = (props) => {
 
           <Column
             title={t(
-              'Sales.Product_and_services.Inventory.Currency'
+              'Sales.Product_and_services.Inventory.Currency',
             ).toUpperCase()}
             sorter={sorter && { multiple: 1 }}
             dataIndex='currency_name'
@@ -342,7 +342,7 @@ const AccountsStatisticsTable: React.FC<IProps> = (props) => {
         </React.Fragment>
       );
     },
-    [credit, dateTime, debit, t]
+    [credit, dateTime, debit, t],
   );
 
   const resultColumns = useMemo(
@@ -388,21 +388,21 @@ const AccountsStatisticsTable: React.FC<IProps> = (props) => {
             return record?.total_receivement > record?.total_payment
               ? t('Debit')
               : record?.total_receivement < record?.total_payment
-              ? t('Credit')
-              : null;
+                ? t('Credit')
+                : null;
           }}
         />
 
         <Column
           title={t(
-            'Sales.Product_and_services.Inventory.Currency'
+            'Sales.Product_and_services.Inventory.Currency',
           ).toUpperCase()}
           dataIndex='currency_calc'
           key='currency_calc'
         />
       </React.Fragment>
     ),
-    [t]
+    [t],
   );
 
   const onChangeSelectResult = (e: any) => {
@@ -500,8 +500,8 @@ const AccountsStatisticsTable: React.FC<IProps> = (props) => {
                 {item?.total_receivement > item?.total_payment
                   ? t('Debit')
                   : item?.total_receivement < item?.total_payment
-                  ? t('Credit')
-                  : null}
+                    ? t('Credit')
+                    : null}
               </TableSummaryCell>
 
               <TableSummaryCell isSelected={selectResult} index={6}>

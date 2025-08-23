@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Modal,
   Form,
@@ -8,19 +8,19 @@ import {
   Button,
   InputNumber,
   Input,
-} from "antd";
-import { useTranslation } from "react-i18next";
-import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
-import { Styles } from "../../styles";
-import { useMediaQuery } from "../../MediaQurey";
-import { ModalDragTitle } from "../../SelfComponents/ModalDragTitle";
-import Draggable from "react-draggable";
-import { DatePickerFormItem } from "../../SelfComponents/JalaliAntdComponents/DatePickerFormItem";
-import { InfiniteScrollSelectFormItem } from "../../../components/antd";
-import { changeGToJ, utcDate } from "../../../Functions/utcDate";
-import dayjs from "dayjs";
-import { CancelButton, SaveButton } from "../../../components";
-import { useGetBaseCurrency } from "../../../Hooks";
+} from 'antd';
+import { useTranslation } from 'react-i18next';
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { Styles } from '../../styles';
+import { useMediaQuery } from '../../MediaQurey';
+import { ModalDragTitle } from '../../SelfComponents/ModalDragTitle';
+import Draggable from 'react-draggable';
+import { DatePickerFormItem } from '../../SelfComponents/JalaliAntdComponents/DatePickerFormItem';
+import { InfiniteScrollSelectFormItem } from '../../../components/antd';
+import { changeGToJ, utcDate } from '../../../Functions/utcDate';
+import dayjs from 'dayjs';
+import { CancelButton, SaveButton } from '../../../components';
+import { useGetBaseCurrency } from '../../../Hooks';
 
 interface IProps {
   form: any;
@@ -48,9 +48,9 @@ let AddOpeningAccount: React.FC<IProps> = ({
   const [disabled, setDisabled] = useState<boolean>(true);
 
   const [form] = Form.useForm();
-  const isMiniTablet = useMediaQuery("(max-width: 576px)");
-  const isMobile = useMediaQuery("(max-width: 425px)");
-  const isSubBase = useMediaQuery("(max-width: 375px)");
+  const isMiniTablet = useMediaQuery('(max-width: 576px)');
+  const isMobile = useMediaQuery('(max-width: 425px)');
+  const isSubBase = useMediaQuery('(max-width: 375px)');
 
   //get base currency
   const baseCurrency = useGetBaseCurrency();
@@ -73,12 +73,12 @@ let AddOpeningAccount: React.FC<IProps> = ({
       registerDate:
         productInventory?.length > 0
           ? productInventory?.[0]?.registerDate
-          : calendarCode === "gregory"
-          ? utcDate()
-          : dayjs(changeGToJ(utcDate().format(dateFormat), dateFormat), {
-              //@ts-ignore
-              jalali: true,
-            }),
+          : calendarCode === 'gregory'
+            ? utcDate()
+            : dayjs(changeGToJ(utcDate().format(dateFormat), dateFormat), {
+                //@ts-ignore
+                jalali: true,
+              }),
     });
   };
 
@@ -92,14 +92,14 @@ let AddOpeningAccount: React.FC<IProps> = ({
               return [...sum, { ...item, registerDate: values?.registerDate }];
             }
           },
-          []
+          [],
         );
-        message.success(t("Message.Save"));
+        message.success(t('Message.Save'));
         setProductInventory(productInventoryList);
         setVisible(false);
       })
       .catch((info) => {
-        // 
+        //
       });
   };
 
@@ -113,13 +113,20 @@ let AddOpeningAccount: React.FC<IProps> = ({
           return sum;
         }
       },
-      0
+      0,
     );
 
     if (warehouseLength > 1) {
       Modal.warning({
-        bodyStyle: { direction: t("Dir") },
-        title: t("Warehouse.Warehouse_exist_message"),
+        bodyStyle: {
+          direction: t('Dir') as
+            | 'ltr'
+            | 'rtl'
+            | 'inherit'
+            | 'initial'
+            | 'unset',
+        },
+        title: t('Warehouse.Warehouse_exist_message'),
         onOk: () => {
           const newProductInventoryList = formValue?.productInventoryList?.map(
             (item: any, index: number) => {
@@ -128,7 +135,7 @@ let AddOpeningAccount: React.FC<IProps> = ({
               } else {
                 return item;
               }
-            }
+            },
           );
           form.setFieldsValue({
             productInventoryList: newProductInventoryList,
@@ -141,7 +148,7 @@ let AddOpeningAccount: React.FC<IProps> = ({
   return (
     <div>
       <Button onClick={showModal} disabled={!Boolean(baseUnit)}>
-        {t("Product_on_hand")}
+        {t('Product_on_hand')}
       </Button>
 
       <Modal
@@ -150,7 +157,7 @@ let AddOpeningAccount: React.FC<IProps> = ({
           <ModalDragTitle
             disabled={disabled}
             setDisabled={setDisabled}
-            title={t("Sales.Product_and_services.Inventory.Product_inventory")}
+            title={t('Sales.Product_and_services.Inventory.Product_inventory')}
           />
         }
         modalRender={(modal) => (
@@ -167,7 +174,7 @@ let AddOpeningAccount: React.FC<IProps> = ({
         style={Styles.modal(isMobile)}
         bodyStyle={Styles.modalBody(isMobile, isSubBase, isMiniTablet)}
         footer={
-          <Row justify="end">
+          <Row justify='end'>
             <Col>
               <CancelButton onClick={handleCancel} />
               <SaveButton onClick={onFinish} loading={loading} />
@@ -175,57 +182,56 @@ let AddOpeningAccount: React.FC<IProps> = ({
           </Row>
         }
       >
-        <Form form={form} layout="vertical" hideRequiredMark>
-          <Row align="middle">
-            <Col span={7} style={{ paddingInlineEnd: "10px" }}>
+        <Form form={form} layout='vertical' hideRequiredMark>
+          <Row align='middle'>
+            <Col span={7} style={{ paddingInlineEnd: '10px' }}>
               <DatePickerFormItem
-                name="registerDate"
-                placeholder=""
+                name='registerDate'
+                placeholder=''
                 label={
                   <span>
-                    {t("Register_date")}
-                    <span className="star">*</span>
+                    {t('Register_date')}
+                    <span className='star'>*</span>
                   </span>
                 }
                 showTime={true}
                 format={dateFormat}
                 rules={[
-                  { type: "object" },
+                  { type: 'object' },
                   {
                     required: true,
-                    message: t("Register_date_required"),
+                    message: t('Register_date_required'),
                   },
                 ]}
               />
             </Col>
             <Col span={24}>
-              <Form.List name="productInventoryList">
+              <Form.List name='productInventoryList'>
                 {(fields, { add, remove }) => (
                   <>
                     {fields.map((field, index) => (
                       <Row
                         key={field.key}
-                        align="bottom"
+                        align='bottom'
                         style={{
                           marginBottom: 17,
                         }}
-                        className="editable-row"
+                        className='editable-row'
                       >
                         <Col
                           style={{
                             width: `calc(100% - 24px)`,
                           }}
                         >
-                          <Row align="bottom" gutter={5}>
+                          <Row align='bottom' gutter={5}>
                             <Col span={6}>
                               <InfiniteScrollSelectFormItem
-                                validateTrigger={["onChange", "onBlur"]}
-                                name={[field.name, "warehouse"]}
-                                fieldKey={[field.fieldKey, "warehouse"]}
+                                validateTrigger={['onChange', 'onBlur']}
+                                name={[field.name, 'warehouse']}
                                 rules={[
                                   {
                                     message: `${t(
-                                      "Warehouse.Warehouse_name_required"
+                                      'Warehouse.Warehouse_name_required',
                                     )}`,
                                     required: true,
                                   },
@@ -233,39 +239,38 @@ let AddOpeningAccount: React.FC<IProps> = ({
                                 label={
                                   index === 0 ? (
                                     <span>
-                                      {t("Warehouse.1")}
-                                      <span className="star">*</span>
+                                      {t('Warehouse.1')}
+                                      <span className='star'>*</span>
                                     </span>
                                   ) : (
-                                    ""
+                                    ''
                                   )
                                 }
                                 style={styles.formItem}
-                                fields="name,id"
+                                fields='name,id'
                                 onChange={(value: any) => {
                                   onChangeWarehouse(value, index);
                                 }}
-                                baseUrl="/inventory/warehouse/"
+                                baseUrl='/inventory/warehouse/'
                               />
                             </Col>
                             <Col span={3}>
                               <Form.Item
-                                validateTrigger={["onChange", "onBlur"]}
-                                name={[field.name, "qty"]}
-                                fieldKey={[field.fieldKey, "qty"]}
+                                validateTrigger={['onChange', 'onBlur']}
+                                name={[field.name, 'qty']}
                                 label={
                                   index === 0 ? (
                                     <span>
-                                      {t("Sales.All_sales.Invoice.Quantity")}
-                                      <span className="star">*</span>
+                                      {t('Sales.All_sales.Invoice.Quantity')}
+                                      <span className='star'>*</span>
                                     </span>
                                   ) : (
-                                    ""
+                                    ''
                                   )
                                 }
                                 rules={[
                                   {
-                                    message: `${t("Form.Required")}`,
+                                    message: `${t('Form.Required')}`,
                                     required: true,
                                   },
                                 ]}
@@ -273,9 +278,9 @@ let AddOpeningAccount: React.FC<IProps> = ({
                               >
                                 <InputNumber
                                   min={0}
-                                  type="number"
-                                  className="num"
-                                  inputMode="numeric"
+                                  type='number'
+                                  className='num'
+                                  inputMode='numeric'
                                 />
                               </Form.Item>
                             </Col>
@@ -294,34 +299,33 @@ let AddOpeningAccount: React.FC<IProps> = ({
                                 style={styles.formItem}
                                 
                               > */}
-                              <div className="ant-col ant-form-item-label">
+                              <div className='ant-col ant-form-item-label'>
                                 {index === 0
                                   ? t(
-                                      "Sales.Product_and_services.Form.Base_unit"
+                                      'Sales.Product_and_services.Form.Base_unit',
                                     )
-                                  : ""}
+                                  : ''}
                               </div>
                               <Input readOnly={true} value={baseUnit} />
                               {/* </Form.Item> */}
                             </Col>
                             <Col span={3}>
                               <Form.Item
-                                validateTrigger={["onChange", "onBlur"]}
-                                name={[field.name, "price"]}
-                                fieldKey={[field.fieldKey, "price"]}
+                                validateTrigger={['onChange', 'onBlur']}
+                                name={[field.name, 'price']}
                                 label={
                                   index === 0 ? (
                                     <span>
-                                      {t("Taxes.Tax_rates.Purchases")}
-                                      <span className="star">*</span>
+                                      {t('Taxes.Tax_rates.Purchases')}
+                                      <span className='star'>*</span>
                                     </span>
                                   ) : (
-                                    ""
+                                    ''
                                   )
                                 }
                                 rules={[
                                   {
-                                    message: t("Form.Required"),
+                                    message: t('Form.Required'),
                                     required: true,
                                   },
                                 ]}
@@ -329,40 +333,39 @@ let AddOpeningAccount: React.FC<IProps> = ({
                               >
                                 <InputNumber
                                   min={0.01}
-                                  type="number"
-                                  className="num"
-                                  inputMode="numeric"
+                                  type='number'
+                                  className='num'
+                                  inputMode='numeric'
                                 />
                               </Form.Item>
                             </Col>
                             <Col span={3}>
-                              <div className="ant-col ant-form-item-label">
+                              <div className='ant-col ant-form-item-label'>
                                 {index === 0
-                                  ? t("Sales.Product_and_services.Currency.1")
-                                  : ""}
+                                  ? t('Sales.Product_and_services.Currency.1')
+                                  : ''}
                               </div>
                               <Input readOnly={true} value={baseCurrencyName} />
                             </Col>
                             <Col span={5}>
                               <DatePickerFormItem
-                                validateTrigger={["onChange", "onBlur"]}
-                                name={[field.name, "expirationDate"]}
-                                fieldKey={[field.fieldKey, "expirationDate"]}
-                                placeholder=""
+                                validateTrigger={['onChange', 'onBlur']}
+                                name={[field.name, 'expirationDate']}
+                                placeholder=''
                                 label={
                                   index === 0 ? (
                                     <span>
                                       {t(
-                                        "Sales.Product_and_services.Inventory.Expiration_date"
+                                        'Sales.Product_and_services.Inventory.Expiration_date',
                                       )}
                                     </span>
                                   ) : (
-                                    ""
+                                    ''
                                   )
                                 }
                                 showTime={false}
-                                format="YYYY-MM-DD"
-                                rules={[{ type: "object" }]}
+                                format='YYYY-MM-DD'
+                                rules={[{ type: 'object' }]}
                                 style={styles.formItem}
                               />
                             </Col>
@@ -370,9 +373,9 @@ let AddOpeningAccount: React.FC<IProps> = ({
                         </Col>
                         <Col>
                           <Button
-                            shape="circle"
-                            size="small"
-                            type="text"
+                            shape='circle'
+                            size='small'
+                            type='text'
                             danger
                             style={styles.minus}
                             icon={
@@ -387,12 +390,12 @@ let AddOpeningAccount: React.FC<IProps> = ({
                       </Row>
                     ))}
 
-                    <Form.Item className="margin1">
+                    <Form.Item className='margin1'>
                       <Button
-                        type="dashed"
+                        type='dashed'
                         onClick={() => {
                           const purchasePrice =
-                            addProductForm?.getFieldValue("perches_rate");
+                            addProductForm?.getFieldValue('perches_rate');
                           add(
                             {
                               warehouse: undefined,
@@ -403,15 +406,15 @@ let AddOpeningAccount: React.FC<IProps> = ({
                               // unit: baseUnit,
                               expirationDate: undefined,
                             },
-                            fields.length
+                            fields.length,
                           );
                         }}
                         block
                         style={{ width: 192 }}
-                        icon={<PlusOutlined className="addItemIcon" />}
-                        className="margin1"
+                        icon={<PlusOutlined className='addItemIcon' />}
+                        className='margin1'
                       >
-                        {t("Sales.Product_and_services.Form.Add_new_item")}
+                        {t('Sales.Product_and_services.Form.Add_new_item')}
                       </Button>
                     </Form.Item>
                   </>
@@ -437,9 +440,9 @@ interface IStyles {
 }
 
 const styles: IStyles = {
-  equal1: { paddingBottom: 6, textAlign: "center" },
-  input: { marginBottom: "0px" },
-  formItem: { marginBottom: "0px" },
+  equal1: { paddingBottom: 6, textAlign: 'center' },
+  input: { marginBottom: '0px' },
+  formItem: { marginBottom: '0px' },
   minus: {
     paddingInlineStart: 9,
     marginBottom: 4,

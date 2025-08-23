@@ -1,12 +1,12 @@
-import { Col, Row, Typography, Descriptions, Form, Switch } from "antd";
-import React, { Children, ReactNode } from "react";
-import { useTranslation } from "react-i18next";
+import { Col, Row, Typography, Descriptions, Form, Switch } from 'antd';
+import React, { Children, ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const { Title } = Typography;
 
 const CheckBoxItem = ({ name }: { name: string }) => {
   return (
-    <Form.Item name={name} valuePropName="checked" style={styles.formItem}>
+    <Form.Item name={name} valuePropName='checked' style={styles.formItem}>
       <Switch />
     </Form.Item>
   );
@@ -36,17 +36,17 @@ const Description = ({
 }) => {
   return (
     <>
-      <Title level={5} style={{ marginBottom: "20px" }}>
+      <Title level={5} style={{ marginBottom: '20px' }}>
         {title}
       </Title>
       <Descriptions
         column={1}
-        style={{ paddingInlineStart: "40px" }}
+        style={{ paddingInlineStart: '40px' }}
         colon={false}
         labelStyle={{
-          width: "200px",
-          paddingInlineEnd: "10px",
-          alignItems: "center",
+          width: '200px',
+          paddingInlineEnd: '10px',
+          alignItems: 'center',
         }}
       >
         {children}
@@ -59,34 +59,34 @@ export default function InvoiceSettings() {
   const { t } = useTranslation();
   return (
     <Form initialValues={{ switch: true }}>
-      <Row style={{ padding: "35px" }}>
+      <Row style={{ padding: '35px' }}>
         <Col span={24}>
-          <Description title={t("Invoices_general_settings")}>
-            <DescriptionItem label="UserName">
-              <CheckBoxItem name="switch" />
+          <Description title={t('Invoices_general_settings')}>
+            <DescriptionItem label='UserName'>
+              <CheckBoxItem name='switch' />
             </DescriptionItem>
-            <DescriptionItem label="Telephone">
-              <CheckBoxItem name="switch" />
+            <DescriptionItem label='Telephone'>
+              <CheckBoxItem name='switch' />
             </DescriptionItem>
-            <DescriptionItem label="Live">
-              <CheckBoxItem name="switch" />
+            <DescriptionItem label='Live'>
+              <CheckBoxItem name='switch' />
             </DescriptionItem>
-            <DescriptionItem label="Remark">
-              <CheckBoxItem name="switch" />
+            <DescriptionItem label='Remark'>
+              <CheckBoxItem name='switch' />
             </DescriptionItem>
           </Description>
-          <Description title={t("Invoices_general_settings")}>
-            <DescriptionItem label="UserName">
-              <CheckBoxItem name="switch" />
+          <Description title={t('Invoices_general_settings')}>
+            <DescriptionItem label='UserName'>
+              <CheckBoxItem name='switch' />
             </DescriptionItem>
-            <DescriptionItem label="Telephone">
-              <CheckBoxItem name="switch" />
+            <DescriptionItem label='Telephone'>
+              <CheckBoxItem name='switch' />
             </DescriptionItem>
-            <DescriptionItem label="Live">
-              <CheckBoxItem name="switch" />
+            <DescriptionItem label='Live'>
+              <CheckBoxItem name='switch' />
             </DescriptionItem>
-            <DescriptionItem label="Remark">
-              <CheckBoxItem name="switch" />
+            <DescriptionItem label='Remark'>
+              <CheckBoxItem name='switch' />
             </DescriptionItem>
           </Description>
         </Col>
@@ -100,5 +100,5 @@ interface IStyles {
 }
 
 const styles = {
-  formItem: { marginBottom: "0px" },
+  formItem: { marginBottom: '0px' },
 };

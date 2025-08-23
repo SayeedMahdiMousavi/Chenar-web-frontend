@@ -1,8 +1,7 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
-
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -32,8 +31,19 @@ export default defineConfig({
   optimizeDeps: {
     include: ['antd'],
   },
+  build: {
+    chunkSizeWarningLimit: 4000,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          react: ['react', 'react-dom', 'react-router', 'react-router-dom'],
+          antd: ['antd', '@ant-design/icons'],
+        },
+      },
+    },
+  },
   server: {
     port: 3000,
     open: true,
   },
-})
+});

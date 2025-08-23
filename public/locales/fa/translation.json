@@ -1385,7 +1385,7 @@
     "Access_token_required": "Access token is required",
     "Media_backup": "Media backup",
     "Upload_backup_field_error_message": "Please select the file to restore",
-     "Telegram": "تلگرام",
+    "Telegram": "تلگرام",
     "Instagram": "انستاگرام",
     "Facebook": "فسبوک",
     "Form": {

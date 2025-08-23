@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { Button, message, Popconfirm } from "antd";
-import { useMutation, useQueryClient } from "react-query";
-import axiosInstance from "../../ApiBaseUrl";
-import { ActionMessage } from "../../SelfComponents/TranslateComponents/ActionMessage";
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Button, message, Popconfirm } from 'antd';
+import { useMutation, useQueryClient } from 'react-query';
+import axiosInstance from '../../ApiBaseUrl';
+import { ActionMessage } from '../../SelfComponents/TranslateComponents/ActionMessage';
 
 function SupplierDetailsActive(props) {
   const queryClient = useQueryClient();
@@ -20,13 +20,12 @@ function SupplierDetailsActive(props) {
           message.success(
             <ActionMessage
               name={`${props?.record?.first_name} ${props?.record?.last_name}`}
-              message="Message.Active"
-            />
+              message='Message.Active'
+            />,
           );
         })
         .catch((error) => {
           setActiveLoading(false);
-          
         }),
     {
       onSuccess: () => {
@@ -34,7 +33,7 @@ function SupplierDetailsActive(props) {
         queryClient.invalidateQueries(`/supplier_account/supplier`);
         queryClient.invalidateQueries(`/supplier_account/supplier1/`);
       },
-    }
+    },
   );
 
   let inactive = false;
@@ -46,14 +45,13 @@ function SupplierDetailsActive(props) {
     setActiveLoading(true);
     try {
       mutateActive(
-        { status: "active" },
+        { status: 'active' },
         {
           onSuccess: () => {},
-        }
+        },
       );
       inactive = false;
     } catch (info) {
-      
       inactive = false;
     }
   };
@@ -67,22 +65,22 @@ function SupplierDetailsActive(props) {
   };
   return (
     <Popconfirm
-      placement="topRight"
+      placement='topRight'
       open={activeVisible}
       okButtonProps={{ loading: activeLoading }}
       title={
         <ActionMessage
           name={props?.record?.first_name}
-          message="Message.Remove_item_message"
+          message='Message.Remove_item_message'
         />
       }
       onConfirm={handelActive}
-      okText={t("Manage_users.Yes")}
-      cancelText={t("Manage_users.No")}
+      okText={t('Manage_users.Yes')}
+      cancelText={t('Manage_users.No')}
       onCancel={handelCancel}
     >
-      <Button shape="round" onClick={onClickActive}>
-        {t("Sales.Customers.Table.Active")}
+      <Button shape='round' onClick={onClickActive}>
+        {t('Sales.Customers.Table.Active')}
       </Button>
     </Popconfirm>
   );

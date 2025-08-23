@@ -1,12 +1,12 @@
-import React, { Fragment, memo, useState } from "react";
-import { Menu } from "antd";
-import { useTranslation } from "react-i18next";
-import BarcodeLabelSettings from "./BarcodeLabelSettings";
+import React, { Fragment, memo, useState } from 'react';
+import { Menu } from 'antd';
+import { useTranslation } from 'react-i18next';
+import BarcodeLabelSettings from './BarcodeLabelSettings';
 import {
   TableSettingsMenu,
   TableSettingsMenuItem,
   TableSettingsMenuMoreItem,
-} from "../../../components";
+} from '../../../components';
 
 function ProductSettings({
   setColumns,
@@ -30,80 +30,80 @@ function ProductSettings({
       <TableSettingsMenuItem
         setColumns={setColumns}
         checked={category}
-        name="category"
+        name='category'
       >
-        {t("Sales.Product_and_services.Form.Category")}
+        {t('Sales.Product_and_services.Form.Category')}
       </TableSettingsMenuItem>
       <TableSettingsMenuItem
         setColumns={setColumns}
-        name="price"
+        name='price'
         checked={price}
       >
-        {t("Sales.Product_and_services.Price_recording.Sales_price")}
+        {t('Sales.Product_and_services.Price_recording.Sales_price')}
       </TableSettingsMenuItem>
 
       <TableSettingsMenuItem
         setColumns={setColumns}
-        name="photo"
+        name='photo'
         checked={photo}
       >
-        {t("Form.Photo")}
+        {t('Form.Photo')}
       </TableSettingsMenuItem>
       <TableSettingsMenuItem
         setColumns={setColumns}
-        name="barcode"
+        name='barcode'
         checked={barcode}
       >
-        {t("Sales.Product_and_services.Form.Barcode")}
+        {t('Sales.Product_and_services.Form.Barcode')}
       </TableSettingsMenuItem>
       <TableSettingsMenuItem
         checked={createdBy}
         setColumns={setColumns}
-        name="createdBy"
+        name='createdBy'
       >
-        {t("Sales.Product_and_services.Form.Created_by")}
+        {t('Sales.Product_and_services.Form.Created_by')}
       </TableSettingsMenuItem>
       <TableSettingsMenuItem
         setColumns={setColumns}
-        name="modifiedBy"
+        name='modifiedBy'
         checked={modifiedBy}
       >
-        {t("Sales.Product_and_services.Form.Modified_by")}
+        {t('Sales.Product_and_services.Form.Modified_by')}
       </TableSettingsMenuItem>
       {visible && (
         <Fragment>
           <TableSettingsMenuItem
             setColumns={setColumns}
-            name="createdDate"
+            name='createdDate'
             checked={createdDate}
           >
-            {t("Sales.Product_and_services.Form.Created_date")}
+            {t('Sales.Product_and_services.Form.Created_date')}
           </TableSettingsMenuItem>
           <TableSettingsMenuItem
             setColumns={setColumns}
-            name="modifiedDate"
+            name='modifiedDate'
             checked={modifiedDate}
           >
-            {t("Sales.Product_and_services.Form.Modified_date")}
+            {t('Sales.Product_and_services.Form.Modified_date')}
           </TableSettingsMenuItem>
 
           <TableSettingsMenuItem
             setColumns={setColumns}
-            name="vip"
+            name='vip'
             checked={vip}
           >
-            {t("Sales.Product_and_services.Form.Vip_price")}
+            {t('Sales.Product_and_services.Form.Vip_price')}
           </TableSettingsMenuItem>
 
           <TableSettingsMenuItem
             setColumns={setColumns}
-            name="description"
+            name='description'
             checked={description}
           >
-            {t("Form.Description")}
+            {t('Form.Description')}
           </TableSettingsMenuItem>
 
-          <Menu.Item key="12">
+          <Menu.Item key='12'>
             <BarcodeLabelSettings />
           </Menu.Item>
         </Fragment>

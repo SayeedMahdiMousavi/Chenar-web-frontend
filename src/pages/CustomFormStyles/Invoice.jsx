@@ -446,7 +446,7 @@ const Invoice = (props) => {
       setAutoCompleteResult([]);
     } else {
       setAutoCompleteResult(
-        ['.com', '.org', '.net']?.map((domain) => `${value}${domain}`)
+        ['.com', '.org', '.net']?.map((domain) => `${value}${domain}`),
       );
     }
   };
@@ -869,7 +869,7 @@ const Invoice = (props) => {
       getBase64(
         info.file.originFileObj,
         (imageUrl) => setImageUrl(imageUrl),
-        setLoading(true)
+        setLoading(true),
       );
     }
   };
@@ -1155,7 +1155,6 @@ const Invoice = (props) => {
                               whitespace: true,
                               message: `${t('Form.Name_required')}`,
                               required: true,
-                            
                             },
                           ]}
                         >
@@ -1608,7 +1607,7 @@ const Invoice = (props) => {
                               checked={formCustomNumber}
                             >
                               {t(
-                                'Custom_form_styles.Use_custom_transaction_numbers'
+                                'Custom_form_styles.Use_custom_transaction_numbers',
                               )}
                             </Checkbox>
                           </Form.Item>

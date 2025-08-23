@@ -1,15 +1,15 @@
-import React, { memo } from "react";
-import { Row, Col, Form, Button } from "antd";
-import { useTranslation } from "react-i18next";
-import ReportDateFormItem from "../../Components/DateFormItem";
-import { handlePrepareDateForServer } from "../../../../Functions/utcDate";
-import { CategoryField } from "../../../SelfComponents/CategoryField";
-import { InfiniteScrollSelectFormItem } from "../../../../components/antd";
-import { ChartAccountFormItem } from "../../../Transactions/Components/ChartAccountFormItem";
-import { useDefaultReportDateFormItem } from "../../../../Hooks";
+import React, { memo } from 'react';
+import { Row, Col, Form, Button } from 'antd';
+import { useTranslation } from 'react-i18next';
+import ReportDateFormItem from '../../Components/DateFormItem';
+import { handlePrepareDateForServer } from '../../../../Functions/utcDate';
+import { CategoryField } from '../../../SelfComponents/CategoryField';
+import { InfiniteScrollSelectFormItem } from '../../../../components/antd';
+import { ChartAccountFormItem } from '../../../Transactions/Components/ChartAccountFormItem';
+import { useDefaultReportDateFormItem } from '../../../../Hooks';
 
-const baseUrl = "/chart_of_account/ACU-103/child/";
-const searchKey = "/customer/search/";
+const baseUrl = '/chart_of_account/ACU-103/child/';
+const searchKey = '/customer/search/';
 
 interface IProps {
   setPage: (value: number) => void;
@@ -34,8 +34,8 @@ function Filters(props: IProps) {
 
     props.setFilters({
       currencyId:
-        values?.currency?.value === "all" ? "" : values?.currency?.value,
-      customerName: values?.customerName?.label ?? "",
+        values?.currency?.value === 'all' ? '' : values?.currency?.value,
+      customerName: values?.customerName?.label ?? '',
       startDate: startDate,
       endDate: endDate,
     });
@@ -49,7 +49,7 @@ function Filters(props: IProps) {
       form={form}
       hideRequiredMark
       initialValues={{
-        date: "allDates",
+        date: 'allDates',
         dateTime: defaultDate,
       }}
     >
@@ -57,33 +57,33 @@ function Filters(props: IProps) {
         <ReportDateFormItem form={form} style={styles.formItem} />
         <Col xxl={14} xl={10} lg={11}></Col>
         <Col xxl={4} xl={5} lg={5}>
-          {props.type === "outgoing" ? (
+          {props.type === 'outgoing' ? (
             <ChartAccountFormItem
-              placeholder={t("Sales.Customers.Receive_cash.Payer")}
-              name="customerName"
-              searchIn="customer"
+              placeholder={t('Sales.Customers.Receive_cash.Payer')}
+              name='customerName'
+              searchIn='customer'
               baseUrl={baseUrl}
               searchKey={searchKey}
-              place="report"
+              place='report'
             />
           ) : (
             <InfiniteScrollSelectFormItem
-              name="supplier"
-              placeholder={t("Banking.Form.Account_name")}
+              name='supplier'
+              placeholder={t('Banking.Form.Account_name')}
               style={styles.formItem}
-              fields="full_name,id"
-              baseUrl="/supplier_account/supplier/"
+              fields='full_name,id'
+              baseUrl='/supplier_account/supplier/'
               allowClear={true}
             />
           )}
         </Col>
         <Col xxl={5} xl={8} lg={8}>
           <InfiniteScrollSelectFormItem
-            name="warehouse"
+            name='warehouse'
             style={styles.formItem}
-            fields="name,id"
-            placeholder={t("Warehouse.1")}
-            baseUrl="/inventory/warehouse/"
+            fields='name,id'
+            placeholder={t('Warehouse.1')}
+            baseUrl='/inventory/warehouse/'
             allowClear={true}
           />
         </Col>
@@ -91,29 +91,29 @@ function Filters(props: IProps) {
         <Col xxl={14} xl={11} lg={11}></Col>
         <Col xxl={4} xl={5} lg={5}>
           <InfiniteScrollSelectFormItem
-            name="product"
+            name='product'
             style={styles.formItem}
-            fields="name,id"
-            placeholder={t("Sales.Product_and_services.Product")}
-            baseUrl="/product/items/"
+            fields='name,id'
+            placeholder={t('Sales.Product_and_services.Product')}
+            baseUrl='/product/items/'
             allowClear={true}
           />
         </Col>
         <Col xxl={4} xl={5} lg={5}>
           <CategoryField
             form={form}
-            place="filter"
-            label=""
+            place='filter'
+            label=''
             style={styles.formItem}
-            placeholder={t("Sales.Product_and_services.Form.Category")}
-            url="/product/category/"
+            placeholder={t('Sales.Product_and_services.Form.Category')}
+            url='/product/category/'
           />
         </Col>
 
         <Col xxl={8} xl={10} lg={10}>
-          <Form.Item className="margin" style={styles.formItem}>
-            <Button type="primary" size="small" htmlType="submit" shape="round">
-              {t("Form.Search")}
+          <Form.Item className='margin' style={styles.formItem}>
+            <Button type='primary' size='small' htmlType='submit' shape='round'>
+              {t('Form.Search')}
             </Button>
           </Form.Item>
         </Col>
@@ -124,7 +124,7 @@ function Filters(props: IProps) {
 
 const styles = {
   form: {
-    width: "250px",
+    width: '250px',
   },
   formItem: { marginBottom: 0 },
 };

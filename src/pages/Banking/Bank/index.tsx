@@ -54,8 +54,8 @@ const Banking: React.FC<IProps> = (props) => {
             isMiniMobile
               ? { span: 8, offset: 3 }
               : isMiniTablet
-              ? { span: 7, offset: 4 }
-              : { span: 6, offset: 5 }
+                ? { span: 7, offset: 4 }
+                : { span: 6, offset: 5 }
           }
         >
           <Row justify={isMobile ? 'center' : 'space-around'} gutter={[0, 5]}>

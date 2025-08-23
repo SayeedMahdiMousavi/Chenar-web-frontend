@@ -1,12 +1,12 @@
-import React from "react";
-import { Typography, Row, Col, Space, Divider, Image } from "antd";
-import {QRCodeSVG} from "qrcode.react";
-import parse from "html-react-parser";
-import moment from "moment";
-import MarketInvoiceItem from "./MarketInvoiceItem";
-import { fixedNumber, math, print } from "../../../../Functions/math";
-import { arabicToIndian } from "../../../../Functions/arabicToIndian";
-import ShowDate from "../../../SelfComponents/JalaliAntdComponents/ShowDate";
+import React from 'react';
+import { Typography, Row, Col, Space, Divider, Image } from 'antd';
+import { QRCodeSVG } from 'qrcode.react';
+import parse from 'html-react-parser';
+import moment from 'moment';
+import MarketInvoiceItem from './MarketInvoiceItem';
+import { fixedNumber, math, print } from '../../../../Functions/math';
+import { arabicToIndian } from '../../../../Functions/arabicToIndian';
+import ShowDate from '../../../SelfComponents/JalaliAntdComponents/ShowDate';
 
 class PrintInvoice extends React.Component {
   constructor() {
@@ -22,17 +22,17 @@ class PrintInvoice extends React.Component {
       return `@page { margin: -4mm 0mm !important; }`;
     };
     return (
-      <div dir={this.props.language} className="num">
+      <div dir={this.props.language} className='num'>
         <style>{getPageMargins()}</style>.
         {this.props?.edit?.logo?.logo_show && (
-          <Row justify="center">
+          <Row justify='center'>
             <Col>
               <Image
                 width={this?.props?.edit?.logo?.size}
                 height={this?.props?.edit?.logo?.size}
                 preview={false}
                 src={this.props?.company?.logo}
-                fallback="data:image/png;base64,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"
+                fallback='data:image/png;base64,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'
               />
               {/* <Avatar
                 size={this?.props?.edit?.logo?.size}
@@ -43,26 +43,26 @@ class PrintInvoice extends React.Component {
           </Row>
         )}
         {this?.props?.edit?.company_name?.company_show && (
-          <Row justify="center">
+          <Row justify='center'>
             <Col>
               <Typography.Title
                 level={this?.props?.edit?.company_name?.size_level}
                 style={styles.margin}
               >
-                {this.props.language === "en"
+                {this.props.language === 'en'
                   ? this?.props?.company?.en_name
-                  : this.props.language === "fa"
-                  ? this?.props?.company?.fa_name
-                  : this?.props?.company?.ps_name}
+                  : this.props.language === 'fa'
+                    ? this?.props?.company?.fa_name
+                    : this?.props?.company?.ps_name}
               </Typography.Title>
             </Col>
           </Row>
         )}
         {this?.props?.edit?.slogan?.slogan_show && (
-          <Row justify="center">
+          <Row justify='center'>
             <Col
               span={24}
-              style={{ ...styles.descriptionBody, textAlign: "center" }}
+              style={{ ...styles.descriptionBody, textAlign: 'center' }}
             >
               {this?.props?.company?.slogan}
             </Col>
@@ -70,7 +70,7 @@ class PrintInvoice extends React.Component {
         )}
         {this.props.company?.address?.address_list?.map((item, index) => (
           <Row key={index} style={index === 0 && styles.rowSpace}>
-            <Col span={24} style={{ ...styles.address, textAlign: "center" }}>
+            <Col span={24} style={{ ...styles.address, textAlign: 'center' }}>
               {/* {this.props?.edit?.address?.address_list?.includes(index + 1)
                 ? item?.fa_name
                 : null}
@@ -83,7 +83,7 @@ class PrintInvoice extends React.Component {
           </Row>
         ))}
         {this?.props?.edit?.mobile?.mobile_list?.length !== 0 && (
-          <Row justify="center">
+          <Row justify='center'>
             <Col style={styles.descriptionBody}>
               {this?.props?.edit?.mobile?.mobile_list?.includes(1) &&
               this?.props?.company?.mobile?.mobile_list?.[0]
@@ -93,7 +93,7 @@ class PrintInvoice extends React.Component {
               this?.props?.edit?.mobile?.mobile_list?.includes(2) &&
               this.props?.company?.mobile?.mobile_list?.[0] &&
               this.props?.company?.mobile?.mobile_list?.[1]
-                ? "-"
+                ? '-'
                 : null}
               {this?.props?.edit?.mobile?.mobile_list?.includes(2) &&
               this?.props?.company?.mobile?.mobile_list?.[1]
@@ -103,7 +103,7 @@ class PrintInvoice extends React.Component {
               this?.props?.edit?.mobile?.mobile_list?.includes(3) &&
               this.props?.company?.mobile?.mobile_list?.[1] &&
               this.props?.company?.mobile?.mobile_list?.[2]
-                ? "-"
+                ? '-'
                 : null}
               {this?.props?.edit?.mobile?.mobile_list?.includes(3) &&
               this?.props?.company?.mobile?.mobile_list?.[2]
@@ -112,15 +112,15 @@ class PrintInvoice extends React.Component {
             </Col>
           </Row>
         )}
-        <Row justify="center">
+        <Row justify='center'>
           <Col style={styles.descriptionBody}>
             {this?.props?.locals?.Product_change_message}
           </Col>
         </Row>
-        <Row justify="center" style={styles.rowSpace}>
+        <Row justify='center' style={styles.rowSpace}>
           <Col
             span={24}
-            style={{ ...styles.descriptionBody, textAlign: "center" }}
+            style={{ ...styles.descriptionBody, textAlign: 'center' }}
           >
             {this?.props?.locals?.factorNumber} : {this?.props?.response?.id}
             {this?.props?.locals?.edit && `(${this?.props?.locals?.edit})`}
@@ -155,7 +155,7 @@ class PrintInvoice extends React.Component {
             {this.props?.data?.map((item) => (
               <tr key={item?.id}>
                 <td style={styles.tableColumn}>{item?.product}</td>
-                <td style={{ ...styles.tableColumn, textAlign: "center" }}>
+                <td style={{ ...styles.tableColumn, textAlign: 'center' }}>
                   <b>{fixedNumber(item?.qty, 3)}</b>
                   {/* &nbsp;
                   <span style={styles.unit}>{item?.unit?.label}</span> */}
@@ -170,8 +170,8 @@ class PrintInvoice extends React.Component {
                   style={{ ...styles.tableColumn, ...styles.totalTablePrice }}
                 >
                   <Space
-                    direction="vertical"
-                    style={{ width: "fit-content", margin: " 0 auto 0 0" }}
+                    direction='vertical'
+                    style={{ width: 'fit-content', margin: ' 0 auto 0 0' }}
                     size={-4}
                   >
                     <span>
@@ -183,8 +183,8 @@ class PrintInvoice extends React.Component {
                     {item?.total_price - item?.vipPrice > 0.9 && (
                       <div
                         style={{
-                          fontSize: "8px",
-                          textAlign: "center",
+                          fontSize: '8px',
+                          textAlign: 'center',
                         }}
                       >
                         {item?.total_price - item?.vipPrice}-
@@ -210,8 +210,8 @@ class PrintInvoice extends React.Component {
           <Col span={24}>
             <MarketInvoiceItem break={false} />
             {/* {this?.props?.vipDiscount > 0 && ( */}
-            <Row justify="space-between">
-              <Col span={17} style={{ textAlign: "end" }}>
+            <Row justify='space-between'>
+              <Col span={17} style={{ textAlign: 'end' }}>
                 <span style={styles.descriptionBody}>
                   {this.props.locals.discount}
                 </span>
@@ -246,14 +246,14 @@ class PrintInvoice extends React.Component {
                 </Col>
               </Row>
             )} */}
-            <Row justify="end">
+            <Row justify='end'>
               <Col span={20}>
-                <Divider style={{ ...styles.divider1, width: "80%" }} />
+                <Divider style={{ ...styles.divider1, width: '80%' }} />
               </Col>
             </Row>
           </Col>
           <Col span={24}>
-            <Row justify="space-between">
+            <Row justify='space-between'>
               <Col span={17} style={styles.payableTotal}>
                 {this.props.locals.pureBell}
               </Col>
@@ -262,10 +262,10 @@ class PrintInvoice extends React.Component {
                 {fixedNumber(
                   print(
                     math.evaluate(
-                      `${this?.props?.totalPrice}-${this?.props?.vipDiscount}`
-                    )
+                      `${this?.props?.totalPrice}-${this?.props?.vipDiscount}`,
+                    ),
                   ),
-                  2
+                  2,
                 )}
                 ؋
               </Col>
@@ -274,8 +274,8 @@ class PrintInvoice extends React.Component {
           <Col span={24}>
             <MarketInvoiceItem break={false} />
 
-            <Row justify="space-between">
-              <Col span={17} style={{ textAlign: "end" }}>
+            <Row justify='space-between'>
+              <Col span={17} style={{ textAlign: 'end' }}>
                 <span style={styles.descriptionBody}>
                   {this.props.locals.payByAnarPay}
                 </span>
@@ -286,14 +286,14 @@ class PrintInvoice extends React.Component {
               </Col>
             </Row>
 
-            <Row justify="end">
+            <Row justify='end'>
               <Col span={20}>
-                <Divider style={{ ...styles.divider1, width: "80%" }} />
+                <Divider style={{ ...styles.divider1, width: '80%' }} />
               </Col>
             </Row>
           </Col>
           <Col span={24}>
-            <Row justify="space-between">
+            <Row justify='space-between'>
               <Col span={17} style={styles.payableTotal}>
                 {this.props.locals.payCash}
               </Col>
@@ -306,10 +306,10 @@ class PrintInvoice extends React.Component {
                   fixedNumber(
                     print(
                       math.evaluate(
-                        `${this?.props?.totalPrice}-(${this?.props?.vipDiscount}+${this?.props?.discount})`
-                      )
+                        `${this?.props?.totalPrice}-(${this?.props?.vipDiscount}+${this?.props?.discount})`,
+                      ),
                     ),
-                    2
+                    2,
                   )
                 }
                 ؋
@@ -322,9 +322,9 @@ class PrintInvoice extends React.Component {
                 <Col span={24}>
                   <br />
                   <br />
-                  <Row justify="space-between" gutter={10}>
+                  <Row justify='space-between' gutter={10}>
                     <Col span={18}>
-                      <Space size="small" direction="vertical">
+                      <Space size='small' direction='vertical'>
                         {this?.props?.edit?.qr_code?.qr_show && (
                           <Typography.Paragraph style={styles.paragraph}>
                             {this?.props?.edit?.qr_code?.qr_message}
@@ -332,24 +332,24 @@ class PrintInvoice extends React.Component {
                         )}
                         <Row
                           gutter={5}
-                          style={{ marginInlineEnd: "5px" }}
+                          style={{ marginInlineEnd: '5px' }}
                           // justify="center"
                         >
                           {this?.props?.edit?.qr_code?.appstore_show && (
                             <Col span={12}>
                               <img
-                                src="/images/appStore.png"
-                                alt="app store"
-                                style={{ width: "100%" }}
+                                src='/images/appStore.png'
+                                alt='app store'
+                                style={{ width: '100%' }}
                               ></img>
                             </Col>
                           )}
                           {this?.props?.edit?.qr_code?.playstore_show && (
                             <Col span={12}>
                               <img
-                                src="/images/googlePlay.png"
-                                alt="app store"
-                                style={{ width: "100%" }}
+                                src='/images/googlePlay.png'
+                                alt='app store'
+                                style={{ width: '100%' }}
                               ></img>
                             </Col>
                           )}
@@ -360,13 +360,13 @@ class PrintInvoice extends React.Component {
                     <Col style={styles.qrCode}>
                       <QRCodeSVG
                         style={{
-                          width: "50px",
-                          height: "50px",
+                          width: '50px',
+                          height: '50px',
                         }}
                         value={
                           this?.props?.edit?.qr_code?.qr_data
                             ? this?.props?.edit?.qr_code?.qr_data
-                            : "application url"
+                            : 'application url'
                         }
                       />
                     </Col>
@@ -419,7 +419,7 @@ class PrintInvoice extends React.Component {
           {this?.props?.edit?.note?.note_data && (
             <Col
               span={24}
-              style={{ ...styles.descriptionBody, textAlign: "center" }}
+              style={{ ...styles.descriptionBody, textAlign: 'center' }}
             >
               <br />
               {this?.props?.edit?.note?.note_data}
@@ -432,24 +432,24 @@ class PrintInvoice extends React.Component {
               // style={{ marginTop: "10px" }}
             >
               <Divider dashed={true} style={styles.noteDivider} />
-              <Row gutter={10} justify="space-between">
+              <Row gutter={10} justify='space-between'>
                 <Col span={16}>
                   {this.props?.edit?.ticket_note?.note_data && (
                     <Typography.Paragraph style={styles.paragraph}>
                       {this?.props?.response?.coupon_ticket?.discount_total > 0
                         ? parse(
                             this.props?.edit?.ticket_note?.note_data?.replace(
-                              "$$",
+                              '$$',
                               `<b>${fixedNumber(
                                 this?.props?.response?.coupon_ticket
                                   ?.discount_total,
-                                1
-                              )}</b>`
-                            )
+                                1,
+                              )}</b>`,
+                            ),
                           )
                         : this.props?.edit?.ticket_note?.note_data.replace(
-                            "$$",
-                            ""
+                            '$$',
+                            '',
                           )}
                     </Typography.Paragraph>
                   )}
@@ -457,7 +457,7 @@ class PrintInvoice extends React.Component {
 
                 <Col style={styles.qrCode}>
                   <QRCodeSVG
-                    style={{ width: "70px", height: "70px" }}
+                    style={{ width: '70px', height: '70px' }}
                     value={
                       this?.props?.response?.coupon_ticket?.code
                         ? `anarج${this?.props?.response?.coupon_ticket?.code}`
@@ -474,31 +474,31 @@ class PrintInvoice extends React.Component {
 
             <Row>
               <Col style={styles.footer}>
-                {" "}
+                {' '}
                 {this.props.locals.accounting_name} :
               </Col>
             </Row>
-            <Row justify="space-between">
+            <Row justify='space-between'>
               <Col style={styles.footer}>
                 {this.props.locals.ProductOfMicrocis}
               </Col>
 
               <Col style={styles.footer}>
                 <ShowDate
-                  date={moment().format("YYYY-MM-DD")}
+                  date={moment().format('YYYY-MM-DD')}
                   // date={moment().format("LT")}
-                  dateFormat="YYYY/MM/DD"
-                  datePFormat="jYYYY/jM/jD"
-                />{" "}
+                  dateFormat='YYYY/MM/DD'
+                  datePFormat='jYYYY/jM/jD'
+                />{' '}
                 &nbsp; | &nbsp;
                 <ShowDate
-                  date={moment().format("YYYY-MM-DD HH:mm")}
+                  date={moment().format('YYYY-MM-DD HH:mm')}
                   // date={moment().format("l")}
-                  dateFormat="HH:mm"
-                  datePFormat="HH:mm"
+                  dateFormat='HH:mm'
+                  datePFormat='HH:mm'
                 />
-                &nbsp; | &nbsp;CAC{" "}
-                {this?.props?.language === "en"
+                &nbsp; | &nbsp;CAC{' '}
+                {this?.props?.language === 'en'
                   ? this?.props?.userId
                   : arabicToIndian(this?.props?.userId)}
               </Col>
@@ -510,42 +510,42 @@ class PrintInvoice extends React.Component {
   }
 }
 const styles = {
-  rowSpace: { marginTop: "8px" },
+  rowSpace: { marginTop: '8px' },
 
-  divider1: { margin: "5px", background: "black" },
-  qrCode: { paddingTop: "8px" },
-  unit: { fontSize: "10px" },
-  tablePrice: { textAlign: "center", width: "15%" },
+  divider1: { margin: '5px', background: 'black' },
+  qrCode: { paddingTop: '8px' },
+  unit: { fontSize: '10px' },
+  tablePrice: { textAlign: 'center', width: '15%' },
   tableHeaderPrice: {
-    textAlign: "center",
-    width: "15%",
+    textAlign: 'center',
+    width: '15%',
   },
-  totalTablePrice: { textAlign: "end", paddingInlineEnd: "0px", width: "15%" },
+  totalTablePrice: { textAlign: 'end', paddingInlineEnd: '0px', width: '15%' },
   totalTableHeaderPrice: {
-    textAlign: "end",
-    width: "15%",
-    paddingInlineEnd: "0px",
+    textAlign: 'end',
+    width: '15%',
+    paddingInlineEnd: '0px',
   },
-  tableHeaderQty: { width: "10%", textAlign: "center" },
-  tableHeaderName: { width: "60%" },
-  noteDivider: { backgroundColor: "black" },
-  margin: { margin: "0px" },
-  footer: { fontSize: "7px", fontWeight: "bold", color: "black" },
+  tableHeaderQty: { width: '10%', textAlign: 'center' },
+  tableHeaderName: { width: '60%' },
+  noteDivider: { backgroundColor: 'black' },
+  margin: { margin: '0px' },
+  footer: { fontSize: '7px', fontWeight: 'bold', color: 'black' },
   payableTotal: {
-    fontSize: "13px",
-    fontWeight: "bold",
-    color: "black",
-    textAlign: "end",
+    fontSize: '13px',
+    fontWeight: 'bold',
+    color: 'black',
+    textAlign: 'end',
   },
-  descriptionTitle: { fontSize: "9px", fontWeight: "bold", color: "black" },
-  address: { fontSize: "9px", paddingBottom: "0px", color: "black" },
-  tableColumn: { fontSize: "10px", padding: "1px 3px", color: "black" },
-  descriptionBody: { fontSize: "10px", color: "black" },
+  descriptionTitle: { fontSize: '9px', fontWeight: 'bold', color: 'black' },
+  address: { fontSize: '9px', paddingBottom: '0px', color: 'black' },
+  tableColumn: { fontSize: '10px', padding: '1px 3px', color: 'black' },
+  descriptionBody: { fontSize: '10px', color: 'black' },
   paragraph: {
-    fontSize: "9px",
-    color: "black",
-    textAlign: "justify",
-    marginBottom: "0px",
+    fontSize: '9px',
+    color: 'black',
+    textAlign: 'justify',
+    marginBottom: '0px',
   },
 };
 export default PrintInvoice;

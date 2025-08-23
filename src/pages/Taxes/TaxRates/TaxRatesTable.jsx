@@ -409,5 +409,5 @@ const enhancProduct = withObservables(['customers'], ({ database }) => ({
 }));
 
 export default connect(mapStateToProps)(
-  withDatabase(enhancProduct(TaxRatesTable))
+  withDatabase(enhancProduct(TaxRatesTable)),
 );

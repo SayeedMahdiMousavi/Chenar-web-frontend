@@ -1,21 +1,21 @@
-import React, { useCallback, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useQueryClient } from "react-query";
-import { Menu, Dropdown, message, Popconfirm } from "antd";
-import CheckPassword from "./CheckPassword";
-import ActionButton from "../../../SelfComponents/ActionButton";
-import { RemovePopconfirm } from "../../../../components";
-import { useGetCalender, useRemoveItem } from "../../../../Hooks";
-import moment from "moment";
-import { changeGToJ } from "../../../../Functions/utcDate";
-import { useMutation } from "react-query";
-import axiosInstance from "../../../ApiBaseUrl";
-import { ActionMessage } from "../../../SelfComponents/TranslateComponents/ActionMessage";
-import { BACKUP_M } from "../../../../constants/permissions";
-import { checkPermissions } from "../../../../Functions";
+import React, { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useQueryClient } from 'react-query';
+import { Menu, Dropdown, message, Popconfirm } from 'antd';
+import CheckPassword from './CheckPassword';
+import ActionButton from '../../../SelfComponents/ActionButton';
+import { RemovePopconfirm } from '../../../../components';
+import { useGetCalender, useRemoveItem } from '../../../../Hooks';
+import moment from 'moment';
+import { changeGToJ } from '../../../../Functions/utcDate';
+import { useMutation } from 'react-query';
+import axiosInstance from '../../../ApiBaseUrl';
+import { ActionMessage } from '../../../SelfComponents/TranslateComponents/ActionMessage';
+import { BACKUP_M } from '../../../../constants/permissions';
+import { checkPermissions } from '../../../../Functions';
 
-const dateFormat = "YYYY-MM-DD HH:mm a";
-const datePFormat = "jYYYY/jM/jD HH:mm a";
+const dateFormat = 'YYYY-MM-DD HH:mm a';
+const datePFormat = 'jYYYY/jM/jD HH:mm a';
 function TableAction(props) {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
@@ -36,8 +36,8 @@ function TableAction(props) {
         message.success(
           <ActionMessage
             name={props?.record?.name}
-            message="Upload.Upload_to_dropbox_success_message"
-          />
+            message='Upload.Upload_to_dropbox_success_message'
+          />,
         );
         setUploadVisible(false);
         setVisible(false);
@@ -47,7 +47,7 @@ function TableAction(props) {
           message.error(error?.response?.data?.message);
         }
       },
-    }
+    },
   );
 
   const handleUpload = () => {
@@ -60,13 +60,13 @@ function TableAction(props) {
 
   const finalDate =
     props?.record?.created &&
-    (calenderCode === "gregory"
+    (calenderCode === 'gregory'
       ? moment(props?.record?.created)?.format(dateFormat)
       : changeGToJ(
           moment(props?.record?.created)?.format(dateFormat),
           dateFormat,
           datePFormat,
-          "show"
+          'show',
         ));
 
   const handleUpdateItems = useCallback(() => {
@@ -122,22 +122,22 @@ function TableAction(props) {
       {checkPermissions(`upload_to_cloud_${BACKUP_M}`) && (
         <Menu.Item>
           <Popconfirm
-            placement="topRight"
+            placement='topRight'
             open={uploadVisible}
             okButtonProps={{ loading: uploadLoading }}
             title={
               <ActionMessage
                 name={finalDate}
-                message="Upload.Upload_to_dropbox_message"
+                message='Upload.Upload_to_dropbox_message'
               />
             }
             onConfirm={handleUpload}
-            okText={t("Manage_users.Yes")}
-            cancelText={t("Manage_users.No")}
+            okText={t('Manage_users.Yes')}
+            cancelText={t('Manage_users.No')}
             onCancel={handleCancel}
           >
             <div onClick={handelClickUpload}>
-              {t("Upload.Upload_to_dropbox")}
+              {t('Upload.Upload_to_dropbox')}
             </div>
           </Popconfirm>
         </Menu.Item>
@@ -147,19 +147,19 @@ function TableAction(props) {
       <Menu.Item onClick={handleClickEdit}>
         <a
           href={props?.record?.db_file_path}
-          target="_blank"
-          rel="noopener noreferrer"
+          target='_blank'
+          rel='noopener noreferrer'
         >
-          {t("Upload.Download")}
+          {t('Upload.Download')}
         </a>
       </Menu.Item>
       <Menu.Item onClick={handleClickEdit}>
         <a
           href={props?.record?.media_file_path}
-          target="_blank"
-          rel="noopener noreferrer"
+          target='_blank'
+          rel='noopener noreferrer'
         >
-          {t("Upload.Download_media")}
+          {t('Upload.Download_media')}
         </a>
       </Menu.Item>
       {/* )}
@@ -180,7 +180,7 @@ function TableAction(props) {
   return (
     <Dropdown
       overlay={action}
-      trigger={["click"]}
+      trigger={['click']}
       onOpenChange={handleVisibleChange}
       open={visible}
     >

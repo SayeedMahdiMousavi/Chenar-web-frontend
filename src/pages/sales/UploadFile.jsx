@@ -1,6 +1,6 @@
-import React from "react";
-import { Upload, message } from "antd";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import { Upload, message } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 const Upload1 = (props) => {
   const { t } = useTranslation();
@@ -14,7 +14,7 @@ const Upload1 = (props) => {
     fileList: props?.fileList,
     beforeUpload: (file) => {
       if (props?.fileList?.length > 1) {
-        message.error(`${t("Upload.One_file_upload")}`);
+        message.error(`${t('Upload.One_file_upload')}`);
         return;
       } else {
         props.setFileList([file]);
@@ -32,8 +32,8 @@ const Upload1 = (props) => {
     },
     progress: {
       strokeColor: {
-        "0%": "#108ee9",
-        "100%": "#87d068",
+        '0%': '#108ee9',
+        '100%': '#87d068',
       },
       strokeWidth: 3,
       format: (percent) => `${parseFloat(percent.toFixed(2))}%`,
@@ -41,9 +41,9 @@ const Upload1 = (props) => {
   };
 
   return (
-    <div className="clearfix">
-      <Upload.Dragger name="file" {...prop} onChange={props.onChange}>
-        <p className="ant-upload-text" style={{ padding: "0px 10px" }}>
+    <div className='clearfix'>
+      <Upload.Dragger name='file' {...prop} onChange={props.onChange}>
+        <p className='ant-upload-text' style={{ padding: '0px 10px' }}>
           {props.name}
         </p>
       </Upload.Dragger>

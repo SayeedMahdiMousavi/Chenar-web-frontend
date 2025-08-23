@@ -1,25 +1,25 @@
-import React, { useState, useCallback } from "react";
-import { useTranslation } from "react-i18next";
-import startCase from "lodash/startCase";
-import { Drawer, Form, Col, Row, message, Space, Modal, Spin } from "antd";
-import axiosInstance from "../../ApiBaseUrl";
-import { useMutation, useQueryClient } from "react-query";
-import { fixedNumber, math, print } from "../../../Functions/math";
-import useGetBaseCurrency from "../../../Hooks/useGetBaseCurrency";
-import { ActionMessage } from "../../SelfComponents/TranslateComponents/ActionMessage";
-import WarehouseAdjustmentEditableTable from "./EditableTable";
-import { Key } from "antd/lib/table/interface";
-import { CancelButton, EditMenuItem, SaveButton } from "../../../components";
-import { WAREHOUSE_ADJUSTMENT_M } from "../../../constants/permissions";
-import { WAREHOUSE_ADJUSTMENT_INVOICE_LIST } from "../../../constants/routes";
-import { useGetCalender } from "../../../Hooks";
+import React, { useState, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+import startCase from 'lodash/startCase';
+import { Drawer, Form, Col, Row, message, Space, Modal, Spin } from 'antd';
+import axiosInstance from '../../ApiBaseUrl';
+import { useMutation, useQueryClient } from 'react-query';
+import { fixedNumber, math, print } from '../../../Functions/math';
+import useGetBaseCurrency from '../../../Hooks/useGetBaseCurrency';
+import { ActionMessage } from '../../SelfComponents/TranslateComponents/ActionMessage';
+import WarehouseAdjustmentEditableTable from './EditableTable';
+import { Key } from 'antd/lib/table/interface';
+import { CancelButton, EditMenuItem, SaveButton } from '../../../components';
+import { WAREHOUSE_ADJUSTMENT_M } from '../../../constants/permissions';
+import { WAREHOUSE_ADJUSTMENT_INVOICE_LIST } from '../../../constants/routes';
+import { useGetCalender } from '../../../Hooks';
 import {
   handlePrepareDateForDateField,
   handlePrepareDateForServer,
-} from "../../../Functions/utcDate";
-import PrintInvoiceButton from "../../sales/AllSales/MarketInvoiceComponents/PrintInvoiceButton";
-import ProductTransferHeader from "../../sales/AllSales/ProductTransfer/ProductTransferComponents/Header";
-import { manageErrors } from "../../../Functions";
+} from '../../../Functions/utcDate';
+import PrintInvoiceButton from '../../sales/AllSales/MarketInvoiceComponents/PrintInvoiceButton';
+import ProductTransferHeader from '../../sales/AllSales/ProductTransfer/ProductTransferComponents/Header';
+import { manageErrors } from '../../../Functions';
 
 interface IProps {
   recordCurrency: number;
@@ -42,7 +42,7 @@ export function EditWarehouseAdjustment({
   const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([]);
-  const [editingKey, setEditingKey] = useState("");
+  const [editingKey, setEditingKey] = useState('');
   const [form] = Form.useForm();
   const [response, setResponse] = useState<any>({});
   const [count, setCount] = useState(2);
@@ -52,7 +52,7 @@ export function EditWarehouseAdjustment({
     {
       key: 1,
       row: `${1}`,
-      product: { value: "", label: "" },
+      product: { value: '', label: '' },
     },
   ]);
 
@@ -69,7 +69,7 @@ export function EditWarehouseAdjustment({
   const calendarCode = userCalender?.data?.user_calender?.code;
 
   const editWarehouseAdjustment = useCallback(
-    async (value) => {
+    async (value: any) => {
       return await axiosInstance
         .put(`${WAREHOUSE_ADJUSTMENT_INVOICE_LIST}${recordId}/`, value, {
           timeout: 0,
@@ -78,9 +78,9 @@ export function EditWarehouseAdjustment({
           setResponse(res.data);
           message.success(
             <ActionMessage
-              name={`${t("Sales.All_sales.Invoice.Invoice")} ${res?.data?.id}`}
-              message="Message.Update"
-            />
+              name={`${t('Sales.All_sales.Invoice.Invoice')} ${res?.data?.id}`}
+              message='Message.Update'
+            />,
           );
 
           queryClient.invalidateQueries(WAREHOUSE_ADJUSTMENT_INVOICE_LIST);
@@ -95,51 +95,51 @@ export function EditWarehouseAdjustment({
           } else if (error?.response?.data?.invoice_item?.[0]) {
             if (error?.response?.data?.invoice_item?.[0]?.product?.[0]) {
               message.error(
-                `${error?.response.data?.invoice_item?.[0]?.product?.[0]}`
+                `${error?.response.data?.invoice_item?.[0]?.product?.[0]}`,
               );
             } else if (error?.response?.data?.invoice_item?.[0]?.qty?.[0]) {
               message.error(
-                `${error?.response.data?.invoice_item?.[0]?.qty?.[0]}`
+                `${error?.response.data?.invoice_item?.[0]?.qty?.[0]}`,
               );
             } else if (error?.response?.data?.invoice_item?.[0]?.unit?.[0]) {
               message.error(
-                `${error?.response.data?.invoice_item?.[0]?.unit?.[0]}`
+                `${error?.response.data?.invoice_item?.[0]?.unit?.[0]}`,
               );
             } else if (
               error?.response?.data?.invoice_item?.[0]?.expire_date?.[0]
             ) {
               message.error(
-                `${error?.response.data?.invoice_item?.[0]?.expire_date?.[0]}`
+                `${error?.response.data?.invoice_item?.[0]?.expire_date?.[0]}`,
               );
             } else if (
               error?.response?.data?.invoice_item?.[0]
                 ?.unit_conversion_rate?.[0]
             ) {
               message.error(
-                `${error?.response.data?.invoice_item?.[0]?.unit_conversion_rate?.[0]}`
+                `${error?.response.data?.invoice_item?.[0]?.unit_conversion_rate?.[0]}`,
               );
             } else if (
               error?.response?.data?.invoice_item?.[0]?.warehouse_in?.[0]
             ) {
               message.error(
-                `${error?.response.data?.invoice_item?.[0]?.warehouse_in?.[0]}`
+                `${error?.response.data?.invoice_item?.[0]?.warehouse_in?.[0]}`,
               );
             } else if (
               error?.response?.data?.invoice_item?.[0]?.warehouse_out?.[0]
             ) {
               message.error(
-                `${error?.response.data?.invoice_item?.[0]?.warehouse_out?.[0]}`
+                `${error?.response.data?.invoice_item?.[0]?.warehouse_out?.[0]}`,
               );
             }
           }
           return error;
         });
     },
-    [queryClient, recordId, t]
+    [queryClient, recordId, t],
   );
 
   const { mutate: mutateEditWarehouseAdjustment, isLoading } = useMutation(
-    editWarehouseAdjustment
+    editWarehouseAdjustment,
   );
 
   const handleSendOrder = () => {
@@ -156,9 +156,9 @@ export function EditWarehouseAdjustment({
               unit_conversion_rate: 1,
               qty: qty,
               warehouse_in:
-                values?.type === "waste" ? null : item?.warehouse?.value,
+                values?.type === 'waste' ? null : item?.warehouse?.value,
               warehouse_out:
-                values?.type === "waste" ? item?.warehouse?.value : null,
+                values?.type === 'waste' ? item?.warehouse?.value : null,
               each_price: item?.each_price,
               id: item?.itemId,
               expire_date: item?.expirationDate,
@@ -174,13 +174,20 @@ export function EditWarehouseAdjustment({
         const updatedItemsIds = items?.map((item: any) => item?.id);
         const createdItems = items?.filter((item: any) => !Boolean(item?.id));
         const deletedItems = invoiceItems?.filter(
-          (item) => !updatedItemsIds?.includes(item)
+          (item) => !updatedItemsIds?.includes(item),
         );
 
         if (items?.length === 0) {
           Modal.warning({
-            bodyStyle: { direction: t("Dir") },
-            title: t("Sales.All_sales.Invoice.Invoice_no_data_message"),
+            bodyStyle: {
+              direction: t('Dir') as
+                | 'ltr'
+                | 'rtl'
+                | 'inherit'
+                | 'initial'
+                | 'unset',
+            },
+            title: t('Sales.All_sales.Invoice.Invoice_no_data_message'),
           });
         } else {
           const allData = {
@@ -199,7 +206,7 @@ export function EditWarehouseAdjustment({
               updated_items:
                 updatedItems?.length === 0 ? undefined : updatedItems,
             },
-            customer: "CUS-103001",
+            customer: 'CUS-103001',
           };
 
           mutateEditWarehouseAdjustment(allData);
@@ -233,7 +240,7 @@ export function EditWarehouseAdjustment({
       form.resetFields();
       setCount(2);
       setResponse({});
-      setEditingKey("");
+      setEditingKey('');
       setData([
         {
           key: 1,
@@ -252,7 +259,7 @@ export function EditWarehouseAdjustment({
 &expand=*,invoice_items.warehouse_in,invoice_items.warehouse_out,invoice_items.product,invoice_items.product.product_barcode,
 invoice_items.product.product_barcode.unit,invoice_items.product.product_units,invoice_items.product.product_units.unit,
 invoice_items.product.price,invoice_items.product.price.unit,invoice_items.product.product_statistic,invoice_items.unit`,
-          { timeout: 0 }
+          { timeout: 0 },
         )
         .catch((error) => {
           setEditSpin(false);
@@ -262,7 +269,7 @@ invoice_items.product.price,invoice_items.product.price.unit,invoice_items.produ
 
       if (allData?.data) {
         const { data } = allData;
-        
+
         const newData = data?.invoice_items?.reduce(
           ({ items, itemsId }: any, item: any, index: number) => {
             const warehouse = Boolean(item?.warehouse_in)
@@ -272,8 +279,8 @@ invoice_items.product.price,invoice_items.product.price.unit,invoice_items.produ
             const totalPrice = fixedNumber(
               print(
                 //@ts-ignore
-                math.evaluate(`${item?.each_price ?? 0} * ${item?.qty ?? 0}`)
-              )
+                math.evaluate(`${item?.each_price ?? 0} * ${item?.qty ?? 0}`),
+              ),
             );
             const newItem = {
               ...item?.product,
@@ -288,8 +295,8 @@ invoice_items.product.price,invoice_items.product.price.unit,invoice_items.produ
               qty: parseFloat(item?.qty),
               itemId: item?.id,
               type: Boolean(item?.warehouse_in)
-                ? { value: "add", label: t("Add") }
-                : { value: "minus", label: t("Minus") },
+                ? { value: 'add', label: t('Add') }
+                : { value: 'minus', label: t('Minus') },
               each_price: parseFloat(item?.each_price),
               total_price: totalPrice,
               expirationDate: item?.expire_date,
@@ -299,7 +306,7 @@ invoice_items.product.price,invoice_items.product.price.unit,invoice_items.produ
               itemsId: [...itemsId, item?.id],
             };
           },
-          { items: [], itemsId: [] }
+          { items: [], itemsId: [] },
         );
 
         const date = handlePrepareDateForDateField({
@@ -309,7 +316,7 @@ invoice_items.product.price,invoice_items.product.price.unit,invoice_items.produ
         form.setFieldsValue({
           date: date,
           description: data?.description,
-          type: data?.invoice_items?.[0]?.warehouse_in ? "reward" : "waste",
+          type: data?.invoice_items?.[0]?.warehouse_in ? 'reward' : 'waste',
         });
         setInvoiceItems(newData?.invoiceItemsIds);
         setCount(data?.invoice_items?.length + 1);
@@ -332,25 +339,25 @@ invoice_items.product.price,invoice_items.product.price.unit,invoice_items.produ
       <Drawer
         maskClosable={false}
         mask={true}
-        title={startCase(t("Warehouse.Edit_warehouse_adjustment"))}
-        height="100%"
+        title={startCase(t('Warehouse.Edit_warehouse_adjustment'))}
+        height='100%'
         onClose={onClose}
         open={visible}
         afterVisibleChange={handleAfterVisibleChange}
         destroyOnClose
-        placement="top"
+        placement='top'
         bodyStyle={{ paddingBottom: 10 }}
         footer={
-          <Row justify="end">
+          <Row justify='end'>
             <Col>
-              <Space size="small">
+              <Space size='small'>
                 <CancelButton onClick={onClose} disabled={responseId} />
 
                 <PrintInvoiceButton
                   disabled={!responseId}
-                  title={startCase(t("Warehouse.Edit_warehouse_adjustment"))}
+                  title={startCase(t('Warehouse.Edit_warehouse_adjustment'))}
                   dataSource={data}
-                  type="warehouseAdjustment"
+                  type='warehouseAdjustment'
                   form={form}
                   id={response?.id}
                   isPrinted={true}
@@ -362,9 +369,9 @@ invoice_items.product.price,invoice_items.product.price.unit,invoice_items.produ
                   disabled={
                     editSpin
                       ? true
-                      : responseId || editingKey !== ""
-                      ? true
-                      : false
+                      : responseId || editingKey !== ''
+                        ? true
+                        : false
                   }
                 />
               </Space>
@@ -373,11 +380,11 @@ invoice_items.product.price,invoice_items.product.price.unit,invoice_items.produ
         }
       >
         <Form hideRequiredMark form={form}>
-          <Spin spinning={editSpin} size="large">
+          <Spin spinning={editSpin} size='large'>
             <Row>
               <Col span={6}>
                 <ProductTransferHeader
-                  type="adjustment"
+                  type='adjustment'
                   disabled={responseId}
                 />
               </Col>
@@ -388,7 +395,7 @@ invoice_items.product.price,invoice_items.product.price.unit,invoice_items.produ
                   setData={setData}
                   setCount={setCount}
                   count={count}
-                  type="add"
+                  type='add'
                   setEditingKey={setEditingKey}
                   editingKey={editingKey}
                   setSelectedRowKeys={setSelectedRowKeys}

@@ -1,30 +1,30 @@
-import React, { useState } from "react";
-import { Modal, Col, Row, Divider, Form, message, Typography } from "antd";
-import { useMediaQuery } from "../MediaQurey";
-import { GlobalHotKeys } from "react-hotkeys";
-import moment from "moment";
-import { useMutation, useQueryClient } from "react-query";
-import axiosInstance from "../ApiBaseUrl";
-import { useTranslation } from "react-i18next";
-import { Styles } from "../styles";
-import Draggable from "react-draggable";
-import { ModalDragTitle } from "../SelfComponents/ModalDragTitle";
-import { CurrencyProperties } from "./Components/CurrencyProperties";
-import { ReceiveDetailsProperties } from "./Components/ReceiveDetailsProperties";
-import { CalculatedCurrencyProperties } from "./Components/CalculatedCurrencyProperties";
-import { CashBoxProperties } from "./Components/CashBoxProperries";
-import { IncomeProperties } from "./Components/IncomeProperties";
-import { EmployeeProperties } from "./Components/EmployeeProperties";
-import CashAndBankProperties from "./Components/CashAndBankProperties";
-import Checkbox from "antd/lib/checkbox/Checkbox";
-import { TranslateMessage } from "../SelfComponents/TranslateComponents/TranslateMessage";
+import React, { useState } from 'react';
+import { Modal, Col, Row, Divider, Form, message, Typography } from 'antd';
+import { useMediaQuery } from '../MediaQurey';
+import { GlobalHotKeys } from 'react-hotkeys';
+import moment from 'moment';
+import { useMutation, useQueryClient } from 'react-query';
+import axiosInstance from '../ApiBaseUrl';
+import { useTranslation } from 'react-i18next';
+import { Styles } from '../styles';
+import Draggable from 'react-draggable';
+import { ModalDragTitle } from '../SelfComponents/ModalDragTitle';
+import { CurrencyProperties } from './Components/CurrencyProperties';
+import { ReceiveDetailsProperties } from './Components/ReceiveDetailsProperties';
+import { CalculatedCurrencyProperties } from './Components/CalculatedCurrencyProperties';
+import { CashBoxProperties } from './Components/CashBoxProperries';
+import { IncomeProperties } from './Components/IncomeProperties';
+import { EmployeeProperties } from './Components/EmployeeProperties';
+import CashAndBankProperties from './Components/CashAndBankProperties';
+import Checkbox from 'antd/lib/checkbox/Checkbox';
+import { TranslateMessage } from '../SelfComponents/TranslateComponents/TranslateMessage';
 import {
   handlePrepareDateForDateField,
   handlePrepareDateForServer,
   utcDate,
-} from "../../Functions/utcDate";
-import useGetCalender from "../../Hooks/useGetCalender";
-import useGetRunningPeriod from "../../Hooks/useGetRunningPeriod";
+} from '../../Functions/utcDate';
+import useGetCalender from '../../Hooks/useGetCalender';
+import useGetRunningPeriod from '../../Hooks/useGetRunningPeriod';
 // import {
 //   journalResultUrl,
 //   journalUrl,
@@ -32,13 +32,13 @@ import useGetRunningPeriod from "../../Hooks/useGetRunningPeriod";
 // import { cashTransactionsUrl } from "../Reports/AllReports/AllReports";
 // import { accountStatisticsUrl } from "../Reports/AllReports/AccountsStatistics/AccountsStatistics";
 // import { debitCreditUrl } from "../Reports/AllReports/DebitAndCredit/DebitAndCredit";
-import { ExpenseProperties } from "./Components/ExpenseProperties";
-import { CancelButton, SaveButton } from "../../components";
-import { JOURNAL_RESULT_LIST } from "../../constants/routes";
-import { fixedNumber, math, print } from "../../Functions/math";
-import { reportsDateFormat } from "../../Context";
-import { manageErrors } from "../../Functions";
-import { manageNetworkError } from "../../Functions/manageNetworkError";
+import { ExpenseProperties } from './Components/ExpenseProperties';
+import { CancelButton, SaveButton } from '../../components';
+import { JOURNAL_RESULT_LIST } from '../../constants/routes';
+import { fixedNumber, math, print } from '../../Functions/math';
+import { reportsDateFormat } from '../../Context';
+import { manageErrors } from '../../Functions';
+import { manageNetworkError } from '../../Functions/manageNetworkError';
 
 interface IProps {
   baseUrl: string;
@@ -64,18 +64,18 @@ const EditTransaction: React.FC<IProps> = ({
   const [prevCurrency, setPrevCurrency] = useState<{
     currency: string;
     amount: number;
-  }>({ currency: "", amount: 0 });
+  }>({ currency: '', amount: 0 });
   const [isShowModal, setIsShowModal] = useState({
     visible: false,
   });
   const [showCalCurrency, setShowCalCurrency] = useState(false);
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(true);
-  const isBgTablet = useMediaQuery("(max-width: 1024px)");
-  const isTablet = useMediaQuery("(max-width: 768px)");
-  const isMiniTablet = useMediaQuery("(max-width: 576px)");
-  const isMobile = useMediaQuery("(max-width: 425px)");
-  const isSubBase = useMediaQuery("(max-width: 375px)");
+  const isBgTablet = useMediaQuery('(max-width: 1024px)');
+  const isTablet = useMediaQuery('(max-width: 768px)');
+  const isMiniTablet = useMediaQuery('(max-width: 576px)');
+  const isMobile = useMediaQuery('(max-width: 425px)');
+  const isSubBase = useMediaQuery('(max-width: 375px)');
 
   //get running period
   const runningPeriod = useGetRunningPeriod();
@@ -103,7 +103,7 @@ const EditTransaction: React.FC<IProps> = ({
         setIsShowModal({
           visible: false,
         });
-        message.success(`${t("Message.Transaction_add_message")}`);
+        message.success(`${t('Message.Transaction_add_message')}`);
       })
       .catch((error) => {
         setLoading(false);
@@ -119,7 +119,7 @@ const EditTransaction: React.FC<IProps> = ({
       // queryClient.invalidateQueries(`${cashTransactionsUrl}`);
       // queryClient.invalidateQueries(`${cashTransactionsUrl}result/`);
       queryClient.invalidateQueries(`${baseUrl}`);
-      if (place === "recordSalaries") {
+      if (place === 'recordSalaries') {
         // queryClient.invalidateQueries(`${accountStatisticsUrl}`);
         // queryClient.invalidateQueries(`${accountStatisticsUrl}result/`);
         // queryClient.invalidateQueries(`${debitCreditUrl}`);
@@ -141,57 +141,57 @@ const EditTransaction: React.FC<IProps> = ({
 
         const allData = {
           pay_by:
-            place === "moneyTransfer"
+            place === 'moneyTransfer'
               ? values?.payBankName?.value
-              : place === "recordExpense"
-              ? values?.cashBoxName?.value
-              : place === "recordSalaries"
-              ? "OXP-502005"
-              : values?.incomeName?.value,
+              : place === 'recordExpense'
+                ? values?.cashBoxName?.value
+                : place === 'recordSalaries'
+                  ? 'OXP-502005'
+                  : values?.incomeName?.value,
           rec_by:
-            place === "moneyTransfer"
+            place === 'moneyTransfer'
               ? values?.recBankName?.value
-              : place === "recordSalaries"
-              ? values?.employeeName?.value
-              : place === "recordExpense"
-              ? values?.expenseName?.value
-              : values?.cashBoxName?.value,
+              : place === 'recordSalaries'
+                ? values?.employeeName?.value
+                : place === 'recordExpense'
+                  ? values?.expenseName?.value
+                  : values?.cashBoxName?.value,
           date_time: dateTime,
           description: values?.description,
           amount: values?.amount,
           currency: values?.currency?.value,
           currency_rate: values?.currencyRate,
           amount_calc:
-            place === "recordSalaries" && showCalCurrency
+            place === 'recordSalaries' && showCalCurrency
               ? parseInt(values?.calAmount)
               : values?.amount,
           currency_calc:
-            place === "recordSalaries" && showCalCurrency
+            place === 'recordSalaries' && showCalCurrency
               ? values?.calCurrency?.value
               : values?.currency?.value,
           currency_rate_calc:
-            place === "recordSalaries" && showCalCurrency
+            place === 'recordSalaries' && showCalCurrency
               ? values?.calCurrencyRate
               : values?.currencyRate,
         };
 
-        if (place === "recordExpense" || place === "moneyTransfer") {
+        if (place === 'recordExpense' || place === 'moneyTransfer') {
           const startDate = curStartDate
             ? moment(curStartDate, reportsDateFormat).format(reportsDateFormat)
-            : "";
+            : '';
           const bankId =
-            place === "moneyTransfer"
+            place === 'moneyTransfer'
               ? values.payBankName?.value
               : values.cashBoxName?.value;
           await axiosInstance
             .get(
               `${JOURNAL_RESULT_LIST}?account=${bankId}&date_time_after=${startDate}&date_time_before=${utcDate().format(
-                reportsDateFormat
-              )}&currency=${values?.currency?.value}`
+                reportsDateFormat,
+              )}&currency=${values?.currency?.value}`,
             )
             .then((res) => {
               const bankName =
-                place === "moneyTransfer"
+                place === 'moneyTransfer'
                   ? values.payBankName?.label
                   : values.cashBoxName?.label;
 
@@ -202,8 +202,8 @@ const EditTransaction: React.FC<IProps> = ({
                       bank: bankName,
                       currency: values?.currency?.label,
                     }}
-                    message="Sales.Customers.Receive_cash.Pay_cash_enough_money_error_message"
-                  />
+                    message='Sales.Customers.Receive_cash.Pay_cash_enough_money_error_message'
+                  />,
                 );
                 setLoading(false);
               } else {
@@ -214,16 +214,16 @@ const EditTransaction: React.FC<IProps> = ({
                         math.evaluate(
                           `${res?.data?.[0]?.debit ?? 0} - ${
                             res?.data?.[0]?.credit ?? 0
-                          }`
-                        )
+                          }`,
+                        ),
                       )
                     : print(
                         //@ts-ignore
                         math.evaluate(
                           `(${res?.data?.[0]?.debit ?? 0} + ${
                             prevCurrency?.amount ?? 0
-                          }) - ${res?.data?.[0]?.credit ?? 0}`
-                        )
+                          }) - ${res?.data?.[0]?.credit ?? 0}`,
+                        ),
                       );
 
                 if (fixedNumber(available, 10) < parseFloat(values?.amount)) {
@@ -233,8 +233,8 @@ const EditTransaction: React.FC<IProps> = ({
                         bank: bankName,
                         currency: values?.currency?.label,
                       }}
-                      message="Sales.Customers.Receive_cash.Pay_cash_enough_money_error_message"
-                    />
+                      message='Sales.Customers.Receive_cash.Pay_cash_enough_money_error_message'
+                    />,
                   );
                   setLoading(false);
                 } else {
@@ -251,9 +251,7 @@ const EditTransaction: React.FC<IProps> = ({
           mutateEditTransaction(allData);
         }
       })
-      .catch((info) => {
-        
-      });
+      .catch((info) => {});
   };
 
   const showModal = () => {
@@ -296,7 +294,7 @@ const EditTransaction: React.FC<IProps> = ({
         record?.currency?.name !== record?.currency_calc?.name ? true : false,
     };
 
-    if (place === "recordExpense") {
+    if (place === 'recordExpense') {
       form.setFieldsValue({
         cashBoxId: record?.pay_by?.id,
         cashBoxName: {
@@ -310,7 +308,7 @@ const EditTransaction: React.FC<IProps> = ({
         },
         ...currency,
       });
-    } else if (place === "moneyTransfer") {
+    } else if (place === 'moneyTransfer') {
       form.setFieldsValue({
         payBankId: record?.pay_by?.id,
         payBankName: {
@@ -324,7 +322,7 @@ const EditTransaction: React.FC<IProps> = ({
         },
         ...currency,
       });
-    } else if (place === "recordSalaries") {
+    } else if (place === 'recordSalaries') {
       form.setFieldsValue({
         employeeId: record?.rec_by?.id,
         employeeName: {
@@ -368,11 +366,11 @@ const EditTransaction: React.FC<IProps> = ({
     // setCurrencyValue(1);
     // setCalCurrencyValue(1);
     //@ts-ignore
-    setPrevCurrency({ currency: "", amount: 0 });
+    setPrevCurrency({ currency: '', amount: 0 });
   };
 
   const keyMap = {
-    NEW_CUSTOMER: ["Control+M", "Control+m"],
+    NEW_CUSTOMER: ['Control+M', 'Control+m'],
   };
   const handlers = {
     NEW_CUSTOMER: (event: any) => {
@@ -384,15 +382,22 @@ const EditTransaction: React.FC<IProps> = ({
     },
   };
 
-  const orientation = t("Dir") === "ltr" ? "left" : "right";
+  const orientation = t('Dir') === 'ltr' ? 'left' : 'right';
 
   const onChangPayBankId = React.useCallback(
     (value: { value: string; label: string }) => {
       const row = form.getFieldsValue();
       if (row.recBankId === value.value) {
         Modal.warning({
-          bodyStyle: { direction: t("Dir") },
-          title: t("Banking.Same_bank_error_message"),
+          bodyStyle: {
+            direction: t('Dir') as
+              | 'ltr'
+              | 'rtl'
+              | 'inherit'
+              | 'initial'
+              | 'unset',
+          },
+          title: t('Banking.Same_bank_error_message'),
           onOk: () => {
             form.setFieldsValue({
               payBankName: undefined,
@@ -404,7 +409,7 @@ const EditTransaction: React.FC<IProps> = ({
         form.setFieldsValue({ payBankName: value });
       }
     },
-    [form, t]
+    [form, t],
   );
 
   const onChangPayBankName = React.useCallback(
@@ -413,8 +418,15 @@ const EditTransaction: React.FC<IProps> = ({
 
       if (row?.recBankName?.value === value) {
         Modal.warning({
-          bodyStyle: { direction: t("Dir") },
-          title: t("Banking.Same_bank_error_message"),
+          bodyStyle: {
+            direction: t('Dir') as
+              | 'ltr'
+              | 'rtl'
+              | 'inherit'
+              | 'initial'
+              | 'unset',
+          },
+          title: t('Banking.Same_bank_error_message'),
           onOk: () => {
             form.setFieldsValue({
               payBankName: undefined,
@@ -426,17 +438,24 @@ const EditTransaction: React.FC<IProps> = ({
         form.setFieldsValue({ payBankId: value });
       }
     },
-    [form, t]
+    [form, t],
   );
 
   const onChangRecBankId = React.useCallback(
     (value: { value: string; label: string }) => {
       const row = form.getFieldsValue();
-      // 
+      //
       if (row.payBankId === value.value) {
         Modal.warning({
-          bodyStyle: { direction: t("Dir") },
-          title: t("Banking.Same_bank_error_message"),
+          bodyStyle: {
+            direction: t('Dir') as
+              | 'ltr'
+              | 'rtl'
+              | 'inherit'
+              | 'initial'
+              | 'unset',
+          },
+          title: t('Banking.Same_bank_error_message'),
           onOk: () => {
             form.setFieldsValue({
               recBankName: undefined,
@@ -448,7 +467,7 @@ const EditTransaction: React.FC<IProps> = ({
         form.setFieldsValue({ recBankName: value });
       }
     },
-    [form, t]
+    [form, t],
   );
 
   const onChangRecBankName = React.useCallback(
@@ -457,8 +476,15 @@ const EditTransaction: React.FC<IProps> = ({
 
       if (row?.payBankName?.value === value) {
         Modal.warning({
-          bodyStyle: { direction: t("Dir") },
-          title: t("Banking.Same_bank_error_message"),
+          bodyStyle: {
+            direction: t('Dir') as
+              | 'ltr'
+              | 'rtl'
+              | 'inherit'
+              | 'initial'
+              | 'unset',
+          },
+          title: t('Banking.Same_bank_error_message'),
           onOk: () => {
             form.setFieldsValue({
               recBankName: undefined,
@@ -470,7 +496,7 @@ const EditTransaction: React.FC<IProps> = ({
         form.setFieldsValue({ recBankName: value });
       }
     },
-    [form, t]
+    [form, t],
   );
 
   const onChangeCalCurrency = (e: any) => {
@@ -496,7 +522,7 @@ const EditTransaction: React.FC<IProps> = ({
   return (
     <div>
       <GlobalHotKeys keyMap={keyMap} handlers={handlers}>
-        <div onClick={showModal}>{t("Sales.Customers.Table.Edit")}</div>
+        <div onClick={showModal}>{t('Sales.Customers.Table.Edit')}</div>
       </GlobalHotKeys>
       <Modal
         maskClosable={false}
@@ -515,12 +541,12 @@ const EditTransaction: React.FC<IProps> = ({
         open={isShowModal.visible}
         onCancel={handleCancel}
         destroyOnClose={true}
-        width={isMobile ? "100%" : isTablet ? "70%" : isBgTablet ? "55%" : 700}
+        width={isMobile ? '100%' : isTablet ? '70%' : isBgTablet ? '55%' : 700}
         //@ts-ignore
         style={Styles.modal}
         bodyStyle={Styles.modalBody(isMobile, isSubBase, isMiniTablet)}
         footer={
-          <Row justify="end">
+          <Row justify='end'>
             <Col>
               <CancelButton onClick={handleCancel} />
               <SaveButton onClick={handleOk} loading={loading} />
@@ -532,34 +558,34 @@ const EditTransaction: React.FC<IProps> = ({
           <Row>
             <Col span={24}>
               <Divider orientation={orientation}>
-                {place === "recordSalaries"
-                  ? t("Employees.Employee")
-                  : t("Sales.Customers.Receive_cash.Payer")}{" "}
+                {place === 'recordSalaries'
+                  ? t('Employees.Employee')
+                  : t('Sales.Customers.Receive_cash.Payer')}{' '}
               </Divider>
-              {place === "moneyTransfer" ? (
+              {place === 'moneyTransfer' ? (
                 <CashAndBankProperties
                   onChangBankName={onChangPayBankName}
                   onChangBankId={onChangPayBankId}
                   form={form}
-                  fieldId="payBankId"
-                  fieldName="payBankName"
+                  fieldId='payBankId'
+                  fieldName='payBankName'
                 />
-              ) : place === "recordSalaries" ? (
+              ) : place === 'recordSalaries' ? (
                 <EmployeeProperties form={form} />
-              ) : place === "recordExpense" ? (
+              ) : place === 'recordExpense' ? (
                 <CashBoxProperties form={form} />
               ) : (
                 <IncomeProperties form={form} />
               )}
 
               <Divider orientation={orientation}>
-                {place === "recordSalaries"
-                  ? t("Employees.Salary_details")
-                  : t("Sales.Customers.Receive_cash.Receive_details")}{" "}
+                {place === 'recordSalaries'
+                  ? t('Employees.Salary_details')
+                  : t('Sales.Customers.Receive_cash.Receive_details')}{' '}
               </Divider>
-              <ReceiveDetailsProperties type="recordExpanse" />
+              <ReceiveDetailsProperties type='recordExpanse' />
               <Divider orientation={orientation}>
-                {t("Sales.Customers.Receive_cash.Paid_currency")}{" "}
+                {t('Sales.Customers.Receive_cash.Paid_currency')}{' '}
               </Divider>
               <CurrencyProperties
                 setCurrencyValue={setCurrencyValue}
@@ -567,48 +593,48 @@ const EditTransaction: React.FC<IProps> = ({
                 type={place}
                 currencyValue={currencyValue}
               />
-              {place === "recordSalaries" && (
+              {place === 'recordSalaries' && (
                 <Form.Item
-                  name="showCalCurrency"
-                  valuePropName="checked"
-                  style={{ marginBottom: "0px", marginTop: "5px" }}
+                  name='showCalCurrency'
+                  valuePropName='checked'
+                  style={{ marginBottom: '0px', marginTop: '5px' }}
                 >
                   <Checkbox onChange={onChangeCalCurrency}>
-                    {" "}
+                    {' '}
                     <Typography.Text strong={true}>
-                      {t("Sales.Customers.Receive_cash.Calculate_currency")}
-                    </Typography.Text>{" "}
+                      {t('Sales.Customers.Receive_cash.Calculate_currency')}
+                    </Typography.Text>{' '}
                   </Checkbox>
                 </Form.Item>
               )}
-              {place === "recordSalaries" && showCalCurrency && (
+              {place === 'recordSalaries' && showCalCurrency && (
                 <Divider orientation={orientation}>
-                  {t("Sales.Customers.Receive_cash.Calculate_currency")}{" "}
+                  {t('Sales.Customers.Receive_cash.Calculate_currency')}{' '}
                 </Divider>
               )}
-              {place === "recordSalaries" && showCalCurrency && (
+              {place === 'recordSalaries' && showCalCurrency && (
                 <CalculatedCurrencyProperties
                   setCurrencyValue={setCalCurrencyValue}
                   currencyValue={calCurrencyValue}
                   form={form}
-                  type="recordExpanse"
+                  type='recordExpanse'
                 />
               )}
-              {place !== "recordSalaries" && (
+              {place !== 'recordSalaries' && (
                 <Divider orientation={orientation}>
-                  {t("Sales.Customers.Receive_cash.Receiver")}{" "}
+                  {t('Sales.Customers.Receive_cash.Receiver')}{' '}
                 </Divider>
               )}
-              {place !== "recordSalaries" &&
-                (place === "moneyTransfer" ? (
+              {place !== 'recordSalaries' &&
+                (place === 'moneyTransfer' ? (
                   <CashAndBankProperties
                     onChangBankName={onChangRecBankName}
                     onChangBankId={onChangRecBankId}
                     form={form}
-                    fieldId="recBankId"
-                    fieldName="recBankName"
+                    fieldId='recBankId'
+                    fieldName='recBankName'
                   />
-                ) : place === "recordExpense" ? (
+                ) : place === 'recordExpense' ? (
                   <ExpenseProperties form={form} />
                 ) : (
                   <CashBoxProperties form={form} />

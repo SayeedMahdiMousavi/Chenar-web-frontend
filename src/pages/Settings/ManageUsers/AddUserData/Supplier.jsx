@@ -1,7 +1,7 @@
-import React from "react";
-import { Typography } from "antd";
-import { CloseOutlined, CheckOutlined } from "@ant-design/icons";
-import { Colors } from "../../../colors";
+import React from 'react';
+import { Typography } from 'antd';
+import { CloseOutlined, CheckOutlined } from '@ant-design/icons';
+import { Colors } from '../../../colors';
 const { Text, Paragraph } = Typography;
 const Supplier = (props) => {
   return (
@@ -12,62 +12,62 @@ const Supplier = (props) => {
       <br />
       <br />
       <Paragraph>
-        <ul className="ul_line">
+        <ul className='ul_line'>
           <li>
-            {" "}
-            <CheckOutlined className="list_tick" />
+            {' '}
+            <CheckOutlined className='list_tick' />
             &nbsp; Enter bills from suppliers
           </li>
           <li>
-            {" "}
-            <CheckOutlined className="list_tick" />
+            {' '}
+            <CheckOutlined className='list_tick' />
             &nbsp; Enter cash and credit card purchases
           </li>
           <li>
-            {" "}
-            <CheckOutlined className="list_tick" /> &nbsp;Pay bills, write
+            {' '}
+            <CheckOutlined className='list_tick' /> &nbsp;Pay bills, write
             checks, and view check detail reports
           </li>
           <li>
-            {" "}
-            <CheckOutlined className="list_tick" /> &nbsp;Add, edit, and delete
+            {' '}
+            <CheckOutlined className='list_tick' /> &nbsp;Add, edit, and delete
             suppliers, products, and services
           </li>
           <li>
-            {" "}
-            <CheckOutlined className="list_tick" />
+            {' '}
+            <CheckOutlined className='list_tick' />
             &nbsp; View supplier and A/P reports
           </li>
           <li>
-            {" "}
-            <CheckOutlined className="list_tick" />
+            {' '}
+            <CheckOutlined className='list_tick' />
             &nbsp; View tax rates and agency settings
           </li>
           <li>
-            {" "}
-            <CheckOutlined className="list_tick" />
+            {' '}
+            <CheckOutlined className='list_tick' />
             &nbsp; Use and adjust tax in purchase, credit card, and banking
             transactions, including manually overriding calculated tax amounts
           </li>
           <li>
-            {" "}
-            <CheckOutlined className="list_tick" />
+            {' '}
+            <CheckOutlined className='list_tick' />
             &nbsp; Run tax reports or view tax history
           </li>
           <li>
-            {" "}
-            <CheckOutlined className="list_tick" />
+            {' '}
+            <CheckOutlined className='list_tick' />
             &nbsp; Prepare a tax return, record a payment or refund, or file
             taxes
           </li>
           <li>
-            {" "}
-            <CheckOutlined className="list_tick" />
+            {' '}
+            <CheckOutlined className='list_tick' />
             &nbsp; Add, edit, and delete currencies
           </li>
           <li>
-            {" "}
-            <CheckOutlined className="list_tick" />
+            {' '}
+            <CheckOutlined className='list_tick' />
             &nbsp; Edit exchange rates
           </li>
         </ul>
@@ -77,7 +77,7 @@ const Supplier = (props) => {
       <br />
       <br />
       <Paragraph>
-        <ul className="ul_line">
+        <ul className='ul_line'>
           <li>
             <CloseOutlined style={styles.close} /> &nbsp;Add, edit, and delete
             accounts and quantity on hand
@@ -108,6 +108,6 @@ const Supplier = (props) => {
 };
 const styles = {
   close: { color: `${Colors.red}` },
-  accessPadding: (isMiniTablet) => ({ paddingTop: isMiniTablet ? "15px" : "" }),
+  accessPadding: (isMiniTablet) => ({ paddingTop: isMiniTablet ? '15px' : '' }),
 };
 export default Supplier;

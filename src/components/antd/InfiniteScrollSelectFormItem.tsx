@@ -44,11 +44,11 @@ const InfiniteScrollSelectFormItem: React.FC<IProps> = React.memo(
       async ({ pageParam = 1, queryKey }) => {
         const search = queryKey?.[1];
         const res = await axiosInstance.get(
-          `${props.baseUrl}?page=${pageParam}&page_size=10&search=${search}&ordering=-id&status=active&fields=${props.fields}`
+          `${props.baseUrl}?page=${pageParam}&page_size=10&search=${search}&ordering=-id&status=active&fields=${props.fields}`,
         );
         return res?.data;
       },
-      [props.fields, props.baseUrl]
+      [props.fields, props.baseUrl],
     );
 
     const onSearch = (value: string) => {
@@ -73,7 +73,7 @@ const InfiniteScrollSelectFormItem: React.FC<IProps> = React.memo(
       getData,
       {
         getNextPageParam: (lastPage, pages) => lastPage.nextPageNumber,
-      }
+      },
     );
 
     const loadMore = (e: any) => {
@@ -96,16 +96,16 @@ const InfiniteScrollSelectFormItem: React.FC<IProps> = React.memo(
           return item?.results?.find((item: any) => item.id === value?.value);
         });
         const currency = currencyPart?.find(
-          (item: any) => item?.id === value.value
+          (item: any) => item?.id === value.value,
         );
         const currencyRate = fixedNumber(
           print(
             //@ts-ignore
             math.evaluate(
-              `(${currency?.base_amount})/ ${currency?.equal_amount}`
-            )
+              `(${currency?.base_amount})/ ${currency?.equal_amount}`,
+            ),
           ),
-          20
+          20,
         );
         props.onChange({ ...currency, currencyRate });
       } else if (props.onChange) {
@@ -120,8 +120,8 @@ const InfiniteScrollSelectFormItem: React.FC<IProps> = React.memo(
       props.name === 'employee'
         ? 'full_name'
         : props?.name === 'id'
-        ? 'id'
-        : 'name';
+          ? 'id'
+          : 'name';
 
     const handleRetry = () => {
       refetch();
@@ -262,7 +262,7 @@ const InfiniteScrollSelectFormItem: React.FC<IProps> = React.memo(
       return false;
     }
     return true;
-  }
+  },
 );
 
 const styles = {

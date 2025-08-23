@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Menu,
   Dropdown,
@@ -11,8 +11,8 @@ import {
   // Divider,
   // Select,
   // Popconfirm,
-} from "antd";
-import { CaretDownOutlined } from "@ant-design/icons";
+} from 'antd';
+import { CaretDownOutlined } from '@ant-design/icons';
 // import { useDatabase } from "@nozbe/watermelondb/hooks";
 //
 // import { withDatabase } from "@nozbe/watermelondb/DatabaseProvider";
@@ -69,7 +69,7 @@ function BatchAction(props) {
       {/* <Menu.Item key='2' onClick={onMakeInActive}>
         {t("Sales.Customers.Table.Create_statements")}
       </Menu.Item> */}
-      <Menu.Item key="3" onClick={onDelete}>
+      <Menu.Item key='3' onClick={onDelete}>
         Set default tax code
       </Menu.Item>
     </Menu>
@@ -78,22 +78,22 @@ function BatchAction(props) {
     setVisible(flag);
   };
   return (
-    <Row className="table__batch">
+    <Row className='table__batch'>
       <Col span={23}>
         <Dropdown
           overlay={batch}
-          trigger={["click"]}
+          trigger={['click']}
           onOpenChange={handleVisibleChange}
           open={visible}
         >
           <Button
-            className="num table-col"
-            style={{ fontSize: ".9rem" }}
+            className='num table-col'
+            style={{ fontSize: '.9rem' }}
             // type='primary'
-            shape="round"
+            shape='round'
             // ghost
           >
-            {t("Sales.Customers.Table.Batch_action")}
+            {t('Sales.Customers.Table.Batch_action')}
             <CaretDownOutlined />
           </Button>
         </Dropdown>

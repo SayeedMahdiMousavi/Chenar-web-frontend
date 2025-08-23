@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { Row, Col, Typography } from "antd";
-import ProductBarcode from "./ProductBarcode";
+import React, { Component } from 'react';
+import { Row, Col, Typography } from 'antd';
+import ProductBarcode from './ProductBarcode';
 export default class ProductLabelPrint extends Component {
   render() {
     const getPageMargins = () => {
@@ -10,8 +10,8 @@ export default class ProductLabelPrint extends Component {
       <Row
         //
         style={{
-          paddingInlineEnd: "12px",
-          paddingInlineStart: "14px",
+          paddingInlineEnd: '12px',
+          paddingInlineStart: '14px',
           // width: "4in",
         }}
         // align="middle"
@@ -22,11 +22,11 @@ export default class ProductLabelPrint extends Component {
             <Col key={index}>
               <Row
                 gutter={
-                  this?.props?.type === "10"
+                  this?.props?.type === '10'
                     ? [7, 10.86]
-                    : this?.props?.type === "8"
-                    ? [7, 7]
-                    : [7, 10.86]
+                    : this?.props?.type === '8'
+                      ? [7, 7]
+                      : [7, 10.86]
                 }
               >
                 {item?.map((item1) => (
@@ -34,80 +34,80 @@ export default class ProductLabelPrint extends Component {
                     span={12}
                     key={item1?.id}
                     style={
-                      this?.props?.type === "10"
+                      this?.props?.type === '10'
                         ? {
-                            height: "0.77in",
+                            height: '0.77in',
 
                             // height: "0.991in",
-                            width: "3.15in",
+                            width: '3.15in',
                             // paddingTop: "1px",
                           }
-                        : this?.props?.type === "8"
-                        ? {
-                            height: "0.9454in",
-                            width: "3.15in",
-                            // paddingTop: "1px",
-                          }
-                        : {
-                            height: "0.77in",
+                        : this?.props?.type === '8'
+                          ? {
+                              height: '0.9454in',
+                              width: '3.15in',
+                              // paddingTop: "1px",
+                            }
+                          : {
+                              height: '0.77in',
 
-                            // height: "0.991in",
-                            width: "3.15in",
-                            // paddingTop: "1px",
-                          }
+                              // height: "0.991in",
+                              width: '3.15in',
+                              // paddingTop: "1px",
+                            }
                     }
                   >
                     {/* <Row style={{ height: "100%" }} align="middle">
               <Col span={24}> */}
-                    <Row justify="center">
+                    <Row justify='center'>
                       <Col
                         style={
-                          this?.props?.type === "10" && { paddingTop: "5px" }
+                          this?.props?.type === '10' && { paddingTop: '5px' }
                         }
                       >
                         <Typography.Title
                           level={5}
                           style={{
-                            fontSize: "10px",
-                            marginBottom: "1px",
-                            color: "black",
+                            fontSize: '10px',
+                            marginBottom: '1px',
+                            color: 'black',
                           }}
                         >
                           ANAR SUPERMARKETS
                         </Typography.Title>
-                      </Col>{" "}
+                      </Col>{' '}
                     </Row>
-                    <Row justify="center">
-                      <Col style={{ textAlign: "center" }}>
+                    <Row justify='center'>
+                      <Col style={{ textAlign: 'center' }}>
                         <Typography.Text
                           strong={true}
                           style={{
-                            fontSize: "8px",
-                            textAlign: "center",
-                            width: "130px",
-                            color: "black",
+                            fontSize: '8px',
+                            textAlign: 'center',
+                            width: '130px',
+                            color: 'black',
                           }}
                           ellipsis={{ rows: 2 }}
                         >
                           {item1?.name}
                         </Typography.Text>
-                      </Col>{" "}
+                      </Col>{' '}
                     </Row>
-                    <Row justify="center" className="num">
+                    <Row justify='center' className='num'>
                       <Col>
                         <ProductBarcode
                           value={item1?.barcode}
                           width={1}
                           height={19}
                           fontSize={11}
-                          fontOptions="bold"
+                          fontOptions='bold'
                           marginTop={3}
                           marginBottom={3}
-                          background="white"
-                          lineColor="black"
+                          background='white'
+                          lineColor='black'
                           displayValue={true}
                         />
-                      </Col>{" "}
+                      </Col>{' '}
                     </Row>
                     {/* </Col>{" "}
             </Row> */}

@@ -1,1 +1,1 @@
-export { BankChartFormItem } from "./BankChartFormItem";
+export { BankChartFormItem } from './BankChartFormItem';

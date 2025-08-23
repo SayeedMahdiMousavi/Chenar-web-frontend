@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { Modal, Button, Form, Input, message } from "antd";
-import { useTranslation } from "react-i18next";
-import { useMutation } from "react-query";
-import axiosInstance from "../../ApiBaseUrl";
-import { CancelButton } from "../../../components";
+import React, { useState } from 'react';
+import { Modal, Button, Form, Input, message } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { useMutation } from 'react-query';
+import axiosInstance from '../../ApiBaseUrl';
+import { CancelButton } from '../../../components';
 const CheckEmail = (props) => {
   const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
@@ -25,10 +25,10 @@ const CheckEmail = (props) => {
     onSuccess: (values) => {
       setVisible(false);
 
-      message.success(t("Company.Check_email_success_message"));
+      message.success(t('Company.Check_email_success_message'));
     },
     onError: (error) => {
-      message.error(t("Company.Check_email_error_message"));
+      message.error(t('Company.Check_email_error_message'));
     },
   });
 
@@ -60,47 +60,47 @@ const CheckEmail = (props) => {
 
   return (
     <>
-      <Button type="primary" onClick={showModal} ghost>
-        {t("Company.Check_email")}
+      <Button type='primary' onClick={showModal} ghost>
+        {t('Company.Check_email')}
       </Button>
       <Modal
         maskClosable={false}
-        title={t("Company.Check_email")}
+        title={t('Company.Check_email')}
         open={visible}
         onOk={handleOk}
         width={370}
         onCancel={handleCancel}
         afterClose={handleAfterClose}
         footer={[
-          <CancelButton key="back" onClick={handleCancel} />,
+          <CancelButton key='back' onClick={handleCancel} />,
           <Button
-            key="submit"
-            type="primary"
+            key='submit'
+            type='primary'
             loading={isLoading}
             onClick={handleOk}
           >
-            {t("Sales.Customers.Table.Send")}
+            {t('Sales.Customers.Table.Send')}
           </Button>,
         ]}
       >
-        <Form layout="vertical" hideRequiredMark form={form}>
+        <Form layout='vertical' hideRequiredMark form={form}>
           <Form.Item
-            name="email"
+            name='email'
             label={
               <span>
-                {t("Form.Email")}
-                <span className="star">*</span>
+                {t('Form.Email')}
+                <span className='star'>*</span>
               </span>
             }
             style={styles.margin}
             rules={[
               {
-                type: "email",
-                message: `${t("Form.Email_Message")}`,
+                type: 'email',
+                message: `${t('Form.Email_Message')}`,
               },
               {
                 required: true,
-                message: `${t("Company.Form.Required_email")}`,
+                message: `${t('Company.Form.Required_email')}`,
               },
             ]}
           >
@@ -113,6 +113,6 @@ const CheckEmail = (props) => {
 };
 
 const styles = {
-  margin: { margin: "0px" },
+  margin: { margin: '0px' },
 };
 export default CheckEmail;

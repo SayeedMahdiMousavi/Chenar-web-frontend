@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { Colors } from "../../colors";
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Colors } from '../../colors';
 import {
   Drawer,
   Form,
@@ -13,17 +13,17 @@ import {
   Typography,
   TreeSelect,
   Space,
-} from "antd";
-import { useMutation, useQueryClient } from "react-query";
-import axiosInstance from "../../ApiBaseUrl";
-import { useMediaQuery } from "../../MediaQurey";
-import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
-import { ActionMessage } from "../../SelfComponents/TranslateComponents/ActionMessage";
-import { trimString } from "../../../Functions/TrimString";
-import { InfiniteScrollSelectFormItem } from "../../../components/antd";
-import { useGetPermissions } from "../../../Hooks";
-import { CancelButton, EditMenuItem, SaveButton } from "../../../components";
-import { USERS_M } from "../../../constants/permissions";
+} from 'antd';
+import { useMutation, useQueryClient } from 'react-query';
+import axiosInstance from '../../ApiBaseUrl';
+import { useMediaQuery } from '../../MediaQurey';
+import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
+import { ActionMessage } from '../../SelfComponents/TranslateComponents/ActionMessage';
+import { trimString } from '../../../Functions/TrimString';
+import { InfiniteScrollSelectFormItem } from '../../../components/antd';
+import { useGetPermissions } from '../../../Hooks';
+import { CancelButton, EditMenuItem, SaveButton } from '../../../components';
+import { USERS_M } from '../../../constants/permissions';
 
 const { Option } = Select;
 const { Paragraph } = Typography;
@@ -41,12 +41,12 @@ const EditUser = ({
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(false);
-  const [user, setUser] = useState("");
-  const [password, setPassword] = useState("");
-  const [userName, setUserName] = useState("");
+  const [user, setUser] = useState('');
+  const [password, setPassword] = useState('');
+  const [userName, setUserName] = useState('');
   const [errorMessage, setErrorMessage] = useState(false);
-  const isTablet = useMediaQuery("(max-width:768px)");
-  const isMobile = useMediaQuery("(max-width:425px)");
+  const isTablet = useMediaQuery('(max-width:768px)');
+  const isMobile = useMediaQuery('(max-width:425px)');
 
   //get permissions list
   const { data: permissions } = useGetPermissions();
@@ -57,7 +57,7 @@ const EditUser = ({
     setVisible(true);
     setMenuVisible(false);
     handleClickEdit();
-    setPassword("");
+    setPassword('');
     form.setFieldsValue({
       user: record?.user_type,
       userName: record?.username,
@@ -85,7 +85,7 @@ const EditUser = ({
         reg1.test(value) &&
         reg2.test(value) &&
         value !== userName) ||
-      value === ""
+      value === ''
     ) {
       setErrorMessage(false);
     }
@@ -102,7 +102,7 @@ const EditUser = ({
         setLoading(false);
 
         message.success(
-          <ActionMessage name={res.data.username} message="Message.Update" />
+          <ActionMessage name={res.data.username} message='Message.Update' />,
         );
         setVisible(false);
         form.resetFields();
@@ -141,8 +141,8 @@ const EditUser = ({
           permits: value?.permissions,
           user_staff: value?.employee?.value,
         };
-        if (allData.password === "") {
-          delete allData["password"];
+        if (allData.password === '') {
+          delete allData['password'];
         }
 
         if (password) {
@@ -170,19 +170,17 @@ const EditUser = ({
           });
         }
       })
-      .catch((info) => {
-        
-      });
+      .catch((info) => {});
   };
 
   const handleAfterVisibleChange = (value) => {
     if (value === false) {
       setLoading(false);
       form.resetFields();
-      setPassword("");
-      setUserName("");
+      setPassword('');
+      setUserName('');
       setErrorMessage(false);
-      setUser("");
+      setUser('');
     }
   };
   return (
@@ -191,14 +189,14 @@ const EditUser = ({
 
       <Drawer
         maskClosable={false}
-        title={t("Manage_users.Update_user_information")}
-        width={isMobile ? "80%" : isTablet ? 500 : 500}
+        title={t('Manage_users.Update_user_information')}
+        width={isMobile ? '80%' : isTablet ? 500 : 500}
         onClose={onClose}
         open={visible}
         afterVisibleChange={handleAfterVisibleChange}
-        placement={t("Dir") === "ltr" ? "right" : "left"}
+        placement={t('Dir') === 'ltr' ? 'right' : 'left'}
         footer={
-          <div className="textAlign__end">
+          <div className='textAlign__end'>
             <Space>
               <CancelButton onClick={onClose} />
               <SaveButton onClick={onFinish} loading={loading} />
@@ -206,24 +204,24 @@ const EditUser = ({
           </div>
         }
       >
-        <Form layout="vertical" hideRequiredMark form={form}>
+        <Form layout='vertical' hideRequiredMark form={form}>
           <Row>
             <Col span={24}>
               {errorMessage ? (
                 <Alert
-                  message={t("Manage_users.Password_validation_error")}
-                  type="error"
+                  message={t('Manage_users.Password_validation_error')}
+                  type='error'
                 />
               ) : (
                 <div></div>
               )}
               <Form.Item
-                name="user"
-                label={t("Sales.Product_and_services.Type")}
+                name='user'
+                label={t('Sales.Product_and_services.Type')}
               >
                 <Select onChange={onChangeName}>
-                  <Option value="admin">
-                    {t("Manage_users.Company_admin")}
+                  <Option value='admin'>
+                    {t('Manage_users.Company_admin')}
                   </Option>
                   {/* <Option value="standard">
                     {t("Manage_users.Standard_user")}
@@ -231,26 +229,26 @@ const EditUser = ({
                   <Option value="report_only">
                     {t("Manage_users.Reports_only")}
                   </Option> */}
-                  <Option value="custom">
-                    {t("Manage_users.Custom_user")}
+                  <Option value='custom'>
+                    {t('Manage_users.Custom_user')}
                   </Option>
                 </Select>
               </Form.Item>
             </Col>
-            {user === "custom" && (
+            {user === 'custom' && (
               <Col span={24}>
                 <Form.Item
                   label={
                     <span>
-                      {t("Manage_users.Permissions")}
-                      <span className="star">*</span>
+                      {t('Manage_users.Permissions')}
+                      <span className='star'>*</span>
                     </span>
                   }
-                  name="permissions"
+                  name='permissions'
                   rules={[
                     {
                       required: true,
-                      message: t("Manage_users.Permissions_required"),
+                      message: t('Manage_users.Permissions_required'),
                     },
                   ]}
                 >
@@ -258,9 +256,9 @@ const EditUser = ({
                     showSearch
                     treeData={permissions}
                     treeCheckable={true}
-                    treeNodeFilterProp="title"
-                    placeholder={t("Manage_users.User_permissions_placeholder")}
-                    className="num"
+                    treeNodeFilterProp='title'
+                    placeholder={t('Manage_users.User_permissions_placeholder')}
+                    className='num'
                     showarrow={true}
                   />
                 </Form.Item>
@@ -268,61 +266,61 @@ const EditUser = ({
             )}
             <Col span={24}>
               <Form.Item
-                name="userName"
+                name='userName'
                 label={
                   <span>
-                    {t("Form.User_name")}
-                    <span className="star">*</span>
+                    {t('Form.User_name')}
+                    <span className='star'>*</span>
                   </span>
                 }
                 rules={[
                   {
                     required: true,
                     whitespace: true,
-                    message: `${t("Form.User_name_required")}`,
+                    message: `${t('Form.User_name_required')}`,
                   },
                 ]}
               >
                 <Input onChange={onChangeUserName} />
               </Form.Item>
-              <Form.Item name="firstName" label={t("Form.Name1")}>
+              <Form.Item name='firstName' label={t('Form.Name1')}>
                 <Input />
               </Form.Item>
               <InfiniteScrollSelectFormItem
-                name="employee"
+                name='employee'
                 label={
                   <span>
-                    {t("Employees.Employee")}
-                    <span className="star">*</span>
+                    {t('Employees.Employee')}
+                    <span className='star'>*</span>
                   </span>
                 }
-                fields="full_name,id"
-                baseUrl="/staff_account/staff/"
+                fields='full_name,id'
+                baseUrl='/staff_account/staff/'
                 rules={[
                   {
                     required: true,
-                    message: t("Employees.Employee_required"),
+                    message: t('Employees.Employee_required'),
                   },
                 ]}
               />
 
               <Form.Item
-                name="email"
+                name='email'
                 label={
                   <span>
-                    {t("Form.Email")}
-                    <span className="star">*</span>
+                    {t('Form.Email')}
+                    <span className='star'>*</span>
                   </span>
                 }
                 rules={[
                   {
-                    type: "email",
-                    message: `${t("Form.Email_Message")}`,
+                    type: 'email',
+                    message: `${t('Form.Email_Message')}`,
                   },
                   {
                     required: true,
                     whitespace: true,
-                    message: `${t("Form.Required_email")}`,
+                    message: `${t('Form.Required_email')}`,
                   },
                 ]}
               >
@@ -331,12 +329,12 @@ const EditUser = ({
               <Form.Item
                 label={
                   <span>
-                    {t("Company.Form.Password")}
-                    <span className="star">*</span>
+                    {t('Company.Form.Password')}
+                    <span className='star'>*</span>
                   </span>
                 }
-                validateStatus={errorMessage ? "error" : undefined}
-                name="password"
+                validateStatus={errorMessage ? 'error' : undefined}
+                name='password'
                 dependencies={[String & Number]}
                 style={styles.margin}
               >
@@ -345,31 +343,31 @@ const EditUser = ({
             </Col>
             {password && (
               <Col span={24}>
-                {" "}
+                {' '}
                 <Form.Item
-                  name="confirm"
+                  name='confirm'
                   label={
                     <span>
-                      {t("Company.Form.Confirm_password")}
-                      <span className="star">*</span>
+                      {t('Company.Form.Confirm_password')}
+                      <span className='star'>*</span>
                     </span>
                   }
-                  dependencies={["password"]}
+                  dependencies={['password']}
                   hasFeedback
                   style={styles.margin}
                   rules={[
                     {
                       required: true,
                       whitespace: true,
-                      message: `${t("Company.Form.Required_confirm")}`,
+                      message: `${t('Company.Form.Required_confirm')}`,
                     },
                     ({ getFieldValue }) => ({
                       validator(rule, value) {
-                        if (!value || getFieldValue("password") === value) {
+                        if (!value || getFieldValue('password') === value) {
                           return Promise.resolve();
                         }
                         return Promise.reject(
-                          `${t("Company.Form.Confirm_match")}`
+                          `${t('Company.Form.Confirm_match')}`,
                         );
                       },
                     }),
@@ -383,31 +381,31 @@ const EditUser = ({
               {password && (
                 <Paragraph>
                   {reg.test(password) ? (
-                    <CheckOutlined className="list_tick" />
+                    <CheckOutlined className='list_tick' />
                   ) : (
                     <CloseOutlined style={styles.close} />
                   )}
-                  &nbsp; {t("Manage_users.Password_validation_error1")}
+                  &nbsp; {t('Manage_users.Password_validation_error1')}
                   <br />
                   {reg1.test(password) ? (
-                    <CheckOutlined className="list_tick" />
+                    <CheckOutlined className='list_tick' />
                   ) : (
                     <CloseOutlined style={styles.close} />
                   )}
-                  &nbsp; {t("Manage_users.Password_validation_error2")}
+                  &nbsp; {t('Manage_users.Password_validation_error2')}
                   <br />
                   {password !== userName ? (
-                    <CheckOutlined className="list_tick" />
+                    <CheckOutlined className='list_tick' />
                   ) : (
                     <CloseOutlined style={styles.close} />
                   )}
-                  &nbsp; {t("Manage_users.Password_validation_error3")} <br />
+                  &nbsp; {t('Manage_users.Password_validation_error3')} <br />
                   {reg2.test(password) ? (
-                    <CheckOutlined className="list_tick" />
+                    <CheckOutlined className='list_tick' />
                   ) : (
                     <CloseOutlined style={styles.close} />
                   )}
-                  &nbsp; {t("Manage_users.Password_validation_error4")} <br />
+                  &nbsp; {t('Manage_users.Password_validation_error4')} <br />
                 </Paragraph>
               )}
             </Col>
@@ -421,9 +419,9 @@ const reg = /(?=.*?[A-z]).{8,}/;
 const reg1 = /(?=.*?[#?!@$%^&*-])/;
 const reg2 = /(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/;
 const styles = {
-  margin: { marginBottom: "12px" },
-  cancel: { margin: " 0 8px" },
-  userSetting: { marginBottom: ".8rem" },
+  margin: { marginBottom: '12px' },
+  cancel: { margin: ' 0 8px' },
+  userSetting: { marginBottom: '.8rem' },
   close: { color: `${Colors.red}` },
 };
 

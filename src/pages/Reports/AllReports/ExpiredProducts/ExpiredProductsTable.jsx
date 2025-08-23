@@ -1,17 +1,17 @@
 /* eslint-disable react/display-name */
-import React, { useMemo, useState } from "react";
-import { Colors } from "../../../colors";
-import axiosInstance from "../../../ApiBaseUrl";
-import { Checkbox, Menu, Table, Typography, Descriptions } from "antd";
-import { useTranslation } from "react-i18next";
-import Filters from "../WarehouseStatistics/Filters";
-import { utcDate } from "../../../../Functions/utcDate";
-import { indianToArabic } from "../../../../Functions/arabicToIndian";
-import ShowDate from "../../../SelfComponents/JalaliAntdComponents/ShowDate";
-import { ReportTable, Statistics } from "../../../../components/antd";
+import React, { useMemo, useState } from 'react';
+import { Colors } from '../../../colors';
+import axiosInstance from '../../../ApiBaseUrl';
+import { Checkbox, Menu, Table, Typography, Descriptions } from 'antd';
+import { useTranslation } from 'react-i18next';
+import Filters from '../WarehouseStatistics/Filters';
+import { utcDate } from '../../../../Functions/utcDate';
+import { indianToArabic } from '../../../../Functions/arabicToIndian';
+import ShowDate from '../../../SelfComponents/JalaliAntdComponents/ShowDate';
+import { ReportTable, Statistics } from '../../../../components/antd';
 
-const dateFormat = "YYYY-MM-DD";
-const datePFormat = "jYYYY/jM/jD";
+const dateFormat = 'YYYY-MM-DD';
+const datePFormat = 'jYYYY/jM/jD';
 const { Column } = Table;
 
 const ExpiredProductsTable = (props) => {
@@ -30,10 +30,10 @@ const ExpiredProductsTable = (props) => {
   });
   const [filters, setFilters] = useState(() => {
     return {
-      endDate: indianToArabic(utcDate().add(1, "month").format(dateFormat)),
+      endDate: indianToArabic(utcDate().add(1, 'month').format(dateFormat)),
       startDate: indianToArabic(utcDate().format(dateFormat)),
-      product: { value: "", label: "" },
-      warehouse: { value: "", label: "" },
+      product: { value: '', label: '' },
+      warehouse: { value: '', label: '' },
     };
   });
 
@@ -57,9 +57,9 @@ const ExpiredProductsTable = (props) => {
 
   const setting = (
     <Menu style={styles.settingsMenu}>
-      <Menu.Item key="1">
+      <Menu.Item key='1'>
         <Typography.Text strong={true}>
-          {t("Sales.Product_and_services.Columns")}
+          {t('Sales.Product_and_services.Columns')}
         </Typography.Text>
       </Menu.Item>
       {/* <Menu.Item key="2">
@@ -67,14 +67,14 @@ const ExpiredProductsTable = (props) => {
           {t("Sales.Product_and_services.Units.Unit")}
         </Checkbox>
       </Menu.Item> */}
-      <Menu.Item key="4">
+      <Menu.Item key='4'>
         <Checkbox checked={expirationDate} onChange={onChangeExpirationDate}>
-          {t("Sales.Product_and_services.Inventory.Expiration_date")}
+          {t('Sales.Product_and_services.Inventory.Expiration_date')}
         </Checkbox>
       </Menu.Item>
-      <Menu.Item key="10">
+      <Menu.Item key='10'>
         <Checkbox checked={available} onChange={onChangeAvailable}>
-          {t("Reports.Available_quantity")}
+          {t('Reports.Available_quantity')}
         </Checkbox>
       </Menu.Item>
     </Menu>
@@ -94,46 +94,44 @@ const ExpiredProductsTable = (props) => {
       } = queryKey?.[1] || {
         page: 1,
         pageSize: 10,
-        search: "",
-        order: "-id",
-        product: { value: "", label: "" },
-        warehouse: { value: "", label: "" },
-        endDate: indianToArabic(
-          utcDate().add(1, "month").format(dateFormat)
-          ),
-          startDate: indianToArabic(utcDate().format(dateFormat)),
-        };
-      const productId = product?.value ?? "";
-      const warehouseId = warehouse?.value ?? "";
+        search: '',
+        order: '-id',
+        product: { value: '', label: '' },
+        warehouse: { value: '', label: '' },
+        endDate: indianToArabic(utcDate().add(1, 'month').format(dateFormat)),
+        startDate: indianToArabic(utcDate().format(dateFormat)),
+      };
+      const productId = product?.value ?? '';
+      const warehouseId = warehouse?.value ?? '';
       const { data } = await axiosInstance.get(
-        `${props.baseUrl}?page=${page}&page_size=${pageSize}&ordering=${order}&product=${productId}&search=${search}&warehouse=${warehouseId}&expire_date_before=${endDate}&expire_date_after=${startDate}`
+        `${props.baseUrl}?page=${page}&page_size=${pageSize}&ordering=${order}&product=${productId}&search=${search}&warehouse=${warehouseId}&expire_date_before=${endDate}&expire_date_after=${startDate}`,
       );
       return data;
     },
-    [props.baseUrl]
+    [props.baseUrl],
   );
 
   const columns = useMemo(
     () => (type) => {
-      const sorter = type !== "print";
+      const sorter = type !== 'print';
       return (
         <React.Fragment>
           <Column
-            title={t("Sales.Product_and_services.Product_id").toUpperCase()}
-            dataIndex="product_id"
-            key="product_id"
-            fixed={type !== "print" ? true : undefined}
+            title={t('Sales.Product_and_services.Product_id').toUpperCase()}
+            dataIndex='product_id'
+            key='product_id'
+            fixed={type !== 'print' ? true : undefined}
             width={130}
             sorter={sorter && { multiple: 5 }}
-            className="table-col"
-            align="center"
+            className='table-col'
+            align='center'
           />
           <Column
-            title={t("Sales.All_sales.Invoice.Product_name").toUpperCase()}
-            dataIndex="product_name"
-            key="product_name"
-            fixed={type !== "print" ? true : undefined}
-            className="table-col"
+            title={t('Sales.All_sales.Invoice.Product_name').toUpperCase()}
+            dataIndex='product_name'
+            key='product_name'
+            fixed={type !== 'print' ? true : undefined}
+            className='table-col'
             sorter={sorter && { multiple: 4 }}
           />
 
@@ -150,11 +148,11 @@ const ExpiredProductsTable = (props) => {
           {expirationDate && (
             <Column
               title={t(
-                "Sales.Product_and_services.Inventory.Expiration_date"
+                'Sales.Product_and_services.Inventory.Expiration_date',
               ).toUpperCase()}
-              dataIndex="expire_date"
-              key="expire_date"
-              className="table-col"
+              dataIndex='expire_date'
+              key='expire_date'
+              className='table-col'
               sorter={sorter && { multiple: 2 }}
               render={(text) => {
                 return (
@@ -170,10 +168,10 @@ const ExpiredProductsTable = (props) => {
 
           {available && (
             <Column
-              title={t("Reports.Available_quantity").toUpperCase()}
-              dataIndex="available"
-              key="available"
-              className="table-col"
+              title={t('Reports.Available_quantity').toUpperCase()}
+              dataIndex='available'
+              key='available'
+              className='table-col'
               sorter={sorter && { multiple: 1 }}
               render={(value) => <Statistics value={value} />}
             />
@@ -181,7 +179,7 @@ const ExpiredProductsTable = (props) => {
         </React.Fragment>
       );
     },
-    [available, expirationDate, t]
+    [available, expirationDate, t],
   );
 
   // const printColumns = useMemo(() => {
@@ -244,21 +242,21 @@ const ExpiredProductsTable = (props) => {
 
   const printFilters = (
     <Descriptions
-      layout="horizontal"
-      style={{ width: "100%", paddingTop: "40px" }}
+      layout='horizontal'
+      style={{ width: '100%', paddingTop: '40px' }}
       column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}
-      size="small"
+      size='small'
     >
-      <Descriptions.Item label={t("Form.From")}>
-        {startDate} {t("Form.To")} : {endDate}
+      <Descriptions.Item label={t('Form.From')}>
+        {startDate} {t('Form.To')} : {endDate}
       </Descriptions.Item>
       {warehouse?.label && (
-        <Descriptions.Item label={t("Warehouse.1")}>
+        <Descriptions.Item label={t('Warehouse.1')}>
           {warehouse?.label}
         </Descriptions.Item>
       )}
       {product?.label && (
-        <Descriptions.Item label={t("Sales.Product_and_services.Product")}>
+        <Descriptions.Item label={t('Sales.Product_and_services.Product')}>
           {product?.label}
         </Descriptions.Item>
       )}
@@ -286,11 +284,11 @@ const ExpiredProductsTable = (props) => {
 };
 const styles = {
   modal1: (sales) => ({
-    padding: "0px",
+    padding: '0px',
   }),
   closeIcon: { color: `${Colors.white}` },
-  unit: { display: "flex" },
-  settingsMenu: { width: "165px", paddingBottom: "10px" },
+  unit: { display: 'flex' },
+  settingsMenu: { width: '165px', paddingBottom: '10px' },
 };
 
 export default ExpiredProductsTable;

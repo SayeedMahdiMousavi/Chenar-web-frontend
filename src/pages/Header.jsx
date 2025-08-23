@@ -1,14 +1,14 @@
-import { useState, useEffect, useContext } from "react";
-import { useTranslation } from "react-i18next";
+import { useState, useEffect, useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   SearchOutlined,
   ExclamationCircleOutlined,
   PlusCircleOutlined,
-} from "@ant-design/icons";
-import axiosInstance from "./ApiBaseUrl";
-import { useQueryClient, useQuery, useMutation } from "react-query";
-import { useMediaQuery } from "./MediaQurey";
-import UserProfile from "./Login/UserProfile";
+} from '@ant-design/icons';
+import axiosInstance from './ApiBaseUrl';
+import { useQueryClient, useQuery, useMutation } from 'react-query';
+import { useMediaQuery } from './MediaQurey';
+import UserProfile from './Login/UserProfile';
 import {
   Row,
   Col,
@@ -21,40 +21,39 @@ import {
   Select,
   message,
   AutoComplete,
-} from "antd";
-import MobileNav from "./Router/MobileNav";
-import New from "./New/New";
-import Settings from "./Settings/Settings"; // Keep the Settings import
-import { Link, useNavigate } from "react-router-dom";
+} from 'antd';
+import MobileNav from './Router/MobileNav';
+import New from './New/New';
+import Settings from './Settings/Settings'; // Keep the Settings import
+import { Link, useNavigate } from 'react-router-dom';
 import {
   SidebarCollapseContext,
   SidebarSetCollapseContext,
-} from "../context/CollapseSidebarProvider";
-import { useDarkMode } from "../Hooks/useDarkMode";
-import { useGetUserInfo } from "../Hooks";
-import { CenteredSpin } from "./SelfComponents/Spin";
-import { ExpandIcon, LogoutIcon } from "../icons";
-import { AiOutlineNodeCollapse as CollapseIcon } from "react-icons/ai";
+} from '../context/CollapseSidebarProvider';
+import { useDarkMode } from '../Hooks/useDarkMode';
+import { useGetUserInfo } from '../Hooks';
+import { CenteredSpin } from './SelfComponents/Spin';
+import { ExpandIcon, LogoutIcon } from '../icons';
+import { AiOutlineNodeCollapse as CollapseIcon } from 'react-icons/ai';
 import {
   checkPermissionsModel,
   handleClearLocalStorageLogout,
   manageErrors,
-} from "../Functions";
-import { dark, lightThemeVars } from "../vars";
+} from '../Functions';
+import { lessVars } from '../theme/index';
 import {
   BACKUP_PAGE_M,
   USERS_PAGE_M,
   AUDIT_CENTER_PAGE_M,
   COMPANY_INFO_M,
   CUSTOM_FORM_STYLE_M,
-} from "../constants/permissions";
-import { Colors } from "./colors";
-import { ThemeButton } from "../components";
-import { createOption } from "../components/data/systemSearchData";
+} from '../constants/permissions';
+import { Colors } from './colors';
+import { ThemeButton } from '../components';
+import { createOption } from '../components/data/systemSearchData';
 
-
-import AccountSettings from "./Company/AccountAndSettings/AccountSettings";
-import AdvanceUserSettings from "./Login/AdvanceUserSettings";
+import AccountSettings from './Company/AccountAndSettings/AccountSettings';
+import AdvanceUserSettings from './Login/AdvanceUserSettings';
 
 export default function Header(props) {
   const queryClient = useQueryClient();
@@ -62,19 +61,19 @@ export default function Header(props) {
   const collapsed = useContext(SidebarCollapseContext);
   const setCollapsed = useContext(SidebarSetCollapseContext);
   const history = useNavigate();
-  const isMobile = useMediaQuery("(max-width: 425px)");
-  const isTablet = useMediaQuery("(max-width: 767px)");
-  const isMiniTablet = useMediaQuery("(max-width: 576px)");
+  const isMobile = useMediaQuery('(max-width: 425px)');
+  const isTablet = useMediaQuery('(max-width: 767px)');
+  const isMiniTablet = useMediaQuery('(max-width: 576px)');
   const [visible, setVisible] = useState(false);
   const [newVisible, setNewVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const { t, i18n } = useTranslation();
-  const [permit, setPermit] = useState(" ");
-  const permission = localStorage.getItem("user_permit");
+  const [permit, setPermit] = useState(' ');
+  const permission = localStorage.getItem('user_permit');
   const [logoutModalVisible, setLogoutModalVisible] = useState(false);
 
   useEffect(() => {
-    setPermit(permission ? permission : " ");
+    setPermit(permission ? permission : ' ');
   }, [permission]);
 
   // Get user information
@@ -96,8 +95,8 @@ export default function Header(props) {
   const handleLogout = async () => {
     setLoading(true);
     await axiosInstance
-      .post("/user_account/tokens/blacklist/", {
-        refresh_token: window.localStorage.getItem("refresh_token"),
+      .post('/user_account/tokens/blacklist/', {
+        refresh_token: window.localStorage.getItem('refresh_token'),
       })
       .then((res) => {
         return res;
@@ -105,19 +104,18 @@ export default function Header(props) {
       .catch((error) => {
         return error;
       });
-    if (mode !== "light") {
-      window.less.modifyVars(lightThemeVars);
-      setMode("light");
+    if (mode !== 'light') {
+      window.less.modifyVars(lessVars.light);
+      setMode('light');
     }
     handleClearLocalStorageLogout();
     queryClient.clear();
-    history("/");
+    history('/');
   };
 
   const showLogoutModal = () => {
     setLogoutModalVisible(true);
   };
-
 
   // Handle modal OK (logout)
   const handleModalOk = () => {
@@ -132,23 +130,23 @@ export default function Header(props) {
   // Define Settings submenu items based on the Settings component
   const settingsMenuItems = [
     checkPermissionsModel(COMPANY_INFO_M) && {
-      key: "3-1",
+      key: '3-1',
       label: <AccountSettings />,
       onClick: () => setVisible(false), // Close dropdown on click
     },
     {
-      key: "3-2",
+      key: '3-2',
       label: <AdvanceUserSettings />,
       onClick: () => setVisible(false), // Close dropdown on click
     },
     checkPermissionsModel(AUDIT_CENTER_PAGE_M) && {
-      key: "3-3",
-      label: <Link to="/audit_center">{t("Auditing.1")}</Link>,
+      key: '3-3',
+      label: <Link to='/audit_center'>{t('Auditing.1')}</Link>,
       onClick: () => setVisible(false), // Close dropdown on click
     },
     checkPermissionsModel(CUSTOM_FORM_STYLE_M) && {
-      key: "3-4",
-      label: <Link to="/custom-form-styles">{t("Custom_form_styles.1")}</Link>,
+      key: '3-4',
+      label: <Link to='/custom-form-styles'>{t('Custom_form_styles.1')}</Link>,
       onClick: () => setVisible(false), // Close dropdown on click
     },
   ].filter(Boolean); // Remove falsy values
@@ -156,46 +154,46 @@ export default function Header(props) {
   // Define menu items with Settings as a submenu
   const menuItems = [
     {
-      key: "1",
+      key: '1',
       label: <UserProfile setVisible={setVisible} />,
     },
     {
-      key: "3",
-      label: t("Manage_users.Settings"),
+      key: '3',
+      label: t('Manage_users.Settings'),
       children: settingsMenuItems, // Add Settings submenu items
     },
     checkPermissionsModel(USERS_PAGE_M) && {
-      key: "2",
-      label: <Link to="/users">{t("Manage_users.1")}</Link>,
+      key: '2',
+      label: <Link to='/users'>{t('Manage_users.1')}</Link>,
     },
     checkPermissionsModel(BACKUP_PAGE_M) && {
-      key: "4",
-      label: <Link to="/backup">{t("Company.Backup")}</Link>,
+      key: '4',
+      label: <Link to='/backup'>{t('Company.Backup')}</Link>,
     },
     {
-      key: "5",
-      label: t("Manage_users.Sign_out"),
+      key: '5',
+      label: t('Manage_users.Sign_out'),
       icon: <LogoutIcon />,
       danger: true,
       onClick: showLogoutModal,
     },
   ].filter(Boolean); // Remove falsy values
 
-  const bordered = mode === "dark" ? true : false;
+  const bordered = mode === 'dark' ? true : false;
   const inputClassName = `Input__${mode}--borderLess`;
 
   // Get languages list
   const languageList = useQuery(
-    "/system_setting/language/",
+    '/system_setting/language/',
     async () => {
       const result = await axiosInstance.get(`/system_setting/language/`);
       return result.data;
     },
-    { cacheTime: 86400000, refetchOnWindowFocus: false }
+    { cacheTime: 86400000, refetchOnWindowFocus: false },
   );
 
   const filteredOptions = languageList?.data?.results?.filter(
-    (item) => item?.symbol !== data?.user_language?.symbol
+    (item) => item?.symbol !== data?.user_language?.symbol,
   );
 
   const changeLanguage = async (value) => {
@@ -203,14 +201,14 @@ export default function Header(props) {
       .patch(`/user_account/user_profile/${data?.username}/`, value)
       .then(async (res) => {
         await i18n.changeLanguage(value.user_language);
-        if (value?.user_language === "en") {
+        if (value?.user_language === 'en') {
           // moment.locale("en");
         } else {
           // moment.locale("fa");
         }
         queryClient.invalidateQueries(`/user_account/user_profile/`);
         message.success({
-          content: t("Message.Language"),
+          content: t('Message.Language'),
           rtl: true,
         });
       });
@@ -226,7 +224,7 @@ export default function Header(props) {
   const handleChangeTheme = async (value) => {
     return await axiosInstance.patch(
       `/user_account/user_profile/${data?.username}/`,
-      value
+      value,
     );
   };
 
@@ -235,9 +233,9 @@ export default function Header(props) {
       queryClient.invalidateQueries(`/user_account/user_profile/`);
     },
     onMutate: async (value) => {
-      await queryClient.cancelQueries("/user_account/user_profile/");
+      await queryClient.cancelQueries('/user_account/user_profile/');
       const previousValue = queryClient.getQueryData([
-        "/user_account/user_profile/",
+        '/user_account/user_profile/',
         { id: data?.username },
       ]);
 
@@ -248,13 +246,13 @@ export default function Header(props) {
             ...prev,
             user_theme: { ...prev?.user_theme, id: value?.user_theme },
           };
-        }
+        },
       );
 
-      setMode(value?.user_theme === 1 ? "dark" : "light");
+      setMode(value?.user_theme === 1 ? 'dark' : 'light');
 
       window.less.modifyVars(
-        value?.user_theme === 1 ? { ...dark } : lightThemeVars
+        value?.user_theme === 1 ? lessVars.dark : lessVars.light,
       );
 
       return previousValue;
@@ -282,18 +280,18 @@ export default function Header(props) {
   return (
     <Row
       style={{
-        display: "flex",
-        justifyContent: "space-between",
+        display: 'flex',
+        justifyContent: 'space-between',
       }}
     >
-      <Col xl={"auto"} xs={isMobile ? 12 : 14}>
-        <Space align="center" size="middle" style={styles.header}>
+      <Col xl={'auto'} xs={isMobile ? 12 : 14}>
+        <Space align='center' size='middle' style={styles.header}>
           {isMiniTablet ? (
             <MobileNav />
           ) : isTablet ? (
-            ""
+            ''
           ) : collapsed ? (
-            t("Dir") === "ltr" ? (
+            t('Dir') === 'ltr' ? (
               <ExpandIcon
                 onClick={handleClickCollapse}
                 style={{ fontSize: 20 }}
@@ -304,7 +302,7 @@ export default function Header(props) {
                 style={{ fontSize: 20 }}
               />
             )
-          ) : t("Dir") === "ltr" ? (
+          ) : t('Dir') === 'ltr' ? (
             <CollapseIcon
               onClick={handleClickCollapse}
               style={{ fontSize: 20 }}
@@ -316,7 +314,7 @@ export default function Header(props) {
             style={styles.search}
             options={createOption(t)}
             className={inputClassName}
-            placeholder={t("Form.Search")}
+            placeholder={t('Form.Search')}
             variant={bordered}
             onSelect={handleSelectedFunction}
             prefix={<SearchOutlined style={{ color: Colors.borderColor }} />}
@@ -329,17 +327,22 @@ export default function Header(props) {
                 );
               } else
                 return (
-                  option?.value.toUpperCase().indexOf(inputValue.toUpperCase()) !==
-                  -1
+                  option?.value
+                    .toUpperCase()
+                    .indexOf(inputValue.toUpperCase()) !== -1
                 );
             }}
           />
         </Space>
       </Col>
 
-      <Col xl={"auto"} xs={isMobile ? 12 : 10} style={styles.spaceParent}>
-        <Row justify="space-between" style={{ width: "fit-content" }} align="middle">
-          <Col style={{ margin: "0 10px" }}>
+      <Col xl={'auto'} xs={isMobile ? 12 : 10} style={styles.spaceParent}>
+        <Row
+          justify='space-between'
+          style={{ width: 'fit-content' }}
+          align='middle'
+        >
+          <Col style={{ margin: '0 10px' }}>
             <Select
               className={inputClassName}
               variant={bordered}
@@ -348,7 +351,7 @@ export default function Header(props) {
               onChange={handleChangeLanguage}
               notFoundContent={
                 languageList?.isFetched || languageList?.isLoading ? (
-                  <CenteredSpin size="small" />
+                  <CenteredSpin size='small' />
                 ) : undefined
               }
               labelInValue
@@ -368,14 +371,14 @@ export default function Header(props) {
           <Col style={styles.iconCl}>
             <Popover
               content={<New />}
-              trigger="click"
+              trigger='click'
               open={newVisible}
               onOpenChange={handleVisibleChange1}
             >
               <Button
-                type="primary"
+                type='primary'
                 style={{ ...styles.plusButton }}
-                icon={<PlusCircleOutlined style={{ fontSize: "20px" }} />}
+                icon={<PlusCircleOutlined style={{ fontSize: '20px' }} />}
               />
             </Popover>
 
@@ -385,7 +388,7 @@ export default function Header(props) {
           <Col>
             <Dropdown
               menu={{ items: menuItems }}
-              trigger={"click"}
+              trigger={'click'}
               onOpenChange={handleVisibleChange}
               open={visible}
               overlayStyle={styles.drop}
@@ -393,7 +396,7 @@ export default function Header(props) {
               <Avatar
                 src={`${data?.photo}`}
                 size={{ xs: 35, sm: 32, md: 32, lg: 34, xl: 35, xxl: 37 }}
-                className="header-img"
+                className='header-img'
                 style={styles.avatar}
                 gap={10}
               >
@@ -403,21 +406,21 @@ export default function Header(props) {
             </Dropdown>
           </Col>
           <Modal
-              open={logoutModalVisible}
-              title={
-                <Space>
-                  <ExclamationCircleOutlined style={{color:"orange"}}/>
-                  {t("Manage_users.Sign_out_message")}
-                </Space>
-              }
-              onOk={handleModalOk}
-              onCancel={handleModalCancel}
-              okText={t("Manage_users.Yes")}
-              cancelText={t("Manage_users.No")}
-              zIndex={2000}
-              styles={{ direction: t("Dir") }}
-              confirmLoading={loading}
-            />
+            open={logoutModalVisible}
+            title={
+              <Space>
+                <ExclamationCircleOutlined style={{ color: 'orange' }} />
+                {t('Manage_users.Sign_out_message')}
+              </Space>
+            }
+            onOk={handleModalOk}
+            onCancel={handleModalCancel}
+            okText={t('Manage_users.Yes')}
+            cancelText={t('Manage_users.No')}
+            zIndex={2000}
+            styles={{ direction: t('Dir') }}
+            confirmLoading={loading}
+          />
         </Row>
       </Col>
     </Row>
@@ -427,33 +430,33 @@ export default function Header(props) {
 const styles = {
   drop: { zIndex: 100 },
   spaceParent: {
-    textAlign: "end",
-    paddingInlineEnd: "15px",
-    justifyContent: "end",
-    display: "flex",
+    textAlign: 'end',
+    paddingInlineEnd: '15px',
+    justifyContent: 'end',
+    display: 'flex',
   },
   iconCl: {
-    display: "flex",
-    width: "fit-content",
-    gap: "15px",
-    alignItems: "center",
-    margin: "0 10px 0 10px",
+    display: 'flex',
+    width: 'fit-content',
+    gap: '15px',
+    alignItems: 'center',
+    margin: '0 10px 0 10px',
   },
   plusButton: {
     backgroundColor: Colors.primaryColor,
     color: Colors.white,
-    fontSize: "18px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    fontSize: '18px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  avatar: { backgroundColor: Colors.primaryColor, verticalAlign: "middle" },
-  bellButton: { paddingBottom: "0px" },
-  languageSelect: { borderRadius: "6px" },
+  avatar: { backgroundColor: Colors.primaryColor, verticalAlign: 'middle' },
+  bellButton: { paddingBottom: '0px' },
+  languageSelect: { borderRadius: '6px' },
   search: {
-    width: "300px",
-    borderRadius: "100px",
+    width: '300px',
+    borderRadius: '100px',
   },
-  header: { marginInlineStart: "10px" },
-  margin: { margin: "10px 0" },
+  header: { marginInlineStart: '10px' },
+  margin: { margin: '10px 0' },
 };

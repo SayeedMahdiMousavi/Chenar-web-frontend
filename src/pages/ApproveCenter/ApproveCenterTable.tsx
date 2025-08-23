@@ -83,7 +83,7 @@ const ApproveCenterTable: React.FC<IProps> = (props) => {
       });
       setEditingKey(record.id);
     },
-    [form]
+    [form],
   );
 
   const cancel = () => {
@@ -102,7 +102,7 @@ const ApproveCenterTable: React.FC<IProps> = (props) => {
           <ActionMessage
             name={product}
             message={'Sales.All_sales.Success_status_message'}
-          />
+          />,
         );
         setEditingKey('');
         queryClient.invalidateQueries(`${props.baseUrl}`);
@@ -110,7 +110,7 @@ const ApproveCenterTable: React.FC<IProps> = (props) => {
       onError: (error) => {
         manageErrors(error);
       },
-    }
+    },
   );
 
   const save = useCallback(
@@ -145,164 +145,174 @@ const ApproveCenterTable: React.FC<IProps> = (props) => {
         // }
       } catch (errInfo) {}
     },
-    [form, mutateEditStatus]
+    [form, mutateEditStatus],
   );
 
   const columns = useMemo(
-    () => (type: string, hasSelected: boolean) =>
-      [
-        {
-          title: `${t(
-            'Sales.All_sales.Purchase_and_sales.Invoice_details'
-          ).toUpperCase()}`,
-          children: [
-            {
-              title: t(
-                'Sales.All_sales.Purchase_and_sales.Invoice_id'
-              ).toUpperCase(),
-              dataIndex: 'id',
-              key: 'id',
-              width: 155,
-              sorter: { multiple: 7 },
-              className: 'table-col',
-              align: 'center',
-            },
-            {
-              title: t('Sales.Customers.Customer').toUpperCase(),
-              dataIndex: 'customer',
-              key: 'customer',
-              sorter: { multiple: 6 },
-              className: 'table-col',
-              render: (text: any) => (
-                <React.Fragment>
-                  {text?.content_object?.full_name}
-                </React.Fragment>
-              ),
-            },
-            {
-              title: t('Form.Created_by').toUpperCase(),
-              dataIndex: 'created_by',
-              key: 'created_by',
-              sorter: { multiple: 5 },
-              width: 140,
-              className: 'table-col',
-              render: (text: any) => (
-                <React.Fragment>{text?.username}</React.Fragment>
-              ),
-            },
-            {
-              title: t('Form.Created_at').toUpperCase(),
-              dataIndex: 'created',
-              key: 'created',
-              sorter: { multiple: 4 },
-              width: 160,
-              className: 'table-col',
-              render: (text: string) => {
-                return <ShowDate date={text} />;
-              },
-            },
-          ],
-        },
-        {
-          title: `${t(
-            'Sales.All_sales.Purchase_and_sales.Cash'
-          ).toUpperCase()}`,
-          children: [
-            {
-              title: t('Sales.Customers.Form.Amount').toUpperCase(),
-              dataIndex: 'remain',
-              key: 'remain',
-
-              sorter: { multiple: 3 },
-              className: 'table-col',
-              render: (_: any, record: any) => {
-                return <Statistics value={record?.cash_payment?.[0]?.amount} />;
-              },
-            },
-            {
-              title: t(
-                'Sales.Product_and_services.Inventory.Currency'
-              ).toUpperCase(),
-              dataIndex: 'currency',
-              key: 'currency',
-              sorter: { multiple: 2 },
-              className: 'table-col',
-              render: (currency: any, record: any) => {
-                // console.log("currency record" , record)
-                return <div>{t(`Reports.${currency?.symbol}`)}</div>;
-              },
-            },
-          ],
-        },
-        {
-          title: t('Sales.Product_and_services.Modified').toUpperCase(),
-          dataIndex: 'modified',
-          editable: false,
-          sorter: { multiple: 1 },
-          key: 'modified',
-          render: (text: string) => {
-            return <ShowDate date={text} />;
+    () => (type: string, hasSelected: boolean) => [
+      {
+        title: `${t(
+          'Sales.All_sales.Purchase_and_sales.Invoice_details',
+        ).toUpperCase()}`,
+        children: [
+          {
+            title: t(
+              'Sales.All_sales.Purchase_and_sales.Invoice_id',
+            ).toUpperCase(),
+            dataIndex: 'id',
+            key: 'id',
+            width: 155,
+            sorter: { multiple: 7 },
+            className: 'table-col',
+            align: 'center',
           },
+          {
+            title: t('Sales.Customers.Customer').toUpperCase(),
+            dataIndex: 'customer',
+            key: 'customer',
+            sorter: { multiple: 6 },
+            className: 'table-col',
+            render: (text: any) => (
+              <React.Fragment>{text?.content_object?.full_name}</React.Fragment>
+            ),
+          },
+          {
+            title: t('Form.Created_by').toUpperCase(),
+            dataIndex: 'created_by',
+            key: 'created_by',
+            sorter: { multiple: 5 },
+            width: 140,
+            className: 'table-col',
+            render: (text: any) => (
+              <React.Fragment>{text?.username}</React.Fragment>
+            ),
+          },
+          {
+            title: t('Form.Created_at').toUpperCase(),
+            dataIndex: 'created',
+            key: 'created',
+            sorter: { multiple: 4 },
+            width: 160,
+            className: 'table-col',
+            render: (text: string) => {
+              return <ShowDate date={text} />;
+            },
+          },
+        ],
+      },
+      {
+        title: `${t('Sales.All_sales.Purchase_and_sales.Cash').toUpperCase()}`,
+        children: [
+          {
+            title: t('Sales.Customers.Form.Amount').toUpperCase(),
+            dataIndex: 'remain',
+            key: 'remain',
+
+            sorter: { multiple: 3 },
+            className: 'table-col',
+            render: (_: any, record: any) => {
+              return <Statistics value={record?.cash_payment?.[0]?.amount} />;
+            },
+          },
+          {
+            title: t(
+              'Sales.Product_and_services.Inventory.Currency',
+            ).toUpperCase(),
+            dataIndex: 'currency',
+            key: 'currency',
+            sorter: { multiple: 2 },
+            className: 'table-col',
+            render: (currency: any, record: any) => {
+              // console.log("currency record" , record)
+              return <div>{t(`Reports.${currency?.symbol}`)}</div>;
+            },
+          },
+        ],
+      },
+      {
+        title: t('Sales.Product_and_services.Modified').toUpperCase(),
+        dataIndex: 'modified',
+        editable: false,
+        sorter: { multiple: 1 },
+        key: 'modified',
+        render: (text: string) => {
+          return <ShowDate date={text} />;
         },
-        {
-          title: t('Sales.Product_and_services.Status').toUpperCase(),
-          dataIndex: 'invoice_state',
-          editable: true,
-          sorter: { multiple: 1 },
-          key: 'invoice_state',
-          width: 140,
-          render: (text: string) => (
-            <AntdTag
-              color={
-                text === 'pending'
-                  ? 'orange'
-                  : text === 'accepted'
+      },
+      {
+        title: t('Sales.Product_and_services.Status').toUpperCase(),
+        dataIndex: 'invoice_state',
+        editable: true,
+        sorter: { multiple: 1 },
+        key: 'invoice_state',
+        width: 140,
+        render: (text: string) => (
+          <AntdTag
+            color={
+              text === 'pending'
+                ? 'orange'
+                : text === 'accepted'
                   ? Colors.primaryColor
                   : 'red'
-              }
-            >
-              {text === 'pending'
-                ? t('Form.Pending')
-                : text === 'accepted'
+            }
+          >
+            {text === 'pending'
+              ? t('Form.Pending')
+              : text === 'accepted'
                 ? t('Form.accepted')
                 : t('Form.Rejected')}
-            </AntdTag>
-          ),
-        },
+          </AntdTag>
+        ),
+      },
 
-        {
-          title: `${t('Table.Action')}`,
-          dataIndex: 'action',
-          key: 'action',
-          align: 'center',
-          fixed: 'right',
-          width: 70,
+      {
+        title: `${t('Table.Action')}`,
+        dataIndex: 'action',
+        key: 'action',
+        align: 'center',
+        fixed: 'right',
+        width: 70,
 
-          render: (_: any, record: any) => {
-            return (
-              <EditableTableActionColumnRender
-                {...{
-                  record,
-                  save,
-                  edit,
-                  editingKey,
-                  onCancel: cancel,
-                  model: SALES_INVOICE_M,
-                  disabled:
-                    editingKey !== '' || record.invoice_state === 'accepted',
-                }}
-              >
-                {null}
-              </EditableTableActionColumnRender>
-            );
-          },
+        render: (_: any, record: any) => {
+          return (
+            <EditableTableActionColumnRender
+              {...{
+                record,
+                save,
+                edit,
+                editingKey,
+                onCancel: cancel,
+                model: SALES_INVOICE_M,
+                disabled:
+                  editingKey !== '' || record.invoice_state === 'accepted',
+              }}
+            >
+              {null}
+            </EditableTableActionColumnRender>
+          );
         },
-      ],
-    [edit, editingKey, save, t]
+      },
+    ],
+    [edit, editingKey, save, t],
   );
 
   const handleGetSalesInvoice = React.useCallback(
-    async ({ queryKey }: { queryKey: [string, { page: number; pageSize: number; search: string; order: string; status: string; startDate: string; endDate: string }] }) => {
+    async ({
+      queryKey,
+    }: {
+      queryKey: [
+        string,
+        {
+          page: number;
+          pageSize: number;
+          search: string;
+          order: string;
+          status: string;
+          startDate: string;
+          endDate: string;
+        },
+      ];
+    }) => {
       const { page, pageSize, search, order, status, startDate, endDate } =
         queryKey?.[1];
 
@@ -311,22 +321,33 @@ const ApproveCenterTable: React.FC<IProps> = (props) => {
           props.baseUrl
         }?page=${page}&page_size=${pageSize}&search=${search}&ordering=${order}&invoice_state=${
           status ? status : 'pending'
-        }&invoice_state=rejected&expand=*`
+        }&invoice_state=rejected&expand=*`,
       );
       // &date_time_after=${startDate}&date_time_before=${endDate}&approve_state=${status}
       // ,payment_summery.cash_fin,payment_summery.cash_fin.currency,customer&fields=id,currency,currency_rate,date_time,description,payment_summery,warehouse,customer,fiscal_year,sales_source,created_by,created,approve_state
       // console.log("apro center ", data);
       return data;
-    },    [props.baseUrl]
+    },
+    [props.baseUrl],
   );
 
-  const getSalesResult = React.useCallback(async ({ queryKey }: { queryKey: [string, { search: string; startDate: string; endDate: string; status: string,  }] }) => {
-    const { search, startDate, endDate, status } = queryKey?.[1];
-    const { data } = await axiosInstance.get(
-      `${invoicesBaseUrl}result?search=${search}&date_time_after=${startDate}&date_time_before=${endDate}&approve_state=${status}&invoice_type=sales`
-    );
-    return data;
-  }, []);
+  const getSalesResult = React.useCallback(
+    async ({
+      queryKey,
+    }: {
+      queryKey: [
+        string,
+        { search: string; startDate: string; endDate: string; status: string },
+      ];
+    }) => {
+      const { search, startDate, endDate, status } = queryKey?.[1];
+      const { data } = await axiosInstance.get(
+        `${invoicesBaseUrl}result?search=${search}&date_time_after=${startDate}&date_time_before=${endDate}&approve_state=${status}&invoice_type=sales`,
+      );
+      return data;
+    },
+    [],
+  );
   const salesResult = useQuery(
     [
       `${invoicesBaseUrl}/result/`,
@@ -340,7 +361,7 @@ const ApproveCenterTable: React.FC<IProps> = (props) => {
     getSalesResult as any,
     {
       refetchInterval: 5000,
-    }
+    },
   );
   // console.log("handleGetSalesInvoice" , handleGetSalesInvoice)
   let userTye: string = '';
@@ -393,7 +414,7 @@ const ApproveCenterTable: React.FC<IProps> = (props) => {
         summary={() => {
           return (
             <>
-            {/* @ts-ignore */}
+              {/* @ts-ignore */}
               {salesResult?.data?.results?.length > 0 && (
                 <Table.Summary.Row>
                   <TableSummaryCell index={0} color={'inherit'} />
@@ -483,7 +504,7 @@ const ApproveCenterTable: React.FC<IProps> = (props) => {
             </>
           );
         }}
-        />
+      />
     </Form>
   );
 };

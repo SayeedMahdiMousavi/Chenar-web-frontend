@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import { Modal, Col, Row, Button } from "antd";
-import { useMediaQuery } from "../../../MediaQurey";
-import { useMutation } from "react-query";
-import { request, gql } from "graphql-request";
-import { Form, Input, message } from "antd";
-import { Colors } from "../../../colors";
-import { useTranslation } from "react-i18next";
-import { LockFilled, UnlockFilled } from "@ant-design/icons";
-import { ModalDragTitle } from "../../../SelfComponents/ModalDragTitle";
-import Draggable from "react-draggable";
+import React, { useState } from 'react';
+import { Modal, Col, Row, Button } from 'antd';
+import { useMediaQuery } from '../../../MediaQurey';
+import { useMutation } from 'react-query';
+import { request, gql } from 'graphql-request';
+import { Form, Input, message } from 'antd';
+import { Colors } from '../../../colors';
+import { useTranslation } from 'react-i18next';
+import { LockFilled, UnlockFilled } from '@ant-design/icons';
+import { ModalDragTitle } from '../../../SelfComponents/ModalDragTitle';
+import Draggable from 'react-draggable';
 import {
   PAY_ACCESS_TOKEN,
   PAY_REFRESH_TOKEN,
-} from "../../../LocalStorageVariables";
-import { CancelButton, SaveButton } from "../../../../components";
+} from '../../../LocalStorageVariables';
+import { CancelButton, SaveButton } from '../../../../components';
 
 interface IProps {
   graphqlEndPoint: string;
@@ -26,8 +26,8 @@ const LoginToAnarPay: React.FC<IProps> = (props) => {
   });
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(true);
-  const isTablet = useMediaQuery("(max-width: 768px)");
-  const isMobile = useMediaQuery("(max-width: 425px)");
+  const isTablet = useMediaQuery('(max-width: 768px)');
+  const isMobile = useMediaQuery('(max-width: 425px)');
 
   const showModal = () => {
     setIsShowModal({
@@ -59,29 +59,29 @@ const LoginToAnarPay: React.FC<IProps> = (props) => {
             }
           }
         `,
-        { where: value }
+        { where: value },
       )
         .then((res: any) => {
           setLoading(false);
           localStorage.setItem(
             PAY_ACCESS_TOKEN,
-            `${res?.anarPayManagerLogin?.accessToken}`
+            `${res?.anarPayManagerLogin?.accessToken}`,
           );
 
           localStorage.setItem(
             PAY_REFRESH_TOKEN,
-            `${res?.anarPayManagerLogin?.refreshToken}`
+            `${res?.anarPayManagerLogin?.refreshToken}`,
           );
           setIsShowModal({
             visible: false,
           });
-          message.success(t("Sales.All_sales.Invoice.Anar_pay_login_message"));
+          message.success(t('Sales.All_sales.Invoice.Anar_pay_login_message'));
         })
         .catch((error) => {
-          message.error(t("Manage_users.Log_in_error_message"));
+          message.error(t('Manage_users.Log_in_error_message'));
           setLoading(false);
         });
-    }
+    },
   );
   const handleOk = () => {
     form
@@ -93,19 +93,17 @@ const LoginToAnarPay: React.FC<IProps> = (props) => {
           password: values.password,
         });
       })
-      .catch((info) => {
-        
-      });
+      .catch((info) => {});
   };
 
   return (
     <div>
       <Button
-        type="primary"
-        shape="round"
+        type='primary'
+        shape='round'
         onClick={showModal}
         style={{
-          boxShadow: "0px 0px 5px -2px rgba(255,255,255,1)",
+          boxShadow: '0px 0px 5px -2px rgba(255,255,255,1)',
         }}
         icon={
           localStorage.getItem(PAY_REFRESH_TOKEN) ? (
@@ -121,7 +119,7 @@ const LoginToAnarPay: React.FC<IProps> = (props) => {
           <ModalDragTitle
             disabled={disabled}
             setDisabled={setDisabled}
-            title={t("Sales.All_sales.Invoice.Login_to_anar_pay")}
+            title={t('Sales.All_sales.Invoice.Login_to_anar_pay')}
           />
         }
         modalRender={(modal) => (
@@ -131,9 +129,9 @@ const LoginToAnarPay: React.FC<IProps> = (props) => {
         open={isShowModal.visible}
         afterClose={handelAfterClose}
         onCancel={handelCancel}
-        width={isMobile ? "100%" : isTablet ? "370px" : "370px"}
+        width={isMobile ? '100%' : isTablet ? '370px' : '370px'}
         footer={
-          <Row justify="end" align="middle">
+          <Row justify='end' align='middle'>
             <Col>
               <CancelButton onClick={handelCancel} />
               <SaveButton onClick={handleOk} loading={loading} />
@@ -145,36 +143,36 @@ const LoginToAnarPay: React.FC<IProps> = (props) => {
           form={form}
           hideRequiredMark={true}
           scrollToFirstError={true}
-          layout="vertical"
+          layout='vertical'
         >
           <Form.Item
-            name="username"
+            name='username'
             label={
               <span>
-                {t("Form.User_name")}
-                <span className="star">*</span>
+                {t('Form.User_name')}
+                <span className='star'>*</span>
               </span>
             }
             style={styles.margin}
             rules={[
-              { required: true, message: `${t("Form.User_name_required")}` },
+              { required: true, message: `${t('Form.User_name_required')}` },
             ]}
           >
             <Input />
           </Form.Item>
           <Form.Item
-            name="password"
+            name='password'
             style={styles.margin}
             label={
               <span>
-                {t("Company.Form.Password")}
-                <span className="star">*</span>
+                {t('Company.Form.Password')}
+                <span className='star'>*</span>
               </span>
             }
             rules={[
               {
                 required: true,
-                message: `${t("Company.Form.Required_password")}`,
+                message: `${t('Company.Form.Required_password')}`,
               },
             ]}
           >
@@ -186,24 +184,24 @@ const LoginToAnarPay: React.FC<IProps> = (props) => {
   );
 };
 const styles = {
-  cancel: { margin: "0px 8px" },
-  margin: { margin: "4px" },
-  menu: { border: "none" },
+  cancel: { margin: '0px 8px' },
+  margin: { margin: '4px' },
+  menu: { border: 'none' },
   menuItem: {
-    lineHeight: "20px",
-    padding: "10px 0px",
-    height: "fit-content",
-    margin: "0px",
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    lineHeight: '20px',
+    padding: '10px 0px',
+    height: 'fit-content',
+    margin: '0px',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   menuItemIcon: {
-    fontSize: "20px",
+    fontSize: '20px',
     color: `${Colors.gray}`,
-    paddingTop: "8px",
-    paddingInlineEnd: "24px",
+    paddingTop: '8px',
+    paddingInlineEnd: '24px',
   },
 };
 

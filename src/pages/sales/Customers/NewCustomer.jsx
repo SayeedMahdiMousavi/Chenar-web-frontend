@@ -1,48 +1,48 @@
-import React, { useState } from "react";
-import { Modal, Col, Row, Button } from "antd";
-import { useMediaQuery } from "../../MediaQurey";
-import { GlobalHotKeys } from "react-hotkeys";
-import { useMutation, useQueryClient } from "react-query";
-import axiosInstance from "../../ApiBaseUrl";
-import { Form, Input, Tooltip, Tabs, message, InputNumber } from "antd";
-import Uplod from "../Upload";
-import UploadFile from "../UploadFile";
-import { QuestionCircleOutlined } from "@ant-design/icons";
-import { useTranslation } from "react-i18next";
-import { AddItem } from "../../SelfComponents/AddItem";
-import { Styles } from "../../styles";
-import { ModalDragTitle } from "../../SelfComponents/ModalDragTitle";
-import Draggable from "react-draggable";
-import { CategoryField } from "../../SelfComponents/CategoryField";
-import { ActionMessage } from "../../SelfComponents/TranslateComponents/ActionMessage";
-import { trimString } from "../../../Functions/TrimString";
+import React, { useState } from 'react';
+import { Modal, Col, Row, Button } from 'antd';
+import { useMediaQuery } from '../../MediaQurey';
+import { GlobalHotKeys } from 'react-hotkeys';
+import { useMutation, useQueryClient } from 'react-query';
+import axiosInstance from '../../ApiBaseUrl';
+import { Form, Input, Tooltip, Tabs, message, InputNumber } from 'antd';
+import Uplod from '../Upload';
+import UploadFile from '../UploadFile';
+import { QuestionCircleOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
+import { AddItem } from '../../SelfComponents/AddItem';
+import { Styles } from '../../styles';
+import { ModalDragTitle } from '../../SelfComponents/ModalDragTitle';
+import Draggable from 'react-draggable';
+import { CategoryField } from '../../SelfComponents/CategoryField';
+import { ActionMessage } from '../../SelfComponents/TranslateComponents/ActionMessage';
+import { trimString } from '../../../Functions/TrimString';
 import {
   useGetBaseCurrency,
   useGetCalender,
   useGetDefaultCategory,
-} from "../../../Hooks";
+} from '../../../Hooks';
 import {
   PageNewButton,
   ResetButton,
   SaveAndNewButton,
-} from "../../../components";
-import { CUSTOMER_M } from "../../../constants/permissions";
-import BankCashOpenAccount from "../../Banking/BankCashOpenAccount";
+} from '../../../components';
+import { CUSTOMER_M } from '../../../constants/permissions';
+import BankCashOpenAccount from '../../Banking/BankCashOpenAccount';
 import {
   changeGToJ,
   handlePrepareDateForServer,
   utcDate,
-} from "../../../Functions/utcDate";
-import dayjs from "dayjs";
-import { debounce } from "throttle-debounce";
-import { addMessage, manageErrors } from "../../../Functions";
+} from '../../../Functions/utcDate';
+import dayjs from 'dayjs';
+import { debounce } from 'throttle-debounce';
+import { addMessage, manageErrors } from '../../../Functions';
 import {
   OPENING_ACCOUNT_LIST,
   OPENING_ACCOUNT_RESULT_LIST,
-} from "../../../constants/routes";
+} from '../../../constants/routes';
 
 const { TabPane } = Tabs;
-const dateFormat = "YYYY-MM-DD HH:mm";
+const dateFormat = 'YYYY-MM-DD HH:mm';
 const NewCustomer = (props) => {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
@@ -59,12 +59,12 @@ const NewCustomer = (props) => {
     visible: false,
   });
   const [disabled, setDisabled] = useState(true);
-  const isBgTablet = useMediaQuery("(max-width: 1024px)");
-  const isTablet = useMediaQuery("(max-width: 768px)");
-  const isMiniTablet = useMediaQuery("(max-width: 576px)");
-  const isMobile = useMediaQuery("(max-width: 425px)");
-  const isSubBase = useMediaQuery("(max-width: 375px)");
-  const [activeKey, setActiveKey] = useState("1");
+  const isBgTablet = useMediaQuery('(max-width: 1024px)');
+  const isTablet = useMediaQuery('(max-width: 768px)');
+  const isMiniTablet = useMediaQuery('(max-width: 576px)');
+  const isMobile = useMediaQuery('(max-width: 425px)');
+  const isSubBase = useMediaQuery('(max-width: 375px)');
+  const [activeKey, setActiveKey] = useState('1');
   const [visible, setVisible] = useState(false);
 
   //get current calender
@@ -96,14 +96,14 @@ const NewCustomer = (props) => {
 
   //get default category
   const defaultCategory = useGetDefaultCategory(
-    "/customer_account/customer_category/"
+    '/customer_account/customer_category/',
   );
 
   const onTabClick = (key) => {
     setActiveKey(key);
   };
 
-  const messageKey = "addCustomer";
+  const messageKey = 'addCustomer';
   const addCustomer = async ({ value }) =>
     await axiosInstance.post(`${props.baseUrl}`, value, { timeout: 0 });
 
@@ -114,20 +114,20 @@ const NewCustomer = (props) => {
   } = useMutation(addCustomer, {
     onSuccess: (values, { type, opening_balance }) => {
       queryClient.invalidateQueries(props.baseUrl);
-      if (type !== "0") {
+      if (type !== '0') {
         setIsShowModal({
           visible: false,
         });
         addMessage(values?.data?.name);
       }
-      if (type === "0") {
+      if (type === '0') {
         setVisible(false);
         form.resetFields();
         setError(false);
         setAttachmentError(false);
         setFileList([]);
         setFile();
-        setActiveKey("1");
+        setActiveKey('1');
         setAttachments([]);
         setAttachment();
         // setDiscountCard();
@@ -137,13 +137,13 @@ const NewCustomer = (props) => {
           content: (
             <ActionMessage
               name={`${values.data?.first_name} ${values.data?.last_name}`}
-              message="Message.Add"
+              message='Message.Add'
             />
           ),
           duration: 3,
         });
       }
-      if (props.place === "salesInvoice") {
+      if (props.place === 'salesInvoice') {
         props.form.setFieldsValue({
           serialNumber: values?.data?.id,
           buyerName: values?.data?.id,
@@ -166,12 +166,12 @@ const NewCustomer = (props) => {
       if (error?.response?.data?.non_field_errors?.[0]) {
         if (
           error?.response?.data?.non_field_errors?.[0] ===
-          "this person  is already exist"
+          'this person  is already exist'
         ) {
           message.error(
             `${error?.response?.data?.non_field_errors?.[0]}. ${t(
-              "Sales.Customers.Form.First_and_last_name_error"
-            )}`
+              'Sales.Customers.Form.First_and_last_name_error',
+            )}`,
           );
         } else {
           message.error(`${error?.response.data?.non_field_errors?.[0]}`);
@@ -185,73 +185,73 @@ const NewCustomer = (props) => {
     form.validateFields().then(async (values) => {
       if (error || attachmentError) {
         message.error(
-          `${t("Sales.Product_and_services.Form.Units_error_message")}`
+          `${t('Sales.Product_and_services.Form.Units_error_message')}`,
         );
         return;
       } else {
         const formData = new FormData();
         if (file?.name) {
-          formData.append("photo", file, file.name);
+          formData.append('photo', file, file.name);
         }
         if (attachment?.name) {
-          formData.append("attachment", attachment);
+          formData.append('attachment', attachment);
         }
-        formData.append("first_name", trimString(values.name));
-        formData.append("last_name", trimString(values.lastName));
+        formData.append('first_name', trimString(values.name));
+        formData.append('last_name', trimString(values.lastName));
         formData.append(
-          "nike_name",
-          values.nickName ? trimString(values.nickName) : ""
+          'nike_name',
+          values.nickName ? trimString(values.nickName) : '',
         );
-        formData.append("category", values?.category?.value);
+        formData.append('category', values?.category?.value);
         formData.append(
-          "company_name",
-          values.company ? trimString(values.company) : ""
+          'company_name',
+          values.company ? trimString(values.company) : '',
         );
-        formData.append("email", values.email ? values.email : "");
+        formData.append('email', values.email ? values.email : '');
         formData.append(
-          "phone_number",
-          values.phone ? trimString(values?.phone) : ""
+          'phone_number',
+          values.phone ? trimString(values?.phone) : '',
         );
         formData.append(
-          "mobile_number",
-          values.mobile ? trimString(values?.mobile) : ""
+          'mobile_number',
+          values.mobile ? trimString(values?.mobile) : '',
         );
         const discount = JSON.stringify({
           number_of_month: values.number_of_month,
           discount_card: values.type,
         });
-        formData.append("discount", discount);
-        formData.append("fax_number", values.fax ? trimString(values.fax) : "");
+        formData.append('discount', discount);
+        formData.append('fax_number', values.fax ? trimString(values.fax) : '');
         formData.append(
-          "website",
-          values.website ? trimString(values.website) : ""
+          'website',
+          values.website ? trimString(values.website) : '',
         );
         formData.append(
-          "credit_limit",
-          values.creditLimit ? values.creditLimit : ""
+          'credit_limit',
+          values.creditLimit ? values.creditLimit : '',
         );
         formData.append(
-          "national_id_number",
-          values.nationalIdNumber ? values.nationalIdNumber : ""
+          'national_id_number',
+          values.nationalIdNumber ? values.nationalIdNumber : '',
         );
-        formData.append("notes", values?.notes ? values?.notes : "");
-        formData.append("street", values?.bill_address?.street ?? "");
-        formData.append("country", values?.bill_address?.country ?? "");
-        formData.append("city", values?.bill_address?.city ?? "");
-        formData.append("province", values?.bill_address?.province ?? "");
+        formData.append('notes', values?.notes ? values?.notes : '');
+        formData.append('street', values?.bill_address?.street ?? '');
+        formData.append('country', values?.bill_address?.country ?? '');
+        formData.append('city', values?.bill_address?.city ?? '');
+        formData.append('province', values?.bill_address?.province ?? '');
 
         formData.append(
-          "plate_number",
-          values?.bill_address?.plate_number ?? ""
+          'plate_number',
+          values?.bill_address?.plate_number ?? '',
         );
-        formData.append("s_street", values?.ship_address?.street ?? "");
-        formData.append("s_country", values?.ship_address?.country ?? "");
-        formData.append("s_city", values?.ship_address?.city ?? "");
-        formData.append("s_province", values?.ship_address?.province ?? "");
-        formData.append("discount_serial", values?.discountSerial ?? "");
+        formData.append('s_street', values?.ship_address?.street ?? '');
+        formData.append('s_country', values?.ship_address?.country ?? '');
+        formData.append('s_city', values?.ship_address?.city ?? '');
+        formData.append('s_province', values?.ship_address?.province ?? '');
+        formData.append('discount_serial', values?.discountSerial ?? '');
         formData.append(
-          "s_plate_number",
-          values.ship_address?.plate_number ?? ""
+          's_plate_number',
+          values.ship_address?.plate_number ?? '',
         );
 
         const openBalance = {
@@ -267,12 +267,12 @@ const NewCustomer = (props) => {
 
         const isOpen = Boolean(values?.amount) && values?.amount > 0;
         if (isOpen) {
-          formData.append("opening_balance", JSON.stringify([openBalance]));
+          formData.append('opening_balance', JSON.stringify([openBalance]));
         }
 
-        if (type === "0") {
+        if (type === '0') {
           message.loading({
-            content: t("Message.Loading"),
+            content: t('Message.Loading'),
             key: messageKey,
           });
         }
@@ -296,7 +296,7 @@ const NewCustomer = (props) => {
     reset();
     setFileList([]);
     setFile();
-    setActiveKey("1");
+    setActiveKey('1');
     setAttachments([]);
     setAttachment();
     setError(false);
@@ -362,7 +362,7 @@ const NewCustomer = (props) => {
   };
 
   const keyMap = {
-    NEW_CUSTOMER: ["Control+M", "Control+m"],
+    NEW_CUSTOMER: ['Control+M', 'Control+m'],
   };
   const handlers = {
     NEW_CUSTOMER: (event) => {
@@ -372,12 +372,12 @@ const NewCustomer = (props) => {
         visible: true,
       });
 
-      // 
+      //
     },
   };
 
   // const onChangeDiscountCard = async (value) => {
-  //   // 
+  //   //
 
   //   setDiscountCard(value);
   //   setDiscountCard(value);
@@ -403,15 +403,15 @@ const NewCustomer = (props) => {
   const debounceFunc = debounce(500, async () => {
     const formData = form.getFieldsValue();
     form.setFieldsValue({
-      displayName: `${formData?.name ?? ""} ${formData?.lastName ?? ""} ${
-        formData?.nickName ?? ""
+      displayName: `${formData?.name ?? ''} ${formData?.lastName ?? ''} ${
+        formData?.nickName ?? ''
       }`,
     });
   });
 
   return (
     <div>
-      {props.place === "salesInvoice" ? (
+      {props.place === 'salesInvoice' ? (
         <AddItem showModal={showModal} />
       ) : (
         <GlobalHotKeys keyMap={keyMap} handlers={handlers}>
@@ -424,7 +424,7 @@ const NewCustomer = (props) => {
           <ModalDragTitle
             disabled={disabled}
             setDisabled={setDisabled}
-            title={t("Sales.Customers.Customer_information")}
+            title={t('Sales.Customers.Customer_information')}
           />
         }
         modalRender={(modal) => (
@@ -435,15 +435,15 @@ const NewCustomer = (props) => {
         onCancel={handleCancel}
         afterClose={handelAfterClose}
         destroyOnClose={true}
-        width={isMobile ? "100%" : isTablet ? "100%" : isBgTablet ? 1050 : 1050}
+        width={isMobile ? '100%' : isTablet ? '100%' : isBgTablet ? 1050 : 1050}
         style={Styles.modal(isMobile)}
         bodyStyle={Styles.modalBody(isMobile, isSubBase, isMiniTablet)}
         footer={
-          <Row justify="space-between" align="middle">
+          <Row justify='space-between' align='middle'>
             <Col>
               <ResetButton onClick={handelAfterClose} />
             </Col>
-            <Col className="text_align_center">
+            <Col className='text_align_center'>
               {/* <a href="#">{t("Form.Privacy")}</a> */}
             </Col>
 
@@ -462,19 +462,19 @@ const NewCustomer = (props) => {
           form={form}
           hideRequiredMark={true}
           scrollToFirstError={true}
-          layout="vertical"
+          layout='vertical'
           initialValues={{
             category: { label: defaultCategory?.name, value: 1 },
             bill_address: {
-              country: t("Sales.Customers.Form.Afghanistan"),
+              country: t('Sales.Customers.Form.Afghanistan'),
             },
             ship_address: {
-              country: t("Sales.Customers.Form.Afghanistan"),
+              country: t('Sales.Customers.Form.Afghanistan'),
             },
-            prefix: "0093",
-            prefi: "0093",
+            prefix: '0093',
+            prefi: '0093',
             date:
-              calendarCode === "gregory"
+              calendarCode === 'gregory'
                 ? utcDate()
                 : dayjs(changeGToJ(utcDate().format(dateFormat), dateFormat), {
                     //@ts-ignore
@@ -485,12 +485,12 @@ const NewCustomer = (props) => {
               label: baseCurrencyName,
             },
             currencyRate: 1,
-            transactionType: "credit",
+            transactionType: 'credit',
           }}
         >
           <Row>
             <Col md={{ span: 12 }} sm={{ span: 24 }} xs={{ span: 24 }}>
-              <Row gutter={10} align="bottom">
+              <Row gutter={10} align='bottom'>
                 <Col
                   // style={styles.firstRow(isMobile, isTablitBase)}
                   xl={{ span: 6 }}
@@ -501,16 +501,16 @@ const NewCustomer = (props) => {
                   // xs={10}
                 >
                   <Form.Item
-                    name="upload"
-                    valuePropName="fileList"
+                    name='upload'
+                    valuePropName='fileList'
                     getValueFromEvent={normFile}
-                    help={error ? `${t("Form.Photo_error")}` : undefined}
-                    validateStatus={error === true ? "error" : undefined}
-                    className="upload margin1"
+                    help={error ? `${t('Form.Photo_error')}` : undefined}
+                    validateStatus={error === true ? 'error' : undefined}
+                    className='upload margin1'
                   >
                     <Uplod
                       setFile={setFile}
-                      name={t("Form.Photo")}
+                      name={t('Form.Photo')}
                       setFileList={setFileList}
                       fileList={fileList}
                       onChange={onChange}
@@ -524,45 +524,45 @@ const NewCustomer = (props) => {
                       <Form.Item
                         label={
                           <span>
-                            {t("Form.Name1")}
-                            <span className="star">*</span>
+                            {t('Form.Name1')}
+                            <span className='star'>*</span>
                           </span>
                         }
-                        name="name"
+                        name='name'
                         style={styles.formItem}
                         rules={[
                           {
                             whitespace: true,
-                            message: `${t("Form.Name_required")}`,
+                            message: `${t('Form.Name_required')}`,
                             required: true,
                           },
                         ]}
                       >
                         <Input
                           autoFocus
-                          autoComplete="off"
+                          autoComplete='off'
                           onChange={handleChangeName}
                         />
                       </Form.Item>
                     </Col>
 
                     <Col xl={{ span: 8 }} md={{ span: 8 }}>
-                      {" "}
+                      {' '}
                       <Form.Item
                         label={
                           <span>
-                            {t("Form.Last_Name")}
-                            <span className="star">*</span>
+                            {t('Form.Last_Name')}
+                            <span className='star'>*</span>
                           </span>
                         }
                         rules={[
                           {
-                            message: `${t("Form.Required_last_name")}`,
+                            message: `${t('Form.Required_last_name')}`,
                             required: true,
                             whitespace: true,
                           },
                         ]}
-                        name="lastName"
+                        name='lastName'
                         style={styles.formItem}
                       >
                         <Input onChange={handleChangeName} />
@@ -570,8 +570,8 @@ const NewCustomer = (props) => {
                     </Col>
                     <Col xl={{ span: 8 }} md={{ span: 8 }}>
                       <Form.Item
-                        label={<span>{t("Form.Nick_name")}</span>}
-                        name="nickName"
+                        label={<span>{t('Form.Nick_name')}</span>}
+                        name='nickName'
                         style={styles.formItem}
                       >
                         <Input onChange={handleChangeName} />
@@ -580,8 +580,8 @@ const NewCustomer = (props) => {
 
                     <Col xl={{ span: 12 }} md={{ span: 12 }}>
                       <Form.Item
-                        label={t("Display_name")}
-                        name="displayName"
+                        label={t('Display_name')}
+                        name='displayName'
                         style={styles.formItem}
                       >
                         <Input />
@@ -590,8 +590,8 @@ const NewCustomer = (props) => {
 
                     <Col xl={{ span: 12 }} md={{ span: 12 }}>
                       <Form.Item
-                        label={<span> {t("Form.Company")}</span>}
-                        name="company"
+                        label={<span> {t('Form.Company')}</span>}
+                        name='company'
                         style={styles.formItem}
                       >
                         <Input />
@@ -600,15 +600,15 @@ const NewCustomer = (props) => {
                   </Row>
                 </Col>
                 <Col xl={{ span: 12 }} md={{ span: 12 }}>
-                  {" "}
+                  {' '}
                   <Form.Item noStyle>
                     <CategoryField
                       form={form}
-                      url="/customer_account/customer_category/"
+                      url='/customer_account/customer_category/'
                       label={
                         <span>
-                          {t("Sales.Product_and_services.Form.Category")}
-                          <span className="star">*</span>
+                          {t('Sales.Product_and_services.Form.Category')}
+                          <span className='star'>*</span>
                         </span>
                       }
                       style={styles.formItem}
@@ -631,15 +631,15 @@ const NewCustomer = (props) => {
                 </Col> */}
                 <Col md={{ span: 11 }} sm={{ span: 12 }} xs={24}>
                   <Form.Item
-                    name="creditLimit"
-                    label={t("Sales.Customers.Form.Credit_limit")}
-                    className="margin"
+                    name='creditLimit'
+                    label={t('Sales.Customers.Form.Credit_limit')}
+                    className='margin'
                   >
                     <InputNumber
                       min={1}
-                      type="number"
-                      className="num"
-                      inputMode="numeric"
+                      type='number'
+                      className='num'
+                      inputMode='numeric'
                     />
                   </Form.Item>
                 </Col>
@@ -648,15 +648,15 @@ const NewCustomer = (props) => {
             <Col md={12} sm={24} xs={24}>
               <Row gutter={[10]}>
                 <Col md={{ span: 23, offset: 1 }} sm={24} xs={24}>
-                  {" "}
+                  {' '}
                   <Form.Item
-                    name="email"
-                    label={t("Form.Email")}
+                    name='email'
+                    label={t('Form.Email')}
                     style={styles.formItem}
                     rules={[
                       {
-                        type: "email",
-                        message: `${t("Form.Email_Message")}`,
+                        type: 'email',
+                        message: `${t('Form.Email_Message')}`,
                       },
                     ]}
                   >
@@ -664,15 +664,15 @@ const NewCustomer = (props) => {
                   </Form.Item>
                 </Col>
                 <Col md={{ span: 11, offset: 1 }} sm={12} xs={24}>
-                  {" "}
+                  {' '}
                   <Form.Item
-                    name="phone"
+                    name='phone'
                     label={
                       <span>
-                        {t("Form.Phone")}&nbsp;
+                        {t('Form.Phone')}&nbsp;
                         <Tooltip
                           title={
-                            <span>{t("Form.Phone_sample")} 799773529</span>
+                            <span>{t('Form.Phone_sample')} 799773529</span>
                           }
                         >
                           <QuestionCircleOutlined />
@@ -686,12 +686,12 @@ const NewCustomer = (props) => {
                 </Col>
                 <Col sm={{ span: 12 }} xs={24}>
                   <Form.Item
-                    name="mobile"
+                    name='mobile'
                     label={
                       <span>
-                        {t("Form.Mobile")}&nbsp;
+                        {t('Form.Mobile')}&nbsp;
                         <Tooltip
-                          title={`${t("Form.Mobile_sample")} 0799773529 `}
+                          title={`${t('Form.Mobile_sample')} 0799773529 `}
                         >
                           <QuestionCircleOutlined />
                         </Tooltip>
@@ -704,14 +704,14 @@ const NewCustomer = (props) => {
                 </Col>
                 <Col md={{ span: 11, offset: 1 }} sm={12} xs={24}>
                   <Form.Item
-                    name="fax"
+                    name='fax'
                     label={
                       <span>
-                        {t("Form.Fax")}
+                        {t('Form.Fax')}
                         &nbsp;
                         <Tooltip
                           title={`${t(
-                            "Form.Fax_sample"
+                            'Form.Fax_sample',
                           )} 93799773529@efaxsend.com `}
                         >
                           <QuestionCircleOutlined />
@@ -725,13 +725,13 @@ const NewCustomer = (props) => {
                 </Col>
                 <Col sm={{ span: 12 }} xs={24}>
                   <Form.Item
-                    name="website"
-                    label={t("Form.Website")}
+                    name='website'
+                    label={t('Form.Website')}
                     style={styles.formItem}
                     rules={[
                       {
-                        type: "url",
-                        message: t("Form.Required_website"),
+                        type: 'url',
+                        message: t('Form.Required_website'),
                       },
                     ]}
                   >
@@ -744,61 +744,61 @@ const NewCustomer = (props) => {
           <Row>
             <Col span={24}>
               <Tabs
-                type="card"
+                type='card'
                 // animated={true}
                 activeKey={activeKey}
                 onTabClick={onTabClick}
-                size="small"
+                size='small'
                 tabBarStyle={styles.tab(isMobile)}
               >
-                <TabPane tab={t("Opening_account")} key="1">
+                <TabPane tab={t('Opening_account')} key='1'>
                   <Row gutter={10}>
                     <Col
                       md={11}
                       sm={18}
                       xs={24}
-                      style={{ padding: "10px 5px" }}
+                      style={{ padding: '10px 5px' }}
                     >
                       <BankCashOpenAccount
                         {...{ form, baseCurrencyId }}
-                        type="customer"
+                        type='customer'
                       />
                     </Col>
                   </Row>
                 </TabPane>
-                <TabPane tab={t("Form.Address")} key="2">
+                <TabPane tab={t('Form.Address')} key='2'>
                   <Row>
                     <Col md={12} sm={24} xs={24}>
                       <Row>
                         <Col md={23} sm={24} xs={24}>
                           <Form.Item
-                            label={t("Form.Billing_address")}
-                            name={["bill_address", "street"]}
+                            label={t('Form.Billing_address')}
+                            name={['bill_address', 'street']}
                             style={styles.address}
                           >
                             <Input
                               onChange={onChangeStreet}
-                              placeholder={t("Form.Street")}
+                              placeholder={t('Form.Street')}
                             />
                           </Form.Item>
                         </Col>
                         <Col md={{ span: 11 }} sm={12} xs={24}>
                           <Form.Item
-                            name={["bill_address", "country"]}
+                            name={['bill_address', 'country']}
                             style={styles.address}
                           >
                             <Input
                               onChange={onChangeCountry}
-                              placeholder={t("Form.Country")}
+                              placeholder={t('Form.Country')}
                             />
                           </Form.Item>
                           <Form.Item
-                            name={["bill_address", "city"]}
+                            name={['bill_address', 'city']}
                             style={styles.address}
                           >
                             <Input
                               onChange={onChangeCity}
-                              placeholder={t("Form.City/Town")}
+                              placeholder={t('Form.City/Town')}
                             />
                           </Form.Item>
                         </Col>
@@ -808,21 +808,21 @@ const NewCustomer = (props) => {
                           xs={24}
                         >
                           <Form.Item
-                            name={["bill_address", "province"]}
+                            name={['bill_address', 'province']}
                             style={styles.address}
                           >
                             <Input
                               onChange={onChangeProvince}
-                              placeholder={t("Form.State/Province")}
+                              placeholder={t('Form.State/Province')}
                             />
                           </Form.Item>
                           <Form.Item
-                            name={["bill_address", "plate_number"]}
+                            name={['bill_address', 'plate_number']}
                             style={styles.address}
                           >
                             <Input
                               onChange={onChangePostalCode}
-                              placeholder={t("Form.Postal_code")}
+                              placeholder={t('Form.Postal_code')}
                             />
                           </Form.Item>
                         </Col>
@@ -832,11 +832,11 @@ const NewCustomer = (props) => {
                       <Row>
                         <Col md={{ span: 23, offset: 1 }} sm={24} xs={24}>
                           <Form.Item
-                            label={t("Form.Shipping_address")}
-                            name={["ship_address", "street"]}
+                            label={t('Form.Shipping_address')}
+                            name={['ship_address', 'street']}
                             style={styles.address}
                           >
-                            <Input placeholder={t("Form.Street")} />
+                            <Input placeholder={t('Form.Street')} />
                           </Form.Item>
                         </Col>
                         <Col
@@ -845,30 +845,30 @@ const NewCustomer = (props) => {
                           xs={{ span: 24 }}
                         >
                           <Form.Item
-                            name={["ship_address", "country"]}
+                            name={['ship_address', 'country']}
                             style={styles.address}
                           >
-                            <Input placeholder={t("Form.Country")} />
+                            <Input placeholder={t('Form.Country')} />
                           </Form.Item>
                           <Form.Item
-                            name={["ship_address", "city"]}
+                            name={['ship_address', 'city']}
                             style={styles.formItem}
                           >
-                            <Input placeholder={t("Form.City/Town")} />
+                            <Input placeholder={t('Form.City/Town')} />
                           </Form.Item>
                         </Col>
                         <Col sm={{ span: 11, offset: 1 }} xs={{ span: 24 }}>
                           <Form.Item
-                            name={["ship_address", "province"]}
+                            name={['ship_address', 'province']}
                             style={styles.address}
                           >
-                            <Input placeholder={t("Form.State/Province")} />
+                            <Input placeholder={t('Form.State/Province')} />
                           </Form.Item>
                           <Form.Item
-                            name={["ship_address", "plate_number"]}
+                            name={['ship_address', 'plate_number']}
                             style={styles.formItem}
                           >
-                            <Input placeholder={t("Form.Postal_code")} />
+                            <Input placeholder={t('Form.Postal_code')} />
                           </Form.Item>
                         </Col>
                       </Row>
@@ -877,16 +877,16 @@ const NewCustomer = (props) => {
                 </TabPane>
 
                 <TabPane
-                  style={{ marginBottom: "0rem" }}
-                  tab={t("Form.Notes")}
-                  key="3"
+                  style={{ marginBottom: '0rem' }}
+                  tab={t('Form.Notes')}
+                  key='3'
                 >
                   <Row>
                     <Col span={24}>
                       <Form.Item
-                        name="notes"
-                        label={t("Form.Notes")}
-                        className="margin1"
+                        name='notes'
+                        label={t('Form.Notes')}
+                        className='margin1'
                       >
                         <Input.TextArea
                           autoSize={{ minRows: 4, maxRows: 4 }}
@@ -897,39 +897,39 @@ const NewCustomer = (props) => {
                   </Row>
                 </TabPane>
 
-                <TabPane tab={t("Form.Attachments")} key="4">
+                <TabPane tab={t('Form.Attachments')} key='4'>
                   <Row>
                     <Col md={8} sm={14} xs={20}>
                       <Form.Item
                         label={
                           <span>
-                            {t("Form.Attachments")} &nbsp;
+                            {t('Form.Attachments')} &nbsp;
                             <Tooltip
-                              title={t("Form.Attachments_tooltip")}
-                              placement="left"
+                              title={t('Form.Attachments_tooltip')}
+                              placement='left'
                             >
                               <QuestionCircleOutlined />
                             </Tooltip>
                           </span>
                         }
                         validateStatus={
-                          attachmentError === true ? "error" : undefined
+                          attachmentError === true ? 'error' : undefined
                         }
                         help={
                           attachmentError === true
-                            ? t("Form.Attachments_tooltip")
+                            ? t('Form.Attachments_tooltip')
                             : undefined
                         }
                       >
                         <Form.Item
-                          name="attachment"
-                          valuePropName="fileList"
+                          name='attachment'
+                          valuePropName='fileList'
                           getValueFromEvent={normFile1}
                           noStyle
                         >
                           <UploadFile
                             setFile={setAttachment}
-                            name={t("Form.Drag_Drop")}
+                            name={t('Form.Drag_Drop')}
                             setFileList={setAttachments}
                             fileList={attachments}
                             onChange={onChangeDrag}
@@ -1077,12 +1077,12 @@ const NewCustomer = (props) => {
   );
 };
 const styles = {
-  address: { marginBottom: ".5rem" },
+  address: { marginBottom: '.5rem' },
   tab: (isMobile) => ({
-    marginBottom: "8px",
-    marginTop: isMobile ? "1rem" : "5px",
+    marginBottom: '8px',
+    marginTop: isMobile ? '1rem' : '5px',
   }),
-  formItem: { marginBottom: "10px" },
+  formItem: { marginBottom: '10px' },
 };
 // const enhancProduct = withObservables(["groups"], ({ database }) => ({
 //   groups: database.collections.get("groups").query().observe(),

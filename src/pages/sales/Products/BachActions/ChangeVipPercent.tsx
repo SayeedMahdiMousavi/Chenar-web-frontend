@@ -59,11 +59,11 @@ const ChangeVipPercent: React.FC<IProps> = (props) => {
           let selectedRows = props.selectedRows;
           const updateItems = value?.reduce((sum: any, item: any) => {
             const newItem = props.selectedRows?.find(
-              (rowItem: any) => rowItem.id === item?.product
+              (rowItem: any) => rowItem.id === item?.product,
             );
 
             selectedRows = selectedRows?.filter(
-              (rowItem: any) => rowItem.id !== item?.product
+              (rowItem: any) => rowItem.id !== item?.product,
             );
             return [
               ...sum,
@@ -75,7 +75,7 @@ const ChangeVipPercent: React.FC<IProps> = (props) => {
           }, []);
           props.setSelectedRows([...selectedRows, ...updateItems]);
           message.success(
-            t('Sales.Product_and_services.Form.Vip_save_message')
+            t('Sales.Product_and_services.Form.Vip_save_message'),
           );
           setVisible(false);
         })
@@ -89,7 +89,7 @@ const ChangeVipPercent: React.FC<IProps> = (props) => {
         }),
     {
       onSuccess: () => queryClient.invalidateQueries(`${props.baseUrl}`),
-    }
+    },
   );
   const { mutate: mutateEditVipPrice } = useMutation(
     async (value: any) =>
@@ -97,7 +97,7 @@ const ChangeVipPercent: React.FC<IProps> = (props) => {
         .put(`/product/price/vip/${props?.record?.id}/`, value)
         .then(() => {
           message.success(
-            t('Sales.Product_and_services.Form.Vip_save_message')
+            t('Sales.Product_and_services.Form.Vip_save_message'),
           );
           setVisible(false);
         })
@@ -111,7 +111,7 @@ const ChangeVipPercent: React.FC<IProps> = (props) => {
         }),
     {
       onSuccess: () => queryClient.invalidateQueries(`${props.baseUrl}`),
-    }
+    },
   );
 
   let oneRequest = false;
@@ -123,7 +123,7 @@ const ChangeVipPercent: React.FC<IProps> = (props) => {
         if (values?.addVipPercent === 0) {
           setVisible(false);
           message.success(
-            t('Sales.Product_and_services.Form.Vip_save_message')
+            t('Sales.Product_and_services.Form.Vip_save_message'),
           );
         } else {
           setLoading(true);
@@ -163,7 +163,7 @@ const ChangeVipPercent: React.FC<IProps> = (props) => {
       sales && purchase
         ? print(
             //@ts-ignore
-            math.evaluate(`(${sales}-${purchase})*${vipPercent}/100`)
+            math.evaluate(`(${sales}-${purchase})*${vipPercent}/100`),
           )
         : 0;
     //@ts-ignore
@@ -176,8 +176,8 @@ const ChangeVipPercent: React.FC<IProps> = (props) => {
         ? print(
             //@ts-ignore
             math.evaluate(
-              `(${value}*100)/(${baseUnit?.sales_rate}-${baseUnit?.perches_rate})`
-            )
+              `(${value}*100)/(${baseUnit?.sales_rate}-${baseUnit?.perches_rate})`,
+            ),
           )
         : 0;
     //@ts-ignore
@@ -190,38 +190,38 @@ const ChangeVipPercent: React.FC<IProps> = (props) => {
         item?.is_have_vip_price === true &&
         item?.vip_price === null &&
         item?.price?.find((item: any) =>
-          item?.unit_pro_relation?.includes('base_unit')
-        )
+          item?.unit_pro_relation?.includes('base_unit'),
+        ),
     );
     const ok = props?.selectedRows?.some(
       (item: any) =>
         !item?.price?.find((item: any) =>
-          item?.unit_pro_relation?.includes('base_unit')
-        )
+          item?.unit_pro_relation?.includes('base_unit'),
+        ),
     );
     if (productItems.length > 0) {
       if (ok) {
         message.error(
-          t('Sales.Product_and_services.Form.Vip_base_unit_price_bulk_message')
+          t('Sales.Product_and_services.Form.Vip_base_unit_price_bulk_message'),
         );
       }
       form.setFieldsValue({
         addVipPercent: productItems?.map((item: any) => {
           const baseUnit = item?.price?.find((item: any) =>
-            item?.unit_pro_relation?.includes('base_unit')
+            item?.unit_pro_relation?.includes('base_unit'),
           );
           const vipPrice = checkVipPrice(
             //@ts-ignore
             80,
             baseUnit?.sales_rate,
-            baseUnit?.perches_rate
+            baseUnit?.perches_rate,
           );
 
           const benefit =
             baseUnit?.sales_rate && baseUnit?.perches_rate
               ? print(
                   //@ts-ignore
-                  math.evaluate(`${baseUnit?.sales_rate}-${vipPrice}`)
+                  math.evaluate(`${baseUnit?.sales_rate}-${vipPrice}`),
                 )
               : 0;
           const profit =
@@ -231,7 +231,7 @@ const ChangeVipPercent: React.FC<IProps> = (props) => {
             const vipPrice = checkVipPrice(
               parseFloat(item?.vip_price?.vip_percent),
               baseUnit?.sales_rate,
-              baseUnit?.perches_rate
+              baseUnit?.perches_rate,
             );
 
             return {
@@ -266,7 +266,7 @@ const ChangeVipPercent: React.FC<IProps> = (props) => {
       }, 1000);
     } else {
       message.error(
-        t('Sales.Product_and_services.Form.Vip_percent_bulk_message')
+        t('Sales.Product_and_services.Form.Vip_percent_bulk_message'),
       );
     }
   };
@@ -275,17 +275,17 @@ const ChangeVipPercent: React.FC<IProps> = (props) => {
     (itemIndex: number): any => {
       const formValue = form.getFieldsValue();
       const item = formValue?.addVipPercent?.find(
-        (item: any, index: number) => index === itemIndex
+        (item: any, index: number) => index === itemIndex,
       );
 
       return item;
     },
-    [updateForm]
+    [updateForm],
   );
 
   const handelChangePercent = (
     value: string | number | null | undefined,
-    itemIndex: number
+    itemIndex: number,
   ) => {
     debounceFunHandelChangePercent(value, itemIndex);
   };
@@ -296,7 +296,7 @@ const ChangeVipPercent: React.FC<IProps> = (props) => {
       const formValue = form.getFieldsValue();
 
       const baseUnit: any = formValue?.addVipPercent?.find(
-        (item: any, index: number) => index === itemIndex
+        (item: any, index: number) => index === itemIndex,
       )?.baseUnit;
 
       //@ts-ignore
@@ -306,7 +306,7 @@ const ChangeVipPercent: React.FC<IProps> = (props) => {
           //@ts-ignore
           parseFloat(value),
           baseUnit?.sales_rate,
-          baseUnit?.perches_rate
+          baseUnit?.perches_rate,
         );
         form.setFieldsValue({
           addVipPercent: formValue?.addVipPercent?.map(
@@ -321,7 +321,7 @@ const ChangeVipPercent: React.FC<IProps> = (props) => {
               } else {
                 return item;
               }
-            }
+            },
           ),
         });
       } else {
@@ -338,16 +338,16 @@ const ChangeVipPercent: React.FC<IProps> = (props) => {
               } else {
                 return item;
               }
-            }
+            },
           ),
         });
       }
-    }
+    },
   );
 
   const handelChangePrice = (
     value: string | number | null | undefined,
-    itemIndex: any
+    itemIndex: any,
   ) => {
     debounceFunHandelChangePrice(value, itemIndex);
   };
@@ -358,7 +358,7 @@ const ChangeVipPercent: React.FC<IProps> = (props) => {
       const formValue = form.getFieldsValue();
       if (value) {
         const productItem: any = formValue?.addVipPercent?.find(
-          (item: any, index: number) => index === itemIndex
+          (item: any, index: number) => index === itemIndex,
         );
         const baseUnit: any = productItem?.baseUnit;
         const benefit: any = productItem?.benefit;
@@ -387,7 +387,7 @@ const ChangeVipPercent: React.FC<IProps> = (props) => {
               } else {
                 return item;
               }
-            }
+            },
           ),
         });
       } else {
@@ -402,11 +402,11 @@ const ChangeVipPercent: React.FC<IProps> = (props) => {
               } else {
                 return item;
               }
-            }
+            },
           ),
         });
       }
-    }
+    },
   );
 
   const numberInputReg = /^0/;
@@ -416,10 +416,10 @@ const ChangeVipPercent: React.FC<IProps> = (props) => {
     return value > 80
       ? 80
       : value < 0
-      ? 0
-      : numberInputReg.test(value)
-      ? 0
-      : value;
+        ? 0
+        : numberInputReg.test(value)
+          ? 0
+          : value;
   };
 
   //   ,
@@ -430,10 +430,10 @@ const ChangeVipPercent: React.FC<IProps> = (props) => {
     return value > parseFloat(getItem(ItemIndex)?.base_unit?.sales_rate)
       ? parseFloat(getItem(ItemIndex)?.base_unit?.sales_rate)
       : numberInputReg.test(value)
-      ? getItem(ItemIndex)?.benefit
-      : !regex.test(value) && value
-      ? parseInt(value)
-      : value;
+        ? getItem(ItemIndex)?.benefit
+        : !regex.test(value) && value
+          ? parseInt(value)
+          : value;
   };
 
   const inputNumberFocus = (e: any) => {
@@ -501,12 +501,11 @@ const ChangeVipPercent: React.FC<IProps> = (props) => {
                                   {...field}
                                   validateTrigger={['onChange', 'onBlur']}
                                   name={[field.name, 'product']}
-                                  fieldKey={[field.fieldKey, 'product']}
                                   label={
                                     index === 0 ? (
                                       <span>
                                         {t(
-                                          'Sales.Product_and_services.Product'
+                                          'Sales.Product_and_services.Product',
                                         )}
                                       </span>
                                     ) : (
@@ -523,7 +522,6 @@ const ChangeVipPercent: React.FC<IProps> = (props) => {
                                   {...field}
                                   validateTrigger={['onChange', 'onBlur']}
                                   name={[field.name, 'profit']}
-                                  fieldKey={[field.fieldKey, 'profit']}
                                   label={
                                     index === 0 ? (
                                       <span>{t('Reports.Profit')} </span>
@@ -541,7 +539,6 @@ const ChangeVipPercent: React.FC<IProps> = (props) => {
                                   {...field}
                                   validateTrigger={['onChange', 'onBlur']}
                                   name={[field.name, 'percent']}
-                                  fieldKey={[field.fieldKey, 'percent']}
                                   label={
                                     index === 0 ? (
                                       <span>
@@ -555,7 +552,7 @@ const ChangeVipPercent: React.FC<IProps> = (props) => {
                                   rules={[
                                     {
                                       message: `${t(
-                                        'Sales.Customers.Discount.Required_percent'
+                                        'Sales.Customers.Discount.Required_percent',
                                       )}`,
                                       required: true,
                                     },
@@ -579,13 +576,12 @@ const ChangeVipPercent: React.FC<IProps> = (props) => {
                                 <Form.Item
                                   {...field}
                                   validateTrigger={['onChange', 'onBlur']}
-                                  fieldKey={[field.fieldKey, 'price']}
                                   name={[field.name, 'price']}
                                   label={
                                     index === 0 ? (
                                       <span>
                                         {t(
-                                          'Sales.Product_and_services.Form.Price'
+                                          'Sales.Product_and_services.Form.Price',
                                         )}
                                       </span>
                                     ) : (
@@ -598,7 +594,7 @@ const ChangeVipPercent: React.FC<IProps> = (props) => {
                                     max={
                                       getItem(index)?.baseUnit
                                         ? parseFloat(
-                                            productItem?.baseUnit?.sales_rate
+                                            productItem?.baseUnit?.sales_rate,
                                           )
                                         : undefined
                                     }

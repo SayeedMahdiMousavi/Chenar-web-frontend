@@ -1,8 +1,8 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 // import Draggable from "react-draggable";
-import { Row, Col, Typography, Avatar, List, Table, Divider } from "antd";
-import { EditOutlined } from "@ant-design/icons";
+import { Row, Col, Typography, Avatar, List, Table, Divider } from 'antd';
+import { EditOutlined } from '@ant-design/icons';
 const { Text, Title, Paragraph } = Typography;
 const { Column } = Table;
 export default function Content(props) {
@@ -10,14 +10,14 @@ export default function Content(props) {
 
   // const [activeDrags, setActiveDrags] = useState(0);
   // const eventLogger = (e, data) => {
-  //   
-  //   
+  //
+  //
   // };
   // const onStart = () => {
   //   setActiveDrags(activeDrags + 1);
   // };
   // const handleDrag = (data) => {
-  //   
+  //
   // };
   // const onStop = () => {
   //   setActiveDrags(activeDrags + 1);
@@ -27,13 +27,13 @@ export default function Content(props) {
   return (
     <div>
       <div
-        className="custom_form_style_pdf"
+        className='custom_form_style_pdf'
         style={styles.pdf_margin(
           props.top,
           props.right,
           props.bottom,
           props.left,
-          props.fitWindow
+          props.fitWindow,
         )}
       >
         <Row gutter={[0, 12]}>
@@ -41,20 +41,20 @@ export default function Content(props) {
             <Col
               span={24}
               onClick={props.edit.onClickTitle}
-              className="account_setting_drawer_hover"
+              className='account_setting_drawer_hover'
             >
-              <Row justify="space-between">
+              <Row justify='space-between'>
                 <Col>
                   <Title
                     level={4}
                     style={styles.font(props.fontSize, props.fontFamily)}
                   >
-                    {" "}
+                    {' '}
                     {props.edit.titleContent}
                   </Title>
                 </Col>
                 <Col>
-                  <EditOutlined className="font" />
+                  <EditOutlined className='font' />
                 </Col>
               </Row>
             </Col>
@@ -62,14 +62,14 @@ export default function Content(props) {
           <Col
             span={24}
             onClick={props.edit.onClickHeader}
-            className="account_setting_drawer_hover"
+            className='account_setting_drawer_hover'
           >
             <Row>
               <Col
                 span={24}
                 style={styles.font(props.fontSize, props.fontFamily)}
               >
-                <Row className="num" justify="space-between">
+                <Row className='num' justify='space-between'>
                   <Col>
                     <Paragraph>
                       {props.edit.phoneShow && props.edit.phone && (
@@ -86,7 +86,7 @@ export default function Content(props) {
                       )}
                       {props.edit.websiteShow && props.edit.website && (
                         <div>
-                          {" "}
+                          {' '}
                           <Text>{props.edit.website}</Text>
                           <br />
                         </div>
@@ -94,7 +94,7 @@ export default function Content(props) {
 
                       {props.edit.companyNoShow && props.edit.companyNo && (
                         <Text>
-                          {" "}
+                          {' '}
                           Company registration number &nbsp;
                           {props.edit.companyNo}
                         </Text>
@@ -102,21 +102,21 @@ export default function Content(props) {
                     </Paragraph>
                   </Col>
                   <Col>
-                    {" "}
+                    {' '}
                     {props.showLogo && (
                       <Avatar
-                        shape="square"
-                        alt={`${t("Company.Logo")}`}
+                        shape='square'
+                        alt={`${t('Company.Logo')}`}
                         size={props.size}
                         // className='cursor'
 
-                        src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                        src='https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
                       >
-                        {t("Company.Logo")}
+                        {t('Company.Logo')}
                       </Avatar>
                     )}
                     &nbsp;&nbsp;
-                    <EditOutlined className="font" />
+                    <EditOutlined className='font' />
                   </Col>
                 </Row>
               </Col>
@@ -131,7 +131,7 @@ export default function Content(props) {
                     style={styles.color(
                       props.background,
                       props.fontSize,
-                      props.fontFamily
+                      props.fontFamily,
                     )}
                   >
                     {props.edit.taxInvoice.toUpperCase()}
@@ -141,27 +141,27 @@ export default function Content(props) {
               <Col span={24}>
                 <Row gutter={5}>
                   <Col span={6}>
-                    {" "}
+                    {' '}
                     <List
-                      itemLayout="horizontal"
+                      itemLayout='horizontal'
                       dataSource={props.data}
-                      size="small"
+                      size='small'
                       split={false}
                       style={styles.font(props.fontSize, props.fontFamily)}
                       renderItem={(item) => (
                         <List.Item
                           style={{
                             // borderBottom: `1px solid ${gray} `,
-                            wordWrap: " break-word",
-                            wordBreak: "break-all",
+                            wordWrap: ' break-word',
+                            wordBreak: 'break-all',
                             // fontSize: "9px",
-                            padding: "0px",
+                            padding: '0px',
                           }}
                         >
                           {item.show && (
-                            <Row className="num" gutter={5}>
+                            <Row className='num' gutter={5}>
                               <Col xs={12}>
-                                <h4> {item.description}</h4>{" "}
+                                <h4> {item.description}</h4>{' '}
                               </Col>
                               <Col xs={12}>{item.content}</Col>
                             </Row>
@@ -173,24 +173,24 @@ export default function Content(props) {
                   <Col span={6}>
                     {props.edit.shipping && (
                       <List
-                        itemLayout="horizontal"
+                        itemLayout='horizontal'
                         dataSource={props.dataA}
-                        size="small"
+                        size='small'
                         style={styles.font(props.fontSize, props.fontFamily)}
                         split={false}
                         renderItem={(item) => (
                           <List.Item
                             style={{
                               // borderBottom: `1px solid ${gray} `,
-                              wordWrap: " break-word",
-                              wordBreak: "break-all",
+                              wordWrap: ' break-word',
+                              wordBreak: 'break-all',
                               // fontSize: "9px",
-                              padding: "0px",
+                              padding: '0px',
                             }}
                           >
-                            <Row style={{ width: "100%" }} gutter={5}>
+                            <Row style={{ width: '100%' }} gutter={5}>
                               <Col xs={12}>
-                                <h4> {item.description}</h4>{" "}
+                                <h4> {item.description}</h4>{' '}
                               </Col>
                               <Col xs={12}>{item.content}</Col>
                             </Row>
@@ -202,24 +202,24 @@ export default function Content(props) {
                   <Col span={6}>
                     {props.edit.shipping && (
                       <List
-                        itemLayout="horizontal"
+                        itemLayout='horizontal'
                         dataSource={props.dataB}
-                        size="small"
+                        size='small'
                         split={false}
                         style={styles.font(props.fontSize, props.fontFamily)}
                         renderItem={(item) => (
                           <List.Item
                             style={{
                               // borderBottom: `1px solid ${gray} `,
-                              wordWrap: " break-word",
-                              wordBreak: "break-all",
+                              wordWrap: ' break-word',
+                              wordBreak: 'break-all',
                               // fontSize: "9px",
-                              padding: "0px",
+                              padding: '0px',
                             }}
                           >
-                            <Row style={{ width: "100%" }} gutter={5}>
+                            <Row style={{ width: '100%' }} gutter={5}>
                               <Col xs={12}>
-                                <h4> {item.description}</h4>{" "}
+                                <h4> {item.description}</h4>{' '}
                               </Col>
                               <Col xs={12}>{item.content}</Col>
                             </Row>
@@ -229,27 +229,27 @@ export default function Content(props) {
                     )}
                   </Col>
                   <Col span={6}>
-                    {" "}
+                    {' '}
                     <List
-                      itemLayout="horizontal"
+                      itemLayout='horizontal'
                       dataSource={props.dataC}
-                      size="small"
+                      size='small'
                       style={styles.font(props.fontSize, props.fontFamily)}
                       split={false}
                       renderItem={(item) => (
                         <List.Item
                           style={{
                             // borderBottom: `1px solid ${gray} `,
-                            wordWrap: " break-word",
-                            wordBreak: "break-all",
+                            wordWrap: ' break-word',
+                            wordBreak: 'break-all',
                             // fontSize: "9px",
-                            padding: "0px",
+                            padding: '0px',
                           }}
                         >
                           {item.show && (
-                            <Row className="num" gutter={5}>
+                            <Row className='num' gutter={5}>
                               <Col xs={12}>
-                                <h4> {item.description}</h4>{" "}
+                                <h4> {item.description}</h4>{' '}
                               </Col>
                               <Col xs={12}>{item.content}</Col>
                             </Row>
@@ -264,8 +264,8 @@ export default function Content(props) {
                 <Row gutter={[0, 5]}>
                   {props.edit.custom1Show && props.edit.custom1 && (
                     <Col xs={6}>
-                      <Text type="secondary" strong={true}>
-                        {" "}
+                      <Text type='secondary' strong={true}>
+                        {' '}
                         {props.edit.custom1}
                       </Text>
                       <br />
@@ -274,8 +274,8 @@ export default function Content(props) {
                   )}
                   {props.edit.custom2Show && props.edit.custom2 && (
                     <Col xs={6}>
-                      <Text type="secondary" strong={true}>
-                        {" "}
+                      <Text type='secondary' strong={true}>
+                        {' '}
                         {props.edit.custom2}
                       </Text>
                       <br />
@@ -284,8 +284,8 @@ export default function Content(props) {
                   )}
                   {props.edit.custom3Show && props.edit.custom3 && (
                     <Col xs={6}>
-                      <Text type="secondary" strong={true}>
-                        {" "}
+                      <Text type='secondary' strong={true}>
+                        {' '}
                         {props.edit.custom3}
                       </Text>
                       <br />
@@ -298,24 +298,24 @@ export default function Content(props) {
           </Col>
           <Col
             span={24}
-            className="account_setting_drawer_hover"
+            className='account_setting_drawer_hover'
             onClick={props.edit.onClickTable}
           >
             <Row
               style={styles.font(props.fontSize, props.fontFamily)}
-              className="position-relative"
+              className='position-relative'
             >
               {props.edit.showInvoice && (
                 <Col span={24}>
                   <Row>
                     <Col span={24}>
-                      {" "}
+                      {' '}
                       ACCOUNT SUMMARY
-                      <Divider style={{ margin: "3px " }} />
+                      <Divider style={{ margin: '3px ' }} />
                     </Col>
                     <Col span={4}>01/07/2018</Col>
                     <Col span={16}>
-                      {" "}
+                      {' '}
                       Balance Forward
                       <br />
                       Payments and credits between 01/12/2016 and 12/01/2016
@@ -334,13 +334,13 @@ export default function Content(props) {
                       AED715.00
                     </Col>
                   </Row>
-                  <Divider style={{ margin: "7px 0px " }} />
+                  <Divider style={{ margin: '7px 0px ' }} />
                 </Col>
               )}
               <Col span={24}>
                 <Table
-                  size="small"
-                  tableLayout="fixed"
+                  size='small'
+                  tableLayout='fixed'
                   dataSource={props.dataSours}
                   pagination={false}
                   style={styles.font(props.fontSize, props.fontFamily)}
@@ -352,21 +352,21 @@ export default function Content(props) {
                           style={styles.tableHeader(
                             props.background,
                             props.fontSize,
-                            props.fontFamily
+                            props.fontFamily,
                           )}
                         >
                           Date
                         </div>
                       }
-                      dataIndex="date"
-                      key="date"
-                      className="account_setting_drawer_hover"
+                      dataIndex='date'
+                      key='date'
+                      className='account_setting_drawer_hover'
                       render={(text, record) => {
                         return {
                           props: {
                             style: styles.font(
                               props.fontSize,
-                              props.fontFamily
+                              props.fontFamily,
                             ),
                           },
                           children: <div>{text}</div>,
@@ -382,21 +382,21 @@ export default function Content(props) {
                           style={styles.tableHeader(
                             props.background,
                             props.fontSize,
-                            props.fontFamily
+                            props.fontFamily,
                           )}
                         >
                           ACTIVITY
                         </div>
                       }
-                      dataIndex="activity"
-                      key="activity"
-                      className="account_setting_drawer_hover"
+                      dataIndex='activity'
+                      key='activity'
+                      className='account_setting_drawer_hover'
                       render={(text, record) => {
                         return {
                           props: {
                             style: styles.font(
                               props.fontSize,
-                              props.fontFamily
+                              props.fontFamily,
                             ),
                           },
                           children: <div>{text}</div>,
@@ -411,21 +411,21 @@ export default function Content(props) {
                           style={styles.tableHeader(
                             props.background,
                             props.fontSize,
-                            props.fontFamily
+                            props.fontFamily,
                           )}
                         >
                           DESCRIPTION
                         </div>
                       }
                       width={100}
-                      dataIndex="description"
-                      key="email"
+                      dataIndex='description'
+                      key='email'
                       render={(text, record) => {
                         return {
                           props: {
                             style: styles.font(
                               props.fontSize,
-                              props.fontFamily
+                              props.fontFamily,
                             ),
                           },
                           children: <div>{text}</div>,
@@ -440,20 +440,20 @@ export default function Content(props) {
                           style={styles.tableHeader(
                             props.background,
                             props.fontSize,
-                            props.fontFamily
+                            props.fontFamily,
                           )}
                         >
                           TAX
                         </div>
                       }
-                      dataIndex="tax"
-                      key="tax"
+                      dataIndex='tax'
+                      key='tax'
                       render={(text, record) => {
                         return {
                           props: {
                             style: styles.font(
                               props.fontSize,
-                              props.fontFamily
+                              props.fontFamily,
                             ),
                           },
                           children: <div>{text}</div>,
@@ -468,20 +468,20 @@ export default function Content(props) {
                           style={styles.tableHeader(
                             props.background,
                             props.fontSize,
-                            props.fontFamily
+                            props.fontFamily,
                           )}
                         >
                           QTY
                         </div>
                       }
-                      dataIndex="qty"
-                      key="qty"
+                      dataIndex='qty'
+                      key='qty'
                       render={(text, record) => {
                         return {
                           props: {
                             style: styles.font(
                               props.fontSize,
-                              props.fontFamily
+                              props.fontFamily,
                             ),
                           },
                           children: <div>{text}</div>,
@@ -496,20 +496,20 @@ export default function Content(props) {
                           style={styles.tableHeader(
                             props.background,
                             props.fontSize,
-                            props.fontFamily
+                            props.fontFamily,
                           )}
                         >
                           Due
                         </div>
                       }
-                      dataIndex="due"
-                      key="due"
+                      dataIndex='due'
+                      key='due'
                       render={(text, record) => {
                         return {
                           props: {
                             style: styles.font(
                               props.fontSize,
-                              props.fontFamily
+                              props.fontFamily,
                             ),
                           },
                           children: <div>{text}</div>,
@@ -524,20 +524,20 @@ export default function Content(props) {
                           style={styles.tableHeader(
                             props.background,
                             props.fontSize,
-                            props.fontFamily
+                            props.fontFamily,
                           )}
                         >
                           RATE
                         </div>
                       }
-                      dataIndex="rate"
-                      key="rate"
+                      dataIndex='rate'
+                      key='rate'
                       render={(text, record) => {
                         return {
                           props: {
                             style: styles.font(
                               props.fontSize,
-                              props.fontFamily
+                              props.fontFamily,
                             ),
                           },
                           children: <div>{text}</div>,
@@ -552,20 +552,20 @@ export default function Content(props) {
                           style={styles.tableHeader(
                             props.background,
                             props.fontSize,
-                            props.fontFamily
+                            props.fontFamily,
                           )}
                         >
                           AMOUNT
                         </div>
                       }
-                      dataIndex="amount"
-                      key="amount"
+                      dataIndex='amount'
+                      key='amount'
                       render={(text, record) => {
                         return {
                           props: {
                             style: styles.font(
                               props.fontSize,
-                              props.fontFamily
+                              props.fontFamily,
                             ),
                           },
                           children: <div>{text}</div>,
@@ -580,20 +580,20 @@ export default function Content(props) {
                           style={styles.tableHeader(
                             props.background,
                             props.fontSize,
-                            props.fontFamily
+                            props.fontFamily,
                           )}
                         >
                           SKU
                         </div>
                       }
-                      dataIndex="sku"
-                      key="sku"
+                      dataIndex='sku'
+                      key='sku'
                       render={(text, record) => {
                         return {
                           props: {
                             style: styles.font(
                               props.fontSize,
-                              props.fontFamily
+                              props.fontFamily,
                             ),
                           },
                           children: <div>{text}</div>,
@@ -603,19 +603,19 @@ export default function Content(props) {
                   )}
                 </Table>
               </Col>
-              <Col className="edit_pdf">
-                {" "}
-                <EditOutlined className="font" />
+              <Col className='edit_pdf'>
+                {' '}
+                <EditOutlined className='font' />
               </Col>
             </Row>
           </Col>
           <Row
-            className="account_setting_drawer_hover"
+            className='account_setting_drawer_hover'
             onClick={props.edit.onClickFooter}
           >
             <Col span={24}>
-              <Col span={24} style={{ height: "auto" }}>
-                <Row className="position-relative">
+              <Col span={24} style={{ height: 'auto' }}>
+                <Row className='position-relative'>
                   <Col
                     span={11}
                     style={styles.font(props.fontSize, props.fontFamily)}
@@ -624,25 +624,25 @@ export default function Content(props) {
                   </Col>
                   <Col span={12}>
                     <List
-                      itemLayout="horizontal"
+                      itemLayout='horizontal'
                       dataSource={props.data1}
-                      size="small"
+                      size='small'
                       style={styles.font(props.fontSize, props.fontFamily)}
                       split={false}
                       renderItem={(item) => (
                         <List.Item
                           style={{
                             // borderBottom: `1px solid ${gray} `,
-                            wordWrap: " break-word",
-                            wordBreak: "break-all",
+                            wordWrap: ' break-word',
+                            wordBreak: 'break-all',
 
-                            padding: "0px",
+                            padding: '0px',
                           }}
                         >
                           {item.show && (
-                            <Row className="num" gutter={5}>
+                            <Row className='num' gutter={5}>
                               <Col xs={12}>
-                                <h4> {item.description}</h4>{" "}
+                                <h4> {item.description}</h4>{' '}
                               </Col>
                               <Col xs={12}>{item.content}</Col>
                             </Row>
@@ -652,7 +652,7 @@ export default function Content(props) {
                     />
                     <Divider
                       style={{
-                        margin: "5px 0px",
+                        margin: '5px 0px',
                       }}
                     />
                     <Row gutter={[0, 10]}>
@@ -660,8 +660,8 @@ export default function Content(props) {
                         span={24}
                         style={styles.font(props.fontSize, props.fontFamily)}
                       >
-                        {" "}
-                        <Row className="num ">
+                        {' '}
+                        <Row className='num '>
                           <Col xs={12}>BALANCE DUE</Col>
                           <Col xs={12}>AED776.25</Col>
                         </Row>
@@ -671,53 +671,53 @@ export default function Content(props) {
                           <Row>
                             <Col
                               xs={24}
-                              className="font_size_pdf"
+                              className='font_size_pdf'
                               style={styles.font(
                                 props.fontSize,
-                                props.fontFamily
+                                props.fontFamily,
                               )}
                             >
-                              {" "}
+                              {' '}
                               <h5
                                 style={styles.color(
                                   props.background,
                                   props.fontSize,
-                                  props.fontFamily
+                                  props.fontFamily,
                                 )}
                               >
-                                {" "}
+                                {' '}
                                 Estimate summary
                               </h5>
                               <Divider
                                 style={{
-                                  margin: "3px 0px",
+                                  margin: '3px 0px',
                                 }}
                               />
                             </Col>
                             <Col xs={24}>
-                              {" "}
+                              {' '}
                               <List
-                                itemLayout="horizontal"
+                                itemLayout='horizontal'
                                 dataSource={props.data2}
-                                size="small"
+                                size='small'
                                 split={false}
                                 style={styles.font(
                                   props.fontSize,
-                                  props.fontFamily
+                                  props.fontFamily,
                                 )}
                                 renderItem={(item) => (
                                   <List.Item
                                     style={{
                                       // borderBottom: `1px solid ${gray} `,
-                                      wordWrap: " break-word",
-                                      wordBreak: "break-all",
+                                      wordWrap: ' break-word',
+                                      wordBreak: 'break-all',
 
-                                      padding: "0px",
+                                      padding: '0px',
                                     }}
                                   >
-                                    <Row style={{ width: "100%" }} gutter={5}>
+                                    <Row style={{ width: '100%' }} gutter={5}>
                                       <Col xs={12}>
-                                        <h4> {item.description}</h4>{" "}
+                                        <h4> {item.description}</h4>{' '}
                                       </Col>
                                       <Col xs={12}>{item.content}</Col>
                                     </Row>
@@ -726,7 +726,7 @@ export default function Content(props) {
                               />
                               <Divider
                                 style={{
-                                  margin: "5px 0px 0px 0px",
+                                  margin: '5px 0px 0px 0px',
                                 }}
                               />
                             </Col>
@@ -735,9 +735,9 @@ export default function Content(props) {
                       )}
                     </Row>
                   </Col>
-                  <Col span={1} className="edit_pdf">
-                    {" "}
-                    <EditOutlined className="font" />
+                  <Col span={1} className='edit_pdf'>
+                    {' '}
+                    <EditOutlined className='font' />
                   </Col>
                 </Row>
                 <Row>
@@ -749,10 +749,10 @@ export default function Content(props) {
                     </Col>
                   )}
                   <Col span={24}>
-                    {" "}
+                    {' '}
                     <Table
-                      size="small"
-                      tableLayout="fixed"
+                      size='small'
+                      tableLayout='fixed'
                       dataSource={props.dataSours1}
                       pagination={false}
                     >
@@ -762,20 +762,20 @@ export default function Content(props) {
                             style={styles.tableHeader(
                               props.background,
                               props.fontSize,
-                              props.fontFamily
+                              props.fontFamily,
                             )}
                           >
                             RATE
                           </div>
                         }
-                        dataIndex="rate"
-                        key="rate"
+                        dataIndex='rate'
+                        key='rate'
                         render={(text, record) => {
                           return {
                             props: {
                               style: styles.font(
                                 props.fontSize,
-                                props.fontFamily
+                                props.fontFamily,
                               ),
                             },
                             children: <div>{text}</div>,
@@ -788,20 +788,20 @@ export default function Content(props) {
                             style={styles.tableHeader(
                               props.background,
                               props.fontSize,
-                              props.fontFamily
+                              props.fontFamily,
                             )}
                           >
                             VAT
                           </div>
                         }
-                        dataIndex="vat"
-                        key="vat"
+                        dataIndex='vat'
+                        key='vat'
                         render={(text, record) => {
                           return {
                             props: {
                               style: styles.font(
                                 props.fontSize,
-                                props.fontFamily
+                                props.fontFamily,
                               ),
                             },
                             children: <div>{text}</div>,
@@ -814,20 +814,20 @@ export default function Content(props) {
                             style={styles.tableHeader(
                               props.background,
                               props.fontSize,
-                              props.fontFamily
+                              props.fontFamily,
                             )}
                           >
                             NET
                           </div>
                         }
-                        dataIndex="net"
-                        key="net"
+                        dataIndex='net'
+                        key='net'
                         render={(text, record) => {
                           return {
                             props: {
                               style: styles.font(
                                 props.fontSize,
-                                props.fontFamily
+                                props.fontFamily,
                               ),
                             },
                             children: <div>{text}</div>,
@@ -846,9 +846,9 @@ export default function Content(props) {
               <Col
                 span={24}
                 style={styles.font(props.fontSize, props.fontFamily)}
-                className="text_align_center"
+                className='text_align_center'
               >
-                <Paragraph style={{ margin: "0px" }}>
+                <Paragraph style={{ margin: '0px' }}>
                   {props.edit.footerText}
                 </Paragraph>
                 <br />
@@ -872,19 +872,19 @@ const styles = {
     fontFamily: fontFamily,
   }),
   pdf_margin: (top, right, bottom, left, fitWindow) => ({
-    padding: fitWindow ? "20px" : `${top}px ${right}px ${bottom}px ${left}px`,
+    padding: fitWindow ? '20px' : `${top}px ${right}px ${bottom}px ${left}px`,
   }),
   tableHeader: (background, fontSize, fontFamily) => ({
     background: `${background}`,
-    paddingInlineStart: "8px",
-    paddingTop: "4px",
-    paddingBottom: "4px",
+    paddingInlineStart: '8px',
+    paddingTop: '4px',
+    paddingBottom: '4px',
     fontSize: fontSize,
     fontFamily: fontFamily,
   }),
   paymentDetails: (background) => ({
     background: `${background}`,
-    padding: "2px 8px",
-    marginBottom: "60px",
+    padding: '2px 8px',
+    marginBottom: '60px',
   }),
 };

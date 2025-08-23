@@ -1,10 +1,10 @@
-import React, { useCallback, useState } from "react";
-import { useQueryClient } from "react-query";
-import { Menu, Dropdown } from "antd";
-import { CaretDownOutlined } from "@ant-design/icons";
-import { RemovePopconfirm } from "../../../components";
-import { useRemoveItem } from "../../../Hooks";
-import { CASH_M } from "../../../constants/permissions";
+import React, { useCallback, useState } from 'react';
+import { useQueryClient } from 'react-query';
+import { Menu, Dropdown } from 'antd';
+import { CaretDownOutlined } from '@ant-design/icons';
+import { RemovePopconfirm } from '../../../components';
+import { useRemoveItem } from '../../../Hooks';
+import { CASH_M } from '../../../constants/permissions';
 
 interface IProps {
   record: any;
@@ -66,11 +66,11 @@ const Action: React.FC<IProps> = (props) => {
   return (
     <Dropdown
       overlay={action}
-      trigger={["click"]}
+      trigger={['click']}
       onOpenChange={handleVisibleChange}
       open={visible}
       disabled={
-        props.editingKey !== "" ||
+        props.editingKey !== '' ||
         props?.record?.system_default === true ||
         props.hasSelected
       }

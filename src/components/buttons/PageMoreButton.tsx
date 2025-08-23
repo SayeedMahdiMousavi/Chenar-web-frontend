@@ -1,10 +1,10 @@
-import React, { JSXElementConstructor, ReactElement, useState } from "react";
-import { Dropdown, Button } from "antd";
-import { DownOutlined } from "@ant-design/icons";
-import { useTranslation } from "react-i18next";
-import { checkPermissionsModel } from "../../Functions";
-import { useMediaQuery } from "../../pages/MediaQurey";
-import { DownIcon, UpIcon } from "../../icons";
+import React, { JSXElementConstructor, ReactElement, useState } from 'react';
+import { Dropdown, Button } from 'antd';
+import { DownOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
+import { checkPermissionsModel } from '../../Functions';
+import { useMediaQuery } from '../../pages/MediaQurey';
+import { DownIcon, UpIcon } from '../../icons';
 
 export function PageMoreButton({
   overlay,
@@ -15,8 +15,8 @@ export function PageMoreButton({
 }) {
   const [visible, setVisible] = useState(false);
   const { t } = useTranslation();
-  const isMiniTablet = useMediaQuery("(max-width:576px)");
-  const isLaptop = useMediaQuery("(max-width:1550px)");
+  const isMiniTablet = useMediaQuery('(max-width:576px)');
+  const isLaptop = useMediaQuery('(max-width:1550px)');
 
   const handleVisibleChange = (flag: boolean) => {
     setVisible(flag);
@@ -25,21 +25,21 @@ export function PageMoreButton({
   return checkPermissionsModel(permissions) ? (
     <Dropdown
       overlay={overlay}
-      trigger={["click"]}
+      trigger={['click']}
       onOpenChange={handleVisibleChange}
       open={visible}
-      placement="bottomCenter"
+      placement='bottomCenter'
     >
       <Button
-        shape="round"
-        type="primary"
-        size={isMiniTablet ? "small" : isLaptop ? "middle" : "large"}
+        shape='round'
+        type='primary'
+        size={isMiniTablet ? 'small' : isLaptop ? 'middle' : 'large'}
         // className="more-button"
         block
         ghost
         // icon=
       >
-        {t("Sales.Product_and_services.More")}{" "}
+        {t('Sales.Product_and_services.More')}{' '}
         {visible ? (
           <UpIcon style={styles.icon} />
         ) : (
@@ -52,6 +52,6 @@ export function PageMoreButton({
 
 const styles = {
   icon: {
-    fontSize: "10px",
+    fontSize: '10px',
   },
 };

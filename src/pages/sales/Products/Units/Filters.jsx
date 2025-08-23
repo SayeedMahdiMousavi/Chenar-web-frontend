@@ -1,7 +1,7 @@
-import React from "react";
-import { Row, Col, Select, Form } from "antd";
-import { useTranslation } from "react-i18next";
-import { ResetButton, ApplyButton } from "../../../../components";
+import React from 'react';
+import { Row, Col, Select, Form } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { ResetButton, ApplyButton } from '../../../../components';
 
 const { Option } = Select;
 export default function Filters(props) {
@@ -17,32 +17,32 @@ export default function Filters(props) {
   const onReset = () => {
     form.resetFields();
     props.setVisible(false);
-    props.setFilters({ state: "active" });
+    props.setFilters({ state: 'active' });
     props.setPage(1);
   };
 
   return (
     <Form
-      layout="vertical"
+      layout='vertical'
       onFinish={onFinish}
       form={form}
       style={styles.form}
       initialValues={{
-        status: "active",
+        status: 'active',
       }}
     >
       <Row>
         <Col span={24}>
           <Form.Item
-            name="status"
-            label={<span>{t("Sales.Product_and_services.Status")}</span>}
+            name='status'
+            label={<span>{t('Sales.Product_and_services.Status')}</span>}
           >
             <Select autoFocus>
-              <Option value="active">
-                {t("Sales.Product_and_services.Active")}
+              <Option value='active'>
+                {t('Sales.Product_and_services.Active')}
               </Option>
-              <Option value="deactivate">
-                {t("Sales.Product_and_services.Inactive")}
+              <Option value='deactivate'>
+                {t('Sales.Product_and_services.Inactive')}
               </Option>
             </Select>
           </Form.Item>
@@ -50,7 +50,7 @@ export default function Filters(props) {
 
         <Col span={24}>
           <Form.Item style={styles.margin}>
-            <Row className="num" justify="space-between">
+            <Row className='num' justify='space-between'>
               <Col>
                 <ResetButton onClick={onReset} />
               </Col>
@@ -65,6 +65,6 @@ export default function Filters(props) {
   );
 }
 const styles = {
-  margin: { marginBottom: "0px" },
-  form: { width: "230px" },
+  margin: { marginBottom: '0px' },
+  form: { width: '230px' },
 };

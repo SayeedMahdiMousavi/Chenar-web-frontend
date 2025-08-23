@@ -182,12 +182,12 @@ const AddAccount = (props) => {
           isMobile
             ? '100vw'
             : isMiniTablet
-            ? '100vw'
-            : isTablet
-            ? '85vw'
-            : isMiniComputer
-            ? '65vw'
-            : '50vw'
+              ? '100vw'
+              : isTablet
+                ? '85vw'
+                : isMiniComputer
+                  ? '65vw'
+                  : '50vw'
         }
         onCancel={handleCancel}
         bodyStyle={styles.bodyStyle(isMobile, isSubBase, isBigMobile)}
@@ -297,7 +297,7 @@ const AddAccount = (props) => {
                     rules={[
                       !disabled && {
                         message: `${t(
-                          'Accounting.Chart_of_accounts.Form.Parent_Message'
+                          'Accounting.Chart_of_accounts.Form.Parent_Message',
                         )}`,
                         required: !disabled ? true : false,
                       },
@@ -307,7 +307,7 @@ const AddAccount = (props) => {
                       disabled={disabled}
                       showSearch
                       placeholder={t(
-                        'Accounting.Chart_of_accounts.Form.Parent_placeholder'
+                        'Accounting.Chart_of_accounts.Form.Parent_placeholder',
                       )}
                       // listHeight={130}
                       dropdownRender={(menu) => <div>{menu}</div>}
@@ -328,7 +328,7 @@ const AddAccount = (props) => {
                 <Col span={isBigMobile ? 24 : 23}>
                   <Form.Item
                     label={t(
-                      'Accounting.Chart_of_accounts.Form.Default_Tax_Code'
+                      'Accounting.Chart_of_accounts.Form.Default_Tax_Code',
                     )}
                     name='defaultTaxCode'
                     style={styles.name}
@@ -370,7 +370,7 @@ const AddAccount = (props) => {
                     <Select>
                       <Option value='Cash and cash equivalents'>
                         {t(
-                          'Accounting.Chart_of_accounts.Form.Cash_cash_equivalents'
+                          'Accounting.Chart_of_accounts.Form.Cash_cash_equivalents',
                         )}
                       </Option>
 
@@ -400,7 +400,7 @@ const AddAccount = (props) => {
                     rules={[
                       {
                         message: `${t(
-                          'Accounting.Chart_of_accounts.Form.Required_details_type'
+                          'Accounting.Chart_of_accounts.Form.Required_details_type',
                         )}`,
                         required: true,
                         whitespace: true,
@@ -410,7 +410,7 @@ const AddAccount = (props) => {
                     <Select>
                       <Option value='Cash and cash equivalents'>
                         {t(
-                          'Accounting.Chart_of_accounts.Form.Cash_cash_equivalents'
+                          'Accounting.Chart_of_accounts.Form.Cash_cash_equivalents',
                         )}
                       </Option>
 
@@ -424,7 +424,7 @@ const AddAccount = (props) => {
                       </Option>
                       <Option value='Client trust account'>
                         {t(
-                          'Accounting.Chart_of_accounts.Form.Client_trust_account'
+                          'Accounting.Chart_of_accounts.Form.Client_trust_account',
                         )}
                       </Option>
                       <Option value='Mony Market'>
@@ -433,7 +433,7 @@ const AddAccount = (props) => {
                       </Option>
                       <Option value='Rents Held in Trust'>
                         {t(
-                          'Accounting.Chart_of_accounts.Form.Rents_Held_in_Trust'
+                          'Accounting.Chart_of_accounts.Form.Rents_Held_in_Trust',
                         )}
                       </Option>
                       <Option value='Savings'>
@@ -455,13 +455,13 @@ const AddAccount = (props) => {
                     <Descriptions.Item
                       className='num'
                       label={t(
-                        'Accounting.Chart_of_accounts.Form.Bank_account'
+                        'Accounting.Chart_of_accounts.Form.Bank_account',
                       )}
                     >
                       <Paragraph>
                         {' '}
                         {t(
-                          'Accounting.Chart_of_accounts.Form.Bank_account_description'
+                          'Accounting.Chart_of_accounts.Form.Bank_account_description',
                         )}
                       </Paragraph>
                     </Descriptions.Item>
@@ -498,10 +498,10 @@ const styles = {
     height: isMobile
       ? '14.5rem'
       : isMiniTablet
-      ? '14.5rem'
-      : isTabletBase
-      ? '12.5rem'
-      : '10rem',
+        ? '14.5rem'
+        : isTabletBase
+          ? '12.5rem'
+          : '10rem',
   }),
   add: {
     flex: 'none',

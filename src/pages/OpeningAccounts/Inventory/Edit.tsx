@@ -1,25 +1,25 @@
-import { Form } from "antd";
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
+import { Form } from 'antd';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   CancelButton,
   DraggableModal,
   EditButton,
   SaveButton,
-} from "../../../components";
-import { PRODUCT_INVENTORY_M } from "../../../constants/permissions";
-import { PRODUCT_INVENTORY_LIST } from "../../../constants/routes";
+} from '../../../components';
+import { PRODUCT_INVENTORY_M } from '../../../constants/permissions';
+import { PRODUCT_INVENTORY_LIST } from '../../../constants/routes';
 import {
   handlePrepareDateForDateField,
   handlePrepareDateForServer,
-} from "../../../Functions/utcDate";
-import ProductInventoryFormItems from "./FormItems";
-import { useGetCalender } from "../../../Hooks";
-import axiosInstance from "../../ApiBaseUrl";
-import { useMutation } from "react-query";
-import { manageErrors, updateMessage } from "../../../Functions";
+} from '../../../Functions/utcDate';
+import ProductInventoryFormItems from './FormItems';
+import { useGetCalender } from '../../../Hooks';
+import axiosInstance from '../../ApiBaseUrl';
+import { useMutation } from 'react-query';
+import { manageErrors, updateMessage } from '../../../Functions';
 
-const expireDateFormat = "YYYY-MM-DD";
+const expireDateFormat = 'YYYY-MM-DD';
 function EditProductInventory({
   handleUpdateItems,
   id,
@@ -39,7 +39,7 @@ function EditProductInventory({
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
   const { t } = useTranslation();
-  const [product, setProduct] = useState("");
+  const [product, setProduct] = useState('');
 
   //get current calender
   const userCalender = useGetCalender();
@@ -51,11 +51,15 @@ function EditProductInventory({
       unit: { value: unitId, label: unitName },
       warehouse: { value: warehouseId, label: warehouseName },
       price,
-      ...(expirationDate ? {expirationDate: handlePrepareDateForDateField({
-        calendarCode,
-        date: expirationDate,
-        dateFormat: expireDateFormat,
-      })} :{}),
+      ...(expirationDate
+        ? {
+            expirationDate: handlePrepareDateForDateField({
+              calendarCode,
+              date: expirationDate,
+              dateFormat: expireDateFormat,
+            }),
+          }
+        : {}),
       registerDate: handlePrepareDateForDateField({
         calendarCode,
         date: registerDate,
@@ -92,7 +96,7 @@ function EditProductInventory({
 
   const handleOk = () => {
     form.validateFields().then(async (values) => {
-      const unitConversion = form.getFieldValue("unitConversion");
+      const unitConversion = form.getFieldValue('unitConversion');
 
       mutateEditProductInventory({
         product: values?.product?.value,
@@ -128,7 +132,7 @@ function EditProductInventory({
       />
 
       <DraggableModal
-        title={t("Product_inventory_information")}
+        title={t('Product_inventory_information')}
         open={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
@@ -142,7 +146,7 @@ function EditProductInventory({
           </>
         }
       >
-        <Form form={form} layout="vertical" hideRequiredMark>
+        <Form form={form} layout='vertical' hideRequiredMark>
           <ProductInventoryFormItems {...{ setProduct, product, form }} />
         </Form>
       </DraggableModal>
@@ -151,7 +155,7 @@ function EditProductInventory({
 }
 
 const styles = {
-  modalBody: { padding: "10px 30px" },
+  modalBody: { padding: '10px 30px' },
 };
 
 //@ts-ignore

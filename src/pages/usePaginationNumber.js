@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 export function usePaginationNumber(resolvedData, page, pageSize) {
   const [allData, setAllData] = useState([]);

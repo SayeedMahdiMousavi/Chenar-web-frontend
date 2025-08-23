@@ -1,4 +1,4 @@
-import Compressor from "compressorjs";
+import Compressor from 'compressorjs';
 
 export default (file, { quality, width, height }) => {
   return new Promise((resolve, reject) => {

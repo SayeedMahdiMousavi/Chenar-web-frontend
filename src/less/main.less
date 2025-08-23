@@ -1,26 +1,24 @@
-@import "components/base/base.less";
-@import "base/_utilities.less";
-@import "components/app.less";
-@import "components/dashboard/dashboard.less";
-@import "components/ruters/header.less";
-@import "components/sales//allSales//allSales.less";
-@import "components/sales/productsAndServices/productAndService.less";
-@import "components/sales/customers/customer.less";
-@import "components/expenses/expenses/expenses.less";
-@import "components//settings/settings.less";
-@import "components/manageUsers/user.less";
-@import "components/taxes/taxes.less";
-@import "components/accounting/accounting.less";
-@import "components/new/new.less";
-@import "components/company/company.less";
-@import "components/reports/reports.less";
-@import "components/customFormStyle/customFormStyle.less";
-@import "components/login/login.less";
-@import "components/warehouse/warehouse.less";
-@import "components/_button.less";
-@import "./cssReset.css";
-
-
+@import 'components/base/base.less';
+@import 'base/_utilities.less';
+@import 'components/app.less';
+@import 'components/dashboard/dashboard.less';
+@import 'components/ruters/header.less';
+@import 'components/sales//allSales//allSales.less';
+@import 'components/sales/productsAndServices/productAndService.less';
+@import 'components/sales/customers/customer.less';
+@import 'components/expenses/expenses/expenses.less';
+@import 'components//settings/settings.less';
+@import 'components/manageUsers/user.less';
+@import 'components/taxes/taxes.less';
+@import 'components/accounting/accounting.less';
+@import 'components/new/new.less';
+@import 'components/company/company.less';
+@import 'components/reports/reports.less';
+@import 'components/customFormStyle/customFormStyle.less';
+@import 'components/login/login.less';
+@import 'components/warehouse/warehouse.less';
+@import 'components/_button.less';
+@import './cssReset.css';
 
 .invoiceStatistic {
   display: inline-block;
@@ -36,7 +34,9 @@
   background-color: inherit;
 }
 
-.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)::before {
+.ant-radio-button-wrapper-checked:not(
+    .ant-radio-button-wrapper-disabled
+  )::before {
   content: none;
 }
 .ant-radio-button-wrapper:not(:first-child)::before {
@@ -70,43 +70,46 @@
 }
 
 @font-face {
-  font-family: "AdobeArabicRegular";
-  src: local("AdobeArabicRegular"),
-    url(../fonts/AdobeArabic-Regular.otf) format("truetype");
+  font-family: 'AdobeArabicRegular';
+  src:
+    local('AdobeArabicRegular'),
+    url(../fonts/AdobeArabic-Regular.otf) format('truetype');
 }
 
-
 @font-face {
-  font-family: "KALAMEH" ;
-  src: local("KALAMEH"), 
-  url(../fonts/kalameh/Kalameh-Regular.ttf),
-  url(../fonts/kalameh/Kalameh-Medium.ttf),
-  url(../fonts/kalameh/Kalameh-Bold.ttf),
-  url(../fonts/kalameh/Kalameh-Bold.ttf),
-  url(../fonts/kalameh/Kalameh-Light.ttf);
+  font-family: 'KALAMEH';
+  src:
+    local('KALAMEH'), url(../fonts/kalameh/Kalameh-Regular.ttf),
+    url(../fonts/kalameh/Kalameh-Medium.ttf),
+    url(../fonts/kalameh/Kalameh-Bold.ttf),
+    url(../fonts/kalameh/Kalameh-Bold.ttf),
+    url(../fonts/kalameh/Kalameh-Light.ttf);
 }
 @font-face {
-  font-family: "IRAN_YEKAN_REGULAR_PERSIAN";
-  src: local("IRAN_YEKAN_REGULAR_PERSIAN"),
-    url(../fonts/IRANYekanRegular.ttf) format("truetype");
-};
-@font-face {
-  font-family: "IRAN_YEKAN_REGULAR";
-  src: local("IRAN_YEKAN_REGULAR"),
-    url(../fonts/Arvo-Regular.ttf) format("truetype");
+  font-family: 'IRAN_YEKAN_REGULAR_PERSIAN';
+  src:
+    local('IRAN_YEKAN_REGULAR_PERSIAN'),
+    url(../fonts/IRANYekanRegular.ttf) format('truetype');
 }
 @font-face {
-  font-family: "BTITR";
-  src: local("BTITR"), url(../fonts/b_titr.ttf) format("truetype");
+  font-family: 'IRAN_YEKAN_REGULAR';
+  src:
+    local('IRAN_YEKAN_REGULAR'),
+    url(../fonts/Arvo-Regular.ttf) format('truetype');
 }
-
+@font-face {
+  font-family: 'BTITR';
+  src:
+    local('BTITR'),
+    url(../fonts/b_titr.ttf) format('truetype');
+}
 
 .ant-menu-item-selected {
-  border-inline-start: 4px solid #21c0ad;
+  border-inline-start: 4px solid @primary-color;
   padding-inline-start: 12px !important;
 }
 .ant-menu-item-selected-collapsed {
-  border-inline-start: 4px solid #21c0ad;
+  border-inline-start: 4px solid @primary-color;
   padding-inline-start: 20px !important;
 }
 
@@ -115,9 +118,9 @@
 }
 
 // .ant-menu-item-selected1 a::before {
-//   // border-inline-start: 5px solid #21c0ad;
+//   // border-inline-start: 5px solid @primary-color;
 //   width: 5px;
-//   background-color: #21c0ad;
+//   background-color: @primary-color;
 //   height: 75%;
 //   border-start-end-radius: 20px;
 //   border-end-end-radius: 20px;
@@ -125,14 +128,14 @@
 // }
 
 .sidebar_subMenu-light {
-  border-inline-start: 4px solid #21c0ad;
+  border-inline-start: 4px solid @primary-color;
   // background-color: #f0fffb !important;
-  color: #21c0ad;
+  color: @primary-color;
 }
 
 .ant-checkbox-checked .ant-checkbox-inner {
-  background-color: #21c0ad !important; /* Replace with your Colors.primaryColor */
-  border-color: #21c0ad !important;
+  background-color: @primary-color !important; /* Replace with your Colors.primaryColor */
+  border-color: @primary-color !important;
 }
 
 .ant-checkbox-checked .ant-checkbox-inner::after {
@@ -158,7 +161,6 @@
   border-inline-start: 4px solid @primary-color;
   border-start-start-radius: 20px;
 }
-
 
 // .sidebar_subMenu-light::before {
 //   width: 4px;
@@ -196,7 +198,7 @@
   flex-direction: row;
   justify-content: space-between;
   margin: 0px 12px;
-  color: #21c0ad;
+  color: @primary-color;
 }
 // .ant__tabs
 //   > .ant-tabs-nav
@@ -205,5 +207,3 @@
 //   > .ant-tabs-ink-bar {
 //   width: 100%;
 // }
-
-

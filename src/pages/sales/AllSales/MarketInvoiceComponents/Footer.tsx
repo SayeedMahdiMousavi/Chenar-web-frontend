@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode } from 'react';
 import {
   Row,
   Col,
@@ -7,10 +7,10 @@ import {
   Button,
   Popconfirm,
   // Checkbox,
-} from "antd";
-import { useTranslation } from "react-i18next";
-import { PrintIcon } from "../../../../icons";
-import { ResetButton, SaveButton } from "../../../../components";
+} from 'antd';
+import { useTranslation } from 'react-i18next';
+import { PrintIcon } from '../../../../icons';
+import { ResetButton, SaveButton } from '../../../../components';
 // import { useForm } from "antd/lib/form/Form";
 
 interface IProps {
@@ -48,15 +48,15 @@ function PosInvoiceFooter({
 }: IProps) {
   const { t, i18n } = useTranslation();
   const totalWrapperCol = {
-    xxl: i18n.language === "en" ? { span: 13 } : { span: 14 },
-    xl: i18n.language === "en" ? { span: 13 } : { span: 14 },
-    lg: i18n.language === "en" ? { span: 13 } : { span: 14 },
+    xxl: i18n.language === 'en' ? { span: 13 } : { span: 14 },
+    xl: i18n.language === 'en' ? { span: 13 } : { span: 14 },
+    lg: i18n.language === 'en' ? { span: 13 } : { span: 14 },
   };
 
   const totalLabelCol = {
-    xxl: i18n.language === "en" ? { span: 11 } : { span: 10 },
-    xl: i18n.language === "en" ? { span: 11 } : { span: 10 },
-    lg: i18n.language === "en" ? { span: 11 } : { span: 10 },
+    xxl: i18n.language === 'en' ? { span: 11 } : { span: 10 },
+    xl: i18n.language === 'en' ? { span: 11 } : { span: 10 },
+    lg: i18n.language === 'en' ? { span: 11 } : { span: 10 },
   };
 
   // const handelWithDrawFocus = (e: any) => {
@@ -87,17 +87,17 @@ function PosInvoiceFooter({
         <Row gutter={15}>
           <Col span={12}>
             <Form.Item
-              name="total"
-              label={t("Sales.Customers.Form.Total")}
+              name='total'
+              label={t('Sales.Customers.Form.Total')}
               labelCol={totalLabelCol}
               wrapperCol={totalWrapperCol}
-              labelAlign="right"
+              labelAlign='right'
               style={styles.margin}
             >
               <InputNumber
-                type="number"
-                className="num"
-                inputMode="numeric"
+                type='number'
+                className='num'
+                inputMode='numeric'
                 disabled
                 style={styles.input}
               />
@@ -121,8 +121,8 @@ function PosInvoiceFooter({
           </Col>
           <Col span={12}>
             <Form.Item
-              name="remainAmount"
-              label={t("Sales.All_sales.Invoice.cash_amount")}
+              name='remainAmount'
+              label={t('Sales.All_sales.Invoice.cash_amount')}
               style={styles.margin}
               labelCol={totalLabelCol}
               wrapperCol={totalWrapperCol}
@@ -130,9 +130,9 @@ function PosInvoiceFooter({
               <InputNumber
                 disabled
                 style={styles.input}
-                type="number"
-                className="num"
-                inputMode="numeric"
+                type='number'
+                className='num'
+                inputMode='numeric'
               />
             </Form.Item>
             {/* <Form.Item
@@ -175,7 +175,7 @@ function PosInvoiceFooter({
             </Form.Item> */}
           </Col>
         </Row>
-        <Row justify="space-between" style={{ marginTop: "10px" }}>
+        <Row justify='space-between' style={{ marginTop: '10px' }}>
           <Col>
             {/* <Button
               onClick={handlePrint}
@@ -191,43 +191,43 @@ function PosInvoiceFooter({
           </Col>
 
           <Col>
-            <Form.Item style={{ marginBottom: "0px" }}>
+            <Form.Item style={{ marginBottom: '0px' }}>
               <SaveButton
-                disabled={responseId || editingKey !== ""}
+                disabled={responseId || editingKey !== ''}
                 ref={saveRef}
                 onClick={handleSendOrder}
                 loading={saveLoading}
                 style={styles.button}
-                text={t("Sales.All_sales.Invoice.Send_order")}
+                text={t('Sales.All_sales.Invoice.Send_order')}
               />
             </Form.Item>
           </Col>
           <Col>
             <Popconfirm
-              placement="topLeft"
-              title={t("Sales.All_sales.Invoice.Pos_cancel_message")}
+              placement='topLeft'
+              title={t('Sales.All_sales.Invoice.Pos_cancel_message')}
               onConfirm={handleCancel}
-              okText={t("Manage_users.Yes")}
-              cancelText={t("Manage_users.No")}
+              okText={t('Manage_users.Yes')}
+              cancelText={t('Manage_users.No')}
               disabled={responseId}
             >
               <Button
                 style={styles.button}
                 disabled={responseId}
-                type="primary"
+                type='primary'
                 ghost
               >
-                {t("Sales.All_sales.Invoice.Cancel_order")}
+                {t('Sales.All_sales.Invoice.Cancel_order')}
               </Button>
             </Popconfirm>
           </Col>
           <Col>
             <Popconfirm
-              placement="topLeft"
-              title={t("Sales.All_sales.Invoice.Pos_reset_message")}
+              placement='topLeft'
+              title={t('Sales.All_sales.Invoice.Pos_reset_message')}
               onConfirm={handleReset}
-              okText={t("Manage_users.Yes")}
-              cancelText={t("Manage_users.No")}
+              okText={t('Manage_users.Yes')}
+              cancelText={t('Manage_users.No')}
             >
               <ResetButton style={styles.button} />
             </Popconfirm>
@@ -271,8 +271,8 @@ PosInvoiceFooter = React.memo(PosInvoiceFooter, (prevProps, nextProps) => {
 export default PosInvoiceFooter;
 
 const styles = {
-  margin: { marginBottom: "10px" },
-  button: { height: "37px", borderRadius: "4px" },
-  input: { borderRadius: "4px" },
-  footer: { width: "475px" },
+  margin: { marginBottom: '10px' },
+  button: { height: '37px', borderRadius: '4px' },
+  input: { borderRadius: '4px' },
+  footer: { width: '475px' },
 };

@@ -99,7 +99,7 @@ const AddProduct = (props) => {
   const handleSearchProductName = async ({ queryKey }) => {
     const { searchProduct } = queryKey?.[1] || {};
     const { data } = await axiosInstance.get(
-      `${props.baseUrl}?fields=name,id&page_size=10&search=${searchProduct}`
+      `${props.baseUrl}?fields=name,id&page_size=10&search=${searchProduct}`,
     );
     return data;
   };
@@ -107,7 +107,7 @@ const AddProduct = (props) => {
   const productList = useQuery(
     [`${props.baseUrl}name/`, { searchProduct }],
     handleSearchProductName,
-    { enabled: !!searchProduct }
+    { enabled: !!searchProduct },
   );
 
   const handleSearchProduct = (e) => {
@@ -258,7 +258,7 @@ const AddProduct = (props) => {
     if (barcodeList?.length > 0) {
       setBarcodeList((prev) => {
         const newItem = prev?.filter(
-          (item) => item?.unit?.value !== value?.value
+          (item) => item?.unit?.value !== value?.value,
         );
         return newItem;
       });
@@ -380,17 +380,17 @@ const AddProduct = (props) => {
         // modal.error(data);
       } else if (error?.response?.data?.product_price?.[0]?.sales_rate) {
         message.error(
-          `${error?.response.data?.product_price?.[0]?.sales_rate}`
+          `${error?.response.data?.product_price?.[0]?.sales_rate}`,
         );
       } else if (error?.response?.data?.product_price?.[0]?.perches_rate) {
         message.error(
-          `${error?.response.data?.product_price?.[0]?.perches_rate}`
+          `${error?.response.data?.product_price?.[0]?.perches_rate}`,
         );
       } else if (error?.response?.data?.product_barcode) {
         const data = config(
           'barcode',
           t('Sales.Product_and_services.Form.Multiple_barcode'),
-          error?.response?.data?.product_barcode
+          error?.response?.data?.product_barcode,
         );
         modal.error(data);
 
@@ -407,7 +407,7 @@ const AddProduct = (props) => {
 
   const getPriceRecording = (unitId, unitConversion) => {
     const unit = unitConversion?.find(
-      (item) => item?.from_unit?.value === unitId
+      (item) => item?.from_unit?.value === unitId,
     );
     return unit?.base_multiplier;
   };
@@ -445,7 +445,7 @@ const AddProduct = (props) => {
         ) {
           message.error({
             content: t(
-              'Sales.Product_and_services.Form.Unit_conversion_error_message'
+              'Sales.Product_and_services.Form.Unit_conversion_error_message',
             ),
             duration: 4,
           });
@@ -467,7 +467,7 @@ const AddProduct = (props) => {
           // formData.append("product_type", "product");
           formData.append(
             'description',
-            values.description ? values?.description : ''
+            values.description ? values?.description : '',
           );
           const baseUnit =
             defaultUnit.length === 1
@@ -478,19 +478,19 @@ const AddProduct = (props) => {
             barcodeList.forEach((item, index) => {
               formData.append(
                 `product_barcode[${index}]barcode`,
-                item?.barcode
+                item?.barcode,
               );
               formData.append(
                 `product_barcode[${index}]unit`,
-                item?.unit?.value
+                item?.unit?.value,
               );
               formData.append(
                 `product_barcode[${index}]default`,
-                item?.default
+                item?.default,
               );
               formData.append(
                 `product_barcode[${index}]original`,
-                item?.original
+                item?.original,
               );
             });
           } else {
@@ -500,7 +500,7 @@ const AddProduct = (props) => {
               formData.append(`product_barcode[0]default`, true);
               formData.append(
                 `product_barcode[0]original`,
-                values.isOriginBarcode
+                values.isOriginBarcode,
               );
             } else {
               formData.append(`product_barcode[0]barcode`, '');
@@ -512,15 +512,15 @@ const AddProduct = (props) => {
           const defaultSal = values?.default_sal?.key
             ? values?.default_sal?.key
             : defaultUnit.length === 1
-            ? defaultUnit?.[0]?.value
-            : values?.base_unit?.key;
+              ? defaultUnit?.[0]?.value
+              : values?.base_unit?.key;
           formData.append('default_sal', defaultSal);
 
           const defaultPur = values?.default_pur?.key
             ? values?.default_pur?.key
             : defaultUnit.length === 1
-            ? defaultUnit?.[0]?.value
-            : values?.base_unit?.key;
+              ? defaultUnit?.[0]?.value
+              : values?.base_unit?.key;
           formData.append('default_pur', defaultPur);
           const units = values?.units?.map((item) => {
             return {
@@ -535,31 +535,31 @@ const AddProduct = (props) => {
           units.forEach((item, index) => {
             formData.append(
               `product_units[${index}]default_pur`,
-              item?.default_pur
+              item?.default_pur,
             );
             formData.append(`product_units[${index}]unit`, item?.unit);
             formData.append(
               `product_units[${index}]default_sal`,
-              item?.default_sal
+              item?.default_sal,
             );
             formData.append(
               `product_units[${index}]base_unit`,
-              item?.base_unit
+              item?.base_unit,
             );
           });
           units.forEach((item, index) => {
             formData.append(
               `product_units[${index}]default_pur`,
-              item?.default_pur
+              item?.default_pur,
             );
             formData.append(`product_units[${index}]unit`, item?.unit);
             formData.append(
               `product_units[${index}]default_sal`,
-              item?.default_sal
+              item?.default_sal,
             );
             formData.append(
               `product_units[${index}]base_unit`,
-              item?.base_unit
+              item?.base_unit,
             );
           });
 
@@ -567,11 +567,11 @@ const AddProduct = (props) => {
             values.unitConversion.forEach((item, index) => {
               formData.append(
                 `unit_conversion[${index}]from_unit`,
-                item?.from_unit.value
+                item?.from_unit.value,
               );
               formData.append(
                 `unit_conversion[${index}]ratio`,
-                item?.base_multiplier
+                item?.base_multiplier,
               );
             });
           }
@@ -582,11 +582,11 @@ const AddProduct = (props) => {
                 handlePrepareDateForServer({
                   date: item?.registerDate,
                   calendarCode,
-                })
+                }),
               );
               formData.append(
                 `onhand_product[${index}]warehouse_in`,
-                item?.warehouse?.value
+                item?.warehouse?.value,
               );
               formData.append(
                 `onhand_product[${index}]expire_date`,
@@ -594,17 +594,17 @@ const AddProduct = (props) => {
                   date: item?.expirationDate,
                   calendarCode,
                   dateFormat: expireDateFormat,
-                }) ?? ''
+                }) ?? '',
               );
               formData.append(`onhand_product[${index}]qty`, item?.qty);
               formData.append(
                 `onhand_product[${index}]each_price`,
-                item?.price
+                item?.price,
               );
               formData.append(`onhand_product[${index}]unit`, baseUnit);
               formData.append(
                 `onhand_product[${index}]unit_conversion_rate`,
-                1
+                1,
               );
             });
           }
@@ -613,15 +613,15 @@ const AddProduct = (props) => {
             if (values?.perches_rate || values?.sales_rate) {
               formData.append(
                 `product_price[0]perches_rate`,
-                values?.perches_rate ? values?.perches_rate : 0
+                values?.perches_rate ? values?.perches_rate : 0,
               );
               formData.append(
                 `product_price[0]sales_rate`,
-                values?.sales_rate ? values?.sales_rate : 0
+                values?.sales_rate ? values?.sales_rate : 0,
               );
               formData.append(
                 `product_price[0]unit`,
-                values?.units?.[0]?.value
+                values?.units?.[0]?.value,
               );
               formData.append(`product_price[0]currency`, baseCurrencyId);
               formData.append(`product_price[0]currency_rate`, 1);
@@ -630,13 +630,13 @@ const AddProduct = (props) => {
             if (Boolean(values?.purchase) && values?.purchase > 0) {
               const unitCon = getPriceRecording(
                 values?.unitPurchase?.value,
-                values?.unitConversion
+                values?.unitConversion,
               );
 
               const baseUnitPurchase = unitCon
                 ? fixedNumber(
                     print(math.evaluate(`${values?.purchase}/ ${unitCon}`)),
-                    7
+                    7,
                   )
                 : values?.purchase;
               values.priceRecording.forEach((item, index) => {
@@ -645,10 +645,11 @@ const AddProduct = (props) => {
                   getPriceRecording(item?.unit?.value, values?.unitConversion)
                     ? getPriceRecording(
                         item?.unit?.value,
-                        values?.unitConversion
-                      ) * baseUnitPurchase ? 0
-                    : baseUnitPurchase
-                    : 0
+                        values?.unitConversion,
+                      ) * baseUnitPurchase
+                      ? 0
+                      : baseUnitPurchase
+                    : 0,
                 );
                 // formData.append(
                 //   `product_price[${index}]perches_rate`,
@@ -661,15 +662,15 @@ const AddProduct = (props) => {
                 // );
                 formData.append(
                   `product_price[${index}]sales_rate`,
-                  item?.sales_rate ? item?.sales_rate : 0
+                  item?.sales_rate ? item?.sales_rate : 0,
                 );
                 formData.append(
                   `product_price[${index}]unit`,
-                  item?.unit?.value
+                  item?.unit?.value,
                 );
                 formData.append(
                   `product_price[${index}]currency`,
-                  baseCurrencyId
+                  baseCurrencyId,
                 );
                 formData.append(`product_price[${index}]currency_rate`, 1);
               });
@@ -679,15 +680,15 @@ const AddProduct = (props) => {
                   formData.append(`product_price[${index}]perches_rate`, 0);
                   formData.append(
                     `product_price[${index}]sales_rate`,
-                    item?.sales_rate
+                    item?.sales_rate,
                   );
                   formData.append(
                     `product_price[${index}]unit`,
-                    item?.unit?.value
+                    item?.unit?.value,
                   );
                   formData.append(
                     `product_price[${index}]currency`,
-                    baseCurrencyId
+                    baseCurrencyId,
                   );
                   formData.append(`product_price[${index}]currency_rate`, 1);
                 }
@@ -696,19 +697,19 @@ const AddProduct = (props) => {
               values.priceRecording.forEach((item, index) => {
                 formData.append(
                   `product_price[${index}]perches_rate`,
-                  item?.perches_rate ? item?.perches_rate : 0
+                  item?.perches_rate ? item?.perches_rate : 0,
                 );
                 formData.append(
                   `product_price[${index}]sales_rate`,
-                  item?.sales_rate ? item?.sales_rate : 0
+                  item?.sales_rate ? item?.sales_rate : 0,
                 );
                 formData.append(
                   `product_price[${index}]unit`,
-                  item?.unit?.value
+                  item?.unit?.value,
                 );
                 formData.append(
                   `product_price[${index}]currency`,
-                  baseCurrencyId
+                  baseCurrencyId,
                 );
                 formData.append(`product_price[${index}]currency_rate`, 1);
               });
@@ -736,7 +737,7 @@ const AddProduct = (props) => {
         ) {
           message.error({
             content: t(
-              'Sales.Product_and_services.Form.Unit_conversion_error_message'
+              'Sales.Product_and_services.Form.Unit_conversion_error_message',
             ),
             duration: 5,
           });
@@ -863,12 +864,12 @@ const AddProduct = (props) => {
           isMobile
             ? '100vw'
             : isMiniTablet
-            ? '85vw'
-            : isTablet
-            ? 520
-            : isMiniComputer
-            ? 520
-            : 520
+              ? '85vw'
+              : isTablet
+                ? 520
+                : isMiniComputer
+                  ? 520
+                  : 520
         }
         onCancel={handleCancel}
         style={Styles.modal(isMobile)}
@@ -996,7 +997,7 @@ const AddProduct = (props) => {
                     {
                       required: true,
                       message: t(
-                        'Sales.Product_and_services.Form.Units_required'
+                        'Sales.Product_and_services.Form.Units_required',
                       ),
                     },
                   ]}
@@ -1057,7 +1058,7 @@ const AddProduct = (props) => {
                   label={
                     <span>
                       {t(
-                        'Sales.Product_and_services.Price_recording.Purchase_price'
+                        'Sales.Product_and_services.Price_recording.Purchase_price',
                       )}
                     </span>
                   }
@@ -1079,7 +1080,7 @@ const AddProduct = (props) => {
                   label={
                     <span>
                       {t(
-                        'Sales.Product_and_services.Price_recording.Sales_price'
+                        'Sales.Product_and_services.Price_recording.Sales_price',
                       )}
                     </span>
                   }
@@ -1183,7 +1184,7 @@ const AddProduct = (props) => {
                         {
                           required: true,
                           message: t(
-                            'Sales.Product_and_services.Form.Units_required'
+                            'Sales.Product_and_services.Form.Units_required',
                           ),
                         },
                       ]}
@@ -1211,7 +1212,7 @@ const AddProduct = (props) => {
                           <span className='star'>*</span>
                           <Tooltip
                             title={t(
-                              'Sales.Product_and_services.Form.Base_unit_message'
+                              'Sales.Product_and_services.Form.Base_unit_message',
                             )}
                           >
                             &nbsp;&nbsp;
@@ -1222,7 +1223,7 @@ const AddProduct = (props) => {
                       rules={[
                         {
                           message: t(
-                            'Sales.Product_and_services.Form.Default_unit_required'
+                            'Sales.Product_and_services.Form.Default_unit_required',
                           ),
                           required: defaultUnit.length !== 1 ? true : undefined,
                         },
@@ -1256,7 +1257,7 @@ const AddProduct = (props) => {
                         notFoundContent={
                           <span>
                             {t(
-                              'Sales.Product_and_services.Form.Select_unit_error'
+                              'Sales.Product_and_services.Form.Select_unit_error',
                             )}
                           </span>
                         }
@@ -1282,7 +1283,7 @@ const AddProduct = (props) => {
                             title={
                               <span>
                                 {t(
-                                  'Sales.Product_and_services.Form.Units_error'
+                                  'Sales.Product_and_services.Form.Units_error',
                                 )}
                               </span>
                             }
@@ -1294,7 +1295,7 @@ const AddProduct = (props) => {
                         notFoundContent={
                           <span>
                             {t(
-                              'Sales.Product_and_services.Form.Select_unit_error'
+                              'Sales.Product_and_services.Form.Select_unit_error',
                             )}
                           </span>
                         }
@@ -1349,7 +1350,7 @@ const AddProduct = (props) => {
                                     index === 0 ? (
                                       <span>
                                         {t(
-                                          'Sales.Product_and_services.Form.Base_multiplier'
+                                          'Sales.Product_and_services.Form.Base_multiplier',
                                         )}
                                         <span className='star'>*</span>
                                       </span>
@@ -1382,7 +1383,7 @@ const AddProduct = (props) => {
                                   label={
                                     index === 0
                                       ? t(
-                                          'Sales.Product_and_services.Form.Default_unit'
+                                          'Sales.Product_and_services.Form.Default_unit',
                                         )
                                       : ''
                                   }
@@ -1404,7 +1405,7 @@ const AddProduct = (props) => {
                                     index === 0 ? (
                                       <span>
                                         {t(
-                                          'Sales.Product_and_services.Form.Multiplier'
+                                          'Sales.Product_and_services.Form.Multiplier',
                                         )}
                                       </span>
                                     ) : (
@@ -1432,7 +1433,7 @@ const AddProduct = (props) => {
                                     index === 0 ? (
                                       <span>
                                         {t(
-                                          'Sales.Product_and_services.Form.From_unit'
+                                          'Sales.Product_and_services.Form.From_unit',
                                         )}
 
                                         <Tooltip
@@ -1440,7 +1441,7 @@ const AddProduct = (props) => {
                                             <span>
                                               {' '}
                                               {t(
-                                                'Sales.Product_and_services.Form.Change_unit_message'
+                                                'Sales.Product_and_services.Form.Change_unit_message',
                                               )}
                                             </span>
                                           }
@@ -1504,7 +1505,7 @@ const AddProduct = (props) => {
                       label={
                         <span>
                           {t(
-                            'Sales.Product_and_services.Price_recording.Purchase_price'
+                            'Sales.Product_and_services.Price_recording.Purchase_price',
                           )}
                         </span>
                       }
@@ -1564,7 +1565,7 @@ const AddProduct = (props) => {
                                     index === 0 ? (
                                       <span>
                                         {t(
-                                          'Sales.Product_and_services.Units.Unit'
+                                          'Sales.Product_and_services.Units.Unit',
                                         )}
                                       </span>
                                     ) : (
@@ -1585,12 +1586,12 @@ const AddProduct = (props) => {
                                         (item) =>
                                           item?.unit?.id !==
                                           props?.record?.product_units.filter(
-                                            (item) => item?.base_unit === true
-                                          )?.[0]?.unit?.id
+                                            (item) => item?.base_unit === true,
+                                          )?.[0]?.unit?.id,
                                       )
                                       ?.map((item) => (
                                         <Select.Option
-                                        key={item?.unit?.id}
+                                          key={item?.unit?.id}
                                           value={item?.unit?.id}
                                           label={item?.unit?.name}
                                         >

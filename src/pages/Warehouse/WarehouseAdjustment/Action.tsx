@@ -57,7 +57,7 @@ function WarehouseAdjustmentAction({ record, hasSelected }: any) {
     <Menu>
       <RemovePopconfirm
         itemName={`${t('Sales.All_sales.Invoice.Invoice')} ${record?.id}`}
-        open={removeVisible}
+        openConfirm={removeVisible}
         loading={isLoading}
         onConfirm={handleDeleteItem}
         onCancel={handleCancel}

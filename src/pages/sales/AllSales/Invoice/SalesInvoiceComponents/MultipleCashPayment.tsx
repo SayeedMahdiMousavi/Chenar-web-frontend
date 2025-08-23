@@ -1,9 +1,9 @@
-import React, { Fragment } from "react";
-import { Form, Space, Table } from "antd";
-import { useTranslation } from "react-i18next";
-import ReceiveCash from "./ReceiveCash";
-import { DeleteButton } from "../../../../../components";
-import { Statistics } from "../../../../../components/antd";
+import React, { Fragment } from 'react';
+import { Form, Space, Table } from 'antd';
+import { useTranslation } from 'react-i18next';
+import ReceiveCash from './ReceiveCash';
+import { DeleteButton } from '../../../../../components';
+import { Statistics } from '../../../../../components/antd';
 
 interface IProps {
   type: string;
@@ -33,9 +33,9 @@ function MultipleCashPayment({
   const { t } = useTranslation();
 
   const handleRemoveItem = React.useCallback(
-    (index) => {
+    (index: number) => {
       const cashList = form
-        .getFieldValue("cashList")
+        .getFieldValue('cashList')
         ?.filter((_: any, itemIndex: number) => itemIndex !== index);
 
       const amount = cashList?.reduce((sum: number, item: any) => {
@@ -46,30 +46,30 @@ function MultipleCashPayment({
         cashList: cashList,
       });
     },
-    [form, setCashAmount]
+    [form, setCashAmount],
   );
 
   const columns = [
     {
-      dataIndex: "bank",
+      dataIndex: 'bank',
     },
     {
-      dataIndex: "currencySymbol",
+      dataIndex: 'currencySymbol',
       render: (value: any, record: any) => (
         <Fragment>
           <Statistics
             value={record?.amount}
             suffix={value}
-            className="invoiceStatistic"
+            className='invoiceStatistic'
           />
           {record?.currency?.value !== record?.currency_calc?.value && (
             <Fragment>
-              {" "}
-              {t("Equivalent")}{" "}
+              {' '}
+              {t('Equivalent')}{' '}
               <Statistics
                 value={record?.amount_calc}
                 suffix={record?.calCurrencySymbol}
-                className="invoiceStatistic"
+                className='invoiceStatistic'
               />
             </Fragment>
           )}
@@ -77,29 +77,29 @@ function MultipleCashPayment({
       ),
     },
     {
-      dataIndex: "Action",
-      title: "action",
-      align: "center",
+      dataIndex: 'Action',
+      title: 'action',
+      align: 'center',
       width: 60,
       render: (_: any, record: any, index: number) => (
-        <Space align="center" size={10}>
+        <Space align='center' size={10}>
           <ReceiveCash
             calenderCode={calendarCode}
             setCashAmount={setCashAmount}
             place={
-              type === "sales" || type === "sales_rej"
-                ? "customerPayAndRecCash"
-                : "supplierPayAndRecCash"
+              type === 'sales' || type === 'sales_rej'
+                ? 'customerPayAndRecCash'
+                : 'supplierPayAndRecCash'
             }
             type={
-              type === "sales" || type === "purchase_rej"
-                ? "recCash"
-                : "payCash"
+              type === 'sales' || type === 'purchase_rej'
+                ? 'recCash'
+                : 'payCash'
             }
             form={form}
             totalPrice={finalAmount}
             currencySymbol={currencySymbol}
-            actionType="edit"
+            actionType='edit'
             item={`${index}`}
             invoiceType={type}
             responseId={responseId}
@@ -121,20 +121,20 @@ function MultipleCashPayment({
         prevValues.cashList !== curValues.cashList
       }
       label={
-        type === "sales" || type === "purchase_rej"
-          ? t("Cash_receivements")
-          : t("Cash_payments")
+        type === 'sales' || type === 'purchase_rej'
+          ? t('Cash_receivements')
+          : t('Cash_payments')
       }
     >
       {({ getFieldValue }: any) => {
-        const cashList = getFieldValue("cashList") || [];
+        const cashList = getFieldValue('cashList') || [];
 
         return (
           <Fragment>
             <Table
               pagination={false}
-              size="small"
-              locale={{ emptyText: t("Invoice_no_cash") }}
+              size='small'
+              locale={{ emptyText: t('Invoice_no_cash') }}
               dataSource={cashList}
               showHeader={false}
               rowKey={(record) => record?.key}
@@ -146,14 +146,14 @@ function MultipleCashPayment({
               <ReceiveCash
                 calenderCode={calendarCode}
                 place={
-                  type === "sales" || type === "sales_rej"
-                    ? "customerPayAndRecCash"
-                    : "supplierPayAndRecCash"
+                  type === 'sales' || type === 'sales_rej'
+                    ? 'customerPayAndRecCash'
+                    : 'supplierPayAndRecCash'
                 }
                 type={
-                  type === "sales" || type === "purchase_rej"
-                    ? "recCash"
-                    : "payCash"
+                  type === 'sales' || type === 'purchase_rej'
+                    ? 'recCash'
+                    : 'payCash'
                 }
                 form={form}
                 invoiceType={type}

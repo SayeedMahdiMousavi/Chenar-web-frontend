@@ -1,11 +1,11 @@
-import { Spin } from "antd";
-import React, { useState } from "react";
-import { connect } from "react-redux";
+import { Spin } from 'antd';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
 // import { useMutation, useQueryClient, useQuery } from "react-query";
 // import axiosInstance from "../ApiBaseUrl";
-import { Redirect, Route } from "react-router-dom";
-const PrivateRouteContent = React.lazy(() => import("./PrivateRouteContent"));
+import { Redirect, Route } from 'react-router-dom';
+const PrivateRouteContent = React.lazy(() => import('./PrivateRouteContent'));
 // import {
 //   Layout,
 //   Row,
@@ -37,7 +37,7 @@ const PrivateRouteContent = React.lazy(() => import("./PrivateRouteContent"));
 // const { Header, Content } = Layout;
 export const PrivateRoute = ({ component: Component, ltr, ...rest }) => {
   const [token, setToken] = useState(() =>
-    window.localStorage.getItem("refresh_token")
+    window.localStorage.getItem('refresh_token'),
   );
   // const [mode, setMode] = useDarkMode();
   // const { t, i18n } = useTranslation();
@@ -69,7 +69,7 @@ export const PrivateRoute = ({ component: Component, ltr, ...rest }) => {
   // //     setCollapsed(true);
   // //   }
   // // };
-  // // 
+  // //
 
   // const id = localStorage.getItem("user_id");
   // // React.useEffect(() => {
@@ -92,13 +92,13 @@ export const PrivateRoute = ({ component: Component, ltr, ...rest }) => {
   //   },
   //   { enabled: false, cacheTime: 86400000 }
   // );
-  // // 
+  // //
 
   // const changeTheme = async (value) => {
   //   await axiosInstance
   //     .patch(`/user_account/users/${id}/user_profile/`, value)
   //     .then(async (res) => {
-  //       // 
+  //       //
   //       refetch();
   //       // setUserTheme(value.user_theme.toString());
   //       // message.success("Successfully change theme");
@@ -125,7 +125,7 @@ export const PrivateRoute = ({ component: Component, ltr, ...rest }) => {
   //     })
   //     .catch((error) => {
   //       // message.error(error?.response?.data?.message);
-  //       
+  //
   //     });
   // };
 
@@ -157,7 +157,7 @@ export const PrivateRoute = ({ component: Component, ltr, ...rest }) => {
   //     })
   //     .catch((error) => {
   //       // message.error(error?.response?.data?.message);
-  //       // 
+  //       //
   //     });
   // };
 
@@ -248,8 +248,8 @@ export const PrivateRoute = ({ component: Component, ltr, ...rest }) => {
         // ) :
         <React.Suspense
           fallback={
-            <div className="spin">
-              <Spin size="large" />
+            <div className='spin'>
+              <Spin size='large' />
             </div>
           }
         >
@@ -398,7 +398,7 @@ export const PrivateRoute = ({ component: Component, ltr, ...rest }) => {
             //     )}
             //   />
             // </ConfigProvider>
-            <Redirect to="/" />
+            <Redirect to='/' />
           )}
         </React.Suspense>
       )}
@@ -407,27 +407,27 @@ export const PrivateRoute = ({ component: Component, ltr, ...rest }) => {
 };
 const styles = {
   // layout: { height: `calc(100vh - 30px)`, overflow: "hidden" },
-  offlineStyle: { height: `calc(100vh - 30px)`, overflow: "hidden" },
-  layout: { height: `100vh`, overflow: "hidden" },
-  layout1: { overflow: "hidden" },
+  offlineStyle: { height: `calc(100vh - 30px)`, overflow: 'hidden' },
+  layout: { height: `100vh`, overflow: 'hidden' },
+  layout1: { overflow: 'hidden' },
   sider: {
     // boxShadow: "2px 2px 2px rgba(1 10, 110, 110, 0.452)",
   },
 
   header: {
-    padding: "0 15px",
-    background: "#fff",
+    padding: '0 15px',
+    background: '#fff',
     // height: "10vh",
   },
   themeIcon: {
-    position: "absolute",
-    left: "30px",
-    bottom: "30px",
+    position: 'absolute',
+    left: '30px',
+    bottom: '30px',
   },
   themeIcon1: {
-    position: "absolute",
-    right: "30px",
-    bottom: "30px",
+    position: 'absolute',
+    right: '30px',
+    bottom: '30px',
   },
 };
 const mapStateToProps = (state) => {

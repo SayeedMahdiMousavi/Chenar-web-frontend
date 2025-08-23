@@ -723,7 +723,7 @@ const SalesRecipe = (props) => {
       setAutoCompleteResult([]);
     } else {
       setAutoCompleteResult(
-        ['.com', '.org', '.net']?.map((domain) => `${value}${domain}`)
+        ['.com', '.org', '.net']?.map((domain) => `${value}${domain}`),
       );
     }
   };

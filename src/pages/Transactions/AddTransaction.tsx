@@ -1,31 +1,31 @@
-import React, { useState } from "react";
-import { Modal, Col, Row, Divider, Form, message, Typography } from "antd";
-import { useMediaQuery } from "../MediaQurey";
-import { GlobalHotKeys } from "react-hotkeys";
-import dayjs from "dayjs";
-import { useMutation, useQueryClient } from "react-query";
-import axiosInstance from "../ApiBaseUrl";
-import { useTranslation } from "react-i18next";
-import { Styles } from "../styles";
-import Draggable from "react-draggable";
-import { ModalDragTitle } from "../SelfComponents/ModalDragTitle";
-import { CurrencyProperties } from "./Components/CurrencyProperties";
-import { ReceiveDetailsProperties } from "./Components/ReceiveDetailsProperties";
-import { CalculatedCurrencyProperties } from "./Components/CalculatedCurrencyProperties";
-import { CashBoxProperties } from "./Components/CashBoxProperries";
-import { IncomeProperties } from "./Components/IncomeProperties";
-import { EmployeeProperties } from "./Components/EmployeeProperties";
-import CashAndBankProperties from "./Components/CashAndBankProperties";
-import Checkbox from "antd/lib/checkbox/Checkbox";
-import { TranslateMessage } from "../SelfComponents/TranslateComponents/TranslateMessage";
+import React, { useState } from 'react';
+import { Modal, Col, Row, Divider, Form, message, Typography } from 'antd';
+import { useMediaQuery } from '../MediaQurey';
+import { GlobalHotKeys } from 'react-hotkeys';
+import dayjs from 'dayjs';
+import { useMutation, useQueryClient } from 'react-query';
+import axiosInstance from '../ApiBaseUrl';
+import { useTranslation } from 'react-i18next';
+import { Styles } from '../styles';
+import Draggable from 'react-draggable';
+import { ModalDragTitle } from '../SelfComponents/ModalDragTitle';
+import { CurrencyProperties } from './Components/CurrencyProperties';
+import { ReceiveDetailsProperties } from './Components/ReceiveDetailsProperties';
+import { CalculatedCurrencyProperties } from './Components/CalculatedCurrencyProperties';
+import { CashBoxProperties } from './Components/CashBoxProperries';
+import { IncomeProperties } from './Components/IncomeProperties';
+import { EmployeeProperties } from './Components/EmployeeProperties';
+import CashAndBankProperties from './Components/CashAndBankProperties';
+import Checkbox from 'antd/lib/checkbox/Checkbox';
+import { TranslateMessage } from '../SelfComponents/TranslateComponents/TranslateMessage';
 import {
   changeGToJ,
   handlePrepareDateForServer,
   utcDate,
-} from "../../Functions/utcDate";
-import moment from "moment";
-import useGetCalender from "../../Hooks/useGetCalender";
-import useGetRunningPeriod from "../../Hooks/useGetRunningPeriod";
+} from '../../Functions/utcDate';
+import moment from 'moment';
+import useGetCalender from '../../Hooks/useGetCalender';
+import useGetRunningPeriod from '../../Hooks/useGetRunningPeriod';
 // import {
 //   journalResultUrl,
 //   journalUrl,
@@ -33,14 +33,14 @@ import useGetRunningPeriod from "../../Hooks/useGetRunningPeriod";
 // import { cashTransactionsUrl } from "../Reports/AllReports/AllReports";
 // import { accountStatisticsUrl } from "../Reports/AllReports/AccountsStatistics/AccountsStatistics";
 // import { debitCreditUrl } from "../Reports/AllReports/DebitAndCredit/DebitAndCredit";
-import useGetBaseCurrency from "../../Hooks/useGetBaseCurrency";
-import { ExpenseProperties } from "./Components/ExpenseProperties";
-import { PageNewButton, ResetButton, SaveAndNewButton } from "../../components";
-import { manageErrors } from "../../Functions";
-import { JOURNAL_RESULT_LIST } from "../../constants/routes";
-import { fixedNumber, math, print } from "../../Functions/math";
-import { reportsDateFormat } from "../../Context";
-import { manageNetworkError } from "../../Functions/manageNetworkError";
+import useGetBaseCurrency from '../../Hooks/useGetBaseCurrency';
+import { ExpenseProperties } from './Components/ExpenseProperties';
+import { PageNewButton, ResetButton, SaveAndNewButton } from '../../components';
+import { manageErrors } from '../../Functions';
+import { JOURNAL_RESULT_LIST } from '../../constants/routes';
+import { fixedNumber, math, print } from '../../Functions/math';
+import { reportsDateFormat } from '../../Context';
+import { manageNetworkError } from '../../Functions/manageNetworkError';
 
 interface IProps {
   baseUrl: string;
@@ -48,7 +48,7 @@ interface IProps {
   modalTitle: string;
   model: string;
 }
-const dateFormat = "YYYY-MM-DD HH:mm:ss";
+const dateFormat = 'YYYY-MM-DD HH:mm:ss';
 
 const AddTransaction: React.FC<IProps> = (props) => {
   const queryClient = useQueryClient();
@@ -61,11 +61,11 @@ const AddTransaction: React.FC<IProps> = (props) => {
   });
   const [disabled, setDisabled] = useState(true);
   const [showCalCurrency, setShowCalCurrency] = useState(false);
-  const isBgTablet = useMediaQuery("(max-width: 1024px)");
-  const isTablet = useMediaQuery("(max-width: 768px)");
-  const isMiniTablet = useMediaQuery("(max-width: 576px)");
-  const isMobile = useMediaQuery("(max-width: 425px)");
-  const isSubBase = useMediaQuery("(max-width: 375px)");
+  const isBgTablet = useMediaQuery('(max-width: 1024px)');
+  const isTablet = useMediaQuery('(max-width: 768px)');
+  const isMiniTablet = useMediaQuery('(max-width: 576px)');
+  const isMobile = useMediaQuery('(max-width: 425px)');
+  const isSubBase = useMediaQuery('(max-width: 375px)');
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -88,7 +88,7 @@ const AddTransaction: React.FC<IProps> = (props) => {
   const baseCurrencyId = baseCurrency?.data?.id;
   const baseCurrencyName = baseCurrency?.data?.name;
 
-  const messageKey = "transactionAdd";
+  const messageKey = 'transactionAdd';
   const addTransaction = async ({
     value,
     type,
@@ -110,14 +110,14 @@ const AddTransaction: React.FC<IProps> = (props) => {
 
   const { mutate: mutateAddTransaction, reset } = useMutation(addTransaction, {
     onSuccess: (_, { type }) => {
-      if (type !== "0") {
+      if (type !== '0') {
         setIsShowModal({
           visible: false,
         });
-        message.success(`${t("Message.Transaction_add_message")}`);
+        message.success(`${t('Message.Transaction_add_message')}`);
       }
 
-      if (type === "0") {
+      if (type === '0') {
         setVisible(false);
         form.resetFields();
 
@@ -126,7 +126,7 @@ const AddTransaction: React.FC<IProps> = (props) => {
         // setCalCurrencyValue(1);
         message.destroy(messageKey);
         message.success({
-          content: `${t("Message.Transaction_add_message")}`,
+          content: `${t('Message.Transaction_add_message')}`,
           duration: 3,
         });
       }
@@ -136,7 +136,7 @@ const AddTransaction: React.FC<IProps> = (props) => {
       // queryClient.invalidateQueries(`${cashTransactionsUrl}`);
       // queryClient.invalidateQueries(`${cashTransactionsUrl}result/`);
       queryClient.invalidateQueries(`${props.baseUrl}`);
-      if (props.place === "recordSalaries") {
+      if (props.place === 'recordSalaries') {
         // queryClient.invalidateQueries(`${accountStatisticsUrl}`);
         // queryClient.invalidateQueries(`${accountStatisticsUrl}result/`);
         // queryClient.invalidateQueries(`${debitCreditUrl}`);
@@ -156,9 +156,9 @@ const AddTransaction: React.FC<IProps> = (props) => {
       .validateFields()
       .then(async (values) => {
         setLoading(true);
-        if (type === "0") {
+        if (type === '0') {
           message.loading({
-            content: t("Message.Loading"),
+            content: t('Message.Loading'),
             key: messageKey,
           });
         }
@@ -169,62 +169,62 @@ const AddTransaction: React.FC<IProps> = (props) => {
 
         const allData = {
           pay_by:
-            props.place === "moneyTransfer"
+            props.place === 'moneyTransfer'
               ? values.payBankName?.value
-              : props.place === "recordExpense"
-              ? values.cashBoxName?.value
-              : props.place === "recordSalaries"
-              ? "OXP-502005"
-              : values.incomeName?.value,
+              : props.place === 'recordExpense'
+                ? values.cashBoxName?.value
+                : props.place === 'recordSalaries'
+                  ? 'OXP-502005'
+                  : values.incomeName?.value,
           rec_by:
-            props.place === "moneyTransfer"
+            props.place === 'moneyTransfer'
               ? values.recBankName?.value
-              : props.place === "recordSalaries"
-              ? values.employeeName?.value
-              : props.place === "recordExpense"
-              ? values.expenseName?.value
-              : values.cashBoxName?.value,
+              : props.place === 'recordSalaries'
+                ? values.employeeName?.value
+                : props.place === 'recordExpense'
+                  ? values.expenseName?.value
+                  : values.cashBoxName?.value,
           date_time: dateTime,
           description: values.description,
           amount: values.amount,
           currency: values.currency?.value,
           currency_rate: values.currencyRate,
           amount_calc:
-            props.place === "recordSalaries" && showCalCurrency
+            props.place === 'recordSalaries' && showCalCurrency
               ? parseInt(values.calAmount)
               : values.amount,
           currency_calc:
-            props.place === "recordSalaries" && showCalCurrency
+            props.place === 'recordSalaries' && showCalCurrency
               ? values.calCurrency.value
               : values.currency?.value,
           currency_rate_calc:
-            props.place === "recordSalaries" && showCalCurrency
+            props.place === 'recordSalaries' && showCalCurrency
               ? values.calCurrencyRate
               : values.currencyRate,
         };
 
         if (
-          props.place === "recordExpense" ||
-          props.place === "moneyTransfer"
+          props.place === 'recordExpense' ||
+          props.place === 'moneyTransfer'
         ) {
           const startDate = curStartDate
             ? moment(curStartDate, reportsDateFormat).format(reportsDateFormat)
-            : "";
+            : '';
 
           const bankId =
-            props.place === "moneyTransfer"
+            props.place === 'moneyTransfer'
               ? values.payBankName?.value
               : values.cashBoxName?.value;
 
           await axiosInstance
             .get(
               `${JOURNAL_RESULT_LIST}?account=${bankId}&date_time_after=${startDate}&date_time_before=${utcDate().format(
-                reportsDateFormat
-              )}&currency=${values?.currency?.value}`
+                reportsDateFormat,
+              )}&currency=${values?.currency?.value}`,
             )
             .then((res) => {
               const bankName =
-                props.place === "moneyTransfer"
+                props.place === 'moneyTransfer'
                   ? values.payBankName?.label
                   : values.cashBoxName?.label;
               if (res?.data?.length === 0) {
@@ -234,8 +234,8 @@ const AddTransaction: React.FC<IProps> = (props) => {
                       bank: bankName,
                       currency: values?.currency?.label,
                     }}
-                    message="Sales.Customers.Receive_cash.Pay_cash_enough_money_error_message"
-                  />
+                    message='Sales.Customers.Receive_cash.Pay_cash_enough_money_error_message'
+                  />,
                 );
                 setLoading(false);
                 message.destroy(messageKey);
@@ -245,8 +245,8 @@ const AddTransaction: React.FC<IProps> = (props) => {
                   math.evaluate(
                     `${res?.data?.[0]?.debit ?? 0} - ${
                       res?.data?.[0]?.credit ?? 0
-                    }`
-                  )
+                    }`,
+                  ),
                 );
 
                 if (fixedNumber(available, 10) < parseFloat(values?.amount)) {
@@ -256,8 +256,8 @@ const AddTransaction: React.FC<IProps> = (props) => {
                         bank: bankName,
                         currency: values?.currency?.label,
                       }}
-                      message="Sales.Customers.Receive_cash.Pay_cash_enough_money_error_message"
-                    />
+                      message='Sales.Customers.Receive_cash.Pay_cash_enough_money_error_message'
+                    />,
                   );
                   setLoading(false);
                   message.destroy(messageKey);
@@ -277,7 +277,7 @@ const AddTransaction: React.FC<IProps> = (props) => {
         }
       })
       .catch((info) => {
-        // 
+        //
 
         message.destroy(messageKey);
       });
@@ -300,7 +300,7 @@ const AddTransaction: React.FC<IProps> = (props) => {
   };
 
   const keyMap = {
-    NEW_CUSTOMER: ["Control+M", "Control+m"],
+    NEW_CUSTOMER: ['Control+M', 'Control+m'],
   };
   const handlers = {
     NEW_CUSTOMER: (event: any) => {
@@ -312,7 +312,7 @@ const AddTransaction: React.FC<IProps> = (props) => {
     },
   };
 
-  const orientation = t("Dir") === "ltr" ? "left" : "right";
+  const orientation = t('Dir') === 'ltr' ? 'left' : 'right';
 
   React.useEffect(() => {
     setCurrencyValue(baseCurrencyId);
@@ -324,8 +324,15 @@ const AddTransaction: React.FC<IProps> = (props) => {
       const row = form.getFieldsValue();
       if (row.recBankId === value.value) {
         Modal.warning({
-          bodyStyle: { direction: t("Dir") },
-          title: t("Banking.Same_bank_error_message"),
+          bodyStyle: {
+            direction: t('Dir') as
+              | 'ltr'
+              | 'rtl'
+              | 'inherit'
+              | 'initial'
+              | 'unset',
+          },
+          title: t('Banking.Same_bank_error_message'),
           onOk: () => {
             form.setFieldsValue({
               payBankName: undefined,
@@ -337,7 +344,7 @@ const AddTransaction: React.FC<IProps> = (props) => {
         form.setFieldsValue({ payBankName: value });
       }
     },
-    [form, t]
+    [form, t],
   );
 
   const onChangPayBankName = React.useCallback(
@@ -346,8 +353,15 @@ const AddTransaction: React.FC<IProps> = (props) => {
 
       if (row?.recBankName?.value === value) {
         Modal.warning({
-          bodyStyle: { direction: t("Dir") },
-          title: t("Banking.Same_bank_error_message"),
+          bodyStyle: {
+            direction: t('Dir') as
+              | 'ltr'
+              | 'rtl'
+              | 'inherit'
+              | 'initial'
+              | 'unset',
+          },
+          title: t('Banking.Same_bank_error_message'),
           onOk: () => {
             form.setFieldsValue({
               payBankName: undefined,
@@ -359,7 +373,7 @@ const AddTransaction: React.FC<IProps> = (props) => {
         form.setFieldsValue({ payBankId: value });
       }
     },
-    [form, t]
+    [form, t],
   );
 
   const onChangRecBankId = React.useCallback(
@@ -368,8 +382,15 @@ const AddTransaction: React.FC<IProps> = (props) => {
 
       if (row.payBankId === value.value) {
         Modal.warning({
-          bodyStyle: { direction: t("Dir") },
-          title: t("Banking.Same_bank_error_message"),
+          bodyStyle: {
+            direction: t('Dir') as
+              | 'ltr'
+              | 'rtl'
+              | 'inherit'
+              | 'initial'
+              | 'unset',
+          },
+          title: t('Banking.Same_bank_error_message'),
           onOk: () => {
             form.setFieldsValue({
               recBankName: undefined,
@@ -381,7 +402,7 @@ const AddTransaction: React.FC<IProps> = (props) => {
         form.setFieldsValue({ recBankName: value });
       }
     },
-    [form, t]
+    [form, t],
   );
 
   const onChangRecBankName = React.useCallback(
@@ -390,8 +411,15 @@ const AddTransaction: React.FC<IProps> = (props) => {
 
       if (row?.payBankName?.value === value) {
         Modal.warning({
-          bodyStyle: { direction: t("Dir") },
-          title: t("Banking.Same_bank_error_message"),
+          bodyStyle: {
+            direction: t('Dir') as
+              | 'ltr'
+              | 'rtl'
+              | 'inherit'
+              | 'initial'
+              | 'unset',
+          },
+          title: t('Banking.Same_bank_error_message'),
           onOk: () => {
             form.setFieldsValue({
               recBankName: undefined,
@@ -403,7 +431,7 @@ const AddTransaction: React.FC<IProps> = (props) => {
         form.setFieldsValue({ recBankId: value });
       }
     },
-    [form, t]
+    [form, t],
   );
 
   const onChangeCalCurrency = (e: any) => {
@@ -449,16 +477,16 @@ const AddTransaction: React.FC<IProps> = (props) => {
         onCancel={handleCancel}
         destroyOnClose={true}
         afterClose={onReset}
-        width={isMobile ? "100%" : isTablet ? "70%" : isBgTablet ? 700 : 700}
+        width={isMobile ? '100%' : isTablet ? '70%' : isBgTablet ? 700 : 700}
         //@ts-ignore
         style={Styles.modal}
         bodyStyle={Styles.modalBody(isMobile, isSubBase, isMiniTablet)}
         footer={
-          <Row justify="space-between" align="middle">
+          <Row justify='space-between' align='middle'>
             <Col>
               <ResetButton onClick={onReset} />
             </Col>
-            <Col className="text_align_center">
+            <Col className='text_align_center'>
               {/* <a href="#">{t("Form.Privacy")}</a> */}
             </Col>
 
@@ -466,7 +494,7 @@ const AddTransaction: React.FC<IProps> = (props) => {
               <SaveAndNewButton
                 onSubmit={handleOk}
                 loading={loading}
-                open={visible}
+                visible={visible}
                 setVisible={setVisible}
               />
             </Col>
@@ -479,7 +507,7 @@ const AddTransaction: React.FC<IProps> = (props) => {
           scrollToFirstError={true}
           initialValues={{
             date:
-              calendarCode === "gregory"
+              calendarCode === 'gregory'
                 ? utcDate()
                 : dayjs(changeGToJ(utcDate().format(dateFormat), dateFormat), {
                     //@ts-ignore
@@ -500,35 +528,35 @@ const AddTransaction: React.FC<IProps> = (props) => {
           }}
         >
           <Divider orientation={orientation}>
-            {props.place === "recordSalaries"
-              ? t("Employees.Employee")
-              : t("Sales.Customers.Receive_cash.Payer")}{" "}
+            {props.place === 'recordSalaries'
+              ? t('Employees.Employee')
+              : t('Sales.Customers.Receive_cash.Payer')}{' '}
           </Divider>
 
-          {props.place === "moneyTransfer" ? (
+          {props.place === 'moneyTransfer' ? (
             <CashAndBankProperties
               onChangBankName={onChangPayBankName}
               onChangBankId={onChangPayBankId}
               form={form}
-              fieldId="payBankId"
-              fieldName="payBankName"
+              fieldId='payBankId'
+              fieldName='payBankName'
             />
-          ) : props.place === "recordSalaries" ? (
+          ) : props.place === 'recordSalaries' ? (
             <EmployeeProperties form={form} />
-          ) : props.place === "recordExpense" ? (
+          ) : props.place === 'recordExpense' ? (
             <CashBoxProperties form={form} />
           ) : (
             <IncomeProperties form={form} />
           )}
 
           <Divider orientation={orientation}>
-            {props.place === "recordSalaries"
-              ? t("Employees.Salary_details")
-              : t("Sales.Customers.Receive_cash.Receive_details")}{" "}
+            {props.place === 'recordSalaries'
+              ? t('Employees.Salary_details')
+              : t('Sales.Customers.Receive_cash.Receive_details')}{' '}
           </Divider>
-          <ReceiveDetailsProperties type="recordExpanse" />
+          <ReceiveDetailsProperties type='recordExpanse' />
           <Divider orientation={orientation}>
-            {t("Sales.Customers.Receive_cash.Paid_currency")}{" "}
+            {t('Sales.Customers.Receive_cash.Paid_currency')}{' '}
           </Divider>
           <CurrencyProperties
             setCurrencyValue={setCurrencyValue}
@@ -536,49 +564,49 @@ const AddTransaction: React.FC<IProps> = (props) => {
             form={form}
             type={props.place}
           />
-          {props.place === "recordSalaries" && (
+          {props.place === 'recordSalaries' && (
             <Form.Item
-              name="showCalCurrency"
-              valuePropName="checked"
-              style={{ marginBottom: "0px", marginTop: "5px" }}
+              name='showCalCurrency'
+              valuePropName='checked'
+              style={{ marginBottom: '0px', marginTop: '5px' }}
             >
               <Checkbox onChange={onChangeCalCurrency}>
-                {" "}
+                {' '}
                 <Typography.Text strong={true}>
-                  {t("Sales.Customers.Receive_cash.Calculate_currency")}
-                </Typography.Text>{" "}
+                  {t('Sales.Customers.Receive_cash.Calculate_currency')}
+                </Typography.Text>{' '}
               </Checkbox>
             </Form.Item>
           )}
-          {props.place === "recordSalaries" && showCalCurrency && (
+          {props.place === 'recordSalaries' && showCalCurrency && (
             <Divider orientation={orientation}>
-              {t("Sales.Customers.Receive_cash.Calculate_currency")}{" "}
+              {t('Sales.Customers.Receive_cash.Calculate_currency')}{' '}
             </Divider>
           )}
-          {props.place === "recordSalaries" && showCalCurrency && (
+          {props.place === 'recordSalaries' && showCalCurrency && (
             <CalculatedCurrencyProperties
               setCurrencyValue={setCalCurrencyValue}
               currencyValue={calCurrencyValue}
               form={form}
-              type="recordExpanse"
+              type='recordExpanse'
             />
           )}
-          {props.place !== "recordSalaries" && (
+          {props.place !== 'recordSalaries' && (
             <Divider orientation={orientation}>
-              {t("Sales.Customers.Receive_cash.Receiver")}{" "}
+              {t('Sales.Customers.Receive_cash.Receiver')}{' '}
             </Divider>
           )}
 
-          {props.place !== "recordSalaries" &&
-            (props.place === "moneyTransfer" ? (
+          {props.place !== 'recordSalaries' &&
+            (props.place === 'moneyTransfer' ? (
               <CashAndBankProperties
                 onChangBankName={onChangRecBankName}
                 onChangBankId={onChangRecBankId}
                 form={form}
-                fieldId="recBankId"
-                fieldName="recBankName"
+                fieldId='recBankId'
+                fieldName='recBankName'
               />
-            ) : props.place === "recordExpense" ? (
+            ) : props.place === 'recordExpense' ? (
               <ExpenseProperties form={form} />
             ) : (
               <CashBoxProperties form={form} />

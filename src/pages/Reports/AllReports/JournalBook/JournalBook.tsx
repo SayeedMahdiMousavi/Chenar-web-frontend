@@ -1,11 +1,11 @@
-import React from "react";
-import JournalBookTable from "./JournalBookTable";
-import { useTranslation } from "react-i18next";
-import ReportBody from "../../ReportBody";
+import React from 'react';
+import JournalBookTable from './JournalBookTable';
+import { useTranslation } from 'react-i18next';
+import ReportBody from '../../ReportBody';
 import {
   JOURNAL_LIST,
   JOURNAL_RESULT_LIST,
-} from "../../../../constants/routes";
+} from '../../../../constants/routes';
 
 interface IProps {
   backText: string;
@@ -19,8 +19,8 @@ const JournalBook: React.FC<IProps> = (props) => {
 
   return (
     <ReportBody
-      title={t("Reports.Journal_book")}
-      type="financial"
+      title={t('Reports.Journal_book')}
+      type='financial'
       table={
         <JournalBookTable
           resultUrl={journalResultUrl}

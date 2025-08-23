@@ -1,6 +1,6 @@
-import React from "react";
-import { Button } from "antd";
-import { MinusCircleOutlined } from "@ant-design/icons";
+import React from 'react';
+import { Button } from 'antd';
+import { MinusCircleOutlined } from '@ant-design/icons';
 
 export function FormListRemoveButton({
   onClick,
@@ -11,9 +11,9 @@ export function FormListRemoveButton({
 }) {
   return (
     <Button
-      shape="circle"
-      size="small"
-      type="text"
+      shape='circle'
+      size='small'
+      type='text'
       danger
       icon={<MinusCircleOutlined onClick={onClick} />}
       {...rest}

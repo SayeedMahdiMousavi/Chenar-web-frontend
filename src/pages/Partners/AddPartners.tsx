@@ -86,7 +86,7 @@ const AddPartners = () => {
                 <SaveAndNewButton
                   onSubmit={handleOk}
                   //   loading={isLoading}
-                  open={visible}
+                  visible={visible}
                   setVisible={setVisible}
                 />
               </Col>

@@ -1,28 +1,28 @@
-import React, { useCallback, useMemo, useState } from "react";
-import axiosInstance from "../ApiBaseUrl";
-import Photo from "../sales/Products/Photo";
-import Filters from "../sales/Products/Units/Filters";
-import { UpOutlined, DownOutlined } from "@ant-design/icons";
-import { Table, Menu, Typography, Checkbox, Button } from "antd";
-import { useTranslation } from "react-i18next";
+import React, { useCallback, useMemo, useState } from 'react';
+import axiosInstance from '../ApiBaseUrl';
+import Photo from '../sales/Products/Photo';
+import Filters from '../sales/Products/Units/Filters';
+import { UpOutlined, DownOutlined } from '@ant-design/icons';
+import { Table, Menu, Typography, Checkbox, Button } from 'antd';
+import { useTranslation } from 'react-i18next';
 // import EmployeesAction from "./EmployeesAction";
-import { useMediaQuery } from "../MediaQurey";
-import ShowDate from "../SelfComponents/JalaliAntdComponents/ShowDate";
-import { PaginateTable, Statistics } from "../../components/antd";
-import { EMPLOYEE_M } from "../../constants/permissions";
-import { checkActionColumnPermissions } from "../../Functions";
-import { EMPLOYEE_DETAILS } from "../../constants/routes";
-import { useNavigate } from "react-router-dom";
-import EmployeesAction from "../Employees/EmployeesAction";
+import { useMediaQuery } from '../MediaQurey';
+import ShowDate from '../SelfComponents/JalaliAntdComponents/ShowDate';
+import { PaginateTable, Statistics } from '../../components/antd';
+import { EMPLOYEE_M } from '../../constants/permissions';
+import { checkActionColumnPermissions } from '../../Functions';
+import { EMPLOYEE_DETAILS } from '../../constants/routes';
+import { useNavigate } from 'react-router-dom';
+import EmployeesAction from '../Employees/EmployeesAction';
 
 const { Column } = Table;
-const dateFormat = "YYYY-MM-DD";
-const datePFormat = "jYYYY/jM/jD";
+const dateFormat = 'YYYY-MM-DD';
+const datePFormat = 'jYYYY/jM/jD';
 
-const PartnersTable = (props:any) => {
-  const [filters, setFilters] = useState({ state: "active" });
+const PartnersTable = (props: any) => {
+  const [filters, setFilters] = useState({ state: 'active' });
   const [settingsVisible, setSettingsVisible] = useState(false);
-  const isMobile = useMediaQuery("(max-width:425px)");
+  const isMobile = useMediaQuery('(max-width:425px)');
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -60,58 +60,58 @@ const PartnersTable = (props:any) => {
   });
 
   //setting checkbox
-  const onChangePhone = (e:any) =>
+  const onChangePhone = (e: any) =>
     setColumns((prev) => {
       return { ...prev, phone: e.target.checked };
     });
 
-  const onChangeEmail = (e:any) => {
+  const onChangeEmail = (e: any) => {
     setColumns((prev) => {
       return { ...prev, email: e.target.checked };
     });
   };
-  const onChangeAttachment = (e:any) =>
+  const onChangeAttachment = (e: any) =>
     setColumns((prev) => {
       return { ...prev, attachment: e.target.checked };
     });
 
-  const onChangeNotes = (e:any) => {
+  const onChangeNotes = (e: any) => {
     setColumns((prev) => {
       return { ...prev, notes: e.target.checked };
     });
   };
 
-  const onChangeNationalId = (e:any) => {
+  const onChangeNationalId = (e: any) => {
     setColumns((prev) => {
       return { ...prev, nationalId: e.target.checked };
     });
   };
-  const onChangeSalary = (e:any) => {
+  const onChangeSalary = (e: any) => {
     setColumns((prev) => {
       return { ...prev, salary: e.target.checked };
     });
   };
-  const onChangeBirthDate = (e:any) => {
+  const onChangeBirthDate = (e: any) => {
     setColumns((prev) => {
       return { ...prev, birthDate: e.target.checked };
     });
   };
-  const onChangeAddress = (e:any) => {
+  const onChangeAddress = (e: any) => {
     setColumns((prev) => {
       return { ...prev, address: e.target.checked };
     });
   };
-  const onChangePhoto = (e:any) => {
+  const onChangePhoto = (e: any) => {
     setColumns((prev) => {
       return { ...prev, photo: e.target.checked };
     });
   };
-  const onChangeReleased = (e:any) => {
+  const onChangeReleased = (e: any) => {
     setColumns((prev) => {
       return { ...prev, released: e.target.checked };
     });
   };
-  const onChangeGender = (e:any) => {
+  const onChangeGender = (e: any) => {
     setColumns((prev) => {
       return { ...prev, gender: e.target.checked };
     });
@@ -122,96 +122,96 @@ const PartnersTable = (props:any) => {
   };
   const setting = (
     <Menu style={styles.settingsMenu}>
-      <Menu.Item key="1">
+      <Menu.Item key='1'>
         <Typography.Text strong={true}>
-          {t("Sales.Product_and_services.Columns")}
+          {t('Sales.Product_and_services.Columns')}
         </Typography.Text>
       </Menu.Item>
-      <Menu.Item key="2">
+      <Menu.Item key='2'>
         <Checkbox onChange={onChangeSalary} checked={salary}>
-          {t("Employees.Salary")}
+          {t('Employees.Salary')}
         </Checkbox>
       </Menu.Item>
-      <Menu.Item key="3">
+      <Menu.Item key='3'>
         <Checkbox onChange={onChangePhone} checked={phone}>
-          {t("Form.Phone")}
+          {t('Form.Phone')}
         </Checkbox>
       </Menu.Item>
-      <Menu.Item key="4">
+      <Menu.Item key='4'>
         <Checkbox onChange={onChangeAddress} checked={address}>
-          {t("Form.Address")}
+          {t('Form.Address')}
         </Checkbox>
       </Menu.Item>
-      <Menu.Item key="5">
+      <Menu.Item key='5'>
         <Checkbox onChange={onChangeEmail} checked={email}>
-          {t("Form.Email")}
+          {t('Form.Email')}
         </Checkbox>
       </Menu.Item>
-      <Menu.Item key="6">
+      <Menu.Item key='6'>
         <Checkbox onChange={onChangePhoto} checked={photo}>
-          {t("Form.Photo")}
+          {t('Form.Photo')}
         </Checkbox>
       </Menu.Item>
-      <Menu.Item key="7">
+      <Menu.Item key='7'>
         <Checkbox onChange={onChangeNationalId} checked={nationalId}>
-          {t("Sales.Customers.Form.National_id_number1")}
+          {t('Sales.Customers.Form.National_id_number1')}
         </Checkbox>
       </Menu.Item>
       {settingsVisible && (
         <React.Fragment>
-          <Menu.Item key="9">
+          <Menu.Item key='9'>
             <Checkbox onChange={onChangeBirthDate} checked={birthDate}>
-              {t("Employees.BirthDate")}
+              {t('Employees.BirthDate')}
             </Checkbox>
           </Menu.Item>
 
-          <Menu.Item key="8">
+          <Menu.Item key='8'>
             <Checkbox onChange={onChangeReleased} checked={released}>
-              {t("Employees.Released")}
+              {t('Employees.Released')}
             </Checkbox>
           </Menu.Item>
 
-          <Menu.Item key="10">
+          <Menu.Item key='10'>
             <Checkbox onChange={onChangeGender} checked={gender}>
-              {t("Employees.Gender")}
+              {t('Employees.Gender')}
             </Checkbox>
           </Menu.Item>
 
-          <Menu.Item key="11">
+          <Menu.Item key='11'>
             <Checkbox onChange={onChangeNotes} checked={notes}>
-              {t("Form.Notes")}
+              {t('Form.Notes')}
             </Checkbox>
           </Menu.Item>
 
-          <Menu.Item key="12">
+          <Menu.Item key='12'>
             <Checkbox onChange={onChangeAttachment} checked={attachment}>
-              {t("Form.Attachments")}
+              {t('Form.Attachments')}
             </Checkbox>
           </Menu.Item>
         </React.Fragment>
       )}
 
       <Menu.Item
-        key="13"
+        key='13'
         onClick={handelMenuVisible}
-        className="table__header2-setting-showMore"
-        style={{ textAlign: "end" }}
+        className='table__header2-setting-showMore'
+        style={{ textAlign: 'end' }}
       >
         {settingsVisible ? (
           <Button
-            type="link"
+            type='link'
             icon={<UpOutlined />}
-            className="table__header2-setting-showMore"
+            className='table__header2-setting-showMore'
           >
-            {t("Sales.Product_and_services.Show_less")}
+            {t('Sales.Product_and_services.Show_less')}
           </Button>
         ) : (
           <Button
-            type="link"
+            type='link'
             icon={<DownOutlined />}
-            className="table__header2-setting-showMore"
+            className='table__header2-setting-showMore'
           >
-            {t("Sales.Product_and_services.Show_More")}
+            {t('Sales.Product_and_services.Show_More')}
           </Button>
         )}
       </Menu.Item>
@@ -223,83 +223,81 @@ const PartnersTable = (props:any) => {
     async ({ queryKey }) => {
       const { page, pageSize, search, order, state } = queryKey?.[1];
       const { data } = await axiosInstance.get(
-        `${props.baseUrl}?page=${page}&page_size=${pageSize}&ordering=${order}&status=${state}&search=${search}&expand=*&omit=cash`
+        `${props.baseUrl}?page=${page}&page_size=${pageSize}&ordering=${order}&status=${state}&search=${search}&expand=*&omit=cash`,
       );
       return data;
     },
-    [props.baseUrl]
+    [props.baseUrl],
   );
 
-  const handleDoubleClickAction = (e:any) => {
+  const handleDoubleClickAction = (e: any) => {
     e.stopPropagation();
   };
 
   const columns = useMemo(
-    () => (type:any, hasSelected:any) => {
-      const sorter = type !== "print" ? true : false;
+    () => (type: any, hasSelected: any) => {
+      const sorter = type !== 'print' ? true : false;
       return (
         <React.Fragment>
-            
           <Column
-            title={t("Form.Name").toUpperCase()}
-            dataIndex="name"
-            key="name"
+            title={t('Form.Name').toUpperCase()}
+            dataIndex='name'
+            key='name'
             //@ts-ignore
-            width={type !== "print" ? 145 : false}
+            width={type !== 'print' ? 145 : false}
             sorter={sorter && { multiple: 16 }}
             fixed={sorter}
-            className="table-col"
+            className='table-col'
             // align="center"
           />
           <Column
-            title={t("Form.Last_Name").toUpperCase()}
+            title={t('Form.Last_Name').toUpperCase()}
             // width={isMobile ? 70 : 170}
-            dataIndex="Last_Name"
-            key="Last_Name"
+            dataIndex='Last_Name'
+            key='Last_Name'
             fixed={sorter}
-            render={(text, record:any) => (
+            render={(text, record: any) => (
               <React.Fragment>{record?.Last_Name}</React.Fragment>
             )}
             sorter={sorter && { multiple: 15 }}
-            className="table-col"
+            className='table-col'
           />
-           
-            <Column
-              title={`${t("Form.Phone").toUpperCase()}`}
-              dataIndex="Phone"
-              key="Phone"
-              className="table-col"
+
+          <Column
+            title={`${t('Form.Phone').toUpperCase()}`}
+            dataIndex='Phone'
+            key='Phone'
+            className='table-col'
             //   width={80}
             sorter={sorter && { multiple: 14 }}
-              // align="center"
+            // align="center"
             //   render={(text, record) => {
             //     return <Photo photo={text} />;
             //   }}
-              // width={150}
-            />
-          
-          
-            <Column
-              title={t("Form.Capital_amount").toUpperCase()}
-              dataIndex="capital_amount"
-              key="capital_amount"
-              sorter={sorter && { multiple: 14 }}
-              className="table-col"
-              render={(value) => <Statistics value={value} />}
-            />
-            <Column
-              title={t("Form.Address")}
-              dataIndex="Address"
-              key="Address"
-              className="table-col"
-              sorter={sorter && { multiple: 13 }}
-            />
-            <Column
-            title={t("Form.Photo").toUpperCase()}
-            dataIndex="Photo"
-            key="Photo"
+            // width={150}
+          />
+
+          <Column
+            title={t('Form.Capital_amount').toUpperCase()}
+            dataIndex='capital_amount'
+            key='capital_amount'
+            sorter={sorter && { multiple: 14 }}
+            className='table-col'
+            render={(value) => <Statistics value={value} />}
+          />
+          <Column
+            title={t('Form.Address')}
+            dataIndex='Address'
+            key='Address'
+            className='table-col'
+            sorter={sorter && { multiple: 13 }}
+          />
+          <Column
+            title={t('Form.Photo').toUpperCase()}
+            dataIndex='Photo'
+            key='Photo'
             sorter={sorter && { multiple: 12 }}
-            className="table-col"
+            className='table-col'
           />
 
           {/* <Column
@@ -455,12 +453,12 @@ const PartnersTable = (props:any) => {
             />
           )} */}
 
-          {type !== "print" && checkActionColumnPermissions(EMPLOYEE_M) && (
+          {type !== 'print' && checkActionColumnPermissions(EMPLOYEE_M) && (
             <Column
-              title={t("Table.Action").toUpperCase()}
-              key="action"
+              title={t('Table.Action').toUpperCase()}
+              key='action'
               width={isMobile ? 50 : 70}
-              align="center"
+              align='center'
               render={(text, record) => (
                 <div onDoubleClick={handleDoubleClickAction}>
                   <EmployeesAction
@@ -470,8 +468,8 @@ const PartnersTable = (props:any) => {
                   />
                 </div>
               )}
-              fixed={"right"}
-              className="table-col"
+              fixed={'right'}
+              className='table-col'
             />
           )}
         </React.Fragment>
@@ -492,12 +490,12 @@ const PartnersTable = (props:any) => {
       released,
       salary,
       t,
-    ]
+    ],
   );
 
   return (
     <PaginateTable
-      title={t("Employees.1")}
+      title={t('Employees.1')}
       model={EMPLOYEE_M}
       columns={columns}
       queryKey={props.baseUrl}
@@ -510,8 +508,8 @@ const PartnersTable = (props:any) => {
           setPage={setPage}
         />
       )}
-    //   settingMenu={setting}
-      onRow={(record:any) => {
+      //   settingMenu={setting}
+      onRow={(record: any) => {
         return {
           onDoubleClick: () => {
             navigate(`${EMPLOYEE_DETAILS}/${record.id}`);
@@ -523,7 +521,7 @@ const PartnersTable = (props:any) => {
 };
 
 const styles = {
-  settingsMenu: { width: "170px", paddingBottom: "10px" },
+  settingsMenu: { width: '170px', paddingBottom: '10px' },
 };
 
 export default PartnersTable;

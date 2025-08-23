@@ -1,7 +1,7 @@
-import React, { ReactNode } from "react";
-import { Input } from "antd";
+import React, { ReactNode } from 'react';
+import { Input } from 'antd';
 // import { SearchOutlined } from "@ant-design/icons";
-import { debounce } from "throttle-debounce";
+import { debounce } from 'throttle-debounce';
 interface IProps {
   placeholder: string | undefined;
   setSearch: (value: string) => void;
@@ -26,7 +26,7 @@ export const SearchInput: React.FC<IProps> = (props) => {
       suffix={props.suffix}
       // suffix={<SearchOutlined className="search_icon_color" />}
       onChange={onSearch}
-      className="table__searchInput"
+      className='table__searchInput'
       style={props?.style ? props?.style : {}}
     />
   );

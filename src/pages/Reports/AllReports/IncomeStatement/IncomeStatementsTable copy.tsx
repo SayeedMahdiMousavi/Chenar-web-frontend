@@ -142,11 +142,11 @@ const IncomeStatementsTable: React.FC<IProps> = (props) => {
     async ({ queryKey }) => {
       const { search, startDate, endDate } = queryKey?.[1];
       const { data } = await axiosInstance.get(
-        `${props.baseUrl}?search=${search}&date_time_after=${startDate}&date_time_before=${endDate}`
+        `${props.baseUrl}?search=${search}&date_time_after=${startDate}&date_time_before=${endDate}`,
       );
       return data;
     },
-    [props.baseUrl]
+    [props.baseUrl],
   );
 
   const {
@@ -158,7 +158,7 @@ const IncomeStatementsTable: React.FC<IProps> = (props) => {
   } = useQuery(
     [props.baseUrl, { search, startDate, endDate }],
     handleGetIncomeStatement,
-    { cacheTime: 0 }
+    { cacheTime: 0 },
   );
 
   //pagination
@@ -280,7 +280,7 @@ const IncomeStatementsTable: React.FC<IProps> = (props) => {
         }
       });
     },
-    [t]
+    [t],
   );
 
   useEffect(() => {
@@ -589,7 +589,7 @@ const IncomeStatementsTable: React.FC<IProps> = (props) => {
                   record?.account === t('Sales.Customers.Form.Total') ? (
                     <span style={{ color: Colors.primaryColor }}>{num}</span>
                   ) : expandedRowKeys?.includes(
-                      record?.account || record?.name
+                      record?.account || record?.name,
                     ) ? (
                     ''
                   ) : (

@@ -1,10 +1,10 @@
-import React, { ReactNode, useState } from "react";
-import { Form, Select } from "antd";
-import { debounce } from "throttle-debounce";
-import { useInfiniteQuery } from "react-query";
-import axiosInstance from "../../../../ApiBaseUrl";
-import { CenteredSpin } from "../../../../SelfComponents/Spin";
-import { InfiniteScrollSelectError } from "../../../../../components/antd";
+import React, { ReactNode, useState } from 'react';
+import { Form, Select } from 'antd';
+import { debounce } from 'throttle-debounce';
+import { useInfiniteQuery } from 'react-query';
+import axiosInstance from '../../../../ApiBaseUrl';
+import { CenteredSpin } from '../../../../SelfComponents/Spin';
+import { InfiniteScrollSelectError } from '../../../../../components/antd';
 interface IProps {
   label?: string;
   queryKey: string;
@@ -19,17 +19,23 @@ interface IProps {
 }
 
 export const InfiniteListNameAndIdFormItem: React.FC<IProps> = (props) => {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
 
   const getData = React.useCallback(
-    async ({ pageParam = 1, queryKey }) => {
+    async ({
+      pageParam = 1,
+      queryKey,
+    }: {
+      pageParam?: number;
+      queryKey: any;
+    }) => {
       const search = queryKey?.[1];
       const res = await axiosInstance.get(
-        `${props.baseUrl}?page=${pageParam}&page_size=10&search=${search}&ordering=-id&status=active&fields=${props.fields}`
+        `${props.baseUrl}?page=${pageParam}&page_size=10&search=${search}&ordering=-id&status=active&fields=${props.fields}`,
       );
       return res?.data;
     },
-    [props.fields, props.baseUrl]
+    [props.fields, props.baseUrl],
   );
 
   const onSearch = (value: string) => {
@@ -64,7 +70,7 @@ export const InfiniteListNameAndIdFormItem: React.FC<IProps> = (props) => {
   };
 
   const onChangeName = (value: { label: string; value: number }) => {
-    setSearch("");
+    setSearch('');
     if (props.onChangeName) {
       const item = data?.pages?.map((item) => {
         return item?.results?.find((item: any) => item.id === value.value);
@@ -79,7 +85,7 @@ export const InfiniteListNameAndIdFormItem: React.FC<IProps> = (props) => {
   };
   return (
     <Form.Item
-      name="account"
+      name='account'
       style={props.style}
       rules={props.rules}
       label={props?.label}
@@ -91,18 +97,18 @@ export const InfiniteListNameAndIdFormItem: React.FC<IProps> = (props) => {
         onChange={onChangeName}
         showArrow
         disabled={props?.disabled}
-        optionFilterProp="label"
+        optionFilterProp='label'
         notFoundContent={
-          status === "loading" ? (
-            <CenteredSpin size="small" style={styles.spin} />
-          ) : status !== "error" ? undefined : (
+          status === 'loading' ? (
+            <CenteredSpin size='small' style={styles.spin} />
+          ) : status !== 'error' ? undefined : (
             <InfiniteScrollSelectError
               error={error}
               handleRetry={handleRetry}
             />
           )
         }
-        popupClassName="sales_invoice_customer_popup"
+        popupClassName='sales_invoice_customer_popup'
         labelInValue
         onPopupScroll={loadMore}
         dropdownRender={(menu) => (
@@ -110,7 +116,7 @@ export const InfiniteListNameAndIdFormItem: React.FC<IProps> = (props) => {
             {props?.addItem}
             {menu}
             {isFetchingNextPage || (isFetching && Boolean(search)) ? (
-              <CenteredSpin size="small" style={styles.spin} />
+              <CenteredSpin size='small' style={styles.spin} />
             ) : null}
           </div>
         )}
@@ -135,5 +141,5 @@ export const InfiniteListNameAndIdFormItem: React.FC<IProps> = (props) => {
 };
 
 const styles = {
-  spin: { padding: "7px" },
+  spin: { padding: '7px' },
 };

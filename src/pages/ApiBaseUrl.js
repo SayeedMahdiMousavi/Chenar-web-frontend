@@ -3,26 +3,22 @@ import axios from 'axios';
 import { manageNetworkError } from '../Functions/manageNetworkError';
 import { queryClient } from '../App';
 import { handleClearLocalStorageLogout } from '../Functions';
-import { lightThemeVars } from '../vars';
+import { lessVars } from '../theme/index';
 
 const baseURL = 'https://api.chenar.x9f4a7.onten.io/api/v1';
 
-
 const axiosInstance = axios.create({
   baseURL: baseURL,
- 
+
   timeout: 5000,
   withCredentials: true,
 
   headers: {
     Authorization: localStorage.getItem('access_token')
-    
       ? 'Bearer ' + localStorage.getItem('access_token')
       : null,
-
   },
 });
-
 
 const handleLogout = () => {
   handleClearLocalStorageLogout();
@@ -30,7 +26,7 @@ const handleLogout = () => {
     window.location.href = '/';
   }
   queryClient.clear();
-  window.less.modifyVars(lightThemeVars);
+  window.less.modifyVars(lessVars.light);
 };
 
 axiosInstance.interceptors.request.use(
@@ -41,12 +37,11 @@ axiosInstance.interceptors.request.use(
       'Accept-Language': i18n.language,
     };
 
-
     return config;
   },
   function (error) {
     return Promise.reject(error);
-  }
+  },
 );
 
 axiosInstance.interceptors.response.use(
@@ -61,13 +56,11 @@ axiosInstance.interceptors.response.use(
       return Promise.reject(error);
     }
 
-
     if (
       error?.response?.status === 403 &&
       error?.response?.data?.code === 'token_not_valid' &&
       originalRequest.url === baseURL + '/user_account/tokens/refresh/'
     ) {
-
       return Promise.reject(error);
     }
     //
@@ -97,7 +90,7 @@ axiosInstance.interceptors.response.use(
           try {
             const response = await axiosInstance.post(
               '/user_account/tokens/refresh/',
-              { refresh: refreshToken }
+              { refresh: refreshToken },
             );
 
             localStorage.setItem('access_token', response.data.access);
@@ -110,7 +103,6 @@ axiosInstance.interceptors.response.use(
             return await axiosInstance(originalRequest);
           } catch (err) {
             console.log(err);
-            
           }
         } else {
           //
@@ -125,7 +117,7 @@ axiosInstance.interceptors.response.use(
     //
     // specific error handling done elsewhere
     return Promise.reject(error);
-  }
+  },
 );
 
 export default axiosInstance;

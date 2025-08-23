@@ -29,7 +29,7 @@ const ProductView: React.FC<IProps> = ({ record, setDropDownVisible }) => {
     });
   };
   const unitPrice = record?.price?.find((item: any) =>
-    item?.unit_pro_relation?.includes('base_unit')
+    item?.unit_pro_relation?.includes('base_unit'),
   )?.sales_rate;
   return (
     <div>
@@ -80,7 +80,7 @@ const ProductView: React.FC<IProps> = ({ record, setDropDownVisible }) => {
             </Descriptions.Item>
             <Descriptions.Item
               label={t(
-                'Sales.Product_and_services.Price_recording.Sales_price'
+                'Sales.Product_and_services.Price_recording.Sales_price',
               )}
             >
               {unitPrice && <Statistics value={unitPrice} />}
@@ -100,7 +100,7 @@ const ProductView: React.FC<IProps> = ({ record, setDropDownVisible }) => {
                       {item?.unit?.name}
                     </AntdTag>
                   );
-                }
+                },
               )}
             </Descriptions.Item>
             <Descriptions.Item label={t('Sales.Product_and_services.Category')}>

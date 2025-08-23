@@ -481,5 +481,5 @@ const enhancProduct = withObservables(['customers'], ({ database }) => ({
 }));
 
 export default connect(mapStateToProps)(
-  withDatabase(enhancProduct(ReturnTable))
+  withDatabase(enhancProduct(ReturnTable)),
 );

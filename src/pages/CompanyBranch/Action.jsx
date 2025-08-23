@@ -1,11 +1,11 @@
-import React, { useState, Fragment } from "react";
-import EditBranch from "./Edit";
-import { Menu, Dropdown } from "antd";
-import { connect } from "react-redux";
-import ActionButton from "../SelfComponents/ActionButton";
-import { BRANCH_M } from "../../constants/permissions";
-import { useActiveItem, useRemoveItem } from "../../Hooks";
-import { ActivePopconfirm, RemovePopconfirm } from "../../components";
+import React, { useState, Fragment } from 'react';
+import EditBranch from './Edit';
+import { Menu, Dropdown } from 'antd';
+import { connect } from 'react-redux';
+import ActionButton from '../SelfComponents/ActionButton';
+import { BRANCH_M } from '../../constants/permissions';
+import { useActiveItem, useRemoveItem } from '../../Hooks';
+import { ActivePopconfirm, RemovePopconfirm } from '../../components';
 
 function Action(props) {
   const [visible, setVisible] = useState(false);
@@ -21,7 +21,7 @@ function Action(props) {
     setVisible,
     recordName: props.record.name,
     handleUpdateItems: props.handleUpdateItems,
-    type: "active",
+    type: 'active',
     setActiveVisible,
   });
 
@@ -35,7 +35,7 @@ function Action(props) {
     setVisible,
     recordName: props.record.name,
     handleUpdateItems: props.handleUpdateItems,
-    type: "deactivate",
+    type: 'deactivate',
     setActiveVisible,
   });
 
@@ -79,18 +79,18 @@ function Action(props) {
   const status = props?.record?.status;
   const action = (
     <Menu>
-      {!props?.record?.system_default && status === "active" && (
+      {!props?.record?.system_default && status === 'active' && (
         <Fragment>
           <ActivePopconfirm
             {...{
               itemName: props?.record?.name,
               visible: activeVisible,
-              loading: status === "active" ? inactiveLoading : activeLoading,
+              loading: status === 'active' ? inactiveLoading : activeLoading,
               onConfirm:
-                status === "active" ? handleInactiveItem : handleActiveItem,
+                status === 'active' ? handleInactiveItem : handleActiveItem,
               onCancel: handleCancel,
               onClick: handleClickInactive,
-              type: status === "active" ? "deactivate" : "active",
+              type: status === 'active' ? 'deactivate' : 'active',
               permission: BRANCH_M,
             }}
           />
@@ -105,7 +105,7 @@ function Action(props) {
           />
         </Fragment>
       )}
-      {status === "active" && (
+      {status === 'active' && (
         <EditBranch
           record={props.record}
           setVisible={setVisible}
@@ -124,7 +124,7 @@ function Action(props) {
   return (
     <Dropdown
       overlay={action}
-      trigger={["click"]}
+      trigger={['click']}
       onOpenChange={handleVisibleChange}
       open={visible}
       disabled={props.hasSelected}

@@ -30,8 +30,10 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/components/icons/index.js"
-, "src/App.jsx", "src/pages/Company/AccountAndSettings/Company/CompanyInfo.jsx"  ],
+    "src/components/icons/index.js",
+    "src/App.jsx",
+    "src/pages/Company/AccountAndSettings/Company/CompanyInfo.jsx"
+  ],
   "exclude": ["node_modules"],
   "moduleResolution": ["node_modules", ".next", "node"]
 }
