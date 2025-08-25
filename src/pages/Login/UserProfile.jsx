@@ -220,7 +220,7 @@ function UserProfile(props) {
             className='profile_avatar'
             style={
               data?.user_theme?.type === 'dark'
-                ? { background: '#1F1F1F' }
+                ? { background: '#1e2746' }
                 : { background: '#f0f2f5' }
             }
           >
@@ -230,7 +230,7 @@ function UserProfile(props) {
                 src={data?.photo}
                 className='profile_avatar_image'
                 style={{
-                  backgroundColor: '#00a2ae',
+                  backgroundColor: '#fff',
                   verticalAlign: 'middle',
                   cursor: 'pointer',
                 }}
@@ -325,6 +325,7 @@ export const ItemSkeleton = (props) => (
     round={true}
     title={false}
     paragraph={{ width: '80%' }}
+    className={props.className}
   >
     {' '}
     {props.children}{' '}
@@ -337,25 +338,22 @@ const styles = {
   body: { padding: '0px 0px 0px 0px', paddingInlineEnd: '1px' },
   menu: {
     border: 'none',
-    paddingBottom: '15px',
-    paddingLeft: '2px',
-    paddingRight: '2px',
+    padding: '12px'
   },
   menuItem: {
     lineHeight: '20px',
-    padding: '10px 0px',
     height: 'fit-content',
-    margin: '0px',
+    margin: '12px 0px',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginBottom:'12px',
+    paddingLeft:'12px'
   },
   menuItemIcon: {
     fontSize: '20px',
     color: Colors.gray,
-    paddingTop: '8px',
-    paddingInlineEnd: '16px',
   },
   menuItemIconDark: {
     fontSize: '20px',

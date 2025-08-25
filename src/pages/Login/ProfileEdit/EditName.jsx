@@ -105,7 +105,7 @@ const EditName = (props) => {
           style={styles.menuItem}
           onClick={showModal}
         >
-          <ItemSkeleton isLoading={props?.loading}>
+          <div className='profile_menu_container'>
             <div className='profile_menu_content'>
               {props.name === 'name' ? (
                 <UserOutlined style={styles.menuItemIcon} />
@@ -125,7 +125,7 @@ const EditName = (props) => {
               </Typography.Text>
             </div>
             <EditOutlined className='profile_edit_icon' />
-          </ItemSkeleton>
+          </div>
         </Menu.Item>
       </Menu>
       <Modal
@@ -183,7 +183,7 @@ const EditName = (props) => {
             <Row justify='end' align='middle'>
               <Col>
                 <Space>
-                  <CancelButton onClick={onCancel} />
+                  <CancelButton onClick={onCancel} theme={props.data?.user_theme?.type}/>
                   <SaveButton
                     onClick={handleOk}
                     loading={loading}
@@ -200,22 +200,19 @@ const EditName = (props) => {
 };
 
 const styles = {
-  formItemLabel: { margin: '3px', paddingTop: '10px' },
   menuItem: {
     lineHeight: '20px',
-    padding: '10px 0px',
     height: 'fit-content',
     margin: '0px',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    paddingLeft:'12px'
   },
   menuItemIcon: {
     fontSize: '20px',
     color: `${Colors.gray}`,
-    paddingTop: '8px',
-    paddingInlineEnd: '24px',
   },
   menu: { border: 'none' },
 };

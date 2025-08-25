@@ -67,7 +67,6 @@
 }
 .profile_edit_icon {
   opacity: 0;
-  padding-inline-end: 10px;
 }
 .profile_menu_hove {
   color: #262626;
@@ -76,24 +75,25 @@
   color: #1f1f1f;
 }
 .profile_menu_hove:hover {
-  background: #f0f2f5;
   & .profile_edit_icon {
-    display: inline;
-    color: #bfbfbf;
     padding-inline-end: 10px;
     font-size: 20px;
     opacity: 1;
   }
 }
 .profile_menu_hove_dark:hover {
-  background: #1f1f1f;
   & .profile_edit_icon {
-    display: inline;
-    // color:#BFBFBF;
     padding-inline-end: 10px;
     font-size: 20px;
+    opacity: 1;
   }
 }
 .profile_menu_content {
   display: flex;
+}
+
+.profile_menu_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

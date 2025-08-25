@@ -93,7 +93,7 @@ const CheckPassword = (props) => {
           style={styles.menuItem}
           onClick={showModal}
         >
-          <ItemSkeleton isLoading={props?.loading}>
+           <div className='profile_menu_container'>
             <div className='profile_menu_content'>
               <LockOutlined style={styles.menuItemIcon} />
               <Typography.Text>
@@ -105,7 +105,7 @@ const CheckPassword = (props) => {
               </Typography.Text>
             </div>
             <EditOutlined className='profile_edit_icon' />
-          </ItemSkeleton>
+            </div>
         </Menu.Item>
       </Menu>
       <Modal
@@ -131,7 +131,7 @@ const CheckPassword = (props) => {
         footer={
           <div className='textAlign__end'>
             <Space>
-              <CancelButton onClick={onCancel} />
+              <CancelButton onClick={onCancel} theme={props.data?.user_theme?.type}/>
               <ChangePassword
                 data={props.data}
                 setVisible={setVisible}
@@ -191,19 +191,17 @@ const styles = {
   menu: { border: 'none' },
   menuItem: {
     lineHeight: '20px',
-    padding: '10px 0px',
     height: 'fit-content',
-    margin: '0px',
+    margin: '12px 0px',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    paddingLeft:'12px'
   },
   menuItemIcon: {
     fontSize: '20px',
     color: Colors.gray,
-    paddingTop: '8px',
-    paddingInlineEnd: '24px',
   },
   bodyStyle: { padding: '12px 24px' },
 };

@@ -19,7 +19,7 @@ export const lightTheme = {
 export const darkTheme = {
   algorithm: darkAlgorithm,
   token: {
-    colorPrimary: '#0E262E',
+    colorPrimary: '#21c0ad',
     borderRadius: 4,
     colorBgElevated: '#273053',
     colorBgContainer: '#1E2746',

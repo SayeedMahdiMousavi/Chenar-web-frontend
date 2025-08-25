@@ -125,8 +125,10 @@ export default function ChangePassword(props) {
         footer={
           <Row justify='end' align='middle'>
             <Col>
-              <CancelButton onClick={onCancel} />
+            <Space>
+              <CancelButton onClick={onCancel} theme={props.data?.user_theme?.type}/>
               <SaveButton onClick={onFinish} loading={loading} />
+            </Space>
             </Col>
           </Row>
         }

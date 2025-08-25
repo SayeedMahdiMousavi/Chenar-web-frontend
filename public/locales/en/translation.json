@@ -1102,7 +1102,7 @@
     "Password_validation_error": "Password validation is not correct",
     "Password_validation_error1": "Password length must be at lest 8 character",
     "Password_validation_error2": "Password must has at lest one special character",
-    "Password_validation_error3": "Password must not be some as user name",
+    "Password_validation_error3": "Password must not be same as user name",
     "Password_validation_error4": "Password must has at lest one number,one upperCase, and one loverCase character",
     "User_permissions_placeholder": "Please select user permissions",
     "Last_login": "Last login",
