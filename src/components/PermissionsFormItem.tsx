@@ -14,8 +14,13 @@ interface IProps {
 
 export function PermissionsFormItem(props: IProps) {
   const { t } = useTranslation();
+  console.log('props.treeData', props.treeData);
+  
+  
+
   const handleChange = (value: string[]) => {
     let permissionsId: number[] = [];
+    console.log('value', value);
     for (let data of value) {
       //
       //
@@ -1536,7 +1541,7 @@ export function PermissionsFormItem(props: IProps) {
         treeCheckable={true}
         allowClear
         onSelect={handleSelect as any}
-        dropdownMatchSelectWidth={false}
+        popupMatchSelectWidth={false}
         placeholder={props?.placeholder}
         className='num'
         // maxTagCount={5}

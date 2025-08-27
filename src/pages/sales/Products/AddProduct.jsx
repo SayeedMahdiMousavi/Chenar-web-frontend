@@ -94,6 +94,7 @@ const AddProduct = (props) => {
   //get current calender
   const userCalender = useGetCalender();
   const calendarCode = userCalender?.data?.user_calender?.code;
+  const modalRef = useRef(null);
 
   //search product from product list
   const handleSearchProductName = async ({ queryKey }) => {
@@ -875,7 +876,9 @@ const AddProduct = (props) => {
         style={Styles.modal(isMobile)}
         bodyStyle={Styles.modalBody(isMobile, isSubBase, isMiniTablet)}
         modalRender={(modal) => (
-          <Draggable disabled={disabled}>{modal}</Draggable>
+          <Draggable disabled={disabled} nodeRef={modalRef}>
+            <div ref={modalRef}>{modal}</div>
+          </Draggable>
         )}
         footer={
           <ReachableContext.Provider value='Light'>

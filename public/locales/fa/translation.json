@@ -1134,9 +1134,9 @@
     "Users": "اشخاص",
     "Permissions_required": "Permissions are required !"
   },
-  "Roles": "Roles",
-  "Role": "Role",
-  "Roles_information": "Roles information",
+  "Roles": "اختیارات",
+  "Role": "نقش",
+  "Roles_information": "اطلاعات اختیارات",
   "Profile": {
     "1": "پروفایل کاربر",
     "Calender": "تقویم",

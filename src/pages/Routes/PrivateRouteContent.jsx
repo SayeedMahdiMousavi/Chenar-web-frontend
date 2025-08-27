@@ -130,8 +130,7 @@ export default function PrivateRouteContent(props) {
                       >
                         <Row
                           className='customer__table'
-                          justify='space-around'
-                          style={{ padding: '0px 24px' }}
+                          style={{ padding: '0px 12px' }}
                         >
                           {props.component}
                         </Row>

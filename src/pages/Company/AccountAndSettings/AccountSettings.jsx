@@ -99,12 +99,12 @@ const AccountSettings = (props) => {
               >
                 {t('Company.SMTP_email')}
               </Menu.Item>
-              {/* <Menu.Item
+              <Menu.Item
                 key="invoices"
                 style={styles.margin}
               >
                 {t("Reports.Invoices")}
-              </Menu.Item> */}
+              </Menu.Item>
               {/* <Menu.Item
                 // className="Account__details__show"
                 key="backup"
@@ -112,21 +112,21 @@ const AccountSettings = (props) => {
               >
                 {t("Company.Backup")}
               </Menu.Item> */}
-              {/* <Menu.Item
+              <Menu.Item
                 // className="Account__details__show"
                 key="billing"
                 style={styles.margin}
               >
                 {t("Company.Billing_subscription")}
-              </Menu.Item> */}
+              </Menu.Item>
 
-              {/* <Menu.Item
+              <Menu.Item
                 // className="Account__details__show"
                 key="period"
                 style={styles.margin}
               >
                 {t("Company.Financial_period")}
-              </Menu.Item> */}
+              </Menu.Item>
 
               {/* <Menu.Item
                 className='Account__details__show'
@@ -150,10 +150,9 @@ const AccountSettings = (props) => {
               <Backup />
             ) : current === 'period' ? (
               <FinancialPeriod />
+            ) : current === "invoices" ? (
+              <InvoiceSettings />
             ) : (
-              // : current === "invoices" ? (
-              //   <InvoiceSettings />
-              // )
               <div>nothing</div>
             )}
           </Content>

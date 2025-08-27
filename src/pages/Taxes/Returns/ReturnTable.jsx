@@ -292,7 +292,7 @@ const ReturnTable = ({ activeProducts, customers }) => {
   return (
     <div className='table-col table__padding'>
       <Row className='customer__table num'>
-        <Col span={24}>
+        <Col >
           <Table
             loading={loading}
             expandable

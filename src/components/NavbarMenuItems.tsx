@@ -24,8 +24,7 @@ export const NavbarMenuItems = (props: IProps) => {
               theme='light'
               mode='horizontal'
               selectedKeys={[location.pathname]}
-              // className="table-col sub_nave"
-              className={`navbar__${mode}`}
+              className={`navbar__${mode} table-col sub_nave`}
               onMouseEnter={props?.onMouseEnter}
             >
               {props?.menuItems?.map((item, index) => {
@@ -48,6 +47,7 @@ export const NavbarMenuItems = (props: IProps) => {
               })}
             </Menu>
           </Col>
+          <Col></Col>
         </Row>
       </Layout>
     </Affix>

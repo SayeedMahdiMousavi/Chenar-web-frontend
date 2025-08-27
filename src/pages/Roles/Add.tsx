@@ -1,5 +1,5 @@
 import React, { memo, useRef, useState } from 'react';
-import { Modal, Col, Row } from 'antd';
+import { Modal, Col, Row, Space } from 'antd';
 import { useMediaQuery } from '../MediaQurey';
 import { useMutation } from 'react-query';
 import axiosInstance from '../ApiBaseUrl';
@@ -183,8 +183,10 @@ let AddRole: React.FC<IProps> = (props) => {
         footer={
           <Row justify='end' align='middle'>
             <Col>
+            <Space>
               <CancelButton onClick={onCancel} />
               <SaveButton onClick={handleOk} loading={isLoading} />
+            </Space>
             </Col>
           </Row>
         }
