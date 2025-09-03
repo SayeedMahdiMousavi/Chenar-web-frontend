@@ -85,6 +85,7 @@ const RestoreBackup = (props) => {
     setConfMessage(e.target.value);
   };
   const text = `${t('Company.Restore_user_text')}`;
+  const ref = React.useRef(null);
   const confirm = () => {
     return (
       <Row style={styles.message}>
@@ -112,7 +113,9 @@ const RestoreBackup = (props) => {
           />
         }
         modalRender={(modal) => (
-          <Draggable disabled={disabled}>{modal}</Draggable>
+          <Draggable disabled={disabled} nodeRef={ref}>
+            <div ref={ref}>{modal}</div>
+          </Draggable>
         )}
         centered
         open={props.visible}

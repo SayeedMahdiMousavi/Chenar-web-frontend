@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useRef } from 'react';
 import {
   Modal,
   Col,
@@ -64,6 +64,7 @@ const dateFormat = 'YYYY-MM-DD HH:mm:ss';
 const ReceiveCash: React.FC<IProps> = (props) => {
   const { t, i18n } = useTranslation();
   const [form] = Form.useForm();
+  const ref = useRef<HTMLDivElement>(null);
   const [isShowModal, setIsShowModal] = useState({
     visible: false,
   });
@@ -624,7 +625,9 @@ const ReceiveCash: React.FC<IProps> = (props) => {
           />
         }
         modalRender={(modal) => (
-          <Draggable disabled={disabled}>{modal}</Draggable>
+          <Draggable disabled={disabled} nodeRef={ref as React.RefObject<HTMLElement>}>
+            <div ref={ref}>{modal}</div>
+          </Draggable>
         )}
         centered
         open={isShowModal.visible}

@@ -77,9 +77,10 @@ function Action(props) {
   };
 
   const status = props?.record?.status;
-  const action = (
-    <Menu>
-      {!props?.record?.system_default && status === 'active' && (
+  const menuItems = [
+    !props?.record?.system_default && status === 'active' && {
+      key: 'active-actions',
+      label: (
         <Fragment>
           <ActivePopconfirm
             {...{
@@ -104,8 +105,11 @@ function Action(props) {
             permission={BRANCH_M}
           />
         </Fragment>
-      )}
-      {status === 'active' && (
+      ),
+    },
+    status === 'active' && {
+      key: 'edit',
+      label: (
         <EditBranch
           record={props.record}
           setVisible={setVisible}
@@ -113,17 +117,15 @@ function Action(props) {
           handleUpdateItems={props.handleUpdateItems}
           handleClickEdit={handleClickEdit}
         />
-      )}
-    </Menu>
-  );
-
+      ),
+    },
+  ].filter(Boolean);
   const handleVisibleChange = (flag) => {
     setVisible(flag);
   };
-
   return (
     <Dropdown
-      overlay={action}
+      menu={{ items: menuItems }}
       trigger={['click']}
       onOpenChange={handleVisibleChange}
       open={visible}

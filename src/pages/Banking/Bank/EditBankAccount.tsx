@@ -128,6 +128,7 @@ const EditBankAccount: React.FC<IProps> = ({
     reset();
     form.resetFields();
   };
+  const ref = React.useRef<HTMLDivElement>(null);
 
   return (
     <div>
@@ -143,7 +144,9 @@ const EditBankAccount: React.FC<IProps> = ({
           />
         }
         modalRender={(modal) => (
-          <Draggable disabled={disabled}>{modal}</Draggable>
+          <Draggable disabled={disabled} nodeRef={ref as React.RefObject<HTMLElement>}>
+            <div ref={ref}>{modal}</div>
+          </Draggable>
         )}
         style={Styles.modal(isMobile)}
         bodyStyle={Styles.modalBody(isMobile, isSubBase, isMiniTablet)}

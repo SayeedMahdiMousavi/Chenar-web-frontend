@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   Modal,
   Form,
@@ -65,6 +65,7 @@ let AddOpeningAccount: React.FC<IProps> = ({
     setLoading(false);
     form.resetFields();
   };
+  const ref = useRef<HTMLDivElement>(null);
 
   const showModal = async () => {
     setVisible(true);
@@ -161,7 +162,9 @@ let AddOpeningAccount: React.FC<IProps> = ({
           />
         }
         modalRender={(modal) => (
-          <Draggable disabled={disabled}>{modal}</Draggable>
+          <Draggable disabled={disabled} nodeRef={ref as React.RefObject<HTMLElement>}>
+            <div ref={ref}>{modal}</div>
+          </Draggable>
         )}
         destroyOnClose
         afterClose={handleAfterClose}

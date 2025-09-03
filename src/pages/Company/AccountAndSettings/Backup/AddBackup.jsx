@@ -113,6 +113,7 @@ const AddBackup = (props) => {
     setResponse({});
     reset();
   };
+  const ref = React.useRef(null);
 
   return (
     <div>
@@ -127,7 +128,9 @@ const AddBackup = (props) => {
           />
         }
         modalRender={(modal) => (
-          <Draggable disabled={disabled}>{modal}</Draggable>
+          <Draggable disabled={disabled} nodeRef={ref}>
+            <div ref={ref}>{modal}</div>
+          </Draggable>
         )}
         destroyOnClose
         afterClose={handleAfterClose}

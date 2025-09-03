@@ -228,9 +228,9 @@ const PrintTable = (props) => {
                         bordered
                         size='small'
                         components={components}
-                      >
-                        {props?.domColumns}
-                      </Table>
+                      />
+                      
+                     
                     </Col>
                   </Row>
                   {props.selectResult && (
@@ -243,9 +243,9 @@ const PrintTable = (props) => {
                       size='small'
                       components={components}
                       rowClassName={() => 'print-table-column'}
-                    >
-                      {props.resultDomColumns}
-                    </Table>
+                    />
+               
+                    
                   )}
                 </div>
               </td>

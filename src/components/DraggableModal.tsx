@@ -20,6 +20,7 @@ export function DraggableModal({
   const isMiniTablet = useMediaQuery('(max-width: 576px)');
   const isMobile = useMediaQuery('(max-width: 425px)');
   const isSubBase = useMediaQuery('(max-width: 375px)');
+  const ref = React.useRef<HTMLDivElement>(null);
 
   return (
     <Modal
@@ -32,7 +33,9 @@ export function DraggableModal({
         />
       }
       modalRender={(modal) => (
-        <Draggable disabled={disabled}>{modal}</Draggable>
+        <Draggable disabled={disabled} nodeRef={ref as React.RefObject<HTMLElement>}>
+          <div ref={ref}>{modal}</div>
+        </Draggable>
       )}
       style={{ ...Styles.modal(isMobile), ...style }}
       bodyStyle={{

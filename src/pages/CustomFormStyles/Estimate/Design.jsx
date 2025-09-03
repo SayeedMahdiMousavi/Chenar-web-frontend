@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Draggable from 'react-draggable';
 import { Row, Col, Avatar, Typography, List, Table, Divider } from 'antd';
 import { useTranslation } from 'react-i18next';
@@ -22,6 +22,7 @@ export default function Design(props) {
     setActiveDrags(activeDrags + 1);
   };
   const dragHandlers = { onStart: onStart, onStop: onStop };
+  const ref = useRef(null);
 
   return (
     <div style={{ position: 'relative' }}>
@@ -50,11 +51,14 @@ export default function Design(props) {
                 onDrag={props.drag.handleDragTitle}
                 // onStop={handleStop}
                 {...dragHandlers}
+                nodeRef={ref}
               >
-                <Title level={4} className='header_pdf'>
-                  {' '}
-                  {props.edit.titleContent}
-                </Title>
+                <div ref={ref}>
+                  <Title level={4} className='header_pdf'>
+                    {' '}
+                    {props.edit.titleContent}
+                  </Title>
+                </div>
               </Draggable>
             </Col>
           )}
@@ -76,6 +80,7 @@ export default function Design(props) {
               onDrag={props.drag.handleDragPhone}
               // onStop={handleStop}
               {...dragHandlers}
+              nodeRef={ref}
             >
               <div
                 className='header_pdf'
@@ -83,6 +88,7 @@ export default function Design(props) {
                   !props.edit.phoneShow &&
                   !props.edit.phone && { cursor: 'pointer', border: 'none' }
                 }
+                ref={ref}
               >
                 {props.edit.phoneShow && props.edit.phone && (
                   <div
@@ -111,6 +117,7 @@ export default function Design(props) {
                 onDrag={props.drag.handleDragEmail}
                 // onStop={handleStop}
                 {...dragHandlers}
+                nodeRef={ref}
               >
                 <div
                   className='header_pdf'
@@ -119,6 +126,7 @@ export default function Design(props) {
                     props.fontFamily,
                     props.background,
                   )}
+                  ref={ref}
                 >
                   {props.edit.email}
                 </div>
@@ -137,6 +145,7 @@ export default function Design(props) {
                 onDrag={props.drag.handleDragWebsite}
                 // onStop={handleStop}
                 {...dragHandlers}
+                nodeRef={ref}
               >
                 <div
                   className='header_pdf'
@@ -145,6 +154,7 @@ export default function Design(props) {
                     props.fontFamily,
                     props.background,
                   )}
+                  ref={ref}
                 >
                   {props.edit.website}
                 </div>
@@ -163,6 +173,7 @@ export default function Design(props) {
                 onDrag={props.drag.handleDragCompany}
                 // onStop={handleStop}
                 {...dragHandlers}
+                nodeRef={ref}
               >
                 <div
                   className='header_pdf'
@@ -171,6 +182,7 @@ export default function Design(props) {
                     props.fontFamily,
                     props.background,
                   )}
+                  ref={ref}
                 >
                   Company registration number &nbsp;
                   {props.edit.companyNo}
@@ -190,10 +202,12 @@ export default function Design(props) {
               onDrag={props.drag.handleDragLogo}
               // onStop={handleStop}
               {...dragHandlers}
+              nodeRef={ref}
             >
               <div
                 className='header_pdf'
                 style={!props.showLogo && { cursor: 'pointer', border: 'none' }}
+                ref={ref}
               >
                 {props.showLogo && (
                   <Avatar
@@ -224,6 +238,7 @@ export default function Design(props) {
                 onDrag={props.drag.handleDragTax}
                 // onStop={handleStop}
                 {...dragHandlers}
+                nodeRef={ref}
               >
                 <h5
                   className='header_pdf'
@@ -232,6 +247,7 @@ export default function Design(props) {
                     props.fontSize,
                     props.fontFamily,
                   )}
+                  ref={ref}
                 >
                   {props.edit.taxInvoice.toUpperCase()}
                 </h5>
@@ -298,6 +314,7 @@ export default function Design(props) {
               onDrag={props.drag.handleDragShip}
               // onStop={handleStop}
               {...dragHandlers}
+              nodeRef={ref}
             >
               <div
                 className='list_pdf'
@@ -307,6 +324,7 @@ export default function Design(props) {
                     border: 'none',
                   }
                 }
+                ref={ref}
               >
                 {props.edit.shipping && (
                   <List
@@ -355,6 +373,7 @@ export default function Design(props) {
               onDrag={props.drag.handleDragShipDate}
               // onStop={handleStop}
               {...dragHandlers}
+              nodeRef={ref}
             >
               <div
                 className='list_pdf'
@@ -364,6 +383,7 @@ export default function Design(props) {
                     border: 'none',
                   }
                 }
+                ref={ref}
               >
                 {props.edit.shipping && (
                   <List
@@ -412,35 +432,38 @@ export default function Design(props) {
               onDrag={props.drag.handleDragTaxInvoice}
               // onStop={handleStop}
               {...dragHandlers}
+              nodeRef={ref}
             >
-              <List
-                itemLayout='horizontal'
-                dataSource={props.dataC}
-                className='list_pdf'
-                size='small'
-                split={false}
-                style={styles.font(props.fontSize, props.fontFamily)}
-                renderItem={(item) => (
-                  <List.Item
-                    style={{
-                      // borderBottom: `1px solid ${gray} `,
-                      wordWrap: ' break-word',
-                      wordBreak: 'break-all',
+              <div ref={ref}>
+                <List
+                  itemLayout='horizontal'
+                  dataSource={props.dataC}
+                  className='list_pdf'
+                  size='small'
+                  split={false}
+                  style={styles.font(props.fontSize, props.fontFamily)}
+                  renderItem={(item) => (
+                    <List.Item
+                      style={{
+                        // borderBottom: `1px solid ${gray} `,
+                        wordWrap: ' break-word',
+                        wordBreak: 'break-all',
 
-                      padding: '0px',
-                    }}
-                  >
-                    {item.show && (
-                      <Row className='num' gutter={5}>
-                        <Col xs={12}>
-                          <h4> {item.description}</h4>{' '}
-                        </Col>
-                        <Col xs={12}>{item.content}</Col>
-                      </Row>
-                    )}
-                  </List.Item>
-                )}
-              />
+                        padding: '0px',
+                      }}
+                    >
+                      {item.show && (
+                        <Row className='num' gutter={5}>
+                          <Col xs={12}>
+                            <h4> {item.description}</h4>{' '}
+                          </Col>
+                          <Col xs={12}>{item.content}</Col>
+                        </Row>
+                      )}
+                    </List.Item>
+                  )}
+                />
+              </div>
             </Draggable>
             {props.edit.custom1Show && props.edit.custom1 && (
               <Draggable
@@ -460,10 +483,12 @@ export default function Design(props) {
                 // onDrag={handleDrag}
                 onStop={props.drag.handleStopCustom1}
                 {...dragHandlers}
+                nodeRef={ref}
               >
                 <Row
                   className='custom_pdf'
                   style={styles.font(props.fontSize, props.fontFamily)}
+                  ref={ref}
                 >
                   <Col xs={24}>
                     <Text type='secondary' strong={true}>
@@ -492,10 +517,12 @@ export default function Design(props) {
                 onDrag={props.drag.handleStopCustom2}
                 // onStop={handleStop}
                 {...dragHandlers}
+                nodeRef={ref}
               >
                 <Row
                   className='custom_pdf'
                   style={styles.font(props.fontSize, props.fontFamily)}
+                  ref={ref}
                 >
                   <Col xs={24}>
                     <Text type='secondary' strong={true}>
@@ -524,10 +551,12 @@ export default function Design(props) {
                 onDrag={props.drag.handleDrag.custom3}
                 // onStop={handleStop}
                 {...dragHandlers}
+                nodeRef={ref}
               >
                 <Row
                   className='custom_pdf'
                   style={styles.font(props.fontSize, props.fontFamily)}
+                  ref={ref}
                 >
                   <Col xs={24}>
                     <Text type='secondary' strong={true}>
@@ -554,10 +583,12 @@ export default function Design(props) {
                 onDrag={props.drag.handleDragShowInvoice}
                 // onStop={handleStop}
                 {...dragHandlers}
+                nodeRef={ref}
               >
                 <Row
                   className='footer_page_number_pdf'
                   style={styles.font(props.fontSize, props.fontFamily)}
+                  ref={ref}
                 >
                   <Col span={24}>
                     {' '}
@@ -600,8 +631,9 @@ export default function Design(props) {
               onDrag={props.drag.handleDragTable1}
               // onStop={handleStop}
               {...dragHandlers}
+              nodeRef={ref}
             >
-              <Row className='header_pdf'>
+              <Row className='header_pdf'  ref={ref}>
                 <Col span={24}>
                   <Table
                     size='small'
@@ -884,10 +916,12 @@ export default function Design(props) {
               onDrag={props.drag.handleDrag}
               // onStop={handleStop}
               {...dragHandlers}
+              nodeRef={ref}
             >
               <div
                 className='footer_header_pdf'
                 style={styles.font(props.fontSize, props.fontFamily)}
+                ref={ref}
               >
                 <Paragraph>{props.edit.customerMessage}</Paragraph>
               </div>
@@ -904,8 +938,9 @@ export default function Design(props) {
               onDrag={props.drag.handleDragTotal}
               // onStop={handleStop}
               {...dragHandlers}
+              nodeRef={ref}
             >
-              <div className='footer_header_pdf'>
+              <div className='footer_header_pdf' ref={ref}>
                 {' '}
                 <List
                   itemLayout='horizontal'
@@ -956,8 +991,9 @@ export default function Design(props) {
                 onDrag={props.drag.handleDragEstimate}
                 // onStop={handleStop}
                 {...dragHandlers}
+                nodeRef={ref}
               >
-                <Row className='footer_header_pdf num'>
+                <Row className='footer_header_pdf num' ref={ref}>
                   <Col xs={24} className='num'>
                     {' '}
                     <Text
@@ -1023,8 +1059,9 @@ export default function Design(props) {
                 onDrag={props.drag.handleDragTaxSummary}
                 // onStop={handleStop}
                 {...dragHandlers}
+                nodeRef={ref}
               >
-                <Row>
+                <Row ref={ref}>
                   <Col
                     className='header_pdf'
                     style={styles.font(props.fontSize, props.fontFamily)}
@@ -1046,8 +1083,9 @@ export default function Design(props) {
               onDrag={props.drag.handleDragTable2}
               // onStop={handleStop}
               {...dragHandlers}
+              nodeRef={ref}
             >
-              <Row className='header_pdf'>
+              <Row className='header_pdf' ref={ref}>
                 <Col span={24}>
                   <Table
                     size='small'
@@ -1149,8 +1187,9 @@ export default function Design(props) {
               onDrag={props.drag.handleDragPaymentDetails}
               // onStop={handleStop}
               {...dragHandlers}
+              nodeRef={ref}
             >
-              <Row style={styles.font(props.fontSize, props.fontFamily)}>
+              <Row style={styles.font(props.fontSize, props.fontFamily)} ref={ref}>
                 <Col
                   span={24}
                   className='footer_header_pdf'
@@ -1174,10 +1213,12 @@ export default function Design(props) {
               onDrag={props.drag.handleDragFooter}
               // onStop={handleStop}
               {...dragHandlers}
+              nodeRef={ref}
             >
               <Row
                 className='header_pdf'
                 style={styles.font(props.fontSize, props.fontFamily)}
+                ref={ref}
               >
                 <Col span={24}>
                   {props.edit.footerText}

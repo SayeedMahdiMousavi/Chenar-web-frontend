@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Draggable from 'react-draggable';
 import { Row, Col, Avatar, Typography, List, Table, Divider } from 'antd';
 import { useTranslation } from 'react-i18next';
@@ -9,6 +9,7 @@ const { Column } = Table;
 export default function Design(props) {
   const { t } = useTranslation();
   const [activeDrags, setActiveDrags] = useState(0);
+  const ref = useRef(null);
 
   // const eventLogger = (e, data) => {
   //
@@ -50,11 +51,14 @@ export default function Design(props) {
                 onDrag={props.drag.handleDragTitle}
                 // onStop={handleStop}
                 {...dragHandlers}
+                nodeRef={ref}
               >
-                <Title level={4} className='header_pdf'>
-                  {' '}
-                  {props.edit.titleContent}
-                </Title>
+                <div ref={ref}>
+                  <Title level={4} className='header_pdf'>
+                    {' '}
+                    {props.edit.titleContent}
+                  </Title>
+                </div>
               </Draggable>
             </Col>
           )}
@@ -1174,10 +1178,12 @@ export default function Design(props) {
               onDrag={props.drag.handleDragFooter}
               // onStop={handleStop}
               {...dragHandlers}
+              nodeRef={ref}
             >
               <Row
                 className='header_pdf'
                 style={styles.font(props.fontSize, props.fontFamily)}
+                ref={ref}
               >
                 <Col span={24}>
                   {props.edit.footerText}

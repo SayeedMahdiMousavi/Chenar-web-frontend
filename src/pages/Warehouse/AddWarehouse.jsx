@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Modal, Col, Row, Button } from 'antd';
 import { useMediaQuery } from '../MediaQurey';
 import { useMutation } from 'react-query';
@@ -17,6 +17,7 @@ import { CloseCircleOutlined } from '@ant-design/icons';
 const AddWarehouse = (props) => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
+  const ref = useRef(null);
   const [isShowModal, setIsShowModal] = useState({
     visible: false,
   });
@@ -89,7 +90,9 @@ const AddWarehouse = (props) => {
           />
         }
         modalRender={(modal) => (
-          <Draggable disabled={disabled}>{modal}</Draggable>
+          <Draggable disabled={disabled} nodeRef={ref}>
+            <div ref={ref}>{modal}</div>
+          </Draggable>
         )}
         afterClose={handleAfterClose}
         destroyOnClose

@@ -71,7 +71,7 @@ function ProductSettings({
         {t('Sales.Product_and_services.Form.Modified_by')}
       </TableSettingsMenuItem>
       {visible && (
-        <Fragment>
+        <div>
           <TableSettingsMenuItem
             setColumns={setColumns}
             name='createdDate'
@@ -106,7 +106,7 @@ function ProductSettings({
           <Menu.Item key='12'>
             <BarcodeLabelSettings />
           </Menu.Item>
-        </Fragment>
+        </div>
       )}
       <TableSettingsMenuMoreItem {...{ setVisible, visible }} />
     </TableSettingsMenu>

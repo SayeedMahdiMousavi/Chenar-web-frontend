@@ -143,24 +143,24 @@ function CustomerAction(props) {
 
   const status = props?.record?.status;
   const attachmentName = props?.record?.attachment?.split('/')?.at(-1);
-
-  const action = (
-    <Menu>
-      {status === 'active' && props?.record?.system_default !== true && (
-        <Fragment>
-          <RemovePopconfirm
-            itemName={props?.record?.full_name}
-            open={removeVisible}
-            loading={isLoading}
-            onConfirm={handleDeleteItem}
-            onCancel={handleCancel}
-            onClick={handleClickRemove}
-            permission={CUSTOMER_M}
-          />
-        </Fragment>
-      )}
-
-      {status === 'active' && (
+  const menuItems = [
+    status === 'active' && props?.record?.system_default !== true && {
+      key: 'remove',
+      label: (
+        <RemovePopconfirm
+          itemName={props?.record?.full_name}
+          open={removeVisible}
+          loading={isLoading}
+          onConfirm={handleDeleteItem}
+          onCancel={handleCancel}
+          onClick={handleClickRemove}
+          permission={CUSTOMER_M}
+        />
+      ),
+    },
+    status === 'active' && {
+      key: 'edit',
+      label: (
         <EditCustomer
           record={props?.record}
           attachment={attachmentName}
@@ -169,9 +169,11 @@ function CustomerAction(props) {
           setVisible={setVisible}
           handleClickEdit={handleClickEdit}
         />
-      )}
-
-      {props?.record?.system_default !== true && (
+      ),
+    },
+    props?.record?.system_default !== true && {
+      key: 'active',
+      label: (
         <ActivePopconfirm
           {...{
             itemName: props?.record?.full_name,
@@ -185,57 +187,15 @@ function CustomerAction(props) {
             permission: CUSTOMER_M,
           }}
         />
-      )}
-
-      {/* {props?.record?.discount_card?.id && status === "active" && (
-        <Menu.Item>
-          <Popconfirm
-            placement="topRight"
-            open={removeCardVisible}
-            okButtonProps={{ loading: removeCardLoading }}
-            title={
-              <ActionMessage
-                name={props?.record?.first_name}
-                message="Sales.Customers.Customer_remove_card_message"
-              />
-            }
-            // t("Sales.Customers.Customer_remove_card_message")
-            onConfirm={handelDeleteCard}
-            okText={t("Manage_users.Yes")}
-            cancelText={t("Manage_users.No")}
-            onCancel={cancel}
-          >
-            <div onClick={onClickRemoveCard}>
-              {t("Sales.Customers.Remove_customer_card")}
-            </div>
-          </Popconfirm>
-        </Menu.Item>
-      )}
-      {status === "active" && (
-        <Menu.Item onClick={onClickEdit}>
-          <EditDiscountCard record={props.record} setVisible={setVisible} />
-        </Menu.Item>
-      )}
-      <Menu.Item onClick={onClickEdit}>
-        {t("Sales.Customers.Table.Create_invoice")}
-      </Menu.Item>
-      <Menu.Item onClick={onClickEdit}>
-        {t("Sales.Customers.Table.Create_sales_receipt")}
-      </Menu.Item>
-      <Menu.Item onClick={onClickEdit}>
-        {t("Sales.Customers.Table.Create_estimate")}
-      </Menu.Item>
-      <Menu.Item onClick={onClickEdit}>
-        {t("Sales.Customers.Table.Create_statements")}
-      </Menu.Item> */}
-    </Menu>
-  );
+      ),
+    },
+  ].filter(Boolean);
   const handleVisibleChange = (flag) => {
     setVisible(flag);
   };
   return (
     <Dropdown
-      overlay={action}
+      menu={{ items: menuItems }}
       trigger={['click']}
       onOpenChange={handleVisibleChange}
       open={visible}

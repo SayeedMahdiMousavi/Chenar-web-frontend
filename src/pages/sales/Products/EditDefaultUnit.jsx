@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Modal, Form, Select, message, Row, Col, Button } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from 'react-query';
@@ -12,6 +12,7 @@ import { manageErrors, updateMessage } from '../../../Functions';
 export default function EditDefaultUnit(props) {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
+  const ref = useRef(null);
   const [visible, setVisible] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [units, setUnits] = useState([]);
@@ -106,7 +107,9 @@ export default function EditDefaultUnit(props) {
           />
         }
         modalRender={(modal) => (
-          <Draggable disabled={disabled}>{modal}</Draggable>
+          <Draggable disabled={disabled} nodeRef={ref}>
+            <div ref={ref}>{modal}</div>
+          </Draggable>
         )}
         afterClose={handleAfterClose}
         destroyOnClose

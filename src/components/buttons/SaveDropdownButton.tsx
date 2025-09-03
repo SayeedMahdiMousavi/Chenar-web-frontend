@@ -13,13 +13,14 @@ interface IProps {
 
 export default function SaveDropdownButton(props: IProps) {
   const { t } = useTranslation();
-  const menu = (
-    <Menu style={styles.menu}>
-      <Menu.Item key='0' onClick={props.onSubmit} style={styles.menuItem}>
-        {t('Form.Save_and_new')}
-      </Menu.Item>
-    </Menu>
-  );
+  const menuItems = [
+    {
+      key: '0',
+      label: t('Form.Save_and_new'),
+      onClick: props.onSubmit,
+      style: styles.menuItem,
+    },
+  ];
   return (
     <DropdownButton
       leftButtonProps={{
@@ -27,7 +28,7 @@ export default function SaveDropdownButton(props: IProps) {
         onClick: props.onSubmit,
         loading: props?.loading,
       }}
-      dropdownProps={{ overlay: menu, ...props.dropdownProps }}
+      dropdownProps={{ menu: { items: menuItems }, ...props.dropdownProps }}
       text={t('Form.Save')}
     />
   );

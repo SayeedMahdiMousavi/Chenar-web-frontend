@@ -610,7 +610,7 @@ const TransactionTable = ({ customers, collapse }) => {
                       <Col sm={8} xs={2}>
                         {' '}
                         <Dropdown
-                          overlay={setting}
+                          menu={{ items: [{ key: 'settings', label: setting }] }}
                           trigger={['click']}
                           onOpenChange={handleVisibleChange}
                           open={visible}

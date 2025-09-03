@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from 'react-query';
 import axiosInstance from '../../../ApiBaseUrl';
@@ -68,6 +68,7 @@ const ModalAppServices = (props) => {
   const isTabletBase = useMediaQuery('(max-width:768px)');
   const isMiniTablet = useMediaQuery('(max-width:576px)');
   const isMobileBase = useMediaQuery('(max-width:425px)');
+  const ref = useRef(null);
   // const onNameChange = (event) => {
   //   const name = event.target.value;
   //   setName(name);
@@ -280,7 +281,9 @@ const ModalAppServices = (props) => {
         }
         afterClose={handleAfterClose}
         modalRender={(modal) => (
-          <Draggable disabled={disabled}>{modal}</Draggable>
+          <Draggable disabled={disabled} nodeRef={ref}>
+            <div ref={ref}>{modal}</div>
+          </Draggable>
         )}
         open={isShowModal.visible}
         centered

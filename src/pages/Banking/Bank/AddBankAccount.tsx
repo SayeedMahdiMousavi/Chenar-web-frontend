@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from 'react-query';
 import axiosInstance from '../../ApiBaseUrl';
@@ -147,6 +147,7 @@ const AddBankAccount: React.FC<IProps> = (props) => {
     reset();
     form.resetFields();
   };
+  const ref = useRef<HTMLDivElement>(null);
 
   return (
     <div>
@@ -166,7 +167,9 @@ const AddBankAccount: React.FC<IProps> = (props) => {
           />
         }
         modalRender={(modal) => (
-          <Draggable disabled={disabled}>{modal}</Draggable>
+          <Draggable disabled={disabled} nodeRef={ref as React.RefObject<HTMLElement>}>
+            <div ref={ref}>{modal}</div>
+          </Draggable>
         )}
         style={Styles.modal(isMobile)}
         bodyStyle={Styles.modalBody(isMobile, isSubBase, isMiniTablet)}

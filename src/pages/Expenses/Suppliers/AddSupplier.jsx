@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Modal, Col, Row, Button } from 'antd';
 import { useMediaQuery } from '../../MediaQurey';
 import UploadFile from '../../sales/UploadFile';
@@ -62,6 +62,7 @@ const AddSupplier = (props) => {
   const isMiniTablet = useMediaQuery('(max-width: 576px)');
   const isMobile = useMediaQuery('(max-width: 425px)');
   const isSubBase = useMediaQuery('(max-width: 375px)');
+  const ref = useRef(null);
 
   // get default category
   const defaultCategory = useGetDefaultCategory(
@@ -318,7 +319,9 @@ const AddSupplier = (props) => {
             />
           }
           modalRender={(modal) => (
-            <Draggable disabled={disabled}>{modal}</Draggable>
+            <Draggable disabled={disabled} nodeRef={ref}>
+              <div ref={ref}>{modal}</div>
+            </Draggable>
           )}
           centered
           destroyOnClose={true}

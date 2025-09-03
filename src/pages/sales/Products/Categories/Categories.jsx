@@ -145,7 +145,7 @@ const Categories = (props) => {
     setExpandedRowKeys(expandedRows);
   };
   return (
-    <div>
+    <div style={{ width: '100%' } }>
       <Row className='categore-header' align='middle' justify='start'>
         <Col
           md={{ span: 10 }}

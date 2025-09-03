@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMutation } from 'react-query';
 import axiosInstance from '../../ApiBaseUrl';
@@ -184,6 +184,8 @@ const AddOpenAccount: React.FC<IProps> = (props) => {
     }
   };
 
+  const ref = useRef(null);
+
   return (
     <div>
       <PageNewButton onClick={showModal} model={OPINING_ACCOUNT_M} />
@@ -197,7 +199,9 @@ const AddOpenAccount: React.FC<IProps> = (props) => {
           />
         }
         modalRender={(modal) => (
-          <Draggable disabled={disabled}>{modal}</Draggable>
+          <Draggable disabled={disabled} nodeRef={ref as unknown as React.RefObject<HTMLElement>}>
+            <div ref={ref}>{modal}</div>
+          </Draggable>
         )}
         style={Styles.modal(isMobile)}
         bodyStyle={Styles.modalBody(isMobile, isSubBase, isMiniTablet)}

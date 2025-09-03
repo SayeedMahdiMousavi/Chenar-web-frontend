@@ -45,6 +45,7 @@ export default function PreviewPdf(props) {
               onDrag={props.drag.handleDragTitle}
               // onStop={handleStop}
               {...dragHandlers}
+              
             >
               <Title level={4} className='header_pdf'>
                 {' '}

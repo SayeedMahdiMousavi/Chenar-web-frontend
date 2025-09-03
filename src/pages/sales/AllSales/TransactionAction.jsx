@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Menu, Dropdown } from 'antd';
+import { Dropdown } from 'antd';
 import { useQueryClient } from 'react-query';
 import ActionButton from '../../SelfComponents/ActionButton';
 import EditMarketInvoice from './EditMarkitInvoice';
@@ -121,109 +121,92 @@ function TransactionAction(props) {
                 permission: SALES_INVOICE_M,
               };
 
-  const action = (
-    <Menu>
-      <RemovePopconfirm
-        itemName={`${t('Sales.All_sales.Invoice.Invoice')} ${
-          props?.record?.id
-        }`}
-        open={removeVisible}
-        loading={isLoading}
-        onConfirm={handleDeleteItem}
-        onCancel={handleCancel}
-        onClick={handleClickRemove}
-        permission={invoiceItemsProps?.permission}
-      />
-
-      {/* {userType === "admin" &&
-        props?.record?.sales_source === "pos" &&
-        props.baseUrl === SALES_INVOICE_LIST && (
-          <Menu.Item>
-            <EditMarketInvoice setVisible={setVisible} record={props?.record} />
-          </Menu.Item>
-        )} */}
-      {/* {props?.record?.sales_source === "pos" &&
-        props.baseUrl === SALES_INVOICE_LIST && ( */}
-
-      <Menu.Item onClick={handleClickEdit}>
+  const menuItems = [
+    {
+      key: 'remove',
+      label: (
+        <RemovePopconfirm
+          itemName={`${t('Sales.All_sales.Invoice.Invoice')} ${props?.record?.id}`}
+          open={removeVisible}
+          loading={isLoading}
+          onConfirm={handleDeleteItem}
+          onCancel={handleCancel}
+          onClick={handleClickRemove}
+          permission={invoiceItemsProps?.permission}
+        />
+      ),
+    },
+    {
+      key: 'readonly',
+      onClick: handleClickEdit,
+      label: (
         <ReadonlyInvoiceItems
           setVisible={setVisible}
           record={props?.record}
           {...invoiceItemsProps}
         />
-      </Menu.Item>
+      ),
+    },
+    checkPermissions(`change_${invoiceItemsProps?.permission}`) && {
+      key: 'edit',
+      onClick: handleClickEdit,
+      label:
+        props.baseUrl === SALES_REJECT_INVOICE_LIST ? (
+          <EditRejectSalesInvoice setVisible={setVisible} record={props?.record} />
+        ) : props.baseUrl === SALES_ORDER_INVOICE_LIST ? (
+          <EditSalesInvoice
+            setVisible={setVisible}
+            record={props?.record}
+            type='salesOrder'
+          />
+        ) : props.baseUrl === PURCHASE_INVOICE_LIST ? (
+          <EditPurchaseInvoice setVisible={setVisible} record={props?.record} />
+        ) : props.baseUrl === PURCHASE_ORDER_INVOICE_LIST ? (
+          <EditPurchaseInvoice
+            setVisible={setVisible}
+            record={props?.record}
+            type='purchaseOrder'
+          />
+        ) : props.baseUrl === PURCHASE_REJECT_INVOICE_LIST ? (
+          <EditRejectPurchaseInvoice setVisible={setVisible} record={props?.record} />
+        ) : props.baseUrl === QUOTATION_INVOICE_LIST ? (
+          <EditQuotationInvoice setVisible={setVisible} record={props?.record} />
+        ) : props?.record?.sales_source === 'pos' &&
+          props.baseUrl === SALES_INVOICE_LIST ? (
+          <EditMarketInvoice setVisible={setVisible} record={props?.record} />
+        ) : (
+          <EditSalesInvoice setVisible={setVisible} record={props?.record} />
+        ),
+    },
+  ].filter(Boolean);
 
-      {checkPermissions(`change_${invoiceItemsProps?.permission}`) && (
-        <Menu.Item onClick={handleClickEdit}>
-          {props.baseUrl === SALES_REJECT_INVOICE_LIST ? (
-            <EditRejectSalesInvoice
-              setVisible={setVisible}
-              record={props?.record}
-            />
-          ) : props.baseUrl === SALES_ORDER_INVOICE_LIST ? (
-            <EditSalesInvoice
-              setVisible={setVisible}
-              record={props?.record}
-              type='salesOrder'
-            />
-          ) : props.baseUrl === PURCHASE_INVOICE_LIST ? (
-            <EditPurchaseInvoice
-              setVisible={setVisible}
-              record={props?.record}
-            />
-          ) : props.baseUrl === PURCHASE_ORDER_INVOICE_LIST ? (
-            <EditPurchaseInvoice
-              setVisible={setVisible}
-              record={props?.record}
-              type='purchaseOrder'
-            />
-          ) : props.baseUrl === PURCHASE_REJECT_INVOICE_LIST ? (
-            <EditRejectPurchaseInvoice
-              setVisible={setVisible}
-              record={props?.record}
-            />
-          ) : props.baseUrl === QUOTATION_INVOICE_LIST ? (
-            <EditQuotationInvoice
-              setVisible={setVisible}
-              record={props?.record}
-            />
-          ) : // ) : props.baseUrl === "warehouse_transfer_invoice/" ? (
-          //   <EditProductTransfer
-          //     setVisible={setVisible}
-          //     record={props?.record}
-          //     baseUrl="/invoice/warehouse_transfer_invoice/"
-          //   />
-          props?.record?.sales_source === 'pos' &&
-            props.baseUrl === SALES_INVOICE_LIST ? (
-            <EditMarketInvoice setVisible={setVisible} record={props?.record} />
-          ) : (
-            <EditSalesInvoice setVisible={setVisible} record={props?.record} />
-          )}
-        </Menu.Item>
-      )}
-
-      {/* <Menu.Item>{t("Sales.Customers.Table.Send")}</Menu.Item>
-      <Menu.Item>{t("Sales.Customers.Table.Share_invoice_link")}</Menu.Item>
-      <Menu.Item>{t("Sales.Customers.Table.Print")}</Menu.Item>
-      <Menu.Item>{t("Sales.Customers.Table.Print_packing_slip")}</Menu.Item>
-      <Menu.Item>{t("Sales.Customers.Table.View/Edit")}</Menu.Item>
-      <Menu.Item>{t("Sales.Customers.Table.Copy")}</Menu.Item>
-
-      <Menu.Item>{t("Sales.Customers.Table.Void")}</Menu.Item> */}
-    </Menu>
-  );
   const handleVisibleChange = (flag) => {
     setVisible(flag);
   };
+  const onMenuClick = ({ key }) => {
+    if (key === 'readonly' || key === 'edit') {
+      handleClickEdit();
+    }
+  };
   return (
     <Dropdown
-      overlay={action}
+      menu={{ items: menuItems, onClick: onMenuClick }}
       trigger={['click']}
       onOpenChange={handleVisibleChange}
       open={visible}
       disabled={props.hasSelected}
     >
+            <span
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (!removeVisible) {
+            setVisible(true);
+          }
+        }}
+      >
       <ActionButton onClick={handleVisibleChange} />
+      </span>
     </Dropdown>
   );
 }

@@ -332,7 +332,7 @@ const PaymentsTable = ({ activeProducts, customers }) => {
                       style={styles.filter}
                     >
                       <Dropdown
-                        overlay={menu}
+                        menu={{ items: [{ key: 'filters', label: menu }] }}
                         trigger={['click']}
                         onOpenChange={handleVisibleChangFilter}
                         open={visibleFilter}
@@ -364,7 +364,7 @@ const PaymentsTable = ({ activeProducts, customers }) => {
                       <Row justify='end'>
                         <Col span={12}>
                           <Dropdown
-                            overlay={setting}
+                            menu={{ items: [{ key: 'settings', label: setting }] }}
                             trigger={['click']}
                             onOpenChange={handleVisibleChange}
                             open={visible}

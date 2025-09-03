@@ -123,30 +123,30 @@ function Action(props) {
     );
   };
 
-  const action = (
-    <Menu>
-      {props?.record?.system_default === false && (
-        <Menu.Item key='2'>
-          <Popconfirm
-            placement='topLeft'
-            title={confirm1}
-            onConfirm={confirm}
-            open={removeVisible}
-            okButtonProps={{
-              loading: removeLoading,
-              disabled: trimString(text) !== trimString(confMessage),
-            }}
-            okText={t('Manage_users.Yes')}
-            cancelText={t('Manage_users.No')}
-            onCancel={cancel}
-          >
-            <div onClick={onClickRemove}>
-              {t('Sales.Customers.Table.Remove')}
-            </div>
-          </Popconfirm>
-        </Menu.Item>
-      )}
-
+const items = [
+  props?.record?.system_default === false && {
+    key: '2',
+    label: (
+      <Popconfirm
+        placement='topLeft'
+        title={confirm1}
+        onConfirm={confirm}
+        open={removeVisible}
+        okButtonProps={{
+          loading: removeLoading,
+          disabled: trimString(text) !== trimString(confMessage),
+        }}
+        okText={t('Manage_users.Yes')}
+        cancelText={t('Manage_users.No')}
+        onCancel={cancel}
+      >
+        <div onClick={onClickRemove}>{t('Sales.Customers.Table.Remove')}</div>
+      </Popconfirm>
+    ),
+  },
+  {
+    key: '1',
+    label: (
       <EditCategory
         record={props.record}
         setVisible={setVisible}
@@ -156,26 +156,22 @@ function Action(props) {
         setExpandedRowKeys={props.setExpandedRowKeys}
         onClickEdit={onClickEdit}
         model={props?.model}
-        key='1'
       />
-    </Menu>
-  );
+    ),
+  },
+].filter(Boolean); 
 
   const handleVisibleChange = (flag) => {
     setVisible(flag);
   };
   return (
     <Dropdown
-      open={action}
+      menu={{ items }}
       trigger={['click']}
+      open={visible}
       onOpenChange={handleVisibleChange}
-      openClassName={visible}
-      // disabled={props?.record?.system_default === true}
     >
-      <ActionButton
-        onClick={handleVisibleChange}
-        // disabled={props?.record?.system_default === true ? true : false}
-      />
+      <ActionButton />
     </Dropdown>
   );
 }

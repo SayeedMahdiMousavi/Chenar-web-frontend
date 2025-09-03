@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Modal, Col, Row, Button, InputNumber, Select } from 'antd';
 import { useMediaQuery } from '../../../MediaQurey';
 import { useMutation, useQueryClient } from 'react-query';
@@ -20,6 +20,7 @@ const PriceRecordingSettings = (props: IProps) => {
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [salesRateType, setSalesRateType] = useState('');
+  const ref = useRef<HTMLDivElement>(null);
   const isBgTablet = useMediaQuery('(max-width: 1024px)');
   const isTablet = useMediaQuery('(max-width: 768px)');
   const isMobile = useMediaQuery('(max-width: 425px)');
@@ -104,7 +105,9 @@ const PriceRecordingSettings = (props: IProps) => {
           />
         }
         modalRender={(modal) => (
-          <Draggable disabled={disabled}>{modal}</Draggable>
+          <Draggable disabled={disabled} nodeRef={ref as React.RefObject<HTMLElement>}>
+            <div ref={ref}>{modal}</div>
+          </Draggable>
         )}
         centered
         afterClose={handelAfterClose}

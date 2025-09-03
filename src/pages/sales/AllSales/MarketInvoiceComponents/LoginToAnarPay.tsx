@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Modal, Col, Row, Button } from 'antd';
 import { useMediaQuery } from '../../../MediaQurey';
 import { useMutation } from 'react-query';
@@ -21,6 +21,7 @@ interface IProps {
 const LoginToAnarPay: React.FC<IProps> = (props) => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
+  const ref = useRef<HTMLDivElement>(null);
   const [isShowModal, setIsShowModal] = useState({
     visible: false,
   });
@@ -123,7 +124,9 @@ const LoginToAnarPay: React.FC<IProps> = (props) => {
           />
         }
         modalRender={(modal) => (
-          <Draggable disabled={disabled}>{modal}</Draggable>
+          <Draggable disabled={disabled} nodeRef={ref as React.RefObject<HTMLElement>}>
+            <div ref={ref}>{modal}</div>
+          </Draggable>
         )}
         centered
         open={isShowModal.visible}

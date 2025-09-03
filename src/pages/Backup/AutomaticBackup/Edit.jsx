@@ -131,6 +131,7 @@ const EditInterval = ({
     form.resetFields();
     reset();
   };
+  const ref = React.useRef(null);
 
   return (
     <div>
@@ -154,7 +155,9 @@ const EditInterval = ({
           />
         }
         modalRender={(modal) => (
-          <Draggable disabled={disabled}>{modal}</Draggable>
+          <Draggable disabled={disabled} nodeRef={ref}>
+            <div ref={ref}>{modal}</div>
+          </Draggable>
         )}
         centered
         destroyOnClose

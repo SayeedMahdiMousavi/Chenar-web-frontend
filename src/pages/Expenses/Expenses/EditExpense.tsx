@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Modal, Col, Row } from 'antd';
 import { useMediaQuery } from '../../MediaQurey';
 import { useMutation, useQueryClient } from 'react-query';
@@ -39,6 +39,7 @@ const EditExpense: React.FC<IProps> = ({
   const isMobile = useMediaQuery('(max-width: 425px)');
   const isMiniTablet = useMediaQuery('(max-width: 576px)');
   const isSubBase = useMediaQuery('(max-width: 375px)');
+  const ref = useRef(null);
 
   const showModal = () => {
     setVisible(false);
@@ -110,7 +111,9 @@ const EditExpense: React.FC<IProps> = ({
           />
         }
         modalRender={(modal) => (
-          <Draggable disabled={disabled}>{modal}</Draggable>
+          <Draggable disabled={disabled} nodeRef={ref as React.RefObject<HTMLElement>}>
+            <div ref={ref}>{modal}</div>
+          </Draggable>
         )}
         centered
         afterClose={handelAfterClose}

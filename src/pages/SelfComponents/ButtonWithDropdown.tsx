@@ -21,7 +21,7 @@ export default function ButtonWithDropdown(props: IProps) {
       </Col>
 
       <Col sm={6} xs={6}>
-        <Dropdown overlay={props.menu} trigger={['click']}>
+        <Dropdown menu={props.menu} trigger={['click']}>
           <button
             className='button__new'
             style={i18n.language === 'en' ? styles.newDrop : styles.newDrop1}

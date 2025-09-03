@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Modal, Form, Select, message, Row, Col, Button } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from 'react-query';
@@ -29,6 +29,7 @@ export default function AddUnitsToProductItem(props: IProps) {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
 
   const [disabled, setDisabled] = useState(true);
   const [disabledUnits, setDisabledUnits] = useState<string[]>([]);
@@ -125,7 +126,9 @@ export default function AddUnitsToProductItem(props: IProps) {
           />
         }
         modalRender={(modal) => (
-          <Draggable disabled={disabled}>{modal}</Draggable>
+          <Draggable disabled={disabled} nodeRef={ref as React.RefObject<HTMLElement>}>
+            <div ref={ref}>{modal}</div>
+          </Draggable>
         )}
         afterClose={handleAfterClose}
         destroyOnClose

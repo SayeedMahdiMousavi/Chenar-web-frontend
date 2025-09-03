@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Modal, Col, Row, InputNumber } from 'antd';
 import { useMediaQuery } from '../../MediaQurey';
 import { useMutation } from 'react-query';
@@ -106,6 +106,7 @@ const AddInterval = (props) => {
   const handleChangePeriod = (value) => {
     setPeriod(value);
   };
+  const ref = useRef(null);
 
   return (
     <div>
@@ -124,7 +125,9 @@ const AddInterval = (props) => {
           />
         }
         modalRender={(modal) => (
-          <Draggable disabled={disabled}>{modal}</Draggable>
+          <Draggable disabled={disabled} nodeRef={ref}>
+            <div ref={ref}>{modal}</div>
+          </Draggable>
         )}
         afterClose={handleAfterClose}
         destroyOnClose

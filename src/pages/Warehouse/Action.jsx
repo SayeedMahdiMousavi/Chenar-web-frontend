@@ -78,10 +78,10 @@ function Action(props) {
   };
 
   const status = props?.record?.status;
-
-  const action = (
-    <Menu>
-      {!props?.record?.system_default && status === 'active' && (
+  const menuItems = [
+    !props?.record?.system_default && status === 'active' && {
+      key: 'active-actions',
+      label: (
         <Fragment>
           <ActivePopconfirm
             {...{
@@ -106,8 +106,11 @@ function Action(props) {
             permission={WAREHOUSE_M}
           />
         </Fragment>
-      )}
-      {status === 'active' && (
+      ),
+    },
+    status === 'active' && {
+      key: 'edit',
+      label: (
         <EditWarehouse
           record={props.record}
           setVisible={setVisible}
@@ -115,26 +118,34 @@ function Action(props) {
           handleUpdateItems={props.handleUpdateItems}
           handleClickEdit={handleClickEdit}
         />
-      )}
-    </Menu>
-  );
-
+      ),
+    },
+  ].filter(Boolean);
   const handleVisibleChange = (flag) => {
     setVisible(flag);
   };
-
   return (
     <Dropdown
-      overlay={action}
+      menu={{ items: menuItems }}
       trigger={['click']}
       onOpenChange={handleVisibleChange}
       open={visible}
       disabled={props.hasSelected}
     >
-      <ActionButton
-        onClick={handleVisibleChange}
-        disabled={props.hasSelected}
-      />
+      <span
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (!removeVisible && !activeVisible) {
+            setVisible(true);
+          }
+        }}
+      >
+        <ActionButton
+          onClick={handleVisibleChange}
+          disabled={props.hasSelected}
+        />
+      </span>
     </Dropdown>
   );
 }

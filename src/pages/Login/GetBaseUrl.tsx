@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useRef } from 'react';
 import { Modal, Col, Row, Button, InputNumber } from 'antd';
 import { useMediaQuery } from '../MediaQurey';
 import { Form, Input, message } from 'antd';
@@ -10,7 +10,9 @@ import { BASE_URL } from '../LocalStorageVariables';
 import axiosInstance from '../ApiBaseUrl';
 import { CancelButton, SaveButton } from '../../components';
 
+
 const GetBaseUrl = () => {
+  const ref = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const [isShowModal, setIsShowModal] = useState({
@@ -83,7 +85,9 @@ const GetBaseUrl = () => {
           />
         }
         modalRender={(modal) => (
-          <Draggable disabled={disabled}>{modal}</Draggable>
+          <Draggable disabled={disabled} nodeRef={ref as React.RefObject<HTMLElement>}>
+            <div ref={ref}>{modal}</div>
+          </Draggable>
         )}
         centered
         open={isShowModal.visible}

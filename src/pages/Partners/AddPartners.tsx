@@ -1,5 +1,5 @@
 import { Col, Form, Input, Modal, Row } from 'antd';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Draggable from 'react-draggable';
 import { PageNewButton, ResetButton, SaveAndNewButton } from '../../components';
 import { PARTNERS } from '../../constants/routes';
@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 const AddPartners = () => {
   const [isShowModal, setIsShowModal] = useState(false);
   const [disabled, setDisabled] = useState(true);
+  const ref = useRef<HTMLDivElement>(null);
   const [form] = Form.useForm();
   const [visible, setVisible] = useState(false);
   const { t } = useTranslation();
@@ -63,7 +64,9 @@ const AddPartners = () => {
             // />
           }
           modalRender={(modal) => (
-            <Draggable disabled={disabled}>{modal}</Draggable>
+            <Draggable disabled={disabled} nodeRef={ref as React.RefObject<HTMLElement>}>
+              <div ref={ref}>{modal}</div>
+            </Draggable>
           )}
           centered
           destroyOnClose={true}

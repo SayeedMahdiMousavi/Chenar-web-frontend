@@ -85,10 +85,10 @@ function EmployeesAction(props) {
   const attachmentName = props?.record?.attachment?.split('/')?.at(-1);
 
   const status = props?.record?.status;
-
-  const action = (
-    <Menu>
-      {status === 'active' && props?.record?.system_default === false && (
+  const menuItems = [
+    status === 'active' && props?.record?.system_default === false && {
+      key: 'remove',
+      label: (
         <RemovePopconfirm
           itemName={props?.record?.full_name}
           open={removeVisible}
@@ -98,8 +98,11 @@ function EmployeesAction(props) {
           onClick={handleClickRemove}
           permission={EMPLOYEE_M}
         />
-      )}
-      {props?.record?.system_default === false && (
+      ),
+    },
+    props?.record?.system_default === false && {
+      key: 'active',
+      label: (
         <ActivePopconfirm
           {...{
             itemName: props?.record?.full_name,
@@ -113,8 +116,11 @@ function EmployeesAction(props) {
             permission: EMPLOYEE_M,
           }}
         />
-      )}
-      {status === 'active' && (
+      ),
+    },
+    status === 'active' && {
+      key: 'edit',
+      label: (
         <EditEmployee
           setVisible={setVisible}
           record={props.record}
@@ -123,20 +129,15 @@ function EmployeesAction(props) {
           onClickEdit={onClickEdit}
           type='table'
         />
-      )}
-      {/* {status === "active" && (
-        <Menu.Item onClick={onClickEdit}>{t("Employees.Run_report")}</Menu.Item>
-      )} */}
-    </Menu>
-  );
-
+      ),
+    },
+  ].filter(Boolean);
   const handleVisibleChange = (flag) => {
     setVisible(flag);
   };
-
   return (
     <Dropdown
-      overlay={action}
+      menu={{ items: menuItems }}
       trigger={['click']}
       onOpenChange={handleVisibleChange}
       open={visible}

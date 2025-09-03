@@ -26,6 +26,13 @@ export function PageNewDropdown({ overlay, text, ...rest }: IProps) {
       placement='bottomCenter'
       onOpenChange={handleVisibleChange}
     >
+        <span
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          
+        }}
+      >
       <Button
         className='num table-col'
         type='primary'
@@ -39,6 +46,7 @@ export function PageNewDropdown({ overlay, text, ...rest }: IProps) {
           <DownIcon style={styles.icon} />
         )}
       </Button>
+      </span>
     </Dropdown>
   );
 }

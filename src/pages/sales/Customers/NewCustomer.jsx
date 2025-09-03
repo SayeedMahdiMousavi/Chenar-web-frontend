@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Modal, Col, Row, Button } from 'antd';
 import { useMediaQuery } from '../../MediaQurey';
 import { GlobalHotKeys } from 'react-hotkeys';
@@ -75,6 +75,7 @@ const NewCustomer = (props) => {
   const baseCurrency = useGetBaseCurrency();
   const baseCurrencyId = baseCurrency?.data?.id;
   const baseCurrencyName = baseCurrency?.data?.name;
+  const ref = useRef(null);
 
   // const getDiscountCards = async (key) => {
   //   const { data } = await axiosInstance.get(
@@ -428,7 +429,11 @@ const NewCustomer = (props) => {
           />
         }
         modalRender={(modal) => (
-          <Draggable disabled={disabled}>{modal}</Draggable>
+          <Draggable disabled={disabled} nodeRef={ref}>
+              <div ref={ref}>
+              {modal}
+             </div>
+          </Draggable>
         )}
         centered
         open={isShowModal.visible}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from 'react-query';
 import axiosInstance from '../../../ApiBaseUrl';
@@ -91,6 +91,7 @@ const ModalAppServices = (props) => {
   //     setName("");
   //   }
   // };
+  const ref = useRef(null);
   const editService = async (value) => {
     await axiosInstance
       .put(`/product_service/service/${props.record.name}/`, value)
@@ -187,7 +188,9 @@ const ModalAppServices = (props) => {
           />
         }
         modalRender={(modal) => (
-          <Draggable disabled={disabled}>{modal}</Draggable>
+          <Draggable disabled={disabled} nodeRef={ref}>
+            <div ref={ref}>{modal}</div>
+          </Draggable>
         )}
         open={isShowModal.visible}
         centered

@@ -123,6 +123,7 @@ const Edit = (props) => {
   function disabledDate(current) {
     return current && current < utcDate().endOf('day');
   }
+  const ref = React.useRef(null);
 
   return (
     <div>
@@ -146,7 +147,9 @@ const Edit = (props) => {
           />
         }
         modalRender={(modal) => (
-          <Draggable disabled={disabled}>{modal}</Draggable>
+          <Draggable disabled={disabled} nodeRef={ref}>
+            <div ref={ref}>{modal}</div>
+          </Draggable>
         )}
         centered
         open={isShowModal.visible}

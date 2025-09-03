@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Modal, Col, Row, Button } from 'antd';
 import { useMediaQuery } from '../../MediaQurey';
 import { useMutation, useQueryClient } from 'react-query';
@@ -33,6 +33,7 @@ const EditCustomer = ({
   const queryClient = useQueryClient();
   const isTablitBase = useMediaQuery('(max-width:768px)');
   const { t } = useTranslation();
+  const ref = useRef(null);
   const [form] = Form.useForm();
   const [fileList, setFileList] = useState([]);
   const [file, setFile] = useState({});
@@ -463,7 +464,9 @@ const EditCustomer = ({
             />
           }
           modalRender={(modal) => (
-            <Draggable disabled={disabled}>{modal}</Draggable>
+            <Draggable disabled={disabled} nodeRef={ref}>
+              <div ref={ref}>{modal}</div>
+            </Draggable>
           )}
           centered
           open={isShowModal.visible}

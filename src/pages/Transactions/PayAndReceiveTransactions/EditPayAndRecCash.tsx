@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Modal, Col, Row, Divider, Form, message, Typography } from 'antd';
 import { useMediaQuery } from '../../MediaQurey';
 import { GlobalHotKeys } from 'react-hotkeys';
@@ -52,6 +52,7 @@ const dateFormat = 'YYYY-MM-DD HH:mm:ss';
 const EditPayAndReceiveCash: React.FC<IProps> = (props) => {
   const queryClient = useQueryClient();
   const [currencyValue, setCurrencyValue] = useState<any>(1);
+  const ref = useRef<HTMLDivElement>(null);
   const [calCurrencyValue, setCalCurrencyValue] = useState(1);
   const { t } = useTranslation();
   const [form] = Form.useForm();
@@ -536,7 +537,9 @@ const EditPayAndReceiveCash: React.FC<IProps> = (props) => {
           />
         }
         modalRender={(modal) => (
-          <Draggable disabled={disabled}>{modal}</Draggable>
+          <Draggable disabled={disabled} nodeRef={ref as React.RefObject<HTMLElement>}>
+            <div ref={ref}>{modal}</div>
+          </Draggable>
         )}
         centered
         open={isShowModal.visible}

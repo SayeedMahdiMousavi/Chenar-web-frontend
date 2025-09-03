@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Modal, Col, Row, Button } from 'antd';
 import { useMediaQuery } from '../MediaQurey';
 import { useMutation, useQueryClient } from 'react-query';
@@ -27,6 +27,7 @@ const EditWarehouse = ({
   const queryClient = useQueryClient();
   const { t } = useTranslation();
   const [form] = Form.useForm();
+  const ref = useRef(null);
   const [isShowModal, setIsShowModal] = useState({
     visible: false,
   });
@@ -110,7 +111,9 @@ const EditWarehouse = ({
           />
         }
         modalRender={(modal) => (
-          <Draggable disabled={disabled}>{modal}</Draggable>
+          <Draggable disabled={disabled} nodeRef={ref}>
+            <div ref={ref}>{modal}</div>
+          </Draggable>
         )}
         centered
         destroyOnClose

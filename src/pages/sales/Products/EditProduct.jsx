@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import Draggable from 'react-draggable';
 import { useMutation } from 'react-query';
@@ -21,6 +21,7 @@ import { CancelButton, SaveButton } from '../../../components';
 
 const EditProduct = (props) => {
   const { t } = useTranslation();
+  const ref = useRef(null);
   const [isShowModal, setIsShowModal] = useState({
     visible: false,
   });
@@ -193,7 +194,9 @@ const EditProduct = (props) => {
         style={Styles.modal(isMobile)}
         bodyStyle={Styles.modalBody(isMobile, isSubBase, isMiniTablet)}
         modalRender={(modal) => (
-          <Draggable disabled={disabled}>{modal}</Draggable>
+          <Draggable disabled={disabled} nodeRef={ref}>
+            <div ref={ref}>{modal}</div>
+          </Draggable>
         )}
         footer={
           <Row justify='end'>

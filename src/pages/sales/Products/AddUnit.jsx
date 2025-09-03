@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useState, useRef } from 'react';
 import { Modal, Button, Form, Typography, Input, message, Space } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from 'react-query';
@@ -13,6 +13,7 @@ const { Title } = Typography;
 
 function AddUnit(props) {
   const queryClient = useQueryClient();
+  const ref = useRef(null);
   const [visible, setVisible] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const { t } = useTranslation();
@@ -96,7 +97,9 @@ function AddUnit(props) {
         width={360}
         afterClose={handleAfterClose}
         modalRender={(modal) => (
-          <Draggable disabled={disabled}>{modal}</Draggable>
+          <Draggable disabled={disabled} nodeRef={ref}>
+            <div ref={ref}>{modal}</div>
+          </Draggable>
         )}
       >
         <Form

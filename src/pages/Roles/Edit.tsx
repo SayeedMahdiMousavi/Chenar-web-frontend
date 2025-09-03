@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useState, useRef } from 'react';
 import { Modal, Col, Row, Button } from 'antd';
 import { useMediaQuery } from '../MediaQurey';
 import { useMutation, useQueryClient } from 'react-query';
@@ -46,6 +46,7 @@ let EditRole: React.FC<IProps> = ({
   const queryClient = useQueryClient();
   const { t } = useTranslation();
   const [form] = Form.useForm();
+  const ref = useRef<HTMLDivElement>(null);
   const [isShowModal, setIsShowModal] = useState({
     visible: false,
   });
@@ -130,7 +131,9 @@ let EditRole: React.FC<IProps> = ({
           />
         }
         modalRender={(modal) => (
-          <Draggable disabled={disabled}>{modal}</Draggable>
+          <Draggable disabled={disabled} nodeRef={ref as React.RefObject<HTMLElement>}>
+            <div ref={ref}>{modal}</div>
+          </Draggable>
         )}
         centered
         destroyOnClose

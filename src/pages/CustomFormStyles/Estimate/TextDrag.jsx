@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Draggable from 'react-draggable';
 export default function TextDrag() {
   const [activeDrags, setActiveDrags] = useState(0);
@@ -11,6 +11,7 @@ export default function TextDrag() {
     setActiveDrags(activeDrags + 1);
   };
   const dragHandlers = { onStart: onStart, onStop: onStop };
+  const ref = useRef(null);
   return (
     <Draggable
       //   axis='y'
@@ -24,8 +25,9 @@ export default function TextDrag() {
       // onDrag={handleDrag}
       // onStop={handleStop}
       {...dragHandlers}
+      nodeRef={ref}
     >
-      <div
+      <div ref={ref}
         className='header_pdf'
         // style={styles.font(
         //   props.fontSize,

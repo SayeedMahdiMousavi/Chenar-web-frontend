@@ -563,23 +563,16 @@ const TransactionTable = ({ customers, collapse }) => {
                       </Col>
                       <Col md={9} sm={9} xs={10}>
                         <Dropdown
-                          overlay={menu}
+                          menu={{ items: [{ key: 'filters', label: <Filters /> }] }}
                           trigger={['click']}
                           placement='bottomLeft'
                           onOpenChange={handleVisibleChangFilter}
                           open={visibleFilter}
                         >
-                          {/* <a
-                            className='ant-dropdown-link'
-                            onClick={(e) => e.preventDefault()}
-                            href='#'
-                          > */}
-
                           <Button className='num ' shape='round'>
                             {t('Sales.Product_and_services.Filters')}{' '}
                             <CaretDownOutlined />
                           </Button>
-                          {/* </a> */}
                         </Dropdown>
                       </Col>
                     </Row>
@@ -604,7 +597,7 @@ const TransactionTable = ({ customers, collapse }) => {
                       <Col sm={8} xs={2}>
                         {' '}
                         <Dropdown
-                          overlay={setting}
+                          menu={{ items: [{ key: 'settings', label: setting }] }}
                           trigger={['click']}
                           onOpenChange={handleVisibleChange}
                           open={visible}

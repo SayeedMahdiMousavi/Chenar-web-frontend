@@ -319,17 +319,16 @@ const ProductTable = (props) => {
               key='action'
               width={isMobile ? 55 : 70}
               align='center'
+              className='table-col'
               render={(text, record) => (
-                <div>
                   <Action
                     record={record}
                     baseUrl={props.baseUrl}
                     hasSelected={hasSelected}
                     handleUpdateItems={props?.handleUpdateItems}
-                  />{' '}
-                </div>
+                  />
               )}
-              fixed={'right'}
+              fixed='right'
             />
           )}
         </React.Fragment>

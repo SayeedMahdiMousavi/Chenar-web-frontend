@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Modal, Col, Row, Divider, Form, message, Typography } from 'antd';
 import { useMediaQuery } from '../MediaQurey';
 import { GlobalHotKeys } from 'react-hotkeys';
@@ -59,6 +59,7 @@ const EditTransaction: React.FC<IProps> = ({
   const queryClient = useQueryClient();
   const { t } = useTranslation();
   const [form] = Form.useForm();
+  const ref = useRef<HTMLDivElement>(null);
   const [currencyValue, setCurrencyValue] = useState<any>(1);
   const [calCurrencyValue, setCalCurrencyValue] = useState(1);
   const [prevCurrency, setPrevCurrency] = useState<{
@@ -534,7 +535,9 @@ const EditTransaction: React.FC<IProps> = ({
           />
         }
         modalRender={(modal) => (
-          <Draggable disabled={disabled}>{modal}</Draggable>
+          <Draggable disabled={disabled} nodeRef={ref as React.RefObject<HTMLElement>}>
+            <div ref={ref}>{modal}</div>
+          </Draggable>
         )}
         afterClose={handleAfterClose}
         centered

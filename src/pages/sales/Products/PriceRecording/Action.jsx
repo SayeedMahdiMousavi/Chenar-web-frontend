@@ -6,23 +6,24 @@ import EditPriceRecording from './Edit';
 function Action(props) {
   const [visible, setVisible] = useState(false);
 
-  const action = (
-    <Menu>
-      <Menu.Item key='1'>
+  const menuItems = [
+    {
+      key: '1',
+      label: (
         <EditPriceRecording
           record={props.record}
           baseUrl={props.baseUrl}
           setVisible={setVisible}
         />
-      </Menu.Item>
-    </Menu>
-  );
+      ),
+    },
+  ];
   const handleVisibleChange = (flag) => {
     setVisible(flag);
   };
   return (
     <Dropdown
-      overlay={action}
+      menu={{ items: menuItems }}
       trigger={['click']}
       onOpenChange={handleVisibleChange}
       open={visible}

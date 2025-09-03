@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Draggable from 'react-draggable';
 import { Row, Col, Avatar, Typography, List, Table, Divider } from 'antd';
 import { useTranslation } from 'react-i18next';
@@ -9,6 +9,7 @@ const { Column } = Table;
 export default function PreviewPdf(props) {
   const { t } = useTranslation();
   const [activeDrags, setActiveDrags] = useState(0);
+  const ref = useRef(null);
 
   const onStart = () => {
     setActiveDrags(activeDrags + 1);
@@ -45,11 +46,14 @@ export default function PreviewPdf(props) {
               onDrag={props.drag.handleDragTitle}
               // onStop={handleStop}
               {...dragHandlers}
+              nodeRef={ref}
             >
-              <Title level={4} className='header_pdf'>
-                {' '}
-                Microcies
-              </Title>
+              <div ref={ref}>
+                <Title level={4} className='header_pdf'>
+                  {' '}
+                  Microcies
+                </Title>
+              </div>
             </Draggable>
           </Col>
 
@@ -775,8 +779,9 @@ export default function PreviewPdf(props) {
               onDrag={props.drag.handleDragFooter}
               // onStop={handleStop}
               {...dragHandlers}
+              nodeRef={ref}
             >
-              <Row className='header_pdf'>
+              <Row className='header_pdf' ref={ref}>
                 <Col span={24}>
                   footerText
                   <bt />

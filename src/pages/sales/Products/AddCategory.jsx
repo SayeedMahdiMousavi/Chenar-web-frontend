@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Modal, Button, Form, Typography, Input, message, Space } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from 'react-query';
@@ -13,6 +13,7 @@ import { CancelButton, SaveButton } from '../../../components';
 const { Title } = Typography;
 const AddCategory = (props) => {
   const queryClient = useQueryClient();
+  const ref = useRef(null);
   const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(false);
   const [disabled, setDisabled] = useState(true);
@@ -121,7 +122,9 @@ const AddCategory = (props) => {
         destroyOnClose
         afterClose={handleAfterClose}
         modalRender={(modal) => (
-          <Draggable disabled={disabled}>{modal}</Draggable>
+          <Draggable disabled={disabled} nodeRef={ref}>
+            <div ref={ref}>{modal}</div>
+          </Draggable>
         )}
       >
         <Form

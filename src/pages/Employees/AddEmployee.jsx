@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useMediaQuery } from '../MediaQurey';
 import UploadFile from '../sales/UploadFile';
 import { useMutation, useQueryClient } from 'react-query';
@@ -359,6 +359,7 @@ const AddEmployee = (props) => {
     });
   });
 
+  const ref = useRef(null);
   return (
     <Row className='modal'>
       <Col span={24}>
@@ -374,7 +375,9 @@ const AddEmployee = (props) => {
             />
           }
           modalRender={(modal) => (
-            <Draggable disabled={disabled}>{modal}</Draggable>
+            <Draggable disabled={disabled} nodeRef={ref}>
+              <div ref={ref}>{modal}</div>
+            </Draggable>
           )}
           centered
           destroyOnClose={true}

@@ -292,8 +292,45 @@ const CustomerTable = (props) => {
     ],
   );
 
+  // Replace the Menu element with a settings panel as a menu item
+  const settingsMenuItems = [
+    {
+      key: 'settings',
+      label: (
+        <Menu style={styles.settingsMenu}>
+          <Menu.Item key='1'>
+            <Typography.Text strong={true}>
+              {t('Sales.Product_and_services.Columns')}
+            </Typography.Text>
+          </Menu.Item>
+          <Menu.Item key='2'>
+            <Checkbox onChange={onChangeAddress} checked={address}>
+              {t('Form.Address')}
+            </Checkbox>
+          </Menu.Item>
+          <Menu.Item key='3'>
+            <Checkbox onChange={onChangePhone} checked={phone}>
+              {t('Form.Phone')}
+            </Checkbox>
+          </Menu.Item>
+          <Menu.Item key='4'>
+            <Checkbox onChange={onChangeDescription}>{t('Form.Email')}</Checkbox>
+          </Menu.Item>
+          <Menu.Item key='5'>
+            <Checkbox onChange={onChangeAttachments}>
+              {t('Form.Attachments')}
+            </Checkbox>
+          </Menu.Item>
+          <Menu.Item key='6'>
+            <Checkbox onChange={onChangePhoto}>{t('Form.Photo')}</Checkbox>
+          </Menu.Item>
+        </Menu>
+      ),
+    },
+  ];
+
   return (
-    <div>
+    <div style={{ width: '100%' }}>
       {/* {collapsed ? (
         ""
       ) : (
@@ -402,7 +439,7 @@ const CustomerTable = (props) => {
                 setPage={setPage}
               />
             )}
-            settingMenu={setting}
+            settingMenu={{ items: settingsMenuItems }}
             onRow={(record) => {
               return {
                 onDoubleClick: () => {

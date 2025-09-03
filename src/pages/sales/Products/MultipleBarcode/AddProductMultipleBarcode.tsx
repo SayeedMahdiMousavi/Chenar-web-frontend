@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   Modal,
   Form,
@@ -35,6 +35,7 @@ interface IProps {
 const AddProductMultipleBarcode: React.FC<IProps> = (props) => {
   const { t, i18n } = useTranslation();
   const [visible, setVisible] = useState<boolean>(false);
+  const ref = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [disabled, setDisabled] = useState<boolean>(true);
   const [defaultBarcode, setDefaultBarcode] = useState<number>(0);
@@ -188,7 +189,9 @@ const AddProductMultipleBarcode: React.FC<IProps> = (props) => {
           />
         }
         modalRender={(modal) => (
-          <Draggable disabled={disabled}>{modal}</Draggable>
+          <Draggable disabled={disabled} nodeRef={ref as React.RefObject<HTMLElement>}>
+            <div ref={ref}>{modal}</div>
+          </Draggable>
         )}
         destroyOnClose
         afterClose={handleAfterClose}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   Modal,
   Form,
@@ -32,6 +32,7 @@ interface IProps {
 const EditUnitConversion: React.FC<IProps> = (props) => {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
+  const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState<boolean>(false);
 
   const [disabled, setDisabled] = useState<boolean>(true);
@@ -205,7 +206,9 @@ const EditUnitConversion: React.FC<IProps> = (props) => {
           />
         }
         modalRender={(modal) => (
-          <Draggable disabled={disabled}>{modal}</Draggable>
+          <Draggable disabled={disabled} nodeRef={ref as React.RefObject<HTMLElement>}>
+            <div ref={ref}>{modal}</div>
+          </Draggable>
         )}
         destroyOnClose
         afterClose={handleAfterClose}

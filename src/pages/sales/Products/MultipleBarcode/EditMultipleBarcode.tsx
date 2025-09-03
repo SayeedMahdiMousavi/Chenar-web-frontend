@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   Modal,
   Form,
@@ -40,6 +40,7 @@ interface IProps {
 const EditMultipleBarcode: React.FC<IProps> = (props) => {
   const queryClient = useQueryClient();
   const { t, i18n } = useTranslation();
+  const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [disabled, setDisabled] = useState<boolean>(true);
@@ -477,7 +478,9 @@ const EditMultipleBarcode: React.FC<IProps> = (props) => {
           />
         }
         modalRender={(modal) => (
-          <Draggable disabled={disabled}>{modal}</Draggable>
+          <Draggable disabled={disabled} nodeRef={ref as React.RefObject<HTMLElement>}>
+            <div ref={ref}>{modal}</div>
+          </Draggable>
         )}
         destroyOnClose
         afterClose={handleAfterClose}

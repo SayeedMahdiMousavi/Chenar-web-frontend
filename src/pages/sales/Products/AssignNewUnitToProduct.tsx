@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   Modal,
   Form,
@@ -37,6 +37,7 @@ export default function AssignNewUnitToProduct(props: IProps) {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [units, setUnits] = useState([]);
@@ -178,7 +179,9 @@ export default function AssignNewUnitToProduct(props: IProps) {
           />
         }
         modalRender={(modal) => (
-          <Draggable disabled={disabled}>{modal}</Draggable>
+          <Draggable disabled={disabled} nodeRef={ref as React.RefObject<HTMLElement>}>
+            <div ref={ref}>{modal}</div>
+          </Draggable>
         )}
         afterClose={handleAfterClose}
         destroyOnClose
